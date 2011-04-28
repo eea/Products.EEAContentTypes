@@ -14,31 +14,31 @@ class IQuickEvent(Interface):
 
 class IGeoPositionDecider(Interface):
     """ """
-
+    
     def matchLocation(obj):
-        """ """
-
+	""" """
+	
     def provideInterfaces(obj):
-        """ """
-
+	""" """
+	
     def run(obj):
-        """ """
+	""" """
 
 class IGeoPositioned(Interface):
     """ """
 
 class IGeoPosition(Interface):
     """ Geographic coordinates. """
-
+    
     longitude = Attribute("Geographic longitude")
-
+    
     latitude = Attribute("Geographic latitude")
-
+    
     country_code = Attribute("Country code")
-
+    
     def getCoordinates():
-        """ Return longitude and latitude. """
-
+	""" Return longitude and latitude. """
+ 
 
 class IFlashAnimation(IVideoEnhanced):
     width = Attribute("width of flash file")
@@ -56,10 +56,3 @@ class IExternalHighlight(IATNewsItem, IATFolder):
 
 class IExternalPromotion(IATNewsItem):
     pass
-
-class IInteractiveMap(Interface):
-    """ Marker interface for all interactive maps content """
-
-class IInteractiveData(Interface):
-    """ Marker interface for all interactive data viewers (ex pivot tables) """
-
