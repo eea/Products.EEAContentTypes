@@ -26,19 +26,12 @@ class InvalidateCache(BrowserView):
             # browser test
             res = True
         else:
-            addr_list = ['127.0.0.1'] #IPs used for local dev
-
-            pp = getToolByName(context, 'portal_properties', None)
-            if pp:
-                ips_list = getattr(pp, 'eea_internal_ips', None)
-                if ips_list:
-                    addr_list.extend(ips_list.getProperty('allowed_ips', []))
-
+            addr_list = ['10.92', '10.30', '192.168.62', '192.168.60', '192.168.64', '127.0.0.1'] #IPs used by EEA and local dev
             addr = request.get('HTTP_X_FORWARDED_FOR','')
             addr = addr or request.get('REMOTE_ADDR', '')
-
+            
             res = [True for ip in addr_list if addr.startswith(ip)]
-
+        
         if res:
             recursive = request.get('recursive_invalidation' , False)
             if recursive:
@@ -55,5 +48,5 @@ class InvalidateCache(BrowserView):
             return request.response.redirect( parent.absolute_url() + '?portal_status_message=Request for cache invalidation sent' )
 
         return request.response.redirect( parent.absolute_url() )
-
-
+        
+        

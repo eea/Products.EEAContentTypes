@@ -7,9 +7,6 @@
  <index name="getUrl" meta_type="FieldIndex">
   <indexed_attr value="getUrl"/>
  </index>
- <index name="countReferences" meta_type="FieldIndex">
-  <indexed_attr value="countReferences"/>
- </index>
  <column value="getImageCopyright"/>
  <column value="getImageNote"/>
  <column value="getImageSource"/>

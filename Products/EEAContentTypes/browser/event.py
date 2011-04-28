@@ -1,5 +1,5 @@
-#import zope.interface
-#import zope.component
+import zope.interface
+import zope.component
 
 from Products.Five import BrowserView as FiveBrowserView
 from Products.CMFCore.utils import getToolByName
@@ -21,7 +21,7 @@ class SubmitEvent(BrowserView):
 
     def step2(self):
         context = self.context
-        #enquiry =  context.UID()
+        enquiry =  context.UID()
 
         if self.request.get('confirm', None) is not None:
             workflow = getToolByName(context, 'portal_workflow')

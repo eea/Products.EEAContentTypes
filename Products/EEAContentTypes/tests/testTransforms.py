@@ -1,23 +1,23 @@
-""" Transforms tests
-"""
+from Testing import ZopeTestCase
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from Products.EEAContentTypes.transforms.protect_email import ProtectEmail
-
+from Products.EEAContentTypes.transforms import ProtectEmail
+from Products.EEAContentTypes.browser.organisation import emailjs
 from Products.PortalTransforms.data import datastream
 
+import os, sys
+if __name__ == '__main__':
+    execfile(os.path.join(sys.path[0], 'framework.py'))
 
 class TestTransforms(EEAContentTypeTestCase):
     """Test-cases for transforms. """
 
+
     def afterSetUp(self):
-        """ Set up
-        """
         EEAContentTypeTestCase.afterSetUp(self)
         self.pt = self.portal.portal_transforms
 
     def test_protectEmail(self):
-        """ Protect email
-        """
         transformer = ProtectEmail()
         data = datastream('data')
         orig = """ <p> Some HTML with an email@domain.com that will be protected</p> """
@@ -85,9 +85,13 @@ class TestTransforms(EEAContentTypeTestCase):
 
         
 def test_suite():
-    """ Suite
-    """
     from unittest import TestSuite, makeSuite
     suite = TestSuite()
     suite.addTest(makeSuite(TestTransforms))
     return suite
+
+
+if __name__ == '__main__':
+    framework()
+
+        
