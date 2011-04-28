@@ -1,5 +1,3 @@
-""" CFTRequestor """
-
 # -*- coding: utf-8 -*-
 #
 # File: CFTRequestor.py
@@ -30,13 +28,11 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import (
-        Schema, StringField, StringWidget, SelectionWidget, registerType )  
-        
+from Products.Archetypes.atapi import *
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.validation.validators import ExpressionValidator
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.EEAContentTypes.config import  PROJECTNAME
+from Products.EEAContentTypes.config import *
 
 ##code-section module-header #fill in your manual code here
 from Products.Archetypes import transaction
@@ -47,7 +43,7 @@ import zope.interface
 import zope.event
 import zope.component
 import zope.app.event.objectevent
-#from zope.publisher.interfaces.browser import IBrowserRequest
+from zope.publisher.interfaces.browser import IBrowserRequest
 from interfaces import ICFTRequestor
 ##/code-section module-header
 
@@ -230,7 +226,7 @@ class CFTRequestor(ATCTContent):
 
     def reindexObject(self, **kw):
         pass
-
+    
 registerType(CFTRequestor, PROJECTNAME)
 # end of class CFTRequestor
 
