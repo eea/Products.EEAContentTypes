@@ -1,18 +1,17 @@
-""" Monkey patches
-"""
-from Products.CMFCore.utils import getToolByName
+from zope.event import notify
+
+from md5 import md5
+
 from collective.monkey.monkey import Patcher
+from valentine.linguaflow.events import TranslationObjectUpdate
 from ZODB.POSException import ConflictError
-from Products.LinguaPlone import config
-from Products.EEAContentTypes.setup.ConfigurationMethods import (
-    registerTransforms,
-)
 
 eeaPatcher = Patcher('EEA')
+
 linguaPatcher = Patcher('LinguaPlone')
 
 #LinguaPlone patches
-from Products.LinguaPlone.I18NBaseObject import I18NBaseObject
+from Products.LinguaPlone.I18NBaseObject import *
 
 def getTranslations(self):
     """Returns a dict of {lang : [object, wf_state]}, pass on to layer."""
@@ -50,16 +49,14 @@ def getTranslations(self):
         return self.getCanonical().getTranslations()
 
 if not linguaPatcher.is_wrapper_method(getTranslations):
-    linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations',
-                              getTranslations)
+    linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations', getTranslations)
 
 #Kupu patch
 #disable kupu transform reinstallation every time config is changed
 from Products.kupu.plone import util
+from Products.EEAContentTypes.setup.ConfigurationMethods import registerTransforms
 
 def install_transform(self):
-    """ Install transforms
-    """
     registerTransforms(self, self)
 
 if not eeaPatcher.is_wrapper_method(util.install_transform):
@@ -77,6 +74,7 @@ def getPathLanguage(self):
     try:
         if len(path) > 2 and path.index('/') == 2:
             if path[:2] in self.getSupportedLanguages():
+                import pdb; pdb.set_trace()
                 return path[:2]
     except ConflictError:
         raise

@@ -9,7 +9,7 @@ from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.basesyndication.interfaces import IEnclosure
 from Products.CMFCore.utils import getToolByName
 
-#from valentine.imagescales.browser.interfaces import IImageView
+from valentine.imagescales.browser.interfaces import IImageView
 
 class FeedLogo(object):
     implements(ILogo)
