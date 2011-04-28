@@ -10,19 +10,18 @@
   <dependency step="skins"/>
   <dependency step="rolemap"/>
   <dependency step="jsregistry"/>
-
+      
     Various import steps that are not handled by GS import/export
     handlers.
-
+  
  </import-step>
  <import-step id="eeacontenttypes_geocoding"
               version="20082605-01"
               handler="Products.EEAContentTypes.setup.ConfigurationMethods.setupGeocoding"
               title="EEAContentTypes: geocoding">
-
+      
     Various import steps that are not handled by GS import/export
     handlers.
-
+  
  </import-step>
-
 </import-steps>

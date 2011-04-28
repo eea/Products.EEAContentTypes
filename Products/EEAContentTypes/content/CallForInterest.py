@@ -1,5 +1,3 @@
-""" CallForInterest """
-
 # -*- coding: utf-8 -*-
 #
 # File: CallForInterest.py
@@ -30,11 +28,10 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, StringField, StringWidget,
-       DateTimeField, CalendarWidget, registerType )
+from Products.Archetypes.atapi import *
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFCore.permissions import View
@@ -45,7 +42,7 @@ schema = Schema((
     StringField(
         name='callForId',
         widget=StringWidget(
-            label='Call for id',
+            label='Callforid',
             label_msgid='EEAContentTypes_label_callForId',
             i18n_domain='EEAContentTypes',
         ),
@@ -55,7 +52,7 @@ schema = Schema((
     DateTimeField(
         name='closeDate',
         widget=CalendarWidget(
-            label='Close date',
+            label='Closedate',
             label_msgid='EEAContentTypes_label_closeDate',
             i18n_domain='EEAContentTypes',
         ),
@@ -65,7 +62,7 @@ schema = Schema((
     DateTimeField(
         name='openDate',
         widget=CalendarWidget(
-            label='Open date',
+            label='Opendate',
             label_msgid='EEAContentTypes_label_openDate',
             i18n_domain='EEAContentTypes',
         ),
@@ -75,7 +72,7 @@ schema = Schema((
     DateTimeField(
         name='applicationDate',
         widget=CalendarWidget(
-            label='Application date',
+            label='Applicationdate',
             label_msgid='EEAContentTypes_label_applicationDate',
             i18n_domain='EEAContentTypes',
         ),
@@ -106,9 +103,7 @@ class CallForInterest(ATFolder, ATDocument):
 
     meta_type = 'CallForInterest'
     portal_type = 'CallForInterest'
-    allowed_content_types = ['File', 'Document'] + \
-            list(getattr(ATFolder, 'allowed_content_types', [])) + \
-            list(getattr(ATDocument, 'allowed_content_types', []))
+    allowed_content_types = ['File', 'Document'] + list(getattr(ATFolder, 'allowed_content_types', [])) + list(getattr(ATDocument, 'allowed_content_types', []))
     filter_content_types = 0
     global_allow = 1
     #content_icon = 'CallForInterest.gif'
@@ -142,15 +137,15 @@ class CallForInterest(ATFolder, ATDocument):
 
     def setCloseDate(self, value):
         self.setExpirationDate(value)
-
+        
     def setEffectiveDate(self, value):
         self.getField('effectiveDate').set(self, value)
         return self.getField('openDate').set(self, value)
 
     def setExpirationDate(self, value):
-        self.getField('expirationDate').set(self, value)
+        self.getField('expirationDate').set(self, value)        
         return self.getField('closeDate').set(self, value)
-
+    
 registerType(CallForInterest, PROJECTNAME)
 # end of class CallForInterest
 

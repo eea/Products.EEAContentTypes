@@ -1,18 +1,15 @@
-""" Monkey patches
-"""
-from Products.CMFCore.utils import getToolByName
-from collective.monkey.monkey import Patcher
-from ZODB.POSException import ConflictError
-from Products.LinguaPlone import config
-from Products.EEAContentTypes.setup.ConfigurationMethods import (
-    registerTransforms,
-)
+from zope.event import notify
 
-eeaPatcher = Patcher('EEA')
+from md5 import md5
+
+from collective.monkey.monkey import Patcher
+from valentine.linguaflow.events import TranslationObjectUpdate
+
+
 linguaPatcher = Patcher('LinguaPlone')
 
 #LinguaPlone patches
-from Products.LinguaPlone.I18NBaseObject import I18NBaseObject
+from Products.LinguaPlone.I18NBaseObject import *
 
 def getTranslations(self):
     """Returns a dict of {lang : [object, wf_state]}, pass on to layer."""
@@ -49,42 +46,6 @@ def getTranslations(self):
     else:
         return self.getCanonical().getTranslations()
 
-if not linguaPatcher.is_wrapper_method(getTranslations):
-    linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations',
-                              getTranslations)
 
-#Kupu patch
-#disable kupu transform reinstallation every time config is changed
-from Products.kupu.plone import util
+linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations', getTranslations)
 
-def install_transform(self):
-    """ Install transforms
-    """
-    registerTransforms(self, self)
-
-if not eeaPatcher.is_wrapper_method(util.install_transform):
-    eeaPatcher.wrap_method(util, 'install_transform', install_transform)
-
-
-def getPathLanguage(self):
-    """Checks if a language is part of the current path."""
-    if not hasattr(self, 'REQUEST'):
-        return []
-    domain = self.REQUEST.get('SERVER_URL') + '/'
-    path = self.REQUEST.get('ACTUAL_URL')[len(domain):]
-    if len(path) == 2 and not path.endswith('/'):
-        path += '/'
-    try:
-        if len(path) > 2 and path.index('/') == 2:
-            if path[:2] in self.getSupportedLanguages():
-                return path[:2]
-    except ConflictError:
-        raise
-    except:
-        pass
-    return None
-
-from Products.PloneLanguageTool import LanguageTool
-
-if not eeaPatcher.is_wrapper_method(LanguageTool.getPathLanguage):
-    eeaPatcher.wrap_method(LanguageTool, 'getPathLanguage', getPathLanguage)

@@ -1,52 +1,52 @@
-""" Promotion """
+# -*- coding: utf-8 -*-
+#
+# File: Promotion.py
+#
+# Copyright (c) 2006 by []
+# Generator: ArchGenXML Version 1.5.1-svn
+#            http://plone.org/products/archgenxml
+#
+# GNU General Public License (GPL)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
 
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
+from zope.interface import implements
+from zope.component import adapts
+from eea.promotion.interfaces import IFrontpageSectionIndex
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.newsitem import ATNewsItem
-from Products.CMFCore.permissions import ModifyPortalContent
-from Products.ATContentTypes.configuration import zconf
-from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
-from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
-from Products.LinguaPlone.public import StringWidget, registerType
-from eea.promotion.interfaces import IFrontpageSectionIndex
-from zope.component import adapts
-from zope.interface import implements
-from Products.LinguaPlone.public import (
-    Schema,
-    StringField,
-    AnnotationStorage,
-    ImageWidget
-)
+
+
+##code-section module-header #fill in your manual code here
+try:
+    from Products.LinguaPlone.public import *
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes.public import *
+##/code-section module-header
 
 schema = Schema((
-    ImageBlobField('image',
-        required = False,
-        storage = AnnotationStorage(migrate=True),
-        languageIndependent = True,
-        swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
-        pil_quality = zconf.pil_config.quality,
-        pil_resize_algo = zconf.pil_config.resize_algo,
-        max_size = (1280,1024),
-        sizes= {'large'   : (768, 768),
-                'preview' : (400, 400),
-                'mini'    : (180,135),
-                'thumb'   : (128, 128),
-                'tile'    :  (64, 64),
-                'icon'    :  (32, 32),
-                'listing' :  (16, 16),
-               },
-        validators = ('isNonEmptyFile', ),
-        widget = ImageWidget(
-            description = (
-                "Will be shown in the news listing, and in the news "
-                "item itself. Image will be scaled to a sensible size."),
-            description_msgid = "help_news_image",
-            label= "Image",
-            label_msgid = "label_news_image",
-            i18n_domain = "plone",
-            show_content_type = False)
-        ),
+
     StringField(
         name='url',
         widget=StringWidget(
@@ -74,21 +74,18 @@ Promotion_schema['text'].schemata = 'metadata'
 ##/code-section after-schema
 
 class Promotion(ATNewsItem, ThemeTaggable):
-    """ Promotion
+    """
     """
     security = ClassSecurityInfo()
     implements(IExternalPromotion)
-    __implements__ = (getattr(ATNewsItem, '__implements__', ()),
-                      ) +  (getattr(ThemeTaggable,'__implements__',()),)
+    __implements__ = (getattr(ATNewsItem,'__implements__',()),) + (getattr(ThemeTaggable,'__implements__',()),)
 
     # This name appears in the 'add' box
     archetype_name = 'Promotion'
 
     meta_type = 'Promotion'
     portal_type = 'Promotion'
-    allowed_content_types = [] + list(getattr(ATNewsItem,
-            'allowed_content_types', [])) + list(getattr(ThemeTaggable,
-            'allowed_content_types', []))
+    allowed_content_types = [] + list(getattr(ATNewsItem, 'allowed_content_types', [])) + list(getattr(ThemeTaggable, 'allowed_content_types', []))
     filter_content_types = 0
     global_allow = 0
     content_icon   = 'document_icon.gif'
@@ -107,11 +104,6 @@ class Promotion(ATNewsItem, ThemeTaggable):
 
     # Methods
 
-    security.declareProtected(ModifyPortalContent, 'setThemes')
-    def setThemes(self, value, **kw):
-        """Manually specifing mutator, solves ticket #3972"""
-        ThemeTaggable.setThemes(self, value, **kw)
-
 
 registerType(Promotion, PROJECTNAME)
 # end of class Promotion
@@ -121,7 +113,7 @@ registerType(Promotion, PROJECTNAME)
 
 
 class FrontpageSectionIndex(object):
-    """ Front page section index """
+    """ """
     implements(IFrontpageSectionIndex)
     adapts(IExternalPromotion)
 
