@@ -1,0 +1,66 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- IExternalPromotion -->
+
+   <browser:page
+      for=".interfaces.IExternalPromotion"
+      name="imglink"
+      class="valentine.imagescales.browser.base.SummaryImageLink"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageLink"
+      />
+
+   <browser:page
+      for=".interfaces.IExternalPromotion"
+      name="promo_imglink"
+      class="eea.promotion.imagescales.ImageLink"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageLink"
+      />
+
+    <browser:page
+      for=".interfaces.IExternalPromotion"
+      name="imgtag"
+      class="valentine.imagescales.browser.base.ImageTag"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageTag"
+      />
+
+  <!-- IFlashAnimation -->
+
+  <browser:page
+      for=".interfaces.IFlashAnimation"
+      name="album_imglink"
+      class="valentine.imagescales.browser.base.AlbumImageLink"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageLink"
+      />
+
+  <browser:page
+      for=".interfaces.IFlashAnimation"
+      name="imglink"
+      class="valentine.imagescales.browser.base.SummaryImageLink"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageLink"
+      />
+
+  <!-- IArticle, IExternalHighlight -->
+
+  <browser:page
+      for=".interfaces.IArticle"
+      name="imgview"
+      class=".imagescales.ImageView"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+
+  <browser:page
+      for=".interfaces.IExternalHighlight"
+      name="imgview"
+      class=".imagescales.ImageView"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+
+</configure>
