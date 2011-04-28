@@ -1,7 +1,4 @@
-""" quotation """
-
-from Products.Archetypes.atapi import ( Schema, TextField, RichWidget,
-        StringField, StringWidget)
+from Products.Archetypes.atapi import *
 
 quotation_schema = Schema((
 

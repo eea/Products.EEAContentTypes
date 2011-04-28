@@ -31,17 +31,17 @@ __docformat__ = 'plaintext'
 # Workflow Scripts for: tender_requestor_workflow
 
 ##code-section workflow-script-header #fill in your manual code here
-#from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.config import DEBUG
 ##/code-section workflow-script-header
 
 
 def sendCFTLink(self, state_change, **kw):
-    obj = state_change.object
+    object = state_change.object
     mhost = self.MailHost
     fromEmail = "%s <%s>" % (self.email_from_name, self.email_from_address)
-    toEmail = obj.getEmail()
-    subject = '[EEA] Your request for tender %s' % obj.getCallForId()
+    toEmail = object.getEmail()
+    subject = '[EEA] Your request for tender %s' % object.getCallForId()
     message = """
     Your request has been accepted and you can download the tender at
     %s?cftrequestor=%s
@@ -52,8 +52,8 @@ def sendCFTLink(self, state_change, **kw):
 
 
     msg = message % (
-         obj.aq_parent.absolute_url(),
-         obj.getId()
+         object.aq_parent.absolute_url(),
+         object.getId()
          )
 
     return mhost.secureSend(msg, toEmail, fromEmail, subject, debug=DEBUG)

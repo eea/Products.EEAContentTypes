@@ -98,7 +98,7 @@ class LanguageSelectorData(BrowserView):
         else:
             current_language = langtool.getPreferredLanguage()
 
-        #catalog = context.portal_catalog
+        catalog = context.portal_catalog
 
         site_languages.sort()
         for code, name in site_languages:
