@@ -16,7 +16,7 @@ class Languages(BrowserView):
     """ Return different languages for translation of content and for local sites.  """
 
     zope.interface.implements(ILanguages)
-
+    
     def getTranslationLanguages(self):
         pl = getToolByName(self.context, 'portal_languages')
         site_languages = pl.listSupportedLanguages()
@@ -26,26 +26,26 @@ class Languages(BrowserView):
     def getTranslatedSitesLanguages(self):
         languages = self.getTranslationLanguages()
         def _cmp(a, b):
-            cmp_one = a[1]
-            cmp_two = b[1]
-            if a[0] == 'bg':
-                cmp_one = 'B'
-            if b[0] == 'bg':
-                cmp_two = 'B'
-            if a[0] == 'cs':
-                cmp_one = 'C'
-            if b[0] == 'cs':
-                cmp_two = 'C'
-            if a[0] == 'el':
-                cmp_one = 'Eet'
-            if b[0] == 'el':
-                cmp_two = 'Eet'
-            if a[0] == 'is':
-                cmp_one = 'Is'
-            if b[0] == 'is':
-                cmp_two = 'Is'
-            return cmp(cmp_one, cmp_two)
-        languages.sort(_cmp)
+    	    cmp_one = a[1]
+    	    cmp_two = b[1]
+    	    if a[0] == 'bg':
+    		cmp_one = 'B'
+    	    if b[0] == 'bg':
+    		cmp_two = 'B'
+    	    if a[0] == 'cs':
+    		cmp_one = 'C'
+    	    if b[0] == 'cs':
+    		cmp_two = 'C'
+    	    if a[0] == 'el':
+    		cmp_one = 'Eet'
+    	    if b[0] == 'el':
+    		cmp_two = 'Eet'
+    	    if a[0] == 'is':
+    		cmp_one = 'Is'
+    	    if b[0] == 'is':
+    		cmp_two = 'Is'
+    	    return cmp(cmp_one, cmp_two)
+    	languages.sort(_cmp)
         exclude = ['ru','sr', 'ga']
         return [ lang for lang in languages
                       if lang[0] not in exclude ]
@@ -76,7 +76,7 @@ class LanguageSelectorData(BrowserView):
         context = self.context
         results = []
         putils = getToolByName(self.context, 'plone_utils')
-
+        
         translations = {} # lang:[object, wfstate]
         if context.isTranslatable():
             translations = context.getTranslations()
@@ -98,7 +98,7 @@ class LanguageSelectorData(BrowserView):
         else:
             current_language = langtool.getPreferredLanguage()
 
-        #catalog = context.portal_catalog
+        catalog = context.portal_catalog
 
         site_languages.sort()
         for code, name in site_languages:
@@ -116,8 +116,8 @@ class LanguageSelectorData(BrowserView):
                 translation = translations[code][0]
                 if putils.isDefaultPage(translation):
                     translation = aq_parent(aq_inner(translation))
-
-
+                    
+                    
                 url = translation.absolute_url()
                 if translation.portal_type in ('ATFile', 'File'):
                     url += '/view'
@@ -143,4 +143,4 @@ class LanguageSelectorData(BrowserView):
                             'invalid': lingua_state == 'invalid'})
         return results
 
-
+    

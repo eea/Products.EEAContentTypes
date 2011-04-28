@@ -18,11 +18,11 @@ function resizeDiv()
 
    var newHeight=myHeight * 0.8;
    ct = document.getElementById("region-content");
-   if(ct !== null) {
+   if(ct != null) {
      ct.style.height='100%';
    }
    ct = document.getElementById("content");
-   if(ct !== null) {
+   if(ct != null) {
       ct.style.height='100%';
    }
 
@@ -30,9 +30,9 @@ function resizeDiv()
 }
 
 
-window.onresize=resizeDiv;
+window.onresize=resizeDiv
 
 AttachEvent(window,'load', resizeDiv, false);
 
-
+   
 

@@ -37,7 +37,7 @@ __docformat__ = 'plaintext'
 
 # Classes
 import organisation
-organisation # pyflakes
+
 ##code-section init-module-footer #fill in your manual code here
 ##/code-section init-module-footer
 

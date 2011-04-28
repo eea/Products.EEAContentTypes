@@ -1,23 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
-           i18n_domain="Products.EEAContentTypes">
-
-    <browser:page
-           for="*"
-           name="reorder_css"
-           class=".admin.ReorderCSS"
-           permission="cmf.ManagePortal"
-           template="reorder.pt"
-         />
-
-    <browser:page
-           for="*"
-           name="reorder_javascripts"
-           class=".admin.ReorderJavascript"
-           permission="cmf.ManagePortal"
-           template="reorder.pt"
-         />
+           xmlns:five="http://namespaces.zope.org/five">
 
     <browser:page
            for="*"
@@ -361,7 +344,7 @@
       />
 
   <browser:page
-      for="p4a.video.interfaces.IVideoEnhanced"
+      for="p4a.video.interfaces.IPossibleVideo"
       name="url"
       class=".url.MultimediaURL"
       permission="zope2.View"
@@ -372,14 +355,6 @@
       for="*"
       name="randomecotip"
       class=".ecotip.RandomEcotip"
-      permission="zope2.View"
-      />
-
-  <!-- most referenced -->
-  <browser:page
-      for="*"
-      name="mostReferenced"
-      class=".mostreferenced.MostReferenced"
       permission="zope2.View"
       />
 

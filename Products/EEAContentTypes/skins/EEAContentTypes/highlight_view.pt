@@ -56,6 +56,11 @@
                <div metal:use-macro="here/document_relateditems/macros/pages">
                      show related pages if they exist
                </div>
+               <!-- auto related content -->
+               <div metal:use-macro="here/document_relateditems/macros/auto">
+                     show auto related items if they exist
+               </div>
+
 
            </div> 
         </tal:descriptionOrTeaser>
