@@ -1,23 +1,6 @@
 Changelog
 =========
 
-2.29-dev - (unreleased)
------------------------
- * Bug fix: fixed "send as notification" [ghicaale]
-
-2.28 - (2011-04-20)
--------------------
- * Bug fix: Change schema extension to adapt IVideoEnhanced instead of IBaseContent [szabozo0 #4260]
-
-2.27 - (2011-04-19)
--------------------
- * Feature: Extend schema with location field [szabozo0 #4260]
- * Bug fix: Added migration fix script for images and files positions in parents [tiberich #4135]
-
-2.26 - (2011-04-07)
--------------------
- * Bug fix: Fixed staff list [ghicaale #4237]
-
 2.25 - (2011-04-01)
 -------------------
  * Cleanup: Removed PloneRSSPortlet [voineali #4169]

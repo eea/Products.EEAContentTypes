@@ -62,7 +62,7 @@ def getOnlyOrgName(orgPath):
 
 def isHeadOfProgramme(org):
     for k in range(10):
-        if str(k) in org: return False
+        if k in org: return False
     return True
 
 def prepareStaffNumber(data):

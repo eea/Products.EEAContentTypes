@@ -7,6 +7,7 @@
     <include package=".content" />
     <include package=".faceted" />
     <include package=".migrate" />
+    <!--<include package=".subtypes" />-->
 
      <utility
        component=".promotion.ThemepageSectionsVocabularyFactory"
@@ -159,12 +160,6 @@
   -->
 
   <adapter factory=".content.Article.Article2Surf" />
-
-
-    <adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>
-    <adapter factory=".subtypes.GeotagSingleEdit"/>
-    <adapter factory=".subtypes.GeotagMultiEdit"/>
-
 
   <include file="cache.zcml" />
 
