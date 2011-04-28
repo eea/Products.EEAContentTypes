@@ -28,22 +28,22 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 
-#import os.path
-#import sys
+import os.path
+import sys
 from StringIO import StringIO
-#from sets import Set
-#from App.Common import package_home
+from sets import Set
+from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
-#from Products.CMFCore.utils import manage_addTool
+from Products.CMFCore.utils import manage_addTool
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
-from zExceptions import NotFound #, BadRequest
+from zExceptions import NotFound, BadRequest
 
-#from Products.Archetypes.Extensions.utils import installTypes
-#from Products.Archetypes.Extensions.utils import install_subskin
-#from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
-#from Products.Archetypes.atapi import listTypes
+from Products.Archetypes.Extensions.utils import installTypes
+from Products.Archetypes.Extensions.utils import install_subskin
+from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
+from Products.Archetypes.atapi import listTypes
 from Products.EEAContentTypes.config import PROJECTNAME
-#from Products.EEAContentTypes.config import product_globals as GLOBALS
+from Products.EEAContentTypes.config import product_globals as GLOBALS
 
 def addRoles(portal):
     roles = list(portal.acl_users.portal_role_manager.listRoleIds())
@@ -91,14 +91,14 @@ def uninstall(self):
     # try to call a custom uninstall method
     # in 'AppInstall.py' method 'uninstall'
     try:
-        auninstall = ExternalMethod('temp', 'temp',
+        uninstall = ExternalMethod('temp', 'temp',
                                    PROJECTNAME+'.AppInstall', 'uninstall')
-    except NotFound:
-        auninstall = None
+    except:
+        uninstall = None
 
-    if auninstall:
+    if uninstall:
         print >>out,'Custom Uninstall:'
-        res = auninstall(self)
+        res = uninstall(self)
         if res:
             print >>out,res
         else:
@@ -116,7 +116,7 @@ def beforeUninstall(self, reinstall, product, cascade):
     try:
         beforeuninstall = ExternalMethod('temp', 'temp',
                                    PROJECTNAME+'.AppInstall', 'beforeUninstall')
-    except NotFound:
+    except:
         beforeuninstall = []
 
     if beforeuninstall:
@@ -140,7 +140,7 @@ def afterInstall(self, reinstall, product):
     try:
         afterinstall = ExternalMethod('temp', 'temp',
                                    PROJECTNAME+'.AppInstall', 'afterInstall')
-    except NotFound:
+    except:
         afterinstall = None
 
     if afterinstall:
