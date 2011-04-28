@@ -31,20 +31,15 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.EEAContentTypes.content.Highlight import Highlight
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.content.quotation import quotation_schema
 
 ##code-section module-header #fill in your manual code here
 try:
-    from Products.LinguaPlone.public import ( Schema, BaseSchema, 
-            BaseContent, registerType)
-    Schema, BaseSchema, BaseContent, registerType
-
+    from Products.LinguaPlone.public import *
 except ImportError:
     # No multilingual support
-    from Products.Archetypes.public import ( Schema, BaseSchema, 
-            BaseContent, registerType)
-
+    from Products.Archetypes.public import *
 
 from Products.CMFCore.permissions import ModifyPortalContent
 from eea.themecentre.interfaces import IThemeTagging
@@ -108,8 +103,7 @@ class PressRelease(Highlight, BaseContent):
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 

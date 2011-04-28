@@ -5,11 +5,8 @@
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import (
-        Schema, ReferenceField, ReferenceWidget, BaseFolderSchema, BaseFolder,
-        registerType
-        )
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.Archetypes.atapi import *
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.content.CallForInterest import CallForInterest
 from interfaces import ICallForTender
 import zope.interface
@@ -88,6 +85,7 @@ class CallForTender(CallForInterest, BaseFolder):
             return None
         return award.UID()
 
+    security.declareProtected("Modify content", "setAwardNotice")
     def setAwardNotice(self, values, field):
         field = self.schema[field]
         field.set(self, values)

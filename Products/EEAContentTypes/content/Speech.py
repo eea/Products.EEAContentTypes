@@ -30,10 +30,9 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, BaseSchema, BaseContent,
-        registerType )
+from Products.Archetypes.atapi import *
 from Products.EEAContentTypes.content.Highlight import Highlight
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFCore.permissions import ModifyPortalContent
@@ -97,8 +96,7 @@ class Speech(Highlight, BaseContent):
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 

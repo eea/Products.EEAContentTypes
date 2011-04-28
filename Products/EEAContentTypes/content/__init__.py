@@ -1,5 +1,11 @@
 """ Content init module """
 
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
+# Subpackages
+# Additional
+
 # Validators
 import Products.EEAContentTypes.content.validators
 
@@ -18,6 +24,10 @@ import Products.EEAContentTypes.content.FlashFile
 import Products.EEAContentTypes.content.Event
 import Products.EEAContentTypes.content.Link
 
+# monkey patch, changes default value of RSSFeedRecipe.entriesWithThumbnail
+from Products.PloneRSSPortlet.content import RSSFeed
+RSSFeed.RSSFeedRecipeSchema['entriesWithThumbnail'].default = 10000
+
 # monkey patch, replaces reference field of certain content types to
 # an orderable reference field
 from Products.EEAContentTypes.content.orderablereffield import field
@@ -28,7 +38,7 @@ from Products.EEAContentTypes.content.orderablereffield import (
 from Products.Archetypes.ClassGen import generateMethods
 for otype, schema in types_and_schema:
     schema.addField(field)
-    schema.moveField('relatedItems', pos='bottom')
+    schema.moveField('relatedItems', pos='bottom');
     generateMethods(otype, [field])
 
 # monkey patch, by default file is not translatable, fix this

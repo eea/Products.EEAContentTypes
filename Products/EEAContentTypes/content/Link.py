@@ -14,12 +14,11 @@ def override_getRemoteUrl(self):
     # edit.
     mtool = getToolByName(self, 'portal_membership')
     if (mtool.isAnonymousUser() and (self.portal_type == 'GIS Application')):
-        return self.absolute_url()
+	return self.absolute_url()
     else:
-        value = self.Schema()['remoteUrl'].get(self)
-    if not value: value = '' # ensure we have a string
-
-    return quote(value, safe='?$#@/:=+;$,&')
+	value = self.Schema()['remoteUrl'].get(self)
+	if not value: value = '' # ensure we have a string
+	return quote(value, safe='?$#@/:=+;$,&')
 
 ATLink.getRemoteUrl = override_getRemoteUrl
 

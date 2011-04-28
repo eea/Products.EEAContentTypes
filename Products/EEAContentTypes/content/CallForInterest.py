@@ -30,11 +30,10 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, StringField, StringWidget,
-       DateTimeField, CalendarWidget, registerType )
+from Products.Archetypes.atapi import *
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFCore.permissions import View

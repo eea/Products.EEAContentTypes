@@ -1,6 +1,5 @@
 """ Base TestCase for EEAContentTypes"""
 from plone.app.blob.tests import db
-db ## pyflakes, this import is needed for tests
 from Products.PloneTestCase import PloneTestCase
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.PloneTestCase.layer import onsetup
@@ -10,7 +9,7 @@ from Products.GenericSetup import EXTENSION, profile_registry
 
 PRODUCTS = [
     'CacheSetup', 'PlonePAS', 'FiveSite',
-    'ATVocabularyManager', 'EEAContentTypes',
+    'ATVocabularyManager','EEAContentTypes', 'PloneRSSPortlet',
     'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
     'RichTopic', 'ThemeCentre', 'kupu', 'PloneLanguageTool',
     'EEAPloneAdmin'

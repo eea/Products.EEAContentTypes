@@ -1,38 +1,62 @@
 """ ExternalHighlight """
-import logging
-from Acquisition import aq_base
-from zope.interface import implements
-from plone.app.blob.field import BlobField
-from plone.app.blob.config import blobScalesAttr
 
-from Products.Archetypes.Field import ImageField
-from plone.app.blob.mixins import ImageFieldMixin
-from plone.app.blob.interfaces import IBlobImageField
+# -*- coding: utf-8 -*-
+#
+# File: ExternalHighlight.py
+#
+# Copyright (c) 2006 by []
+# Generator: ArchGenXML Version 1.5.1-svn
+#            http://plone.org/products/archgenxml
+#
+# GNU General Public License (GPL)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
 
-from Products.Archetypes.Field import Image as ZODBImage
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.LinguaPlone import public
+from Products.EEAContentTypes.config import *
+
+##code-section module-header #fill in your manual code here
+try:
+    from Products.LinguaPlone.public import *
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes.public import *
+
+from Products.ATContentTypes.configuration import zconf
 from Products.Archetypes import DisplayList
-from Products.Archetypes.utils import shasattr
 from Products.CMFCore.permissions import View
 from Products.validation.config import validation
 from Products.validation.interfaces import ivalidator
+from Products.validation import V_REQUIRED
+from Products.CMFCore.utils import getToolByName
 
 # management plan code field imports
 from datetime import datetime
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+
 from eea.themecentre.interfaces import IThemeTagging
-
-logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
-
 class ImageCaptionRequiredIfImageValidator:
-    """ Image caption validator
-    """
     __implements__ = (ivalidator,)
 
     def __init__( self, name, title='', description=''):
@@ -50,8 +74,6 @@ class ImageCaptionRequiredIfImageValidator:
 validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
 
 class MaxValuesValidator:
-    """ Max values validator
-    """
     __implements__ = (ivalidator,)
 
     def __init__( self, name, title='', description=''):
@@ -60,7 +82,7 @@ class MaxValuesValidator:
         self.description = description
 
     def __call__(self, value, instance, *args, **kwargs):
-        maxValues = getattr(kwargs['field'].widget, 'maxValues', None)
+        maxValues = getattr(kwargs['field'].widget,'maxValues', None)
         values = value
         if isinstance(value, str):
             values = value.split(' ')
@@ -70,77 +92,13 @@ class MaxValuesValidator:
 
 validation.register(MaxValuesValidator('maxWords'))
 
-class ImageBlobField(BlobField, ImageFieldMixin):
-    """ derivative of blobfield for extending schemas """
-    implements(IBlobImageField)
+##/code-section module-header
+schema = Schema((
 
-    #BBB Backward compatible content_class property.
-    #XXX This should be removed in Products.EEAContentTypes > 2.25
-    _properties = BlobField._properties.copy()
-    _properties.update({
-        'content_class': ZODBImage
-    })
-
-    def set(self, instance, value, **kwargs):
-        """ Setter
-        """
-        if value == "DELETE_IMAGE":
-            value = "DELETE_FILE"
-
-        super(ImageBlobField, self).set(instance, value, **kwargs)
-        if hasattr(aq_base(instance), blobScalesAttr):
-            delattr(aq_base(instance), blobScalesAttr)
-
-        if value == "DELETE_FILE":
-            return
-
-        # Generate scales on edit to avoid ZODB commits on view
-        sizes = self.getAvailableSizes(instance)
-        for size in sizes.keys():
-            self.getScale(instance, size)
-
-    #BBB Backward compatible.
-    #XXX This should be removed in Products.EEAContentTypes > 2.25
-    def get(self, instance, **kwargs):
-        """ Getter
-        """
-        value = super(ImageBlobField, self).get(instance, **kwargs)
-        if (shasattr(value, '__of__', acquire=True)
-            and not kwargs.get('unwrapped', False)):
-            return value.__of__(instance)
-        return value
-
-    def getAvailableSizes(self, instance):
-        """ Get sizes
-        """
-        return self.sizes
-
-    def getScale(self, instance, scale=None, **kwargs):
-        """ Scale getter
-        """
-        img = self.getAccessor(instance)()
-        size = img.getSize()
-        if not size:
-            return None
-
-        #BBB Backward compatible.
-        #XXX This should be removed in Products.EEAContentTypes > 2.25
-        if isinstance(img, ZODBImage):
-            return ImageField.getScale(self, instance, scale, **kwargs)
-
-        return super(ImageBlobField,
-                     self).getScale(instance, scale, **kwargs)
-
-
-schema = public.Schema((
-
-    ImageBlobField('image',
+    ImageField('image',
         required = False,
-        storage = public.AnnotationStorage(migrate=True),
+        storage = AnnotationStorage(migrate=True),
         languageIndependent = True,
-        swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
-        pil_quality = zconf.pil_config.quality,
-        pil_resize_algo = zconf.pil_config.resize_algo,
         max_size = (1280,1024),
         sizes= {'large'   : (768, 768),
                 'preview' : (400, 400),
@@ -151,10 +109,8 @@ schema = public.Schema((
                 'listing' :  (16, 16),
                },
         validators = ('isNonEmptyFile', ),
-        widget = public.ImageWidget(
-            description = (
-                "Will be shown in the news listing, and in the news "
-                "item itself. Image will be scaled to a sensible size."),
+        widget = ImageWidget(
+            description = "Will be shown in the news listing, and in the news item itself. Image will be scaled to a sensible size.",
             description_msgid = "help_news_image",
             label= "Image",
             label_msgid = "label_news_image",
@@ -162,9 +118,9 @@ schema = public.Schema((
             show_content_type = False)
         ),
 
-    public.StringField(
+    StringField(
         name='imageLink',
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="Image Link",
             label_msgid="label_news_image_link",
             description="Enter a URL that the image should be linked to",
@@ -175,9 +131,9 @@ schema = public.Schema((
         validators=('isURL',),
     ),
 
-    public.StringField(
+    StringField(
         name='imageCaption',
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="Image Caption",
             description="Enter a caption for the image (max 5 words)",
             description_msgid="help_image_caption",
@@ -191,10 +147,10 @@ schema = public.Schema((
         validators=('maxWords',)
     ),
 
-    public.TextField(
+    TextField(
         name='imageNote',
         index="ZCTextIndex|TextIndex:brains",
-        widget=public.TextAreaWidget(
+        widget=TextAreaWidget(
             label="Image Note",
             description="Enter a note about this image.",
             label_msgid='EEAContentTypes_label_imageNote',
@@ -203,10 +159,10 @@ schema = public.Schema((
         )
     ),
 
-    public.StringField(
+    StringField(
         name='imageSource',
         index="FieldIndex:brains",
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="Image Source",
             description="Enter the source of this image.",
             label_msgid='EEAContentTypes_label_imageSource',
@@ -215,10 +171,10 @@ schema = public.Schema((
         )
     ),
 
-    public.StringField(
+    StringField(
         name='imageCopyright',
         index="FieldIndex:brains",
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="Image Copyright",
             description="Enter the copyright information for this image.",
             label_msgid='EEAContentTypes_label_imageCopyright',
@@ -227,9 +183,9 @@ schema = public.Schema((
         )
     ),
 
-    public.ReferenceField(
+    ReferenceField(
         name='media',
-        widget=public.ReferenceWidget(
+        widget=ReferenceWidget(
             label='Media',
             label_msgid='EEAContentTypes_label_media',
             i18n_domain='EEAContentTypes',
@@ -240,14 +196,13 @@ schema = public.Schema((
         accessor="_getMedia"
     ),
 
-    public.StringField(
+    StringField(
         name='newsTitle',
         index_method="getNewsTitle",
         index="FieldIndex:brains",
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="News title",
-            description=("Enter title that will be visible on the frontpage "
-                         "when this highlight is listed."),
+            description="Enter title that will be visible on the frontpage when this highlight is listed.",
             label_msgid='EEAContentTypes_label_newsTitle',
             description_msgid='EEAContentTypes_help_newsTitle',
             i18n_domain='EEAContentTypes',
@@ -255,11 +210,11 @@ schema = public.Schema((
         accessor="_getNewsTitle"
     ),
 
-    public.TextField(
+    TextField(
         name='teaser',
         index_method="getTeaser",
         index="ZCTextIndex|TextIndex:brains",
-        widget=public.TextAreaWidget(
+        widget=TextAreaWidget(
             label="Teaser",
             description="Short informative teaser for the frontpage.",
             maxlength="600",
@@ -270,10 +225,10 @@ schema = public.Schema((
         accessor="_getTeaser"
     ),
 
-    public.StringField(
+    StringField(
         name='url',
         index="FieldIndex:brains",
-        widget=public.StringWidget(
+        widget=StringWidget(
             label="External URL",
             description="Enter URL to external content.",
             label_msgid='EEAContentTypes_label_url',
@@ -284,10 +239,10 @@ schema = public.Schema((
         languageIndependent = True
     ),
 
-    public.StringField(
+    StringField(
         name='visibilityLevel',
         index="FieldIndex:brains",
-        widget=public.SelectionWidget(
+        widget=SelectionWidget(
             label="Visibility Level",
             label_msgid='EEAContentTypes_label_visibilityLevel',
             i18n_domain='EEAContentTypes',
@@ -297,26 +252,24 @@ schema = public.Schema((
         languageIndependent = True
     ),
 
-    public.DateTimeField(
+    DateTimeField(
         name='publishDate',
-        widget=public.CalendarWidget(
+        widget=CalendarWidget(
             label="Publish Date",
             label_msgid="label_effective_date",
             description_msgid="help_effective_date",
             i18n_domain="plone",
-            description=("Date when the content should become available on "
-                         "the public site."),
+            description="Date when the content should become available on the public site.",
         ),
         languageIndependent = True
     ),
 
-    public.DateTimeField(
+    DateTimeField(
         name='expiryDate',
         index="True",
-        widget=public.CalendarWidget(
+        widget=CalendarWidget(
             label="Expiration Date",
-            description=("Date when the content should become iunavailable on "
-                         "the public site."),
+            description="Date when the content should become iunavailable on the public site.",
             label_msgid='EEAContentTypes_label_expiryDate',
             description_msgid='EEAContentTypes_help_expiryDate',
             i18n_domain='EEAContentTypes',
@@ -351,26 +304,21 @@ schema = public.Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
-    ).copy() + getattr(ThemeTaggable, 'schema', public.Schema(())
-    ).copy() + schema.copy()
-
+ExternalHighlight_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
+    getattr(ThemeTaggable, 'schema', Schema(())).copy() + \
+    schema.copy()
 # themes is required for all news-alike content types
 ExternalHighlight_schema['themes'].required = True
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
 class ExternalHighlight(ATFolder, ThemeTaggable):
-    """ External highlight
+    """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATFolder, '__implements__', ()),) + (
-        getattr(ThemeTaggable, '__implements__' ,()),
-    )
+    __implements__ = (getattr(ATFolder,'__implements__',()),) + (getattr(ThemeTaggable,'__implements__',()),)
 
-    allowed_content_types = ['FlashFile', 'ATImage', 'Image', 'File'] + list(
-        getattr(ATFolder, 'allowed_content_types', [])) + list(
-        getattr(ThemeTaggable, 'allowed_content_types', []))
+    allowed_content_types = ['FlashFile', 'ATImage', 'Image', 'File'] + list(getattr(ATFolder, 'allowed_content_types', [])) + list(getattr(ThemeTaggable, 'allowed_content_types', []))
     _at_rename_after_creation = True
 
     schema = ExternalHighlight_schema
@@ -382,8 +330,6 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
     security.declarePublic('getVisibilityLevels')
     def getVisibilityLevels(self):
-        """ Visibility levels
-        """
         levels = ( ('top', 'High visibility'),
                    ('middle','Medium visibility'),
                    ('bottom','Low visibility') )
@@ -392,43 +338,39 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
     security.declarePublic('getPublishDate')
     def getPublishDate(self):
-        """ Effective date getter
-        """
         return self.getEffectiveDate()
 
     security.declarePublic('setPublishDate')
     def setPublishDate(self, value, **kw):
-        """ Effective date setter
-        """
         self.setEffectiveDate(value)
 
     security.declarePublic('getTeaser')
     def getTeaser(self):
-        """ Teaser getter
+        """
         """
         return self._getTeaser() or self.Description()
 
     security.declarePublic('getNewsTitle')
     def getNewsTitle(self):
-        """ News title getter
+        """
         """
         return  self._getNewsTitle() or self.Title()
 
     security.declarePublic('getMedia')
     def getMedia(self):
-        """ Media getter
+        """
         """
         return self.getImage() or self._getMedia()
 
     security.declarePublic('getExpiryDate')
     def getExpiryDate(self):
-        """ Expiration date getter
+        """
         """
         return self.getExpirationDate()
 
     security.declarePublic('setExpiryDate')
     def setExpiryDate(self, value, **kw):
-        """ Expiration date setter
+        """
         """
         self.setExpirationDate(value)
 
@@ -448,7 +390,7 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
     security.declarePublic('getThemeVocabs')
     def getThemeVocabs(self):
-        """ Theme vocabularies getter
+        """
         """
         pass
 
@@ -473,6 +415,15 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        value = [val for val in value if val is not None]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
+
+
+# end of class ExternalHighlight
+
+##code-section module-footer #fill in your manual code here
+##/code-section module-footer
+
+
+
