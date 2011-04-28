@@ -1,5 +1,3 @@
-""" Highlight """
-
 # -*- coding: utf-8 -*-
 #
 # File: Highlight.py
@@ -33,7 +31,7 @@ from zope.interface import implements
 from AccessControl import ClassSecurityInfo
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.ATContentTypes.content.newsitem import ATNewsItem
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.content.quotation import quotation_schema
 
 ##code-section module-header #fill in your manual code here
@@ -42,11 +40,10 @@ from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.content.ExternalHighlight import schema as ExtHighlightSchema
 from Products.Archetypes.Schema import getNames
 try:
-    from Products.LinguaPlone.public import Schema, registerType 
-    Schema, registerType 
+    from Products.LinguaPlone.public import *
 except ImportError:
     # No multilingual support
-    from Products.Archetypes.public import Schema, registerType 
+    from Products.Archetypes.public import *
 ##/code-section module-header
 
 from interfaces import IExternalHighlight
@@ -69,12 +66,9 @@ Highlight_schema =  getattr(ATNewsItem, 'schema', Schema(())).copy() + \
 # put all the external highlights fields into their own schema
 ExternalHighlightSchema = ExtHighlightSchema.copy()
 
-fields2Move2DefaultSchemata = ['management_plan']
 for fieldname in getNames(ExternalHighlightSchema):
     field = Highlight_schema[fieldname]
-    if fieldname in fields2Move2DefaultSchemata:
-        field.schemata = 'default'
-    elif field.schemata != 'metadata':
+    if field.schemata != 'metadata':
         field.schemata = 'Front Page'
 
 Highlight_schema['text'].required = True
@@ -121,14 +115,13 @@ class Highlight(ExternalHighlight, ATNewsItem):
         self.setEffectiveDate(value)
 
     getExpiryDate = ExternalHighlight.getExpiryDate
-    setExpiryDate = ExternalHighlight.setExpiryDate
-
+    setExpiryDate = ExternalHighlight.setExpiryDate    
+    
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 

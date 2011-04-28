@@ -1,5 +1,5 @@
 from Products.PortalTransforms.interfaces import itransform
-#from Products.CMFDefault.utils import bodyfinder
+from Products.CMFDefault.utils import bodyfinder
 from Products.EEAContentTypes.browser.organisation import emailjs_dot, emailjs
 import re
 
