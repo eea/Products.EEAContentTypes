@@ -21,7 +21,7 @@ class BaseReorder(object):
 
         util = getToolByName(self.context, "portal_%s" % self.resource_type)
         result = []
-        for _i, res_id in enumerate(resources.split("\n")):
+        for i, res_id in enumerate(resources.split("\n")):
             res = util.getResource(res_id.strip())
             result.append(res)
 

@@ -76,7 +76,7 @@ class AutoRelated(object):
             if len(themeObjs) < 3:
                 themeObjs.append(res)
                 byTheme[theme] = themeObjs
-
+            
         # now we have the themes in a dictionary, put them in a list instead
         themes = []
         vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
@@ -100,8 +100,8 @@ class AutoRelated(object):
                                                   constraints=constraints)
 
         contextThemes = self._contextThemes()
-        #vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
-        #themeVocab = vocabFactory(self)
+        vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
+        themeVocab = vocabFactory(self)
         related = []
 
         for item in result:
@@ -109,7 +109,7 @@ class AutoRelated(object):
             # by publication group
             if item.portal_type in ['Article']:
                 continue
-
+            
             obj = item.getObject()
             if item.getId != self.context.getId():
                 commonThemesIds = [ theme for theme in item.getThemes
@@ -123,7 +123,7 @@ class AutoRelated(object):
     def autoContext(self, portal_type=None, fill_limit=0):
         refs = IRelations(self.context).autoContextReferences(portal_type)
         refs = [getObjectInfo(i, self.request) for i in refs]
-        theme = self.sameTheme(portal_type)
+        theme = self.sameTheme(portal_type) 
         items = refs + theme
         if len(items) < fill_limit:
             items += self.sameType(portal_type)
@@ -163,7 +163,7 @@ class AutoRelated(object):
                 related.append(info)
 
         return related
-
+    
     def _contextThemes(self):
         theme = queryAdapter(self.context, IThemeTagging)
         if theme is None:
@@ -178,7 +178,7 @@ class DocumentRelated(utils.BrowserView):
 
     def __init__(self, context, request):
         super(DocumentRelated, self).__init__(context, request)
-
+        
         self.context = utils.context(self)
         self.plone_utils = getToolByName(context, 'plone_utils')
         self.normalize = self.plone_utils.normalizeString
@@ -187,7 +187,7 @@ class DocumentRelated(utils.BrowserView):
         self.wf_tool = getToolByName(context, 'portal_workflow')
         self.site_props = self.portal_props.site_properties
         self.use_view = getattr(self.site_props, 'typesUseViewActionInListings', [])
-
+        
         self.related = IRelations(self.context).references()
 
         self.related_feeds = []
@@ -196,7 +196,9 @@ class DocumentRelated(utils.BrowserView):
         self.related_other = []
         self.related_images = []
         for item in self.related:
-            if queryAdapter(item, IVideo):
+            if item.portal_type == 'RSSFeedRecipe':
+                self.related_feeds.append(item)
+            elif queryAdapter(item, IVideo):
                 self.related_media_with_player.append(item)
             elif item.portal_type == 'Image':
                 self.related_images.append(item)
@@ -238,7 +240,7 @@ class DocumentRelated(utils.BrowserView):
             media[category].append(link)
 
         for category, links in media.items():
-            links.sort(cmp=lambda x, y: cmp(x['date'], y['date']))
+            links.sort(cmp=lambda x,y: cmp(x['date'], y['date']))
 
         categories = media.keys()
         media_list = []
@@ -253,7 +255,7 @@ class DocumentRelated(utils.BrowserView):
 
     def feeds(self):
         entries = []
-
+        
         theme = queryAdapter(self.context, IThemeTagging)
         if theme and len(theme.tags) > 0:
             # we will only discover on first/one theme
@@ -267,7 +269,7 @@ class DocumentRelated(utils.BrowserView):
             if theme is not None:
                 discover_tags = IFeedDiscover(feed).search_attrs
                 if len(discover_tags) > 0:
-                    feeds = discover.getFeeds(search={ 'theme' : theme,
+                    feeds = discover.getFeeds(search= { 'theme' : theme,
                                                         'id' : feed.getId() })
                     if len(feeds) > 0:
                         feed = feeds[0]
@@ -278,7 +280,7 @@ class DocumentRelated(utils.BrowserView):
             for item in info.items:
                 entries.append(item)
 
-        entries.sort(cmp=lambda x, y:-cmp(x.published_unparsed,
+        entries.sort(cmp=lambda x,y: -cmp(x.published_unparsed,
                                           y.published_unparsed))
         entries = getFeedItemsWithoutDuplicates(entries, sort=True,
                                                 published_attr=True)
@@ -289,11 +291,11 @@ class DocumentRelated(utils.BrowserView):
 
     def multimedia(self):
         # TODO: delete? Where's this used?
-        #multimedia = []
+        multimedia = []
         for item in self.related_media_with_player:
             mimetype = item.get_content_type()
             player_html = queryAdapter(item, name=mimetype, interface=IMediaPlayer)
-            player_html.max_width = 200 - 16
+            player_html.max_width = 200-16
             player_html.autoplay = False
             player_html.autobuffer = False
             return player_html(None, None)
@@ -308,12 +310,12 @@ class DocumentRelated(utils.BrowserView):
 
     def other(self):
         other = []
-
+        
         for item in self.related_other:
             item_type_class = self.normalize(item.portal_type)
             item_wf_state = self.wf_tool.getInfoFor(item, 'review_state', '')
             item_wf_state_class = 'state-' + self.normalize(item_wf_state)
-
+            
             urlview = getMultiAdapter((item, self.request), name="url")
             imgview = queryMultiAdapter((item, self.request), name="imgview")
             url = urlview.listing_url()
@@ -335,7 +337,7 @@ class DocumentRelated(utils.BrowserView):
 
     def top_media(self):
         media = []
-
+       
         for item in self.related_media_with_player[:TOP_VIDEOS]:
             info = getObjectInfo(item, self.request)
             media.append(info)

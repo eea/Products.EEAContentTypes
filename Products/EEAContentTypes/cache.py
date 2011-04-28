@@ -2,7 +2,7 @@
 """
 import logging
 import md5
-#import memcache
+import memcache
 from zope.event import notify
 from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
