@@ -1,5 +1,3 @@
-""" GeoPosition """
-
 import urllib
 from xml.dom.minidom import parse
 
@@ -100,7 +98,7 @@ class GeoPositionDecider(object):
     def matchLocation(self, obj):
         geodata = None
         location = getattr(obj, 'location', None)
-        if (location is not None) and location:
+        if location is not None:
             #get service keys
             service_keys = {}
             portal_properties = getToolByName(obj, 'portal_properties')
@@ -176,21 +174,21 @@ def geocodeGoogleCSV(location, service_keys):
               'q'     : location,
               'key'   : service_keys['google_key']}
     u = urllib.urlopen("http://maps.google.com/maps/geo?%s" % urllib.urlencode(params))
-    gbuffer = u.read()
+    buffer = u.read()
     try:
-        control_code, _acc, latitude, longitude = str(gbuffer).split(',')
+        control_code, acc, latitude, longitude = str(buffer).split(',')
         if (control_code == '200'):
             #TODO: implement get country code
             res = (latitude, longitude, '')
         else:
             res = None #err
-    except Exception:
+    except:
         res = None #err
     return res
 
 def geocodeGoogleXML(location, service_keys):
     """ Google geocode via XML """
-    #addresses = []
+    addresses = []
     try:
         params = {'output': 'xml',
                   'q'     : location.encode('utf-8'),
@@ -199,17 +197,17 @@ def geocodeGoogleXML(location, service_keys):
         # parse the xml contents of the url into a dom
         dom = parse(urllib.urlopen("http://maps.google.com/maps/geo?%s" % urllib.urlencode(params)))
         results = dom.getElementsByTagName('Response')
-        #result_count = len(results)
+        result_count = len(results)
         for result in results:
             for mark in result.getElementsByTagName('Placemark'):
                 geoInfo = mark.childNodes[2].childNodes[0].childNodes[0].nodeValue.split(',')
                 lat = geoInfo[1]
-                longitude = geoInfo[0]
+                long = geoInfo[0]
 
                 cc = mark.childNodes[1].childNodes[0].childNodes[0].childNodes[0].nodeValue
 
-        res = (lat.encode('utf-8'), longitude.encode('utf-8'), cc.encode('utf-8'))
-    except Exception:
+        res = (lat.encode('utf-8'), long.encode('utf-8'), cc.encode('utf-8'))
+    except:
         res = None
     return res
 
@@ -223,7 +221,7 @@ def geocodeYahoo(location, service_keys):
         # parse the xml contents of the url into a dom
         dom = parse(urllib.urlopen("http://api.local.yahoo.com/MapsService/V1/geocode?%s" % urllib.urlencode(params)))
         results = dom.getElementsByTagName('Result')
-        #result_count = len(results)
+        result_count = len(results)
         for result in results:
             d = {'precision': result.getAttribute('precision'), 'warning': result.getAttribute('warning')}
             for itm in result.childNodes:
@@ -235,13 +233,13 @@ def geocodeYahoo(location, service_keys):
             addresses.append(d)
         addr = addresses[0] #take the first one, it should be the good one
         res = (addr['Latitude'].encode('utf-8'), addr['Longitude'].encode('utf-8'), addr['Country'].encode('utf-8'))
-    except Exception:
+    except:
         res = None
     return res
 
 def geocodeMapquest(location, service_keys):
     """ Mapquest service """
-    #addresses = []
+    addresses = []
     parms = {'transaction': 'geocode',
              'address':location,
              'postalcode':'',
@@ -251,7 +249,7 @@ def geocodeMapquest(location, service_keys):
         url = 'http://web.openapi.mapquest.com/oapi/transaction?' % urllib.urlencode(parms)
         dom = parse(urllib.urlopen(url))
         results = dom.getElementsByTagName('geocode')
-        #result_count = len(results)
+        result_count = len(results)
 
         d = {}
         for result in results:
@@ -266,6 +264,6 @@ def geocodeMapquest(location, service_keys):
                             if child.nodeName == 'longitude':
                                 d['longitude'] = child.childNodes[0].data
         res = (d['longitude'].encode('utf-8'), d['latitude'].encode('utf-8'))
-    except Exception:
+    except:
         res = None
     return res

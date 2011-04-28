@@ -10,15 +10,15 @@ class SKOS(object):
     def concepts(self):
         synTool = getToolByName(self.context, 'portal_syndication')
 
-        maxs = self.request.get('size', None)
-        if maxs is None:
+        max = self.request.get('size', None)
+        if max is None:
             default_max = synTool.getMaxItems()
-            maxs = synTool.getMaxItems(self.context)
-            maxs = type(maxs) == type(1) and maxs or default_max
+            max = synTool.getMaxItems(self.context)
+            max = type(max) == type(1) and max or default_max
         else:
-            maxs = int(maxs)
+            max = int(max)
 
-        brains = self.context.queryCatalog(sort_limit=maxs)[:maxs]
+        brains = self.context.queryCatalog(sort_limit=max)[:max]
         objs = [brain.getObject() for brain in brains]
         objects = [obj for obj in objs if obj is not None]
 
