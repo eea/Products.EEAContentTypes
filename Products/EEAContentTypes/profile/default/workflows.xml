@@ -155,6 +155,12 @@
   <type type_id="QuickEvent">
    <bound-workflow workflow_id="eea_simple_public_approval"/>
   </type>
+  <type type_id="RDFEvent">
+   <bound-workflow workflow_id="plone_workflow"/>
+  </type>
+  <type type_id="RSSFeedRecipe">
+   <bound-workflow workflow_id="plone_workflow"/>
+  </type>
   <type type_id="Requestor">
    <bound-workflow workflow_id="plone_workflow"/>
   </type>
