@@ -1,7 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.browser.interfaces import INavigationRoot
-from Products.EEAContentTypes.interfaces import IFeedPortletInfo
-from Products.EEAContentTypes.interfaces import IFeedItemPortletInfo
+from Products.EEAContentTypes.interfaces import IFeedPortletInfo, IFeedItemPortletInfo
 
 from eea.rdfrepository.interfaces import IRDFPortletDataCollector
 from eea.rdfrepository.interfaces import IFeed, IFeedItem, IFeedInfo
@@ -9,14 +8,6 @@ from eea.rdfrepository.interfaces import IRDFPortletInfo
 from eea.themecentre.utils import localized_time
 from zope.component import adapts
 from zope.interface import implements, Interface
-
-from Acquisition import Implicit
-from Products.ATContentTypes.interface import IATFolder
-from Products.basesyndication.interfaces import IFeed as IFeedBase
-from Products.basesyndication.interfaces import IFeedEntry
-from bda.feed.generic import FeedMixin
-from zope.component import queryAdapter
-
 
 class FeedPortletInfo(object):
     implements(IFeedPortletInfo)
@@ -48,7 +39,7 @@ class FeedPortletInfo(object):
     @property
     def items(self):
         noWithDescription = self.feed.get('entries_with_description')
-        noWithThumbnail = self.feed.get('entries_with_thumbnail')
+        noWithThumbnail =  self.feed.get('entries_with_thumbnail')
         descriptionLength = 200
         result = []
 
@@ -133,7 +124,7 @@ class FeedItemPortletInfo(object):
 class ContextAwareFeedPortletInfo(FeedPortletInfo):
     implements(IRDFPortletInfo)
     adapts(Interface, IFeed)
-
+    
     def __init__(self, context, feed):
         self.context = context
         self.feed = feed
@@ -149,7 +140,8 @@ class ContextAwareFeedPortletInfo(FeedPortletInfo):
             catalog = getToolByName(self.context, 'portal_catalog')
             portal_types = getToolByName(self.context, 'portal_types')
             types = portal_types.objectIds()
-
+            types.remove('RSSFeedRecipe')
+    
             res = catalog.searchResults({ 'path' : { 'query':'/'.join(self.context.getPhysicalPath()),
                                                      'depth': 1},
                                           'Title' : self.feed.title,
@@ -172,46 +164,19 @@ class NavigationRootRDFPortletDataCollector(object):
 
     @property
     def feeds(self):
-        return []
-
-class FolderFeed(FeedMixin, Implicit):
-    """Feed bound to folders"""
-
-    adapts(IATFolder)
-    implements(IFeedBase)
-
-    def __init__(self, context):
-        self.context = context
-
-    def getMaxEntries(self):
-        syntool = getToolByName(self.context, 'portal_syndication')
-        return syntool.getMaxItems()
-
-    def getFeedEntries(self, max_only=True):
-        """A sequence of IFeedEntry objects.
-        """
-        pc = getToolByName(self.context, "portal_catalog")
-        brains = pc.searchResults(path=self.context.absolute_url(relative=True),
-                sort_on="effective", sort_order="reverse")
-        res = []
+        catalog = getToolByName(self.context, 'portal_catalog')
+        query = { 'portal_type': 'RSSFeedRecipe',
+                  'path': { 'query' : '/'.join(self.context.getPhysicalPath()) }}
+        if not self.context.isCanonical():
+            query['path']['depth'] = 2
+        brains = catalog.searchResults(query)
+        result = []
         for brain in brains:
-            obj = brain.getObject()
-            entry = queryAdapter(obj, IFeedEntry)
-            if entry is not None:
-                res.append(entry)
-        return res[:self.getMaxEntries()]
-
-    def getWebURL(self):
-        return self.context.absolute_url()
-
-    def getTitle(self):
-        return self.context.Title()
-
-    def getDescription(self):
-        return self.context.Description()
-
-    def getUID(self):
-        return self.context.UID()
-
-    def getSortedFeedEntries(self):
-        return self.getFeedEntries()
+            feed_obj = brain.getObject()
+            feed = IFeed(feed_obj)
+            feed_data = feed.items
+            if feed_data:
+                feed_info = IFeedInfo(feed_obj)
+                feed_info.items = feed_data
+                result.append(feed_info)
+        return result

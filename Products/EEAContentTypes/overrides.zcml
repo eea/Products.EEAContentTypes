@@ -4,4 +4,11 @@
 
   <include package=".normalizer" file="overrides.zcml" />
 
+  <browser:page
+    for="Products.PloneRSSPortlet.content.interfaces.IRSSFeedRecipe"
+    name="rss_feed"
+    class=".browser.rss.RSSPortlet"
+    permission="zope.Public"
+    attribute="getFeed" />
+
 </configure>

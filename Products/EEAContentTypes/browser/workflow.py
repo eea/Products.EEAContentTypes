@@ -1,4 +1,4 @@
-#from zope.interface import implements
+from zope.interface import implements
 from zope.component import queryAdapter
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import IWorkflowEmails

@@ -1,91 +1,13 @@
 Changelog
 =========
 
-2.29-dev - (unreleased)
------------------------
- * Bug fix: fixed "send as notification" [ghicaale]
-
-2.28 - (2011-04-20)
--------------------
- * Bug fix: Change schema extension to adapt IVideoEnhanced instead of IBaseContent [szabozo0 #4260]
-
-2.27 - (2011-04-19)
--------------------
- * Feature: Extend schema with location field [szabozo0 #4260]
- * Bug fix: Added migration fix script for images and files positions in parents [tiberich #4135]
-
-2.26 - (2011-04-07)
--------------------
- * Bug fix: Fixed staff list [ghicaale #4237]
-
-2.25 - (2011-04-01)
--------------------
- * Cleanup: Removed PloneRSSPortlet [voineali #4169]
- * Feature: added rss feeds adaptor for ATFolders [ichimdav #4202]
- * Change: Updated FlashFile file field to blob and added migration script
-   for it. See Upgrade steps bellow [voineali #4200]
- * Change: Updated ExternalHighlight image field to blob and added migration
-   script for it. See Upgrade steps bellow [voineali #4200]
- * Bug fix: Refactoring Organisation BrowserView adapter as having logic in
-   __init__ can break other packages while using queryMultiAdapter [voineali #4196]
- * Cleanup: of pyflakes compiler errors [ichimdav #4141]
- * Cleanup: of pylint violations [ichimdav #4140]
- * Cleanup: Removed .mo file as they are auto-generated now [voineali #4139]
- * Cleanup: Removed portal_migration scripts as portal_migration is deprecated.
-   Please check that there are no un-applied migration scripts before
-   upgrading to this version [voineali #4139]
- * Cleanup: Added translation domain to ZCML files [voineali #4139]
- * Cleanup: Fixed DeprecationWarning: CMFCorePermissions [voineali #4139]
- * Cleanup: Fixed DeprecationWarning: CustomizationPolicies [voineali #4139]
- * Upgrade steps:
-   - Migrate EEA Content-types image field to Blob:
-     - Go to <site root>/@@migrate-eea2blobs (e.g. http://eea.europa.eu/@@migrate-eea2blobs)
-     - Check Portal Types to migrate and click on '''migrate''' button.
-
-2.24 - (2011-03-08)
--------------------
- * Bug fix: Fixed broken egg 2.23 [ghicaale]
-
-2.23 - (2011-03-08)
--------------------
- * Bug fix: by now, "management_plan_code_validator" validator is registered
-     from this package. This will fix the validation of "management plan code" field
-     for all content types defined under this pacakge [ghicaale #4174]
- * Feature: Test modificaton date on state change [voineali #3986]
- * Bug fix: Cleanup tests and fix tests hang up [voineali #4136]
-
-2.22 - (2011-03-01)
--------------------
- * Change: removed PloneRDFCalendar & RDFEvent type [ichimdav #2931]
- * Change: Organigram structure updated [ghicaale #4152]
- * Bug fix: Fixed organigram print CSS [ghicaale #4152]
-
-2.21 - (2011-02-21)
--------------------
- * Bug fix: Invalidate varnish cache for parents image scales [voineali #4105]
- * Bug fix: fixed code intendation [ghicaale #4130]
- * Bug fix: fixed a bug in relationbrowser widget [tiberich #3241]
-
-2.20 - (2011-02-11)
--------------------
- * Bug fix: pdb removed [ghicaale]
- * Bug fix: fixed tests when trying to get portal_cache_settings [ghicaale]
-
-2.19 - (2011-02-03)
--------------------
- * Bug fix: fixed editing of metadata for QuickEvents [tiberich #4104]
-
-2.18 - (2011-02-01)
--------------------
- * Hudson fix: Fixed zptlint warnings. [voineali]
-
 2.17 - (2011-01-14)
 -------------------
  * Change: improve code formatting in Promotion [tiberich]
  * Bug fix: manually specify mutator for setThemes in Promotion [tiberich #3972]
- * Feature: Added feature to disallow certain content types to be published
-   via the "advanced" state change form and bulk publishing from folder contents,
-   this is needed for content types that uses the "self QA dialog box" refs #4003 [demarant]
+ * Feature: Added feature to disallow certain content types to be published 
+   via the "advanced" state change form and bulk publishing from folder contents, 
+   this is needed for content types that uses the "self QA dialog box" refs #4003 [demarant] 
 
 2.16 - (2011-01-05)
 -------------------
