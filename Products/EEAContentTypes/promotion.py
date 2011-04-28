@@ -1,13 +1,13 @@
 from zope.interface import implements
 from zope.component import adapts, getMultiAdapter
-from zope.schema.vocabulary import SimpleVocabulary #SimpleTerm
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from zope.app.schema.vocabulary import IVocabularyFactory
-#from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName
 from Products.NavigationManager.sections import NavigationSections
 from eea.promotion.interfaces import IPromotion
 from eea.themecentre.interfaces import IThemeTagging
 from Products.NavigationManager.sections import INavigationSectionPosition
-#from Products.NavigationManager.browser.navigation import getApplicationRoot
+from Products.NavigationManager.browser.navigation import getApplicationRoot
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
 
 

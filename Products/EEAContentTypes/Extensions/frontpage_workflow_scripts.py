@@ -99,13 +99,13 @@ class WorkflowManagement(object):
             self.fromEmail = self._getUserEmail(portal)
         self.subject = '[EEA CMS] - %s ' + state_change.new_state.title
             
-        #absObjUrl = obj.absolute_url()
+        absObjUrl = obj.absolute_url()
         objUrl = obj.absolute_url(1)
         if objUrl.startswith('SITE/'):
             objUrl = objUrl[5:]
         cmsUrl = getattr(props, 'cms_url', 'https://www-cms.eea.europa.eu/SITE/')
         editUrl = cmsUrl + objUrl + '/edit'
-        #publishUrl = cmsUrl + objUrl + '/content_status_modify?workflow_action=publish'
+        publishUrl = cmsUrl + objUrl + '/content_status_modify?workflow_action=publish'
         comment = state_change.kwargs.get('comment', '')
         if comment:
             comment = '%s\n--' % comment
@@ -143,28 +143,28 @@ class WorkflowManagement(object):
 	#	Priority:           Can be 'normal', 'urgent' or 'non-urgent' (try to influence speed and delivery)
 	#
 	# 'Importance' and 'X-MSMail-Priority' are used by Outlook and Outlook Express while 'X-Priority' is used by Thunderbird and Eudora
-
-        kwargs = {'Importance': 'Normal',
-            'X-MSMail-Priority': 'Normal',
-            'X-Priority': '3',
-            'Priority': 'normal'}
-
+	
+	kwargs = {'Importance': 'Normal',
+		  'X-MSMail-Priority': 'Normal',
+		  'X-Priority': '3',
+		  'Priority': 'normal'}
+        
         if len(self.toEmail) > 0:
-            kwargs['Importance'] = 'High'
-            kwargs['X-MSMail-Priority'] = 'High'
-            kwargs['X-Priority'] = '1 (Highest)'
-            kwargs['Priority'] = 'urgent'
-            a_subject = 'Action: %s' % subject
+    	    kwargs['Importance'] = 'High'
+    	    kwargs['X-MSMail-Priority'] = 'High'
+    	    kwargs['X-Priority'] = '1 (Highest)'
+    	    kwargs['Priority'] = 'urgent'
+    	    a_subject = 'Action: %s' % subject
             self.mhost.secureSend(self.msg, self.toEmail, self.fromEmail, a_subject, subtype="html", charset='utf-8', debug=DEBUG, **kwargs)
-
+            
         if len(self.toConfirmationEmail) > 0:
-            kwargs['Importance'] = 'Low'
-            kwargs['X-MSMail-Priority'] = 'Low'
-            kwargs['X-Priority'] = '5 (Lowest)'
-            kwargs['Priority'] = 'non-urgent'
-            c_subject = 'Confirmation: %s' % subject
-            self.mhost.secureSend(self.confirmationMsg, self.toConfirmationEmail, self.fromEmail, c_subject, subtype="html", charset='utf-8', debug=DEBUG, **kwargs)
-
+    	    kwargs['Importance'] = 'Low'
+    	    kwargs['X-MSMail-Priority'] = 'Low'
+    	    kwargs['X-Priority'] = '5 (Lowest)'
+    	    kwargs['Priority'] = 'non-urgent'
+    	    c_subject = 'Confirmation: %s' % subject
+    	    self.mhost.secureSend(self.confirmationMsg, self.toConfirmationEmail, self.fromEmail, c_subject, subtype="html", charset='utf-8', debug=DEBUG, **kwargs)
+        
 ##/code-section workflow-script-header
 
 def submitForProofReading(self, state_change, **kw):
