@@ -16,7 +16,7 @@ class URL(object):
         self._external = False
 
     def listing_url(self, brain=None):
-        #mship = getToolByName(self.context, 'portal_membership')
+        mship = getToolByName(self.context, 'portal_membership')
 
         if brain is None:
             portal_type = self.context.portal_type

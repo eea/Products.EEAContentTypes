@@ -7,16 +7,16 @@
  * **SWFObject is the SWF embed script formerly known as FlashObject. The name was changed for
  *   legal reasons.
  */
-if(typeof deconcept=="undefined"){var deconcept={};}
-if(typeof deconcept.util=="undefined"){deconcept.util={};}
-if(typeof deconcept.SWFObjectUtil=="undefined"){deconcept.SWFObjectUtil={};}
+if(typeof deconcept=="undefined"){var deconcept=new Object();}
+if(typeof deconcept.util=="undefined"){deconcept.util=new Object();}
+if(typeof deconcept.SWFObjectUtil=="undefined"){deconcept.SWFObjectUtil=new Object();}
 deconcept.SWFObject=function(_1,id,w,h,_5,c,_7,_8,_9,_a,_b){
 if(!document.getElementById){return;}
 this.DETECT_KEY=_b?_b:"detectflash";
 this.skipDetect=deconcept.util.getRequestParameter(this.DETECT_KEY);
-this.params={};
-this.variables={};
-this.attributes=[];
+this.params=new Object();
+this.variables=new Object();
+this.attributes=new Array();
 if(_1){this.setAttribute("swf",_1);}
 if(id){this.setAttribute("id",id);}
 if(w){this.setAttribute("width",w);}
@@ -47,7 +47,7 @@ return this.variables[_15];
 },getVariables:function(){
 return this.variables;
 },getVariablePairs:function(){
-var _16=[];
+var _16=new Array();
 var key;
 var _18=this.getVariables();
 for(key in _18){_16.push(key+"="+_18[key]);}
@@ -86,7 +86,7 @@ var n=(typeof _20=="string")?document.getElementById(_20):_20;
 n.innerHTML=this.getSWFHTML();
 return true;
 }else{
-if(this.getAttribute("redirectUrl")!==""){document.location.replace(this.getAttribute("redirectUrl"));}}
+if(this.getAttribute("redirectUrl")!=""){document.location.replace(this.getAttribute("redirectUrl"));}}
 return false;}};
 deconcept.SWFObjectUtil.getPlayerVersion=function(){
 var _23=new deconcept.PlayerVersion([0,0,0]);
@@ -102,12 +102,12 @@ axo.AllowScriptAccess="always";}
 catch(e){
 if(_23.major==6){return _23;}}try{axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash");}
 catch(e){}}
-if(axo!==null){_23=new deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));}}
+if(axo!=null){_23=new deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));}}
 return _23;};
 deconcept.PlayerVersion=function(_27){
-this.major=_27[0]!==null?parseInt(_27[0],10):0;
-this.minor=_27[1]!==null?parseInt(_27[1],10):0;
-this.rev=_27[2]!==null?parseInt(_27[2],10):0;
+this.major=_27[0]!=null?parseInt(_27[0]):0;
+this.minor=_27[1]!=null?parseInt(_27[1]):0;
+this.rev=_27[2]!=null?parseInt(_27[2]):0;
 };
 deconcept.PlayerVersion.prototype.versionIsValid=function(fv){
 if(this.major<fv.major){return false;}
