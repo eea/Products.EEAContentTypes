@@ -1,4 +1,4 @@
-<div class="faceted-widget faceted-current-theme-widget" style="display: none" tal:define="
+<div class="faceted-widget faceted-current-theme-widget" tal:define="
   wid python:view.data.getId();
   hidden python:view.hidden;
   themes python:view.themes;

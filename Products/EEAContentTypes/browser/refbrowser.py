@@ -1,5 +1,3 @@
-from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_parent, aq_inner
 
 class ReferenceBrowserView(object):
@@ -27,21 +25,9 @@ class ReferenceBrowserView(object):
         return breadcrumbs
 
     def contents(self):
-        # Returns content that should be listed
+        """ Returns content that should be listed. """
         if self.context.portal_type == 'Topic':
             contents = [brain.getObject() for brain in self.context.queryCatalog()]
         else:
-            contents = self.context.listFolderContents()
+            contents = self.context.listFolderContents() 
         return contents
-
-class ReferenceBrowserWidgetSupport(BrowserView):
-    """ Support for ATReferenceBrowserWidget
-    """
-    def brain(self, uid):
-        """ Get catalog brain by given uid
-        """
-        ctool = getToolByName(self.context, 'portal_catalog')
-        brains = ctool.unrestrictedSearchResults(UID=uid, show_inactive=True)
-        for brain in brains:
-            return brain
-        return None
