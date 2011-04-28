@@ -32,7 +32,8 @@ import os
 import sys
 import logging
 import urllib2
-#import rdflib
+import rdflib
+import string
 from rdflib.StringInputSource import StringInputSource
 from rdflib.Graph import ConjunctiveGraph
 from rdflib.Namespace import Namespace
@@ -43,10 +44,6 @@ from Products.CMFCore.utils import getToolByName
 import zope.interface
 from zope.schema import getFieldNames
 from interfaces import IOrganisation, IEmployee
-
-logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
-
-from Products.CMFCore.exceptions import ResourceLockedError
 
 def breakNameIfToLong(name, length=13, where='-'):
     name = name.replace(' - Deputy Director', '')
@@ -61,8 +58,8 @@ def getOnlyOrgName(orgPath):
     return orgPath[ orgNameIdx:]
 
 def isHeadOfProgramme(org):
-    for k in range(10):
-        if str(k) in org: return False
+    for k in string.digits:
+        if k in org: return False
     return True
 
 def prepareStaffNumber(data):
@@ -184,48 +181,27 @@ class Organisation(BrowserView):
 
 
     def __init__(self, context, request):
-        super(Organisation, self).__init__(context, request)
-        if getattr(context, 'portal_type', 'No Archetype') not in [
-            'File', 'ATFile','No Archetype']:
-            self.context = context.unrestrictedTraverse('eeastaff', None)
-
-        self.validDatas = True
-        self._rdf = None
-        self._employees = []
-
-    @property
-    def rdf(self):
-        """ RDF
-        """
-        if self._rdf:
-            return self._rdf
-
-        data = self.context
-        if not hasattr(data, 'read'):
-            if callable(data.data):
-                data = StringInputSource(data.data())
+        if getattr(context, 'portal_type', 'No Archetype') not in ['File', 'ATFile','No Archetype']:
+            context = context.unrestrictedTraverse('eeastaff')
+        BrowserView.__init__(self, context, request)
+        data = context
+        if not hasattr(context, 'read'):
+            if callable(context.data):
+                data = StringInputSource(context.data())
             else:
-                data = StringInputSource(data.data)
-
+                data = StringInputSource(context.data)
+        self.validData = True
         try:
-            self._rdf = ConjunctiveGraph().parse(data)
-        except Exception:
+            self.rdf = ConjunctiveGraph().parse(data)
+        except:
             self.context.error_log.raising(sys.exc_info())
-            self.validDatas = False
-            self._rdf = ConjunctiveGraph()
-        return self._rdf
+            self.validData = False
+            self.rdf = ConjunctiveGraph()
 
-    @property
-    def employees(self):
-        """ Employees
-        """
-        if not self._employees:
-            self._employees = [emp for emp in
-                               self.rdf.subjects(RDF2Employee.NS['first_name'])]
-        return self._employees
+        self.employees = [ emp for emp in self.rdf.subjects(RDF2Employee.NS['first_name']) ]
 
     def validData(self):
-        return self.validDatas
+        return self.validData
 
     def getLastUpdated(self):
         return self.context.getEffectiveDate()
@@ -319,7 +295,7 @@ class Organisation(BrowserView):
 
     def getStaffList(self, org=None):
         result = []
-        employees = [ empId for empId, _orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']) ]
+        employees = [ empId for empId,orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']) ]
 
         for empId in employees:
             name = ''
@@ -350,9 +326,7 @@ class Organisation(BrowserView):
             return result[0]
         return None
 
-    def getOrgUnits(self, orgs = None):
-        if orgs is None:
-            orgs = []
+    def getOrgUnits(self, orgs=[]):
         units = []
         if len(orgs) == 0:
             props = getToolByName(self.context, 'portal_properties', None)
