@@ -1,5 +1,3 @@
-""" Article """
-
 # -*- coding: utf-8 -*-
 
 __author__ = """European Environment Agency (EEA)"""
@@ -14,7 +12,7 @@ from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone import log
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as ExtHighlightSchema
 from Products.EEAContentTypes.content.Highlight import Highlight
@@ -28,13 +26,9 @@ import sys
 import rdflib
 
 try:
-    from Products.LinguaPlone.public import ( Schema, LinesField, 
-            InAndOutWidget, registerType)
-    Schema, LinesField, InAndOutWidget, registerType
+    from Products.LinguaPlone.public import *
 except ImportError:
-    from Products.Archetypes.public import ( Schema, LinesField, 
-            InAndOutWidget, registerType)
-
+    from Products.Archetypes.public import *
 
 schema = Schema((
             LinesField('publication_groups',
@@ -69,7 +63,7 @@ Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 
 class Article(Highlight):
-    """<p>Articles are very similar to Highlights: folderish news-alike pages which contains information abous specific subjects and can be
+    """<p>Articles are very similar to Highlights: folderish news-alike pages which contains information abous specific subjects and can be 
     displayed on frontpage of a website and sent as notification as any other news-alike content type.</p>
     """
     security = ClassSecurityInfo()
@@ -99,8 +93,7 @@ class Article(Highlight):
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 
@@ -118,14 +111,14 @@ class Article2Surf(ATCT2Surf):
 
     def _schema2surf(self):
         context = self.context
-        #session = self.session
+        session = self.session
         resource = self.surfResource
         language = context.Language()
-        for fld in context.Schema().fields():
-            fieldName = fld.getName()
+        for field in context.Schema().fields():
+            fieldName = field.getName()
             if fieldName in self.blacklist_map:
                 continue
-            fieldAdapter = queryMultiAdapter((fld, self.session), interface=IATField2Surf)
+            fieldAdapter = queryMultiAdapter((field, self.session), interface=IATField2Surf)
             if fieldAdapter.exportable:
                 if fieldName != "media":
                     value = fieldAdapter.value(context)
@@ -144,7 +137,7 @@ class Article2Surf(ATCT2Surf):
                         prefix = 'dc'
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
-                    except Exception:
+                    except:
                         log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' % (context.absolute_url(), fieldName,
                                                                                                   sys.exc_info()[0],
                                                                                                   sys.exc_info()[1]),

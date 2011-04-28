@@ -1,5 +1,3 @@
-""" Link """
-
 # monkey patch, GIS Application getRemoteUrl should return absolute_url
 # Related tickets: #1850 and #3404
 
@@ -17,9 +15,8 @@ def override_getRemoteUrl(self):
         return self.absolute_url()
     else:
         value = self.Schema()['remoteUrl'].get(self)
-    if not value: value = '' # ensure we have a string
-
-    return quote(value, safe='?$#@/:=+;$,&')
+        if not value: value = '' # ensure we have a string
+        return quote(value, safe='?$#@/:=+;$,&')
 
 ATLink.getRemoteUrl = override_getRemoteUrl
 

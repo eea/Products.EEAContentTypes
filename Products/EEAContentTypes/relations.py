@@ -25,7 +25,7 @@ class Relations(object):
         result = forwards
         uids = [ref.UID() for ref in result]
         result += [back for back in backs if back.UID() not in uids]
-        uids = [ref2.UID() for ref2 in result]
+        uids = [ref.UID() for ref in result]
         result += [theme for theme in themes if theme.UID() not in uids]
 
         return result
@@ -65,7 +65,7 @@ class Relations(object):
         # make sure we don't get duplicates
         result = backs
         uids = [ref.UID() for ref in result]
-        result += [ref3 for ref3 in forwards if ref3.UID() not in uids]
+        result += [ref for ref in forwards if ref.UID() not in uids]
 
         return result
 

@@ -1,10 +1,10 @@
-""" validators """
+""" EEAContentTypes validators """
 
 from Products.validation.interfaces.IValidator import IValidator
-from Products.validation import validation
 
 
 class ManagementPlanCodeValidator:
+    """ Validator for management plan code """
     __implements__ = IValidator
 
     def __init__(self,
@@ -30,6 +30,3 @@ class ManagementPlanCodeValidator:
             return 1
         else:
             return (errmsg)
-
-validation.register(
-    ManagementPlanCodeValidator('management_plan_code_validator'))

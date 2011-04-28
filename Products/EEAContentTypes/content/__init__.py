@@ -1,22 +1,38 @@
 """ Content init module """
 
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
+# Subpackages
+# Additional
+
 # Validators
-import Products.EEAContentTypes.content.validators
+from Products.validation import validation
+from Products.EEAContentTypes.content.validators import (
+    ManagementPlanCodeValidator,
+)
+
+validation.register(
+    ManagementPlanCodeValidator('management_plan_code_validator'))
 
 # Classes
-import Products.EEAContentTypes.content.CallForTender
-import Products.EEAContentTypes.content.PressRelease
-import Products.EEAContentTypes.content.Speech
-import Products.EEAContentTypes.content.ExternalHighlight
-import Products.EEAContentTypes.content.Highlight
-import Products.EEAContentTypes.content.Article
-import Products.EEAContentTypes.content.Promotion
-import Products.EEAContentTypes.content.CFTRequestor
-import Products.EEAContentTypes.content.ThemeTaggable
-import Products.EEAContentTypes.content.CallForInterest
-import Products.EEAContentTypes.content.FlashFile
-import Products.EEAContentTypes.content.Event
-import Products.EEAContentTypes.content.Link
+import Products.EEAContentTypes.content.CallForTender #pyflakes
+import Products.EEAContentTypes.content.PressRelease  #pyflakes
+import Products.EEAContentTypes.content.Speech  #pyflakes
+import Products.EEAContentTypes.content.ExternalHighlight #pyflakes
+import Products.EEAContentTypes.content.Highlight #pyflakes
+import Products.EEAContentTypes.content.Article #pyflakes
+import Products.EEAContentTypes.content.Promotion #pyflakes
+import Products.EEAContentTypes.content.CFTRequestor #pyflakes
+import Products.EEAContentTypes.content.ThemeTaggable #pyflakes
+import Products.EEAContentTypes.content.CallForInterest #pyflakes
+import Products.EEAContentTypes.content.FlashFile #pyflakes
+import Products.EEAContentTypes.content.Event #pyflakes
+import Products.EEAContentTypes.content.Link #pyflakes
+
+# monkey patch, changes default value of RSSFeedRecipe.entriesWithThumbnail
+from Products.PloneRSSPortlet.content import RSSFeed
+RSSFeed.RSSFeedRecipeSchema['entriesWithThumbnail'].default = 10000
 
 # monkey patch, replaces reference field of certain content types to
 # an orderable reference field
@@ -26,10 +42,10 @@ from Products.EEAContentTypes.content.orderablereffield import (
 )
 
 from Products.Archetypes.ClassGen import generateMethods
-for otype, schema in types_and_schema:
+for otype, oschema in types_and_schema:
     schema.addField(field)
     schema.moveField('relatedItems', pos='bottom')
-    generateMethods(otype, [field])
+    generateMethods(otype, [oschema])
 
 # monkey patch, by default file is not translatable, fix this
 from Products.ATContentTypes.content import file as atfile

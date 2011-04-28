@@ -1,5 +1,3 @@
-""" CallForInterest """
-
 # -*- coding: utf-8 -*-
 #
 # File: CallForInterest.py
@@ -30,11 +28,10 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, StringField, StringWidget,
-       DateTimeField, CalendarWidget, registerType )
+from Products.Archetypes.atapi import *
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
-from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.config import *
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFCore.permissions import View
@@ -142,15 +139,15 @@ class CallForInterest(ATFolder, ATDocument):
 
     def setCloseDate(self, value):
         self.setExpirationDate(value)
-
+        
     def setEffectiveDate(self, value):
         self.getField('effectiveDate').set(self, value)
         return self.getField('openDate').set(self, value)
 
     def setExpirationDate(self, value):
-        self.getField('expirationDate').set(self, value)
+        self.getField('expirationDate').set(self, value)        
         return self.getField('closeDate').set(self, value)
-
+    
 registerType(CallForInterest, PROJECTNAME)
 # end of class CallForInterest
 

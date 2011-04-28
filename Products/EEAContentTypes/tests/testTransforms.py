@@ -1,8 +1,7 @@
 """ Transforms tests
 """
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from Products.EEAContentTypes.transforms.protect_email import ProtectEmail
-
+from Products.EEAContentTypes.transforms import ProtectEmail
 from Products.PortalTransforms.data import datastream
 
 
