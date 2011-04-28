@@ -1,12 +1,9 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
-           i18n_domain="Products.EEAContentTypes">
+           xmlns:five="http://namespaces.zope.org/five">
 
     <include package=".browser" />
     <include package=".content" />
-    <include package=".faceted" />
-    <include package=".migrate" />
 
      <utility
        component=".promotion.ThemepageSectionsVocabularyFactory"
@@ -68,22 +65,18 @@
 
 
     <adapter factory=".workflow.LocalRoleEmails" />
-    <adapter factory=".workflow.WorkflowActionEditor"
+    <adapter factory=".workflow.WorkflowEmailsContentPending"
              name="content_pending" />
-    <adapter factory=".workflow.WorkflowActionProofReader"
+    <adapter factory=".workflow.WorkflowEmailsProofReading"
              name="proof_reading" />
-    <adapter factory=".workflow.WorkflowActionWebReviewer"
+    <adapter factory=".workflow.WorkflowEmailsWebQAPending"
              name="webqa_pending" />
-    <adapter factory=".workflow.WorkflowActionEditor"
+    <adapter factory=".workflow.WorkflowEmailsNew"
              name="new" />
-    <adapter factory=".workflow.WorkflowActionContentManager"
+    <adapter factory=".workflow.WorkflowEmailsFirstDraft"
              name="draft" />
-    <adapter factory=".workflow.WorkflowConfirmation"
+    <adapter factory=".workflow.WorkflowEmailsPublished"
              name="published" />
-    <adapter factory=".workflow.WorkflowConfirmation"
-             name="visible" />
-    <adapter factory=".workflow.WorkflowConfirmation"
-             name="published_eionet" />
 
     <browser:view
          for="*"
@@ -147,24 +140,12 @@
   <adapter factory=".syndication.ATContentFeedEntry" />
   <adapter factory=".syndication.NewsItemEnclosure" />
   <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
-  
-  <!-- adapters for folder rss -->
-  <adapter factory="Products.EEAContentTypes.feeds.FolderFeed"
-      provides="Products.basesyndication.interfaces.IFeed" /> 
 
   <!-- adding keepReferencesOnCopy feature to the AT schema field 'relatedItems' -->
   <!--
   <adapter for="Products.ATContentTypes.content.base.ATCTContent"
            factory=".schemaextender.RelatedItemsModifier" />
   -->
-
-  <adapter factory=".content.Article.Article2Surf" />
-
-
-    <adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>
-    <adapter factory=".subtypes.GeotagSingleEdit"/>
-    <adapter factory=".subtypes.GeotagMultiEdit"/>
-
 
   <include file="cache.zcml" />
 

@@ -1,5 +1,6 @@
 from bda.feed.atfeedentries import ATPrimaryFieldEnclosure
 from bda.feed.atfeedentries import ArchetypesFeedEntry
+from bda.feed.collection import CollectionFeed
 from bda.feed.interfaces import ILogo
 from zope.interface import implements
 from zope.component import adapts, queryMultiAdapter
@@ -8,8 +9,8 @@ from Products.Archetypes.interfaces import IBaseObject
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.basesyndication.interfaces import IEnclosure
 from Products.CMFCore.utils import getToolByName
-
-#from valentine.imagescales.browser.interfaces import IImageView
+from Products.CMFPlone.utils import safe_callable, safe_hasattr
+from Products.EEAPloneAdmin.browser.interfaces import IObjectTitle
 
 class FeedLogo(object):
     implements(ILogo)
@@ -36,12 +37,12 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
 
     def getBody(self):
         # rss template uses getBody for description so we get description here
-        img = queryMultiAdapter((self.context, self.context.REQUEST), name=u'imgview')
-        if img is not None and img.display('mini'):
+        img = self.context.schema.get('image')
+        if img and img.get_size(self.context) > 0:
             # images, highlights, press releases etc have an 'image'
             # field - if so then we show a resized version of the image
-            result = '<p><img src="%s" /></p><p>%s</p>' % \
-                     (img('mini').absolute_url(),
+            result = '<p><img src="%s%s" /></p><p>%s</p>' % \
+                     (self.context.absolute_url(), '/image_mini',
                       self.context.Description())
         else:
             result = self.context.Description()

@@ -1,12 +1,9 @@
 from setuptools import setup, find_packages
 import os
-from os.path import join
 
-name = 'Products.EEAContentTypes'
-path = name.split('.') + ['version.txt']
-version = open(join(*path)).read().strip()
+version = '1.1'
 
-setup(name=name,
+setup(name='Products.EEAContentTypes',
       version=version,
       description="EEA logic and content types",
       long_description=open("README.txt").read() + "\n" +
@@ -17,9 +14,9 @@ setup(name=name,
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='eea',
-      author='European Environment Agency (EEA)',
-      author_email='webadmin@eea.europa.eu',
-      url='http://svn.eionet.europa.eu/projects/Zope',
+      author='Developers from and for EEA',
+      author_email='',
+      url='',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],

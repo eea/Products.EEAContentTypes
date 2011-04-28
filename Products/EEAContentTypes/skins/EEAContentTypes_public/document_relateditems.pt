@@ -22,13 +22,9 @@
     </tal:media>
 </dl>
 
-<dd metal:define-macro="embedded-media" class="portletItem embeddedMedia"
-    tal:define="imgsize imgsize|string:image_thumb;
-                imgurl string:${media/absolute_url}/${imgsize}">
-    <a class="tileImage video-fancybox" tal:attributes="href media/url; title media/title">
-       <img tal:attributes="src imgurl; title media/title; alt media/title" />
-    </a>
-    <a class="mediacaption video-fancybox" href="" title="" tal:attributes="href media/url;title media/title" tal:content="media/title"></a>
+<dd metal:define-macro="embedded-media" class="portletItem embeddedMedia">
+    <tal:media replace="structure media/item_embedded_xhtml" />
+    <a class="mediacaption thickbox" href="" title="" tal:attributes="href media/url;title media/title" tal:content="media/title"></a>
 </dd>
 
 <dl metal:define-macro="nonvideos" id="related-multimedia" class="portlet"
@@ -61,7 +57,7 @@
 </metal:bottom>
 
 <dl metal:define-macro="pages" id="related-pages" class="portlet"
-    tal:define="pages context/@@document_related/pages|nothing"
+    tal:define="pages context/@@document_related/pages"
     tal:condition="pages">
 
         <dt class="portletHeader"
@@ -84,8 +80,8 @@
     <div metal:use-macro="here/batch_macros/macros/navigation" />
     <dl class="portlet portlet-rss">
         <tal:block tal:repeat="item batch">
-            <dt class="portletItem">
-               <span class="figure-right"
+            <dt class="portletItem"> 
+               <span class="figure-right" 
                       tal:condition="item/image">
                     <span class="figure">
                         <a tal:attributes="href item/url;title item/title;"><img tal:attributes="src item/image;alt item/title;" /> </a>
@@ -116,10 +112,10 @@
     <dl>
         <dt tal:content="theme/name">theme</dt>
         <tal:block repeat="info python: theme['items']">
-            <tal:media define="media info" condition="info/is_video">
+            <tal:media define="media info" condition="info/item_embedded_xhtml">
               <metal:embedded use-macro="here/document_relateditems/macros/embedded-media" />
             </tal:media>
-            <dd class="portletItem" tal:condition="not: info/is_video">
+            <dd class="portletItem" tal:condition="not: info/item_embedded_xhtml">
                  <a href="" tal:attributes="href info/url"
                         tal:content="info/title">page title</a>
             </dd>
@@ -136,17 +132,17 @@
     </tal:bytheme>
     </dd>
     </dl>
-</tal:auto>
+</tal:auto> 
 </metal:autorelated>
 
 <metal:autorelated define-macro="auto-context">
 <tal:auto
     tal:define="nr_items nr_items|python:4;
                 fill_limit fill_limit|python:0;
-                imgsize imgsize|string:image_thumb;
+                img_size img_size|string:thumb;
                 autorel nocall:context/@@auto_related;
                 portal_type portal_type|context/portal_type;
-                items python:autorel.autoContext(portal_type, fill_limit)"
+                items python:autorel.autoContext(portal_type, img_size, fill_limit)"
     tal:condition="items"
     i18n:domain="eea.translations">
     <dl class="portlet auto-related">
@@ -154,17 +150,17 @@
         <dd class="portletItem">
             <dl>
                 <tal:block repeat="info python:items[:nr_items]">
-                    <tal:media define="media info" condition="info/is_video">
+                    <tal:media define="media info" condition="info/item_embedded_xhtml">
                         <metal:embedded use-macro="here/document_relateditems/macros/embedded-media" />
                     </tal:media>
-                    <dd class="portletItem" tal:condition="not: info/is_video">
+                    <dd class="portletItem" tal:condition="not: info/item_embedded_xhtml">
                          <a href="" tal:attributes="href info/url" tal:content="info/title">page title</a>
                     </dd>
                 </tal:block>
             </dl>
         </dd>
     </dl>
-</tal:auto>
+</tal:auto> 
 </metal:autorelated>
 
 <div metal:define-macro="relatedItems"
@@ -172,12 +168,12 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
-            <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
+            <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>            
             <h2 i18n:domain="plone" i18n:translate="label_related_items">Related content</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
-                    <span tal:attributes="class string:visualIcon ${item/item_type_class}">
+                    <span tal:attributes="class string:visualIcon ${item/item_type_class}">              
                     <a href="" class=""
                         tal:attributes="href  item/url;
                                         title item/description;
@@ -202,17 +198,11 @@
             <div class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <div class="tileItem visualIEFloatFix vevent">
-
-                    <a class="tileImage"
-                       tal:condition="item/has_img"
-                       tal:attributes="href item/url;
-                                       title item/title;
-                                       alt item/title;
-                                       class python:test(item['is_video'], 'tileImage video-fancybox', 'tileImage')">
-                        <img tal:attributes="src string:${item/absolute_url}/image_thumb;
-                                             title item/title;
-                                             alt item/title;" />
-                    </a>
+                    <metal:thumbnail tal:define="display item/imgview/display|nothing;
+                       imglink python:item['imglink']"
+                       tal:condition="python:display and imglink">
+                       <metal:imglink tal:replace="structure imglink" />
+                    </metal:thumbnail>
 
                     <h3 tal:attributes="class string:tileHeadline">
                     <a href="" class=""
@@ -248,10 +238,10 @@
         <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
 
         <tal:block repeat="info related">
-            <tal:media define="media info" condition="info/is_video">
+            <tal:media define="media info" condition="info/item_embedded_xhtml">
               <metal:embedded use-macro="here/document_relateditems/macros/embedded-media" />
             </tal:media>
-            <dd class="portletItem" tal:condition="not: info/is_video">
+            <dd class="portletItem" tal:condition="not: info/item_embedded_xhtml">
                  <a href="" tal:attributes="href info/url"
                         tal:content="info/title">page title</a>
             </dd>

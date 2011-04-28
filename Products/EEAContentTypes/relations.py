@@ -25,13 +25,13 @@ class Relations(object):
         result = forwards
         uids = [ref.UID() for ref in result]
         result += [back for back in backs if back.UID() not in uids]
-        uids = [ref2.UID() for ref2 in result]
+        uids = [ref.UID() for ref in result]
         result += [theme for theme in themes if theme.UID() not in uids]
 
         return result
 
-    def backReferences(self, portal_type=None, relatesTo='relatesTo'):
-        backs = self.context.getBRefs(relatesTo)
+    def backReferences(self, portal_type=None):
+        backs = self.context.getBRefs('relatesTo')
         refs = self._checkPermissions(backs)
         mylangrefs = self._filterByLanguage(refs)
         if portal_type != None:
@@ -65,7 +65,7 @@ class Relations(object):
         # make sure we don't get duplicates
         result = backs
         uids = [ref.UID() for ref in result]
-        result += [ref3 for ref3 in forwards if ref3.UID() not in uids]
+        result += [ref for ref in forwards if ref.UID() not in uids]
 
         return result
 
@@ -95,7 +95,7 @@ class Relations(object):
 
             elif portal_type == 'File' and IVideoEnhanced.providedBy(self.context):
                 query['object_provides'] = 'p4a.video.interfaces.IVideoEnhanced'
-
+    
             query['portal_type'] = portal_type
 
         brains = catalog.searchResults(query)
@@ -121,7 +121,7 @@ class Relations(object):
         context = self.context
         if not hasattr(context, 'getPublication_groups'):
             return []
-
+        
         catalog = getToolByName(context, 'portal_catalog')
 
         query = { 'sort_on': 'effective',
@@ -137,7 +137,7 @@ class Relations(object):
             portal_type = context.portal_type
             if portal_type in ['Highlight', 'PressRelease']:
                 portal_type = ['Highlight', 'PressRelease']
-
+    
             query['portal_type'] = portal_type
 
         brains = catalog.searchResults(query)
@@ -149,7 +149,7 @@ class Relations(object):
         else:
             return [brain.getObject() for brain in brains if brain.getPath() != contextPath]
 
-
+        
     def _checkPermissions(self, references):
         result = []
         mtool = getToolByName(self.context, 'portal_membership')

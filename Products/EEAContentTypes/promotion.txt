@@ -11,6 +11,13 @@ The external promotions have their own content type:
   >>> id = multimedia.invokeFactory('Promotion', id='test')
   >>> epromo = multimedia[id]
 
+In the listing, we use an 'imglink' adapter to generate the anchor with the
+embedded image.
+
+  >>> from valentine.imagescales.browser.base import SummaryImageLink
+  >>> SummaryImageLink(epromo, self.request) != None
+  True
+
 
 IPromotion Adapter
 ------------------
