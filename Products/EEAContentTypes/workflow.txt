@@ -5,7 +5,7 @@ EEA default workflow is a big generic workflow which solves several usescase at
 EEA. Instead of several workflows we have one to avoid need to change state/
 transition configuration in several places.
 
-The workflow is implemented by the document "EEA Web Content Types and web
+The workflow is implemented by the document "EEA Web Content Types and web 
 publishing QA steps, Antonio De Marinis (Web manager/IDS) ver. 20 Jun. 07"(1)
 
 We use local roles with groups to assign permissions to users on different
@@ -15,7 +15,7 @@ should get an action email.
 Roles
 -----
 In the CMS we have defined following roles:
-
+ 
  * ContentManager
    Can add and edit content but an Editor may need to copy edit it.
  * Editor
@@ -31,7 +31,7 @@ In the CMS we have defined following roles:
 
 Default state
 -------------
-The eea default workflow has two initial states depending on the role and
+The eea default workflow has two initial states depending on the role and 
 each transition is guarded by at least one role and mostly also a script.
 Manager role can bypass all transitions as default.
 
@@ -63,14 +63,14 @@ have two workflows like with valentine.linguaflow
 A ContentManager(CM) should in default only be able to send the content for
 copy editing so lets send it.
 
-  >>> [a['name'] for a in wf.getActionsFor(doc)
+  >>> [a['name'] for a in wf.getActionsFor(doc) 
   ...            if a['name'] in ourTransitions]
   ['Make private', 'Submit for copy editing']
   >>> wf.doActionFor(doc, 'submitCopyEdit')
   >>> wf.getInfoFor(doc,'review_state', None)
   'new'
 
-In this state a CM can make the item private. Editor can
+In this state a CM can make the item private. Editor can 
 do the same thing but also send it for content review.
 
   >>> [a['name'] for a in wf.getActionsFor(doc)
@@ -81,7 +81,7 @@ do the same thing but also send it for content review.
   ...            if a['name'] in ourTransitions]
   ['Make private',  'Back for revision', 'Submit for content review']
 
-And if an Editor or Manager creates a new document it should automatically start in
+And if an Editor or Manager creates a new document it should automatically start in 
 state 'new'.
 
   >>> docId = folder.invokeFactory('Document', id='doc2')
@@ -104,7 +104,7 @@ We can verify that we went automatically from draft to new.
 Transitions
 -----------
 Transitions between the states are protected with roles and an expression. The
-expression is to verify if this content type in this context needs the
+expression is to verify if this content type in this context needs the 
 transition in question. Combined with the automatic transition we can simulate
 worfklows where some states are omitted.
 
@@ -127,7 +127,7 @@ worfklows where some states are omitted.
  5. Publish
     Role: WebReviewer
     Destination state: published
-
+    
  5. Reject
     Role: WebReviewer or Reviewer
     Destination state: new
@@ -147,7 +147,7 @@ worfklows where some states are omitted.
 Content types and their states
 ------------------------------
 
-We have now verified basic default state for a document for two roles and the
+We have now verified basic default state for a document for two roles and the 
 almighty Manager :) From document (1) we can group content types in following
 groups:
 
@@ -207,7 +207,7 @@ Event
   ['Make private', 'Back for revision', 'Submit for content review']
   >>> wf.doActionFor(e1, 'submitContentReview')
   >>> self.setRoles(['Reviewer'])
-  >>> [a['name'] for a in wf.getActionsFor(e1)
+  >>> [a['name'] for a in wf.getActionsFor(e1) 
   ...              if a['category'] == 'workflow' and
   ...              a['name'] in ourTransitions]
   ['Back for revision', 'Submit for Web QA']
@@ -217,19 +217,19 @@ Workflow email script
 _____________________
 
 On each transition emails are collected for relevant roles in the new state. The
-emails are groupd in action and confirmation emails. Where the action email
-contains a link to edit the content object and confirmation is just a note
+emails are groupd in action and confirmation emails. Where the action email 
+contains a link to edit the content object and confirmation is just a note 
 about what has happend with the object.
 
 First we create some groups with members and then set different local roles for
-the groups.
-
+the groups. 
+  
   >>> grps = self.portal.folder.acl_users.source_groups
   >>> mt = self.portal.portal_membership
   >>> members = [  'Folder1Reviewer','Folder2Reviewer', 'Folder1ProofReader', 'Folder2ProofReader']
   >>> for username in members:
   ...     mt.addMember(username, 'secret', ['CommonEditor',], [])
-  ...     member = mt.getMemberById(username)
+  ...     member = mt.getMemberById(username) 
   ...     email = '%s@eea.eu' % username
   ...     member.setMemberProperties({'fullname': username, 'email': email})
   ...     grpid = 'group_%s' % username
@@ -241,7 +241,7 @@ the groups.
   >>> doc = folder[docId]
   >>> wf.doActionFor(doc, 'submitContentReview')
 
-Now we have a document in state content_pending and let check to whom  emails
+Now we have a document in state content_pending and let check to whom  emails 
 will be sent to:
 
   >>> from Products.EEAContentTypes.interfaces import IWorkflowEmails
@@ -253,27 +253,22 @@ will be sent to:
   >>> emails.confirmation
   ['test@tester.com']
 
-We only got the owners email. That is because we didn't specify any local or
+We only got the owners email. ell that is because we didn't specify any local or 
 global roles for groups or users. Lets assign the role Reviewer to the group
 Folder1Reviewer on the folder where our document is.
 
   >>> folder.manage_setLocalRoles( 'group_Folder1Reviewer', ('Reviewer','Manager',))
   >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')
-
-  Notifications are disabled in this case. See #1149, r11072
-
   >>> emails.action
-  []
-
-  >>> emails.confirmation
   ['Folder1Reviewer@eea.eu', 'test@tester.com']
-
+  >>> emails.confirmation
+  []
   >>> emails.sender
   'test tester.com <test@tester.com>'
 
 
 Let see if multiple acquried roles works. The role acquisition should stop on
-the first parent that contains the role.
+the first parent that contains the role. 
 
   >>> sub1 = folder.invokeFactory('Folder', id='sub1')
   >>> sub1 = folder[sub1]
@@ -288,9 +283,9 @@ We should have the same email since we didn't override any roles on sub folder.
 
   >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')
   >>> emails.action
-  []
-  >>> emails.confirmation
   ['Folder1Reviewer@eea.eu', 'test@tester.com']
+  >>> emails.confirmation
+  []
   >>> emails.sender
   'test tester.com <test@tester.com>'
 
@@ -299,9 +294,9 @@ Now we override Reviewer role with other group:
   >>> sub1.manage_setLocalRoles( 'group_Folder2Reviewer', ('Reviewer',))
   >>> emails2 = getAdapter(doc, IWorkflowEmails, u'content_pending')
   >>> emails2.action
-  []
+  ['Folder2Reviewer@eea.eu']
   >>> emails2.confirmation
-  ['Folder2Reviewer@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  ['test@tester.com']
   >>> emails2.sender
   'test tester.com <test@tester.com>'
 
@@ -310,9 +305,9 @@ And one more time on sub2
   >>> sub2.manage_setLocalRoles( 'group_Folder2ProofReader', ('Reviewer',))
   >>> emails2 = getAdapter(doc, IWorkflowEmails, u'content_pending')
   >>> emails2.action
-  []
+  ['Folder2ProofReader@eea.eu']
   >>> emails2.confirmation
-  ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  ['test@tester.com']
   >>> emails2.sender
   'test tester.com <test@tester.com>'
 
@@ -323,7 +318,7 @@ And one more time on sub2
   >>> emails2.action
   []
   >>> emails2.confirmation
-  ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  ['Folder2ProofReader@eea.eu', 'test@tester.com']
   >>> emails2.sender
   'test tester.com <test@tester.com>'
 
@@ -345,7 +340,7 @@ Lets create a doc as ContentManager:
   >>> doc = self.portal.folder[docId]
   >>> wf.getInfoFor(doc, 'review_state')
   'draft'
-
+ 
 We need to filter out our actions from other workflows:
 
   >>> def workflowEmails(wEmails):
@@ -354,8 +349,10 @@ We need to filter out our actions from other workflows:
   ...        if k not in ourActions:
   ...           del wEmails[k]
   ...    pprint(wEmails)
-
+ 
   >>> helper = getMultiAdapter((doc, doc.REQUEST), name='workflowEmails')
   >>> workflowEmails(helper())
   {'submitCopyEdit': {'action': '',
                   'confirmation': "'test@tester.com', 'Folder2Reviewer@eea.eu'"}}
+  
+
