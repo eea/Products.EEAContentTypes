@@ -9,9 +9,5 @@
        permission="zope.Public"
        class=".Promotion.FrontpageSectionIndex"
        />
-       
-      <interface interface=".interfaces.IInteractiveMap" />
-
-      <interface interface=".interfaces.IInteractiveData" />
 
 </configure>

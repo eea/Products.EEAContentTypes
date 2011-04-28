@@ -8,18 +8,31 @@ Lets relate a video to the document
 
   >>> doc = self.folder.doc1
   >>> video = self.folder.video1
+  >>> rss = self.folder.rss1
+  >>> doc.setRelatedItems([video, rss])
 
   >>> from Products.EEAContentTypes.browser.interfaces import IDocumentRelated
   >>> from zope.component import getMultiAdapter, getView
   >>> related = getMultiAdapter((doc, self.portal.REQUEST), name="document_related")
   >>> len(related.top_media())
-  0
+  1
   >>> related.top_count()
-  0
+  1
 
   >>> feeds = related.feeds()
   >>> len(feeds)
-  0
+  20
+  >>> feeds[0].title.startswith('Feasibility study:')
+  True
+  >>> feeds[0].image
+  u'http://dataconnector.eea.europa.eu/getimg.asp?gid=FB480D4F-53D2-436D-9E54-8F644FA3B557'
+  >>> feeds[0].published_unparsed
+  u'2007-05-23T07:00:00Z'
+
+Last feed item doesn't have a <eeapub:coverimage_id> tag:
+
+  >>> feeds[-1].image is None
+  True
 
 There is no page related to this document yet, only video and feed:
 
