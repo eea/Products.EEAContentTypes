@@ -61,7 +61,7 @@
 </metal:bottom>
 
 <dl metal:define-macro="pages" id="related-pages" class="portlet"
-    tal:define="pages context/@@document_related/pages|nothing"
+    tal:define="pages context/@@document_related/pages"
     tal:condition="pages">
 
         <dt class="portletHeader"
@@ -84,8 +84,8 @@
     <div metal:use-macro="here/batch_macros/macros/navigation" />
     <dl class="portlet portlet-rss">
         <tal:block tal:repeat="item batch">
-            <dt class="portletItem">
-               <span class="figure-right"
+            <dt class="portletItem"> 
+               <span class="figure-right" 
                       tal:condition="item/image">
                     <span class="figure">
                         <a tal:attributes="href item/url;title item/title;"><img tal:attributes="src item/image;alt item/title;" /> </a>
@@ -136,7 +136,7 @@
     </tal:bytheme>
     </dd>
     </dl>
-</tal:auto>
+</tal:auto> 
 </metal:autorelated>
 
 <metal:autorelated define-macro="auto-context">
@@ -164,7 +164,7 @@
             </dl>
         </dd>
     </dl>
-</tal:auto>
+</tal:auto> 
 </metal:autorelated>
 
 <div metal:define-macro="relatedItems"
@@ -172,12 +172,12 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
-            <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
+            <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>            
             <h2 i18n:domain="plone" i18n:translate="label_related_items">Related content</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
-                    <span tal:attributes="class string:visualIcon ${item/item_type_class}">
+                    <span tal:attributes="class string:visualIcon ${item/item_type_class}">              
                     <a href="" class=""
                         tal:attributes="href  item/url;
                                         title item/description;

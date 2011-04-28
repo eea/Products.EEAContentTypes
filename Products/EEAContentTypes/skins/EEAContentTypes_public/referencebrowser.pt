@@ -104,7 +104,6 @@
                          fieldName          fieldName;
                          fieldRealName      field/getName;
                          uids               python:same_type(value, []) and value or [value];
-                         uids               python:[v for v in uids if (v and v.strip())];
                          types_param        python:','.join(field.allowed_types);
                          refsupport         nocall:here/@@refwidget_support;
                          ">
