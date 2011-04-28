@@ -100,7 +100,7 @@ class GeoPositionDecider(object):
     def matchLocation(self, obj):
         geodata = None
         location = getattr(obj, 'location', None)
-        if (location is not None) and location:
+        if location is not None:
             #get service keys
             service_keys = {}
             portal_properties = getToolByName(obj, 'portal_properties')
