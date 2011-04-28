@@ -9,8 +9,7 @@ from interfaces import IGeoPositionView, IGoogleEarthView, IGeoMapData, IGeoMapV
 from Products.EEAContentTypes.content.interfaces import IGeoPosition, IGeoPositioned
 from Products.CMFCore.utils import getToolByName
 from Products.PloneLanguageTool.availablelanguages import getCountries
-import logging
-logger = logging.getLogger('Products.EEAContentTypes.browser.geoposition')
+
 
 class GeoLocationTools(BrowserView):
 
@@ -56,9 +55,9 @@ class GoogleEarthView(object):
         else:
             syn = getToolByName(self.context, 'portal_syndication')
             default_max = syn.getMaxItems()
-            maxi = syn.getMaxItems(self.context)
-            maxi = type(maxi) == type(1) and maxi or default_max
-            objects = list(syn.getSyndicatableContent(self.context))[:maxi]
+            max = syn.getMaxItems(self.context)
+            max = type(max) == type(1) and max or default_max
+            objects = list(syn.getSyndicatableContent(self.context))[:max]
 
             for obj in objects:
                 if IGeoPositioned.providedBy(obj):
@@ -94,7 +93,7 @@ class GeoPositionView(BrowserView):
         api_key = ''
         geoobject = IGeoPosition(self.context)
         obj_url = self.context.event_url()
-        if not obj_url.startswith('http://'): placemarkobj_url = 'http://%s' % obj_url # TODO: check this assigment 
+        if not obj_url.startswith('http://'): placemarkobj_url = 'http://%s' % obj_url
 
         portal_properties = getToolByName(self, 'portal_properties')
         geo_properties = getattr(portal_properties, 'geographical_properties')
@@ -132,7 +131,7 @@ class GeoConverter(BrowserView):
         res = ''
         for item in data:
             try:	obj = item.getObject()
-            except Exception:	obj = item
+            except:	obj = item
             if IGeoPositioned.providedBy(obj):
                 geoobject = IGeoPosition(obj)
                 res += "%s|%s###" % (geoobject.latitude, geoobject.longitude)
@@ -161,9 +160,9 @@ class GeoMapData(BrowserView):
         # Get IGeoPositioned objects
         syn = getToolByName(self.context, 'portal_syndication')
         default_max = syn.getMaxItems()
-        maxi = syn.getMaxItems(self.context)
-        maxi = type(maxi) == type(1) and maxi or default_max
-        objects = list(syn.getSyndicatableContent(self.context))[:maxi]
+        max = syn.getMaxItems(self.context)
+        max = type(max) == type(1) and max or default_max
+        objects = list(syn.getSyndicatableContent(self.context))[:max]
 
         for obj in objects:
             if IGeoPositioned.providedBy(obj):
@@ -202,7 +201,7 @@ class GeoMapData(BrowserView):
             #TODO: general method to get themes list
             obj_theme = []
             try:    obj_theme.extend(obj.getThemes())
-            except Exception, err: logger.info(err) 
+            except: pass
             for th in obj_theme:
                 if th != 'default':
                     th_count = theme_inf_sort.get(th, 0)
@@ -273,7 +272,7 @@ class GeoMapView(BrowserView):
         api_key = ''
 
         pu = getToolByName(self.context, 'portal_url')
-        #portal = pu.getPortalObject()
+        portal = pu.getPortalObject()
         portal_url = pu.absolute_url()
 
         portal_properties = getToolByName(self, 'portal_properties')
@@ -465,7 +464,7 @@ div.marker-body h3 {
 <div style="display:none" id="map_markers"></div>
 <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
 
-<div id="map_events_yahoo" style="border: 1px solid black">
+<div id="map_events_yahoo" style="border: 1px solid black; width: 99%%; height:300px">
                 <span class="map_left_widget_header">Filter by theme</span>
                 <span id="map_left_widget" style="display:none">
                 <div id="theme_info"></div>
@@ -491,9 +490,6 @@ div.marker-body h3 {
                 function handlerYahooMap() {
                 var mapCenterLoc = "%(map_loc)s", mapCenterZoom = %(map_zoom)s+11;
                 map = new YMap(document.getElementById("map_events_yahoo"), YAHOO_MAP_REG);
-                // Set map container height and width
-                document.getElementById("map_events_yahoo").style.width = '99%%';
-                document.getElementById("map_events_yahoo").style.height = '300px';
                 // Display the map centered on given address
                 map.drawZoomAndCenter(mapCenterLoc, mapCenterZoom);
                 map.addTypeControl();
@@ -701,7 +697,7 @@ YAHOO_SINGLE_TPL = """
 </div>
 <script type="text/javascript">
                  <!--
-                 function handlerYahooMapSingle() {
+                 function handlerYahooMap() {
                  var map = null;
                  var PointLat = "%(latitude)s", PointLon = "%(longitude)s", PointZoom = %(point_zoom)s, MapLoc = "%(map_loc)s", MapZoom = %(map_zoom)s+10;
                  map = new YMap(document.getElementById("map_yahoo"));
@@ -721,8 +717,8 @@ YAHOO_SINGLE_TPL = """
 
                  var geo_onload=window.onload;
                  if (typeof(geo_onload)=='function')
-                 window.onload=function(){geo_onload();handlerYahooMapSingle()};
-                 else window.onload=function(){handlerYahooMapSingle()};
+                 window.onload=function(){geo_onload();handlerYahooMap()};
+                 else window.onload=function(){handlerYahooMap()};
                  // -->
 </script>
 """

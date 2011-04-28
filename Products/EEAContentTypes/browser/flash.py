@@ -1,8 +1,8 @@
-#import zope.interface
-#import zope.component
+import zope.interface
+import zope.component
 
 from Products.Five import BrowserView
-#from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 class RelatedFlash(BrowserView):
 

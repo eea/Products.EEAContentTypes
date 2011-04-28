@@ -1,29 +1,45 @@
-""" Base TestCase for EEAContentTypes"""
-from plone.app.blob.tests import db
-db ## pyflakes, this import is needed for tests
+# -*- coding: utf-8 -*-
+#
+# File: base.py
+#
+# Copyright (c) 2006 by []
+# Generator: ArchGenXML Version 1.5.1-svn
+#            http://plone.org/products/archgenxml
+#
+# GNU General Public License (GPL)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
+
+#
+# Base TestCase for EEAContentTypes
+#
+
+from Testing import ZopeTestCase
 from Products.PloneTestCase import PloneTestCase
+from Products.EEAPloneAdmin.config import DEPENDENCIES
+
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.PloneTestCase.layer import onsetup
 from Products.Five import zcml
 from Products.Five import fiveconfigure
 from Products.GenericSetup import EXTENSION, profile_registry
 
-PRODUCTS = [
-    'CacheSetup', 'PlonePAS', 'FiveSite',
-    'ATVocabularyManager', 'EEAContentTypes',
-    'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
-    'RichTopic', 'ThemeCentre', 'kupu', 'PloneLanguageTool',
-    'EEAPloneAdmin'
-]
+PRODUCTS = ['CacheSetup', 'PlonePAS', 'FiveSite', 'ATVocabularyManager','EEAContentTypes', 'PloneRSSPortlet', 'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone', 'RichTopic', 'ThemeCentre', 'kupu', 'PloneLanguageTool','EEAPloneAdmin']
 
-try:
-    from Products import RedirectionTool
-except ImportError, err:
-    # RedirectionTool not present
-    pass
-else:
-    RedirectionTool #pyflakes, #pylint: disable-msg=W0104
-    PRODUCTS.append('RedirectionTool')
 
 profile_registry.registerProfile(
                     'testfixture',
@@ -34,17 +50,16 @@ profile_registry.registerProfile(
                     EXTENSION,
                     for_=IPloneSiteRoot)
 
+
 @onsetup
 def setup_eeacontenttypes():
-    """ Set up
-    """
     fiveconfigure.debug_mode = True
     import Products.Five
     import Products.FiveSite
     import Products.CMFSquidTool
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.FiveSite)
-    zcml.load_config('configure.zcml', Products.CMFSquidTool)
+    zcml.load_config('configure.zcml', Products.CMFSquidTool)    
     fiveconfigure.debug_mode = False
 
     PloneTestCase.installProduct('Five')
@@ -53,59 +68,12 @@ def setup_eeacontenttypes():
     for product in PRODUCTS:
         PloneTestCase.installProduct(product)
 
+
 setup_eeacontenttypes()
-
-# Try to install eea.indicators content-types
-try:
-    from eea import indicators
-except ImportError, err:
-    # eea.indicators not present
-    pass
-else:
-    indicators #pyflakes, #pylint: disable-msg=W0104
-    PRODUCTS.append('eea.indicators')
-
-PROFILES = [
-    'EEAContentTypes:eeacontenttypes',
-    'EEAContentTypes:testfixture',
-]
-
-# Try to install eea.reports content-types
-try:
-    from eea import reports
-except ImportError, err:
-    # eea.reports not present
-    pass
-else:
-    reports #pyflakes, #pylint: disable-msg=W0104
-    PROFILES.append('eea.reports:default')
-
-# Try to install eea.dataservice content-types
-try:
-    from eea import dataservice
-except ImportError, err:
-    # eea.dataservice not present
-    pass
-else:
-    dataservice #pyflakes, #pylint: disable-msg=W0104
-    PROFILES.append('eea.dataservice:default')
-
-# Try to install eea.soer content-types
-try:
-    from eea import soer
-except ImportError, err:
-    # eea.soer not present
-    pass
-else:
-    soer #pyflakes, #pylint: disable-msg=W0104
-    PROFILES.append('eea.soer:default')
-
-PloneTestCase.setupPloneSite(
-    extension_profiles=PROFILES,
-    products=PRODUCTS)
+PloneTestCase.setupPloneSite(extension_profiles=['EEAContentTypes:eeacontenttypes','EEAContentTypes:testfixture'], products=PRODUCTS)
 
 class EEAContentTypeTestCase(PloneTestCase.PloneTestCase):
     """Base TestCase for EEAContentTypes."""
 
 class EEAContentTypeFunctionalTestCase(PloneTestCase.FunctionalTestCase):
-    """ Functional TestCase"""
+    """ """
