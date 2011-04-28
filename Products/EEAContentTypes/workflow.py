@@ -1,7 +1,7 @@
 from zope.interface import implements, Interface
-from zope.component import adapts, queryAdapter
+from zope.component import adapts
 
-#from Acquisition import aq_inner, aq_parent, aq_base
+from Acquisition import aq_inner, aq_parent, aq_base
 from Products.CMFCore.utils import getToolByName
 
 from interfaces import ITransitionLogicalGuard, IWorkflowEmails, ILocalRoleEmails
@@ -16,8 +16,8 @@ class TransitionLogicalGuard(object):
     def __call__(self):
         state_change = self.context
         guard = queryAdapter(state_change.object, ITransitionLogicalGuard, name=state_change.transition.getId())
-        if guard is not None:
-            return guard.available
+        if quard is not None:
+            return quard.available
         return True
 
 class SubmitForWebQAGuard(object):
@@ -147,8 +147,8 @@ class LocalRoleEmails(object):
         mtool = context.portal_membership
         gtool = getToolByName(context, 'portal_groups')
 
-        for name, roles, utype, uid in roles:
-            if not uid.startswith('group_') and utype == 'user':
+        for name, roles, type, id in roles:
+            if not id.startswith('group_') and type == 'user':
                 member = mtool.getMemberById(name)
                 if member is not None:
                     email = member.getProperty('email')
@@ -159,7 +159,7 @@ class LocalRoleEmails(object):
                                 roleEmails.append(email)
                             self.emails[role] = roleEmails
             else:
-                grp = gtool.getGroupById(uid)
+                grp = gtool.getGroupById(id)
                 members = grp.getGroupMembers()
                 for role in roles:
                     roleEmails = self.emails.get(role, [])
@@ -199,7 +199,7 @@ class LocalRoleEmails(object):
                         continue
                     roles = tmpRoles
                     
-                    for user2, roles2, _type2, _name2 in result:
+                    for user2, roles2, type2, name2 in result:
                         if user2 == user:
                             # Check which roles must be added to roles2
                             for role in roles:
@@ -246,8 +246,8 @@ class LocalRoleEmails(object):
             
         for grpId in groups_tool.getGroupIds():
             group = groups_tool.getGroupById(grpId)
-            roles = [ role2 for role2 in group.getRoles()
-                           if role2 not in takenRoles ]
+            roles = [ role for role in group.getRoles()
+                           if role not in takenRoles ]
             if roles:
                 retlist.append((group.getGroupName(), roles, 'group', group.getGroupName()))
             
@@ -272,7 +272,7 @@ class WorkflowEmails(object):
         self.action = local.emails.get(actionRole, [])
 
         # confirmation is sent to all roles except actionRoles
-        confirmationRoles = [ role for role in ('ContentManager', 'Editor', 'Reviewer', 'WebReviewer', 'Owner', 'Manager')
+        confirmationRoles = [ role for role in ('ContentManager', 'Editor', 'Reviewer','WebReviewer', 'Owner')
                               if role != actionRole ]
         for role in confirmationRoles:
             emails = local.emails.get(role, [])
@@ -295,44 +295,41 @@ class WorkflowEmails(object):
                 name = memberName
             
         return "%s <%s>" % (name, email)
-
-#TODO: We need to make the Roles in each workflow adpater to take it dynamically
-# from the actual workflow object roles guard. This way we skip hardcoded values
-# and we can reuse the workflow sendemail logic for all workflows.
-class WorkflowActionReviewer(WorkflowEmails):
+        
+class WorkflowEmailsContentPending(WorkflowEmails):
 
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Reviewer')
         
-class WorkflowActionProofReader(WorkflowEmails):
+class WorkflowEmailsProofReading(WorkflowEmails):
 
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ProofReader')
 
-class WorkflowActionWebReviewer(WorkflowEmails):
+class WorkflowEmailsWebQAPending(WorkflowEmails):
 
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('WebReviewer')
 
-class WorkflowActionEditor(WorkflowEmails):
+class WorkflowEmailsNew(WorkflowEmails):
     """ Used for state new """
     
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Editor')
 
-class WorkflowActionContentManager(WorkflowEmails):
+class WorkflowEmailsFirstDraft(WorkflowEmails):
     """ Used when sent back for revision. """
     
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ContentManager')
 
-class WorkflowConfirmation(WorkflowEmails):
-    """ This will send a workflow confirmation email to all roles"""
+class WorkflowEmailsPublished(WorkflowEmails):
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('')

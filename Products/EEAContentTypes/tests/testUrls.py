@@ -1,26 +1,47 @@
-""" URLs tests
-"""
+# -*- coding: utf-8 -*-
+#
+# File: testFrontpage.py
+#
+# Copyright (c) 2006 by []
+# Generator: ArchGenXML Version 1.5.1-svn
+#            http://plone.org/products/archgenxml
+#
+# GNU General Public License (GPL)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
+
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+from Products.EEAContentTypes.interfaces import IRelations
+from eea.themecentre.interfaces import IThemeTagging
+from zope.app.component.hooks import setSite
 from zope.component import getMultiAdapter
 
 def link(obj):
-    """ Link
-    """
     return getMultiAdapter((obj, obj.REQUEST), name="url").listing_url()
 
 def blink(brain):
-    """ @@url
-    """
     obj = brain.getObject()
-    return getMultiAdapter((obj, obj.REQUEST),
-                           name="url").listing_url(brain=brain)
+    return getMultiAdapter((obj, obj.REQUEST), name="url").listing_url(brain=brain)
 
 class TestLinks(EEAContentTypeTestCase):
     """ Test-cases for class(es) relations. """
 
     def afterSetUp(self):
-        """ Set up
-        """
+        #setSite(self.portal)
         self.setRoles('Manager')
         self.workflow = self.portal.portal_workflow
         self.folder.acl_users._doAddUser('reviewer', 'secret', ['Reviewer'], [])
@@ -45,45 +66,27 @@ class TestLinks(EEAContentTypeTestCase):
         self.folder.press.reindexObject()
 
     def checkObjects(self):
-        """ Check objects
-        """
-        self.assertEquals(link(self.folder.doc),
-                          'http://nohost/plone/Members/test_user_1_/doc')
-        self.assertEquals(link(self.folder.promotion),
-                          'http://eea.europa.eu')
-        self.assertEquals(link(self.folder.link),
-                          'http://www.google.com')
-        self.assertEquals(link(self.folder.press),
-                          'http://nohost/plone/Members/test_user_1_/press')
+        self.assertEquals(link(self.folder.doc), 'http://nohost/plone/Members/test_user_1_/doc')
+        self.assertEquals(link(self.folder.promotion), 'http://eea.europa.eu')
+        self.assertEquals(link(self.folder.link), 'http://www.google.com')
+        self.assertEquals(link(self.folder.press), 'http://nohost/plone/Members/test_user_1_/press')
 
     def testAnonymous(self):
-        """ Anonyous tests
-        """
         self.setRoles(['Anonymous'])
         self.checkObjects()
 
     def testLoggedIn(self):
-        """ Authenticated tests
-        """
         self.setRoles(['Manager'])
         self.checkObjects()
 
     def testBrains(self):
-        """ Catalog brains test
-        """
-        brains = self.portal.portal_catalog(
-            getId=['doc', 'press', 'promotion', 'link'], sort_on='getId')
-        self.assertEquals(blink(brains[0]),
-                          'http://nohost/plone/Members/test_user_1_/doc')
-        self.assertEquals(blink(brains[1]),
-                          'http://www.google.com')
-        self.assertEquals(blink(brains[2]),
-                          'http://nohost/plone/Members/test_user_1_/press')
-        self.assertEquals(blink(brains[3]),
-                          'http://eea.europa.eu')
+        brains = self.portal.portal_catalog(getId=['doc', 'press', 'promotion', 'link'],
+                                            sort_on='getId')
+        self.assertEquals(blink(brains[0]), 'http://nohost/plone/Members/test_user_1_/doc')
+        self.assertEquals(blink(brains[1]), 'http://www.google.com')
+        self.assertEquals(blink(brains[2]), 'http://nohost/plone/Members/test_user_1_/press')
+        self.assertEquals(blink(brains[3]), 'http://eea.europa.eu')
 
 def test_suite():
-    """ Suite
-    """
     import unittest
     return  unittest.TestSuite(unittest.makeSuite(TestLinks))

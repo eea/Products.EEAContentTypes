@@ -17,6 +17,8 @@
   <element value="Highlight"/>
   <element value="Promotion"/>
   <element value="QuickEvent"/>
+  <element value="RDFEvent"/>
+  <element value="RSSFeedRecipe"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">folder_listing</property>
