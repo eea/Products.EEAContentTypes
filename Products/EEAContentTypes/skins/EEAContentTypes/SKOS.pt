@@ -2,29 +2,27 @@
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-  xmlns:tal="http://xml.zope.org/namespaces/tal"
-  tal:define="skos context/@@skos_syndication | nothing" >
-  <tal:cond tal:condition="skos">
+  xmlns:tal="http://xml.zope.org/namespaces/tal">
 
-    <tal:block define="dummy context/rssAllowed" />
+<tal:block define="dummy context/rssAllowed" />
 
-    <tal:skos tal:define="concepts skos/concepts" >
+<tal:skos tal:define="skos context/@@skos_syndication;
+                      concepts skos/concepts">
 
-      <tal:block tal:define="dummy python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset='+context.plone_utils.getSiteEncoding())" />
+<tal:block tal:define="dummy python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset='+context.plone_utils.getSiteEncoding())" />
 
-      <tal:concepts repeat="concept concepts">
-        <skos:Concept tal:define="prefLabels concept/prefLabels"
-          tal:attributes="rdf:about concept/url">
+<tal:concepts repeat="concept concepts">
+<skos:Concept tal:define="prefLabels concept/prefLabels"
+              tal:attributes="rdf:about concept/url">
 
-          <tal:prefLabels tal:repeat="prefLabel prefLabels">
-            <skos:prefLabel tal:attributes="xml:lang prefLabel/language"
-              tal:content="prefLabel/title" />
-          </tal:prefLabels>
-          <skos:definition tal:content="concept/definition" />
+    <tal:prefLabels tal:repeat="prefLabel prefLabels">
+    <skos:prefLabel tal:attributes="xml:lang prefLabel/language"
+                    tal:content="prefLabel/title" />
+    </tal:prefLabels>
+    <skos:definition tal:content="concept/definition" />
 
-        </skos:Concept>
-      </tal:concepts>
+</skos:Concept>
+</tal:concepts>
 
-    </tal:skos>
-  </tal:cond>
+</tal:skos>
 </rdf:RDF>

@@ -4,7 +4,7 @@
 <body>
 
 <!-- Most popular data and maps -->
-<div metal:define-macro="datamap"
+<div metal:define-macro="dataset"
      i18n:domain="plone"
      tal:omit-tag=""
      tal:define="portal_type python:['Data', 'EEAFigure'];
