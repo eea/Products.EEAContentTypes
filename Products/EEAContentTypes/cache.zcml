@@ -1,7 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
-           i18n_domain="Products.EEAContentTypes">
+           xmlns:five="http://namespaces.zope.org/five">
 
   <subscriber
       for="eea.promotion.interfaces.IPromoted
@@ -49,12 +48,6 @@
       for="Products.NavigationManager.NavigationItem.NavigationItem
            eea.plone3compat.IActionSucceededEvent"
       handler=".cache.invalidateNavigationCache"
-      />
-
-  <subscriber
-      for="Products.ATContentTypes.interface.image.IATImage
-           zope.app.container.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidateParentsImageScales"
       />
 
   <subscriber handler="lovely.memcached.event.invalidateCache"/>
