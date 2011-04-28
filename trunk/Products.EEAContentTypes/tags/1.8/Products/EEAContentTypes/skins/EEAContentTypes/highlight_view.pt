@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+   
+<body>
+
+<div metal:fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+          tal:define="text python:here.CookedBody(stx_level=2);
+                      len_text python:len(text.strip());
+                      figure here/getImage;
+                      figure python:test(figure and figure != ' ', here.getScale('mini'), None);
+                      hasQuote python: len(here.getQuotationText());">
+
+        <h1 tal:content="object_title" class="documentFirstHeading">
+            '<tal:span              tal:content="figure"></tal:span>'Title or id
+        </h1>
+        <div metal:use-macro="here/document_actions/macros/document_actions">
+            Document actions (print, sendto etc)
+        </div>
+
+        <tal:docByline metal:use-macro="here/document_byline/macros/byline">
+            Get the byline - contains details about author and modification date.
+        </tal:docByline>
+        <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
+            Show the publishdate only (effective date).
+        </tal:publishdate></div>
+
+       <metal:teaserFigureRelated define-macro="teaserFigureRelated">
+        <tal:descriptionOrTeaser define="description here/Description|here/getTeaser">
+          <div class="documentDescription"
+           tal:condition="description">
+           <tal:description tal:content="description" >
+            News summary</tal:description>
+          </div>       
+        <blockquote class="quote-left" tal:condition="hasQuote">
+            <p tal:content="here/getQuotationText" />
+            <p class="source" tal:content="here/getQuotationSource" />
+        </blockquote>
+          <div class="figure-right related-in-content-area" 
+             tal:define="figure_title here/getImageCaption;
+                         figure_note python:test(not here.Description() or here.Description() == here.getTeaser(), here.getImageNote(), here.getTeaser());
+                         figure_source_copyright here/getImageCopyright;
+                         figure_link here/getImageLink">
+              <tal:figure tal:condition="figure">
+               <metal:thefigure use-macro="here/media_macros/macros/figure-plus" />       
+              </tal:figure>
+	       <!-- related multimedia -->
+               <div metal:use-macro="here/document_relateditems/macros/multimedia">
+                     show related multimedia items if they exist
+               </div>
+              <!-- related tags/themes -->
+               <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+              <!-- related pages -->
+               <div metal:use-macro="here/document_relateditems/macros/pages">
+                     show related pages if they exist
+               </div>
+               <!-- auto related content -->
+               <div metal:use-macro="here/document_relateditems/macros/auto">
+                     show auto related items if they exist
+               </div>
+
+
+           </div> 
+        </tal:descriptionOrTeaser>
+        </metal:teaserFigureRelated>
+        <p tal:condition="python: not len_text and is_editable"
+           i18n:translate="no_body_text"
+           class="discreet">
+            This item does not have any body text, click the edit tab to change it.
+        </p>
+        <div tal:condition="len_text"
+             tal:attributes="class python:test(here.text_format == 'structured-text', 'stx', '')">
+
+
+                     <div tal:replace="structure text" />
+        </div>
+        <p tal:condition="here/getUrl|nothing"><a href="" title="Read more" 
+           tal:attributes="href here/getUrl" class="moreLink">Read more</a></p>
+
+	<div class="visualClear"><!-- --></div>
+
+
+    </tal:main-macro>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <utility provides="lovely.memcached.interfaces.IMemcachedClient"
+	     factory=".cache.frontpageMemcached" />
+
+  <subscriber
+      for="eea.promotion.interfaces.IPromoted
+           zope.app.container.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for=".content.Promotion.Promotion
+           zope.app.container.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+           zope.app.container.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidateHighlightsCache"
+      />
+
+  <subscriber
+      for=".content.Promotion.Promotion
+           eea.plone3compat.IActionSucceededEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+ <subscriber
+      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+           eea.plone3compat.IActionSucceededEvent"
+      handler=".cache.invalidateHighlightsCache"
+      />
+
+  <subscriber
+      for="eea.promotion.interfaces.IPromoted
+           eea.plone3compat.IActionSucceededEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for="Products.NavigationManager.NavigationItem.NavigationItem
+           zope.app.container.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidateNavigationCache"
+      />
+
+  <subscriber
+      for="Products.NavigationManager.NavigationItem.NavigationItem
+           eea.plone3compat.IActionSucceededEvent"
+      handler=".cache.invalidateNavigationCache"
+      />
+
+  <subscriber handler="lovely.memcached.event.invalidateCache"/>
+</configure>

@@ -1,0 +1,30 @@
+Changelog
+=========
+
+1.5 (2010-01-18)
+----------------
+* #2882 Make kupu configuration use our transform chain instead of their default [vincisas]
+* #2616 Add faceted navigation widget for context theme tags [voineali]
+
+1.4 (2010-01-04)
+----------------
+* #2880 Functional tests for dataservice added. [ghicaale]
+* #2771 Events map height and width are now set after map ie generated as
+  if map html element is hidden by default this values are reseted to 400px X 400px
+  by YMap API. [ghicaale]
+* #2771 Changed  handler function name for single maps not to conflit with
+  events map handler. [ghicaale]
+
+1.3 (2009-12-04)
+----------------
+* #2140 Thumbnails generated with valentine.imagescales view in RSS2 feeds [vincisas]
+* #2844 More flexible path configuration for staff file [vincisas]
+
+1.2 (2009-11-27)
+----------------
+* #2823 Added "relatesTo" parameter to "def backReferences" [ghicaale]
+* #2830 Fix organigram width on lower resolutions [voineali]
+
+1.1 (2009-11-10)
+----------------
+* Initial release

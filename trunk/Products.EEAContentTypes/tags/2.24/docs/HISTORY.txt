@@ -1,0 +1,185 @@
+Changelog
+=========
+
+2.24 - (2011-03-08)
+-------------------
+ * Bug fix: Fixed broken egg 2.23 [ghicaale]
+
+2.23 - (2011-03-08)
+-------------------
+ * Bug fix: by now, "management_plan_code_validator" validator is registered
+     from this package. This will fix the validation of "management plan code" field
+     for all content types defined under this pacakge [ghicaale #4174]
+ * Feature: Test modificaton date on state change [voineali #3986]
+ * Bug fix: Cleanup tests and fix tests hang up [voineali #4136]
+
+2.22 - (2011-03-01)
+-------------------
+ * Change: removed PloneRDFCalendar & RDFEvent type [ichimdav #2931]
+ * Change: Organigram structure updated [ghicaale #4152]
+ * Bug fix: Fixed organigram print CSS [ghicaale #4152]
+
+2.21 - (2011-02-21)
+-------------------
+ * Bug fix: Invalidate varnish cache for parents image scales [voineali #4105]
+ * Bug fix: fixed code intendation [ghicaale #4130]
+ * Bug fix: fixed a bug in relationbrowser widget [tiberich #3241]
+
+2.20 - (2011-02-11)
+-------------------
+ * Bug fix: pdb removed [ghicaale]
+ * Bug fix: fixed tests when trying to get portal_cache_settings [ghicaale]
+
+2.19 - (2011-02-03)
+-------------------
+ * Bug fix: fixed editing of metadata for QuickEvents [tiberich #4104]
+
+2.18 - (2011-02-01)
+-------------------
+ * Hudson fix: Fixed zptlint warnings. [voineali]
+
+2.17 - (2011-01-14)
+-------------------
+ * Change: improve code formatting in Promotion [tiberich]
+ * Bug fix: manually specify mutator for setThemes in Promotion [tiberich #3972]
+ * Feature: Added feature to disallow certain content types to be published
+   via the "advanced" state change form and bulk publishing from folder contents,
+   this is needed for content types that uses the "self QA dialog box" refs #4003 [demarant]
+
+2.16 - (2011-01-05)
+-------------------
+ * Bug fix: make reorder pages available in any context, because of VHM issues [tiberich #3411]
+ * Bug fix: fix css issues related to reorder pages [tiberich #3411]
+
+2.15 - (2010-12-22)
+-------------------
+ * Bug fix: Fixed error in portal_relations view [voineali #4020]
+ * Change: Added windmill tests [voineali #3821]
+ * Feature: Added reorder CSS and JS views to improve UX for portal registries [tiberich #3411]
+
+2.14 - (2010-12-16)
+-------------------
+ * Feature: added spam protection for QuickEvent content types [tiberich #3869]
+
+2.13 - (2010-12-13)
+-------------------
+ * Bug fix: humanize widget labels for CallForInterest and CallForTender objects [tiberich]
+ * Bug fix: add mutator code for CallForTender.setAwardNotice [tiberich #3969]
+
+2.12 - (2010-12-03)
+-------------------
+ * Bug fix: don't throw error anymore when calling SKOS on an not-topic object [tiberich #3945]
+
+2.11 - (2010-11-29)
+-------------------
+ * Bug fix: added a custom Article2Surf adapter to fix @@rdf view for articles [tiberich #3893]
+
+2.10 - (2010-11-24)
+-------------------
+* Bug fix: 'video-fancybox' CSS class present on non-video files [voineali #3895]
+* Change: Cleaned up history and update methods [ghicaale]
+
+2.9.2 - (2010-10-20)
+--------------------
+* Bug fix: Removed pdb [vincisas]
+
+2.9.1 - (2010-10-13)
+--------------------
+* Bug fix: Language code is only checked in the beginning of the URL [vincisas #3746]
+
+2.9 - (2010-09-30)
+------------------
+* Change: Rerelease to use zip format instead of tar.gz; Nothing has changed since previous release [tiberich #3642]
+
+2.8 - (2010-09-29)
+------------------
+* Bug fix: now workflow sends email even when states goes to visible/hide and eionet level, refs #2041 and #3640 [demarant]
+
+2.7 (2010-09-06)
+----------------
+* Feature: Added general portlet "Most referenced" [demarant,ghicaale #3477]
+
+2.6 (2010-08-16)
+----------------
+* Change: Use new fancybox based video popup [thuliper #3040]
+
+2.4 (2010-08-04)
+----------------
+* Bug fix: Fixed creative common icon path in colophon to reduce dns lookup
+    and improve spped, the original was nnot cached [demarant]
+
+2.3 (2010-07-01)
+----------------
+* Bug fixed: Fixed failing tests [vincisas]
+
+2.2 (2010--06-16)
+----------------
+* Feature: Added migration step for eea.jquery [thuliper, #3451]
+* Bug fix: Fixed bug in GIS Application edit form where wrong
+    URL was displayed [thuliper, #3404]
+* Change: Merged subfolder_view and dc_view [thuliper, #3372]
+* Bug fix: Added migration script to fix inconsistent catalog values
+    for getThemes index. See portal_migration [voineali #3332]
+* Change: When eeastaff.xml is empty will not be uploaded into Plone so
+    we keep last valid version of eeastaff.xml [ghicaale]
+
+2.1 (2010-05-10)
+----------------
+* Bug fix: Make sure migration step publishes the 'dc' documents [thuliper]
+
+2.0 (2010-05-07)
+----------------
+* Feature: Migration step for theme data centres [thuliper #2939]
+* Feature: Added marker interface for data viewers so we can list them
+    together with interactive maps on data centre [demarant #2939]
+* Feature: Added portal_migration function that sets up the 'dc' themes folders [thulin #3254]
+
+1.9 (2010-03-26)
+----------------
+* Change: Make image 'rights' field language independant [thulin #3164]
+* Bug fix: Fixed import step for adding EEA internal IPs under portal_properties. [ghicaale #2996]
+
+1.8 (2010-03-16)
+----------------
+* Feature: Avoid too long url, make id shorter on creation [voineali #2807]
+* Bug fix: Fixed when david clicks on "derived datasets" browse button to pick
+    a relation he is asked to login [voineali #3018]
+* Bug fix: Fixed ReferenceWidget asks for more permissions, even though user
+    has local Manager role [voineali #3082]
+
+1.7 (2010-03-08)
+----------------
+* Feature: Internal EEA IPs can now be set from portal_properties. [ghicaale #2996]
+
+1.6 (2010-02-16)
+----------------
+* Change: Internal EEA IPs updated for invalidate cache. [ghicaale #2996]
+
+1.5 (2010-01-18)
+----------------
+* Change: Make kupu configuration use our transform chain instead of their default [vincisas #2882]
+* Feature: Added faceted navigation widget for context theme tags [voineali #2616]
+
+1.4 (2010-01-04)
+----------------
+* Feature: Functional tests for dataservice added [ghicaale #2880]
+* Change: Events map height and width are now set after map ie generated as
+  if map html element is hidden by default this values are reseted to 400px X 400px
+  by YMap API [ghicaale #2771]
+* Bug fix: Changed  handler function name for single maps not to conflit with
+  events map handler [ghicaale #2771]
+
+1.3 (2009-12-04)
+----------------
+* Feature: Thumbnails generated with valentine.imagescales view in RSS2 feeds [vincisas #2140]
+* Change: More flexible path configuration for staff file [vincisas #2844]
+
+1.2 (2009-11-27)
+----------------
+* Change; Added "relatesTo" parameter to "def backReferences" [ghicaale #2823]
+* Bug fix: Fix organigram width on lower resolutions [voineali #2830]
+
+1.1 (2009-11-10)
+----------------
+* Initial release
+

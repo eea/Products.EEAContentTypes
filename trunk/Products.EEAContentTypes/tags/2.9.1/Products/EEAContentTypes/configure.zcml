@@ -1,0 +1,157 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+    <include package=".browser" />
+    <include package=".content" />
+    <include package=".faceted" />
+
+     <utility
+       component=".promotion.ThemepageSectionsVocabularyFactory"
+       name="Themepage Promotion Sections"
+       />
+
+    <adapter factory=".promotion.Promotion" />
+
+    <adapter factory=".feeds.FeedPortletInfo" />
+    <class class=".feeds.FeedPortletInfo">
+      <require
+          permission="zope2.Public"
+          interface=".interfaces.IFeedPortletInfo"
+          />
+    </class>
+
+    <adapter factory=".feeds.FeedItemPortletInfo" />
+    <class class=".feeds.FeedItemPortletInfo">
+      <require
+          permission="zope2.Public"
+          interface=".interfaces.IFeedItemPortletInfo"
+          />
+    </class>
+
+    <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
+    <adapter factory=".feeds.ContextAwareFeedPortletInfo"
+             provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+    <class class=".feeds.ContextAwareFeedPortletInfo">
+        <require
+            permission="zope2.Public"
+            interface="eea.rdfrepository.interfaces.IRDFPortletInfo"
+            />
+        <require
+            permission="cmf.ModifyPortalContent"
+            set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"
+            />
+    </class>
+
+
+    <adapter factory=".relations.Relations" />
+
+    <five:deprecatedManageAddDelete
+         class=".content.CFTRequestor.CFTRequestor" />
+
+    <subscriber
+         for=".content.CFTRequestor.ICFTRequestor
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler=".content.CFTRequestor.submit_requestor"   />
+
+    <subscriber
+         for="Products.ATContentTypes.content.topic.ATTopic
+              Products.LinguaPlone.events.ObjectTranslatedEvent"
+         handler=".smartfolder.smartFolderAdded"   />
+
+
+    <!-- EEA Staff RDF is uploaded as normal Zope File. -->
+    <five:traversable
+         class="OFS.Image.File" />
+
+
+    <adapter factory=".workflow.LocalRoleEmails" />
+    <adapter factory=".workflow.WorkflowActionEditor"
+             name="content_pending" />
+    <adapter factory=".workflow.WorkflowActionProofReader"
+             name="proof_reading" />
+    <adapter factory=".workflow.WorkflowActionWebReviewer"
+             name="webqa_pending" />
+    <adapter factory=".workflow.WorkflowActionEditor"
+             name="new" />
+    <adapter factory=".workflow.WorkflowActionContentManager"
+             name="draft" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+             name="published" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+             name="visible" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+             name="published_eionet" />
+
+    <browser:view
+         for="*"
+         class=".workflow.SubmitForWebQAGuard"
+         name="transitionSubmit"
+         permission="zope2.Public" />
+
+    <browser:view
+         for="*"
+         class=".workflow.SubmitForMultimediaEdit"
+         name="transitionSubmitMultimediaEdit"
+         permission="zope2.Public" />
+
+    <browser:view
+         for="*"
+         class=".workflow.SubmitForContentReview"
+         name="transitionSubmitContentReview"
+         permission="zope2.Public" />
+
+    <browser:view
+         for="*"
+         class=".workflow.SubmitForProofReading"
+         name="transitionSubmitProofReading"
+         permission="zope2.Public" />
+
+    <browser:view
+         for="*"
+         class=".workflow.QuickPublish"
+         name="transitionQuickPublish"
+         permission="zope2.Public" />
+
+    <!-- Geoposition related -->
+    <subscriber
+         for="*
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler=".content.GeoPosition.geopositionEventHandler" />
+
+    <subscriber
+         for="*
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler=".content.GeoPosition.geopositionEventHandler"   />
+
+    <utility provides=".content.interfaces.IGeoPositionDecider"
+             factory=".content.GeoPosition.GeoPositionDecider" />
+
+    <adapter for=".content.interfaces.IGeoPositioned"
+             provides=".content.interfaces.IGeoPosition"
+             factory=".content.GeoPosition.GeoPositioned" />
+
+  <class class="Products.Archetypes.BaseObject.BaseObject">
+      <implements interface="Products.NavigationManager.sections.INavigationSectionPositionable" />
+  </class>
+
+  <!-- configure.zcml from bda.feed is not loaded, we pick a few adapters
+       we want here instead -->
+  <adapter factory="bda.feed.collection.CollectionFeedSource" />
+  <adapter factory="bda.feed.collection.CollectionFeed"
+           provides="Products.basesyndication.interfaces.IFeed"/>
+  <adapter factory=".syndication.FeedLogo" />
+  <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
+  <adapter factory=".syndication.ATContentFeedEntry" />
+  <adapter factory=".syndication.NewsItemEnclosure" />
+  <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
+
+  <!-- adding keepReferencesOnCopy feature to the AT schema field 'relatedItems' -->
+  <!--
+  <adapter for="Products.ATContentTypes.content.base.ATCTContent"
+           factory=".schemaextender.RelatedItemsModifier" />
+  -->
+
+  <include file="cache.zcml" />
+
+</configure>

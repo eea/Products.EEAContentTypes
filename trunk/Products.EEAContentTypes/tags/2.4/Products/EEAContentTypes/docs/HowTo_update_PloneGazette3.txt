@@ -1,0 +1,14 @@
+Here are the steps to upgrade from PloneGazette2.5 to PloneGazette3.0:
+
+	1. Uninstall PloneGazette ( ../plone_site/prefs_install_products_form )
+	2. Stop server 
+	3. Run buildout
+	4. Start server
+	5. Install PloneGazette 3.0 ( ../plone_site/prefs_install_products_form )
+	    (this step will take a while as the 20.000 subscribers will be indexed under catalog)
+	6. Delete (if case) the old MailHost from ../plone_site/subscribers
+	7. Cleanup ../custom and ../custom_admin of any PloneGazette files
+	8. Set last the PloneGazette skin under ../plone_site/portal_skins/manage_propertiesForm
+	   for 'EEADesign200' and 'EEATemplatesService'
+	9. Set for ../plone_site/subscription/eea_main_subscription the 'Newsletter footer text'
+	   property to contain only '%(url)s' instead of 'http://www.eea.europa.eu ... %(url)s'

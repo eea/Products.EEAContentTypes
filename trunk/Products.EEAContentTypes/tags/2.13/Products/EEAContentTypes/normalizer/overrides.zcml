@@ -1,0 +1,6 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+  <utility
+    provides=".IURLNormalizer"
+    component=".eeaurlnormalizer"
+    permission="zope.Public" />
+</configure>

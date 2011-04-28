@@ -1,0 +1,14 @@
+Changelog
+=========
+
+1.2 (2009-11-27)
+----------------
+
+* #2823 Added "relatesTo" parameter to "def backReferences" [ghicaale]
+* #2830 Fix organigram width on lower resolutions [voineali]
+
+
+1.1 (2009-11-10)
+----------------
+
+* Initial release

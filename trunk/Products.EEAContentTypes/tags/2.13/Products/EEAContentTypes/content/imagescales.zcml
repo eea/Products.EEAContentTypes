@@ -1,0 +1,20 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+      for=".interfaces.IArticle"
+      name="imgview"
+      class=".imagescales.ImageView"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+
+  <browser:page
+      for=".interfaces.IExternalHighlight"
+      name="imgview"
+      class=".imagescales.ImageView"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+
+</configure>

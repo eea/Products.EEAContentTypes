@@ -1,0 +1,162 @@
+===============================
+Promotion/Frontpage integration
+===============================
+
+Consider an ATNewsItem 'item'. Let's make it a promotion:
+
+  >>> from eea.promotion.interfaces import IPromotable, IPromoted, IPromotion
+  >>> from eea.promotion.browser.actions import CreatePromotion
+  >>> from zope.interface import alsoProvides
+  >>> alsoProvides(self.item, IPromotable)
+  >>> CreatePromotion(self.item, self.request)()
+  >>> IPromoted.providedBy(self.item)
+  True
+
+  >>> promo = IPromotion(self.item)
+  >>> promo.locations = [u'Front Page']
+
+Catalog should have it indexed:
+
+  >>> catalog = self.portal.portal_catalog
+  >>> catalog.indexObject(promo.context)
+  >>> query = {'object_provides': 'eea.promotion.interfaces.IPromoted',
+  ...          'review_state': 'published'}
+  >>> results = catalog.searchResults(query)
+  >>> promo.context == results[0].getObject()
+  True
+
+We haven't yet specified where on the frontpage to put it, so it shouldn't be
+included:
+
+  >>> promo.frontpage_section == u''
+  True
+
+  >>> promos = self.frontpage.getPromotions()
+  >>> len(promos)
+  0
+
+To inform us of the available sections, we have the vocabulary
+"Frontpage Promotion Sections":
+
+  >>> from zope.component import getUtility
+  >>> from zope.app.schema.vocabulary import IVocabularyFactory
+  >>> factory = getUtility(IVocabularyFactory, u"Frontpage Promotion Sections")
+  >>> vocab = factory(promo, testPromotionFolder=self.frontpage.promotionFolder)
+  >>> vocab.getTerm('/plone/SITE/quicklinks/spotlight').title
+  u'Spotlight'
+
+When a section is set, the frontpage includes it:
+
+  >>> from zope.event import notify
+  >>> from zope.app.event.objectevent import ObjectModifiedEvent
+  >>> promo.frontpage_section = '/plone/SITE/quicklinks/spotlight'
+  >>> notify(ObjectModifiedEvent(promo.context))
+  >>> promos = self.frontpage.getPromotions() 
+  >>> len(promos)
+  1
+
+
+Id Conflicts
+------------
+
+If an item gets both external and internal promotions in the same category,
+there shouldn't be any id conflicts. This is, if the internal promotions
+context has the same id as the external promotion:
+
+  >>> multimedia = self.portal.SITE.quicklinks.multimedia
+  >>> id = multimedia.invokeFactory('Promotion', id='test')
+  >>> epromo = multimedia[id]
+  >>> wf = self.portal.portal_workflow
+  >>> wf.doActionFor(epromo, 'publish')
+
+  >>> promo.context.id
+  'test'
+
+  >>> epromo.id
+  'test'
+
+They are still in different categories, so it's OK, because the
+portlet_promotion macro will insert the category id in front of it. Something
+like this:
+
+  >>> promos = self.frontpage.getPromotions()
+
+  >>> category = promos[0]['category']
+  >>> info = promos[0]['promotions'][0]
+  >>> print category['id'] + '-' + info['id']
+  spotlight-test
+
+  >>> category = promos[1]['category']
+  >>> info = promos[1]['promotions'][0]
+  >>> print category['id'] + '-' + info['id']
+  multimedia-test
+
+But when they are placed in the same category, the view logic makes sure that
+the id stays unique:
+
+  >>> promo.frontpage_section = '/plone/SITE/quicklinks/multimedia'
+  >>> notify(ObjectModifiedEvent(promo.context))
+  >>> promos = self.frontpage.getPromotions()
+  >>> promos = promos[0]['promotions']
+
+  >>> promos[0]['id']
+  'test'
+
+  >>> promos[1]['id']
+  'test-1'
+
+
+Expiration dates
+----------------
+
+If an item has an effective date that is in the future, it should not show:
+
+  >>> from DateTime.DateTime import DateTime
+  >>> tomorrow = DateTime() + 1
+
+  >>> self.item.setEffectiveDate(tomorrow)
+  >>> self.item.reindexObject()
+  >>> notify(ObjectModifiedEvent(promo.context))
+
+  >>> epromo.setEffectiveDate(tomorrow)
+  >>> epromo.reindexObject()
+  >>> notify(ObjectModifiedEvent(epromo))
+
+  >>> promos = self.frontpage.getPromotions() 
+  >>> len(promos)
+  0
+
+
+Removal of Promotions
+---------------------
+
+To remove the promotion completely (in contrast to disabling it), we use the
+RemovePromotion action:
+
+  >>> from eea.promotion.browser.actions import RemovePromotion
+  >>> RemovePromotion(promo.context, self.request)()
+  >>> promos = self.frontpage.getPromotions()
+  >>> len(promos)
+  0
+
+  >>> IPromoted.providedBy(promo)
+  False
+
+
+Promotable Content Types
+------------------------
+
+Not just ATNewsItems are promotable. Articles, Highlights, Folders and Files should
+also provide the IPromotable marker interface:
+
+  >>> for i in ('Article', 'Highlight', 'Speech', 'PressRelease', 'Folder', 'File'):
+  ...     id = self.portal.invokeFactory(i, id='test_' + i)
+  ...     item = self.portal[id]
+  ...     print IPromotable.providedBy(item)
+  True
+  True
+  True
+  True
+  True
+  True
+

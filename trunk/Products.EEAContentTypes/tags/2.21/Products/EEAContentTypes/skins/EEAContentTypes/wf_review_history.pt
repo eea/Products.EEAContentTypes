@@ -1,0 +1,10 @@
+<metal:wrapper define-macro="review_history">
+<tal:wtool define="wtool nocall:here/portal_workflow;
+                   portal_url nocall:here/portal_url;
+                   portal portal_url/getPortalObject;
+                   mtool nocall:here/portal_membership;
+                   view here/@@plone;
+		   toLocalizedTime nocall:view/toLocalizedTime">
+<metal:review use-macro="here/review_history/macros/review_history">Review history</metal:review>
+</tal:wtool>
+</metal:wrapper>

@@ -1,0 +1,13 @@
+<script type="text/javascript">
+   // <![CDATA[
+   document.write('<form id="selectlang_form" onsubmit="this.selectlang.onchange();"><select id="selectlang" onchange="document.location = this.options[this.selectedIndex].value;">');
+   document.write("<option value='http://www.eea.europa.eu'><dtml-var home_yourlang></option>");
+
+   <dtml-in "languages" mapping>
+      document.write("<option value='<dtml-var url>'><dtml-var lang> (<dtml-var langcode>)</option>");
+   </dtml-in>
+
+   document.write('</select></form>');
+   // ]]>
+</script>
+

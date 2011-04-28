@@ -1,0 +1,34 @@
+Info on how to setup the geo for EEA
+=================================================
+Author: Alexandru Ghica <alec.ghica@eaudeweb.ro>
+
+1) General
+-------------------------------------------------
+- from portal_setup import: 'Action Providers', 'Action Icons' and 'EEAContentTypes: miscellaneous import steps'
+- you have to enter the API keys for Google and Yahoo on ../portal_properties/geographical_properties at 'google_key' and 'yahoo_key', the keys you can get from:
+       Google: http://code.google.com/apis/maps/signup.html
+       Yahoo: https://developer.yahoo.com/wsregapp/index.php
+- on ../portal_properties/geographical_properties -> geo_services is the default listing of the available services (nothing to customize here)
+
+2) Geocoding
+-------------------------------------------------
+- on every object with a property 'location' at add/edit a geocode will be tryed. If the geocode will succeed the latitude and longitude will be saved for the object and he will be marked with IGeoPositioned interface (basically all the object marked with IGeoPositioned will be taken in consideration for Google Earth view and Map displays and the latitude, longitude will be used)
+- there are 2 geocoding services implemented, the one from Google and the one from Yahoo, when the geocoding is executed it first will try with Google service and if that didn't succeed a second try will be done Yahoo service. The order in which services will be used for geocoding can be customised from ../portal_properties/site_properties -> geocoding_service_priority.
+- if an object is added with a valid location property, the geocoding will be done and the object will be marked as IGeoPositioned, if the object is edited and the value for the location property will be let empty the object will no longer be marked as IGeoPositioned
+
+3) Google Earth export/display
+-------------------------------------------------
+- on portal_actions the condition where Google Earth view appear can/should be customize as you wish
+- if you want to appear on the object with 'location' property too, the condition should be: if object provides IGeoPositioned interface. If the context is marked as IGeoPositioned one location will be displayed on GE if context is not IGeoPositioned on GE will be generated the contained IGeoPositioned objects
+
+4) Maps view
+-------------------------------------------------
+- under ../portal_properties/geographical_properties, you can set the default zoom and center zoom of the maps using 'PointZoom', 'MapLoc' and 'MapZoom' values
+- on ../portal_properties/geographical_properties -> map_service_to_use can be customise what service to be used for displaying the maps, if 'None' will be selected no map will show (default is set to  'None')
+- as default I added the map view only in ../EEAContentTypes/skins/EEAContentTypes_public/event_view.pt (basically for Events and QuickEvents index)
+- the map view can be added on a template like:
+"""
+      <tal:block tal:condition="here/@@geopositionMap|nothing">
+          <tal:map replace="structure here/@@geopositionMap" /><br />
+      </tal:block>
+"""

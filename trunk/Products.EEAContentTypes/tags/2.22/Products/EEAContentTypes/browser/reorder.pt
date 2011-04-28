@@ -1,0 +1,135 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  lang="en"
+  metal:use-macro="here/prefs_main_template/macros/master"
+  i18n:domain="indicators">
+
+  <metal:slot fill-slot="head_slot">
+    <title>Reorder resources</title>
+  </metal:slot>
+  <metal:slot fill-slot="css_slot">
+  <style>
+    .reorder {
+      list-style-image:none;
+      margin:0;
+    }
+    .list-item {
+      width:320px;
+      list-style-type:none;
+      padding:3px;
+      margin:1px;
+      border:1px solid #CCC;
+      background-color:#DDD;
+    }
+    .ui-icon {
+      float:left;
+      margin-right:5px;
+    }
+    .composed-entry {
+      background-color:#DDD;
+      padding:3px;
+    }
+    .composeds {
+      width:450px; 
+      float:left; 
+      margin-left:10px;
+    }
+    .composeds ul {
+      list-style-type:none;
+      list-style-image:none;
+    }
+	#portal-column-content {
+		width:830px;
+	}
+  </style>
+  </metal:slot>
+  <metal:slot fill-slot="javascript_head_slot">
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/++resource++jquery.ui-1.7.js"></script>
+    <script type="text/javascript" tal:attributes="src string:$portal_url/reorder_resources.js" ></script>
+  </metal:slot>
+
+  <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)" />
+
+  <body>
+    <div metal:fill-slot="prefs_configlet_content" >
+
+      <ul class="contentViews">
+        <li class="selected" tal:attributes="class python: ('css' in request.URL) and 'selected' or ''">
+          <a href="" tal:attributes="href string:$portal_url/@@reorder_css">Reorder CSS</a>
+        </li>
+        <li class="selected" tal:attributes="class python: ('javascripts' in request.URL) and 'selected' or ''">
+          <a tal:attributes="href string:$portal_url/@@reorder_javascripts">Reorder Javascripts</a>
+        </li>
+      </ul>
+
+      <h1 tal:content="view/title">Reorder resources</h1>
+      <p>On the left side you have a list resources. Drag from the handle icon to reorder. After reordering, you need to use the Save button at the bottom of the list. On the right side you can see how the resources have been composed. Notice: this is not a preview. Hitting Save will generate new merged resources.
+</p>
+
+      <div style="width:320px; float:left">
+      <form method="POST" id="reorder_form" action="" tal:attributes="action request/URL">
+        <textarea name="resources" tal:content="python: '\n'.join(view.resources)" style="display:none"></textarea>
+        <p>
+          <input type="submit" name="save" value="Save" />
+        </p>
+      </form>
+      </div>
+
+      <div class="composeds" tal:condition="python:view.resource_type =='javascripts'">
+        <ul tal:define="portal_url python:context.portal_url()">
+          <li tal:repeat="entry python:context.portal_javascripts.getCookedResources()">
+            <div class='composed-entry'>
+              <a href="" tal:attributes="href string:${portal_url}/portal_javascripts/${entry/getId}">
+                <b tal:content="entry/getId">plone_ecmascript.js</b>
+              </a>
+              <tal:block tal:condition="entry/getExpression | nothing">
+                - <span tal:replace="entry/getExpression" />
+              </tal:block>
+            </div>
+            <ul tal:define="scripts context/portal_javascripts/concatenatedresources">
+              <tal:scripts tal:define="portal python:context.portal_url.getPortalObject();"
+                tal:repeat="subentry python:scripts.get(entry.getId())">
+                <li tal:define="resourceExists python:path('exists:portal/%s' % subentry);" >
+                  <a href="" tal:attributes="href string:${portal_url}/portal_javascripts/${subentry}"
+                    tal:content="subentry">
+                    plone.js
+                  </a>
+                  <span tal:condition="not:resourceExists">(resource not found or not accessible)</span>
+                </li>
+              </tal:scripts>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="composeds" tal:condition="python:view.resource_type =='css'">
+        <ul tal:define="portal_url python:context.portal_url()">
+          <li tal:repeat="entry python:context.portal_css.getCookedResources()">
+            <div class='composed-entry'>
+              <a href="" tal:attributes="href string:${portal_url}/portal_css/${entry/getId}">
+                <b tal:content="entry/getId">ploneCustom.css</b>
+              </a>
+              <tal:block tal:condition="entry/getExpression | nothing">
+                - <span tal:replace="entry/getExpression" />
+              </tal:block>
+            </div>
+            <ul tal:define="sheets context/portal_css/concatenatedresources">
+              <tal:stylesheets tal:define="portal python:context.portal_url.getPortalObject();"
+                tal:repeat="subentry python:sheets.get(entry.getId())">
+                <li tal:define="resourceExists python:path('exists:portal/%s' % subentry);" >
+                  <a href="" tal:attributes="href string:${portal_url}/portal_css/${subentry}"
+                    tal:content="subentry">
+                    plone.css
+                  </a>
+                  <span tal:condition="not:resourceExists">(resource not found or not accessible)</span>
+                </li>
+              </tal:stylesheets>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </body>
+</html>

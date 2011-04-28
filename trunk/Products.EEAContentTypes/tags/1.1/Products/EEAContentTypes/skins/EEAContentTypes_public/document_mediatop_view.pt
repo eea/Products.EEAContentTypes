@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main">
+
+    <metal:document use-macro="here/document_macros/macros/document">
+        <tal:document metal:fill-slot="related_multimedia">
+
+           <div metal:use-macro="here/document_relateditems/macros/multimedia_top_videos">
+               show related multimedia videos if they exist
+           </div>
+           <div id="related-portlets">
+           <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+           <div metal:use-macro="here/document_relateditems/macros/nonvideos">
+               show related multimedia videos if they exist
+           </div>
+               
+           <div metal:use-macro="here/document_relateditems/macros/pages">
+               show related pages if they exist
+           </div>
+
+           <div metal:use-macro="here/document_relateditems/macros/auto">
+               show auto related items if they exist
+           </div>
+           <div id="media-content-spacer"> <!-- &nbsp; --> </div>
+           </div>
+        </tal:document>
+    </metal:document>
+    
+</tal:main-macro>
+</metal:main>
+
+</body>
+</html>

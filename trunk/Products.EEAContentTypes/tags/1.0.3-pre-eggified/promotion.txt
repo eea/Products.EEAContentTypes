@@ -1,0 +1,97 @@
+==============================
+Integration with eea.promotion
+==============================
+
+The external promotions have their separate content type. They are categorized by
+their 'physical' location in the quicklinks subfolders.
+
+
+External Promotions
+-------------------
+
+The external promotions have their separate content type. They are categorized by
+their 'physical' location in the quicklinks subfolders:
+
+  >>> multimedia = portal.SITE.quicklinks.multimedia
+  >>> id = multimedia.invokeFactory('Promotion', id='test')
+  >>> epromo = multimedia[id]
+
+When listing all promotions in a given frontpage section, we use a RichTopic with
+the criteria frontpage_section == 'the_current_section'. To make this work with
+external promotions, a FrontpageSectionIndex adapter is required:
+
+  >>> from Products.EEAContentTypes.content.Promotion import FrontpageSectionIndex
+  >>> FrontpageSectionIndex(epromo, None)()
+  u'/plone/SITE/quicklinks/multimedia'
+
+In the listing, we use an 'imglink' adapter to generate the anchor with the
+embedded image.
+
+  >>> from valentine.imagescales.browser.base import SummaryImageLink
+  >>> SummaryImageLink(epromo, self.request) != None
+  True
+
+
+IPromotion Adapter
+------------------
+
+ExternalPromotions can be converted to the IPromotion style inteface through an
+adapter:
+
+  >>> quicklinks = portal.SITE.quicklinks
+  >>> id = quicklinks.spotlight.invokeFactory('Promotion', id='epromo')
+  >>> epromo = quicklinks.spotlight[id]
+  >>> import transaction
+  >>> foo = transaction.savepoint()
+
+Lets verify the IPromotion interface on the external
+
+  >>> from eea.promotion.interfaces import IPromotion
+  >>> promo = IPromotion(epromo)
+  >>> promo.frontpage_section
+  '/plone/SITE/quicklinks/spotlight'
+  
+When we move the promotion to another folder, its frontpage section adapts:
+
+  >>> clipboard = quicklinks.spotlight.manage_cutObjects(ids=[id])
+  >>> foo = quicklinks.multimedia.manage_pasteObjects(clipboard)
+  >>> promo = IPromotion(quicklinks.multimedia[id])
+  >>> promo.frontpage_section
+  '/plone/SITE/quicklinks/multimedia'
+
+Because the promotion is in a quicklinks folder, it should be tagged as being
+on the front page:
+
+  >>> u'Front Page' in promo.locations
+  True
+
+If we tag our promotion with a theme, it should show up on the theme page as well:
+
+  >>> from eea.themecentre.interfaces import IThemeTagging
+  >>> IThemeTagging(epromo).tags = ['climate']
+  >>> u'Themes' in promo.locations
+  True
+
+We use navigation sections to determine where on the theme page a promotions is
+placed:
+
+  >>> from Products.NavigationManager.sections import INavigationSectionPosition
+  >>> INavigationSectionPosition(epromo).section = u'Live maps and data'
+  >>> promo.themepage_section
+  u'Live maps and data'
+
+
+Deactivation
+------------
+
+Right now, our promotion is visible on the themes page and on the front page. If we
+remove the themes and move it to a folder outside quicklinks, it gets marked
+as inactive:
+
+  >>> IThemeTagging(epromo).tags = []
+  >>> clipboard = quicklinks.multimedia.manage_cutObjects(ids=[id])
+  >>> foo = portal.SITE.manage_pasteObjects(clipboard)
+  >>> promo = IPromotion(portal.SITE[id])
+  >>> promo.active
+  False
+

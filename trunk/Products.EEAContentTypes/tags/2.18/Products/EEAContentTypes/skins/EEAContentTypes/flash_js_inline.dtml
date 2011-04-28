@@ -1,0 +1,12 @@
+<script type="text/javascript">
+   // <![CDATA[
+			   
+   var so = new SWFObject("<dtml-var "flash.absolute_url()">/getFile", "sotester", "<dtml-var "flash.getWidth()">", "<dtml-var "flash.getHeight()">", "7", "<dtml-var "flash.getBgcolor()">");
+   so.addParam("scale", "noscale");
+   so.addParam("wmode", "opaque");
+   so.addParam("allowScriptAccess", "always"); 
+   so.addVariable("sessionid", getQueryParamValue("sessionid"));
+   so.write("container-<dtml-var "flash.getId()">");
+
+   // ]]>
+</script>

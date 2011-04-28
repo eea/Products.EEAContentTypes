@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/main_template/macros/master"
+    i18n:domain="plone">
+ <head tal:define="portal python:here.portal_url.getPortalObject();">
+       
+        <title tal:content="template/title">The title</title>
+      <metal:js fill-slot="javascript_head_slot">
+        <script type="text/javascript" src=""
+                tal:attributes="src string:${portal_url}/resize.js"></script>
+        <script type="text/javascript" src=""
+              tal:attributes="src string:${portal/absolute_url}/swfobject.js"></script>
+       </metal:js>
+  </head>
+  <body>
+    <metal:header fill-slot="header">
+            <h1 class="documentFirstHeading" tal:content="here/Title">
+                Flash GIS application title
+            </h1>
+    </metal:header>
+        
+    <metal:fill fill-slot="main">
+            <metal:main define-macro="main">
+	     <div id="" class="flashmovie" 
+                tal:attributes="id string:container-${here/getId};"> This page requires Flashplayer, please download it for free from <a href="http://www.macromedia.com/go/getflashplayer" title="get flashplayer">http://www.macromedia.com/go/getflashplayer</a> </div>
+             <tal:flashjs replace="structure here/flash_js" />
+            </metal:main>
+    </metal:fill>
+
+    <metal:columntwo fill-slot="column_two_slot" />
+    
+  </body>
+</html>

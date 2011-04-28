@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<site>
+ <property name="title">EEA</property>
+ <property name="description">European Environment Agency</property>
+ <property name="email_from_address"
+    type="string">testing@testing.eea</property>
+ <property name="email_from_name" type="string">EEA web admin</property>
+ <property name="default_charset" type="string">utf-8</property>
+</site>

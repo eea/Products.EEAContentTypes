@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+     <include file="imagescales.zcml" />
+
+     <browser:page
+       for=".interfaces.IExternalPromotion"
+       name="frontpage_category"
+       permission="zope.Public"
+       class=".Promotion.FrontpageSectionIndex"
+       />
+
+</configure>
