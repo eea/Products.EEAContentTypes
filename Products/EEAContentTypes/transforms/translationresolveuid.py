@@ -59,7 +59,7 @@ class TranslationResolveUid:
                 uid = match.group('uid')
                 target = self.resolveuid(context, rc, uid)
                 if target is not None:
-                    #is_empty = False
+                    is_empty = False
                     if hasattr(target, 'isCanonical') and not target.isCanonical():
                         cat = getToolByName(context, 'portal_catalog')
                         rid = cat.getrid('/'.join(target.getPhysicalPath()))

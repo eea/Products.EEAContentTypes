@@ -1,5 +1,3 @@
-""" ThemeTaggable """
-
 # -*- coding: utf-8 -*-
 #
 # File: ThemeTaggable.py
@@ -30,22 +28,19 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-#from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-#from Products.EEAContentTypes.config import 
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.EEAContentTypes.config import *
 
 try:
-    from Products.LinguaPlone.public import (
-        Schema, StringField, InAndOutWidget, BaseContent )
-    Schema, StringField, InAndOutWidget, BaseContent 
+    from Products.LinguaPlone.public import *
 except ImportError:
     # No multilingual support
-    from Products.Archetypes.public import (
-        Schema, StringField, InAndOutWidget, BaseContent )
+    from Products.Archetypes.public import *
 
 ##code-section module-header #fill in your manual code here
 from Products.validation.config import validation
 from Products.validation.interfaces import ivalidator
-#from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import ModifyPortalContent
 from eea.themecentre.interfaces import IThemeTagging
 from zope.app.schema.vocabulary import IVocabularyFactory
@@ -89,8 +84,6 @@ schema = Schema((
         index="KeywordIndex:brains",
         enforceVocabulary=1,
         default=[],
-        accessor='getThemes',
-        mutator='setThemes',
     ),
 
 ),
@@ -126,8 +119,7 @@ class ThemeTaggable(BaseContent):
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 
