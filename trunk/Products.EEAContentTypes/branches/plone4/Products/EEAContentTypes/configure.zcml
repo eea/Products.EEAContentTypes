@@ -8,7 +8,8 @@
     <include package=".faceted" />
     <include package=".migrate" />
 
-    <include file="cache.zcml" />
+    TODO: enable on plone4 migration
+    <!--<include file="cache.zcml" />-->
     <include file="catalog.zcml" />
     <include file="component.zcml" />
     <include file="geoposition.zcml" />

@@ -9,7 +9,6 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
 from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
 from Products.LinguaPlone.public import StringWidget, registerType
-from eea.promotion.interfaces import IFrontpageSectionIndex
 from zope.component import adapts
 from zope.interface import implements
 from Products.LinguaPlone.public import (
@@ -18,6 +17,9 @@ from Products.LinguaPlone.public import (
     AnnotationStorage,
     ImageWidget
 )
+
+#TODO: enable on plone4 migration of eea.promotion
+#from eea.promotion.interfaces import IFrontpageSectionIndex
 
 schema = Schema((
     ImageBlobField('image',
@@ -59,19 +61,13 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 Promotion_schema = getattr(ATNewsItem, 'schema', Schema(())).copy() + \
     getattr(ThemeTaggable, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 Promotion_schema['allowDiscussion'].schemata = 'metadata'
 Promotion_schema['relatedItems'].schemata = 'metadata'
 Promotion_schema['text'].schemata = 'metadata'
-
-##/code-section after-schema
 
 class Promotion(ATNewsItem, ThemeTaggable):
     """ Promotion
@@ -102,11 +98,6 @@ class Promotion(ATNewsItem, ThemeTaggable):
 
     schema = Promotion_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """Manually specifing mutator, solves ticket #3972"""
@@ -114,10 +105,12 @@ class Promotion(ATNewsItem, ThemeTaggable):
 
 
 registerType(Promotion, PROJECTNAME)
-# end of class Promotion
 
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
+
+#TODO: remove on plone4 migration of eea.promotion
+from zope.interface import Interface
+class IFrontpageSectionIndex(Interface):
+    """dummy"""
 
 
 class FrontpageSectionIndex(object):

@@ -26,30 +26,25 @@
 # 02110-1301, USA.
 #
 
-__author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import (
-        Schema, StringField, StringWidget, SelectionWidget, registerType )  
-        
 from Products.ATContentTypes.content.base import ATCTContent
-from Products.validation.validators import ExpressionValidator
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.EEAContentTypes.config import  PROJECTNAME
-
-##code-section module-header #fill in your manual code here
-from Products.Archetypes import transaction
-from Products.ATContentTypes.content.base import updateAliases
-
+from Products.Archetypes.atapi import Schema, StringField, StringWidget
+from Products.Archetypes.atapi import SelectionWidget, registerType
 from Products.CMFCore.utils import getToolByName
-import zope.interface
-import zope.event
-import zope.component
-import zope.app.event.objectevent
-#from zope.publisher.interfaces.browser import IBrowserRequest
+from Products.EEAContentTypes.config import  PROJECTNAME
+from Products.validation.validators import ExpressionValidator
 from interfaces import ICFTRequestor
-##/code-section module-header
+from zope.component import getMultiAdapter
+from zope.event import notify
+from zope.interface import implements
+from zope.lifecycleevent import ObjectModifiedEvent
+import transaction
+
+#TODO: update on plone4 migration
+#from Products.ATContentTypes.content.base import updateAliases
 
 schema = Schema((
 
@@ -170,16 +165,11 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 CFTRequestor_schema = getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 CFTRequestor_schema['description'].schemata = 'metadata'
 CFTRequestor_schema['title'].widget.label = 'Name'
-##/code-section after-schema
 
 class CFTRequestor(ATCTContent):
     """
@@ -206,14 +196,10 @@ class CFTRequestor(ATCTContent):
 
     schema = CFTRequestor_schema
 
-    ##code-section class-header #fill in your manual code here
-    zope.interface.implements(ICFTRequestor)
-    aliases = updateAliases(ATCTContent, { 'view' : 'base_view' })
-    ##/code-section class-header
+    implements(ICFTRequestor)
 
-    # Methods
-
-    # Manually created methods
+    #TODO: update on plone4 migration
+    #aliases = updateAliases(ATCTContent, { 'view' : 'base_view' })
 
     security.declarePrivate('_renameAfterCreation')
     def _renameAfterCreation(self, check_auto_id=False):
@@ -225,26 +211,20 @@ class CFTRequestor(ATCTContent):
         return new_id
 
     def objectModified(self):
-        zope.event.notify(
-            zope.app.event.objectevent.ObjectModifiedEvent(self))
+        notify(ObjectModifiedEvent(self))
 
     def reindexObject(self, **kw):
         pass
 
 registerType(CFTRequestor, PROJECTNAME)
-# end of class CFTRequestor
 
-##code-section module-footer #fill in your manual code here
 
 def submit_requestor(obj, event):
-    valid = zope.component.getMultiAdapter((obj, obj.REQUEST), name='isValid')
+    valid = getMultiAdapter((obj, obj.REQUEST), name='isValid')
     if valid.validate():
         obj.setRemoteAddr(obj.REQUEST.get('REMOTE_ADDR') )
         wf = getToolByName(obj, 'portal_workflow')
         actions = wf.getTransitionsFor(obj)
         if len(actions) > 0:
             wf.doActionFor(obj, 'submit')
-##/code-section module-footer
-
-
 

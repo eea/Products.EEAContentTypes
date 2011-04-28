@@ -30,8 +30,13 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-#from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-#from Products.EEAContentTypes.config import 
+from Products.CMFCore.permissions import ModifyPortalContent
+from Products.validation.config import validation
+from Products.validation.interfaces.IValidator import IValidator
+from eea.themecentre.interfaces import IThemeTagging
+from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.component import getUtility
+from zope.interface import implements
 
 try:
     from Products.LinguaPlone.public import (
@@ -42,17 +47,12 @@ except ImportError:
     from Products.Archetypes.public import (
         Schema, StringField, InAndOutWidget, BaseContent )
 
-##code-section module-header #fill in your manual code here
-from Products.validation.config import validation
-from Products.validation.interfaces import ivalidator
 #from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.permissions import ModifyPortalContent
-from eea.themecentre.interfaces import IThemeTagging
-from zope.app.schema.vocabulary import IVocabularyFactory
-from zope.component import getUtility
+#from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+#from Products.EEAContentTypes.config import 
 
 class MaxValuesValidator:
-    __implements__ = (ivalidator,)
+    implements(IValidator)
 
     def __init__( self, name, title='', description=''):
         self.name = name
@@ -68,7 +68,6 @@ class MaxValuesValidator:
         return 1
 
 validation.register(MaxValuesValidator('maxValues'))
-##/code-section module-header
 
 schema = Schema((
 
@@ -96,13 +95,8 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 ThemeTaggable_schema = schema.copy()
-
-##code-section after-schema #fill in your manual code here
-##/code-section after-schema
 
 class ThemeTaggable(BaseContent):
     """
@@ -114,9 +108,6 @@ class ThemeTaggable(BaseContent):
     _at_rename_after_creation = True
 
     schema = ThemeTaggable_schema
-
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
 
     # Methods
     def getThemes(self):

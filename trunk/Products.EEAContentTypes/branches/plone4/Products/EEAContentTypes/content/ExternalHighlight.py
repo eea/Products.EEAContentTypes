@@ -1,39 +1,40 @@
 """ ExternalHighlight """
-import logging
-from Acquisition import aq_base
-from zope.interface import implements
-from plone.app.blob.field import BlobField
-from plone.app.blob.config import blobScalesAttr
 
-from Products.Archetypes.Field import ImageField
-from plone.app.blob.mixins import ImageFieldMixin
-from plone.app.blob.interfaces import IBlobImageField
-
-from Products.Archetypes.Field import Image as ZODBImage
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_base
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.folder import ATFolder
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.LinguaPlone import public
 from Products.Archetypes import DisplayList
+from Products.Archetypes.Field import Image as ZODBImage
+from Products.Archetypes.Field import ImageField
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.permissions import View
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from Products.LinguaPlone import public
 from Products.validation.config import validation
-from Products.validation.interfaces import ivalidator
-
-# management plan code field imports
-from datetime import datetime
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-from eea.dataservice.vocabulary import DatasetYears
-from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from Products.validation.interfaces.IValidator import IValidator
 from eea.themecentre.interfaces import IThemeTagging
+from plone.app.blob.config import blobScalesAttr
+from plone.app.blob.field import BlobField
+from plone.app.blob.interfaces import IBlobImageField
+from plone.app.blob.mixins import ImageFieldMixin
+from zope.interface import implements
+import logging
+
+#TODO: enable on plone4 migration
+# management plan code field imports
+#from datetime import datetime
+#from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+#from eea.dataservice.vocabulary import DatasetYears
+#from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
+
 
 class ImageCaptionRequiredIfImageValidator:
     """ Image caption validator
     """
-    __implements__ = (ivalidator,)
+    implements(IValidator)
 
     def __init__( self, name, title='', description=''):
         self.name = name
@@ -49,10 +50,11 @@ class ImageCaptionRequiredIfImageValidator:
 
 validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
 
+
 class MaxValuesValidator:
     """ Max values validator
     """
-    __implements__ = (ivalidator,)
+    implements(IValidator)
 
     def __init__( self, name, title='', description=''):
         self.name = name
@@ -69,6 +71,7 @@ class MaxValuesValidator:
         return 1
 
 validation.register(MaxValuesValidator('maxWords'))
+
 
 class ImageBlobField(BlobField, ImageFieldMixin):
     """ derivative of blobfield for extending schemas """
@@ -324,32 +327,30 @@ schema = public.Schema((
         languageIndependent = True
     ),
 
-    ManagementPlanField(
-        name='management_plan',
-        languageIndependent=True,
-        required_for_published=True,
-        required=True,
-        default=(datetime.now().year, ''),
-        validators = ('management_plan_code_validator',),
-        vocabulary=DatasetYears(),
-        widget = ManagementPlanWidget(
-            format="select",
-            label="EEA Management Plan",
-            description=("EEA Management plan code. Internal EEA project "
-                         "line code, used to assign an EEA product output to "
-                         "a specific EEA project number in the "
-                         "management plan."),
-            label_msgid='dataservice_label_eea_mp',
-            description_msgid='dataservice_help_eea_mp',
-            i18n_domain='eea.dataservice',
-        )
-        ),
+    #TODO: enable on plone4 migration
+    #ManagementPlanField(
+        #name='management_plan',
+        #languageIndependent=True,
+        #required_for_published=True,
+        #required=True,
+        #default=(datetime.now().year, ''),
+        #validators = ('management_plan_code_validator',),
+        #vocabulary=DatasetYears(),
+        #widget = ManagementPlanWidget(
+            #format="select",
+            #label="EEA Management Plan",
+            #description=("EEA Management plan code. Internal EEA project "
+                         #"line code, used to assign an EEA product output to "
+                         #"a specific EEA project number in the "
+                         #"management plan."),
+            #label_msgid='dataservice_label_eea_mp',
+            #description_msgid='dataservice_help_eea_mp',
+            #i18n_domain='eea.dataservice',
+        #)
+        #),
 
 ),
 )
-
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
     ).copy() + getattr(ThemeTaggable, 'schema', public.Schema(())
@@ -357,8 +358,7 @@ ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
 
 # themes is required for all news-alike content types
 ExternalHighlight_schema['themes'].required = True
-##code-section after-schema #fill in your manual code here
-##/code-section after-schema
+
 
 class ExternalHighlight(ATFolder, ThemeTaggable):
     """ External highlight
@@ -374,9 +374,6 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
     _at_rename_after_creation = True
 
     schema = ExternalHighlight_schema
-
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
 
     # Methods
 
@@ -432,8 +429,6 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
         """
         self.setExpirationDate(value)
 
-    # Manually created methods
-
     security.declareProtected(View, 'tag')
     def tag(self, **kwargs):
         """Generate image tag using the api of the ImageField
@@ -452,6 +447,8 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
         """
         pass
 
+    #TODO: on plone4 migration, we should use a traverser instead of this
+    #also, valentine.imagescale is pluggable and could be used instead of this
     def __bobo_traverse__(self, REQUEST, name):
         """Transparent access to image scales
         """
@@ -470,9 +467,9 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
         return ATFolder.__bobo_traverse__(self, REQUEST, name)
 
-
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
         value = [val for val in value if val is not None]
         tagging = IThemeTagging(self)
         tagging.tags = value
+

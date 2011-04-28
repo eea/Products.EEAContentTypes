@@ -34,12 +34,22 @@ setup(name=name,
           'bda.feed',
           'p4a.video',
           'rdflib==2.4.2',
+          'Products.LinguaPlone',
+          'Products.ATVocabularyManager',
+          'Products.OrderableReferenceField',
 
+          'eea.rdfmarshaller',
+
+          #TODO: enable when plone4 migration
+          #'eea.promotion',
+          #'eea.dataservice',
           #'eea.themecentre',
+          #'eea.locationwidget',
 
           #required in tests
           #'eea.design',
           #'eea.testcase',
+
           #'Products.CMFSquidTool',
 
       ],
