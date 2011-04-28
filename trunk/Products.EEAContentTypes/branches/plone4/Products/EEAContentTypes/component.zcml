@@ -1,0 +1,26 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="eea">
+
+    <utility
+        component=".promotion.ThemepageSectionsVocabularyFactory"
+        name="Themepage Promotion Sections"
+        />
+
+    <adapter factory=".feeds.FeedPortletInfo" />
+    <adapter factory=".feeds.FeedItemPortletInfo" />
+    <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
+    <adapter factory=".feeds.ContextAwareFeedPortletInfo"
+        provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+
+    <adapter factory=".relations.Relations" />
+    <adapter factory=".promotion.Promotion" />
+
+    <adapter factory=".content.Article.Article2Surf" />
+
+    <adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>
+    <adapter factory=".subtypes.GeotagSingleEdit"/>
+    <adapter factory=".subtypes.GeotagMultiEdit"/>
+
+</configure>

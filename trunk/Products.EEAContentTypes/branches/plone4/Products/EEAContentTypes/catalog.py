@@ -1,9 +1,9 @@
-from zope.component.exceptions import ComponentLookupError
-from Products.CMFPlone.CatalogTool import registerIndexableAttribute
 from Products.EEAContentTypes.interfaces import IRelations
+from plone.indexer.decorator import indexer
 
 
-def CountReferences(obj, portal, **kwargs):
+@indexer
+def CountReferences(obj):
     try:
         backreferences = IRelations(obj).backReferences()
         fwdreferences = IRelations(obj).forwardReferences()
@@ -14,9 +14,7 @@ def CountReferences(obj, portal, **kwargs):
             fwdreferences.extend(obj.getRelatedProducts())
 
         return len(backreferences) + len(fwdreferences)
-    except (ComponentLookupError, TypeError, ValueError):
+    except (TypeError, ValueError):
         # The catalog expects AttributeErrors when a value can't be found
         raise AttributeError
 
-# countReferences index is made a callable
-registerIndexableAttribute('countReferences', CountReferences)

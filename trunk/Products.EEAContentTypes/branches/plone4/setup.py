@@ -27,7 +27,21 @@ setup(name=name,
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.monkeypatcher',
           # -*- Extra requirements: -*-
+
+          'Products.basesyndication',
+          'bda.feed',
+          'p4a.video',
+          'rdflib==2.4.2',
+
+          #'eea.themecentre',
+
+          #required in tests
+          #'eea.design',
+          #'eea.testcase',
+          #'Products.CMFSquidTool',
+
       ],
       entry_points="""
       # -*- Entry points: -*-

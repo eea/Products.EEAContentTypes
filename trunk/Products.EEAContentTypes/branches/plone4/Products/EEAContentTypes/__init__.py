@@ -4,10 +4,12 @@
 import logging
 logger = logging.getLogger('Products.EEAContentTypes')
 
-import patches
+#import patches
+#TODO: complete migration to plone4 for the patches
+
 import langprefs
-import catalog
-patches, langprefs, catalog
+langprefs
+
 
 from Products.GenericSetup import EXTENSION, profile_registry
 from Products.CMFPlone.interfaces import IPloneSiteRoot

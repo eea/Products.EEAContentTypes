@@ -7,7 +7,7 @@ from Products.EEAContentTypes.tests import base
 from zope.app.component.hooks import setSite
 from zope.testing import doctest
 from Products.CMFCore.utils import getToolByName
-from Products.CMFSquidTool.utils import stopThreads
+#from Products.CMFSquidTool.utils import stopThreads
 
 def createObject(parent, portal_type, oid):
     """ Create object
@@ -116,25 +116,27 @@ class PromotionTestCase(base.EEAContentTypeFunctionalTestCase):
         self.request = request
 
 
-class CacheTestCase(base.EEAContentTypeFunctionalTestCase):
-    """ Cache test case
-    """
+#TODO: migrate this to plone4
+#class CacheTestCase(base.EEAContentTypeFunctionalTestCase):
+    #""" Cache test case
+    #"""
 
-    def afterSetUp(self):
-        """ Set up """
-        self.setRoles(['Manager'])
-        cacheTool = getToolByName(self.portal, 'portal_cache_settings', None)
-        cacheTool.setProxyPurgeConfig('custom-rewrite')
-        cacheTool.setSquidURLs(['http://127.0.0.1:3128'])
-        cacheTool.setDomains(['http://nohost:80'])
-        cacheTool.setEnabled(True)
-        squidTool = getToolByName(self.portal, 'portal_squid', None)
-        squidTool.setUrlExpression(
-            'python:object.portal_cache_settings.getUrlsToPurge(object)')
+    #def afterSetUp(self):
+        #""" Set up """
+        #self.setRoles(['Manager'])
+        #cacheTool = getToolByName(self.portal, 'portal_cache_settings', None)
+        #cacheTool.setProxyPurgeConfig('custom-rewrite')
+        #cacheTool.setSquidURLs(['http://127.0.0.1:3128'])
+        #cacheTool.setDomains(['http://nohost:80'])
+        #cacheTool.setEnabled(True)
+        #squidTool = getToolByName(self.portal, 'portal_squid', None)
+        #squidTool.setUrlExpression(
+            #'python:object.portal_cache_settings.getUrlsToPurge(object)')
 
-    def beforeTearDown(self):
-        """ Tear down """
-        stopThreads(wait=False)
+    #def beforeTearDown(self):
+        #""" Tear down """
+        #stopThreads(wait=False)
+
 
 def test_suite():
     """ Suite """
