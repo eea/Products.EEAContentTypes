@@ -1,4 +1,4 @@
-#import zope.interface
+import zope.interface
 
 from Products.Five import BrowserView
 
