@@ -1,5 +1,3 @@
-""" Event """
-
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.event import ATEvent
 from Products.Archetypes.atapi import Schema, registerType
@@ -45,7 +43,7 @@ class QuickEvent(ATEvent, ThemeTaggable):
     security = ClassSecurityInfo()
     __implements__ = (getattr(ATEvent,'__implements__',()),)
     zope.interface.implements(IQuickEvent)
-
+    
     # This name appears in the 'add' box
     archetype_name             = 'QuickEvent'
 
@@ -61,7 +59,7 @@ class QuickEvent(ATEvent, ThemeTaggable):
     typeDescMsgId              = 'description_edit_quickevent'
 
     _at_rename_after_creation = True
-
+    
     schema = QuickEvent_schema
 
     # fields hidden from ATEvent get dummy values and accessor/mutators for BBB
@@ -82,11 +80,10 @@ class QuickEvent(ATEvent, ThemeTaggable):
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
-        value = [val for val in value if val]
+        value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
-
+    
     security.declareProtected(ModifyPortalContent, 'processForm')
     def processForm(self, data=1, metadata=0, REQUEST=None, values=None):
         """We want to see if the form was submited by robot or not
@@ -100,10 +97,7 @@ class QuickEvent(ATEvent, ThemeTaggable):
                 form = request.form
 
             if not form.get("mehuman"):
-                rq = self.REQUEST or REQUEST
-                if not (rq['HTTP_REFERER'] and \
-                        rq['HTTP_REFERER'].endswith('/properties')):
-                    raise NotFound  #We're dealing with a spammer
+                raise NotFound  #We're dealing with a spammer
 
         return ATEvent.processForm(self, data, metadata, REQUEST, values)
 
