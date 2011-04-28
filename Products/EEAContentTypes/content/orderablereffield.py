@@ -1,7 +1,7 @@
 from Products.OrderableReferenceField._field import OrderableReferenceField
-#from Products.OrderableReferenceField._field import OrderableReferenceWidget
+from Products.OrderableReferenceField._field import OrderableReferenceWidget
 from Products.CMFCore.permissions import ModifyPortalContent
-#from Products.Archetypes.Field import ReferenceField
+from Products.Archetypes.Field import ReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 field = OrderableReferenceField(
