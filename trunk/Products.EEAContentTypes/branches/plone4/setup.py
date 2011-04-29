@@ -38,20 +38,22 @@ setup(name=name,
 
           'eea.rdfmarshaller',
           'eea.facetednavigation',
+          'eea.rdfrepository',
+          'eea.themecentre',
+          'eea.translations',
 
           'bda.feed',
           'p4a.video',
-          'rdflib==2.4.2',
+          'rdflib',
 
           #TODO: enable when plone4 migration
-          #Products.NavigationManager
+          #'Products.NavigationManager', 
           #'valentine.imagescales',
           #'eea.promotion',
           #'eea.dataservice',
-          #'eea.themecentre',
           #'eea.locationwidget',
-          #'eea.rdfrepository',
           #'eea.geotags',
+          #'eea.mediacentre',
 
           #required in tests
           #'eea.design',

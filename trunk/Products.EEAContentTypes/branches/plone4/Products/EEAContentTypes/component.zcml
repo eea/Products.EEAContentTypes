@@ -10,11 +10,11 @@
         <!--/>-->
 
 	TODO: enable on migration to plone4
-    <!--<adapter factory=".feeds.FeedPortletInfo" />-->
-    <!--<adapter factory=".feeds.FeedItemPortletInfo" />-->
-    <!--<adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />-->
-    <!--<adapter factory=".feeds.ContextAwareFeedPortletInfo"-->
-        <!--provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
+	<adapter factory=".feeds.FeedPortletInfo" />
+	<adapter factory=".feeds.FeedItemPortletInfo" />
+	<adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
+	<adapter factory=".feeds.ContextAwareFeedPortletInfo"
+		provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
 
     <adapter factory=".relations.Relations" />
 

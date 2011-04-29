@@ -1,7 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.EEAContentTypes.interfaces import IFeedPortletInfo, IRelations
-from eea.mediacentre.interfaces import IMediaType
 from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
 from eea.rdfrepository.plugins.discover import DiscoverPlugin
 from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
@@ -14,6 +13,9 @@ from p4a.video.interfaces import IVideoEnhanced
 from zope.app.schema.vocabulary import IVocabularyFactory
 from zope.component import queryAdapter, getUtility, getMultiAdapter, queryMultiAdapter
 from zope.interface import implements
+
+#TODO: enable on plone4 migration
+#from eea.mediacentre.interfaces import IMediaType
 
 
 TOP_VIDEOS = 3

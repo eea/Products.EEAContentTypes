@@ -127,14 +127,12 @@
            attribute="main"
          />
 
-	 TODO: enable when migrating to plone4. In theory this portlet is not needed anymore,
-	 as it depends on eea.rdfrepository and that package is set to be removed.
-    <!--<browser:page-->
-        <!--for="*"-->
-        <!--name="rdf_portlets"-->
-        <!--class=".feeds.RDFPortlet"-->
-        <!--permission="zope2.View"-->
-        <!--/>-->
+	<browser:page
+		for="*"
+		name="rdf_portlets"
+		class=".feeds.RDFPortlet"
+		permission="zope2.View"
+		/>
 
     <!-- Related flash -->
     <browser:page
@@ -198,22 +196,21 @@
 
   <!-- views providing related objects -->
 
-  TODO: enable the following 2 pages when migrating to plone4
-  <!--<browser:page-->
-      <!--for="*"-->
-      <!--name="document_related"-->
-      <!--class=".related.DocumentRelated"-->
-      <!--allowed_interface=".interfaces.IDocumentRelated"-->
-      <!--permission="zope.Public"-->
-      <!--/>-->
+  <browser:page
+	  for="*"
+	  name="document_related"
+	  class=".related.DocumentRelated"
+	  allowed_interface=".interfaces.IDocumentRelated"
+	  permission="zope.Public"
+	  />
 
-  <!--<browser:page-->
-      <!--for="*"-->
-      <!--name="auto_related"-->
-      <!--class=".related.AutoRelated"-->
-      <!--allowed_interface=".interfaces.IAutoRelated"-->
-      <!--permission="zope.Public"-->
-      <!--/>-->
+  <browser:page
+	  for="*"
+	  name="auto_related"
+	  class=".related.AutoRelated"
+	  allowed_interface=".interfaces.IAutoRelated"
+	  permission="zope.Public"
+	  />
 
   <!-- reference browser contents -->
 
