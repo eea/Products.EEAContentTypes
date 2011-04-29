@@ -1,6 +1,6 @@
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import utils
 from Products.EEAContentTypes.interfaces import IFeedPortletInfo, IRelations
+from Products.Five.browser import BrowserView
 from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
 from eea.rdfrepository.plugins.discover import DiscoverPlugin
 from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
@@ -174,7 +174,7 @@ class AutoRelated(object):
         return contextThemes
 
 
-class DocumentRelated(utils.BrowserView):
+class DocumentRelated(BrowserView):
     """ Some docstinrg. """
 
     implements(IDocumentRelated)
@@ -182,7 +182,7 @@ class DocumentRelated(utils.BrowserView):
     def __init__(self, context, request):
         super(DocumentRelated, self).__init__(context, request)
 
-        self.context = utils.context(self)
+        #self.context = utils.context(self)
         self.plone_utils = getToolByName(context, 'plone_utils')
         self.normalize = self.plone_utils.normalizeString
 
