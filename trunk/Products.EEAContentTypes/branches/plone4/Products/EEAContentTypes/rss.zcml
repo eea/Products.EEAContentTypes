@@ -5,17 +5,22 @@
 
     configure.zcml from bda.feed is not loaded, we pick a few adapters we want here instead 
 
-    <adapter factory="bda.feed.collection.CollectionFeedSource" />
-    <adapter factory="bda.feed.collection.CollectionFeed"
-        provides="Products.basesyndication.interfaces.IFeed"/>
+	TODO: latest bda.feed doesn't have these, enable on plone4 migration
+    <!--<adapter factory="bda.feed.collection.CollectionFeedSource" />-->
+    <!--<adapter factory="bda.feed.collection.CollectionFeed"-->
+        <!--provides="Products.basesyndication.interfaces.IFeed"/>-->
     <adapter factory=".syndication.FeedLogo" />
     <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
     <adapter factory=".syndication.ATContentFeedEntry" />
-    <adapter factory=".syndication.NewsItemEnclosure" />
+
+	TODO: fix on plone4 migration
+    <!--<adapter factory=".syndication.NewsItemEnclosure" />-->
+
     <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
 
     <!-- adapters for folder rss -->
-    <adapter factory="Products.EEAContentTypes.feeds.FolderFeed"
-        provides="Products.basesyndication.interfaces.IFeed" /> 
+	TODO: fix on plone4 migration
+    <!--<adapter factory="Products.EEAContentTypes.feeds.FolderFeed"-->
+        <!--provides="Products.basesyndication.interfaces.IFeed" /> -->
 
 </configure>

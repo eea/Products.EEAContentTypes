@@ -17,37 +17,42 @@
     <include file="workflow.zcml" />
 
 
-    <class class=".feeds.FeedPortletInfo">
-        <require permission="zope2.Public" interface=".interfaces.IFeedPortletInfo" />
-    </class>
+	TODO: fix on plone4 migration
+    <!--<class class=".feeds.FeedPortletInfo">-->
+        <!--<require permission="zope2.Public" interface=".interfaces.IFeedPortletInfo" />-->
+    <!--</class>-->
 
-    <class class=".feeds.FeedItemPortletInfo">
-        <require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />
-    </class>
+	TODO: fix on plone4 migration
+    <!--<class class=".feeds.FeedItemPortletInfo">-->
+        <!--<require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />-->
+    <!--</class>-->
 
-    <class class=".feeds.ContextAwareFeedPortletInfo">
-        <require
-            permission="zope2.Public"
-            interface="eea.rdfrepository.interfaces.IRDFPortletInfo"
-            />
-        <require
-            permission="cmf.ModifyPortalContent"
-            set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"
-            />
-    </class>
+	TODO: fix on plone4 migration
+    <!--<class class=".feeds.ContextAwareFeedPortletInfo">-->
+        <!--<require-->
+            <!--permission="zope2.Public"-->
+            <!--interface="eea.rdfrepository.interfaces.IRDFPortletInfo"-->
+            <!--/>-->
+        <!--<require-->
+            <!--permission="cmf.ModifyPortalContent"-->
+            <!--set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"-->
+            <!--/>-->
+    <!--</class>-->
 
-    <class class="Products.Archetypes.BaseObject.BaseObject">
-        <implements interface="Products.NavigationManager.sections.INavigationSectionPositionable" />
-    </class>
+	TODO: fix on plone4 migration
+    <!--<class class="Products.Archetypes.BaseObject.BaseObject">-->
+        <!--<implements interface="Products.NavigationManager.sections.INavigationSectionPositionable" />-->
+    <!--</class>-->
 
 
     <!-- EEA Staff RDF is uploaded as normal Zope File. -->
-    <five:traversable class="OFS.Image.File" />
+	TODO: five:traversable doesn't exist anymore, is it still needed? plone4
+    <!--<five:traversable class="OFS.Image.File" />-->
 
 
     <subscriber
         for=".content.CFTRequestor.ICFTRequestor
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".content.CFTRequestor.submit_requestor"   />
 
     <subscriber

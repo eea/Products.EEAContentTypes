@@ -1,22 +1,22 @@
 """ GeoPosition """
 
-import urllib
-from xml.dom.minidom import parse
-
 from Products.CMFCore.utils import getToolByName
-from zope.interface import implements
-from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
-from zope.component import getUtility, adapts
-from zope.app.annotation.interfaces import IAnnotations
+from Products.EEAContentTypes.content.interfaces import IGeoPosition
+from Products.EEAContentTypes.content.interfaces import IGeoPositionDecider
+from Products.EEAContentTypes.content.interfaces import IGeoPositioned
 from persistent.dict import PersistentDict
+from xml.dom.minidom import parse
+from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility, adapts
+from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
+from zope.interface import implements
+import urllib
 
-from interfaces import IGeoPosition
-from interfaces import IGeoPositioned
-from interfaces import IGeoPositionDecider
 
 GEOKEYS =   ['latitude', 'longitude']
 GEOCOORDS = ['coordonates']
 GEOINFO =   ['country_code']
+
 
 class GeoPositioned(object):
     """ Geographical location (latitude, longitude). """
@@ -94,6 +94,7 @@ class GeoPositioned(object):
 
 class GeoPositionDecider(object):
     """ Geocoding decider """
+
     implements(IGeoPositionDecider)
     ifaces = (IGeoPositioned,)
 

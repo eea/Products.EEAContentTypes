@@ -5,11 +5,11 @@
 
     <!-- Geoposition related -->
     <subscriber
-        for="* zope.app.event.interfaces.IObjectCreatedEvent"
+        for="* zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler=".content.GeoPosition.geopositionEventHandler" />
 
     <subscriber
-        for="* zope.app.event.interfaces.IObjectModifiedEvent"
+        for="* zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".content.GeoPosition.geopositionEventHandler"   />
 
     <utility provides=".content.interfaces.IGeoPositionDecider"

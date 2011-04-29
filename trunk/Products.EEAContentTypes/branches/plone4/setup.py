@@ -30,26 +30,34 @@ setup(name=name,
           'collective.monkeypatcher',
           # -*- Extra requirements: -*-
 
-          'Products.basesyndication',
-          'bda.feed',
-          'p4a.video',
-          'rdflib==2.4.2',
           'Products.LinguaPlone',
           'Products.ATVocabularyManager',
           'Products.OrderableReferenceField',
+          'Products.fatsyndication',
+          'Products.basesyndication',
 
           'eea.rdfmarshaller',
+          'eea.facetednavigation',
+
+          'bda.feed',
+          'p4a.video',
+          'rdflib==2.4.2',
 
           #TODO: enable when plone4 migration
+          #Products.NavigationManager
+          #'valentine.imagescales',
           #'eea.promotion',
           #'eea.dataservice',
           #'eea.themecentre',
           #'eea.locationwidget',
+          #'eea.rdfrepository',
+          #'eea.geotags',
 
           #required in tests
           #'eea.design',
           #'eea.testcase',
 
+          #obsolete
           #'Products.CMFSquidTool',
 
       ],

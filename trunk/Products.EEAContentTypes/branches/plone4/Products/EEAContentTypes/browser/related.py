@@ -1,20 +1,19 @@
-from zope.component import queryAdapter, getUtility, getMultiAdapter, queryMultiAdapter
-from zope.interface import implements
-from zope.app.schema.vocabulary import IVocabularyFactory
-
-from Products.CMFPlone import utils
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 from Products.EEAContentTypes.interfaces import IFeedPortletInfo, IRelations
+from eea.mediacentre.interfaces import IMediaType
+from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
+from eea.rdfrepository.plugins.discover import DiscoverPlugin
+from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
+from eea.themecentre.interfaces import IThemeMoreLink
+from eea.themecentre.interfaces import IThemeTagging
+from eea.translations import _
+from interfaces import IDocumentRelated, IAutoRelated
 from p4a.video.interfaces import IMediaPlayer, IVideo
 from p4a.video.interfaces import IVideoEnhanced
-from interfaces import IDocumentRelated, IAutoRelated
-from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
-from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
-from eea.themecentre.interfaces import IThemeTagging
-from eea.themecentre.interfaces import IThemeMoreLink
-from eea.mediacentre.interfaces import IMediaType
-from eea.rdfrepository.plugins.discover import DiscoverPlugin
-from eea.translations import _
+from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.component import queryAdapter, getUtility, getMultiAdapter, queryMultiAdapter
+from zope.interface import implements
 
 
 TOP_VIDEOS = 3
@@ -172,8 +171,10 @@ class AutoRelated(object):
             contextThemes = theme.nondeprecated_tags
         return contextThemes
 
+
 class DocumentRelated(utils.BrowserView):
     """ Some docstinrg. """
+
     implements(IDocumentRelated)
 
     def __init__(self, context, request):

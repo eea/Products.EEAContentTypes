@@ -3,24 +3,29 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="eea">
 
-    <utility
-        component=".promotion.ThemepageSectionsVocabularyFactory"
-        name="Themepage Promotion Sections"
-        />
+	TODO: enable on migration to plone4
+    <!--<utility-->
+        <!--component=".promotion.ThemepageSectionsVocabularyFactory"-->
+        <!--name="Themepage Promotion Sections"-->
+        <!--/>-->
 
-    <adapter factory=".feeds.FeedPortletInfo" />
-    <adapter factory=".feeds.FeedItemPortletInfo" />
-    <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
-    <adapter factory=".feeds.ContextAwareFeedPortletInfo"
-        provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+	TODO: enable on migration to plone4
+    <!--<adapter factory=".feeds.FeedPortletInfo" />-->
+    <!--<adapter factory=".feeds.FeedItemPortletInfo" />-->
+    <!--<adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />-->
+    <!--<adapter factory=".feeds.ContextAwareFeedPortletInfo"-->
+        <!--provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
 
     <adapter factory=".relations.Relations" />
-    <adapter factory=".promotion.Promotion" />
+
+	TODO: enable on migration to plone4
+    <!--<adapter factory=".promotion.Promotion" />-->
 
     <adapter factory=".content.Article.Article2Surf" />
 
-    <adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>
-    <adapter factory=".subtypes.GeotagSingleEdit"/>
-    <adapter factory=".subtypes.GeotagMultiEdit"/>
+	TODO: enable on migration to plone4
+    <!--<adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>-->
+    <!--<adapter factory=".subtypes.GeotagSingleEdit"/>-->
+    <!--<adapter factory=".subtypes.GeotagMultiEdit"/>-->
 
 </configure>

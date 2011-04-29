@@ -1,16 +1,22 @@
 from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.content.interfaces import IGeoPosition
+from Products.EEAContentTypes.content.interfaces import IGeoPositioned
+from Products.Five.browser import BrowserView
+from interfaces import IGeoMapData, IGeoMapView, IGeoConverter
+from interfaces import IGeoPositionView, IGoogleEarthView
+from zope.app.schema.vocabulary import IVocabularyFactory
 from zope.component import getUtility
 from zope.interface import implements
-from zope.app.schema.vocabulary import IVocabularyFactory
-from Products.Five.browser import BrowserView
-
-from interfaces import IGeoPositionView, IGoogleEarthView, IGeoMapData, IGeoMapView, IGeoConverter
-from Products.EEAContentTypes.content.interfaces import IGeoPosition, IGeoPositioned
-from Products.CMFCore.utils import getToolByName
-from Products.PloneLanguageTool.availablelanguages import getCountries
 import logging
+from plone.i18n.locales.interfaces import ICountryAvailability
+
+
+#from Products.PloneLanguageTool.availablelanguages import getCountries
+
 logger = logging.getLogger('Products.EEAContentTypes.browser.geoposition')
+
 
 class GeoLocationTools(BrowserView):
 
@@ -172,7 +178,12 @@ class GeoMapData(BrowserView):
         # Country widget
         country_inf = {}
         country_html = ''
-        country_list = getCountries()
+
+        #plone4, migrated with the following code, needs checks
+        #country_list = getCountries()
+        country_util = getUtility(ICountryAvailability, context=self.context)
+        country_list = dict(country_util.getCountryListing())
+
         country_inf_sort = {}
         country_filter = cc
 

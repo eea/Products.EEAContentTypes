@@ -35,13 +35,14 @@
            attribute="validate"
          />
 
-    <browser:page
-           for="*"
-           name="invalidate_cache"
-           permission="zope.Public"
-           class=".cache.InvalidateCache"
-           attribute="invalidate"
-         />
+	 TODO: enable when migrating to plone4
+    <!--<browser:page-->
+           <!--for="*"-->
+           <!--name="invalidate_cache"-->
+           <!--permission="zope.Public"-->
+           <!--class=".cache.InvalidateCache"-->
+           <!--attribute="invalidate"-->
+         <!--/>-->
 
     <browser:page
            for="*"
@@ -126,12 +127,14 @@
            attribute="main"
          />
 
-    <browser:page
-        for="*"
-        name="rdf_portlets"
-        class=".feeds.RDFPortlet"
-        permission="zope2.View"
-        />
+	 TODO: enable when migrating to plone4. In theory this portlet is not needed anymore,
+	 as it depends on eea.rdfrepository and that package is set to be removed.
+    <!--<browser:page-->
+        <!--for="*"-->
+        <!--name="rdf_portlets"-->
+        <!--class=".feeds.RDFPortlet"-->
+        <!--permission="zope2.View"-->
+        <!--/>-->
 
     <!-- Related flash -->
     <browser:page
@@ -195,21 +198,22 @@
 
   <!-- views providing related objects -->
 
-  <browser:page
-      for="*"
-      name="document_related"
-      class=".related.DocumentRelated"
-      allowed_interface=".interfaces.IDocumentRelated"
-      permission="zope.Public"
-      />
+  TODO: enable the following 2 pages when migrating to plone4
+  <!--<browser:page-->
+      <!--for="*"-->
+      <!--name="document_related"-->
+      <!--class=".related.DocumentRelated"-->
+      <!--allowed_interface=".interfaces.IDocumentRelated"-->
+      <!--permission="zope.Public"-->
+      <!--/>-->
 
-  <browser:page
-      for="*"
-      name="auto_related"
-      class=".related.AutoRelated"
-      allowed_interface=".interfaces.IAutoRelated"
-      permission="zope.Public"
-      />
+  <!--<browser:page-->
+      <!--for="*"-->
+      <!--name="auto_related"-->
+      <!--class=".related.AutoRelated"-->
+      <!--allowed_interface=".interfaces.IAutoRelated"-->
+      <!--permission="zope.Public"-->
+      <!--/>-->
 
   <!-- reference browser contents -->
 
@@ -343,14 +347,15 @@
       class=".notification.SendAsNotification"
       />
 
-  <browser:menuItem
-      for="Products.ATContentTypes.interface.IATFolder"
-      menu="object_buttons"
-      title="Send as notification"
-      action="@@sendAsNotification"
-      description="Send as email notification"
-      permission="cmf.ModifyPortalContent"
-      />
+  TODO: enable for plone4 migration
+  <!--<browser:menuItem-->
+      <!--for="Products.ATContentTypes.interface.IATFolder"-->
+      <!--menu="object_buttons"-->
+      <!--title="Send as notification"-->
+      <!--action="@@sendAsNotification"-->
+      <!--description="Send as email notification"-->
+      <!--permission="cmf.ModifyPortalContent"-->
+      <!--/>-->
 
   <browser:page
       for="*"

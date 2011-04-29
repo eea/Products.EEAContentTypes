@@ -1,3 +1,5 @@
+#TODO: redo this stuff with plone.app.caching on plone4 migration
+
 from Acquisition import aq_parent, aq_inner
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName

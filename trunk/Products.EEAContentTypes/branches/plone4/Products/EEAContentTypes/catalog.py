@@ -1,9 +1,13 @@
+from Products.Archetypes.interfaces import IBaseContent
 from Products.EEAContentTypes.interfaces import IRelations
 from plone.indexer.decorator import indexer
 
 
-@indexer
+@indexer(IBaseContent)
 def CountReferences(obj):
+    """index number of references on objects
+    """
+
     try:
         backreferences = IRelations(obj).backReferences()
         fwdreferences = IRelations(obj).forwardReferences()
