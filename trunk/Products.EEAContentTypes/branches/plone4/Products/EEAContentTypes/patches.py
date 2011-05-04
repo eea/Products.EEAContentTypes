@@ -1,15 +1,13 @@
 """ Monkey patches
 """
 from Products.CMFCore.utils import getToolByName
-from collective.monkey.monkey import Patcher
-from ZODB.POSException import ConflictError
+from Products.EEAContentTypes.setuphandlers import registerTransforms
 from Products.LinguaPlone import config
-from Products.EEAContentTypes.setup.ConfigurationMethods import (
-    registerTransforms,
-)
+from ZODB.POSException import ConflictError
+#from collective.monkey.monkey import Patcher
 
-eeaPatcher = Patcher('EEA')
-linguaPatcher = Patcher('LinguaPlone')
+#eeaPatcher = Patcher('EEA')
+#linguaPatcher = Patcher('LinguaPlone')
 
 #LinguaPlone patches
 from Products.LinguaPlone.I18NBaseObject import I18NBaseObject
@@ -49,21 +47,21 @@ def getTranslations(self):
     else:
         return self.getCanonical().getTranslations()
 
-if not linguaPatcher.is_wrapper_method(getTranslations):
-    linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations',
-                              getTranslations)
+#if not linguaPatcher.is_wrapper_method(getTranslations):
+    #linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations',
+                              #getTranslations)
 
 #Kupu patch
 #disable kupu transform reinstallation every time config is changed
-from Products.kupu.plone import util
+#from Products.kupu.plone import util
 
 def install_transform(self):
     """ Install transforms
     """
     registerTransforms(self, self)
 
-if not eeaPatcher.is_wrapper_method(util.install_transform):
-    eeaPatcher.wrap_method(util, 'install_transform', install_transform)
+#if not eeaPatcher.is_wrapper_method(util.install_transform):
+    #eeaPatcher.wrap_method(util, 'install_transform', install_transform)
 
 
 def getPathLanguage(self):
@@ -84,7 +82,7 @@ def getPathLanguage(self):
         pass
     return None
 
-from Products.PloneLanguageTool import LanguageTool
+#from Products.PloneLanguageTool import LanguageTool
 
-if not eeaPatcher.is_wrapper_method(LanguageTool.getPathLanguage):
-    eeaPatcher.wrap_method(LanguageTool, 'getPathLanguage', getPathLanguage)
+#if not eeaPatcher.is_wrapper_method(LanguageTool.getPathLanguage):
+    #eeaPatcher.wrap_method(LanguageTool, 'getPathLanguage', getPathLanguage)

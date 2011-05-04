@@ -1,45 +1,25 @@
 # -*- coding: utf-8 -*-
 """ EEA Content Types
 """
+
+from Products.ATContentTypes.content import event, topic
+from Products.ATContentTypes.content.schemata import marshall_register
+from Products.Archetypes import listTypes
+from Products.Archetypes.atapi import process_types
+from Products.CMFCore import utils as cmfutils
+from Products.EEAContentTypes.config import ADD_CONTENT_PERMISSIONS
+from Products.EEAContentTypes.config import DEFAULT_ADD_CONTENT_PERMISSION
+from Products.EEAContentTypes.config import PROJECTNAME
+import langprefs
 import logging
+
+langprefs
 logger = logging.getLogger('Products.EEAContentTypes')
+
 
 #import patches
 #TODO: complete migration to plone4 for the patches
 
-import langprefs
-langprefs
-
-
-from Products.GenericSetup import EXTENSION, profile_registry
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFCore import utils as cmfutils
-from Products.CMFCore import DirectoryView
-from Products.Archetypes.atapi import process_types
-from Products.Archetypes import listTypes
-from Products.ATContentTypes.content.schemata import marshall_register
-from Products.ATContentTypes.content import event, topic
-
-from Products.EEAContentTypes.config import (
-    DEFAULT_ADD_CONTENT_PERMISSION,
-    ADD_CONTENT_PERMISSIONS,
-    PROJECTNAME,
-    product_globals
-)
-
-DirectoryView.registerDirectory('skins', product_globals)
-DirectoryView.registerDirectory(
-    'skins/EEAContentTypes',
-    product_globals)
-
-profile_registry.registerProfile(
-    'eeacontenttypes',
-    'EEAContentTypes',
-    'Extension profile with EEA workflows and content types',
-    'profile/default',
-    'EEAContentTypes',
-    EXTENSION,
-    for_=IPloneSiteRoot)
 
 def finalizeSchema(schema, disableRelated=False, moveDiscussion=True,
                    moveThemeTag=True):
@@ -61,6 +41,7 @@ def finalizeSchema(schema, disableRelated=False, moveDiscussion=True,
 
     marshall_register(schema)
     return schema
+
 
 def setupSchemas():
     """ Setup schema
@@ -90,12 +71,10 @@ def setupSchemas():
     topic.ATTopicSchema['acquireCriteria'].widget.condition = (
         "python:folder.getParentNode().portal_type in ('Topic', 'RichTopic')")
 
+
 def initialize(context):
     """ Zope 2
     """
-    ##code-section custom-init-top #fill in your manual code here
-    ##/code-section custom-init-top
-
     # imports packages and types for registration
     import content #pylint: disable-msg=W0612
     content

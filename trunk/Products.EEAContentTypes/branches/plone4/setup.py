@@ -42,13 +42,13 @@ setup(name=name,
           'eea.themecentre',
           'eea.translations',
 
+          'valentine.imagescales',
           'bda.feed',
           'p4a.video',
           'rdflib',
 
           #TODO: enable when plone4 migration
           #'Products.NavigationManager', 
-          #'valentine.imagescales',
           #'eea.promotion',
           #'eea.dataservice',
           #'eea.locationwidget',

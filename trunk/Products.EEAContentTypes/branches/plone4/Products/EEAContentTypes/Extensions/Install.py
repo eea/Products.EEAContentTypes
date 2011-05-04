@@ -28,29 +28,31 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 
-#import os.path
-#import sys
-from StringIO import StringIO
-#from sets import Set
-#from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
-#from Products.CMFCore.utils import manage_addTool
+from Products.EEAContentTypes.config import PROJECTNAME
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
+from StringIO import StringIO
 from zExceptions import NotFound #, BadRequest
 
+#from App.Common import package_home
 #from Products.Archetypes.Extensions.utils import installTypes
 #from Products.Archetypes.Extensions.utils import install_subskin
-#from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
 #from Products.Archetypes.atapi import listTypes
-from Products.EEAContentTypes.config import PROJECTNAME
+#from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
+#from Products.CMFCore.utils import manage_addTool
 #from Products.EEAContentTypes.config import product_globals as GLOBALS
+#from sets import Set
+#import os.path
+#import sys
 
-def addRoles(portal):
-    roles = list(portal.acl_users.portal_role_manager.listRoleIds())
-    newRoles = ['Editor', 'CommonEditor', 'ProofReader', 'ContentManager', 'WebReviewer']
-    for role in newRoles:
-        if role not in roles:
-            portal.acl_users.portal_role_manager.addRole(role)
+
+#def addRoles(portal):
+    #roles = list(portal.acl_users.portal_role_manager.listRoleIds())
+    #newRoles = ['Editor', 'CommonEditor', 'ProofReader', 'ContentManager', 'WebReviewer']
+    #for role in newRoles:
+        #if role not in roles:
+            #portal.acl_users.portal_role_manager.addRole(role)
+
 
 def install(portal, reinstall=False):
     """ External Method to install EEAContentTypes """
@@ -68,6 +70,7 @@ def install(portal, reinstall=False):
         setup_tool.runAllImportSteps()
 
     return out.getvalue()
+
 
 def uninstall(self):
     out = StringIO()
@@ -108,6 +111,7 @@ def uninstall(self):
 
     return out.getvalue()
 
+
 def beforeUninstall(self, reinstall, product, cascade):
     """ try to call a custom beforeUninstall method in 'AppInstall.py'
         method 'beforeUninstall'
@@ -131,6 +135,7 @@ def beforeUninstall(self, reinstall, product, cascade):
     else:
         print >>out, 'no custom beforeUninstall'
     return (out,cascade)
+
 
 def afterInstall(self, reinstall, product):
     """ try to call a custom afterInstall method in 'AppInstall.py' method

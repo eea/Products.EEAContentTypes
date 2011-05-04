@@ -1,6 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="eea">
 
     <include package=".browser" />
@@ -10,12 +11,16 @@
 
     TODO: enable on plone4 migration
     <!--<include file="cache.zcml" />-->
+
+    <include file="profiles.zcml" />
     <include file="catalog.zcml" />
     <include file="component.zcml" />
     <include file="geoposition.zcml" />
     <include file="rss.zcml" />
     <include file="workflow.zcml" />
 
+    <cmf:registerDirectory name="EEAContentTypes"/>
+    <cmf:registerDirectory name="EEAContentTypes_public"/>
 
 	TODO: fix on plone4 migration
     <!--<class class=".feeds.FeedPortletInfo">-->
