@@ -1,29 +1,30 @@
 <?xml version="1.0"?>
 <import-steps>
+
+    <import-step id="eeacontenttypes_geocoding"
+        version="20082605-01"
+        handler="Products.EEAContentTypes.setuphandlers.setupGeocoding"
+        title="EEAContentTypes: geocoding">
+
+    </import-step>
+
     <import-step id="eeacontenttypes_various"
         version="20070911-01"
         handler="Products.EEAContentTypes.setup.ConfigurationMethods.setupVarious"
         title="EEAContentTypes: miscellaneous import steps">
-        <dependency step="catalog"/>
-        <dependency step="workflow"/>
-        <dependency step="typeinfo"/>
+
         <dependency step="skins"/>
-        <dependency step="rolemap"/>
         <dependency step="jsregistry"/>
 
-        Various import steps that are not handled by GS import/export
-        handlers.
+        <dependency step="catalog"/>
+        <dependency step="typeinfo"/>
+        <dependency step="rolemap"/>
+        <dependency step="eeacontenttypes_geocoding"/>
+
+        <dependency step="kupu-setup"/>
+        <dependency step="workflow"/>
 
     </import-step>
 
-    <import-step id="eeacontenttypes_geocoding"
-        version="20082605-01"
-        handler="Products.EEAContentTypes.setup.ConfigurationMethods.setupGeocoding"
-        title="EEAContentTypes: geocoding">
-
-        Various import steps that are not handled by GS import/export
-        handlers.
-
-    </import-step>
 
 </import-steps>

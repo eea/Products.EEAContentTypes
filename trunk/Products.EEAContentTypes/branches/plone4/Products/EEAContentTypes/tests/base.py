@@ -4,7 +4,7 @@ db ## pyflakes, this import is needed for tests
 from Products.PloneTestCase import PloneTestCase
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.PloneTestCase.layer import onsetup
-from Products.Five import zcml
+#from Products.Five import zcml
 from Products.Five import fiveconfigure
 from Products.GenericSetup import EXTENSION, profile_registry
 
@@ -39,12 +39,12 @@ def setup_eeacontenttypes():
     """ Set up
     """
     fiveconfigure.debug_mode = True
-    import Products.Five
-    import Products.FiveSite
-    import Products.CMFSquidTool
-    zcml.load_config('meta.zcml', Products.Five)
-    zcml.load_config('configure.zcml', Products.FiveSite)
-    zcml.load_config('configure.zcml', Products.CMFSquidTool)
+    #import Products.Five
+    #import Products.FiveSite
+    #import Products.CMFSquidTool
+    #zcml.load_config('meta.zcml', Products.Five)
+    #zcml.load_config('configure.zcml', Products.FiveSite)
+    #zcml.load_config('configure.zcml', Products.CMFSquidTool)
     fiveconfigure.debug_mode = False
 
     PloneTestCase.installProduct('Five')

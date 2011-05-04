@@ -35,6 +35,7 @@ setup(name=name,
           'Products.OrderableReferenceField',
           'Products.fatsyndication',
           'Products.basesyndication',
+          'Products.RedirectionTool',
 
           'eea.rdfmarshaller',
           'eea.facetednavigation',
@@ -58,9 +59,15 @@ setup(name=name,
           #required in tests
           #'eea.design',
           #'eea.testcase',
+          #'Products.EEAPloneAdmin',
+          #'valentine.linguaflow',
+          #'eea.indicators',
+          #'eea.soer',
+          #'eea.reports',
 
           #obsolete
           #'Products.CMFSquidTool',
+
 
       ],
       entry_points="""

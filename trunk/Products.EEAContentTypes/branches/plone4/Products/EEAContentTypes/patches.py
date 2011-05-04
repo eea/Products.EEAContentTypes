@@ -10,7 +10,7 @@ from ZODB.POSException import ConflictError
 #linguaPatcher = Patcher('LinguaPlone')
 
 #LinguaPlone patches
-from Products.LinguaPlone.I18NBaseObject import I18NBaseObject
+#from Products.LinguaPlone.I18NBaseObject import I18NBaseObject
 
 def getTranslations(self):
     """Returns a dict of {lang : [object, wf_state]}, pass on to layer."""
