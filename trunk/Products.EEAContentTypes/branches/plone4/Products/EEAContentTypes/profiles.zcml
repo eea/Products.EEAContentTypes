@@ -11,23 +11,4 @@
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         />
 
-    <genericsetup:importStep
-        name="Products.EEAContentTypes.all"
-        title="Products.EEAContentTypes: complete install"
-        description="Main install step for Products.EEAContentTypes"
-        handler="Products.EEAContentTypes.setuphandlers.setupVarious"
-        >
-
-        <depends name="catalog"/>
-        <depends name="controlpanel"/>
-        <depends name="jsregistry"/>
-        <depends name="kupu-setup"/>
-        <depends name="rolemap"/>
-        <depends name="skins"/>
-        <depends name="typeinfo"/>
-        <depends name="workflows" />
-
-    </genericsetup:importStep>
-
-
 </configure>
