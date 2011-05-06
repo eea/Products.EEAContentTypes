@@ -180,25 +180,6 @@ def setupATVocabularies(self, portal):
             vocab[ikey].setTitle(value)
 
 
-#this is a migration procedure, not needed for plone4 migration
-#def setupCatalog(context):
-    #""" Setup catalog
-    #"""
-    #catalog = getToolByName(context, 'portal_catalog')
-    #indexes = [ "getImageCopyright", "getImageNote",
-                #"getImageSource", "getNewsTitle",
-                #"getQuotationSource", "getQuotationText",
-                #"getTeaser", "getUrl", "getVisibilityLevel",]
-    #toReIndex = [ index.getId()  for index in catalog.index_objects()
-                      #if index.getId() in indexes and index.numObjects() == 0]
-
-    #if toReIndex:
-        #print "The following indexes must be re-indexed: %s" \
-                #% ', '.join(toReIndex)
-        ## Reindex catalog indexes can be time expensive, activate it if needed
-        ##catalog.manage_reindexIndex(ids=toReIndex)
-
-
 def setupCalendarTypes(portal):
     """ Setup calendar types
     """
@@ -207,21 +188,6 @@ def setupCalendarTypes(portal):
     if 'QuickEvent' not in types:
         portal_calendar.edit_configuration(types + ('QuickEvent',),
                                            portal_calendar.getUseSession())
-
-
-#TODO: plone4: this is a migration step, it's not needed to be executed
-#def geocodeEvents(self, portal):
-    #""" geocode events location """
-    #import pdb; pdb.set_trace()
-    #portal_catalog = getToolByName(portal, 'portal_catalog')
-    #portal_calendar = getToolByName(portal, 'portal_calendar')
-    #types = portal_calendar.getCalendarTypes()
-
-    #events = portal_catalog(meta_type=types)
-    #for brain in events:
-        #obj = brain.getObject()
-        #decider = getUtility(IGeoPositionDecider, context=obj)
-        #decider.run(obj)
 
 
 def add_eeaInternalIps(self, portal):
@@ -259,16 +225,6 @@ def setupGeocoding(context):
         #geocodeEvents(portal, portal)
 
 
-#TODO: plone4 this needs to be adapted for plone.app.caching
-#def updateCacheFu(self, portal):
-    #""" Update CacheFu from 1.2 to 1.2.1 """
-    #portal_cache = getToolByName(portal, 'portal_cache_settings', None)
-    #if portal_cache:
-        #if not hasattr(portal_cache, 'installedversion'):
-            #setattr(portal_cache, 'installedversion', '1.2.1')
-            #print "portal_cache_settings 'installedversion' property updated"
-
-
 #TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
     roles = list(portal.acl_users.portal_role_manager.listRoleIds())
@@ -296,3 +252,49 @@ def setupVarious(context):
     setupCalendarTypes(portal)
     setupCustomRoles(context, portal)
     registerTransforms(portal, portal)
+
+
+#this is a migration procedure, not needed for plone4 migration
+#def setupCatalog(context):
+    #""" Setup catalog
+    #"""
+    #catalog = getToolByName(context, 'portal_catalog')
+    #indexes = [ "getImageCopyright", "getImageNote",
+                #"getImageSource", "getNewsTitle",
+                #"getQuotationSource", "getQuotationText",
+                #"getTeaser", "getUrl", "getVisibilityLevel",]
+    #toReIndex = [ index.getId()  for index in catalog.index_objects()
+                      #if index.getId() in indexes and index.numObjects() == 0]
+
+    #if toReIndex:
+        #print "The following indexes must be re-indexed: %s" \
+                #% ', '.join(toReIndex)
+        ## Reindex catalog indexes can be time expensive, activate it if needed
+        ##catalog.manage_reindexIndex(ids=toReIndex)
+
+
+#TODO: plone4 this needs to be adapted for plone.app.caching
+#def updateCacheFu(self, portal):
+    #""" Update CacheFu from 1.2 to 1.2.1 """
+    #portal_cache = getToolByName(portal, 'portal_cache_settings', None)
+    #if portal_cache:
+        #if not hasattr(portal_cache, 'installedversion'):
+            #setattr(portal_cache, 'installedversion', '1.2.1')
+            #print "portal_cache_settings 'installedversion' property updated"
+
+
+#TODO: plone4: this is a migration step, it's not needed to be executed
+#def geocodeEvents(self, portal):
+    #""" geocode events location """
+    #import pdb; pdb.set_trace()
+    #portal_catalog = getToolByName(portal, 'portal_catalog')
+    #portal_calendar = getToolByName(portal, 'portal_calendar')
+    #types = portal_calendar.getCalendarTypes()
+
+    #events = portal_catalog(meta_type=types)
+    #for brain in events:
+        #obj = brain.getObject()
+        #decider = getUtility(IGeoPositionDecider, context=obj)
+        #decider.run(obj)
+
+

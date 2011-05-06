@@ -47,27 +47,28 @@ setup(name=name,
           'bda.feed',
           'p4a.video',
           'rdflib',
+          'eea.promotion',
+
+          #required in tests
+          'valentine.linguaflow',
+          'eea.reports',
+          'eea.design',
 
           #TODO: enable when plone4 migration
           #'Products.NavigationManager', 
-          #'eea.promotion',
           #'eea.dataservice',
           #'eea.locationwidget',
           #'eea.geotags',
           #'eea.mediacentre',
 
           #required in tests
-          #'eea.design',
           #'eea.testcase',
           #'Products.EEAPloneAdmin',
-          #'valentine.linguaflow',
           #'eea.indicators',
           #'eea.soer',
-          #'eea.reports',
 
           #obsolete
           #'Products.CMFSquidTool',
-
 
       ],
       entry_points="""
