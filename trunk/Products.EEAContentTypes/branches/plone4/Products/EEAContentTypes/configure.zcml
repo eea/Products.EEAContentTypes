@@ -46,11 +46,6 @@
             <!--/>-->
     <!--</class>-->
 
-	TODO: fix on plone4 migration
-    <!--<class class="Products.Archetypes.BaseObject.BaseObject">-->
-        <!--<implements interface="Products.NavigationManager.sections.INavigationSectionPositionable" />-->
-    <!--</class>-->
-
 
     <!-- EEA Staff RDF is uploaded as normal Zope File. -->
 	TODO: five:traversable doesn't exist anymore, is it still needed? plone4
