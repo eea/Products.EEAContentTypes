@@ -1,16 +1,19 @@
-from Products.PortalTransforms.interfaces import itransform
-#from Products.CMFDefault.utils import bodyfinder
 from Products.EEAContentTypes.browser.organisation import emailjs_dot, emailjs
+from Products.PortalTransforms.interfaces import ITransform
+from zope.interface import implements
 import re
+
+#from Products.CMFDefault.utils import bodyfinder
 
 EMAIL_RE = re.compile(r"(?<!mailto:)(?<!>)(?<!\.)\b(?P<name>(?:[a-zA-Z0-9-]+)(?:\.[a-zA-Z0-9-]+)*)@(?P<domain>(?:[a-zA-Z0-9-]+)(?:\.[a-zA-Z0-9-]+)*(?:\.[a-zA-Z]{2,4}))(?P<dot>[\.\"]?)\b")
 # `email title <email@domain.com>`__
 EMAIL_TITLE= re.compile(r"`([^`]+)(\s+)&lt;(.+)&gt;`__")
 
+
 class ProtectEmail:
     """Simple transform which replaces all email addresses with a javascript."""
 
-    __implements__ = itransform
+    implements(ITransform)
 
     __name__ = "protect_email"
     inputs   = ('text/x-html-safe',)

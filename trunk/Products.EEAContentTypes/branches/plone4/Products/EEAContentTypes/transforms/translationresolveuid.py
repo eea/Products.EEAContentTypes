@@ -1,11 +1,13 @@
 from Products.CMFCore.utils import getToolByName
-from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.interfaces import ITransform
 from Products.kupu.plone.config import UID_PATTERN
+from zope.interface import implements
+
 
 class TranslationResolveUid:
     """ Resolves uid in resolveuid/UID links and tries to get the translation. """
 
-    __implements__ = itransform
+    implements(ITransform)
 
     __name__ = "translation_resolveuid"
     inputs   = ('text/html',)

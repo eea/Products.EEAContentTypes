@@ -2,18 +2,23 @@
 """
 
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.vocabulary import vocabs
-from Products.EEAContentTypes.content.interfaces import IGeoPositionDecider
 from Products.EEAContentTypes.transforms.internallink_view import InternalLinkView
 from Products.EEAContentTypes.transforms.protect_email import ProtectEmail
 from Products.EEAContentTypes.transforms.translationresolveuid import TranslationResolveUid
+from Products.EEAContentTypes.vocabulary import vocabs
 from Products.PortalTransforms.chain import TransformsChain, chain
 from Products.kupu.plone import util
-from zope.component import getUtility
 
+import logging
+
+#from zope.component import getUtility
+#from Products.EEAContentTypes.content.interfaces import IGeoPositionDecider
 #from collective.monkey.monkey import Patcher
 #eeaPatcher = Patcher('EEA')
+
+logger = logging.getLogger("Products.EEAContentTypes")
 
 
 def registerTransforms(self, portal):
@@ -163,10 +168,10 @@ def setupATVocabularies(self, portal):
 
     for vkey in vkeys:
 
-        if hasattr(atvm, vkey):
+        if shasattr(atvm, vkey):
             continue
 
-        print "adding vocabulary %s" % vkey
+        logger.info("adding vocabulary %s" % vkey)
 
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
@@ -175,29 +180,23 @@ def setupATVocabularies(self, portal):
             vocab[ikey].setTitle(value)
 
 
-def configureWorkflow(portal):
-    """ configure what can't be configured with generic setup. """
-    wf = getToolByName(portal, 'portal_workflow')
-    if wf is not None:
-        wf['eea_default_workflow'].manager_bypass = True
+#this is a migration procedure, not needed for plone4 migration
+#def setupCatalog(context):
+    #""" Setup catalog
+    #"""
+    #catalog = getToolByName(context, 'portal_catalog')
+    #indexes = [ "getImageCopyright", "getImageNote",
+                #"getImageSource", "getNewsTitle",
+                #"getQuotationSource", "getQuotationText",
+                #"getTeaser", "getUrl", "getVisibilityLevel",]
+    #toReIndex = [ index.getId()  for index in catalog.index_objects()
+                      #if index.getId() in indexes and index.numObjects() == 0]
 
-
-def setupCatalog(context):
-    """ Setup catalog
-    """
-    catalog = getToolByName(context, 'portal_catalog')
-    indexes = [ "getImageCopyright", "getImageNote",
-                "getImageSource", "getNewsTitle",
-                "getQuotationSource", "getQuotationText",
-                "getTeaser", "getUrl", "getVisibilityLevel",]
-    toReIndex = [ index.getId()  for index in catalog.index_objects()
-                      if index.getId() in indexes and index.numObjects() == 0]
-
-    if toReIndex:
-        print "The following indexes must be re-indexed: %s" % ', '.join(
-            toReIndex)
-        # Reindex catalog indexes can be time expensive, activate it if needed
-        #catalog.manage_reindexIndex(ids=toReIndex)
+    #if toReIndex:
+        #print "The following indexes must be re-indexed: %s" \
+                #% ', '.join(toReIndex)
+        ## Reindex catalog indexes can be time expensive, activate it if needed
+        ##catalog.manage_reindexIndex(ids=toReIndex)
 
 
 def setupCalendarTypes(portal):
@@ -210,20 +209,22 @@ def setupCalendarTypes(portal):
                                            portal_calendar.getUseSession())
 
 
-def geocodeEvents(self, portal):
-    """ geocode events location """
-    portal_catalog = getToolByName(portal, 'portal_catalog')
-    portal_calendar = getToolByName(portal, 'portal_calendar')
-    types = portal_calendar.getCalendarTypes()
+#TODO: plone4: this is a migration step, it's not needed to be executed
+#def geocodeEvents(self, portal):
+    #""" geocode events location """
+    #import pdb; pdb.set_trace()
+    #portal_catalog = getToolByName(portal, 'portal_catalog')
+    #portal_calendar = getToolByName(portal, 'portal_calendar')
+    #types = portal_calendar.getCalendarTypes()
 
-    events = portal_catalog(meta_type=types)
-    for brain in events:
-        obj = brain.getObject()
-        decider = getUtility(IGeoPositionDecider, context=obj)
-        decider.run(obj)
+    #events = portal_catalog(meta_type=types)
+    #for brain in events:
+        #obj = brain.getObject()
+        #decider = getUtility(IGeoPositionDecider, context=obj)
+        #decider.run(obj)
 
 
-def eeaInternalIps(self, portal):
+def add_eeaInternalIps(self, portal):
     """ IPs used by EEA and local dev """
     prop_tool = portal.portal_properties
     f_prop = getattr(prop_tool, 'eea_internal_ips', None)
@@ -252,10 +253,10 @@ def setupGeocoding(context):
     #updateCacheFu(portal, portal)
 
     # This updates were already ran, we don't need them anymore
-    already_ran = True
+    already_ran = False #TODO: this gimmick should be removed and replaced by something proper
     if not already_ran:
-        eeaInternalIps(portal, portal)
-        geocodeEvents(portal, portal)
+        add_eeaInternalIps(portal, portal)
+        #geocodeEvents(portal, portal)
 
 
 #TODO: plone4 this needs to be adapted for plone.app.caching
@@ -268,6 +269,7 @@ def setupGeocoding(context):
             #print "portal_cache_settings 'installedversion' property updated"
 
 
+#TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
     roles = list(portal.acl_users.portal_role_manager.listRoleIds())
     newRoles = ['Editor', 'CommonEditor', 'ProofReader', 'ContentManager', 'WebReviewer']
@@ -286,8 +288,8 @@ def setupVarious(context):
 
     portal = context.getSite()
     setupATVocabularies(portal, portal)
-    configureWorkflow(portal)
-    setupCatalog(portal)
+    #configureWorkflow(portal)
+    #setupCatalog(portal)
     setupGeographicalProperties(portal, portal)
     setupTemplateServiceProperties(portal, portal)
     setupEEAStaffProperties(portal, portal)

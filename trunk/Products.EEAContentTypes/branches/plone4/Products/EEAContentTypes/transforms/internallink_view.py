@@ -1,6 +1,8 @@
 from Products.CMFCore.utils import getToolByName
-from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.interfaces import ITransform
+from zope.interface import implements
 import re
+
 
 TAG_RE = re.compile(r'''(<a\s*[^>]*class\s*=\s*"[^>]*internal-link[^"]*"[^>]*>.*?</a>)''')
 HREF_RE = re.compile(r'''(<a[^>]*href\s*=\s*")([^"]*)("[^>]*>.*?</a>)''')
@@ -8,7 +10,7 @@ HREF_RE = re.compile(r'''(<a[^>]*href\s*=\s*")([^"]*)("[^>]*>.*?</a>)''')
 class InternalLinkView:
     """Simple transform which replaces all email addresses with a javascript."""
 
-    __implements__ = itransform
+    implements(ITransform)
 
     __name__ = "internallink_view"
     inputs   = ('text/x-html-safe',)
