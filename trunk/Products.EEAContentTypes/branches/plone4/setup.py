@@ -50,6 +50,7 @@ setup(name=name,
           'eea.promotion',
 
           #required in tests
+          'eea.testcase',
           'valentine.linguaflow',
           'eea.reports',
           'eea.design',
@@ -62,7 +63,6 @@ setup(name=name,
           #'eea.mediacentre',
 
           #required in tests
-          #'eea.testcase',
           #'Products.EEAPloneAdmin',
           #'eea.indicators',
           #'eea.soer',
