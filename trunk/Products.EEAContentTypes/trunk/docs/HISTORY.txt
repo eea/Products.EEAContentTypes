@@ -1,6 +1,9 @@
 Changelog
 =========
 
+2.30-dev - (unreleased)
+-----------------------
+
 2.29 - (2011-05-10)
 -------------------
  * Bug fix: fixed "send as notification" [ghicaale]
