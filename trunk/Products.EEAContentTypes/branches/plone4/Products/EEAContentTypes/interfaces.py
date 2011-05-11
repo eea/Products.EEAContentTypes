@@ -1,5 +1,6 @@
 from zope.interface import Interface, Attribute
 
+
 class IFeedPortletInfo(Interface):
     """ Any object that wants to be displayed in a themecentre portlet
         should provide an adapter providing this interface. """
@@ -10,6 +11,7 @@ class IFeedPortletInfo(Interface):
     button_link = Attribute("feed button link")
     more_link = Attribute("portlet more link")
     items = Attribute("a list of portlet items")
+
 
 class IFeedItemPortletInfo(Interface):
     """ Each item in the themecentre portlets provides this interface. """
@@ -23,6 +25,7 @@ class IFeedItemPortletInfo(Interface):
     published = Attribute("published date")
     summary = Attribute("feed item summary")
 
+
 class ITransitionLogicalGuard(Interface):
 
     available = Attribute("boolean if transitions is available")
@@ -31,14 +34,8 @@ class ITransitionLogicalGuard(Interface):
 class ILocalRoleEmails(Interface):
 
     emails = Attribute("Dictionary with emails for each role")
+
     
-class IWorkflowEmails(Interface):
-
-    action = Attribute("List of emails to recieve action email")
-    confirmation = Attribute("List of emails to recieve confirmation email")    
-    sender = Attribute("Email for current user or portal email")
-    subject = Attribute("Email subject")
-
 class IRelations(Interface):
     """ An adapter that retrieves relations from any plone object. """
 

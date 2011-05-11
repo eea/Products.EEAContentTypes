@@ -31,9 +31,6 @@ def setup_eeacontenttypes():
     """
     fiveconfigure.debug_mode = True
 
-    #import Products.ATVocabularyManager
-    #zcml.load_config("configure.zcml", Products.ATVocabularyManager)
-
     #for product in PRODUCTS:
         #__import__(product)
         #pkg = sys.modules[product]
@@ -59,7 +56,6 @@ PROFILES = [
     'Products.EEAContentTypes:testfixture',
 ]
 
-
 OPTIONAL_DEPENDENCIES = {
         #key - packagename: value - gs profile name,
         'eea.soer':'eea.soer:default',
@@ -76,8 +72,6 @@ for pkg, gs in OPTIONAL_DEPENDENCIES.items():
         pass
     else:
         PROFILES.append(gs)
-
-
 
 PloneTestCase.setupPloneSite(products=PRODUCTS, extension_profiles=PROFILES)
 
