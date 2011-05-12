@@ -11,4 +11,13 @@
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         />
 
+    <genericsetup:registerProfile
+        name="testfixture"
+        title="Products.EEAContentTypes test fixture"
+        directory="profiles/testfixture"
+        description="Test fixture profile with EEA workflows and content types"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
+
 </configure>

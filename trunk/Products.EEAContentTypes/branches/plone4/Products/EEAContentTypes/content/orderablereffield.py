@@ -1,8 +1,11 @@
-from Products.OrderableReferenceField._field import OrderableReferenceField
-#from Products.OrderableReferenceField._field import OrderableReferenceWidget
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.CMFCore.permissions import ModifyPortalContent
+from Products.OrderableReferenceField._field import OrderableReferenceField
+
+#from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 #from Products.Archetypes.Field import ReferenceField
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+#from Products.OrderableReferenceField._field import OrderableReferenceWidget
+
 
 field = OrderableReferenceField(
     'relatedItems',

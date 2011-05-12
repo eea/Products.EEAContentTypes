@@ -1,10 +1,12 @@
-from zope.interface import implements, Interface
+from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.interfaces import ILocalRoleEmails
+from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
+from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
 from zope.component import adapts, queryAdapter
+from zope.interface import implements, Interface
 
 #from Acquisition import aq_inner, aq_parent, aq_base
-from Products.CMFCore.utils import getToolByName
 
-from interfaces import ITransitionLogicalGuard, IWorkflowEmails, ILocalRoleEmails
 
 class TransitionLogicalGuard(object):
     """ get right transition logic adapter for the context and transition """
@@ -19,6 +21,7 @@ class TransitionLogicalGuard(object):
         if guard is not None:
             return guard.available
         return True
+
 
 class SubmitForWebQAGuard(object):
     """ guard for transition """

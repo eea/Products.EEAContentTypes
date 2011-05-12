@@ -1,12 +1,14 @@
 """ Tests for Highlight
 """
-import os
+
+from App.Common import package_home
+from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from Products.CMFCore.utils import getToolByName
 from eea.design.browser.frontpage import Frontpage
-from Globals import package_home
-from DateTime import DateTime
+import os
+
 
 image = open(os.path.join(
     package_home(product_globals), 'tests', 'image.png'), 'rb')

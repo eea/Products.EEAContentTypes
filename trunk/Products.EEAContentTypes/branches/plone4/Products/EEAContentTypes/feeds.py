@@ -1,21 +1,19 @@
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.browser.interfaces import INavigationRoot
-from Products.EEAContentTypes.interfaces import IFeedPortletInfo
-from Products.EEAContentTypes.interfaces import IFeedItemPortletInfo
-
-from eea.rdfrepository.interfaces import IRDFPortletDataCollector
-from eea.rdfrepository.interfaces import IFeed, IFeedItem, IFeedInfo
-from eea.rdfrepository.interfaces import IRDFPortletInfo
-from eea.themecentre.utils import localized_time
-from zope.component import adapts
-from zope.interface import implements, Interface
-
 from Acquisition import Implicit
 from Products.ATContentTypes.interface import IATFolder
+from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.interfaces import IFeedItemPortletInfo
+from Products.EEAContentTypes.interfaces import IFeedPortletInfo
 from Products.basesyndication.interfaces import IFeed as IFeedBase
 from Products.basesyndication.interfaces import IFeedEntry
 from bda.feed.generic import FeedMixin
+from eea.rdfrepository.interfaces import IFeed, IFeedItem
+from eea.rdfrepository.interfaces import IRDFPortletDataCollector
+from eea.rdfrepository.interfaces import IRDFPortletInfo
+from eea.themecentre.utils import localized_time
+from plone.app.layout.navigation.interfaces import INavigationRoot
+from zope.component import adapts
 from zope.component import queryAdapter
+from zope.interface import implements, Interface
 
 
 class FeedPortletInfo(object):

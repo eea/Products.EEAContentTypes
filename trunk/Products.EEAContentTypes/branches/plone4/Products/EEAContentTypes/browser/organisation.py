@@ -27,26 +27,26 @@
 __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
-##code-section module-header #fill in your manual code here
-import os
-import sys
-import logging
-import urllib2
-#import rdflib
-from rdflib.StringInputSource import StringInputSource
+from App.Common import package_home
+from DateTime import DateTime
+from Products.CMFCore.exceptions import ResourceLockedError
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from interfaces import IOrganisation, IEmployee
 from rdflib.Graph import ConjunctiveGraph
 from rdflib.Namespace import Namespace
-from DateTime import DateTime
-from Globals import package_home
-
-from Products.CMFCore.utils import getToolByName
-import zope.interface
+from rdflib.StringInputSource import StringInputSource
 from zope.schema import getFieldNames
-from interfaces import IOrganisation, IEmployee
+import logging
+import os
+import sys
+import urllib2
+import zope.interface
 
+
+#import rdflib
 logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
 
-from Products.CMFCore.exceptions import ResourceLockedError
 
 def breakNameIfToLong(name, length=13, where='-'):
     name = name.replace(' - Deputy Director', '')
@@ -56,14 +56,17 @@ def breakNameIfToLong(name, length=13, where='-'):
             return name.replace(where, newWhere)
     return name
 
+
 def getOnlyOrgName(orgPath):
     orgNameIdx = orgPath.rfind('/') + 1
     return orgPath[ orgNameIdx:]
+
 
 def isHeadOfProgramme(org):
     for k in range(10):
         if str(k) in org: return False
     return True
+
 
 def prepareStaffNumber(data):
     total = 0
@@ -75,6 +78,7 @@ def prepareStaffNumber(data):
             total += data[k]
     data['total'] = total
     return data
+
 
 emailjs = """
 <script type="text/javascript">
@@ -96,9 +100,6 @@ emailjs_dot = """
 </noscript>
 """
 
-##/code-section module-header
-
-from Products.Five import BrowserView
 
 class UpdateStaffList(BrowserView):
 
@@ -106,6 +107,7 @@ class UpdateStaffList(BrowserView):
         rdf = urllib2.urlopen(self.context.url).read()
         self.context.setModificationDate( DateTime())
         self.context.setFile(rdf)
+
 
 class UpdateOrganigram(BrowserView):
     """
@@ -134,6 +136,7 @@ class UpdateOrganigram(BrowserView):
             if fs_data.strip():
                 plone_ob.update_data(fs_data, 'text/xml', len(fs_data))
                 plone_ob.setEffectiveDate(DateTime())
+
 
 class RDF2Employee(object):
     zope.interface.implements(IEmployee)
@@ -173,15 +176,11 @@ class RDF2Employee(object):
     def items(self):
         return [ (key, getattr(self, key,'')) for key in getFieldNames(IEmployee) ]
 
+
 class Organisation(BrowserView):
     """
     """
-    __implements__ = (getattr(BrowserView,'__implements__',()),)
-
-    ##code-section class-header_Organisation #fill in your manual code here
     zope.interface.implements(IOrganisation)
-    ##/code-section class-header_Organisation
-
 
     def __init__(self, context, request):
         super(Organisation, self).__init__(context, request)
@@ -315,7 +314,6 @@ class Organisation(BrowserView):
                                    'manager' : int(res['manager']) })
         orgs.sort(lambda x,y : cmp(x['orgname'], y['orgname']))
         return orgs
-##code-section module-footer #fill in your manual code here
 
     def getStaffList(self, org=None):
         result = []
@@ -362,9 +360,4 @@ class Organisation(BrowserView):
         for org in orgs:
             units.append( self.getOrgData(org))
         return units
-
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
 

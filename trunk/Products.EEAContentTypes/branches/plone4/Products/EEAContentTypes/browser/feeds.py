@@ -1,9 +1,9 @@
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.browser.interfaces import INavigationRoot
 from Products.CMFPlone import utils
-
 from eea.rdfrepository.utils import getRdfPortletData
+from plone.app.layout.navigation.interfaces import INavigationRoot
+
 
 class RDFPortlet(object):
 

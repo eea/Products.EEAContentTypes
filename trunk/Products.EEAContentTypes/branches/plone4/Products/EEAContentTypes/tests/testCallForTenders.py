@@ -1,7 +1,9 @@
 """ Tests
 """
+
 from DateTime import DateTime
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+
 
 class testCallForTenders(EEAContentTypeTestCase):
     """Test-cases for class(es) CallForTender, CFTRequestor."""
@@ -34,7 +36,7 @@ class testCallForTenders(EEAContentTypeTestCase):
                         email= 'email@ff.ff')
 
         workflowTool.doActionFor(customer, "submit")
-        actions = workflowTool.getActionsFor(customer)
+        actions = workflowTool.getTransitionsFor(customer)
         self.failUnless(len(actions) == 0, actions)
 
 
@@ -83,6 +85,7 @@ class testCallForTenders(EEAContentTypeTestCase):
         self.failIf(today != cfi.getEffectiveDate())
         self.failIf(today != cfi.effective())
         self.failIf(today != cfi.getOpenDate())
+
 
 def test_suite():
     """ Tests suite

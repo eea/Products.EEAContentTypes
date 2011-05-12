@@ -42,6 +42,7 @@ setup(name=name,
           'eea.rdfrepository',
           'eea.themecentre',
           'eea.translations',
+          'Products.EEAPloneAdmin',
 
           'valentine.imagescales',
           'bda.feed',
@@ -63,7 +64,6 @@ setup(name=name,
           #'eea.mediacentre',
 
           #required in tests
-          #'Products.EEAPloneAdmin',
           #'eea.indicators',
           #'eea.soer',
 

@@ -1,10 +1,11 @@
 """ Tests
 """
+
+from doctest import DocFileSuite
+from zope.component.testing import setUp, tearDown
+import doctest
 import unittest
 
-from zope.component.testing import setUp, tearDown
-from zope.testing import doctest
-from zope.testing.doctestunit import DocFileSuite
 
 def test_suite():
     """ Suite

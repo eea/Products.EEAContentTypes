@@ -1,7 +1,7 @@
 #from zope.interface import implements
 from zope.component import queryAdapter
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.interfaces import IWorkflowEmails
+from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
 
 class TransitionEmails(object):
     """ Return emails for all transitions grouped in action and confirmation. """

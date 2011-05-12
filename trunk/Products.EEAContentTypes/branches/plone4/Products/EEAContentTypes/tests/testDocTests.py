@@ -2,12 +2,14 @@
 """ Doctests
 """
 
-import unittest, os
+from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.tests import base
 from zope.app.component.hooks import setSite
-from zope.testing import doctest
-from Products.CMFCore.utils import getToolByName
+import doctest
+import unittest, os
+
 #from Products.CMFSquidTool.utils import stopThreads
+
 
 def createObject(parent, portal_type, oid):
     """ Create object
@@ -16,6 +18,7 @@ def createObject(parent, portal_type, oid):
     newobj = getattr(parent, oid, None)
     if newobj is not None:
         newobj.reindexObject()
+
 
 class TestCase(base.EEAContentTypeFunctionalTestCase):
     """ Test case

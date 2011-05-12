@@ -1,10 +1,12 @@
 """ Tests for Organisation
 """
-import os
+from App.Common import package_home
+from Products.EEAContentTypes.browser.organisation import Organisation
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from Products.EEAContentTypes.browser.organisation import Organisation
-from Globals import package_home
+import os
+
+
 rdfFilename = os.path.join(
     package_home(product_globals), 'tests', 'eeastaff.rdf')
 

@@ -1,11 +1,12 @@
 from Acquisition import aq_base, aq_parent, aq_inner
-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
-from Products.CMFPlone.browser.interfaces import INavigationRoot
-
 from eea.themecentre.utils import localized_time
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from zope.component import getMultiAdapter
+
+#from Products.CMFPlone.browser.interfaces import INavigationRoot
+
 
 DATE_FIELDS = ('start', 'end', 'EffectiveDate', 'effective', 'expires')
 

@@ -1,17 +1,22 @@
 """ Syndication tests
 """
-import os
+
+from App.Common import package_home
 from DateTime import DateTime
-from Globals import package_home
-from eea.testcase.base import EEAMegaTestCase
-from Products.basesyndication.interfaces import IFeedEntry
 from Products.EEAContentTypes.config import product_globals
+from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+from Products.basesyndication.interfaces import IFeedEntry
+import os
+
+
+#from eea.testcase.base import EEAMegaTestCase
 
 image = open(os.path.join(package_home(
     product_globals), 'tests', 'image.png'), 'rb')
 image = image.read()
 
-class TestSyndication(EEAMegaTestCase):
+
+class TestSyndication(EEAContentTypeTestCase):
     """ Test-cases for syndication. """
 
     def afterSetUp(self):

@@ -19,11 +19,19 @@ PRODUCTS = [
     'ATVocabularyManager', 
     'EEAContentTypes',
     ##'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
-    ##'EEAPloneAdmin'
+    'EEAPloneAdmin'
 ]
+
+EGGS = [
+        'eea.reports',
+        'valentine.linguaflow',
+
+    ]
 
 for product in PRODUCTS:
     ztc.installProduct(product)
+
+ztc.installPackage('eea.reports')
 
 @onsetup
 def setup_eeacontenttypes():
@@ -31,21 +39,21 @@ def setup_eeacontenttypes():
     """
     fiveconfigure.debug_mode = True
 
-    #for product in PRODUCTS:
-        #__import__(product)
-        #pkg = sys.modules[product]
-        #zcml.load_config("configure.zcml", pkg)
+    for product in EGGS:
+        __import__(product)
+        pkg = sys.modules[product]
+        zcml.load_config("configure.zcml", pkg)
 
     fiveconfigure.debug_mode = False
-    profile_registry.registerProfile(
-                        name='testfixture',
-                        title='EEAContentTypes test fixtures',
-                        description='Extension profile for testing EEAContentTypes',
-                        path='profile/testfixture',
-                        product='Products.EEAContentTypes',
-                        profile_type=EXTENSION,
-                        for_=IPloneSiteRoot
-                    )
+    #profile_registry.registerProfile(
+                        #name='testfixture',
+                        #title='EEAContentTypes test fixtures',
+                        #description='Extension profile for testing EEAContentTypes',
+                        #path='profile/testfixture',
+                        #product='Products.EEAContentTypes',
+                        #profile_type=EXTENSION,
+                        #for_=IPloneSiteRoot
+                    #)
 
 
 setup_eeacontenttypes()
@@ -63,6 +71,8 @@ OPTIONAL_DEPENDENCIES = {
         'eea.reports':'eea.reports:default',
         'eea.indicators':'eea.indicators:default',
         'Products.RedirectionTool':'Products.RedirectionTool:default',
+        'Products.EEAPloneAdmin':'Products.EEAPloneAdmin:default',
+        'valentine.linguaflow':'valentine.linguaflow:default',
     }
 
 for pkg, gs in OPTIONAL_DEPENDENCIES.items():
@@ -71,7 +81,7 @@ for pkg, gs in OPTIONAL_DEPENDENCIES.items():
     except ImportError, err:
         pass
     else:
-        PROFILES.append(gs)
+        PROFILES.insert(0, gs)
 
 PloneTestCase.setupPloneSite(products=PRODUCTS, extension_profiles=PROFILES)
 
@@ -79,5 +89,7 @@ PloneTestCase.setupPloneSite(products=PRODUCTS, extension_profiles=PROFILES)
 class EEAContentTypeTestCase(PloneTestCase.PloneTestCase):
     """Base TestCase for EEAContentTypes."""
 
+
 class EEAContentTypeFunctionalTestCase(PloneTestCase.FunctionalTestCase):
     """ Functional TestCase"""
+

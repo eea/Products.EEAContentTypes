@@ -1,19 +1,20 @@
-import zope.interface
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
-
+from Products.Five import BrowserView
+from Products.PloneLanguageTool.interfaces import ITranslatable
 from interfaces import ILanguages
-
 from plone.memoize.ram import cache
+import zope.interface
+
 
 def cacheKey(method, self):
     request = self.request
     return (method.__name__, request.get('LANGUAGE', 'en'))
 
+
 class Languages(BrowserView):
-    """ Return different languages for translation of content and for local sites.  """
+    """ Return different languages for translation of content and for local sites."""
 
     zope.interface.implements(ILanguages)
 
@@ -69,6 +70,7 @@ class Languages(BrowserView):
                             'url' : url } )
         return sites
 
+
 class LanguageSelectorData(BrowserView):
     """ VIEWified languageSelectorData.py from LinguaPlone/skins/ so we can test it """
 
@@ -78,7 +80,7 @@ class LanguageSelectorData(BrowserView):
         putils = getToolByName(self.context, 'plone_utils')
 
         translations = {} # lang:[object, wfstate]
-        if context.isTranslatable():
+        if ITranslatable.providedBy(context):
             translations = context.getTranslations()
 
         if context.portal_membership.isAnonymousUser():
@@ -142,5 +144,4 @@ class LanguageSelectorData(BrowserView):
                             'available':available, 'change_url':url, 'alt':alt,
                             'invalid': lingua_state == 'invalid'})
         return results
-
 
