@@ -4,6 +4,8 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="eea">
 
+    <include file="dependencies.zcml" />
+
     <include file="patches.zcml" />
 
     <include package=".browser" />

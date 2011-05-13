@@ -1,8 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope"
 	xmlns:browser="http://namespaces.zope.org/browser">
 
-	TODO: enable on migration to plone4
 
+	TODO: enable on migration to plone4
 	<!--<include file="imagescales.zcml" />-->
 
 	<browser:page
@@ -15,5 +15,9 @@
 	<interface interface=".interfaces.IInteractiveMap" />
 
 	<interface interface=".interfaces.IInteractiveData" />
+
+    <!--<class class=".ThemeTaggable.ThemeTaggable">-->
+        <!--<implements interface='eea.themecentre.interfaces.IThemeTaggable' />-->
+    <!--</class>-->
 
 </configure>

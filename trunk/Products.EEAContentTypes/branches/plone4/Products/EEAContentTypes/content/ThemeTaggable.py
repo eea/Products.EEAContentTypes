@@ -31,25 +31,15 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import ModifyPortalContent
+from Products.LinguaPlone.public import InAndOutWidget, BaseContent
+from Products.LinguaPlone.public import Schema, StringField
 from Products.validation.config import validation
 from Products.validation.interfaces.IValidator import IValidator
-from eea.themecentre.interfaces import IThemeTagging
+from eea.themecentre.interfaces import IThemeTagging, IThemeTaggable
 from zope.app.schema.vocabulary import IVocabularyFactory
 from zope.component import getUtility
 from zope.interface import implements
 
-try:
-    from Products.LinguaPlone.public import (
-        Schema, StringField, InAndOutWidget, BaseContent )
-    Schema, StringField, InAndOutWidget, BaseContent 
-except ImportError:
-    # No multilingual support
-    from Products.Archetypes.public import (
-        Schema, StringField, InAndOutWidget, BaseContent )
-
-#from Products.CMFCore.utils import getToolByName
-#from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-#from Products.EEAContentTypes.config import 
 
 class MaxValuesValidator:
     implements(IValidator)
@@ -101,8 +91,8 @@ ThemeTaggable_schema = schema.copy()
 class ThemeTaggable(BaseContent):
     """
     """
+    implements(IThemeTaggable)
     security = ClassSecurityInfo()
-    __implements__ = (getattr(BaseContent,'__implements__',()),)
 
     allowed_content_types = []
     _at_rename_after_creation = True

@@ -1,25 +1,22 @@
 """ Promotion """
 
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.CMFCore.permissions import ModifyPortalContent
-from Products.ATContentTypes.configuration import zconf
 from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
-from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
+from Products.LinguaPlone.public import AnnotationStorage
+from Products.LinguaPlone.public import ImageWidget
+from Products.LinguaPlone.public import Schema
+from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import StringWidget, registerType
+from eea.promotion.interfaces import IFrontpageSectionIndex
 from zope.component import adapts
 from zope.interface import implements
-from Products.LinguaPlone.public import (
-    Schema,
-    StringField,
-    AnnotationStorage,
-    ImageWidget
-)
-
-#TODO: enable on plone4 migration of eea.promotion
-#from eea.promotion.interfaces import IFrontpageSectionIndex
+    
 
 schema = Schema((
     ImageBlobField('image',
@@ -69,30 +66,29 @@ Promotion_schema['allowDiscussion'].schemata = 'metadata'
 Promotion_schema['relatedItems'].schemata = 'metadata'
 Promotion_schema['text'].schemata = 'metadata'
 
+
 class Promotion(ATNewsItem, ThemeTaggable):
     """ Promotion
     """
     security = ClassSecurityInfo()
     implements(IExternalPromotion)
-    __implements__ = (getattr(ATNewsItem, '__implements__', ()),
-                      ) +  (getattr(ThemeTaggable,'__implements__',()),)
 
     # This name appears in the 'add' box
     archetype_name = 'Promotion'
 
     meta_type = 'Promotion'
     portal_type = 'Promotion'
-    allowed_content_types = [] + list(getattr(ATNewsItem,
-            'allowed_content_types', [])) + list(getattr(ThemeTaggable,
-            'allowed_content_types', []))
-    filter_content_types = 0
-    global_allow = 0
-    content_icon   = 'document_icon.gif'
-    immediate_view = 'base_view'
-    default_view = 'base_view'
-    suppl_views = ()
-    typeDescription = "Promotion"
-    typeDescMsgId = 'description_edit_promotion'
+    #allowed_content_types = [] + list(getattr(ATNewsItem,
+            #'allowed_content_types', [])) + list(getattr(ThemeTaggable,
+            #'allowed_content_types', []))
+    #filter_content_types = 0
+    #global_allow = 0
+    #content_icon   = 'document_icon.gif'
+    #immediate_view = 'base_view'
+    #default_view = 'base_view'
+    #suppl_views = ()
+    #typeDescription = "Promotion"
+    #typeDescMsgId = 'description_edit_promotion'
 
     _at_rename_after_creation = True
 
@@ -105,12 +101,6 @@ class Promotion(ATNewsItem, ThemeTaggable):
 
 
 registerType(Promotion, PROJECTNAME)
-
-
-#TODO: remove on plone4 migration of eea.promotion
-from zope.interface import Interface
-class IFrontpageSectionIndex(Interface):
-    """dummy"""
 
 
 class FrontpageSectionIndex(object):

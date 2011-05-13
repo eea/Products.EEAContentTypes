@@ -16,22 +16,23 @@ import sys
 
 
 PRODUCTS = [
-    'ATVocabularyManager', 
-    'EEAContentTypes',
-    ##'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
-    'EEAPloneAdmin'
+        'kupu',
+        'ATVocabularyManager', 
+        'EEAContentTypes',
+        ##'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
+        'EEAPloneAdmin'
 ]
 
-EGGS = [
-        'eea.reports',
-        'valentine.linguaflow',
-
-    ]
+#EGGS = [
+        #'eea.reports',
+        #'valentine.linguaflow',
+        #'eea.themecentre',
+    #]
 
 for product in PRODUCTS:
     ztc.installProduct(product)
 
-ztc.installPackage('eea.reports')
+#ztc.installPackage('eea.reports')
 
 @onsetup
 def setup_eeacontenttypes():
@@ -39,10 +40,10 @@ def setup_eeacontenttypes():
     """
     fiveconfigure.debug_mode = True
 
-    for product in EGGS:
-        __import__(product)
-        pkg = sys.modules[product]
-        zcml.load_config("configure.zcml", pkg)
+    #for product in EGGS:
+        #__import__(product)
+        #pkg = sys.modules[product]
+        #zcml.load_config("configure.zcml", pkg)
 
     fiveconfigure.debug_mode = False
     #profile_registry.registerProfile(

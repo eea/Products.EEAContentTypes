@@ -42,7 +42,9 @@ setup(name=name,
           'eea.rdfrepository',
           'eea.themecentre',
           'eea.translations',
+          'eea.promotion',
           'Products.EEAPloneAdmin',
+          'Products.NavigationManager',
 
           'valentine.imagescales',
           'bda.feed',
@@ -57,7 +59,6 @@ setup(name=name,
           'eea.design',
 
           #TODO: enable when plone4 migration
-          #'Products.NavigationManager', 
           #'eea.dataservice',
           #'eea.locationwidget',
           #'eea.geotags',

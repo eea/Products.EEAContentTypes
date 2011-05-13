@@ -9,9 +9,9 @@ Let's create some content
 
   >>> id = folder.invokeFactory('Document', id='doc1')
   >>> doc = folder[id]
-  >>> doc.addTranslation('sv')
+  >>> trans = doc.addTranslation('sv')
   >>> doc_sv = doc.getTranslation('sv')
-  >>> doc.addTranslation('pl')
+  >>> trans = doc.addTranslation('pl')
   >>> doc_pl = doc.getTranslation('pl')
   >>> for lang, tran in doc.getTranslations().items():
   ...    tran[0].reindexObject()
@@ -33,8 +33,8 @@ as default page.
 
   >>> import transaction
   >>> foo = transaction.savepoint()
-  >>> folder.addTranslation('pl')
-  >>> folder.addTranslation('sv')
+  >>> trans = folder.addTranslation('pl')
+  >>> trans = folder.addTranslation('sv')
   >>> for lang, tran in folder.getTranslations().items():
   ...    tran[0].reindexObject()
 

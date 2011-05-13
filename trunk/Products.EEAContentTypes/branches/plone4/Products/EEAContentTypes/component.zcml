@@ -3,13 +3,11 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="eea">
 
-	TODO: enable on migration to plone4
-    <!--<utility-->
-        <!--component=".promotion.ThemepageSectionsVocabularyFactory"-->
-        <!--name="Themepage Promotion Sections"-->
-        <!--/>-->
+    <utility
+        component=".promotion.ThemepageSectionsVocabularyFactory"
+        name="Themepage Promotion Sections"
+        />
 
-	TODO: enable on migration to plone4
 	<adapter factory=".feeds.FeedPortletInfo" />
 	<adapter factory=".feeds.FeedItemPortletInfo" />
 	<adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
@@ -18,8 +16,7 @@
 
     <adapter factory=".relations.Relations" />
 
-	TODO: enable on migration to plone4
-    <!--<adapter factory=".promotion.Promotion" />-->
+    <adapter factory=".promotion.Promotion" />
 
     <adapter factory=".content.Article.Article2Surf" />
 
