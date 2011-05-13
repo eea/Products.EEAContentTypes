@@ -58,6 +58,7 @@ setup(name=name,
           'eea.reports',
           'eea.design',
 
+          'hachoir-core',   #only for the patch
           #TODO: enable when plone4 migration
           #'eea.dataservice',
           #'eea.locationwidget',

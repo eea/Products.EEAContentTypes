@@ -63,6 +63,7 @@ PROFILES = [
     'Products.ATVocabularyManager:default',
     'Products.EEAContentTypes:default',
     'Products.EEAContentTypes:testfixture',
+    'eea.themecentre:default',
 ]
 
 OPTIONAL_DEPENDENCIES = {

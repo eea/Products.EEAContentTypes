@@ -56,8 +56,9 @@ class TestRelations(EEAContentTypeTestCase):
         self.folder.pub.reindexObject()
 
         # make all themes public (non deprecated)
-        for theme in self.portal.portal_vocabularies.themes.objectValues():
-            self.portal.portal_workflow.doActionFor(theme, 'publish')
+        #for theme in self.portal.portal_vocabularies.themes.objectValues():
+            #self.portal.portal_workflow.doActionFor(theme, 'publish')
+
 
     def testAnonymous(self):
         """ Anonymous
