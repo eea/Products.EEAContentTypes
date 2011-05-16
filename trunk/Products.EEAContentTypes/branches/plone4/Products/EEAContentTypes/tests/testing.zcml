@@ -3,13 +3,12 @@
     i18n_domain="eea">
 
     <genericsetup:registerProfile
-        name="default"
-        title="Products.EEAContentTypes"
-        directory="profiles/default"
-        description="Extension profile with EEA workflows and content types"
+        name="testfixture"
+        title="Products.EEAContentTypes test fixture"
+        directory="../profiles/testfixture"
+        description="Test fixture profile with EEA workflows and content types"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         />
-
 
 </configure>

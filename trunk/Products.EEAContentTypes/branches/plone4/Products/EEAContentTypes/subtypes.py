@@ -4,11 +4,11 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from eea.geotags import field
 from eea.geotags import widget
+from p4a.video.interfaces import IVideoEnhanced
 from zope.component import adapts
 from zope.interface import Interface, implements
 
 #from Products.ATContentTypes.interface import IATContentType
-from p4a.video.interfaces import IVideoEnhanced
 
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):

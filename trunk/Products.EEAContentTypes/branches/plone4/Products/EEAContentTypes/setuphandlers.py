@@ -13,11 +13,6 @@ from Products.kupu.plone import util
 
 import logging
 
-#from zope.component import getUtility
-#from Products.EEAContentTypes.content.interfaces import IGeoPositionDecider
-#from collective.monkey.monkey import Patcher
-#eeaPatcher = Patcher('EEA')
-
 logger = logging.getLogger("Products.EEAContentTypes")
 
 

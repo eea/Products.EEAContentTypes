@@ -45,16 +45,9 @@ def setup_eeacontenttypes():
         #pkg = sys.modules[product]
         #zcml.load_config("configure.zcml", pkg)
 
+    import Products.EEAContentTypes.tests
+    zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
     fiveconfigure.debug_mode = False
-    #profile_registry.registerProfile(
-                        #name='testfixture',
-                        #title='EEAContentTypes test fixtures',
-                        #description='Extension profile for testing EEAContentTypes',
-                        #path='profile/testfixture',
-                        #product='Products.EEAContentTypes',
-                        #profile_type=EXTENSION,
-                        #for_=IPloneSiteRoot
-                    #)
 
 
 setup_eeacontenttypes()
@@ -62,7 +55,7 @@ setup_eeacontenttypes()
 PROFILES = [
     'Products.ATVocabularyManager:default',
     'Products.EEAContentTypes:default',
-    'Products.EEAContentTypes:testfixture',
+    'Products.EEAContentTypes.tests:testfixture',
     'eea.themecentre:default',
 ]
 

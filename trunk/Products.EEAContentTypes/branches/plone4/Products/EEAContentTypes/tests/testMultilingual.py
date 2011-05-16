@@ -16,7 +16,7 @@ class TestMultilingual(EEAContentTypeTestCase):
         """ Smart folder criteria
         """
         self.setRoles(['Manager'])
-        self.folder.invokeFactory('RichTopic', id='topic')
+        self.folder.invokeFactory('Topic', id='topic')
         crit = self.folder.topic.addCriterion('Creator',
                                               'ATSimpleStringCriterion')
         crit.setValue('dummyuser')
