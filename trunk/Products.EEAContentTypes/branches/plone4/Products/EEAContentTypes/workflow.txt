@@ -244,7 +244,7 @@ the groups.
 Now we have a document in state content_pending and let check to whom  emails
 will be sent to:
 
-  >>> from Products.EEAContentTypes.interfaces import IWorkflowEmails
+  >>> from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
   >>> self.setRoles(['Manager'])
   >>> from zope.component import getAdapter
   >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')

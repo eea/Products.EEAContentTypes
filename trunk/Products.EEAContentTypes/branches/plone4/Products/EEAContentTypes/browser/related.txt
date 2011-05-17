@@ -10,7 +10,7 @@ Lets relate a video to the document
   >>> video = self.folder.video1
 
   >>> from Products.EEAContentTypes.browser.interfaces import IDocumentRelated
-  >>> from zope.component import getMultiAdapter, getView
+  >>> from zope.component import getMultiAdapter
   >>> related = getMultiAdapter((doc, self.portal.REQUEST), name="document_related")
   >>> len(related.top_media())
   0

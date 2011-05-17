@@ -27,26 +27,26 @@
     <cmf:registerDirectory name="EEAContentTypes_public"/>
 
 	TODO: fix on plone4 migration
-    <!--<class class=".feeds.FeedPortletInfo">-->
-        <!--<require permission="zope2.Public" interface=".interfaces.IFeedPortletInfo" />-->
-    <!--</class>-->
+    <class class=".feeds.FeedPortletInfo">
+        <require permission="zope2.Public" interface=".interfaces.IFeedPortletInfo" />
+    </class>
 
 	TODO: fix on plone4 migration
-    <!--<class class=".feeds.FeedItemPortletInfo">-->
-        <!--<require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />-->
-    <!--</class>-->
+    <class class=".feeds.FeedItemPortletInfo">
+        <require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />
+    </class>
 
 	TODO: fix on plone4 migration
-    <!--<class class=".feeds.ContextAwareFeedPortletInfo">-->
-        <!--<require-->
-            <!--permission="zope2.Public"-->
-            <!--interface="eea.rdfrepository.interfaces.IRDFPortletInfo"-->
-            <!--/>-->
-        <!--<require-->
-            <!--permission="cmf.ModifyPortalContent"-->
-            <!--set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"-->
-            <!--/>-->
-    <!--</class>-->
+    <class class=".feeds.ContextAwareFeedPortletInfo">
+        <require
+            permission="zope2.Public"
+            interface="eea.rdfrepository.interfaces.IRDFPortletInfo"
+            />
+        <require
+            permission="cmf.ModifyPortalContent"
+            set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"
+            />
+    </class>
 
 
     <!-- EEA Staff RDF is uploaded as normal Zope File. -->

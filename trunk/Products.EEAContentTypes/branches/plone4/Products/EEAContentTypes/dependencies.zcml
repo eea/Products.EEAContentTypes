@@ -12,6 +12,7 @@
     <include package="Products.NavigationManager" />
     <include package="p4a.video" />
     <include package="eea.mediacentre" />
+    <include package="eea.rdfrepository" />
     <include package="cornerstone.feed.zope" />
     <include package="eea.rdfmarshaller" />
     <include package="eea.rdfrepository" />

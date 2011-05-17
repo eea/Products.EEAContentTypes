@@ -1,7 +1,18 @@
 """ Workflow tests
 """
-import time
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+from plone.keyring.interfaces import IKeyManager
+from plone.protect.authenticator import _getUserName
+from zope.component import getUtility
+import hmac
+import time
+
+try:
+    from hashlib import sha1 as sha
+except ImportError:
+    import sha
+
+
 
 class TestWorkflow(EEAContentTypeTestCase):
     """ Test-cases for class(es) workflow. """
@@ -38,6 +49,7 @@ class TestWorkflow(EEAContentTypeTestCase):
         res1 = self.folder.doc.workflow_confirmation_message(
             type='document').find(self.historyMarker)
         self.failIf(res1 == -1)
+
 
 class TestWorkflowModified(EEAContentTypeTestCase):
     """ Test that object.modified() updates on state change
@@ -136,10 +148,20 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         paths = ['/'.join(y.getPhysicalPath())
                  for y in self.sandbox.objectValues()]
 
-        # folder_publish requires a non-GET request
-        self.app.REQUEST.set('REQUEST_METHOD', 'POST')
 
         # Publish
+
+        manager=getUtility(IKeyManager)
+        secret=manager.secret()
+        user=_getUserName()
+        auth=hmac.new(secret, user, sha).hexdigest()
+
+        # plone 4 form protection bypass
+        #TODO: fix this
+
+        self.app.REQUEST.set('REQUEST_METHOD', 'POST')
+        self.app.REQUEST.set('_authenticator', auth)
+
         self.sandbox.folder_publish(workflow_action='publish', paths=paths)
 
         # After state change modification dates
