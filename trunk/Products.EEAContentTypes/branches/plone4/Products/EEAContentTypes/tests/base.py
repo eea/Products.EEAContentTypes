@@ -1,18 +1,10 @@
 """ Base TestCase for EEAContentTypes"""
 
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five import fiveconfigure
 from Products.Five import zcml
-from Products.GenericSetup import EXTENSION, profile_registry
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
 from Testing import ZopeTestCase as ztc
-
-import sys
-
-#from plone.app.blob.tests import db
-#db ## pyflakes, this import is needed for tests
-
 
 
 PRODUCTS = [
@@ -23,12 +15,6 @@ PRODUCTS = [
         'EEAPloneAdmin'
 ]
 
-#EGGS = [
-        #'eea.reports',
-        #'valentine.linguaflow',
-        #'eea.themecentre',
-    #]
-
 for product in PRODUCTS:
     ztc.installProduct(product)
 
@@ -38,13 +24,10 @@ for product in PRODUCTS:
 def setup_eeacontenttypes():
     """ Set up
     """
+
+    #installs fixture profile
+
     fiveconfigure.debug_mode = True
-
-    #for product in EGGS:
-        #__import__(product)
-        #pkg = sys.modules[product]
-        #zcml.load_config("configure.zcml", pkg)
-
     import Products.EEAContentTypes.tests
     zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
     fiveconfigure.debug_mode = False
@@ -54,9 +37,9 @@ setup_eeacontenttypes()
 
 PROFILES = [
     'Products.ATVocabularyManager:default',
+    'eea.themecentre:default',
     'Products.EEAContentTypes:default',
     'Products.EEAContentTypes.tests:testfixture',
-    'eea.themecentre:default',
 ]
 
 OPTIONAL_DEPENDENCIES = {

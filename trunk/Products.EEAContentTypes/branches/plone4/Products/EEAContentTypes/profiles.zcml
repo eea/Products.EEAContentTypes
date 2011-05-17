@@ -11,5 +11,4 @@
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         />
 
-
 </configure>
