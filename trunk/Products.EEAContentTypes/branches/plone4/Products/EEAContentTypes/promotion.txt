@@ -39,7 +39,7 @@ If we tag our promotion with a theme, it should show up on the theme page as wel
 We use navigation sections to determine where on the theme page a promotions is
 placed:
 
-  >>> from Products.NavigationManager.sections import INavigationSectionPosition
+  >>> from Products.NavigationManager.interfaces import INavigationSectionPosition
   >>> INavigationSectionPosition(epromo).section = u'Live maps and data'
   >>> promo.themepage_section
   u'Live maps and data'
