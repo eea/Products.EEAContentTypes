@@ -7,20 +7,18 @@
 
 	TODO: latest bda.feed doesn't have these, enable on plone4 migration
     <!--<adapter factory="bda.feed.collection.CollectionFeedSource" />-->
-    <!--<adapter factory="bda.feed.collection.CollectionFeed"-->
-        <!--provides="Products.basesyndication.interfaces.IFeed"/>-->
-    <adapter factory=".syndication.FeedLogo" />
-    <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
-    <adapter factory=".syndication.ATContentFeedEntry" />
+    <!--<adapter factory="bda.feed.collection.CollectionFeed"
+        provides="Products.basesyndication.interfaces.IFeed"/>-->
 
-	TODO: fix on plone4 migration
-    <!--<adapter factory=".syndication.NewsItemEnclosure" />-->
+    <adapter 
+        factory=".syndication.ATContentFeedEntry" 
+        for="Products.Archetypes.interfaces.IBaseObject" 
+        provides="Products.basesyndication.interfaces.IFeedEntry"/>
 
-    <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
+    <adapter factory=".syndication.NewsItemEnclosure" />
 
     <!-- adapters for folder rss -->
-	TODO: fix on plone4 migration
-    <!--<adapter factory="Products.EEAContentTypes.feeds.FolderFeed"-->
-        <!--provides="Products.basesyndication.interfaces.IFeed" /> -->
+    <adapter factory="Products.EEAContentTypes.feeds.FolderFeed"
+        provides="Products.basesyndication.interfaces.IFeed" />
 
 </configure>

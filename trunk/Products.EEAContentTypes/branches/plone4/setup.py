@@ -44,6 +44,7 @@ setup(name=name,
           'eea.themecentre',
           'eea.translations',
           'eea.promotion',
+          'eea.vocab',
           'Products.EEAPloneAdmin',
           'Products.NavigationManager',
 

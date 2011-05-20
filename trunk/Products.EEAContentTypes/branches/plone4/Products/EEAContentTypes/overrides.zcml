@@ -4,4 +4,8 @@
 
     <include package=".normalizer" file="overrides.zcml" />
 
+    <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
+    <adapter factory=".syndication.FeedLogo" />
+    <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
+
 </configure>

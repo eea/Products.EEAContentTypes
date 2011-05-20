@@ -36,16 +36,17 @@
         <require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />
     </class>
 
-	TODO: fix on plone4 migration
     <class class=".feeds.ContextAwareFeedPortletInfo">
         <require
             permission="zope2.Public"
             interface="eea.rdfrepository.interfaces.IRDFPortletInfo"
             />
-        <require
+
+        TODO: fix on plone4 migration, this is not supported by Zope 2
+        <!--<require
             permission="cmf.ModifyPortalContent"
             set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"
-            />
+            />-->
     </class>
 
 

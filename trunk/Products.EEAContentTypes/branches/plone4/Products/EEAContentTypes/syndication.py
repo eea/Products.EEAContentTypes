@@ -1,15 +1,14 @@
+from Products.ATContentTypes.content.newsitem import ATNewsItem
+from Products.Archetypes.interfaces import IBaseObject
+from Products.CMFCore.utils import getToolByName
 from bda.feed.atfeedentries import ATPrimaryFieldEnclosure
 from bda.feed.atfeedentries import ArchetypesFeedEntry
 from bda.feed.interfaces import ILogo
-from zope.interface import implements
 from zope.component import adapts, queryMultiAdapter
-
-from Products.Archetypes.interfaces import IBaseObject
-from Products.ATContentTypes.content.newsitem import ATNewsItem
-from Products.basesyndication.interfaces import IEnclosure
-from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
 #from valentine.imagescales.browser.interfaces import IImageView
+
 
 class FeedLogo(object):
     implements(ILogo)
@@ -22,14 +21,15 @@ class FeedLogo(object):
         portal_url = getToolByName(self.context, 'portal_url')()
         return "%s/%s" % (portal_url, 'eea-print-logo.gif')
 
+
 class NewsItemEnclosure(ATPrimaryFieldEnclosure):
-    implements(IEnclosure)
     adapts(ATNewsItem)
 
     @property
     def field(self):
         pfield = self.context.getField('image')
         return pfield
+
 
 class ATContentFeedEntry(ArchetypesFeedEntry):
     adapts(IBaseObject)
@@ -53,7 +53,9 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
         if self.context.portal_type in types:
             return self.context.start()
         else:
-            return super(ATContentFeedEntry, self).getEffectiveDate()
+            #plone4 compatibility
+            #return super(ATContentFeedEntry, self).getEffectiveDate()
+            return self.effectiveDate
 
     def getTitle(self):
         portal_calendar = getToolByName(self.context, 'portal_calendar')
