@@ -3,9 +3,9 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="eea">
 
-    configure.zcml from bda.feed is not loaded, we pick a few adapters we want here instead 
-
 	TODO: latest bda.feed doesn't have these, enable on plone4 migration
+    Note: I've enabled loading the bda.feed/configure.zcml in dependencies.zcml,
+    so probably these are not needed anymore:
     <!--<adapter factory="bda.feed.collection.CollectionFeedSource" />-->
     <!--<adapter factory="bda.feed.collection.CollectionFeed"
         provides="Products.basesyndication.interfaces.IFeed"/>-->

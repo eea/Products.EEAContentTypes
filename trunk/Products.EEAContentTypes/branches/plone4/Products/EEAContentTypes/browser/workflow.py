@@ -1,19 +1,16 @@
-#from zope.interface import implements
 from zope.component import queryAdapter
 from Products.CMFCore.utils import getToolByName
 from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
+from Products.Five import BrowserView
 
-class TransitionEmails(object):
+
+class TransitionEmails(BrowserView):
     """ Return emails for all transitions grouped in action and confirmation. """
-    
-    def __init__(self, context, request):
-        self.context = [context]
-        self.request = request
 
     def __call__(self):
-        context = self.context[0]
+        context = self.context
         wf = getToolByName(context, 'portal_workflow')
-        actions = wf.getActionsFor(context)
+        actions = wf.getTransitionsFor(context)
         result = {}
 
         for a in actions:

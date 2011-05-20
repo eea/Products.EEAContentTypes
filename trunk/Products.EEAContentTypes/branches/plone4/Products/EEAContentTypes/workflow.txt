@@ -63,7 +63,7 @@ have two workflows like with valentine.linguaflow
 A ContentManager(CM) should in default only be able to send the content for
 copy editing so lets send it.
 
-  >>> [a['name'] for a in wf.getActionsFor(doc)
+  >>> [a['name'] for a in wf.getTransitionsFor(doc)
   ...            if a['name'] in ourTransitions]
   ['Make private', 'Submit for copy editing']
   >>> wf.doActionFor(doc, 'submitCopyEdit')
@@ -73,13 +73,13 @@ copy editing so lets send it.
 In this state a CM can make the item private. Editor can
 do the same thing but also send it for content review.
 
-  >>> [a['name'] for a in wf.getActionsFor(doc)
+  >>> [a['name'] for a in wf.getTransitionsFor(doc)
   ...            if a['name'] in ourTransitions]
   ['Make private']
   >>> self.setRoles(['Editor'])
-  >>> [a['name'] for a in wf.getActionsFor(doc)
-  ...            if a['name'] in ourTransitions]
-  ['Make private',  'Back for revision', 'Submit for content review']
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(doc)
+  ...            if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for content review']
 
 And if an Editor or Manager creates a new document it should automatically start in
 state 'new'.
@@ -184,14 +184,12 @@ Promotion
   >>> p1 = folder[docId]
   >>> wf.getInfoFor(p1,'review_state', None)
   'new'
-  >>> [a['name'] for a in wf.getActionsFor(p1)
-  ...              if a['category'] == 'workflow' and
-  ...              a['name'] in ourTransitions]
-  ['Make private', 'Back for revision', 'Submit for Web QA']
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(p1)
+  ...              if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for Web QA']
   >>> wf.doActionFor(p1, 'submit')
-  >>> [a['name'] for a in wf.getActionsFor(p1)
-  ...              if a['category'] == 'workflow' and
-  ...              a['name'] in ourTransitions]
+  >>> [a['name'] for a in wf.getTransitionsFor(p1)
+  ...              if a['name'] in ourTransitions]
   ['Back for revision']
 
 Event
@@ -201,15 +199,13 @@ Event
   >>> e1 = folder[docId]
   >>> wf.getInfoFor(e1,'review_state', None)
   'new'
-  >>> [a['name'] for a in wf.getActionsFor(e1)
-  ...              if a['category'] == 'workflow' and
-  ...              a['name'] in ourTransitions]
-  ['Make private', 'Back for revision', 'Submit for content review']
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(e1)
+  ...              if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for content review']
   >>> wf.doActionFor(e1, 'submitContentReview')
   >>> self.setRoles(['Reviewer'])
-  >>> [a['name'] for a in wf.getActionsFor(e1)
-  ...              if a['category'] == 'workflow' and
-  ...              a['name'] in ourTransitions]
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(e1)
+  ...              if a['name'] in ourTransitions])
   ['Back for revision', 'Submit for Web QA']
 
 

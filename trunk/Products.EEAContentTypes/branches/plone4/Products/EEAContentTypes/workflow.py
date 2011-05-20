@@ -45,7 +45,6 @@ class SubmitForWebQAGuard(object):
                 return 'submitContentReview' in history
             return True
         return False
-    
 
 
 class SubmitForMultimediaEdit(object):
@@ -111,6 +110,7 @@ class QuickPublish(object):
 
     def __call__(self):
         return self.context.portal_type in self.canBeUsedFor
+
 
 class LocalRoleEmails(object):
 
@@ -234,7 +234,6 @@ class LocalRoleEmails(object):
         self.takenRoles = takenRoles
         return tuple(result)
 
-
     def getGlobalRoles(self):
         context = self.context
         groups_tool = getToolByName(context, 'portal_groups')
@@ -255,6 +254,7 @@ class LocalRoleEmails(object):
                 retlist.append((group.getGroupName(), roles, 'group', group.getGroupName()))
             
         return retlist
+
 
 class WorkflowEmails(object):
 
@@ -299,6 +299,7 @@ class WorkflowEmails(object):
             
         return "%s <%s>" % (name, email)
 
+
 #TODO: We need to make the Roles in each workflow adpater to take it dynamically
 # from the actual workflow object roles guard. This way we skip hardcoded values
 # and we can reuse the workflow sendemail logic for all workflows.
@@ -308,17 +309,20 @@ class WorkflowActionReviewer(WorkflowEmails):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Reviewer')
         
+
 class WorkflowActionProofReader(WorkflowEmails):
 
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ProofReader')
 
+
 class WorkflowActionWebReviewer(WorkflowEmails):
 
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('WebReviewer')
+
 
 class WorkflowActionEditor(WorkflowEmails):
     """ Used for state new """
@@ -327,12 +331,14 @@ class WorkflowActionEditor(WorkflowEmails):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Editor')
 
+
 class WorkflowActionContentManager(WorkflowEmails):
     """ Used when sent back for revision. """
     
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ContentManager')
+
 
 class WorkflowConfirmation(WorkflowEmails):
     """ This will send a workflow confirmation email to all roles"""
