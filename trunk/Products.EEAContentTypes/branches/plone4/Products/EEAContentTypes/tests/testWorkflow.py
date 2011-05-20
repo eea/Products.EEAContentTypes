@@ -13,7 +13,6 @@ except ImportError:
     import sha
 
 
-
 class TestWorkflow(EEAContentTypeTestCase):
     """ Test-cases for class(es) workflow. """
 
@@ -62,8 +61,9 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
         self.setRoles('Manager')
 
-        sandbox = self.folder.invokeFactory('Folder', 'sandbox')
-        self.sandbox = self.folder[sandbox]
+        if not hasattr(self.folder, 'sandbox'):
+            sandbox = self.folder.invokeFactory('Folder', 'sandbox')
+        self.sandbox = self.folder['sandbox']
 
         children = list(self.ptypes)
         self.sandbox.setConstrainTypesMode(1)
@@ -157,10 +157,8 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         auth=hmac.new(secret, user, sha).hexdigest()
 
         # plone 4 form protection bypass
-        #TODO: fix this
-
-        self.app.REQUEST.set('REQUEST_METHOD', 'POST')
-        self.app.REQUEST.set('_authenticator', auth)
+        self.setRequestMethod('POST')
+        self.setupAuthenticator()
 
         self.sandbox.folder_publish(workflow_action='publish', paths=paths)
 

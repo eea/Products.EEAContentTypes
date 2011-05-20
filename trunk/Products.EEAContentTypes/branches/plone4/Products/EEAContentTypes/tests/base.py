@@ -4,7 +4,11 @@ from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
+from Products.PloneTestCase.setup import default_user, default_password
 from Testing import ZopeTestCase as ztc
+from Testing.testbrowser import Browser
+from plone.protect.authenticator import AuthenticatorView
+from re import match
 
 
 PRODUCTS = [
@@ -67,7 +71,28 @@ PloneTestCase.setupPloneSite(products=PRODUCTS, extension_profiles=PROFILES)
 class EEAContentTypeTestCase(PloneTestCase.PloneTestCase):
     """Base TestCase for EEAContentTypes."""
 
+    def setRequestMethod(self, method):
+        self.app.REQUEST.set('REQUEST_METHOD', method)
+        self.app.REQUEST.method = method
+
+    def getAuthenticator(self):
+        tag = AuthenticatorView('context', 'request').authenticator()
+        pattern = '<input .*name="(\w+)".*value="(\w+)"'
+        return match(pattern, tag).groups()
+
+    def setupAuthenticator(self):
+        name, token = self.getAuthenticator()
+        self.app.REQUEST.form[name] = token
+
 
 class EEAContentTypeFunctionalTestCase(PloneTestCase.FunctionalTestCase):
     """ Functional TestCase"""
 
+    def getBrowser(self, loggedIn=True):
+        """ instantiate and return a testbrowser for convenience """
+        browser = Browser()
+        if loggedIn:
+            user = default_user
+            pwd = default_password
+            browser.addHeader('Authorization', 'Basic %s:%s' % (user, pwd))
+        return browser

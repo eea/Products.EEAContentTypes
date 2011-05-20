@@ -84,6 +84,7 @@ class FeedPortletInfo(object):
 
         return result
 
+
 class FeedItemPortletInfo(object):
     implements(IFeedItemPortletInfo)
     adapts(IFeedItem)
@@ -171,6 +172,7 @@ class NavigationRootRDFPortletDataCollector(object):
     @property
     def feeds(self):
         return []
+
 
 class FolderFeed(FeedMixin, Implicit):
     """Feed bound to folders"""
