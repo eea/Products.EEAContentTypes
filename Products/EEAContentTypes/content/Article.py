@@ -131,7 +131,8 @@ class Article2Surf(ATCT2Surf):
                     value = fieldAdapter.value(context)
                 else:
                     value = context.getMedia()
-                if value:
+                if (value and value != "None") or \
+                        (isinstance(value, basestring) and value.strip()) :
                     prefix = self.prefix
                     if isinstance(value, (list, tuple)):
                         value = list(value)
