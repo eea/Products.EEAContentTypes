@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:org="http://intranet.eea.eu.int/inhousedir/staff-ns/1.0/"
+         xmlns:rss="http://purl.org/rss/1.0/">
+
+
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=1">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>1</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>TACIS Project coordinator</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/SKI</org:organisation_code>
+    <org:organisation_name>Strategic knowledge and innovation</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=2">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>2</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Project officer - Cartographer/GIS operator</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/IDS/IDS3</org:organisation_code>
+    <org:organisation_name>Data access and management</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=3">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>3</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Secretary</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/IDS/IDS1</org:organisation_code>
+    <org:organisation_name>Production and support</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=4">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>4</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Secretary</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/EDO1</org:organisation_code>
+    <org:organisation_name>Client relations and effectiveness evaluations</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=5">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>5</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Technical assistant - Logistic services</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/ADS/ADS3</org:organisation_code>
+    <org:organisation_name>Financial and logistics services</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=6">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>6</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Research links and cooperation</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO/SKI/SKI2</org:organisation_code>
+    <org:organisation_name>Science, policy and innovation</org:organisation_name>
+    <org:manager>0</org:manager>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="http://intranet/intranet/InhouseDir/PersonDescription.asp?PersonnelNb=7">
+    <org:first_name>First1</org:first_name>
+    <org:last_name>Last1</org:last_name>
+    <org:personnelNb>7</org:personnelNb>
+    <org:email>firts1.last1@eea.europa.eu</org:email>
+    <org:employment_start>1/1/2006</org:employment_start>
+    <org:employment_end>12/31/2006</org:employment_end>
+    <org:job_title>Executive Director</org:job_title>
+    <org:organisation_code>IE/CE/EEA/EDO</org:organisation_code>
+    <org:organisation_name>Executive Directors Office</org:organisation_name>
+    <org:manager>1</org:manager>
+    </rdf:Description>
+        
+</rdf:RDF>
