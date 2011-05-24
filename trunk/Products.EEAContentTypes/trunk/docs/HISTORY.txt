@@ -1,6 +1,9 @@
 Changelog
 =========
 
+2.31-dev - (unreleased)
+-----------------------
+
 2.30 - (2011-05-24)
 -------------------
  * Bug fix: use dcterms namespace instead of dc in @@rdf view [tiberich #4250]
