@@ -1,25 +1,27 @@
+""" EEA Content Types installer
+"""
 from setuptools import setup, find_packages
 import os
-from os.path import join
 
-name = 'Products.EEAContentTypes'
-path = name.split('.') + ['version.txt']
-version = open(join(*path)).read().strip()
+NAME = 'Products.EEAContentTypes'
+PATH = NAME.split('.') + ['version.txt']
+VERSION = open(os.path.join(*PATH)).read().strip()
 
-setup(name=name,
-      version=version,
+setup(name=NAME,
+      version=VERSION,
       description="EEA logic and content types",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+           "Framework :: Plone",
+           "Programming Language :: Python",
+           "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='eea',
       author='European Environment Agency (EEA)',
       author_email='webadmin@eea.europa.eu',
-      url='http://svn.eionet.europa.eu/projects/Zope',
+      url="https://svn.eionet.europa.eu/projects/"
+          "Zope/browser/trunk/Products.EEAContentTypes",
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
@@ -27,8 +29,6 @@ setup(name=name,
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'collective.monkeypatcher',
-          # -*- Extra requirements: -*-
 
           'Products.LinguaPlone',
           'Products.ATVocabularyManager',
@@ -40,19 +40,20 @@ setup(name=name,
           'eea.rdfmarshaller',
           'eea.facetednavigation',
           'eea.rdfrepository',
+          'eea.locationwidget',
           'eea.mediacentre',
           'eea.themecentre',
           'eea.translations',
           'eea.promotion',
           'eea.vocab',
+          'valentine.imagescales',
           'Products.EEAPloneAdmin',
           'Products.NavigationManager',
 
-          'valentine.imagescales',
           'bda.feed',
           'p4a.video',
           'rdflib',
-          'eea.promotion',
+          'collective.monkeypatcher',
 
           #required in tests
           'eea.testcase',
@@ -61,9 +62,9 @@ setup(name=name,
           'eea.design',
 
           'hachoir-core',   #only for the patch
+
           #TODO: enable when plone4 migration
           #'eea.dataservice',
-          #'eea.locationwidget',
           #'eea.geotags',
           #'eea.mediacentre',
 

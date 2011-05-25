@@ -1,9 +1,10 @@
-<configure 
-    xmlns="http://namespaces.zope.org/zope" 
-    i18n_domain='eea' >
+<configure xmlns="http://namespaces.zope.org/zope"
+           i18n_domain='eea' >
 
-    <include package="collective.monkeypatcher" file="meta.zcml" />
-    <include package="eea.facetednavigation" file='meta.zcml' />
+    <include package="collective.monkeypatcher"
+             file="meta.zcml" />
+    <include package="eea.facetednavigation"
+             file='meta.zcml' />
 
     <include package="Products.CMFPlone" />
     <include package="Products.fatsyndication" />
@@ -21,6 +22,7 @@
     <include package="eea.facetednavigation" />
     <include package="eea.facetednavigation.subtypes" />
     <include package="eea.promotion" />
+    <include package="eea.locationwidget" />
     <include package="eea.themecentre" />
     <include package="eea.design" />
     <include package="eea.reports" />
@@ -31,5 +33,5 @@
     <include package="valentine.linguaflow" />
 
     <include package='p4a.video' />
-    
+
 </configure>

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
+    <description>EEA Content Types profile</description>
     <version>1.0</version>
     <dependencies>
         <dependency>profile-Products.ATVocabularyManager:default</dependency>

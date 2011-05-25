@@ -1,8 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:five="http://namespaces.zope.org/five"
-    xmlns:cmf="http://namespaces.zope.org/cmf"
-    i18n_domain="eea">
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:cmf="http://namespaces.zope.org/cmf"
+           i18n_domain="eea">
 
     <include file="dependencies.zcml" />
 
@@ -26,53 +26,44 @@
     <cmf:registerDirectory name="EEAContentTypes"/>
     <cmf:registerDirectory name="EEAContentTypes_public"/>
 
-	TODO: fix on plone4 migration
+    <!-- #TODO: fix on plone4 migration -->
     <class class=".feeds.FeedPortletInfo">
-        <require permission="zope2.Public" interface=".interfaces.IFeedPortletInfo" />
+        <require permission="zope2.Public"
+                 interface=".interfaces.IFeedPortletInfo" />
     </class>
 
-	TODO: fix on plone4 migration
+    <!-- #TODO: fix on plone4 migration -->
     <class class=".feeds.FeedItemPortletInfo">
-        <require permission="zope2.Public" interface=".interfaces.IFeedItemPortletInfo" />
+        <require permission="zope2.Public"
+                 interface=".interfaces.IFeedItemPortletInfo" />
     </class>
 
     <class class=".feeds.ContextAwareFeedPortletInfo">
-        <require
-            permission="zope2.Public"
-            interface="eea.rdfrepository.interfaces.IRDFPortletInfo"
-            />
+        <require permission="zope2.Public"
+                 interface="eea.rdfrepository.interfaces.IRDFPortletInfo" />
 
         TODO: fix on plone4 migration, this is not supported by Zope 2
-        <!--<require
-            permission="cmf.ModifyPortalContent"
-            set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo"
-            />-->
+        <!--<require permission="cmf.ModifyPortalContent"
+                     set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
     </class>
 
-
     <!-- EEA Staff RDF is uploaded as normal Zope File. -->
-	TODO: five:traversable doesn't exist anymore, is it still needed? plone4
+    #TODO: five:traversable doesn't exist anymore, is it still needed? plone4
     <!--<five:traversable class="OFS.Image.File" />-->
 
+    <subscriber for=".content.CFTRequestor.ICFTRequestor
+                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".content.CFTRequestor.submit_requestor"   />
 
-    <subscriber
-        for=".content.CFTRequestor.ICFTRequestor
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".content.CFTRequestor.submit_requestor"   />
-
-    <subscriber
-        for="Products.ATContentTypes.content.topic.ATTopic
-        Products.LinguaPlone.events.ObjectTranslatedEvent"
-        handler=".smartfolder.smartFolderAdded"   />
-
+    <subscriber for="Products.ATContentTypes.content.topic.ATTopic
+                     Products.LinguaPlone.events.ObjectTranslatedEvent"
+                handler=".smartfolder.smartFolderAdded"   />
 
     <!--adding keepReferencesOnCopy feature to the AT schema field 'relatedItems'-->
-    <!--adapter for="Products.ATContentTypes.content.base.ATCTContent" 
-         factory=".schemaextender.RelatedItemsModifier" /-->
-
+    <!--adapter for="Products.ATContentTypes.content.base.ATCTContent"
+                factory=".schemaextender.RelatedItemsModifier" /-->
 
     <!--TODO: fix plone4-->
-    <!--<five:deprecatedManageAddDelete-->
-        <!--class=".content.CFTRequestor.CFTRequestor" />-->
+    <!--<five:deprecatedManageAddDelete class=".content.CFTRequestor.CFTRequestor" />-->
 
 </configure>
