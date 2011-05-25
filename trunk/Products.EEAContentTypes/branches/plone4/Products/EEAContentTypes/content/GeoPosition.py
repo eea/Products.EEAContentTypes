@@ -101,17 +101,22 @@ class GeoPositionDecider(object):
     def matchLocation(self, obj):
         geodata = None
         location = getattr(obj, 'location', None)
-        if (location is not None) and location:
-            #get service keys
-            service_keys = {}
-            portal_properties = getToolByName(obj, 'portal_properties')
-            geo_properties = getattr(portal_properties, 'geographical_properties')
-            service_keys['google_key'] = geo_properties.getProperty('google_key', '')
-            service_keys['yahoo_key'] = geo_properties.getProperty('yahoo_key', '')
-            service_keys['mapquest_key'] = geo_properties.getProperty('mapquest_key', '')
-            geocoding_to_use = geo_properties.getProperty('geocoding_service_priority', [])
+        if not location:
+            return geodata
 
-            geodata = geocodeLocation(location, service_keys, geocoding_to_use)
+        #get service keys
+        service_keys = {}
+        portal_properties = getToolByName(obj, 'portal_properties')
+        geo_properties = getattr(portal_properties, 'geographical_properties', None)
+        if not geo_properties:
+            return geodata
+
+        service_keys['google_key'] = geo_properties.getProperty('google_key', '')
+        service_keys['yahoo_key'] = geo_properties.getProperty('yahoo_key', '')
+        service_keys['mapquest_key'] = geo_properties.getProperty('mapquest_key', '')
+        geocoding_to_use = geo_properties.getProperty('geocoding_service_priority', [])
+
+        geodata = geocodeLocation(location, service_keys, geocoding_to_use)
         return geodata
 
     def provideInterfaces(self, obj, geodata):
