@@ -50,7 +50,7 @@ Common EEA languages
    'peldudenu-kvalitate-es-uzlabojas'
 
    >>> normalizer.normalize("Il-kwalità tal-ilma għall-għawm fl-UE qed titjieb")
-   'il-kwalita-tal-ilma-g127all'
+   'il-kwalita-tal-ilma-ghall'
 
    >>> normalizer.normalize("Kwaliteit zwemwater EU wordt beter")
    'kwaliteit-zwemwater-eu-wordt-beter'
