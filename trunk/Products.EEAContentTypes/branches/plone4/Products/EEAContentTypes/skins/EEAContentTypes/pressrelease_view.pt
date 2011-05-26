@@ -16,17 +16,19 @@
         <h1 class="documentFirstHeading">
             <tal:span tal:content="object_title">Title or id</tal:span>
         </h1>
-        <div metal:use-macro="here/document_actions/macros/document_actions">
+        <!--todo: fix plone4-->
+        <!--<div metal:use-macro="here/document_actions/macros/document_actions">
             Document actions (print, sendto etc)
-        </div>
+        </div>-->
         <div class="visualClear"><!-- --></div>
         <div><tal:press i18n:domain="eea.translations" i18n:translate="Press releases">Press release</tal:press>
-        <tal:docByline metal:use-macro="here/document_byline/macros/byline">
+        <!--todo: fix plone4-->
+        <!--<tal:docByline metal:use-macro="here/document_byline/macros/byline">
             Get the byline - contains details about author and modification date.
         </tal:docByline>
         <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
             Show the publishdate only (effective date).
-        </tal:publishdate></div>
+        </tal:publishdate></div>-->
         </div>
         <metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />
         <p tal:condition="python: not len_text and is_editable"
