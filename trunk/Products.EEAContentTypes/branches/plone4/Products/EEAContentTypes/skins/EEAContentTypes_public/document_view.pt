@@ -11,7 +11,7 @@
     <tal:document metal:fill-slot="related_multimedia">
         <div id="related-portlets">
           <!--todo: enable for plone4-->
-        <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
+        <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
         <div metal:use-macro="here/document_relateditems/macros/multimedia">
             show related multimedia items if they exist
         </div>
