@@ -27,21 +27,17 @@
       <div class="formControls">
 
             <input class="context"
-                   tabindex=""
                    type="submit"
                    name="correct"
                    value="Go back and correct"
                    i18n:attributes="value label_correct;"
-                   tal:attributes="tabindex tabindex/next;"
                    />
 
             <input class="context"
-                   tabindex=""
                    type="submit"
                    name="confirm"
                    value="Confirm and send"
                    i18n:attributes="value label_confirm;"
-                   tal:attributes="tabindex tabindex/next;"
                    />
 
         </div>

@@ -20,13 +20,11 @@
 
           <metal:buttons fill-slot="buttons">
             <input class="context"
-              tabindex=""
               type="submit"
               name="form_submit"
               value="Next"
               i18n:attributes="value label_next;"
-              tal:attributes="tabindex tabindex/next;
-              disabled python:test(isLocked, 'disabled', None);"
+              tal:attributes="disabled python:test(isLocked, 'disabled', None);"
               />
           </metal:buttons>
         </metal:body>

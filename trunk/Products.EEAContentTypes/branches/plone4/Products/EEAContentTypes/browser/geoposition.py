@@ -120,11 +120,12 @@ class GeoPositionView(BrowserView):
                     'longitude':    geoobject.longitude,
                     'location':     self.context.location,
                     'external_url': obj_url,
-                    'point_zoom':   geo_properties.getProperty('PointZoom_single', ''),
-                    'map_loc':      geo_properties.getProperty('MapLoc_single', ''),
-                    'map_zoom':     geo_properties.getProperty('MapZoom_single', '')}
+                    'point_zoom':   geo_properties.getProperty('PointZoom_single', 'null') or 'null',
+                    'map_loc':      geo_properties.getProperty('MapLoc_single', 'null') or 'null',
+                    'map_zoom':     geo_properties.getProperty('MapZoom_single', 'null') or 'null'}
 
-        return map_template % map_data
+        res = map_template % map_data
+        return res
 
 class GeoConverter(BrowserView):
     """ """
