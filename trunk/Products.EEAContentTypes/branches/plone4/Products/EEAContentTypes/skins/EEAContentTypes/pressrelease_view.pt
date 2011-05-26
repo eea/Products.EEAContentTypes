@@ -11,7 +11,8 @@
                       len_text python:len(text.strip());
                       figure here/getImage;
                       figure python:test(figure and figure != ' ', here.getScale('mini'), None);
-                      hasQuote python: len(here.getQuotationText())">
+                      hasQuote python: len(here.getQuotationText());
+                      object_title context/@@plone_context_state/object_title;">
 
         <h1 class="documentFirstHeading">
             <tal:span tal:content="object_title">Title or id</tal:span>
@@ -30,7 +31,9 @@
             Show the publishdate only (effective date).
         </tal:publishdate></div>-->
         </div>
-        <metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />
+
+        <!--todo: fix plone4-->
+        <!--<metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />-->
         <p tal:condition="python: not len_text and is_editable"
            i18n:translate="no_body_text"
            class="discreet">
