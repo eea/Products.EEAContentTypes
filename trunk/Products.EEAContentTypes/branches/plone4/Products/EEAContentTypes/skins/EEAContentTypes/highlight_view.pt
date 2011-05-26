@@ -16,16 +16,18 @@
         <h1 tal:content="object_title" class="documentFirstHeading">
             '<tal:span              tal:content="figure"></tal:span>'Title or id
         </h1>
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
 
-        <tal:docByline metal:use-macro="here/document_byline/macros/byline">
-            Get the byline - contains details about author and modification date.
-        </tal:docByline>
-        <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
-            Show the publishdate only (effective date).
-        </tal:publishdate></div>
+        <!--plone4 todo fix-->
+        <!--<div metal:use-macro="here/document_actions/macros/document_actions">-->
+            <!--Document actions (print, sendto etc)-->
+        <!--</div>-->
+        <!--<tal:docByline metal:use-macro="here/document_byline/macros/byline">-->
+            <!--Get the byline - contains details about author and modification date.-->
+        <!--</tal:docByline>-->
+        <!--<div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">-->
+            <!--Show the publishdate only (effective date).-->
+        <!--</tal:publishdate></div>-->
+    <!--end plone4 todo fix-->
 
        <metal:teaserFigureRelated define-macro="teaserFigureRelated">
         <tal:descriptionOrTeaser define="description here/Description|here/getTeaser">
@@ -50,8 +52,11 @@
                <div metal:use-macro="here/document_relateditems/macros/multimedia">
                      show related multimedia items if they exist
                </div>
+
               <!-- related tags/themes -->
-               <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+              <!--todo plone4 fix enable this-->
+               <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
+
               <!-- related pages -->
                <div metal:use-macro="here/document_relateditems/macros/pages">
                      show related pages if they exist

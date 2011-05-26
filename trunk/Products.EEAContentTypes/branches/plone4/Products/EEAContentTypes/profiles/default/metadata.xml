@@ -4,6 +4,7 @@
     <version>1.0</version>
     <dependencies>
         <dependency>profile-Products.ATVocabularyManager:default</dependency>
+        <dependency>profile-eea.reports:default</dependency>
+        <dependency>profile-eea.themecentre:default</dependency>
     </dependencies>
 </metadata>
-

@@ -54,11 +54,11 @@ setup(name=NAME,
           'p4a.video',
           'rdflib',
           'collective.monkeypatcher',
+          'eea.reports',
 
           #required in tests
-          'eea.testcase',
           'valentine.linguaflow',
-          'eea.reports',
+          'eea.testcase',
           'eea.design',
 
           'hachoir-core',   #only for the patch
