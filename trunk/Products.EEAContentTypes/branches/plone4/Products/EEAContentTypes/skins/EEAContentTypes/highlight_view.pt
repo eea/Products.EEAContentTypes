@@ -49,7 +49,7 @@
               figure_source_copyright here/getImageCopyright;
               figure_link here/getImageLink">
               <tal:figure tal:condition="figure">
-                <metal:thefigure use-macro="here/media_macros/macros/figure-plus" />       
+                <!--<metal:thefigure use-macro="here/media_macros/macros/figure-plus" />       -->
               </tal:figure>
               <!-- related multimedia -->
               <div metal:use-macro="here/document_relateditems/macros/multimedia">
