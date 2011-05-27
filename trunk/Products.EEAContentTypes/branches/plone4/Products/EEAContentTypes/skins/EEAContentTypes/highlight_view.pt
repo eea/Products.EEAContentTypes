@@ -11,10 +11,12 @@
         len_text python:len(text.strip());
         figure here/getImage;
         figure python:test(figure and figure != ' ', here.getScale('mini'), None);
-        hasQuote python: len(here.getQuotationText());">
+        hasQuote python: len(here.getQuotationText());
+        object_title context/@@plone_context_state/object_title;
+        ">
 
         <h1 tal:content="object_title" class="documentFirstHeading">
-          <tal:span tal:content="figure"></tal:span>'Title or id
+          Title or id
         </h1>
 
         <!--plone4 todo fix-->

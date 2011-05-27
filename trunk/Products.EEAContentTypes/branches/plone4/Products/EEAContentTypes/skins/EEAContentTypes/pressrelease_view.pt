@@ -17,23 +17,28 @@
         <h1 class="documentFirstHeading">
             <tal:span tal:content="object_title">Title or id</tal:span>
         </h1>
+
         <!--todo: fix plone4-->
         <!--<div metal:use-macro="here/document_actions/macros/document_actions">
             Document actions (print, sendto etc)
         </div>-->
+
         <div class="visualClear"><!-- --></div>
         <div><tal:press i18n:domain="eea.translations" i18n:translate="Press releases">Press release</tal:press>
-        <!--todo: fix plone4-->
-        <!--<tal:docByline metal:use-macro="here/document_byline/macros/byline">
-            Get the byline - contains details about author and modification date.
-        </tal:docByline>
-        <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
-            Show the publishdate only (effective date).
-        </tal:publishdate></div>-->
+
+          <!--todo: fix plone4-->
+          <!--<tal:docByline metal:use-macro="here/document_byline/macros/byline">
+              Get the byline - contains details about author and modification date.
+          </tal:docByline>
+          <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
+              Show the publishdate only (effective date).
+          </tal:publishdate></div>-->
+
         </div>
 
         <!--todo: fix plone4-->
-        <!--<metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />-->
+        <metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />
+
         <p tal:condition="python: not len_text and is_editable"
            i18n:translate="no_body_text"
            class="discreet">
