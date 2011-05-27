@@ -7,7 +7,9 @@
 <metal:main fill-slot="main">
 
 <metal:fulldocument define-macro="document"
-     tal:define="text python: here.CookedBody(stx_level=2)">
+     tal:define="text python: here.CookedBody(stx_level=2);
+                 object_title context/@@plone_context_state/object_title;
+                 is_editable context/@@plone_context_state/is_editable;">
 
     <h1 tal:content="object_title" class="documentFirstHeading">
       Title or id
