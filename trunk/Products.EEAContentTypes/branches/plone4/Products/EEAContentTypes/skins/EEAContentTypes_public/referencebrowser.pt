@@ -125,7 +125,6 @@
                              value=""
                              id=""
                              tal:attributes="value python:obj.Title;
-                                             tabindex tabindex/next;
                                              size python:test(widget.size=='', 30, widget.size);
                                              id string:${fieldName}_label" readonly="readonly" />
 
@@ -159,11 +158,10 @@
           <tal:multi tal:condition="multiVal">
               <div style="float: left">
                 <select multiple="multiple"
-                        tabindex=""
                         tal:attributes="name string:${fieldName}:list;
                                         id string:${fieldName};
                                         size python:test(widget.size=='', 8, widget.size);
-                                        tabindex tabindex/next;">
+                                        ">
                     <tal:block tal:repeat="uid uids">
                       <tal:block define="brain python:refsupport.brain(uid);"
                         tal:condition="brain">
