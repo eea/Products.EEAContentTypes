@@ -37,7 +37,7 @@
         </div>
 
         <!--todo: fix plone4-->
-        <metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />
+        <!--<metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />-->
 
         <p tal:condition="python: not len_text and is_editable"
            i18n:translate="no_body_text"
