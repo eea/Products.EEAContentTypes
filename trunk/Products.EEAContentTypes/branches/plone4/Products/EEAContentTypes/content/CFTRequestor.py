@@ -43,8 +43,6 @@ from zope.interface import implements
 from zope.lifecycleevent import ObjectModifiedEvent
 import transaction
 
-#TODO: update on plone4 migration
-#from Products.ATContentTypes.content.base import updateAliases
 
 schema = Schema((
 
@@ -197,9 +195,6 @@ class CFTRequestor(ATCTContent):
     schema = CFTRequestor_schema
 
     implements(ICFTRequestor)
-
-    #TODO: update on plone4 migration
-    #aliases = updateAliases(ATCTContent, { 'view' : 'base_view' })
 
     security.declarePrivate('_renameAfterCreation')
     def _renameAfterCreation(self, check_auto_id=False):

@@ -1,32 +1,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      lang="en"
-      metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
-<body>
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="en"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="plone">
+  <body>
 
-<metal:main metal:fill-slot="main">
-<tal:main-macro metal:define-macro="main">
+    <metal:content-core fill-slot="content-core">
+      <metal:content-core define-macro="content-core">
 
-<metal:document use-macro="here/document_macros/macros/document">
-    <tal:document metal:fill-slot="related_multimedia">
-        <div id="related-portlets">
-          <!--todo: enable for plone4-->
-        <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
-        <div metal:use-macro="here/document_relateditems/macros/multimedia">
-            show related multimedia items if they exist
-        </div>
-        <div metal:use-macro="here/document_relateditems/macros/pages">
-            show related pages if they exist
-        </div>
-        <div metal:use-macro="here/document_relateditems/macros/auto">
-            show auto related items if they exist
-        </div>
-        </div>
-    </tal:document>
-</metal:document>
+        <metal:document use-macro="here/document_macros/macros/document">
 
-</tal:main-macro>
-</metal:main>
+          <tal:document metal:fill-slot="related_multimedia">
+            <div id="related-portlets">
+              <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+              <div metal:use-macro="here/document_relateditems/macros/multimedia">
+                show related multimedia items if they exist
+              </div>
+              <div metal:use-macro="here/document_relateditems/macros/pages">
+                show related pages if they exist
+              </div>
+              <div metal:use-macro="here/document_relateditems/macros/auto">
+                show auto related items if they exist
+              </div>
+            </div>
 
-</body>
+          </tal:document>
+
+        </metal:document>
+
+      </metal:content-core>
+    </metal:content-core>
+
+  </body>
 </html>

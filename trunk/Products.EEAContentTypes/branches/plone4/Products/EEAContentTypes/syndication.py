@@ -1,3 +1,5 @@
+""" EEA CT syndication
+"""
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.Archetypes.interfaces import IBaseObject
 from Products.CMFCore.utils import getToolByName
@@ -11,32 +13,43 @@ from zope.interface import implements
 
 
 class FeedLogo(object):
+    """ Logo
+    """
     implements(ILogo)
     adapts(IBaseObject)
-   
+
     def __init__(self, context):
-        self.context = context   
-   
+        self.context = context
+
     def __call__(self):
         portal_url = getToolByName(self.context, 'portal_url')()
         return "%s/%s" % (portal_url, 'eea-print-logo.gif')
 
 
 class NewsItemEnclosure(ATPrimaryFieldEnclosure):
+    """ News Item enclosure
+    """
     adapts(ATNewsItem)
 
     @property
     def field(self):
+        """ Field
+        """
         pfield = self.context.getField('image')
         return pfield
 
 
 class ATContentFeedEntry(ArchetypesFeedEntry):
+    """ ATContent Feed Entry
+    """
     adapts(IBaseObject)
 
     def getBody(self):
+        """ Body
+        """
         # rss template uses getBody for description so we get description here
-        img = queryMultiAdapter((self.context, self.context.REQUEST), name=u'imgview')
+        img = queryMultiAdapter((self.context, self.context.REQUEST),
+                                name=u'imgview')
         if img is not None and img.display('mini'):
             # images, highlights, press releases etc have an 'image'
             # field - if so then we show a resized version of the image
@@ -48,16 +61,34 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
         return result
 
     def getEffectiveDate(self):
+        """ Effective date
+        """
         portal_calendar = getToolByName(self.context, 'portal_calendar')
         types = portal_calendar.getCalendarTypes()
         if self.context.portal_type in types:
             return self.context.start()
         else:
-            #plone4 compatibility
-            #return super(ATContentFeedEntry, self).getEffectiveDate()
             return self.effectiveDate
 
+    def getModifiedDate(self):
+        """ Modified date """
+        return self.modifiedDate
+
+    def getAuthor(self):
+        """ Author """
+        return self.author
+
+    def getTags(self):
+        """ Tags """
+        return self.tags
+
+    def getEnclosure(self):
+        """ Enclosure """
+        return self.enclosures
+
     def getTitle(self):
+        """ Title
+        """
         portal_calendar = getToolByName(self.context, 'portal_calendar')
         types = portal_calendar.getCalendarTypes()
         if self.context.portal_type in types:
@@ -67,17 +98,20 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
         return self.context.Title()
 
     def getWebURL(self):
+        """ URL
+        """
         url = self.context.absolute_url()
         portal_props = getToolByName(self.context, 'portal_properties')
         site_props = getattr(portal_props, 'site_properties')
         view_action = getattr(site_props, 'typesUseViewActionInListings', ())
         if self.context.portal_type in view_action:
             url += '/view'
-        url+='?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic'
+        url += ('?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;' +
+                'utm_campaign=Generic')
         return url
 
     def getXhtml(self):
         """The (x)html body content of this entry, or None
-        """       
+        """
         return self.context.getText(contenttype="text/xhtml-safe",
                                     encoding='utf-8')

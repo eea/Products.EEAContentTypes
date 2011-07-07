@@ -159,7 +159,7 @@ def setupATVocabularies(self, portal):
     vkeys = vocabs.keys()
     atvm = getToolByName(portal, ATVOCABULARYTOOL, None)
     if atvm is None:
-        import pdb; pdb.set_trace()
+        logger.info("Products.ATVocabularyManager is NOT installed")
         return
 
     for vkey in vkeys:
@@ -172,7 +172,7 @@ def setupATVocabularies(self, portal):
         try:
             atvm.invokeFactory('SimpleVocabulary', vkey)
         except:
-            import pdb; pdb.set_trace()
+            logger.info("Error adding vocabulary %s" % vkey)
 
         vocab = atvm[vkey]
         for (ikey, value) in vocabs[vkey]:

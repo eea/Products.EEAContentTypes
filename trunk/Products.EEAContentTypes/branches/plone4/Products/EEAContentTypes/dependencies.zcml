@@ -27,11 +27,17 @@
     <include package="eea.design" />
     <include package="eea.reports" />
     <include package="eea.vocab" />
+    <include package="eea.soer" />
+    <include package="eea.dataservice" />
+    <include package="eea.workflow" />
+    <include package="eea.indicators" />
+    <include package="eea.relations" />
     <include package="eea.translations" />
     <include package="plone.app.imaging" />
     <include package="valentine.imagescales" />
     <include package="valentine.linguaflow" />
-
+    <include package="Products.UserAndGroupSelectionWidget" />
+    <include package="Products.DataGridField" />
     <include package='p4a.video' />
 
 </configure>

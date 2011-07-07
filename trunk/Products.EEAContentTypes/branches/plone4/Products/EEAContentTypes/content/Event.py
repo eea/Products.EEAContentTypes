@@ -16,8 +16,6 @@ QuickEvent_schema = getattr(ATEvent,'schema',Schema(())).copy() + \
                     getattr(ThemeTaggable, 'schema', Schema(())).copy()
 
 QuickEvent_schema.delField('text')
-#TODO: figure out for plone4 migration what should be deleted
-#QuickEvent_schema.delField('eventType')
 QuickEvent_schema['attendees'].schemata = 'metadata'
 QuickEvent_schema['eventUrl'].required = True
 QuickEvent_schema['themes'].required = True
@@ -29,7 +27,6 @@ QuickEvent_schema['themes'].widget.description_msgid = \
 QuickEvent_schema['themes'].widget.maxValues = 1
 QuickEvent_schema['description'].required = True
 
-#TODO: enable after eea.locationwidget is ported to plone4
 QuickEvent_schema['location'].widget = LocationWidget(
                                    description = "",
                                    description_msgid = "help_event_location",

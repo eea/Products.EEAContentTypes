@@ -35,10 +35,9 @@
         attribute="validate"
         />
 
-    TODO: enable when migrating to plone4
     <!--<browser:page-->
         <!--for="*"-->
-        <!--name="invalidate_cache"-->
+        <!--name="invalidate_cache"-->    TODO: enable when migrating to plone4
         <!--permission="zope.Public"-->
         <!--class=".cache.InvalidateCache"-->
         <!--attribute="invalidate"-->
@@ -344,16 +343,6 @@
         class=".notification.SendAsNotification"
         />
 
-    TODO: enable for plone4 migration
-    <!--<browser:menuItem-->
-        <!--for="Products.ATContentTypes.interface.IATFolder"-->
-        <!--menu="object_buttons"-->
-        <!--title="Send as notification"-->
-        <!--action="@@sendAsNotification"-->
-        <!--description="Send as email notification"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
-
     <browser:page
         for="*"
         name="url"
@@ -388,7 +377,7 @@
     <browser:page
         for="Products.EEAContentTypes.content.Highlight.Highlight"
         name="imgview"
-        class="valentine.imagescales.browser.atfield.ImageView"
+        class="valentine.imagescales.browser.atfield.ATFieldImageView"
         permission="zope.Public"
         allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
         />

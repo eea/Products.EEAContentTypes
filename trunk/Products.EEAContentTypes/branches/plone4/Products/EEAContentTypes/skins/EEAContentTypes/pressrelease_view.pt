@@ -1,59 +1,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      lang="en"
-      metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
-   
-<body>
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  lang="en"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="plone">
+  <body>
 
-<div metal:fill-slot="main">
-    <tal:main-macro metal:define-macro="main"
-          tal:define="text python:here.CookedBody(stx_level=2);
-                      len_text python:len(text.strip());
-                      figure here/getImage;
-                      figure python:test(figure and figure != ' ', here.getScale('mini'), None);
-                      hasQuote python: len(here.getQuotationText());
-                      object_title context/@@plone_context_state/object_title;">
+    <metal:content-core fill-slot="content-core">
+      <metal:content-core define-macro="content-core">
 
-        <h1 class="documentFirstHeading">
-            <tal:span tal:content="object_title">Title or id</tal:span>
-        </h1>
+        <tal:press i18n:domain="eea.translations" i18n:translate="Press releases">Press release</tal:press>
+        <metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />
+        <metal:field use-macro="python:context.widget('text', mode='view')">
+          Body text
+        </metal:field>
 
-        <!--todo: fix plone4-->
-        <!--<div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>-->
-
-        <div class="visualClear"><!-- --></div>
-        <div><tal:press i18n:domain="eea.translations" i18n:translate="Press releases">Press release</tal:press>
-
-          <!--todo: fix plone4-->
-          <!--<tal:docByline metal:use-macro="here/document_byline/macros/byline">
-              Get the byline - contains details about author and modification date.
-          </tal:docByline>
-          <div class="discreet"><tal:publishdate metal:use-macro="here/document_byline/macros/publishdate">
-              Show the publishdate only (effective date).
-          </tal:publishdate></div>-->
-
-        </div>
-
-        <!--todo: fix plone4-->
-        <!--<metal:teaserFigureRelated use-macro="here/highlight_view/macros/teaserFigureRelated" />-->
-
-        <p tal:condition="python: not len_text and is_editable"
-           i18n:translate="no_body_text"
-           class="discreet">
-            This item does not have any body text, click the edit tab to change it.
-        </p>
-
-        <div tal:condition="len_text"
-             tal:attributes="class python:test(here.text_format == 'structured-text', 'stx', '')">
-                     <div tal:replace="structure text" />
-        </div>
-
-
-    </tal:main-macro>
-</div>
-
-</body>
+      </metal:content-core>
+    </metal:content-core>
+  </body>
 </html>
-

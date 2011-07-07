@@ -12,9 +12,9 @@
     <include package=".content" />
     <include package=".faceted" />
     <include package=".migrate" />
+    <include package=".upgrades" />
 
-    TODO: enable on plone4 migration
-    <!--<include file="cache.zcml" />-->
+    <include file="cache.zcml" />
 
     <include file="profiles.zcml" />
     <include file="catalog.zcml" />
@@ -26,13 +26,11 @@
     <cmf:registerDirectory name="EEAContentTypes"/>
     <cmf:registerDirectory name="EEAContentTypes_public"/>
 
-    <!-- #TODO: fix on plone4 migration -->
     <class class=".feeds.FeedPortletInfo">
         <require permission="zope2.Public"
                  interface=".interfaces.IFeedPortletInfo" />
     </class>
 
-    <!-- #TODO: fix on plone4 migration -->
     <class class=".feeds.FeedItemPortletInfo">
         <require permission="zope2.Public"
                  interface=".interfaces.IFeedItemPortletInfo" />
@@ -42,14 +40,10 @@
         <require permission="zope2.Public"
                  interface="eea.rdfrepository.interfaces.IRDFPortletInfo" />
 
-        TODO: fix on plone4 migration, this is not supported by Zope 2
+        TODO: this is not supported by Zope 2
         <!--<require permission="cmf.ModifyPortalContent"
                      set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
     </class>
-
-    <!-- EEA Staff RDF is uploaded as normal Zope File. -->
-    #TODO: five:traversable doesn't exist anymore, is it still needed? plone4
-    <!--<five:traversable class="OFS.Image.File" />-->
 
     <subscriber for=".content.CFTRequestor.ICFTRequestor
                      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
@@ -59,11 +53,9 @@
                      Products.LinguaPlone.events.ObjectTranslatedEvent"
                 handler=".smartfolder.smartFolderAdded"   />
 
+    TODO: this is disabled in the original code. Should remove from here.
     <!--adding keepReferencesOnCopy feature to the AT schema field 'relatedItems'-->
     <!--adapter for="Products.ATContentTypes.content.base.ATCTContent"
                 factory=".schemaextender.RelatedItemsModifier" /-->
-
-    <!--TODO: fix plone4-->
-    <!--<five:deprecatedManageAddDelete class=".content.CFTRequestor.CFTRequestor" />-->
 
 </configure>

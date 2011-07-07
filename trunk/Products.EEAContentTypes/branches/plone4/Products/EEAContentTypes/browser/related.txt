@@ -6,6 +6,7 @@ by the category.
 
 Lets relate a video to the document
 
+  >>> self.portal.manage_delObjects('front-page')
   >>> doc = self.folder.doc1
   >>> video = self.folder.video1
 

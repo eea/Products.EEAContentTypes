@@ -1,6 +1,5 @@
 """ Syndication tests
 """
-
 from App.Common import package_home
 from DateTime import DateTime
 from Products.EEAContentTypes.config import product_globals
@@ -8,13 +7,9 @@ from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from Products.basesyndication.interfaces import IFeedEntry
 import os
 
-
-#from eea.testcase.base import EEAMegaTestCase
-
 image = open(os.path.join(package_home(
     product_globals), 'tests', 'image.png'), 'rb')
 image = image.read()
-
 
 class TestSyndication(EEAContentTypeTestCase):
     """ Test-cases for syndication. """
@@ -72,7 +67,8 @@ class TestSyndication(EEAContentTypeTestCase):
         """ Highlight thumb
         """
         highlight = self.folder[self.folder.invokeFactory(
-            'Highlight', id='h1', image=image, title='Highlight')]
+            'Highlight', id='h1',  title='Highlight')]
+        highlight.setImage(image)
         entry = IFeedEntry(highlight)
         self.failUnless('img' in entry.getBody())
 

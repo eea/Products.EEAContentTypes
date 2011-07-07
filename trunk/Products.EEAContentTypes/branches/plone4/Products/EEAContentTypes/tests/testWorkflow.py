@@ -1,9 +1,12 @@
 """ Workflow tests
 """
+from Acquisition import aq_base
+from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+from Products.MailHost.interfaces import IMailHost
 from plone.keyring.interfaces import IKeyManager
 from plone.protect.authenticator import _getUserName
-from zope.component import getUtility
+from zope.component import getUtility, getSiteManager
 import hmac
 import time
 
@@ -19,13 +22,26 @@ class TestWorkflow(EEAContentTypeTestCase):
     def afterSetUp(self):
         """ Set up
         """
+        self.portal._original_MailHost = self.portal.MailHost
+        self.portal.MailHost = mailhost = MockMailHost('MailHost')
+        sm = getSiteManager(context=self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        sm.registerUtility(mailhost, provided=IMailHost)
+
         self.workflow = self.portal.portal_workflow
         self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
 
         self.folder.invokeFactory('Document', id='doc')
         self.setRoles('Manager')
         self.workflow.doActionFor(self.folder.doc, 'publish')
-        self.historyMarker = '<td class="state-published">Publish</td>'
+        self.historyMarker = '<span class="historyAction state-Publish">Publish</span>'
+
+    def beforeTearDown(self):
+        self.portal.MailHost = self.portal._original_MailHost
+        sm = getSiteManager(context=self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        sm.registerUtility(aq_base(self.portal._original_MailHost),
+                           provided=IMailHost)
 
     def testAnonymous(self):
         """ Test as Anonymous
@@ -55,8 +71,21 @@ class TestWorkflowModified(EEAContentTypeTestCase):
     """
     _ptypes = set()
 
+    def beforeTearDown(self):
+        self.portal.MailHost = self.portal._original_MailHost
+        sm = getSiteManager(context=self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        sm.registerUtility(aq_base(self.portal._original_MailHost),
+                           provided=IMailHost)
+
     def afterSetUp(self):
         """ Set up """
+        self.portal._original_MailHost = self.portal.MailHost
+        self.portal.MailHost = mailhost = MockMailHost('MailHost')
+        sm = getSiteManager(context=self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        sm.registerUtility(mailhost, provided=IMailHost)
+
         self.workflow = self.portal.portal_workflow
         self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
         self.setRoles('Manager')

@@ -7,7 +7,6 @@ from zope.component import getMultiAdapter
 
 #from Products.CMFPlone.browser.interfaces import INavigationRoot
 
-
 DATE_FIELDS = ('start', 'end', 'EffectiveDate', 'effective', 'expires')
 
 class SmartFolderPortlets(object):
@@ -25,7 +24,7 @@ class SmartFolderPortlets(object):
             obj = utils.parent(obj)
 
         return self.portlets(obj)
-    
+
     def portlets(self, context):
         if self.context.portal_type in ['Topic','RichTopic']:
             # context is a smartfolder so we make only one portlet
@@ -148,4 +147,4 @@ class LatestHighlightsSmartFolderPortlet(SmartFolderPortlets):
                 if len(entries) == 5:
                     break
         return entries
-    
+

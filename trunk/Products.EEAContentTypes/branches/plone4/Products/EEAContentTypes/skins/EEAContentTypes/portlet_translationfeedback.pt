@@ -1,10 +1,10 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       i18n:domain="plone">
-<body tal:define="Iterator python:modules['Products.CMFPlone'].IndexIterator;
-                  tabindex python:Iterator(mainSlot=False)">
+<body>
 <div metal:define-macro="portlet"
      tal:omit-tag=""
+     tal:define="language context/@@plone_portal_state/language;"
      tal:condition="python:language != 'en'">
 
 <dl class="portlet gradientBG" id="portlet-translationfeedback">

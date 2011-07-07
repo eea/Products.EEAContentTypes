@@ -32,8 +32,15 @@ def setup_eeacontenttypes():
     #installs fixture profile
 
     fiveconfigure.debug_mode = True
-    import Products.EEAContentTypes.tests
+
+    import Products.EEAContentTypes
+    zcml.load_config("dependencies.zcml", Products.EEAContentTypes)
     zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
+    zcml.load_config("overrides.zcml", Products.EEAContentTypes)
+
+    #import eea.indicators
+    #zcml.load_config("configure.zcml", eea.indicators)
+    ztc.installPackage('eea.relations')
     fiveconfigure.debug_mode = False
 
 
@@ -44,6 +51,7 @@ PROFILES = [
     'eea.themecentre:default',
     'Products.EEAContentTypes:default',
     'Products.EEAContentTypes.tests:testfixture',
+    'eea.relations:default',
 ]
 
 OPTIONAL_DEPENDENCIES = {

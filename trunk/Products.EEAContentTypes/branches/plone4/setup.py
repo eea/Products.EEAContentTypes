@@ -56,21 +56,16 @@ setup(name=NAME,
           'collective.monkeypatcher',
           'eea.reports',
 
+          'lovely.memcached',
+
           #required in tests
-          'valentine.linguaflow',
-          'eea.testcase',
+          'eea.dataservice',
           'eea.design',
-
+          'eea.geotags',
+          'eea.indicators',
+          'eea.soer',
           'hachoir-core',   #only for the patch
-
-          #TODO: enable when plone4 migration
-          #'eea.dataservice',
-          #'eea.geotags',
-          #'eea.mediacentre',
-
-          #required in tests
-          #'eea.indicators',
-          #'eea.soer',
+          'valentine.linguaflow',
 
           #obsolete
           #'Products.CMFSquidTool',

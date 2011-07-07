@@ -32,8 +32,10 @@ class GeoLocationTools(BrowserView):
             path = '/'.join(cont.getPhysicalPath())
         else:
             path = '/'.join(self.context.getPhysicalPath())
-        res = catalog.searchResults({'path' : { 'query': path, 'depth': 1},
-                                     'object_provides': 'Products.EEAContentTypes.content.interfaces.IGeoPositioned'})
+        res = catalog.searchResults({
+                    'path' : { 'query': path, 'depth': 1}, 
+                    'object_provides': 'Products.EEAContentTypes.content.interfaces.IGeoPositioned'
+                    })
 
         if len(res) > 0: return True
         return False

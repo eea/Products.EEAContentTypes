@@ -3,8 +3,15 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
- * Feature: migrated to Plone 4.0.4 [tiberich #4277]
- * TODO: there are a lot of issues to complete the migration, search for "plone4"
+
+* TODO: there are a lot of issues to complete the migration, search for "plone4"
+
+* Feature: Added upgrade steps
+  [voineali #4392]
+
+* Feature: migrated to Plone 4.0.4
+  [tiberich #4277]
+
 
 2.29-dev - (unreleased)
 -----------------------

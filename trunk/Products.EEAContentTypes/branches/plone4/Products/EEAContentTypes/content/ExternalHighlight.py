@@ -13,6 +13,9 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.LinguaPlone import public
 from Products.validation.config import validation
 from Products.validation.interfaces.IValidator import IValidator
+from datetime import datetime
+from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.themecentre.interfaces import IThemeTagging
 from plone.app.blob.config import blobScalesAttr
 from plone.app.blob.field import BlobField
@@ -20,13 +23,6 @@ from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
 from zope.interface import implements
 import logging
-
-#TODO: enable on plone4 migration
-# management plan code field imports
-#from datetime import datetime
-#from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-#from eea.dataservice.vocabulary import DatasetYears
-#from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
 
@@ -327,27 +323,26 @@ schema = public.Schema((
         languageIndependent = True
     ),
 
-    #TODO: enable on plone4 migration
-    #ManagementPlanField(
-        #name='management_plan',
-        #languageIndependent=True,
-        #required_for_published=True,
-        #required=True,
-        #default=(datetime.now().year, ''),
-        #validators = ('management_plan_code_validator',),
-        #vocabulary=DatasetYears(),
-        #widget = ManagementPlanWidget(
-            #format="select",
-            #label="EEA Management Plan",
-            #description=("EEA Management plan code. Internal EEA project "
-                         #"line code, used to assign an EEA product output to "
-                         #"a specific EEA project number in the "
-                         #"management plan."),
-            #label_msgid='dataservice_label_eea_mp',
-            #description_msgid='dataservice_help_eea_mp',
-            #i18n_domain='eea.dataservice',
-        #)
-        #),
+    ManagementPlanField(
+        name='management_plan',
+        languageIndependent=True,
+        required_for_published=True,
+        required=True,
+        default=(datetime.now().year, ''),
+        validators = ('management_plan_code_validator',),
+        vocabulary_factory = u"Temporal coverage",
+        widget = ManagementPlanWidget(
+            format="select",
+            label="EEA Management Plan",
+            description=("EEA Management plan code. Internal EEA project "
+                         "line code, used to assign an EEA product output to "
+                         "a specific EEA project number in the "
+                         "management plan."),
+            label_msgid='dataservice_label_eea_mp',
+            description_msgid='dataservice_help_eea_mp',
+            i18n_domain='eea.dataservice',
+        )
+        ),
 
 ),
 )

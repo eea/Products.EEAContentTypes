@@ -73,9 +73,7 @@
   <defaultlibrary>current</defaultlibrary>
   <resource id="collection" mode="whitelist">
     <type>Folder</type>
-    <type>Large Plone Folder</type>
     <type>Plone Site</type>
-    <type>RichTopic</type>
     <type>Topic</type>
   </resource>
   <resource id="containsanchors" mode="whitelist">

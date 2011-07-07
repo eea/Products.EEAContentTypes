@@ -3,6 +3,7 @@
       i18n:domain="plone">
 <body>
 <metal:portlet define-macro="portlet"
+    tal:define="checkPermission nocall: context/portal_membership/checkPermission;"
     tal:condition="python:checkPermission('Manage Portal', context)">
     <dl class="portlet" id="portlet-cache">
         <dt class="portletHeader">

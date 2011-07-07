@@ -52,8 +52,7 @@
 
         <metal:main define-macro="main"
                     tal:define="errors options/state/getErrors|nothing;
-                                Iterator python:modules['Products.Archetypes'].IndexIterator;
-                                tabindex python:Iterator();
+                                allow_tabbing python:False;
                                 schematas here/Schemata;
                                 fieldsets python:[key for key in schematas.keys() if key != 'metadata'];
                                 default_fieldset python:(not schematas or schematas.has_key('default')) and 'default' or fieldsets[0];
@@ -198,32 +197,26 @@
 
                                 <input tal:condition="python:fieldset_index &gt; 0"
                                        class="context"
-                                       tabindex=""
                                        type="submit"
                                        name="form_previous"
                                        value="Previous"
                                        i18n:attributes="value"
-                                       tal:attributes="tabindex tabindex/next"
                                        />
 
                                 <input tal:condition="python:fieldset_index &lt; n_fieldsets-1"
                                        class="context"
-                                       tabindex=""
                                        type="submit"
                                        name="form_next"
                                        value="Next"
                                        i18n:attributes="value"
-                                       tal:attributes="tabindex tabindex/next"
                                        />
 
                                 <input tal:condition="python:fieldset_index == n_fieldsets-1"
                                        class="context"
-                                       tabindex=""
                                        type="submit"
                                        name="form_submit"
                                        value="Save"
                                        i18n:attributes="value"
-                                       tal:attributes="tabindex tabindex/next"
                                        />
                             </div>
                         </td>
