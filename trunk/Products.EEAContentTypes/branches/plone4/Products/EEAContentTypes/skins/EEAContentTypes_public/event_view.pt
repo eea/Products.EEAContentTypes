@@ -161,9 +161,6 @@
           </table>
         </div> 
 
-        <metal:field use-macro="python:context.widget('text', mode='view')">
-          Body text
-        </metal:field>
 
         <p tal:condition="context/event_url|nothing">
           <a class="url"

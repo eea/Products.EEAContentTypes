@@ -25,7 +25,6 @@
                      alt="Email address"
                      value="Enter email"  
                      size="20" 
-                     tal:attributes="tabindex tabindex/next" 
                      i18n:attributes="alt label_email;
 				      value label_email;" />
 	          <label for="message" class="hiddenStructure" i18n:translate="label_message">Message</label>
@@ -35,7 +34,6 @@
                      alt="Message address"
                      value="Enter message"  
                      rows="8"
-                     tal:attributes="tabindex tabindex/next" 
                      i18n:attributes="alt label_message;"
 		     i18n:translate="label_message">Your message</textarea>
 		       <input type="submit" 
@@ -43,7 +41,6 @@
                        name="submit"
                        value="Send"
                        alt="Send"
-                       tal:attributes="tabindex tabindex/next;"
                        i18n:attributes="value label_send; alt label_send;" />
         </form>
     </dd>  

@@ -118,10 +118,10 @@ class FlashFile(ATFile):
 
     schema = FlashFile_schema
 
-    security.declarePublic('index_html')
-    def index_html(self, REQUEST=None, RESPONSE=None):
-        """ Use the chosen template to display the flash file.
-        """
-        return self() # pylint: disable-msg = E1102
+    #security.declarePublic('index_html')
+    #def index_html(self, REQUEST=None, RESPONSE=None):
+    #    """ Use the chosen template to display the flash file.
+    #    """
+    #    return self() # pylint: disable-msg = E1102
 
 registerType(FlashFile, PROJECTNAME)

@@ -4,10 +4,10 @@
     i18n:domain="plone">
 
     <head>
-      <metal:js fill-slot="javascript_head_slot">
-        <script type="text/javascript" src=""
-                tal:attributes="src string:${portal_url}/resize.js"></script>
-       </metal:js>
+      <!--<metal:js fill-slot="javascript_head_slot">-->
+      <!--  <script type="text/javascript" src=""-->
+      <!--          tal:attributes="src string:${portal_url}/resize.js"></script>-->
+      <!-- </metal:js>-->
     </head>    
     <body>
         <metal:header fill-slot="header">
