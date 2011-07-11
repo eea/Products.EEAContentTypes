@@ -6,6 +6,8 @@ Changelog
 
 * TODO: there are a lot of issues to complete the migration, search for "plone4"
 
+* Change: Rename FlashFile to Animation (swf) [szabozo0 #4379]
+
 * Feature: Added upgrade steps
   [voineali #4392]
 
