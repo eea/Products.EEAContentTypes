@@ -30,10 +30,6 @@
             <h1 tal:content="here/title_or_id" class="documentFirstHeading">
               Title or id
             </h1>
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
-
 
             <!-- hide the search until needed -->
             <form class="hiddenStructure" name="searchform"
