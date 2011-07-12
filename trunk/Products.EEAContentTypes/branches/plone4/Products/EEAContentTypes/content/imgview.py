@@ -18,8 +18,8 @@ class ImageView(BrowserView):
 
     def __init__(self, context, request):
         super(ImageView, self).__init__(context, request)
-        self.img1 = atfield.ImageView(self.context, self.request)
-        self.img2 = atfolder.ImageView(self.context, self.request)
+        self.img1 = atfield.ATFieldImageView(self.context, self.request)
+        self.img2 = atfolder.FolderImageView(self.context, self.request)
 
     def display(self, scalename='thumb'):
         return self.img1.display(scalename) or self.img2.display(scalename)

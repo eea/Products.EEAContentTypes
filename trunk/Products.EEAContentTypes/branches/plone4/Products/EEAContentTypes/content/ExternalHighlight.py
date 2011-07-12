@@ -119,6 +119,7 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         """
         img = self.getAccessor(instance)()
         size = img.getSize()
+            
         if not size:
             return None
 
