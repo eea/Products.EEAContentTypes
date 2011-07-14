@@ -480,10 +480,6 @@ margin-top: 75px;
             tal:define="view here/@@eeaorganisation;
                         orgs_data here/@@eeaorglist">
 
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
-
     <h1 i18n:translate="title_eeastaff_list"  class="documentFirstHeading">
         EEA Organisational chart (NEW)
     </h1>
