@@ -39,6 +39,7 @@ setup(name=NAME,
 
           'eea.rdfmarshaller',
           'eea.facetednavigation',
+          'eea.forms',
           'eea.rdfrepository',
           'eea.locationwidget',
           'eea.mediacentre',
