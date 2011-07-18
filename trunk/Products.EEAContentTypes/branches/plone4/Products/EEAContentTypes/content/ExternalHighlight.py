@@ -14,8 +14,8 @@ from Products.LinguaPlone import public
 from Products.validation.config import validation
 from Products.validation.interfaces.IValidator import IValidator
 from datetime import datetime
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.themecentre.interfaces import IThemeTagging
 from plone.app.blob.config import blobScalesAttr
 from plone.app.blob.field import BlobField
