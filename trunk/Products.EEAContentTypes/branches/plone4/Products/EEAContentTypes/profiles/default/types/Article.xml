@@ -4,8 +4,7 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Article</property>
  <property
-    name="description">&lt;p&gt;Hightlights are links with descriptions presented as news on
-      the website.&lt;/p&gt;
+    name="description">Article
       </property>
  <property name="content_icon">highlight_icon.gif</property>
  <property name="content_meta_type">Article</property>
