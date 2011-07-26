@@ -3,8 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">GIS Map Application</property>
- <property
-    name="description">A link to an external GIS MAp Application made in flash (SWF).</property>
+ <property name="description">A link to an external GIS MAp Application made in flash (SWF).</property>
  <property name="content_icon">link_icon.gif</property>
  <property name="content_meta_type">GISMapApplication</property>
  <property name="product">ATContentTypes</property>

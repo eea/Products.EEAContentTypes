@@ -3,8 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Promotion</property>
- <property name="description">
-      </property>
+ <property name="description">Promotion</property>
  <property name="content_icon">document_icon.gif</property>
  <property name="content_meta_type">Promotion</property>
  <property name="product">EEAContentTypes</property>

@@ -3,8 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">EEA Job Vacancy</property>
- <property
-    name="description">A page containing information on how to apply for a EEA post vacancy.</property>
+ <property name="description">A page containing information on how to apply for a EEA post vacancy.</property>
  <property name="content_icon">Subscriber.gif</property>
  <property name="content_meta_type">EEAVacancy</property>
  <property name="product">ATContentTypes</property>
