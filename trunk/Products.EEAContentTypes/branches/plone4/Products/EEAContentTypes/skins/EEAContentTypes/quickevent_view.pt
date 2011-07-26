@@ -23,7 +23,7 @@
     <fieldset>
         <legend>Confirm your event</legend>
         
-       <metal:eventview use-macro="here/event_view/macros/main" />
+       <metal:eventview use-macro="here/event_view/macros/content-core" />
       <div class="formControls">
 
             <input class="context"
@@ -46,7 +46,7 @@
 </form>
 </tal:step2>
       <tal:published condition="view/canView">
-         <metal:eventview use-macro="here/event_view/macros/main" />
+         <metal:eventview use-macro="here/event_view/macros/content-core" />
       </tal:published>
     </metal:body>
 
