@@ -55,15 +55,13 @@
                            style="margin-bottom: 0.5em;"
                            accesskey="accesskeys-search"
                            i18n:attributes="alt title"
-                           tal:attributes="value request/SearchableText|nothing;
-                                           tabindex tabindex/next"
+                           tal:attributes="value request/SearchableText|nothing"
                     />
 
                     <input class="searchButton"
                            type="submit"
                            value="Search"
                            accesskey="accesskeys-search"
-                           tal:attributes="tabindex tabindex/next"
                            i18n:attributes="value accesskey" />
 
                     <br />
@@ -90,7 +88,7 @@
 
             <p>
               <img tal:replace="structure here/rss.gif" />
-              <a tal:attributes="href python:here.getSyndicationURL(portal_url, my_path, rss_subtypes)"
+              <a tal:define="view nocall:context/@@hc_view" tal:attributes="href python:view.getSyndicationURL()"
                  i18n:translate="phc_rss_all">
                 Feed for all documentation.
               </a>
