@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed helpcenter_view template for Products.PloneHelpCenter 4.0 [szabozo0 #4430 #4431]
+
 * Bug fix: Fixed view for Quick Event, EEA Job Vacancy [szabozo0 #4431]
 
 * Bug fix: Fixed Tooltip for Article and Highlight. Don't forget to reimport the profile [szabozo0 #4431]
