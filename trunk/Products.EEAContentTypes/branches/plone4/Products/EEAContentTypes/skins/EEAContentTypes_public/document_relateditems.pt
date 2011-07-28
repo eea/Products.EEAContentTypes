@@ -64,8 +64,7 @@
     tal:define="pages context/@@document_related/pages|nothing"
     tal:condition="pages">
 
-        <dt class="portletHeader"
-	    i18n:translate="">Related pages</dt>
+        <dt class="portletHeader" i18n:translate="">Related pages</dt>
         <dd class="portletItem" tal:repeat="page pages">
              <a href="" tal:attributes="href page/url"
                         tal:content="page/title" />
@@ -193,8 +192,7 @@
     </tal:allowed>
 </div>
 
-<div metal:define-macro="relatedItemsWithThumbs"
-    id="relatedItems">
+<div metal:define-macro="relatedItemsWithThumbs" id="relatedItems">
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
