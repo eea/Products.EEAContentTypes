@@ -4,10 +4,12 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from eea.geotags import field
 from eea.geotags import widget
+from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
+from p4a.subtyper.interfaces import IPossibleDescriptors, IPortalTypedPossibleDescriptors
 from p4a.video.interfaces import IVideoEnhanced
 from zope.component import adapts
+from zope.component import queryAdapter
 from zope.interface import Interface, implements
-
 #from Products.ATContentTypes.interface import IATContentType
 
 
@@ -90,4 +92,20 @@ class IGeotagMultiEdit(Interface):
 
 class GeotagMultiEdit(GeotagMixinEdit):
     implements(IGeotagMultiEdit)
+
+
+class Subtyper(BaseSubtyper):
+    """We override the default subtyper because of broken logic in its
+    possible_types implementation. The default implementation, due to
+    adapter resolution order, doesn't take into account adapters for
+    IPortalTypedPossibleDescriptors
+    """
+
+    def possible_types(self, obj):
+        possible = queryAdapter(obj, IPortalTypedPossibleDescriptors)
+        if possible and possible.possible:
+            return (DescriptorWithName(n, c) for n, c in possible.possible)
+
+        possible = IPossibleDescriptors(obj)
+        return (DescriptorWithName(n, c) for n, c in possible.possible)
 
