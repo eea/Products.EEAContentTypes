@@ -8,4 +8,10 @@
     <adapter factory=".syndication.FeedLogo" />
     <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
 
+    <browser:menu
+        id="subtypes"
+        title="Sub-types"
+        class=".browser.menu.SubtypesMenu"
+        />
+
 </configure>
