@@ -71,6 +71,11 @@ class Promotion(object):
         pass
 
     @property
+    def display_in_spotlight(self):
+        # XXX: not implemented for external promotions
+        pass
+
+    @property
     def themes(self):
         return IThemeTagging(self.context).tags
 
