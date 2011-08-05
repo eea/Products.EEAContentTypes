@@ -1,7 +1,9 @@
 <script type="text/javascript">
+   
    // <![CDATA[
-			   
-   var so = new SWFObject("<dtml-if remoteUrl>&dtml-remoteUrl;<dtml-else>&dtml-absolute_url;/getFile</dtml-if>", "sotester", "100%", "100%", "7", "<dtml-if bgcolor>&dtml-bgcolor;<dtml-else>ffffff</dtml-if>");
+   var swfUrl = "<dtml-if remoteUrl>&dtml-remoteUrl;<dtml-else>&dtml-absolute_url;/getFile</dtml-if>";
+   splittedUrl = swfUrl.split("?")[0];
+   var so = new SWFObject(splittedUrl, "sotester", "100%", "100%", "7", "<dtml-if bgcolor>&dtml-bgcolor;<dtml-else>ffffff</dtml-if>");
    so.addParam("scale", "<dtml-if swf_scale>&dtml-swf_scale;<dtml-else>noscale</dtml-if>");
    so.addParam("wmode", "<dtml-if swf_wmode>&dtml-swf_wmode;<dtml-else>opaque</dtml-if>");
    so.addParam("allowfullscreen", "true");

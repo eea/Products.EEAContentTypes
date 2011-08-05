@@ -8,8 +8,6 @@
       <metal:js fill-slot="javascript_head_slot">
         <script type="text/javascript" src=""
                 tal:attributes="src string:${portal_url}/resize.js"></script>
-        <script type="text/javascript" src=""
-              tal:attributes="src string:${portal/absolute_url}/swfobject.js"></script>
        </metal:js>
 
 <metal:css fill-slot="css_slot">

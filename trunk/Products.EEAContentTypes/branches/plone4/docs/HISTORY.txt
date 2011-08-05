@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps [szabozo0 #4446]
+
 * Feature: Added Spotlight promotion type [szabozo0 #4425]
 
 * Bug fix: Fixed helpcenter_view template for Products.PloneHelpCenter 4.0 [szabozo0 #4430 #4431]
