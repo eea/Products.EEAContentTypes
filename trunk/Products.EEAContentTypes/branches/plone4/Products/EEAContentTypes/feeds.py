@@ -217,6 +217,15 @@ class FolderFeed(FeedMixin, Implicit):
     def getSortedFeedEntries(self):
         return self.getFeedEntries()
 
+    def getEncoding(self):
+        return self.encoding
+
+    def getModifiedDate(self):
+        return self.modifiedDate
+
+    def getImageURL(self):
+        return self.imageURL
+
 
 class TopicFeed(FolderFeed):
 
@@ -234,13 +243,4 @@ class TopicFeed(FolderFeed):
                     yield(entry)
 
         return list(itertools.islice(slice(), self.getMaxEntries()))
-
-    def getEncoding(self):
-        return self.encoding
-
-    def getModifiedDate(self):
-        return self.modifiedDate
-
-    def getImageURL(self):
-        return self.imageURL
 

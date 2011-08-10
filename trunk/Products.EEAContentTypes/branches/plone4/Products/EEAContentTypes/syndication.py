@@ -3,13 +3,11 @@
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.Archetypes.interfaces import IBaseObject
 from Products.CMFCore.utils import getToolByName
-from bda.feed.atfeedentries import ATPrimaryFieldEnclosure
+from bda.feed.atfeedentries import ATPrimaryFieldEnclosure 
 from bda.feed.atfeedentries import ArchetypesFeedEntry
 from bda.feed.interfaces import ILogo
 from zope.component import adapts, queryMultiAdapter
 from zope.interface import implements
-
-#from valentine.imagescales.browser.interfaces import IImageView
 
 
 class FeedLogo(object):
