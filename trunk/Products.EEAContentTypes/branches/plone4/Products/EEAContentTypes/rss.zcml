@@ -18,7 +18,15 @@
     <adapter factory=".syndication.NewsItemEnclosure" />
 
     <!-- adapters for folder rss -->
-    <adapter factory="Products.EEAContentTypes.feeds.FolderFeed"
+    <adapter factory=".feeds.FolderFeed"
         provides="Products.basesyndication.interfaces.IFeed" />
+    
+    <adapter factory=".feeds.TopicFeed"
+        provides="Products.basesyndication.interfaces.IFeed" />
+
+	<!--<adapter factory="bda.feed.generic.FeedWithSingleSource"-->
+			 <!--for="Products.ATContentTypes.interface.IATTopic"-->
+             <!--provides="Products.basesyndication.interfaces.IFeed"-->
+			 <!--/>-->
 
 </configure>

@@ -1,5 +1,5 @@
 from Acquisition import Implicit
-from Products.ATContentTypes.interface import IATFolder
+from Products.ATContentTypes.interface import IATFolder, IATTopic
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import IFeedItemPortletInfo
 from Products.EEAContentTypes.interfaces import IFeedPortletInfo
@@ -14,6 +14,7 @@ from plone.app.layout.navigation.interfaces import INavigationRoot
 from zope.component import adapts
 from zope.component import queryAdapter
 from zope.interface import implements, Interface
+import itertools
 
 
 class FeedPortletInfo(object):
@@ -215,3 +216,31 @@ class FolderFeed(FeedMixin, Implicit):
 
     def getSortedFeedEntries(self):
         return self.getFeedEntries()
+
+
+class TopicFeed(FolderFeed):
+
+    adapts(IATTopic)
+    implements(IFeedBase)
+
+    def getFeedEntries(self, max_only=True):
+        brains = self.context.queryCatalog()
+
+        def slice():
+            for brain in brains:
+                obj = brain.getObject()
+                entry = queryAdapter(obj, IFeedEntry)
+                if entry is not None:
+                    yield(entry)
+
+        return list(itertools.islice(slice(), self.getMaxEntries()))
+
+    def getEncoding(self):
+        return self.encoding
+
+    def getModifiedDate(self):
+        return self.modifiedDate
+
+    def getImageURL(self):
+        return self.imageURL
+
