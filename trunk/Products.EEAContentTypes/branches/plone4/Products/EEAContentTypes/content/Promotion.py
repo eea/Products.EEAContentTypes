@@ -16,7 +16,6 @@ from Products.LinguaPlone.public import StringWidget, registerType
 from eea.promotion.interfaces import IFrontpageSectionIndex
 from zope.component import adapts
 from zope.interface import implements
-    
 
 schema = Schema((
     ImageBlobField('image',
@@ -65,7 +64,6 @@ Promotion_schema = getattr(ATNewsItem, 'schema', Schema(())).copy() + \
 Promotion_schema['allowDiscussion'].schemata = 'metadata'
 Promotion_schema['relatedItems'].schemata = 'metadata'
 Promotion_schema['text'].schemata = 'metadata'
-
 
 class Promotion(ATNewsItem, ThemeTaggable):
     """ Promotion
