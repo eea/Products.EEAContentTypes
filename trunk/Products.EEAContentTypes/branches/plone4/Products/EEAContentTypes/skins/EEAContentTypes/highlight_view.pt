@@ -11,7 +11,7 @@
       <metal:content-core define-macro="content-core" tal:define="text python:here.CookedBody(stx_level=2);
         len_text python:len(text.strip());
         object_title context/@@plone_context_state/object_title;
-        ">
+        ">        
         <metal:teaserFigureRelated define-macro="teaserFigureRelated"
         tal:define="hasQuote python: len(here.getQuotationText());
                     figure here/getImage;
@@ -41,9 +41,6 @@
               <div metal:use-macro="here/document_relateditems/macros/multimedia">
                 show related multimedia items if they exist
               </div>
-
-              <!-- related tags/themes -->
-              <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
               <!-- related pages -->
               <div metal:use-macro="here/document_relateditems/macros/pages">

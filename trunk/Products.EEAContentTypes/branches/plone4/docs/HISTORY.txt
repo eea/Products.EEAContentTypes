@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Change: Removed portlet themes from highlights view since we now use it as viewlet below title [demarant #4206, #4458].
+ 
 * Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps [szabozo0 #4446]
 
 * Feature: Added Spotlight promotion type [szabozo0 #4425]
