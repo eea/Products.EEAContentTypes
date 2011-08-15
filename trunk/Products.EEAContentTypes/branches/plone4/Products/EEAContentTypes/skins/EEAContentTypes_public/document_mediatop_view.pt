@@ -14,7 +14,6 @@
                show related multimedia videos if they exist
            </div>
            <div id="related-portlets">
-           <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
            <div metal:use-macro="here/document_relateditems/macros/nonvideos">
                show related multimedia videos if they exist
            </div>
