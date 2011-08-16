@@ -19,9 +19,9 @@
         </tal:block>
 
         <div class="eventDetails vcard">
-          <table class="vertical listing"
-            summary="Event details" i18n:attributes="summary summary_event_details;">
+          <table class="vertical listing">
 
+            <caption class="hiddenStructure" i18n:translate="">Vertical listing</caption>
             <tbody>
 
               <tr tal:condition="context/Subject">
@@ -159,7 +159,7 @@
               </tr>
             </tbody>
           </table>
-        </div> 
+        </div>
 
 
         <p tal:condition="context/event_url|nothing">

@@ -43,9 +43,8 @@
             <!-- Navigation -->
             <div metal:use-macro="here/batch_macros/macros/navigation" />
 
-            <table class="listing"
-                   summary="Content listing"
-                   i18n:attributes="summary summary_content_listing;">
+            <table class="listing">
+                <caption class="hiddenStructure" i18n:translate="">Content listing</caption>
                 <thead>
                     <tr>
                         <th class="nosort">&nbsp;<tal:title i18n:translate="listingheader_title"

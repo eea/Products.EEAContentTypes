@@ -71,10 +71,8 @@
                 <label i18n:translate="label_affected_content">Affected content</label>
                 <div tal:define="dummy python:request.set('ids_checked', 1);
                                  use_view_action site_properties/typesUseViewActionInListings|python:();">
-                  <table id="sortable"
-                         class="listing"
-                         summary="Affected content"
-                         i18n:attributes="summary summary_affected_content;">
+                  <table id="sortable" class="listing">
+                    <caption class="hiddenStructure" i18n:translate="">Affected content</caption>
                     <thead>
                       <metal:block tal:condition="batch|nothing">
                         <tr>
@@ -321,7 +319,7 @@
                   <br />
 
                   <tal:block define="transitions python:context.portal_workflow.getTransitionsFor(target, context);
-                                     wEmails context/@@workflowEmails|nothing" 
+                                     wEmails context/@@workflowEmails|nothing"
                              repeat="transition transitions">
                       <input class="noborder"
                              id=""
@@ -342,8 +340,8 @@
                              <br />
 
                      <tal:emails define="id transition/id; emails wEmails/?id|nothing;" condition="wEmails">
-                         Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				    
-                         Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				    
+                         Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />
+                         Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />
                      </tal:emails>
 
                   </tal:block>

@@ -70,7 +70,6 @@
     <metal:items use-macro="here/highlight_macros/macros/middlenews-short" />
 </div>
 
-
 <div metal:define-macro="middleArticles"
                 id="articles-middle"
                 class="highlights"
@@ -87,7 +86,6 @@
                             plone_view nocall:plone_view|here;">
     <metal:items use-macro="here/highlight_macros/macros/middlenews-short" />
 </div>
-
 
 <div metal:define-macro="middle"
      class="highlights"
@@ -132,7 +130,6 @@
     </metal:items>
 </div>
 
-
 <div metal:define-macro="middle-short"
         class="highlights"
                 id="highlights-middle"
@@ -160,9 +157,6 @@
        </div>
     </metal:items>
 </div>
-
-
-
 
 <div metal:define-macro="low"
      class="highlights"
