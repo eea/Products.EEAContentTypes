@@ -75,7 +75,7 @@
         <a href="" class="feedButton" tal:attributes="href feed/button_link">
                 <img alt="RSS" title="news items" src="RSSFeedRecipe_icon.png"
                      tal:attributes="title string:RSS subscription feed for ${feed/title}" />
-        </a><br clear="all" />
+        </a><br />
     </dd>
 </dl>
 
