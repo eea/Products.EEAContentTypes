@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bugfix: Fixed Images on PressRelease [szabozo0 #4510]
+
 * Change: Removed portlet themes from highlights view since we now use it as viewlet below title [demarant #4206, #4458].
  
 * Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps [szabozo0 #4446]

@@ -10,10 +10,10 @@
                    tal:attributes="href figure_link|nothing;
                    title figure_title;"
                    tal:condition="figure_link|nothing">
-                  <span tal:replace="structure python:figure_obj.getScale(figure_scale)"> </span> 
+                  <span tal:replace="structure python:figure_obj.getScale(figure_scale).tag()"> </span> 
                  </a>
                 <tal:noLink tal:condition="not: figure_link|nothing">
-                    <span tal:replace="structure python:figure_obj.getScale(figure_scale)"> </span>
+                    <span tal:replace="structure python:figure_obj.getScale(figure_scale).tag()"> </span>
                 </tal:noLink>
 </metal:img>
 <div metal:define-macro="figure-right" tal:omit-tag=""
