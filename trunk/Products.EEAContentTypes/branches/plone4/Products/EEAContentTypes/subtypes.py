@@ -23,8 +23,8 @@ class ExtensionGeotagsMultifield(ExtensionField, field.GeotagsLinesField):
 
 class BaseContentSchemaExtender(object):
     implements(ISchemaExtender)
-    adapts(IVideoEnhanced)
-    #adapts(IBaseContent)
+#    adapts(IVideoEnhanced)
+    adapts(IBaseContent)
 
     fields =  [
             ExtensionGeotagsSinglefield(

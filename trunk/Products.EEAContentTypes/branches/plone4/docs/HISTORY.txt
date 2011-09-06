@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Change: Replace plone 4 default location field with eea.geotags location field [szabozo #4510]
+
 * Bugfix: Fixed Images on PressRelease [szabozo0 #4510]
 
 * Change: Removed portlet themes from highlights view since we now use it as viewlet below title [demarant #4206, #4458].
