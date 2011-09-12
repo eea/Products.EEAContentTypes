@@ -82,7 +82,7 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
 
     def getEnclosure(self):
         """ Enclosure """
-        return self.enclosures[0]
+        return self.enclosures and self.enclosures[0] or []
 
     def getTitle(self):
         """ Title
