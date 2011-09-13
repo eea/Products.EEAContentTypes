@@ -27,13 +27,13 @@ class GeoLocationTools(BrowserView):
         if not syn.isSyndicationAllowed(self.context):
             return False
 
-        if self.context.meta_type == 'RichTopic':
+        if self.context.meta_type == 'ATTopic':
             cont = aq_parent(aq_inner(self.context))
             path = '/'.join(cont.getPhysicalPath())
         else:
             path = '/'.join(self.context.getPhysicalPath())
         res = catalog.searchResults({
-                    'path' : { 'query': path, 'depth': 1}, 
+                    'path' : { 'query': path, 'depth': 1},
                     'object_provides': 'Products.EEAContentTypes.content.interfaces.IGeoPositioned'
                     })
 
@@ -102,7 +102,7 @@ class GeoPositionView(BrowserView):
         api_key = ''
         geoobject = IGeoPosition(self.context)
         obj_url = self.context.event_url()
-        if not obj_url.startswith('http://'): placemarkobj_url = 'http://%s' % obj_url # TODO: check this assigment 
+        if not obj_url.startswith('http://'): placemarkobj_url = 'http://%s' % obj_url # TODO: check this assigment
 
         portal_properties = getToolByName(self, 'portal_properties')
         geo_properties = getattr(portal_properties, 'geographical_properties')
@@ -216,7 +216,7 @@ class GeoMapData(BrowserView):
             #TODO: general method to get themes list
             obj_theme = []
             try:    obj_theme.extend(obj.getThemes())
-            except Exception, err: logger.info(err) 
+            except Exception, err: logger.info(err)
             for th in obj_theme:
                 if th != 'default':
                     th_count = theme_inf_sort.get(th, 0)
