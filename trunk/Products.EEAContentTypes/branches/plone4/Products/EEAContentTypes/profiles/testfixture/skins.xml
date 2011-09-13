@@ -39,7 +39,6 @@
   <layer name="compositepack"/>
   <layer name="NavigationManager"/>
   <layer name="ATVocabularyManager"/>
-  <layer name="kupu_tests"/>
   <layer name="PasswordReset"/>
   <layer name="CMFPlacefulWorkflow"/>
   <layer name="EEAContentTypes"/>
@@ -104,7 +103,6 @@
   <layer name="ATVocabularyManager"/>
   <layer name="bling"/>
   <layer name="bling_templates"/>
-  <layer name="kupu_tests"/>
   <layer name="PasswordReset"/>
   <layer name="CMFPlacefulWorkflow"/>
   <layer name="EEAContentTypes"/>
@@ -160,7 +158,6 @@
   <layer name="LanguageTool"/>
   <layer name="plonerssportlet"/>
   <layer name="ATVocabularyManager"/>
-  <layer name="kupu_tests"/>
   <layer name="PasswordReset"/>
   <layer name="CMFPlacefulWorkflow"/>
   <layer name="ATContentTypes"/>
