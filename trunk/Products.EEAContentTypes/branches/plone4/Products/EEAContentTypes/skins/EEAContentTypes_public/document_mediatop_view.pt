@@ -13,20 +13,7 @@
            <div metal:use-macro="here/document_relateditems/macros/multimedia_top_videos">
                show related multimedia videos if they exist
            </div>
-           <div id="related-portlets">
-           <div metal:use-macro="here/document_relateditems/macros/nonvideos">
-               show related multimedia videos if they exist
-           </div>
-               
-           <div metal:use-macro="here/document_relateditems/macros/pages">
-               show related pages if they exist
-           </div>
-
-           <div metal:use-macro="here/document_relateditems/macros/auto">
-               show auto related items if they exist
-           </div>
-           <div id="media-content-spacer"> <!-- &nbsp; --> </div>
-           </div>
+           
         </tal:document>
     </metal:document>
     
