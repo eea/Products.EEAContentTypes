@@ -223,8 +223,7 @@ def setupGeocoding(context):
     if not already_ran:
         add_eeaInternalIps(portal, portal)
         #geocodeEvents(portal, portal)
-
-
+        
 #TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
     roles = list(portal.acl_users.portal_role_manager.listRoleIds())

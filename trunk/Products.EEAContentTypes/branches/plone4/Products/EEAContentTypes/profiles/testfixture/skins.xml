@@ -68,9 +68,7 @@
   <layer name="bling"/>
   <layer name="LanguageToolFlags"/>
   <layer name="PloneGazette"/>
-  <layer name="wisetheme_templates"/>
   <layer name="wisetheme_images"/>
-  <layer name="wisetheme_styles"/>
   <layer name="plone_captcha"/>
  </skin-path>
  <skin-path name="EEATemplatesService">
@@ -195,9 +193,7 @@
   <layer name="themecentre_styles"/>
   <layer name="themecentre_templates"/>
   <layer name="PloneGazette"/>
-  <layer name="wisetheme_templates"/>
   <layer name="wisetheme_images"/>
-  <layer name="wisetheme_styles"/>
   <layer name="custom"/>
   <layer name="plone_captcha"/>
  </skin-path>
