@@ -3,6 +3,10 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Change: Design fix, moved the "related multimedia content" from the floating slot in document
+  to the bottom, due to smaller content column width. (will be converted to viewlets)
+  [demarant #4537]
+
 * Change: Replace plone 4 default location field with eea.geotags location field [szabozo #4510]
 
 * Bugfix: Fixed Images on PressRelease [szabozo0 #4510]
