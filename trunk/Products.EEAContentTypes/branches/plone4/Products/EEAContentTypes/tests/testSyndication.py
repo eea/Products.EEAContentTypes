@@ -11,6 +11,31 @@ image = open(os.path.join(package_home(
     product_globals), 'tests', 'image.png'), 'rb')
 image = image.read()
 
+location = '{"type": "FeatureCollection", "features": [{"geometry": '\
+        '{"type": "Polygon", "coordinates": [[51.609926999999999, 10.'\
+        '165984999999978], [51.609926999999999, 10.300237000000038], '\
+        '[51.675878999999988, 10.300237000000038], [51.675878999999988,'\
+        '10.165984999999978]]}, "type": "Feature", "bbox": [51.60992699'\
+        '9999999, 10.165984999999978, 51.675878999999988, 10.30023700000'\
+        '0038], "properties": {"description": "37197 Hattorf am Harz, Germany'\
+        '", "tags": ["locality", "political"], "title": "Hattorf am Harz", '\
+        '"name": "", "other": {"geometry": {"bounds": {"aa": {"b": 51.609926'\
+        '999999999, "d": 51.675878999999988}, "Y": {"b": 10.300237000000038, '\
+        '"d": 10.165984999999978}}, "location": {"Ka": 51.651370900000003, "La'\
+        '": 10.235499699999991}, "viewport": {"aa": {"b": 51.609926999999999, '\
+        '"d": 51.675878999999988}, "Y": {"b": 10.300237000000038, "d": 10.1659'\
+        '84999999978}}, "location_type": "APPROXIMATE"}, "address_components":'\
+        '[{"long_name": "Hattorf am Harz", "types": ["locality", "political"],'\
+        '"short_name": "Hattorf am Harz"}, {"long_name": "Osterode", "types": '\
+        '["administrative_area_level_2", "political"], "short_name": "Osterode'\
+        '"}, {"long_name": "Niedersachsen", "types": ["administrative_area_lev'\
+        'el_1", "political"], "short_name": "NDS"}, {"long_name": "Germany", "'\
+        'types": ["country", "political"], "short_name": "DE"}, {"long_name": '\
+        '"37197", "types": ["postal_code"], "short_name": "37197"}], "formatte'\
+        'd_address": "37197 Hattorf am Harz, Germany", "types": ["locality", "'\
+        'political"]}, "center": [51.651370900000003, 10.235499699999991]}}]}'
+
+
 class TestSyndication(EEAContentTypeTestCase):
     """ Test-cases for syndication. """
 
@@ -31,7 +56,7 @@ class TestSyndication(EEAContentTypeTestCase):
         self.folder.invokeFactory('QuickEvent', id='event')
         event = self.folder.event
         event.setTitle('Some Event')
-        event.setLocation('Sweden')
+        event.setLocation(location)
         event.setEffectiveDate(self.effective_date)
         event.setStartDate(self.start_date)
         event.reindexObject()
@@ -43,7 +68,7 @@ class TestSyndication(EEAContentTypeTestCase):
         self.assertEquals(entry.getTitle(), 'Some Document')
 
         entry = IFeedEntry(self.folder.event)
-        self.assertEquals(entry.getTitle(), 'Some Event [Sweden]')
+        self.assertEquals(entry.getTitle(), 'Some Event [37197 Hattorf am Harz, Germany]')
 
     def testDate(self):
         """ Date
