@@ -48,6 +48,9 @@ class TestRelations(EEAContentTypeTestCase):
         self.workflow.doActionFor(self.folder.art1_pub, 'publish')
         self.workflow.doActionFor(self.folder.art2_pub, 'publish')
 
+        air = self.portal.portal_vocabularies.themes.air
+        self.workflow.doActionFor(air, 'publish')
+
         self.folder.unpub_air.reindexObject()
         self.folder.unpub_air_high.reindexObject()
         self.folder.unpub.reindexObject()
@@ -137,7 +140,8 @@ class TestRelations(EEAContentTypeTestCase):
         """ All relations
         """
         constraint = {'review_state': 'published'}
-        related = IRelations(self.folder.unpub_air).all(constraints=constraint)
+        rels = IRelations(self.folder.unpub_air)
+        related = rels.all(constraints=constraint)
         ids = sorted(obj.getId() for obj in related)
         self.assertEquals(ids, ['pub_air', 'rel_from', 'rel_to'])
 

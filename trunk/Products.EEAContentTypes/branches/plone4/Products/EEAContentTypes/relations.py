@@ -23,6 +23,8 @@ class Relations(object):
                               constraints=constraints)
 
         result = forwards
+
+        #filter the results to only return unique results
         uids = [ref.UID() for ref in result]
         result += [back for back in backs if back.UID() not in uids]
         uids = [ref2.UID() for ref2 in result]
