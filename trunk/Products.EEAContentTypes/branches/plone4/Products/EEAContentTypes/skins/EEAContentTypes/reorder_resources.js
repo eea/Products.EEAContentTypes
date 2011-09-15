@@ -1,4 +1,4 @@
-$(document).ready(function(){
+jQuery(document).ready(function($){
     var form = $("#reorder_form").get(0);
     $(form).prepend($("<ul class='reorder'>"));
     var textarea = $("textarea", form).get(0);
