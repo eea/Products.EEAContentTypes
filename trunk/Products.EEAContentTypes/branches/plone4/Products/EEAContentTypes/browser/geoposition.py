@@ -201,7 +201,7 @@ class GeoMapData(BrowserView):
         for obj in placemarkers:
             geoobject = IGeoPosition(obj)
             country_code = getattr(geoobject, 'country_code', '')
-            country_name = country_list.get(country_code, '')
+            country_name = country_list.get(country_code.lower(), '')
 
             if country_code:
                 country_inf[country_code] = country_inf.get(country_code, 0)
@@ -271,7 +271,7 @@ class GeoMapData(BrowserView):
             th_info = theme_inf_sort[th]
             theme_html += '<span class="widget_row" id="%s" onclick="javascript:selectTheme(this);">%s (%s)</span>' % (th, th_info[0], th_info[1])
 
-        return '%s####%s####%s####%s' % ('###'.join(res), ''.join(res_html), country_html, theme_html)
+        return '%s####%s####%s####%s' % ('###'.join(res), ''.join(res_html), str(country_html), theme_html)
 
 class GeoMapView(BrowserView):
     """ """
