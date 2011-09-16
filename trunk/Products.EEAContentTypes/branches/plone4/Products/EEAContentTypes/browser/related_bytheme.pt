@@ -1,0 +1,35 @@
+<metal:autorelated define-macro="auto">
+<tal:auto
+    tal:define="themes context/@@auto_related/sameTypeByTheme"
+    tal:condition="themes"
+    i18n:domain="eea.translations">
+    <dl id="auto-related" class="portlet">
+        <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
+        <dd class="portletItem">
+
+    <tal:bytheme repeat="theme themes">
+    <dl>
+        <dt tal:content="theme/name">theme</dt>
+        <tal:block repeat="info python: theme['items']">
+            <tal:media define="media info" condition="info/is_video">
+              <metal:embedded use-macro="here/document_relateditems/macros/embedded-media" />
+            </tal:media>
+            <dd class="portletItem" tal:condition="not: info/is_video">
+                 <a href="" tal:attributes="href info/url"
+                        tal:content="info/title">page title</a>
+            </dd>
+        </tal:block>
+        <dd class="portletFooter">
+          <a class="moreLink"
+             tal:condition="theme/more_link"
+             tal:attributes="href theme/more_link;
+                             title string:More multimedia on ${theme/name}">
+            <span i18n:domain="plone" i18n:translate="box_morelink" tal:omit-tag="">More</span>
+          </a>
+        </dd>
+    </dl>
+    </tal:bytheme>
+    </dd>
+    </dl>
+</tal:auto>
+</metal:autorelated>

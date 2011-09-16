@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Change: Fixed the video template to fill slot content-core. Made all the related
+  templates available as viewlets and registered below content body.
 
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
   with other JS frameworks [szabozo0 #4542]

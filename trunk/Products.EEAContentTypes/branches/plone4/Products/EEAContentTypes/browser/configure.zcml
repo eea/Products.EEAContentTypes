@@ -3,7 +3,33 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="Products.EEAContentTypes">
 
-
+    <browser:viewlet
+        name="eea.related_pages"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_pages.pt"
+        permission="zope.Public"
+        />
+        
+    <browser:viewlet
+        name="eea.related_multimedia"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_multimedia.pt"
+        permission="zope.Public"
+        />
+        
+    <browser:viewlet
+        name="eea.related_bytheme"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_bytheme.pt"
+        permission="zope.Public"
+        />
+        
     <browser:page
         for="*"
         name="reorder_css"
