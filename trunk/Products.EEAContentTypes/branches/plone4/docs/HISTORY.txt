@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Optimization: changed the way the related information is computed to optimize load times [tiberich #4510]
+
 * Bugfix: Fixed maps right widget (countries) [szabozo0 #4510]
 
 * Change: Fixed the video template to fill slot content-core. Made all the related

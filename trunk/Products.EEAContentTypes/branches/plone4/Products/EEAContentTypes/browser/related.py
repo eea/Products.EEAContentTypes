@@ -46,15 +46,91 @@ def getObjectInfo(item, request):
 
     return info
 
+def getBrainInfo(brain, plone_utils):
+
+    info = { 'title': brain.Title,
+             'brain':brain,
+             'uid': brain.UID,
+             'description': brain.Description,
+             'absolute_url': brain.getURL(),
+             'is_video': "p4a.video.interfaces.IVideoEnhanced" in brain.object_provides,
+             'item_type': brain.portal_type,
+             'item_type_class': plone_utils.normalizeString(brain.portal_type),
+             'item_wf_state': brain.review_state,
+             'item_wf_state_class': 'state-' + plone_utils.normalizeString(brain.review_state)
+
+             #these infos are missing when compared to full info
+             #'url': brain.getURL() + "/view",
+             #'item_mimetype':mimetype,
+             #'has_img': imgview != None and imgview.display() == True,
+
+             }
+
+    return info
+
+
+def annotateBrainInfo(info, request):
+    """Adds details about the object taken from its brain
+
+    Note on the optimization that this achieves:
+    There are a couple of cases where there are a lot of results
+    (for example from a catalog search of "same theme") that are 
+    trimmed down to a couple of objects. We don't want to compute
+    getObjectInfo for each, because that's expensive. 
+    Instead we first call getBrainInfo for each brain, trim the 
+    result and then call annotateBrainInfo for each brain.
+    """
+
+    if not info.get('brain'):
+        return
+
+    brain = info['brain']
+    obj = brain.getObject()
+    state = getMultiAdapter((obj, request), name="plone_context_state")
+    url = state.view_url()
+    imgview = queryMultiAdapter((obj, request), name="imgview")
+    info['has_img'] = (imgview != None and imgview.display() == True)
+    info['item_mimetype'] = obj.get_content_type()
+    info['url'] = url
+
+
+def annotateByThemeInfo(byTheme, request):
+    """Add extra information that can only be retrieved from the full object
+    """
+
+    for theme, infos in byTheme.items():
+        for info in infos:
+            annotateBrainInfo(info)
+
+
+def annotateThemeInfos(themeinfos, request):
+    for info in themeinfos:
+        annotateBrainInfo(info, request)
+
 
 def filterDuplicates(items):
-    uids = []
-    ret = []
+    uids = {}
     for i in items:
-        if i['uid'] not in uids:
-            uids.append(i['uid'])
-            ret.append(i)
-    return ret
+        uids[i['uid']] = i
+    return uids.values()
+    
+    #uids = []
+    #ret = []
+    #for i in items:
+        #if i['uid'] not in uids:
+            #uids.append(i['uid'])
+            #ret.append(i)
+    #return ret
+
+
+def others(context, brains):
+    """Returns a list of brains which do no point to the context
+    """
+    result = []
+    request = context.REQUEST
+    plone_utils = getToolByName(context, 'plone_utils')
+    cid = context.getId()
+    return [getBrainInfo(b, plone_utils) for b in brains if (b.getId != cid)]
 
 
 class AutoRelated(object):
@@ -65,6 +141,9 @@ class AutoRelated(object):
         self.request = request
 
     def sameTypeByTheme(self):
+        """NOTE: returns full info. The results are limited in number so
+        we can afford this
+        """
         result = self.sameTheme(portal_type=self.context.portal_type)
 
         byTheme = {}
@@ -75,6 +154,8 @@ class AutoRelated(object):
             if len(themeObjs) < 3:
                 themeObjs.append(res)
                 byTheme[theme] = themeObjs
+
+        annotateByThemeInfo(byTheme, self.request)
 
         # now we have the themes in a dictionary, put them in a list instead
         themes = []
@@ -92,6 +173,14 @@ class AutoRelated(object):
         return themes
 
     def sameTheme(self, portal_type=None):
+        """
+        NOTE: returns incomplete info, from getBrainInfo. You need to call
+        annotateBrainInfo() if you need full info
+
+        TODO: this should be made a private methods, not callable through
+        the normal API, to emphasize that it doesn't return full info.
+
+        """
         constraints = {'review_state': 'published'}
         result = IRelations(self.context).byTheme(portal_type,
                                                   getBrains=True,
@@ -102,6 +191,7 @@ class AutoRelated(object):
         #vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
         #themeVocab = vocabFactory(self)
         related = []
+        plone_utils = getToolByName(self.context, 'plone_utils')
 
         for item in result:
             # skip articles from auto related by theme since they are related
@@ -109,26 +199,38 @@ class AutoRelated(object):
             if item.portal_type in ['Article']:
                 continue
 
-            obj = item.getObject()
             if item.getId != self.context.getId():
                 commonThemesIds = [ theme for theme in item.getThemes
                                     if theme in contextThemes ]
-                info = getObjectInfo(obj, self.request)
+                #info = getObjectInfo(item.getObject(), self.request)
+                info = getBrainInfo(item, plone_utils)
                 info['commonThemesIds'] = commonThemesIds
                 related.append(info)
 
         return related
 
     def autoContext(self, portal_type=None, fill_limit=0):
+        """NOTE: returns full info. May end up being slow
+        """
         refs = IRelations(self.context).autoContextReferences(portal_type)
         refs = [getObjectInfo(i, self.request) for i in refs]
         theme = self.sameTheme(portal_type)
         items = refs + theme
         if len(items) < fill_limit:
             items += self.sameType(portal_type)
-        return filterDuplicates(items)
+        nondups = filterDuplicates(items)
+        annotateThemeInfos(nondups)
+        return nondups
 
     def sameType(self, portal_type=None):
+        """
+        NOTE: returns incomplete info, from getBrainInfo. You need to call
+        annotateBrainInfo() if you need full info
+
+        TODO: this should be made a private methods, not callable through
+        the normal API, to emphasize that it doesn't return full info.
+
+        """
         if portal_type == None:
             portal_type = self.context.portal_type
         constraints = {'review_state': 'published'}
@@ -136,12 +238,14 @@ class AutoRelated(object):
                                                   getBrains=True,
                                                   considerDeprecated=True,
                                                   constraints=constraints)
-        related = []
-        for item in result:
-            obj = item.getObject()
-            if item.getId != self.context.getId():
-                info = getObjectInfo(obj, self.request)
-                related.append(info)
+        related = others(self.context, result)
+
+        #for item in related:
+            ##obj = item.getObject()
+            #if item.getId != cid:
+                ##info = getObjectInfo(obj, self.request)
+                #info = getBrainInfo(item, self.request)
+                #related.append(info)
 
         return related
 
@@ -153,13 +257,14 @@ class AutoRelated(object):
                                                   getBrains=True,
                                                   constraints=constraints)
 
-        related = []
+        related = others(self.context, result)
+        #annotateThemeInfos(related)     #Note: enable if you notice errors about missing keys
 
-        for item in result:
-            obj = item.getObject()
-            if item.getId != self.context.getId():
-                info = getObjectInfo(obj, self.request)
-                related.append(info)
+        #for item in result:
+            #obj = item.getObject()
+            #if item.getId != self.context.getId():
+                #info = getObjectInfo(obj, self.request)
+                #related.append(info)
 
         return related
 
