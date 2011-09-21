@@ -74,10 +74,10 @@ def annotateBrainInfo(info, request):
 
     Note on the optimization that this achieves:
     There are a couple of cases where there are a lot of results
-    (for example from a catalog search of "same theme") that are 
+    (for example from a catalog search of "same theme") that are
     trimmed down to a couple of objects. We don't want to compute
-    getObjectInfo for each, because that's expensive. 
-    Instead we first call getBrainInfo for each brain, trim the 
+    getObjectInfo for each, because that's expensive.
+    Instead we first call getBrainInfo for each brain, trim the
     result and then call annotateBrainInfo for each brain.
     """
 
@@ -100,7 +100,7 @@ def annotateByThemeInfo(byTheme, request):
 
     for theme, infos in byTheme.items():
         for info in infos:
-            annotateBrainInfo(info)
+            annotateBrainInfo(info, request)
 
 
 def annotateThemeInfos(themeinfos, request):
@@ -113,7 +113,7 @@ def filterDuplicates(items):
     for i in items:
         uids[i['uid']] = i
     return uids.values()
-    
+
     #uids = []
     #ret = []
     #for i in items:
