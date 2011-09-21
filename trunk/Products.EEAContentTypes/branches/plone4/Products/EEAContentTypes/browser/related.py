@@ -258,7 +258,7 @@ class AutoRelated(object):
                                                   constraints=constraints)
 
         related = others(self.context, result)
-        #annotateThemeInfos(related)     #Note: enable if you notice errors about missing keys
+        annotateThemeInfos(related)     #Note: enable if you notice errors about missing keys
 
         #for item in result:
             #obj = item.getObject()
