@@ -6,12 +6,9 @@ from eea.geotags import field
 from eea.geotags import widget
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
 from p4a.subtyper.interfaces import IPossibleDescriptors, IPortalTypedPossibleDescriptors
-from p4a.video.interfaces import IVideoEnhanced
 from zope.component import adapts
 from zope.component import queryAdapter
 from zope.interface import Interface, implements
-#from Products.ATContentTypes.interface import IATContentType
-
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
     """ derivative of blobfield for extending schemas """

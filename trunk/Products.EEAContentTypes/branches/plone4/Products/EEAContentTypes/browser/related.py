@@ -126,8 +126,6 @@ def filterDuplicates(items):
 def others(context, brains):
     """Returns a list of brains which do no point to the context
     """
-    result = []
-    request = context.REQUEST
     plone_utils = getToolByName(context, 'plone_utils')
     cid = context.getId()
     return [getBrainInfo(b, plone_utils) for b in brains if (b.getId != cid)]

@@ -1,5 +1,9 @@
 """ Workflow tests
 """
+import hmac
+import time
+from hashlib import sha1 as sha
+
 from Acquisition import aq_base
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
@@ -7,14 +11,6 @@ from Products.MailHost.interfaces import IMailHost
 from plone.keyring.interfaces import IKeyManager
 from plone.protect.authenticator import _getUserName
 from zope.component import getUtility, getSiteManager
-import hmac
-import time
-
-try:
-    from hashlib import sha1 as sha
-except ImportError:
-    import sha
-
 
 class TestWorkflow(EEAContentTypeTestCase):
     """ Test-cases for class(es) workflow. """
@@ -91,7 +87,7 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         self.setRoles('Manager')
 
         if not hasattr(self.folder, 'sandbox'):
-            sandbox = self.folder.invokeFactory('Folder', 'sandbox')
+            self.folder.invokeFactory('Folder', 'sandbox')
         self.sandbox = self.folder['sandbox']
 
         children = list(self.ptypes)
@@ -183,7 +179,8 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         manager=getUtility(IKeyManager)
         secret=manager.secret()
         user=_getUserName()
-        auth=hmac.new(secret, user, sha).hexdigest()
+
+        hmac.new(secret, user, sha).hexdigest()
 
         # plone 4 form protection bypass
         self.setRequestMethod('POST')
