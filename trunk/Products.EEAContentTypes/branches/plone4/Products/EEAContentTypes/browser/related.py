@@ -219,7 +219,7 @@ class AutoRelated(object):
         if len(items) < fill_limit:
             items += self.sameType(portal_type)
         nondups = filterDuplicates(items)
-        annotateThemeInfos(nondups)
+        annotateThemeInfos(nondups, self.request)
         return nondups
 
     def sameType(self, portal_type=None):
@@ -258,7 +258,7 @@ class AutoRelated(object):
                                                   constraints=constraints)
 
         related = others(self.context, result)
-        annotateThemeInfos(related)     #Note: enable if you notice errors about missing keys
+        annotateThemeInfos(related, self.request)     #Note: enable if you notice errors about missing keys
 
         #for item in result:
             #obj = item.getObject()
