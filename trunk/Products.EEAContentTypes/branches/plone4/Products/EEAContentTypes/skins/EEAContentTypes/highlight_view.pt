@@ -37,16 +37,6 @@
                 <metal:thefigure use-macro="here/media_macros/macros/figure-plus" />
               </tal:figure>
 
-              <!-- related multimedia -->
-              <div metal:use-macro="here/document_relateditems/macros/multimedia">
-                show related multimedia items if they exist
-              </div>
-
-              <!-- related pages -->
-              <div metal:use-macro="here/document_relateditems/macros/pages">
-                show related pages if they exist
-              </div>
-
             </div>
           </tal:descriptionOrTeaser>
         </metal:teaserFigureRelated>
