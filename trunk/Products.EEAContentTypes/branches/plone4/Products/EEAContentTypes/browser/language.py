@@ -6,7 +6,7 @@ from Products.PloneLanguageTool.interfaces import ITranslatable
 from interfaces import ILanguages
 from plone.memoize.ram import cache
 import zope.interface
-
+from zope.component import getMultiAdapter
 
 def cacheKey(method, self):
     request = self.request
@@ -14,7 +14,9 @@ def cacheKey(method, self):
 
 
 class Languages(BrowserView):
-    """ Return different languages for translation of content and for local sites."""
+    """ Return different languages for translation of content and for
+        local sites.
+    """
 
     zope.interface.implements(ILanguages)
 
@@ -125,16 +127,28 @@ class LanguageSelectorData(BrowserView):
                     url += '/view'
 
                 wf = context.portal_workflow
-                lingua_state = wf.getInfoFor(translation, 'review_state', None, 'linguaflow')
+                lingua_state = wf.getInfoFor(translation, 'review_state',
+                                                        None, 'linguaflow')
 
 
             elif context.Language() == '':
                 url = context.absolute_url()
-                alt += context.translate(msgid='label_content_is_language_neutral',
-                                         default=u' (Content is language neutral)',
-                                         domain='linguaplone')
+                alt += context.translate(
+                                    msgid='label_content_is_language_neutral',
+                                    default=u' (Content is language neutral)',
+                                    domain='linguaplone')
             else:
-                url = '%s/%s' % (context.absolute_url(), 'not_available_lang')
+                req = context.REQUEST
+                portal_state = getMultiAdapter((context, req),
+                                    name=u'plone_portal_state')
+                site = portal_state.portal()
+                site_path = site.getPhysicalPath()
+                site_abs_url = site.absolute_url()
+                context_path = context.getPhysicalPath()
+                relative_path = context_path[3:]
+                res = "/" + "/".join(relative_path)
+                url = "/".join(req.physicalPathToVirtualPath(site_abs_url +
+                                  '/' + code + res + '/not_available_lang'))
                 alt += context.translate(msgid='label_content_translation_not_available',
                                          default=u' (Content translation not available)',
                                          domain='linguaplone')
