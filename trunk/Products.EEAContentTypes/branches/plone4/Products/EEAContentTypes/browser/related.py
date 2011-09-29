@@ -11,7 +11,7 @@ from eea.translations import _
 from interfaces import IDocumentRelated, IAutoRelated
 from p4a.video.interfaces import IMediaPlayer, IVideo
 from p4a.video.interfaces import IVideoEnhanced
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.component import queryAdapter, getUtility, getMultiAdapter, queryMultiAdapter
 from zope.interface import implements
 

@@ -6,7 +6,7 @@ from Products.EEAContentTypes.content.interfaces import IGeoPositioned
 from Products.Five.browser import BrowserView
 from interfaces import IGeoMapData, IGeoMapView, IGeoConverter
 from interfaces import IGeoPositionView, IGoogleEarthView
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 from zope.interface import implements
 import logging

@@ -36,7 +36,7 @@ from Products.LinguaPlone.public import Schema, StringField
 from Products.validation.config import validation
 from Products.validation.interfaces.IValidator import IValidator
 from eea.themecentre.interfaces import IThemeTagging, IThemeTaggable
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 from zope.interface import implements
 
