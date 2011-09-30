@@ -4,11 +4,7 @@
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.transforms.internallink_view import InternalLinkView
-from Products.EEAContentTypes.transforms.protect_email import ProtectEmail
-from Products.EEAContentTypes.transforms.translationresolveuid import TranslationResolveUid
 from Products.EEAContentTypes.vocabulary import vocabs
-from Products.PortalTransforms.chain import TransformsChain, chain
 from Products.kupu.plone import util
 
 import logging
@@ -122,7 +118,7 @@ def setupATVocabularies(self, portal):
 
         try:
             atvm.invokeFactory('SimpleVocabulary', vkey)
-        except:
+        except Exception:
             logger.info("Error adding vocabulary %s" % vkey)
 
         vocab = atvm[vkey]
@@ -170,15 +166,19 @@ def setupGeocoding(context):
     #updateCacheFu(portal, portal)
 
     # This updates were already ran, we don't need them anymore
-    already_ran = False #TODO: this gimmick should be removed and replaced by something proper
+    #TODO: this gimmick should be removed and replaced by something proper
+    already_ran = False
     if not already_ran:
         add_eeaInternalIps(portal, portal)
         #geocodeEvents(portal, portal)
-        
+
 #TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
+    """ Setup custom roles
+    """
     roles = list(portal.acl_users.portal_role_manager.listRoleIds())
-    newRoles = ['Editor', 'CommonEditor', 'ProofReader', 'ContentManager', 'WebReviewer']
+    newRoles = ['Editor', 'CommonEditor', 'ProofReader',
+                'ContentManager', 'WebReviewer']
     for role in newRoles:
         if role not in roles:
             portal.acl_users.portal_role_manager.addRole(role)
