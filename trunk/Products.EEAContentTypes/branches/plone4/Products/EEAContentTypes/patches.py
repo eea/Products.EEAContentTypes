@@ -1,7 +1,6 @@
 """ Monkey patches
 """
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.setuphandlers import registerTransforms
 from Products.LinguaPlone import config
 from ZODB.POSException import ConflictError
 #from collective.monkey.monkey import Patcher
@@ -50,19 +49,6 @@ def getTranslations(self):
 #if not linguaPatcher.is_wrapper_method(getTranslations):
     #linguaPatcher.wrap_method(I18NBaseObject, 'getTranslations',
                               #getTranslations)
-
-#Kupu patch
-#disable kupu transform reinstallation every time config is changed
-#from Products.kupu.plone import util
-
-def install_transform(self):
-    """ Install transforms
-    """
-    registerTransforms(self, self)
-
-#if not eeaPatcher.is_wrapper_method(util.install_transform):
-    #eeaPatcher.wrap_method(util, 'install_transform', install_transform)
-
 
 def getPathLanguage(self):
     """Checks if a language is part of the current path."""

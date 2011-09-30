@@ -15,55 +15,6 @@ import logging
 
 logger = logging.getLogger("Products.EEAContentTypes")
 
-
-def registerTransforms(self, portal):
-    """ Register transforms
-    """
-    ptr = getToolByName(portal, 'portal_transforms')
-    if 'protect_email' not in ptr.objectIds():
-        ptr.registerTransform(ProtectEmail())
-    if 'internallink_view' not in ptr.objectIds():
-        ptr.registerTransform(InternalLinkView())
-    if 'translation_resolveuid' not in ptr.objectIds():
-        ptr.registerTransform(TranslationResolveUid())
-
-    # we need to manually install kupu defaults since we patch away that method
-    util._old_install_transform(portal)
-    #eeaPatcher.call(util, 'install_transform', portal)
-
-    chain_ = ['translation_resolveuid', 'html-to-captioned',
-              'captioned-to-html', 'safe_html',
-              'protect_email', 'internallink_view']
-    html_eea_chain = getattr(ptr, 'html_eea_chain', None)
-    if html_eea_chain is not None and chain_ != html_eea_chain._object_ids:
-        ptr._unmapTransform(html_eea_chain)
-        # we need to suppress the ObjectWillBeRemovedEvent, otherwise
-        # there will be infinite recursion for some unknown reason
-        ptr._delObject('html_eea_chain', suppress_events=True)
-    if 'html_eea_chain' not in ptr.objectIds():
-        transform = TransformsChain('html_eea_chain',
-                                    'protect emails after safe_html',
-                                    chain_)
-        c = chain()
-        for name in transform._object_ids:
-            obj = getattr(ptr, name)
-            c.registerTransform(obj)
-        transform.inputs = c.inputs
-        transform.output = c.output
-        transform._chain = c
-        ptr._setObject('html_eea_chain', transform)
-        ptr._mapTransform(transform)
-
-    # Set policy
-    policies = [(mimetype, required)
-                for (mimetype, required) in ptr.listPolicies()]
-    # remove the policy that's always added by kupu installation
-    if ('text/x-html-safe', ('html-to-captioned',)) in policies:
-        ptr.manage_delPolicies(['text/x-html-safe'])
-    if ('text/x-html-safe', ('html_eea_chain',)) not in policies:
-        ptr.manage_addPolicy('text/x-html-safe', ['html_eea_chain'])
-
-
 def setupGeographicalProperties(self, portal):
     """ sets up the default propertysheet for geographical related stuff """
     prop_tool = portal.portal_properties
@@ -250,7 +201,6 @@ def setupVarious(context):
     setupEEAStaffProperties(portal, portal)
     setupCalendarTypes(portal)
     setupCustomRoles(context, portal)
-    registerTransforms(portal, portal)
 
 
 #this is a migration procedure, not needed for plone4 migration

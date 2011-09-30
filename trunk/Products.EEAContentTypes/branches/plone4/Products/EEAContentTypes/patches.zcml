@@ -5,15 +5,6 @@
 
 	<include package="collective.monkeypatcher" />
 
-    TODO: plone4, is this monkeypatch still needed? Probably yes
-    <monkey:patch
-        description="Monkeypatch kupu_tool.register_transform so prevent breaking the EEA transform chains"
-        module="Products.kupu.plone.util"
-        original="install_transform"
-        replacement=".patches.install_transform"
-        preserveOriginal="true"
-        />
-
     TODO: plone4, is this patch still needed?
     disabled, because it triggers errors when creating content. See if it's still needed
     <!--<monkey:patch-->
