@@ -102,9 +102,9 @@ class GeoPositionView(BrowserView):
         api_key = ''
         geoobject = IGeoPosition(self.context)
         obj_url = self.context.event_url()
-        if not obj_url.startswith('http://'):
+        #if not obj_url.startswith('http://'):
             # TODO: check this assigment
-            placemarkobj_url = 'http://%s' % obj_url
+            #placemarkobj_url = 'http://%s' % obj_url
 
         portal_properties = getToolByName(self, 'portal_properties')
         geo_properties = getattr(portal_properties, 'geographical_properties')

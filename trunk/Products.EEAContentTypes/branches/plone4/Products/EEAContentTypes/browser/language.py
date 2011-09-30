@@ -142,7 +142,6 @@ class LanguageSelectorData(BrowserView):
                 portal_state = getMultiAdapter((context, req),
                                     name=u'plone_portal_state')
                 site = portal_state.portal()
-                site_path = site.getPhysicalPath()
                 site_abs_url = site.absolute_url()
                 context_path = context.getPhysicalPath()
                 relative_path = context_path[3:]
