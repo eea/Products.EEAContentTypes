@@ -9,5 +9,8 @@
     <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
 
     <utility factory=".subtypes.Subtyper" />
+    <utility
+        name="p4a.video.TopicVideoContainer"
+        factory=".subtypes.TopicVideoContainerDescriptor" />
 
 </configure>

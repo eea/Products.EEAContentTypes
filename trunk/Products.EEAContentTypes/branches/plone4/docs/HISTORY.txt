@@ -3,6 +3,9 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container 
+  [tiberich #4582]
+
 * Optimization: changed the way the related information is computed to optimize load times [tiberich #4510]
 
 * Bugfix: Fixed maps right widget (countries) [szabozo0 #4510]
