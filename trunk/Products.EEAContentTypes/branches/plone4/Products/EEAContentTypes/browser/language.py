@@ -138,16 +138,7 @@ class LanguageSelectorData(BrowserView):
                                     default=u' (Content is language neutral)',
                                     domain='linguaplone')
             else:
-                req = context.REQUEST
-                portal_state = getMultiAdapter((context, req),
-                                    name=u'plone_portal_state')
-                site = portal_state.portal()
-                site_abs_url = site.absolute_url()
-                context_path = context.getPhysicalPath()
-                relative_path = context_path[3:]
-                res = "/" + "/".join(relative_path)
-                url = "/".join(req.physicalPathToVirtualPath(site_abs_url +
-                                  '/' + code + res + '/not_available_lang'))
+                url = context.absolute_url() + '/not_available_lang'
                 alt += context.translate(
                                 msgid='label_content_translation_not_available',
                                 default=u' (Content translation not available)',
