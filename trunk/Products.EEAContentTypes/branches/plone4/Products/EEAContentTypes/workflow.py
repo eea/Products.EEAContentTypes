@@ -53,7 +53,7 @@ class SubmitForMultimediaEdit(object):
     implements(ITransitionLogicalGuard)
 
     canBeUsedFor = [ 'Highlight','PressRelease', 'Document', 'News Item',
-                     'HelpCenterFAQ', 'Speech', 'Topic', 'RichTopic']
+                     'HelpCenterFAQ', 'Speech', 'Topic']
 
     def __init__(self, context, request):
         self.context = context
@@ -72,7 +72,7 @@ class SubmitForContentReview(object):
     implements(ITransitionLogicalGuard)
 
     canBeUsedFor = [ 'Highlight', 'Document', 'News Item', 'HelpCenterFAQ',
-                     'Topic', 'RichTopic', 'Event', 'Link']
+                     'Topic', 'Event', 'Link']
 
     def __init__(self, context, request):
         self.context = context

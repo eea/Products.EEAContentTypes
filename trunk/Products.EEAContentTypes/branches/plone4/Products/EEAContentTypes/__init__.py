@@ -69,7 +69,7 @@ def setupSchemas():
                        disableRelated=disableRelated, moveThemeTag=moveThemeTag)
 
     topic.ATTopicSchema['acquireCriteria'].widget.condition = (
-        "python:folder.getParentNode().portal_type in ('Topic', 'RichTopic')")
+        "python:folder.getParentNode().portal_type in ['Topic']")
 
 
 def initialize(context):
