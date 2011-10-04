@@ -148,9 +148,10 @@ class LanguageSelectorData(BrowserView):
                 res = "/" + "/".join(relative_path)
                 url = "/".join(req.physicalPathToVirtualPath(site_abs_url +
                                   '/' + code + res + '/not_available_lang'))
-                alt += context.translate(msgid='label_content_translation_not_available',
-                                         default=u' (Content translation not available)',
-                                         domain='linguaplone')
+                alt += context.translate(
+                                msgid='label_content_translation_not_available',
+                                default=u' (Content translation not available)',
+                                domain='linguaplone')
 
             results.append({'Language':code, 'Title':name, 'current':current,
                             'flag': langtool.getFlagForLanguageCode(code),

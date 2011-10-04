@@ -26,7 +26,7 @@ class SmartFolderPortlets(object):
         return self.portlets(obj)
 
     def portlets(self, context):
-        if self.context.portal_type in ['Topic','RichTopic']:
+        if self.context.portal_type in ['Topic']:
             # context is a smartfolder so we make only one portlet
             topics = [self.context]
         else:
@@ -47,7 +47,7 @@ class SmartFolderPortlets(object):
     def _find_topics(self, context):
         manually_added_portlets = getattr(context, 'manually_added_portlets', [])
         catalog = getToolByName(context, 'portal_catalog')
-        query = { 'portal_type': ('Topic', 'RichTopic'),
+        query = { 'portal_type': 'Topic',
                   'review_state' : 'published',
                   'path': '/'.join(context.getPhysicalPath()) }
         brains = catalog.searchResults(query)
@@ -124,7 +124,7 @@ class LatestHighlightsSmartFolderPortlet(SmartFolderPortlets):
 
     def _find_topics(self, context):
         catalog = getToolByName(context, 'portal_catalog')
-        query = { 'portal_type': ('Topic', 'RichTopic'),
+        query = { 'portal_type': 'Topic',
                   'path': '/www/SITE/highlights/archive',
                   'Language': 'en' }
         brains = catalog.searchResults(query)

@@ -155,7 +155,7 @@ class ContextAwareFeedPortletInfo(FeedPortletInfo):
                                           'Title' : self.feed.title,
                                           'portal_type' : types })
 
-            if len(res) > 0:
+            if len(res):
                 self._link = res[0].getURL()
             else:
                 self._link = self.context.absolute_url() + '/listfeed?feed=' + self.feed.id

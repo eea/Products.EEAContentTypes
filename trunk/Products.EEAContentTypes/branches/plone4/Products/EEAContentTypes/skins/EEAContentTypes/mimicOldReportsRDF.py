@@ -12,26 +12,25 @@ from DateTime import DateTime
 
 catalog = context.portal_catalog
 result = []
-
 query = {'object_provides' : 'eea.reports.interfaces.IReportContainerEnhanced',
          'review_state' : 'published',
          'sort_on' : 'effective',
          'sort_order' : 'reverse',
          'effectiveRange' : DateTime()}
 
-if replang != '':
+if replang:
     query['Language'] = replang
 
-if theme != '':
+if theme:
     query['getThemes'] = theme
     
-if exclude_series != '':
+if exclude_series:
     series = exclude_series.split(',')
     for b in catalog(query):
         if b.serial_title[0] not in series:
             result.append(b)
 else:
-    if include_series != '':
+    if include_series:
         series = include_series.split(',')
         query['serial_title'] = series
     result = catalog(query)

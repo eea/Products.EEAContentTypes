@@ -59,7 +59,7 @@ class InternalLinkView:
                 res = catalog.searchResults(path=path,
                                             portal_type = use_view_action)
 
-                if len(res) > 0:
+                if len(res):
                     orig = orig.replace(tag, begin + url + '/view' + end)
         data.setData(orig)
         return data
