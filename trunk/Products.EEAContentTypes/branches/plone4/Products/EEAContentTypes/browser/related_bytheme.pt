@@ -19,14 +19,6 @@
                         tal:content="info/title">page title</a>
             </dd>
         </tal:block>
-        <dd class="portletFooter">
-          <a class="moreLink"
-             tal:condition="theme/more_link"
-             tal:attributes="href theme/more_link;
-                             title string:More multimedia on ${theme/name}">
-            <span i18n:domain="plone" i18n:translate="box_morelink" tal:omit-tag="">More</span>
-          </a>
-        </dd>
     </dl>
     </tal:bytheme>
     </dd>
