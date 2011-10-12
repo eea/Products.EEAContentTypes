@@ -1,4 +1,5 @@
-<metal:autorelated define-macro="auto">
+<metal:autorelated define-macro="auto"
+    tal:condition="context/@@plone_context_state/is_view_template">
 <tal:auto
     tal:define="themes context/@@auto_related/sameTypeByTheme"
     tal:condition="themes"
