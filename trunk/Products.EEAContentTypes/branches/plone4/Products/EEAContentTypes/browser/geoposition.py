@@ -160,6 +160,7 @@ class GeoMapData(BrowserView):
 
     def __call__(self, cc=None, tc=None, **kwargs):
         #TODO: kwargs to be used for filter call
+        
         props = getToolByName(self.context, 'portal_properties').site_properties
         placemarkers = []
         placemarkers_add = placemarkers.append
@@ -175,6 +176,9 @@ class GeoMapData(BrowserView):
         maxi = syn.getMaxItems(self.context)
         maxi = type(maxi) == type(1) and maxi or default_max
         objects = list(syn.getSyndicatableContent(self.context))[:maxi]
+        ### plone4.1 couldn't find the interface brovided by brains 
+        ### so we are asking for the objects 
+        objects = [obj.getObject() for obj in objects]
 
         for obj in objects:
             if IGeoPositioned.providedBy(obj):
