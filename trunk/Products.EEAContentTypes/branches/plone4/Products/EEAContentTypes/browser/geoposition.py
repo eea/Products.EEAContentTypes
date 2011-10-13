@@ -383,6 +383,7 @@ YAHOO_MULTI_TPL = """
                 -moz-opacity: 0.6;
                 padding: 5px 4px 2px 4px;
                 filter: alpha (opacity=60);
+                overflow: hidden;
 }
 
 #map_right_widget {
@@ -456,29 +457,50 @@ div.marker-body h3 {
                 cursor: pointer;
                 background-color: black;
                 border: 1px solid black;
-                height: 15px;opacity:0.5;
+                height: 15px;
+                opacity:0.5;
                 padding: 0 2px;
-                position: absolute;
-/*    right: 510px; */
-                top: 209px;
+                position: relative;
+                left: 70px;
+                top: -295px;
                 z-index: 99;
                 color: #DDD;
                 line-height: 1.2em;
                 filter: alpha (opacity=50);
                 font-weight: bold;
 }
+
 .map_left_widget_header {
                 border: 0px none ;
                 display: inline;
                 cursor: pointer;
                 padding-top: 5px;
-                top: 68px;
-                left: 35px;
                 height: 1em;
                 font-weight: bold;
                 background-color: transparent;
-                z-index:99;
-                position:absolute;
+}
+
+#themes-close, #country-close {
+    background: none repeat scroll 0 0 #CCCCCC;
+    height: 20px;
+    left: 16px;
+    padding: 3px;
+    position: relative;
+    top: 235px;
+    width: 30px;
+    z-index: 5000;
+}
+#country-close {
+    top: 249px;
+    left: 455px;
+    height: 18px;
+}
+a#themes-close:hover, a#country-close:hover { 
+    background: orange !important;
+    color: #000;
+}
+a#themes-close:visited, a#country-close:visited {
+    color: #000;
 }
 </style>
 
@@ -486,15 +508,17 @@ div.marker-body h3 {
 <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
 
 <div id="map_events_yahoo" style="border: 1px solid black">
-                <span class="map_left_widget_header">Filter by theme</span>
                 <span id="map_left_widget" style="display:none">
+                <span class="map_left_widget_header">Filter by theme</span>
                 <div id="theme_info"></div>
                 <div class="widget_tip" onclick="javascript:deselectAll('theme');">Show all</div>
                 </span>
+                <a href="#" id="themes-close">Close</a>
                 <span id="map_right_widget" style="display:none">
                 <div id="country_info"></div>
                 <div class="widget_tip" onclick="javascript:deselectAll('country');">Show all</div>
                 </span>
+                <a href="#" id="country-close">Close</a>
 </div>
 
 <center style="margin-right: 10em">
@@ -503,6 +527,18 @@ div.marker-body h3 {
 
 <script type="text/javascript">
                 <!--
+                var thc = jQuery("#themes-close, #country-close"),
+                    maps = jQuery("#map_left_widget, #map_right_widget");
+                thc.toggle(function(e) {
+                    e.preventDefault();
+                    maps.fadeOut('slow');
+                    thc.text("Show");
+                }, function(e){
+                    e.preventDefault();
+                    maps.fadeIn('slow');
+                    thc.text("Close");
+                });
+
                 var xmlhttp;
                 var map = null;
                 var country_filter = '';
@@ -579,7 +615,8 @@ div.marker-body h3 {
 
                 var marker = new YMarker(geo_loc, geo_image)
                 marker.setSmartWindowColor("grey");
-                YEvent.Capture(marker, EventsList.MouseClick, function() { marker.openSmartWindow(document.getElementById(id).innerHTML);});
+                YEvent.Capture(marker, EventsList.MouseClick, function() {
+                marker.openSmartWindow(document.getElementById(id).innerHTML);});
                 map.addOverlay(marker);
 
                 return marker.id

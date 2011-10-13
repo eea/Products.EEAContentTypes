@@ -11,8 +11,6 @@ jQuery(document).ready(function(){
 
       if(localmap) {
         localmap.setMapType(YAHOO_MAP_SAT);
-        jQuery('#map_center_widget').css('top', '259px');
-        jQuery('#map_left_widget').css('left', '25px');
         clearTimeout(handler);
       }
      },
