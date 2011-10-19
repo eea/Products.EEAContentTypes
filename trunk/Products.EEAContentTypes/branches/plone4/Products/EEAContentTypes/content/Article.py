@@ -131,7 +131,8 @@ class Article2Surf(ATCT2Surf):
                     value = fieldAdapter.value(context)
                 else:
                     value = context.getMedia()
-                if value:
+                if (value and value != "None") or \
+                        (isinstance(value, basestring) and value.strip()) : 
                     prefix = self.prefix
                     if isinstance(value, (list, tuple)):
                         value = list(value)
@@ -141,7 +142,7 @@ class Article2Surf(ATCT2Surf):
                         fieldName = self.field_map.get(fieldName)
                     elif fieldName in self.dc_map:
                         fieldName = self.dc_map.get(fieldName)
-                        prefix = 'dc'
+                        prefix = 'dcterms'
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
                     except Exception:

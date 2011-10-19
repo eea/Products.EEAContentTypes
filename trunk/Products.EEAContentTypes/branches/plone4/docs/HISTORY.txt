@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: use dcterms namespace instead of dc in @@rdf view [tiberich #4250] (backport v2.30)
 * Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container 
   [tiberich #4582]
 
