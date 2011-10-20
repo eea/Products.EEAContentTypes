@@ -86,4 +86,4 @@ class MultimediaURL(object):
 
     def css_class(self):
         return 'video-fancybox' if self.context.portal_type != 'FlashFile' \
-                                                                else ''
+                                                    else 'animation-fancybox'
