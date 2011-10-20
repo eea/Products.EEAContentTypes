@@ -85,7 +85,5 @@ class MultimediaURL(object):
         return False
 
     def css_class(self):
-        import pdb; pdb.set_trace( )
-        
         return 'video-fancybox' if self.context.portal_type != 'FlashFile' \
                                                                 else ''
