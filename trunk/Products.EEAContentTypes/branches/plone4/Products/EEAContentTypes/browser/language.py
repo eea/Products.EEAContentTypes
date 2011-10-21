@@ -6,7 +6,6 @@ from Products.PloneLanguageTool.interfaces import ITranslatable
 from interfaces import ILanguages
 from plone.memoize.ram import cache
 import zope.interface
-from zope.component import getMultiAdapter
 
 def cacheKey(method, self):
     request = self.request
