@@ -30,7 +30,8 @@ class TestWorkflow(EEAContentTypeTestCase):
         self.folder.invokeFactory('Document', id='doc')
         self.setRoles('Manager')
         self.workflow.doActionFor(self.folder.doc, 'publish')
-        self.historyMarker = '<span class="historyAction state-Publish">Publish</span>'
+        self.historyMarker = \
+            '<span class="historyAction state-publish">Publish</span>'
 
     def beforeTearDown(self):
         self.portal.MailHost = self.portal._original_MailHost
