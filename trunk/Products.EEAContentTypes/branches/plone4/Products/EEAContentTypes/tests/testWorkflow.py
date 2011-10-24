@@ -31,7 +31,7 @@ class TestWorkflow(EEAContentTypeTestCase):
         self.setRoles('Manager')
         self.workflow.doActionFor(self.folder.doc, 'publish')
         self.historyMarker = \
-            '<span class="historyAction state-publish">Publish</span>'
+            '<span class="historyaction state-publish">publish</span>'
 
     def beforeTearDown(self):
         self.portal.MailHost = self.portal._original_MailHost
@@ -45,10 +45,10 @@ class TestWorkflow(EEAContentTypeTestCase):
         """
         self.logout()
         res = self.folder.doc.workflow_action_message(
-            type='document', editUrl='url').find(self.historyMarker)
+            type='document', editUrl='url').lower().find(self.historyMarker)
         self.assertEquals(res, -1)
         res1 = self.folder.doc.workflow_confirmation_message(
-            type='document').find(self.historyMarker)
+            type='document').lower().find(self.historyMarker)
         self.assertEquals(res1, -1)
 
     def testManager(self):
@@ -56,10 +56,10 @@ class TestWorkflow(EEAContentTypeTestCase):
         """
         self.login('manager')
         res = self.folder.doc.workflow_action_message(
-            type='document', editUrl='url').find(self.historyMarker)
+            type='document', editUrl='url').lower().find(self.historyMarker)
         self.failIf(res == -1)
         res1 = self.folder.doc.workflow_confirmation_message(
-            type='document').find(self.historyMarker)
+            type='document').lower().find(self.historyMarker)
         self.failIf(res1 == -1)
 
 
