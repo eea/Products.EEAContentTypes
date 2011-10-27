@@ -3,7 +3,6 @@
  <index name="getNewsTitle" meta_type="FieldIndex">
   <indexed_attr value="getNewsTitle"/>
  </index>
- <index name="getTeaser" meta_type="TextIndex" deprecated="True"/>
  <index name="getUrl" meta_type="FieldIndex">
   <indexed_attr value="getUrl"/>
  </index>
@@ -11,12 +10,10 @@
   <indexed_attr value="countReferences"/>
  </index>
  <column value="getImageCopyright"/>
- <column value="getImageNote"/>
  <column value="getImageSource"/>
  <column value="getNewsTitle"/>
  <column value="getQuotationSource"/>
  <column value="getQuotationText"/>
- <column value="getTeaser"/>
  <column value="getUrl"/>
  <column value="getVisibilityLevel"/>
 </object>
