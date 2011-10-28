@@ -15,12 +15,12 @@
   <indexed_attr value="countReferences"/>
  </index>
  <column value="getImageCopyright"/>
- <column·value="getImageNote"/>
  <column value="getImageSource"/>
+ <column value="getImageNote"/>
  <column value="getNewsTitle"/>
  <column value="getQuotationSource"/>
  <column value="getQuotationText"/>
- <column·value="getTeaser"/>
+ <column value="getTeaser"/>
  <column value="getUrl"/>
  <column value="getVisibilityLevel"/>
 </object>
