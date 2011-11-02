@@ -304,7 +304,8 @@ class DocumentRelated(BrowserView):
                 self.related_media_with_player.append(item)
             elif item.portal_type == 'Image':
                 self.related_images.append(item)
-            elif item.portal_type in ['Document', 'Highlight', 'PressRelease', 'Speech']:
+            elif item.portal_type in ['Document', 'Highlight', 'PressRelease', 
+                                      'Speech', 'AssessmentPart']:
                 self.related_pages.append(item)
             else:
                 self.related_other.append(item)

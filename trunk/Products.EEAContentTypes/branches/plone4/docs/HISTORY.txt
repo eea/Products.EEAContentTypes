@@ -3,53 +3,55 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: added AssessmentPart to list of content types that are displayed as Other related items [tiberich #4629]
  * Bug fix: use dcterms namespace instead of dc in @@rdf view [tiberich #4250] (backport v2.30)
-* Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container 
-  [tiberich #4582]
 
-* Optimization: changed the way the related information is computed to optimize load times [tiberich #4510]
+ * Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container 
+   [tiberich #4582]
 
-* Bugfix: Fixed maps right widget (countries) [szabozo0 #4510]
+ * Optimization: changed the way the related information is computed to optimize load times [tiberich #4510]
 
-* Change: Fixed the video template to fill slot content-core. Made all the related
-  templates available as viewlets and registered below content body.
+ * Bugfix: Fixed maps right widget (countries) [szabozo0 #4510]
 
-* Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
-  with other JS frameworks [szabozo0 #4542]
+ * Change: Fixed the video template to fill slot content-core. Made all the related
+   templates available as viewlets and registered below content body.
 
-* Change: Design fix, moved the "related multimedia content" from the floating slot in document
-  to the bottom, due to smaller content column width. (will be converted to viewlets)
-  [demarant #4537]
+ * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+   with other JS frameworks [szabozo0 #4542]
 
-* Change: Replace plone 4 default location field with eea.geotags location field [szabozo #4510]
+ * Change: Design fix, moved the "related multimedia content" from the floating slot in document
+   to the bottom, due to smaller content column width. (will be converted to viewlets)
+   [demarant #4537]
 
-* Bugfix: Fixed Images on PressRelease [szabozo0 #4510]
+ * Change: Replace plone 4 default location field with eea.geotags location field [szabozo #4510]
 
-* Change: Removed portlet themes from highlights view since we now use it as viewlet below title [demarant #4206, #4458].
- 
-* Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps [szabozo0 #4446]
+ * Bugfix: Fixed Images on PressRelease [szabozo0 #4510]
 
-* Feature: Added Spotlight promotion type [szabozo0 #4425]
+ * Change: Removed portlet themes from highlights view since we now use it as viewlet below title [demarant #4206, #4458].
+  
+ * Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps [szabozo0 #4446]
 
-* Bug fix: Fixed helpcenter_view template for Products.PloneHelpCenter 4.0 [szabozo0 #4430 #4431]
+ * Feature: Added Spotlight promotion type [szabozo0 #4425]
 
-* Bug fix: Fixed view for Quick Event, EEA Job Vacancy [szabozo0 #4431]
+ * Bug fix: Fixed helpcenter_view template for Products.PloneHelpCenter 4.0 [szabozo0 #4430 #4431]
 
-* Bug fix: Fixed Tooltip for Article and Highlight. Don't forget to reimport the profile [szabozo0 #4431]
+ * Bug fix: Fixed view for Quick Event, EEA Job Vacancy [szabozo0 #4431]
 
-* Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
+ * Bug fix: Fixed Tooltip for Article and Highlight. Don't forget to reimport the profile [szabozo0 #4431]
 
-* TODO: there are a lot of issues to complete the migration, search for "plone4"
+ * Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
 
-* Bug fix: fix swf upload, flash view
+ * TODO: there are a lot of issues to complete the migration, search for "plone4"
 
-* Change: Rename FlashFile to Animation (swf) [szabozo0 #4379]
+ * Bug fix: fix swf upload, flash view
 
-* Feature: Added upgrade steps
-  [voineali #4392]
+ * Change: Rename FlashFile to Animation (swf) [szabozo0 #4379]
 
-* Feature: migrated to Plone 4.0.4
-  [tiberich #4277]
+ * Feature: Added upgrade steps
+   [voineali #4392]
+
+ * Feature: migrated to Plone 4.0.4
+   [tiberich #4277]
 
 
 2.29-dev - (unreleased)
