@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: Enabled resize.js [szabozo0 #4667]
  * Bug fix: added AssessmentPart to list of content types that are displayed as Other related items [tiberich #4629]
  * Bug fix: use dcterms namespace instead of dc in @@rdf view [tiberich #4250] (backport v2.30)
 
