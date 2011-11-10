@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: make document_mediatop_view use standard macros for viewing documents [tiberich #4681]
  * Change: Migrated cft_listing from custom [szabozo0 #4161 #4685]
  * Bug fix: Enabled resize.js [szabozo0 #4667]
  * Bug fix: added AssessmentPart to list of content types that are displayed as Other related items [tiberich #4629]

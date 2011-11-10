@@ -11,10 +11,7 @@
       <metal:content-core define-macro="content-core">
 
         <metal:document use-macro="here/document_macros/macros/document">
-
-
         </metal:document>
-        
 
       </metal:content-core>
     </metal:content-core>
