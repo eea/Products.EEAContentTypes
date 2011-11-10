@@ -10,6 +10,6 @@
 width = context.getWidth()
 height = context.getHeight()
 
-style = "margin: 10%% 0 0 -%spx;" % int(width/2)
+style = "margin: 0 0 0 -%spx;" % int(width/2)
 
 return style
