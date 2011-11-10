@@ -33,8 +33,9 @@
                     item_wf_state        item/review_state|python: wtool.getInfoFor(item, 'review_state', '');
                     item_wf_state_class python:'state-' + normalizeString(item_wf_state);
                     item_creator item/Creator;
-                    item_open item/EffectiveDate/ISO|item/StartDate|nothing;
-                    item_close item/ExpirationDate/ISO|item/EndDate|nothing;
+                    item_open item/EffectiveDate|nothing;
+                    item_close item/ExpirationDate|nothing;
+
                     ">
 
                     <dt metal:define-macro="listitem">
