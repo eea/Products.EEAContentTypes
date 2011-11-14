@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <p>
+      <strong>
+        Action message for <tal:type content="options/type" /> with scheduled publishing date 
+        <tal:date content="python: here.toLocalizedTime(here.getEffectiveDate(), long_format=1) ">date</tal:date>
+      </strong>
+    </p>
+    <h2 tal:content="here/Title">Title</h2>
+    Login at:
+    <a href="" tal:attributes="href options/editUrl"
+      tal:content="options/editUrl">Edit url</a>
+
+    <p tal:content="here/Description">description</p>
+
+    <metal:review use-macro="here/wf_review_history/macros/review_history">Review history</metal:review>
+
+    <p>Regards<br /> EEA Web Team</p>
+  </body>
+</html>

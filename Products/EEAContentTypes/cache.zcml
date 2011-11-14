@@ -1,0 +1,62 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           i18n_domain="Products.EEAContentTypes">
+
+  <subscriber
+      for="eea.promotion.interfaces.IPromoted
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for=".content.Promotion.Promotion
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidateHighlightsCache"
+      />
+
+  <subscriber
+      for=".content.Promotion.Promotion
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+ <subscriber
+      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".cache.invalidateHighlightsCache"
+      />
+
+  <subscriber
+      for="eea.promotion.interfaces.IPromoted
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".cache.invalidatePromotionsCache"
+      />
+
+  <subscriber
+      for="Products.NavigationManager.NavigationItem.NavigationItem
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidateNavigationCache"
+      />
+
+  <subscriber
+      for="Products.NavigationManager.NavigationItem.NavigationItem
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".cache.invalidateNavigationCache"
+      />
+
+  <subscriber
+      for="Products.ATContentTypes.interface.image.IATImage
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".cache.invalidateParentsImageScales"
+      />
+
+  <subscriber handler="lovely.memcached.event.invalidateCache"/>
+
+</configure>
