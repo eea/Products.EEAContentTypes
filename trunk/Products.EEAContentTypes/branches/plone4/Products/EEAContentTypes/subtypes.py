@@ -27,13 +27,13 @@ class BaseContentSchemaExtender(object):
     adapts(IBaseContent)
 
     fields =  [
-            ExtensionGeotagsSinglefield(
+            ExtensionGeotagsMultifield(
                 name='location',
                 schemata='categorization',
                 default='',
                 widget=widget.GeotagsWidget(
-                    label='Location',
-                    description='Single geographical location'
+                    label='Geotags / Locations',
+                    description='Geotags: multiple geographical locations related to this content.'
                     )
                 )
             ]
@@ -43,8 +43,8 @@ class BaseContentSchemaExtender(object):
 
     def getFields(self):
         return self.fields
-
-
+    
+    
 class GeotagMixinEdit(object):
     adapts(IBaseContent)
 
@@ -70,10 +70,10 @@ class GeotagMixinEdit(object):
 
 
 class IGeotagSingleEdit(Interface):
-    """Interface for edit single location"""
+    """Interface for editing single location"""
     geotag = widget.location.GeotagSingleField(
             title = u"Geotag",
-            description=u"The location of the video"
+            description=u"Geotag: a single geographical location for this content."
             )
 
 
@@ -82,11 +82,11 @@ class GeotagSingleEdit(GeotagMixinEdit):
 
 
 class IGeotagMultiEdit(Interface):
-    """Interface for edit multiple locations"""
+    """Interface for editing multiple locations"""
 
     geotag = widget.location.GeotagMultiField(
-            title = u"Geotag",
-            description=u"The locations of the video"
+            title = u"Geotags",
+            description=u"Geotags: multiple geographical locations related to this content."
             )
 
 

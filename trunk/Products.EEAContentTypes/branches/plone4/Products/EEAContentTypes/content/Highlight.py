@@ -62,6 +62,7 @@ for fieldname in getNames(ExternalHighlightSchema):
         field.schemata = 'Front Page'
 
 Highlight_schema['text'].required = True
+Highlight_schema['location'].required = True
 Highlight_schema.moveField('image', before='imageCaption')
 
 
