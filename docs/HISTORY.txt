@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: Added on-error handler to related_multimedia portlet, it 
+   triggers errors in portal_relations view [tiberich #4690]
  * Change: Migrated portlet_center_map from custom [szabozo0 #4165]
  * Change: Migrated flashfileStyle, rssAllowed from custom [szabozo0 #4161 #4685]
  * Bug fix: make document_mediatop_view use standard macros for viewing documents [tiberich #4681]

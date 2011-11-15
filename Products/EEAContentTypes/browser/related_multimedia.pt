@@ -1,6 +1,6 @@
 <dl metal:define-macro="multimedia" id="related-multimedia" class="portlet"
      tal:define="related context/@@document_related"
-    tal:condition="context/@@plone_context_state/is_view_template">
+     tal:condition="context/@@plone_context_state/is_view_template" tal:on-error="nothing">
     <tal:cond tal:condition="related/mediacount">
         <dt class="portletHeader" i18n:translate="">Multimedia</dt>
         <tal:media repeat="media related/top_media">
