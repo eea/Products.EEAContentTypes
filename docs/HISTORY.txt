@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Change: Migrated portlet_center_map from custom [szabozo0 #4165]
  * Change: Migrated flashfileStyle, rssAllowed from custom [szabozo0 #4161 #4685]
  * Bug fix: make document_mediatop_view use standard macros for viewing documents [tiberich #4681]
  * Change: Migrated cft_listing from custom [szabozo0 #4161 #4685]
