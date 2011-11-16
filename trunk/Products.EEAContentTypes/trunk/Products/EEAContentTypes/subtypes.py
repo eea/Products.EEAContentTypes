@@ -22,15 +22,14 @@ class ExtensionGeotagsMultifield(ExtensionField, field.GeotagsLinesField):
 
 
 class BaseContentSchemaExtender(object):
+    """ Extends base schema with extra fields. 
+    To be used for base content class. """
     implements(ISchemaExtender)
-#    adapts(IVideoEnhanced)
-    adapts(IBaseContent)
 
     fields =  [
             ExtensionGeotagsMultifield(
                 name='location',
                 schemata='categorization',
-                default='',
                 widget=widget.GeotagsWidget(
                     label='Geotags / Locations',
                     description='Geotags: multiple geographical locations related to this content.'
@@ -43,8 +42,15 @@ class BaseContentSchemaExtender(object):
 
     def getFields(self):
         return self.fields
-    
-    
+
+class RequiredFieldsExtender(BaseContentSchemaExtender):
+    """ Extends the base schema and sets some fields required. 
+    To be used for certain EEA content types."""
+    def __init__(self, context):
+        self.context = context
+        self.fields[0].required = True
+        
+        
 class GeotagMixinEdit(object):
     adapts(IBaseContent)
 

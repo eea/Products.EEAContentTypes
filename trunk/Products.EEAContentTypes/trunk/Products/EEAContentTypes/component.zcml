@@ -19,8 +19,15 @@
     <adapter factory=".promotion.Promotion" />
 
     <adapter factory=".content.Article.Article2Surf" />
-
-    <adapter name="eea.locationfield" factory=".subtypes.BaseContentSchemaExtender"/>
+    
+    <adapter name="eea.locationfield" 
+	    for="Products.Archetypes.interfaces.IBaseContent" 
+	    factory=".subtypes.BaseContentSchemaExtender"/>
+	    
+    <adapter name="eea.highlightrequiredfields" 
+            for="Products.EEAContentTypes.content.interfaces.IExternalHighlight" 
+	    factory=".subtypes.RequiredFieldsExtender"/>
+	    
     <adapter factory=".subtypes.GeotagSingleEdit"/>
     <adapter factory=".subtypes.GeotagMultiEdit"/>
 
