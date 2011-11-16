@@ -5,7 +5,7 @@
             <property name="title" i18n:translate="">Send as notification</property>
             <property name="description" i18n:translate=""/>
             <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@sendAsNotification</property>
-            <property name="available_expr">python:'Products.ATContentTypes.interface.IATFolder' in object.restrictedTraverse('@@get_interfaces')()</property>
+            <property name="available_expr">python:'Products.Archetypes.interfaces.base.IBaseFolder' in object.restrictedTraverse('@@get_interfaces')()</property>
             <property name="permissions">
                 <element value="Modify portal content"/>
             </property>
