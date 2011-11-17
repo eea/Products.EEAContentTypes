@@ -3,14 +3,15 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.event import ATEvent
 from Products.Archetypes.atapi import Schema, registerType
+from Products.Archetypes.ExtensibleMetadata import ExtensibleMetadata
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from eea.locationwidget.locationwidget import LocationWidget
 from eea.themecentre.interfaces import IThemeTagging
 from interfaces import IQuickEvent
 from zExceptions import NotFound
 import zope.interface
-from eea.locationwidget.locationwidget import LocationWidget
 
 QuickEvent_schema = getattr(ATEvent,'schema',Schema(())).copy() + \
                     getattr(ThemeTaggable, 'schema', Schema(())).copy()
@@ -38,6 +39,12 @@ QuickEvent_schema['location'].widget.description = 'Use the address to " \
         "K, Denmark)</em>'
 QuickEvent_schema['location'].widget.description_msgid = \
         'EEAContentTypes_help_location_event'
+
+
+for field in ExtensibleMetadata.schema.keys() + ['excludeFromNav']:
+    QuickEvent_schema[field].widget.visible = \
+        {'view':'hidden', 'edit':'hidden'}
+
 
 class QuickEvent(ATEvent, ThemeTaggable):
     """ Quick Event content type
