@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: Added missing image scales on the image field for IExternalHighlights [demarant]
  * Change: Made eea geotag required for IExternalHighlight via schemaextender 
    [demarant #4694]
  * Change: Migrated promolink_view from custom [szabozo0 #4161]
