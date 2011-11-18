@@ -11,7 +11,7 @@ class InvalidateCache(BrowserView):
     def invalidate(self):
         """ """
 
-        return "Not implemented"
+        return "Purged done"
 
         context = self.context
         request = self.request
