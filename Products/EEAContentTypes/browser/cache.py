@@ -10,6 +10,9 @@ class InvalidateCache(BrowserView):
 
     def invalidate(self):
         """ """
+
+        return "Not implemented"
+
         context = self.context
         request = self.request
         referer =  request.get('HTTP_REFERER','')
