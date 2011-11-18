@@ -36,13 +36,13 @@ from Products.EEAContentTypes.content.quotation import quotation_schema
 
 ##code-section module-header #fill in your manual code here
 try:
-    from Products.LinguaPlone.public import ( Schema, BaseSchema, 
+    from Products.LinguaPlone.public import ( Schema, BaseSchema,
             BaseContent, registerType)
     Schema, BaseSchema, BaseContent, registerType
 
 except ImportError:
     # No multilingual support
-    from Products.Archetypes.public import ( Schema, BaseSchema, 
+    from Products.Archetypes.public import ( Schema, BaseSchema,
             BaseContent, registerType)
 
 
@@ -63,8 +63,6 @@ PressRelease_schema = BaseSchema.copy() + \
     quotation_schema.copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
-##/code-section after-schema
 
 class PressRelease(Highlight, BaseContent):
     """

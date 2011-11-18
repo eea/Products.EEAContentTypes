@@ -62,4 +62,3 @@ class IInteractiveMap(Interface):
 
 class IInteractiveData(Interface):
     """ Marker interface for all interactive data viewers (ex pivot tables) """
-
