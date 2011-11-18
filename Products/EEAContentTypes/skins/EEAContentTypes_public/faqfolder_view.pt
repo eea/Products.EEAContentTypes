@@ -52,8 +52,8 @@
                 Description.
               </p>
 
-              <dl class="portlet visualNoPrint"
-                  style="float:right; margin: 0 0 1em 1em;"
+              <dl class="portlet visualNoPrint faqSectionsToc"
+                  style="margin: 0 0 1em 1em;"
                   tal:condition="not:noSections">
                 <dt class="portletHeader"
                     i18n:translate="phc_index_sections">Sections</dt>
