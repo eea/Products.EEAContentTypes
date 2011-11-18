@@ -4,6 +4,8 @@ from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
+from archetypes.schemaextender.interfaces import ISchemaModifier
+from eea.themecentre.content.ThemeTaggable import ThemesField
 from eea.geotags import field
 from eea.geotags import widget
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
@@ -19,18 +21,20 @@ from zope.interface import Interface, implements
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import InAndOutWidget
 
+
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
     """ derivative of blobfield for extending schemas """
 
-
 class ExtensionGeotagsMultifield(ExtensionField, field.GeotagsLinesField):
     """ derivative of blobfield for extending schemas """
 
+class ExtensionThemesField(ExtensionField, ThemesField):
+    """ derivative of themesfield for extending schemas """
 
-class BaseContentSchemaExtender(object):
+class LocationSchemaExtender(object):
     """ Extends base schema with extra fields.
     To be used for base content class. """
     implements(ISchemaExtender)
@@ -55,15 +59,62 @@ class BaseContentSchemaExtender(object):
         """
         return self.fields
 
-class RequiredFieldsExtender(BaseContentSchemaExtender):
-    """ Extends the base schema and sets some fields required.
-    To be used for certain EEA content types."""
+class ThemesSchemaExtender(object):
+    """ Extends schema with themes field
+    """
     implements(ISchemaExtender)
 
-    def __init__(self, context):
-        super(RequiredFieldsExtender, self).__init__(context)
-        self.fields[0].required = True
+    fields = [
+        ExtensionThemesField(
+            name='themes',
+            schemata='categorization',
+            validators=('maxValues',),
+            widget=InAndOutWidget(
+                maxValues=3,
+                label="Themes",
+                description="Choose max 3 themes",
+                ),
+            languageIndependent=True,
+            vocabulary_factory=u"Allowed themes for edit",
+        ),
+    ]
 
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Fields
+        """
+        return self.fields
+
+class RequiredSchemaModifier(object):
+    """ Modify schema
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        """ Modify schema
+        """
+        portal_type = getattr(self.context, 'portal_type', '')
+
+        #TODO Move this to zcml
+        if portal_type not in [
+            'Article', 'Highlight', 'PressRelease', 'Speech',
+            'DiversityReport', 'Data', 'EEAFigure', 'EcoTip',
+            'EyewitnessStory', 'GIS Application', 'Document',
+            'PolicyDocumentReference', 'Report', 'SOERKeyFact',
+            'SOERMessage', 'File']:
+            return
+
+        if 'subject' in schema:
+            schema['subject'].required = True
+        if 'location' in schema:
+            schema['location'].required = True
+        if 'themes' in schema:
+            schema['themes'].required = True
 
 class GeotagMixinEdit(object):
     """ Edit
@@ -154,4 +205,3 @@ class TopicVideoContainerDescriptor(BaseTopicVideoContainerDescriptor):
     """ Topic container
     """
     title = _("Video Topic Container")
-

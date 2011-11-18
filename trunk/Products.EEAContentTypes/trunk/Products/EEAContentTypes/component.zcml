@@ -22,23 +22,15 @@
 
   <adapter name="eea.locationfield"
     for="Products.Archetypes.interfaces.IBaseContent"
-    factory=".subtypes.BaseContentSchemaExtender"/>
+    factory=".subtypes.LocationSchemaExtender"/>
 
-  <adapter name="eea.highlightrequiredfields"
-    for="Products.EEAContentTypes.content.interfaces.IExternalHighlight"
-    factory=".subtypes.RequiredFieldsExtender"/>
+  <adapter name="eea.themesfield"
+    for="Products.Archetypes.interfaces.IBaseContent"
+    factory=".subtypes.ThemesSchemaExtender"/>
 
-  <adapter name="eea.countryprofilerequiredfields"
-    for="eea.soer.content.interfaces.IDiversityReport"
-    factory=".subtypes.RequiredFieldsExtender"/>
-
-  <adapter name="eea.datarequiredfields"
-    for="eea.dataservice.interfaces.IDataset"
-    factory=".subtypes.RequiredFieldsExtender"/>
-
-  <adapter name="eea.policydocrequiredfields"
-    for="eea.indicators.content.interfaces.IPolicyDocumentReference"
-    factory=".subtypes.RequiredFieldsExtender"/>
+  <adapter name="eea.requiredfields"
+    for="Products.Archetypes.interfaces.IBaseContent"
+    factory=".subtypes.RequiredSchemaModifier"/>
 
   <adapter factory=".subtypes.GeotagSingleEdit"/>
   <adapter factory=".subtypes.GeotagMultiEdit"/>
