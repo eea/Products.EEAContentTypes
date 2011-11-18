@@ -1,34 +1,46 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:five="http://namespaces.zope.org/five"
-    i18n_domain="eea">
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:five="http://namespaces.zope.org/five"
+  i18n_domain="eea">
 
-    <utility
-        component=".promotion.ThemepageSectionsVocabularyFactory"
-        name="Themepage Promotion Sections"
-        />
+  <utility
+    component=".promotion.ThemepageSectionsVocabularyFactory"
+    name="Themepage Promotion Sections"
+    />
 
-	<adapter factory=".feeds.FeedPortletInfo" />
-	<adapter factory=".feeds.FeedItemPortletInfo" />
-	<adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
-	<adapter factory=".feeds.ContextAwareFeedPortletInfo"
-		provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+  <adapter factory=".feeds.FeedPortletInfo" />
+  <adapter factory=".feeds.FeedItemPortletInfo" />
+  <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
+  <adapter factory=".feeds.ContextAwareFeedPortletInfo"
+    provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
 
-    <adapter factory=".relations.Relations" />
+  <adapter factory=".relations.Relations" />
 
-    <adapter factory=".promotion.Promotion" />
+  <adapter factory=".promotion.Promotion" />
 
-    <adapter factory=".content.Article.Article2Surf" />
-    
-    <adapter name="eea.locationfield" 
-	    for="Products.Archetypes.interfaces.IBaseContent" 
-	    factory=".subtypes.BaseContentSchemaExtender"/>
-	    
-    <adapter name="eea.highlightrequiredfields" 
-            for="Products.EEAContentTypes.content.interfaces.IExternalHighlight" 
-	    factory=".subtypes.RequiredFieldsExtender"/>
-	    
-    <adapter factory=".subtypes.GeotagSingleEdit"/>
-    <adapter factory=".subtypes.GeotagMultiEdit"/>
+  <adapter factory=".content.Article.Article2Surf" />
+
+  <adapter name="eea.locationfield"
+    for="Products.Archetypes.interfaces.IBaseContent"
+    factory=".subtypes.BaseContentSchemaExtender"/>
+
+  <adapter name="eea.highlightrequiredfields"
+    for="Products.EEAContentTypes.content.interfaces.IExternalHighlight"
+    factory=".subtypes.RequiredFieldsExtender"/>
+
+  <adapter name="eea.countryprofilerequiredfields"
+    for="eea.soer.content.interfaces.IDiversityReport"
+    factory=".subtypes.RequiredFieldsExtender"/>
+
+  <adapter name="eea.datarequiredfields"
+    for="eea.dataservice.interfaces.IDataset"
+    factory=".subtypes.RequiredFieldsExtender"/>
+
+  <adapter name="eea.policydocrequiredfields"
+    for="eea.indicators.content.interfaces.IPolicyDocumentReference"
+    factory=".subtypes.RequiredFieldsExtender"/>
+
+  <adapter factory=".subtypes.GeotagSingleEdit"/>
+  <adapter factory=".subtypes.GeotagMultiEdit"/>
 
 </configure>

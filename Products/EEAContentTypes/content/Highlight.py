@@ -38,7 +38,7 @@ from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as ExtHighlightSchema
 from Products.EEAContentTypes.content.interfaces import IExternalHighlight
 from Products.EEAContentTypes.content.quotation import quotation_schema
-from Products.LinguaPlone.public import Schema, registerType 
+from Products.LinguaPlone.public import Schema, registerType
 from eea.themecentre.interfaces import IThemeTagging
 from zope.interface import implements
 
@@ -63,6 +63,7 @@ for fieldname in getNames(ExternalHighlightSchema):
 
 Highlight_schema['text'].required = True
 Highlight_schema['location'].required = True
+Highlight_schema['subject'].required = True
 Highlight_schema.moveField('image', before='imageCaption')
 
 

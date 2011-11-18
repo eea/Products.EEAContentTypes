@@ -63,6 +63,7 @@ schema = Schema((
 
     StringField(
         name='themes',
+        schemata='categorization',
         validators=('maxValues',),
         widget=InAndOutWidget
         (

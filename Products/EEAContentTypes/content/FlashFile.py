@@ -7,6 +7,10 @@ from Products.ATContentTypes.content.file import ATFile
 from Products.validation import V_REQUIRED
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IFlashAnimation
+from Products.EEAContentTypes.content.ThemeTaggable import (
+    ThemeTaggable,
+    ThemeTaggable_schema,
+)
 from Products.Archetypes.utils import contentDispositionHeader
 from Products.Archetypes.atapi import (
     Schema, IntegerField, IntegerWidget, FileWidget,
@@ -87,19 +91,23 @@ schema = Schema((
 ),
 )
 
-FlashFile_schema = getattr(ATFile, 'schema', Schema(())).copy() + schema.copy()
+FlashFile_schema = (getattr(ATFile, 'schema', Schema(())).copy() +
+                    ThemeTaggable_schema.copy() +
+                    schema.copy())
 
-class FlashFile(ATFile):
+FlashFile_schema['themes'].required = True
+FlashFile_schema['subject'].required = True
+FlashFile_schema['location'].required = True
+
+class FlashFile(ATFile, ThemeTaggable):
     """ Flash File content-type
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATFile, '__implements__', ()),)
     implements(IFlashAnimation)
 
 
     # This name appears in the 'add' box
     archetype_name             = 'FlashFile'
-
     meta_type                  = 'FlashFile'
     portal_type                = 'FlashFile'
     allowed_content_types      = [] + list(getattr(ATFile,

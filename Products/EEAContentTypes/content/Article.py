@@ -28,17 +28,17 @@ import sys
 import rdflib
 
 try:
-    from Products.LinguaPlone.public import ( Schema, LinesField, 
+    from Products.LinguaPlone.public import ( Schema, LinesField,
             InAndOutWidget, registerType)
     Schema, LinesField, InAndOutWidget, registerType
 except ImportError:
-    from Products.Archetypes.public import ( Schema, LinesField, 
+    from Products.Archetypes.public import ( Schema, LinesField,
             InAndOutWidget, registerType)
 
 
 schema = Schema((
             LinesField('publication_groups',
-                schemata='relations',
+                schemata='categorization',
                 vocabulary=NamedVocabulary("publications_groups"),
                 languageIndependent=True,
                 index="KeywordIndex:brains",
@@ -65,6 +65,8 @@ for fieldname in getNames(ExtHighlightSchema):
         field.schemata = 'Front Page'
 
 Article_schema['text'].required = True
+Article_schema['subject'].required = True
+Article_schema['relatedItems'].schemata = 'categorization'
 Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 
@@ -132,7 +134,7 @@ class Article2Surf(ATCT2Surf):
                 else:
                     value = context.getMedia()
                 if (value and value != "None") or \
-                        (isinstance(value, basestring) and value.strip()) : 
+                        (isinstance(value, basestring) and value.strip()) :
                     prefix = self.prefix
                     if isinstance(value, (list, tuple)):
                         value = list(value)
