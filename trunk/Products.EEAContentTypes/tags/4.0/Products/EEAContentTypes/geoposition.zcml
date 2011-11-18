@@ -1,0 +1,22 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="eea">
+
+    <!-- Geoposition related -->
+    <subscriber
+        for="* zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        handler=".content.GeoPosition.geopositionEventHandler" />
+
+    <subscriber
+        for="* zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".content.GeoPosition.geopositionEventHandler"   />
+
+    <utility provides=".content.interfaces.IGeoPositionDecider"
+        factory=".content.GeoPosition.GeoPositionDecider" />
+
+    <adapter for=".content.interfaces.IGeoPositioned"
+        provides=".content.interfaces.IGeoPosition"
+        factory=".content.GeoPosition.GeoPositioned" />
+
+</configure>

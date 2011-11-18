@@ -1,0 +1,123 @@
+Related view groups related items in types and categories.
+
+If you related a IVideo, up to 3 of them that can be played inline are grouped 
+in group. Each Video can be categorized and the order in the group is decided
+by the category.
+
+Lets relate a video to the document
+
+  >>> self.portal.manage_delObjects('front-page')
+  >>> doc = self.folder.doc1
+  >>> video = self.folder.video1
+
+  >>> from Products.EEAContentTypes.browser.interfaces import IDocumentRelated
+  >>> from zope.component import getMultiAdapter
+  >>> related = getMultiAdapter((doc, self.portal.REQUEST), name="document_related")
+  >>> len(related.top_media())
+  0
+  >>> related.top_count()
+  0
+
+  >>> feeds = related.feeds()
+  >>> len(feeds)
+  0
+
+There is no page related to this document yet, only video and feed:
+
+  >>> len(related.pages())
+  0
+
+By adding a reference from another document to this one we do get a relation:
+
+  >>> self.folder.backref1.setRelatedItems([doc])
+  >>> related = getMultiAdapter((doc, self.portal.REQUEST), name="document_related")
+  >>> len(related.pages())
+  1
+
+
+Auto related
+============
+
+All contentypes can have a auto related portlet. This portlet displays a list
+of objects of the same type and the same themes.
+
+  >>> self.createObject(self.folder, 'Document', 'doc2')
+  >>> self.createObject(self.folder, 'Document', 'doc3')
+
+Lets tag the documents with same theme
+
+  >>> from Products.CMFCore.utils import getToolByName
+  >>> wf = getToolByName(self.portal, 'portal_workflow')
+
+Lets define a help function for setting theme
+
+  >>> def setThemeAndPublish(dId, publish=True):
+  ...   doc = self.folder[dId]
+  ...   doc.setTitle(dId)
+  ...   taggable = IThemeTagging(doc)
+  ...   taggable.tags = ['water']
+  ...   if publish:
+  ...     if doc.portal_type == 'PressRelease':
+  ...       wf.doActionFor(doc, 'submit')
+  ...     wf.doActionFor(doc, 'publish')
+  ...   doc.reindexObject()
+  ...   return doc
+  
+  >>> from eea.themecentre.interfaces import IThemeTagging, IThemeTaggable
+  >>> for dId in ['doc2', 'doc3']:
+  ...   doc = setThemeAndPublish(dId)
+
+  >>> from Products.EEAContentTypes.browser.related import AutoRelated
+  >>> auto = AutoRelated(doc, self.portal.REQUEST)
+  >>> auto.sameType()[0]['title']
+  'doc2'
+
+Expired objects should not be displayed.
+Now we set the expiration date to yesterday for the auto related document. 
+
+  >>> from DateTime import DateTime
+  >>> self.folder.doc2.setExpirationDate(DateTime()-1)
+  >>> self.folder.doc2.reindexObject()
+  >>> auto = AutoRelated(doc, self.portal.REQUEST)
+  >>> auto.sameType()
+  []
+  
+
+Highlights and press release
+----------------------------
+
+Highlight and press releases are threated the same way in listings and should
+therefor be listed together as autorelated.
+
+  >>> self.createObject(self.folder, 'PressRelease', 'pr1')
+  >>> self.createObject(self.folder, 'PressRelease', 'pr2')
+  >>> self.createObject(self.folder, 'Highlight', 'h1')
+  >>> self.createObject(self.folder, 'Highlight', 'h2')
+
+Lets tag the objects with same theme
+
+  >>> for dId in ['pr1', 'pr2']:
+  ...   pr = setThemeAndPublish(dId)
+
+  >>> auto = AutoRelated(pr, self.portal.REQUEST)
+  >>> [ obj['title'] for obj in auto.sameType() ]
+  ['pr1']
+
+Now let tag a Highlight with the same theme and see if it comes up in the list
+of related:
+  
+  >>> h1 = setThemeAndPublish('h1', publish=False)
+  >>> wf.doActionFor(h1, 'submitContentReview')
+  >>> wf.doActionFor(h1, 'submitProofReading')
+  >>> wf.doActionFor(h1, 'submit')
+  >>> wf.doActionFor(h1, 'publish')            
+
+  >>> auto = AutoRelated(pr, self.portal.REQUEST)
+  >>> [ obj['title'] for obj in auto.sameType() ]
+  ['pr1', 'h1']
+
+And for the highlight we should get the press release as auto related.
+
+  >>> auto = AutoRelated(h1, self.portal.REQUEST)
+  >>> [ obj['title'] for obj in auto.sameType() ]
+  ['pr1', 'pr2']
