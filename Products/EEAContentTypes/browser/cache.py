@@ -1,10 +1,10 @@
 #TODO: redo this stuff with plone.app.caching on plone4 migration
 
-from Acquisition import aq_parent, aq_inner
+#from Acquisition import aq_parent, aq_inner
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from Products.CMFSquidTool.queue import queue
-from Products.CMFPlone import utils
+#from Products.CMFCore.utils import getToolByName
+#from Products.CMFSquidTool.queue import queue
+#from Products.CMFPlone import utils
 
 class InvalidateCache(BrowserView):
 
