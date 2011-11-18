@@ -75,6 +75,9 @@ class Highlight(ExternalHighlight, ATNewsItem):
     archetype_name = 'Highlight'
     schema = Highlight_schema
 
+    schema["publishDate"].widget.visible = False
+    schema["expiryDate"].widget.visible = False
+
     _at_rename_after_creation = True
 
     security = ClassSecurityInfo()
