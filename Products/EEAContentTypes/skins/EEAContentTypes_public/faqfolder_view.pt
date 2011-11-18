@@ -80,7 +80,7 @@
                 </a>
               </div>
 
-              <div tal:repeat="section sections">
+              <div class="faqSection" tal:repeat="section sections">
 
 
                 <h2 tal:condition="not:noSections">
