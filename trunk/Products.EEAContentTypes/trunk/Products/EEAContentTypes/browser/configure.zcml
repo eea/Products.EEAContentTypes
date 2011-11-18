@@ -62,13 +62,13 @@
         attribute="validate"
         />
 
-    <!--<browser:page-->
-        <!--for="*"-->
-        <!--name="invalidate_cache"-->    TODO: enable when migrating to plone4
-        <!--permission="zope.Public"-->
-        <!--class=".cache.InvalidateCache"-->
-        <!--attribute="invalidate"-->
-        <!--/>-->
+    <browser:page
+        for="*"
+        name="invalidate_cache"
+        permission="zope.Public"
+        class=".cache.InvalidateCache"
+        attribute="invalidate"
+        />
 
     <browser:page
         for="*"
