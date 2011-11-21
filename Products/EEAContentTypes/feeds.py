@@ -245,3 +245,5 @@ class TopicFeed(FolderFeed):
 
         return list(itertools.islice(slice(), self.getMaxEntries()))
 
+    def getModifiedDate(self):
+        return DateTime(self.modifiedDate)
