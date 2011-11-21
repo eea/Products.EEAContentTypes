@@ -1,3 +1,14 @@
+## Script (Python) "rssAllowed"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=site=False
+##title=RSS Allowed
+
+
+
 # this is a replacement for the old syndication allowed option
 # in this case we don't bother getting syndication on each folder
 # we just check globally

@@ -3,6 +3,7 @@ Changelog
 
 4.1-dev - (unreleased)
 ----------------------
+ * Bug fix: added header for rssAllowed script [tiberich #4738]
 
 4.0 - (2011-11-18)
 ------------------
