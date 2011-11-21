@@ -42,7 +42,8 @@ class SubmitForWebQAGuard(object):
             if portal_type in self.needContentReview:
                 wf = getToolByName(context, 'portal_workflow')
                 history = [ h['action'] for
-                            h in wf.getInfoFor(context, 'review_history', None) ]
+                            h in wf.getInfoFor(context,
+                                               'review_history', None) ]
                 return 'submitContentReview' in history
             return True
         return False
@@ -116,7 +117,8 @@ class QuickPublish(object):
 
 
 class LocalRoleEmails(object):
-
+    """ Email
+    """
     implements(ILocalRoleEmails)
     adapts(Interface)
 
@@ -149,6 +151,8 @@ class LocalRoleEmails(object):
         self._parseRoles(self.getGlobalRoles())
 
     def _parseRoles(self, roles):
+        """ Roles
+        """
         context = self.context
         mtool = context.portal_membership
         gtool = getToolByName(context, 'portal_groups')
@@ -238,6 +242,8 @@ class LocalRoleEmails(object):
         return tuple(result)
 
     def getGlobalRoles(self):
+        """ Global roles
+        """
         context = self.context
         groups_tool = getToolByName(context, 'portal_groups')
         members_tool = getToolByName(context, 'portal_membership')
@@ -247,20 +253,23 @@ class LocalRoleEmails(object):
             roles = [ role for role in member.getRoles()
                            if role not in takenRoles ]
             if roles:
-                retlist.append((member.getUserName(), roles, 'user', member.getUserId()))
+                retlist.append((member.getUserName(), roles,
+                                'user', member.getUserId()))
 
         for grpId in groups_tool.getGroupIds():
             group = groups_tool.getGroupById(grpId)
             roles = [ role2 for role2 in group.getRoles()
                            if role2 not in takenRoles ]
             if roles:
-                retlist.append((group.getGroupName(), roles, 'group', group.getGroupName()))
+                retlist.append((group.getGroupName(), roles,
+                                'group', group.getGroupName()))
 
         return retlist
 
 
 class WorkflowEmails(object):
-
+    """ Workflow emails
+    """
     implements(IWorkflowEmails)
     adapts(Interface)
 
@@ -273,6 +282,8 @@ class WorkflowEmails(object):
         self.confirmation = []
 
     def _getEmails(self, actionRole):
+        """ Emails
+        """
         context = self.context
         local = ILocalRoleEmails(context)
         self.action = local.emails.get(actionRole, [])
@@ -290,6 +301,8 @@ class WorkflowEmails(object):
 
     @property
     def sender(self):
+        """ Sender
+        """
         portal = self.context.portal_url.getPortalObject()
         mt = getToolByName(self.context, 'portal_membership')
         member = mt.getAuthenticatedMember()
@@ -310,21 +323,24 @@ class WorkflowEmails(object):
 # from the actual workflow object roles guard. This way we skip hardcoded values
 # and we can reuse the workflow sendemail logic for all workflows.
 class WorkflowActionReviewer(WorkflowEmails):
-
+    """ Action reviewer
+    """
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Reviewer')
 
 
 class WorkflowActionProofReader(WorkflowEmails):
-
+    """ Proof reader
+    """
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ProofReader')
 
 
 class WorkflowActionWebReviewer(WorkflowEmails):
-
+    """ Web reviewer
+    """
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('WebReviewer')
@@ -351,4 +367,3 @@ class WorkflowConfirmation(WorkflowEmails):
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('')
-

@@ -1,6 +1,8 @@
+""" URL
+"""
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
-from interfaces import IURL
+from Products.EEAContentTypes.browser.interfaces import IURL
 
 class URL(object):
     """ This adapter is frequently used in templates to get the url of an
@@ -16,6 +18,8 @@ class URL(object):
         self._external = False
 
     def listing_url(self, brain=None):
+        """ Listing
+        """
         #mship = getToolByName(self.context, 'portal_membership')
 
         if brain is None:
@@ -39,9 +43,12 @@ class URL(object):
             return self.object_url(brain=brain)
 
     def object_url(self, brain=None):
+        """ Object URL
+        """
         portal_props = getToolByName(self.context, 'portal_properties')
         site_props = getattr(portal_props, 'site_properties')
-        use_view_action = getattr(site_props, 'typesUseViewActionInListings', [])
+        use_view_action = getattr(site_props,
+                                  'typesUseViewActionInListings', [])
         self._external = False
 
         if brain is None:
@@ -61,14 +68,19 @@ class URL(object):
                 return brain.getURL()
 
     def is_external(self):
+        """ External
+        """
         return self._external
 
     def css_class(self):
+        """ CSS
+        """
         return ''
 
 
 class MultimediaURL(object):
-
+    """ Multimedia
+    """
     implements(IURL)
 
     def __init__(self, context, request):
@@ -76,14 +88,23 @@ class MultimediaURL(object):
         self.request = request
 
     def listing_url(self, brain=None):
+        """ Listing
+        """
         return self.context.absolute_url() + '/view'
 
     def object_url(self, brain=None):
+        """ Object URL
+        """
         return self.listing_url(brain)
 
     def is_external(self):
+        """ External
+        """
         return False
 
     def css_class(self):
-        return 'video-fancybox' if self.context.portal_type != 'FlashFile' \
-                                                    else 'animation-fancybox'
+        """ CSS
+        """
+        return ('video-fancybox'
+                if self.context.portal_type != 'FlashFile'
+                else 'animation-fancybox')

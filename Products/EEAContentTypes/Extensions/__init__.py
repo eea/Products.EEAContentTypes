@@ -1,1 +1,2 @@
-# make me a python module
+""" make me a python module
+"""

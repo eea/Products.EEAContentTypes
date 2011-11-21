@@ -1,3 +1,5 @@
+""" Cache
+"""
 #TODO: redo this stuff with plone.app.caching on plone4 migration
 
 #from Acquisition import aq_parent, aq_inner
@@ -7,9 +9,10 @@ from Products.Five.browser import BrowserView
 #from Products.CMFPlone import utils
 
 class InvalidateCache(BrowserView):
-
+    """ Invalidate cache
+    """
     def invalidate(self):
-        """ """
+        """ Invalidate """
 
         return "Purged done"
 

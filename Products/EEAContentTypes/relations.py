@@ -1,3 +1,5 @@
+""" Relations
+"""
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts, queryAdapter
 from zope.interface import implements, Interface
@@ -10,6 +12,8 @@ from Products.EEAContentTypes.interfaces import IRelations
 from p4a.video.interfaces import IVideoEnhanced
 
 class Relations(object):
+    """ Relations
+    """
     implements(IRelations)
     adapts(Interface)
 
@@ -17,6 +21,8 @@ class Relations(object):
         self.context = context
 
     def all(self, portal_type=None, constraints=None):
+        """ All
+        """
         forwards = self.forwardReferences()
         backs = self.backReferences()
         themes = self.byTheme(portal_type=portal_type,
@@ -33,6 +39,8 @@ class Relations(object):
         return result
 
     def backReferences(self, portal_type=None, relatesTo='relatesTo'):
+        """ Back
+        """
         backs = self.context.getBRefs(relatesTo)
         refs = self._checkPermissions(backs)
         mylangrefs = self._filterByLanguage(refs)
@@ -41,6 +49,8 @@ class Relations(object):
         return mylangrefs
 
     def forwardReferences(self, portal_type=None):
+        """ Forward
+        """
         forwards = self.context.getRelatedItems()
         refs = self._checkPermissions(forwards)
         mylangrefs = self._filterByLanguage(refs)
@@ -49,6 +59,8 @@ class Relations(object):
         return mylangrefs
 
     def autoContextReferences(self, portal_type=None):
+        """ Auto
+        """
         refs = IRelations(self.context).backReferences(portal_type)
         for i in refs:
             refs += IRelations(i).forwardReferences(portal_type)
@@ -61,6 +73,8 @@ class Relations(object):
         return ret
 
     def references(self):
+        """ References
+        """
         backs = self.backReferences()
         forwards = self.forwardReferences()
 
@@ -73,6 +87,8 @@ class Relations(object):
 
     def getItems(self, portal_type=None, getBrains=False,
                 considerDeprecated=True, constraints=None, theme=None):
+        """ Items
+        """
         catalog = getToolByName(self.context, 'portal_catalog')
 
         query = { 'sort_on': 'effective',
@@ -95,7 +111,8 @@ class Relations(object):
             if portal_type in ['Highlight', 'PressRelease']:
                 portal_type = ['Highlight', 'PressRelease']
 
-            elif portal_type == 'File' and IVideoEnhanced.providedBy(self.context):
+            elif (portal_type == 'File' and
+                  IVideoEnhanced.providedBy(self.context)):
                 query['object_provides'] = 'p4a.video.interfaces.IVideoEnhanced'
 
             query['portal_type'] = portal_type
@@ -107,10 +124,13 @@ class Relations(object):
         if getBrains:
             return [brain for brain in brains if brain.getPath() != contextPath]
         else:
-            return [brain.getObject() for brain in brains if brain.getPath() != contextPath]
+            return [brain.getObject() for
+                    brain in brains if brain.getPath() != contextPath]
 
     def byTheme(self, portal_type=None, getBrains=False,
                 considerDeprecated=True, constraints=None):
+        """ By theme
+        """
         theme = queryAdapter(self.context, IThemeTagging)
         if theme is None:
             # not theme taggable
@@ -120,6 +140,8 @@ class Relations(object):
 
     def byPublicationGroup(self, samePortalType=True, getBrains=False,
                            constraints=None):
+        """ By publication group
+        """
         context = self.context
         if not hasattr(context, 'getPublication_groups'):
             return []
@@ -149,10 +171,13 @@ class Relations(object):
         if getBrains:
             return [brain for brain in brains if brain.getPath() != contextPath]
         else:
-            return [brain.getObject() for brain in brains if brain.getPath() != contextPath]
+            return [brain.getObject() for
+                    brain in brains if brain.getPath() != contextPath]
 
 
     def _checkPermissions(self, references):
+        """ Check permissions
+        """
         result = []
         mtool = getToolByName(self.context, 'portal_membership')
 
@@ -167,9 +192,9 @@ class Relations(object):
 
         return result
 
-
-
     def _filterByLanguage(self, references):
+        """ Filter by language
+        """
         result = []
         lang = self.context.getLanguage()
 
@@ -183,4 +208,3 @@ class Relations(object):
                     result.append(obj)
 
         return result
-

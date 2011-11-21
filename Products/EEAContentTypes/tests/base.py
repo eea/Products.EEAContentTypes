@@ -13,7 +13,7 @@ from re import match
 
 PRODUCTS = [
         'kupu',
-        'ATVocabularyManager', 
+        'ATVocabularyManager',
         'EEAContentTypes',
         ##'valentine.linguaflow', 'valentine.imagescales', 'LinguaPlone',
         'EEAPloneAdmin'
@@ -80,15 +80,21 @@ class EEAContentTypeTestCase(PloneTestCase.PloneTestCase):
     """Base TestCase for EEAContentTypes."""
 
     def setRequestMethod(self, method):
+        """ Request method
+        """
         self.app.REQUEST.set('REQUEST_METHOD', method)
         self.app.REQUEST.method = method
 
     def getAuthenticator(self):
+        """ Authenticator getter
+        """
         tag = AuthenticatorView('context', 'request').authenticator()
         pattern = '<input .*name="(\w+)".*value="(\w+)"'
         return match(pattern, tag).groups()
 
     def setupAuthenticator(self):
+        """ Authenticator setter
+        """
         name, token = self.getAuthenticator()
         self.app.REQUEST.form[name] = token
 

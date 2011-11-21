@@ -1,3 +1,5 @@
+""" Image scale
+"""
 from zope.interface import implements
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser import BrowserView
@@ -6,12 +8,12 @@ from valentine.imagescales.browser import atfield, atfolder
 
 
 class ImageView(BrowserView):
+    """ This adapter is for EEA content types have two ways of storing
+    thumbnails.
 
-    """This adapter is for EEA content types have two ways of storing thumbnails.
-
-    First we try to use the standard ATField adapter which looks for a file in the
-    an image field. If that fails, we fall back to the folder adapter which looks for
-    the first image in the folder.
+    First we try to use the standard ATField adapter which looks for a file
+    in the an image field. If that fails, we fall back to the folder adapter
+    which looks for the first image in the folder.
     """
 
     implements(IImageView)
@@ -22,6 +24,8 @@ class ImageView(BrowserView):
         self.img2 = atfolder.FolderImageView(self.context, self.request)
 
     def display(self, scalename='thumb'):
+        """ Display
+        """
         return self.img1.display(scalename) or self.img2.display(scalename)
 
     def __call__(self, scalename='thumb'):

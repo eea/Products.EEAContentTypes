@@ -1,3 +1,5 @@
+""" Fixes
+"""
 from Products.CMFPlone.utils import getToolByName
 import cPickle
 import transaction
@@ -7,6 +9,8 @@ logger = logging.getLogger("Migration fix")
 
 
 def write_folder_order(self):
+    """ Write folder order
+    """
     catalog = getToolByName(self, "portal_catalog")
 
     ttool = getToolByName(self, 'portal_types')
@@ -43,7 +47,8 @@ def write_folder_order(self):
 
 
 def read_folder_order(self):
-
+    """ Folder order
+    """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
     def getCMFObjectsSubsetIds(objs):
@@ -73,8 +78,8 @@ def read_folder_order(self):
             if parent == None:
                 logger.info("Could not get path: %s" % path)
                 continue
-                
-        except:
+
+        except Exception:
             logger.info("Could not get path: %s" % path)
             continue
 
@@ -89,13 +94,14 @@ def read_folder_order(self):
             obj = parent[oid]
             try:
                 obj.reindexObject()
-            except:
-                pass
+            except Exception, err:
+                logger.debug(err)
+                continue
 
         try:
             parent.reindexObject()
-        except:
-            pass
+        except Exception, err:
+            logger.debug(err)
 
         transaction.commit()
 
@@ -104,6 +110,8 @@ def read_folder_order(self):
     return "Done import"
 
 def get_order(self):
+    """ Order
+    """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
     def getCMFObjectsSubsetIds(objs):
@@ -116,6 +124,8 @@ def get_order(self):
 
 
 def get_order_contents(self):
+    """ Order contents
+    """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
     def getCMFObjectsSubsetIds(objs):

@@ -1,3 +1,5 @@
+""" Schema extender
+"""
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from zope.interface import implements
 
@@ -11,5 +13,7 @@ class RelatedItemsModifier(object):
         self.context = context
 
     def fiddle(self, schema):
+        """ Modify schema
+        """
         schema['relatedItems'].keepReferencesOnCopy = True
         return schema

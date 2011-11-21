@@ -99,6 +99,8 @@ class GeoPositionDecider(object):
     ifaces = (IGeoPositioned,)
 
     def matchLocation(self, obj):
+        """ Match location
+        """
         geodata = None
         location = getattr(obj, 'location', None)
         if not location:
@@ -106,20 +108,28 @@ class GeoPositionDecider(object):
 
         #get service keys
         service_keys = {}
-        portal_properties = getToolByName(obj, 'portal_properties')
-        geo_properties = getattr(portal_properties, 'geographical_properties', None)
+        portal_properties = getToolByName(obj,
+                                          'portal_properties')
+        geo_properties = getattr(portal_properties,
+                                 'geographical_properties', None)
         if not geo_properties:
             return geodata
 
-        service_keys['google_key'] = geo_properties.getProperty('google_key', '')
-        service_keys['yahoo_key'] = geo_properties.getProperty('yahoo_key', '')
-        service_keys['mapquest_key'] = geo_properties.getProperty('mapquest_key', '')
-        geocoding_to_use = geo_properties.getProperty('geocoding_service_priority', [])
+        service_keys['google_key'] = geo_properties.getProperty(
+            'google_key', '')
+        service_keys['yahoo_key'] = geo_properties.getProperty(
+            'yahoo_key', '')
+        service_keys['mapquest_key'] = geo_properties.getProperty(
+            'mapquest_key', '')
+        geocoding_to_use = geo_properties.getProperty(
+            'geocoding_service_priority', [])
 
         geodata = geocodeLocation(location, service_keys, geocoding_to_use)
         return geodata
 
     def provideInterfaces(self, obj, geodata):
+        """ Provide interfaces
+        """
         for iface in self.ifaces:
             if not iface.providedBy(obj):
                 alsoProvides(obj, iface)
@@ -129,6 +139,8 @@ class GeoPositionDecider(object):
             geoevent.setCountryCode(geodata[2])
 
     def run(self, obj):
+        """ Run
+        """
         geodata = self.matchLocation(obj)
         if geodata:
             self.provideInterfaces(obj, geodata)
@@ -138,7 +150,7 @@ class GeoPositionDecider(object):
                     directlyProvides(obj, directlyProvidedBy(obj)-iface)
 
 def geopositionEventHandler(obj, event):
-    """ """
+    """ Event handler """
     decider = getUtility(IGeoPositionDecider, context=obj)
     decider.run(obj)
 
@@ -148,19 +160,21 @@ def geopositionEventHandler(obj, event):
 #
 
 def geocodeLocation(location, service_keys, services):
-    """ """
+    """ Geocode location """
     #TODO: maybe to add http://maps.live.com geocoding service too
 
     for service in services:
         if service.find('Google') != -1:
             geoGoogle = geocodeGoogle(location, service_keys)
-            if geoGoogle: return geoGoogle
+            if geoGoogle:
+                return geoGoogle
 
         if service.find('Yahoo') != -1:
             geoYahoo = geocodeYahoo(location, service_keys)
-            if geoYahoo: return geoYahoo
+            if geoYahoo:
+                return geoYahoo
 
-        #TODO: adapt Mapquest service to work only with address (now is disabled)
+        #TODO: adapt Mapquest service to work only with address. Now is disabled
         if service.find('Mapquest') != -1:
             pass
             #geoMapquest = geocodeMapquest(location, service_keys)
@@ -181,7 +195,8 @@ def geocodeGoogleCSV(location, service_keys):
     params = {'output': 'csv',
               'q'     : location,
               'key'   : service_keys['google_key']}
-    u = urllib.urlopen("http://maps.google.com/maps/geo?%s" % urllib.urlencode(params))
+    u = urllib.urlopen(
+        "http://maps.google.com/maps/geo?%s" % urllib.urlencode(params))
     gbuffer = u.read()
     try:
         control_code, _acc, latitude, longitude = str(gbuffer).split(',')
@@ -203,18 +218,22 @@ def geocodeGoogleXML(location, service_keys):
                   'key'   : service_keys['google_key']}
 
         # parse the xml contents of the url into a dom
-        dom = parse(urllib.urlopen("http://maps.google.com/maps/geo?%s" % urllib.urlencode(params)))
+        dom = parse(urllib.urlopen(
+            "http://maps.google.com/maps/geo?%s" % urllib.urlencode(params)))
         results = dom.getElementsByTagName('Response')
         #result_count = len(results)
         for result in results:
             for mark in result.getElementsByTagName('Placemark'):
-                geoInfo = mark.childNodes[2].childNodes[0].childNodes[0].nodeValue.split(',')
+                geoInfo = mark.childNodes[
+                    2].childNodes[0].childNodes[0].nodeValue.split(',')
                 lat = geoInfo[1]
                 longitude = geoInfo[0]
 
-                cc = mark.childNodes[1].childNodes[0].childNodes[0].childNodes[0].nodeValue
+                cc = mark.childNodes[
+                    1].childNodes[0].childNodes[0].childNodes[0].nodeValue
 
-        res = (lat.encode('utf-8'), longitude.encode('utf-8'), cc.encode('utf-8'))
+        res = (lat.encode('utf-8'), longitude.encode('utf-8'),
+               cc.encode('utf-8'))
     except Exception:
         res = None
     return res
@@ -227,11 +246,14 @@ def geocodeYahoo(location, service_keys):
                   'location': location.encode('utf-8')}
 
         # parse the xml contents of the url into a dom
-        dom = parse(urllib.urlopen("http://api.local.yahoo.com/MapsService/V1/geocode?%s" % urllib.urlencode(params)))
+        dom = parse(urllib.urlopen(
+            "http://api.local.yahoo.com/MapsService/V1/geocode?%s" %
+            urllib.urlencode(params)))
         results = dom.getElementsByTagName('Result')
         #result_count = len(results)
         for result in results:
-            d = {'precision': result.getAttribute('precision'), 'warning': result.getAttribute('warning')}
+            d = {'precision': result.getAttribute('precision'),
+                 'warning': result.getAttribute('warning')}
             for itm in result.childNodes:
                 # if precision is zip, Address childNode will not exist
                 if itm.childNodes:
@@ -240,7 +262,8 @@ def geocodeYahoo(location, service_keys):
                     d[itm.nodeName] = ''
             addresses.append(d)
         addr = addresses[0] #take the first one, it should be the good one
-        res = (addr['Latitude'].encode('utf-8'), addr['Longitude'].encode('utf-8'), addr['Country'].encode('utf-8'))
+        res = (addr['Latitude'].encode('utf-8'), addr['Longitude'].encode(
+            'utf-8'), addr['Country'].encode('utf-8'))
     except Exception:
         res = None
     return res
@@ -254,7 +277,8 @@ def geocodeMapquest(location, service_keys):
              'country':'',
              'key': service_keys['mapquest_key']}
     try:
-        url = 'http://web.openapi.mapquest.com/oapi/transaction?' % urllib.urlencode(parms)
+        url = ('http://web.openapi.mapquest.com/oapi/transaction?' %
+               urllib.urlencode(parms))
         dom = parse(urllib.urlopen(url))
         results = dom.getElementsByTagName('geocode')
         #result_count = len(results)

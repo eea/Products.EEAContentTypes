@@ -1,31 +1,37 @@
+""" Interfaces
+"""
 from zope.interface import Interface, Attribute
 from p4a.video.interfaces import IVideoEnhanced
 from Products.ATContentTypes.interface.news import IATNewsItem
 from Products.ATContentTypes.interface.folder import IATFolder
 
 class ICFTRequestor(Interface):
-    pass
+    """ CFT Requestor
+    """
 
 class ICallForTender(Interface):
-    pass
+    """ Call for tenders
+    """
 
 class IQuickEvent(Interface):
-    pass
+    """ Quick event
+    """
 
 class IGeoPositionDecider(Interface):
-    """ """
+    """ Geo position decider
+    """
 
     def matchLocation(obj):
-        """ """
+        """ Match location """
 
     def provideInterfaces(obj):
-        """ """
+        """ Provide interfaces """
 
     def run(obj):
-        """ """
+        """ Run """
 
 class IGeoPositioned(Interface):
-    """ """
+    """ Geo positioned """
 
 class IGeoPosition(Interface):
     """ Geographic coordinates. """
@@ -41,24 +47,31 @@ class IGeoPosition(Interface):
 
 
 class IFlashAnimation(IVideoEnhanced):
+    """ Flash animation
+    """
     width = Attribute("width of flash file")
     height = Attribute("height of flash file")
     bgcolor = Attribute("background color of flash file")
 
 
 class IArticle(IATNewsItem, IATFolder):
-    pass
+    """ Article
+    """
 
 
 class IExternalHighlight(IATNewsItem, IATFolder):
-    pass
+    """ External highlight
+    """
 
 
 class IExternalPromotion(IATNewsItem):
-    pass
+    """ External Promotion
+    """
 
 class IInteractiveMap(Interface):
-    """ Marker interface for all interactive maps content """
+    """ Marker interface for all interactive maps content
+    """
 
 class IInteractiveData(Interface):
-    """ Marker interface for all interactive data viewers (ex pivot tables) """
+    """ Marker interface for all interactive data viewers (ex pivot tables)
+    """

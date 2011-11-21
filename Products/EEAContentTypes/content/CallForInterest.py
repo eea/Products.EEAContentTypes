@@ -1,44 +1,11 @@
 """ CallForInterest """
-
-# -*- coding: utf-8 -*-
-#
-# File: CallForInterest.py
-#
-# Copyright (c) 2006 by []
-# Generator: ArchGenXML Version 1.5.1-svn
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
-#
-
-__author__ = """unknown <unknown>"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import (Schema, StringField, StringWidget,
        DateTimeField, CalendarWidget, registerType)
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
 from Products.EEAContentTypes.config import PROJECTNAME
-
-##code-section module-header #fill in your manual code here
 from Products.CMFCore.permissions import View
-##/code-section module-header
 
 schema = Schema((
 
@@ -85,21 +52,14 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 CallForInterest_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
     getattr(ATDocument, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
-##/code-section after-schema
-
 class CallForInterest(ATFolder, ATDocument):
-    """
+    """ Call for interest
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATFolder, '__implements__', ()),) + (getattr(ATDocument, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'CallForInterest'
@@ -122,40 +82,38 @@ class CallForInterest(ATFolder, ATDocument):
 
     schema = CallForInterest_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
-
     security.declareProtected(View, 'getText')
     def getText(self):
+        """ Text
+        """
         return self.getField('text').get(self)
 
     security.declareProtected(View, 'CookedBody')
     def CookedBody(self, stx_level='ignored'):
+        """ Body
+        """
         return self.getText()
 
     def setOpenDate(self, value):
+        """ Open date setter
+        """
         self.setEffectiveDate(value)
 
     def setCloseDate(self, value):
+        """ Closed date setter
+        """
         self.setExpirationDate(value)
 
     def setEffectiveDate(self, value):
+        """ Effective date setter
+        """
         self.getField('effectiveDate').set(self, value)
         return self.getField('openDate').set(self, value)
 
     def setExpirationDate(self, value):
+        """ Expiration date setter
+        """
         self.getField('expirationDate').set(self, value)
         return self.getField('closeDate').set(self, value)
 
 registerType(CallForInterest, PROJECTNAME)
-# end of class CallForInterest
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-

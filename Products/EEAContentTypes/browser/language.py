@@ -1,13 +1,17 @@
+""" Language
+"""
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.PloneLanguageTool.interfaces import ITranslatable
-from interfaces import ILanguages
+from Products.EEAContentTypes.browser.interfaces import ILanguages
 from plone.memoize.ram import cache
 import zope.interface
 
 def cacheKey(method, self):
+    """ Cache key
+    """
     request = self.request
     return (method.__name__, request.get('LANGUAGE', 'en'))
 
@@ -20,14 +24,20 @@ class Languages(BrowserView):
     zope.interface.implements(ILanguages)
 
     def getTranslationLanguages(self):
+        """ Languages
+        """
         pl = getToolByName(self.context, 'portal_languages')
         site_languages = pl.listSupportedLanguages()
         site_languages.sort()
         return site_languages
 
     def getTranslatedSitesLanguages(self):
+        """ Site languages
+        """
         languages = self.getTranslationLanguages()
         def _cmp(a, b):
+            """ Compare
+            """
             cmp_one = a[1]
             cmp_two = b[1]
             if a[0] == 'bg':
@@ -54,6 +64,8 @@ class Languages(BrowserView):
 
     @cache(cacheKey)
     def getLocalSites(self):
+        """ Local sites
+        """
         languages = self.getTranslatedSitesLanguages()
         sites = []
         portal_url = getToolByName(self.context, 'portal_url')
@@ -73,9 +85,13 @@ class Languages(BrowserView):
 
 
 class LanguageSelectorData(BrowserView):
-    """ VIEWified languageSelectorData.py from LinguaPlone/skins/ so we can test it """
+    """ VIEWified languageSelectorData.py from LinguaPlone/skins/
+        so we can test it
+    """
 
     def data(self):
+        """ Data
+        """
         context = self.context
         results = []
         putils = getToolByName(self.context, 'plone_utils')

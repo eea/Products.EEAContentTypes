@@ -1,3 +1,5 @@
+""" Resolve UID
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import ITransform
 from Products.kupu.plone.config import UID_PATTERN
@@ -5,7 +7,8 @@ from zope.interface import implements
 
 
 class TranslationResolveUid:
-    """ Resolves uid in resolveuid/UID links and tries to get the translation. """
+    """ Resolves uid in resolveuid/UID links and tries to get the translation.
+    """
 
     implements(ITransform)
 
@@ -15,13 +18,16 @@ class TranslationResolveUid:
 
     def __init__(self, name=None):
         self.config_metadata = {
-            'inputs' : ('list', 'Inputs', 'Input(s) MIME type. Change with care.'),
+            'inputs' : ('list', 'Inputs',
+                        'Input(s) MIME type. Change with care.'),
             }
         if name:
             self.__name__ = name
 
 
     def name(self):
+        """ Name
+        """
         return self.__name__
 
     def __getattr__(self, attr):
@@ -33,8 +39,8 @@ class TranslationResolveUid:
 
     def resolveuid(self, context, reference_catalog, uid):
         """Convert a uid to an object by looking it up in the reference catalog.
-        If not found then tries to fallback to a possible hook (e.g. so you could
-        resolve uids on another system).
+        If not found then tries to fallback to a possible hook (e.g.
+        so you could resolve uids on another system).
         """
         target = reference_catalog.lookupObject(uid)
         if target is not None:
@@ -46,33 +52,39 @@ class TranslationResolveUid:
         hook = getattr(context, 'kupu_resolveuid_hook', None)
         if hook is not None:
             target = hook(uid)
-        
+
         return target
 
 
 
     def convert(self, orig, data, **kwargs):
+        """ Convert
+        """
         context = kwargs.get('context', None)
         if context is not None:
             rc = getToolByName(context, 'reference_catalog')
 
             def replaceUids(match):
+                """ Replace UIDs
+                """
                 tag = match.group('tag')
                 uid = match.group('uid')
                 target = self.resolveuid(context, rc, uid)
                 if target is not None:
                     #is_empty = False
-                    if hasattr(target, 'isCanonical') and not target.isCanonical():
+                    if (hasattr(target, 'isCanonical') and
+                        not target.isCanonical()):
                         cat = getToolByName(context, 'portal_catalog')
                         rid = cat.getrid('/'.join(target.getPhysicalPath()))
                         metadata = cat.getMetadataForRID(rid)
                         if metadata and metadata.get('is_empty', False):
-                            return tag + target.absolute_url_path() + '/not_available_lang'
+                            return (tag + target.absolute_url_path() +
+                                    '/not_available_lang')
                     try:
                         url = target.getRemoteUrl()
                     except AttributeError:
                         url = target.absolute_url_path()
-                    
+
                     return tag + url
 
                 return match.group(0)
@@ -83,4 +95,6 @@ class TranslationResolveUid:
         return data
 
 def register():
+    """ Register
+    """
     return TranslationResolveUid()

@@ -1,3 +1,5 @@
+""" Related
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import IFeedPortletInfo, IRelations
 from Products.Five.browser import BrowserView
@@ -8,11 +10,16 @@ from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
 from eea.themecentre.interfaces import IThemeMoreLink
 from eea.themecentre.interfaces import IThemeTagging
 from eea.translations import _
-from interfaces import IDocumentRelated, IAutoRelated
+from Products.EEAContentTypes.browser.interfaces import (
+    IDocumentRelated, IAutoRelated
+)
 from p4a.video.interfaces import IMediaPlayer, IVideo
 from p4a.video.interfaces import IVideoEnhanced
 from zope.schema.interfaces import IVocabularyFactory
-from zope.component import queryAdapter, getUtility, getMultiAdapter, queryMultiAdapter
+from zope.component import (
+    queryAdapter, getUtility,
+    getMultiAdapter, queryMultiAdapter
+)
 from zope.interface import implements
 
 
@@ -20,6 +27,8 @@ TOP_VIDEOS = 3
 MEDIA_ORDER = ['video']
 
 def getObjectInfo(item, request):
+    """ Object info
+    """
     plone_utils = getToolByName(item, 'plone_utils')
     wf_tool = getToolByName(item, 'portal_workflow')
     state = getMultiAdapter((item, request), name="plone_context_state")
@@ -47,17 +56,20 @@ def getObjectInfo(item, request):
     return info
 
 def getBrainInfo(brain, plone_utils):
-
+    """ Brain info
+    """
     info = { 'title': brain.Title,
              'brain':brain,
              'uid': brain.UID,
              'description': brain.Description,
              'absolute_url': brain.getURL(),
-             'is_video': "p4a.video.interfaces.IVideoEnhanced" in brain.object_provides,
+             'is_video':
+             "p4a.video.interfaces.IVideoEnhanced" in brain.object_provides,
              'item_type': brain.portal_type,
              'item_type_class': plone_utils.normalizeString(brain.portal_type),
              'item_wf_state': brain.review_state,
-             'item_wf_state_class': 'state-' + plone_utils.normalizeString(brain.review_state)
+             'item_wf_state_class':
+             'state-' + plone_utils.normalizeString(brain.review_state)
 
              #these infos are missing when compared to full info
              #'url': brain.getURL() + "/view",
@@ -98,17 +110,21 @@ def annotateByThemeInfo(byTheme, request):
     """Add extra information that can only be retrieved from the full object
     """
 
-    for theme, infos in byTheme.items():
+    for _theme, infos in byTheme.items():
         for info in infos:
             annotateBrainInfo(info, request)
 
 
 def annotateThemeInfos(themeinfos, request):
+    """ Brain info
+    """
     for info in themeinfos:
         annotateBrainInfo(info, request)
 
 
 def filterDuplicates(items):
+    """ filter duplicates
+    """
     uids = {}
     for i in items:
         uids[i['uid']] = i
@@ -132,6 +148,8 @@ def others(context, brains):
 
 
 class AutoRelated(object):
+    """ Auto related
+    """
     implements(IAutoRelated)
 
     def __init__(self, context, request):
@@ -165,7 +183,8 @@ class AutoRelated(object):
             theme = byTheme.get(themename, None)
             if theme:
                 url = IThemeMoreLink(self.context).url(themename)
-                themes.append({'name': _(str(themeVocab.getTerm(themename).title)),
+                themes.append({'name': _(
+                    str(themeVocab.getTerm(themename).title)),
                                'items': theme,
                                'more_link': url })
         return themes
@@ -248,15 +267,19 @@ class AutoRelated(object):
         return related
 
     def sameTypeByPublicationGroup(self):
-        """ for now we don't group by publication group, we only return all of same
-            type that can have a publication group. """
+        """ for now we don't group by publication group,
+            we only return all of same
+            type that can have a publication group.
+        """
         constraints = {'review_state': 'published'}
-        result = IRelations(self.context).byPublicationGroup(samePortalType=True,
-                                                  getBrains=True,
-                                                  constraints=constraints)
+        result = IRelations(self.context).byPublicationGroup(
+            samePortalType=True,
+            getBrains=True,
+            constraints=constraints)
 
         related = others(self.context, result)
-        annotateThemeInfos(related, self.request)     #Note: enable if you notice errors about missing keys
+        annotateThemeInfos(related, self.request)
+        #Note: enable if you notice errors about missing keys
 
         #for item in result:
             #obj = item.getObject()
@@ -267,6 +290,8 @@ class AutoRelated(object):
         return related
 
     def _contextThemes(self):
+        """ Themes
+        """
         theme = queryAdapter(self.context, IThemeTagging)
         if theme is None:
             contextThemes = []
@@ -290,7 +315,8 @@ class DocumentRelated(BrowserView):
         self.portal_props = getToolByName(context, 'portal_properties')
         self.wf_tool = getToolByName(context, 'portal_workflow')
         self.site_props = self.portal_props.site_properties
-        self.use_view = getattr(self.site_props, 'typesUseViewActionInListings', [])
+        self.use_view = getattr(self.site_props,
+                                'typesUseViewActionInListings', [])
 
         self.related = IRelations(self.context).references()
 
@@ -304,16 +330,20 @@ class DocumentRelated(BrowserView):
                 self.related_media_with_player.append(item)
             elif item.portal_type == 'Image':
                 self.related_images.append(item)
-            elif item.portal_type in ['Document', 'Highlight', 'PressRelease', 
+            elif item.portal_type in ['Document', 'Highlight', 'PressRelease',
                                       'Speech', 'AssessmentPart']:
                 self.related_pages.append(item)
             else:
                 self.related_other.append(item)
 
     def _all_media(self):
+        """ All media
+        """
         return self.related_media_with_player + self.related_images
 
     def bottom_media(self):
+        """ Bottom media
+        """
         media = {}
         portal_url = getToolByName(self.context, 'portal_url')
         portal = portal_url.getPortalObject()
@@ -357,6 +387,8 @@ class DocumentRelated(BrowserView):
         return media_list
 
     def feeds(self):
+        """ Feeds
+        """
         entries = []
 
         theme = queryAdapter(self.context, IThemeTagging)
@@ -390,14 +422,19 @@ class DocumentRelated(BrowserView):
         return entries
 
     def mediacount(self):
+        """ Count
+        """
         return len(self._all_media())
 
     def multimedia(self):
+        """ Mutimedia
+        """
         # TODO: delete? Where's this used?
         #multimedia = []
         for item in self.related_media_with_player:
             mimetype = item.get_content_type()
-            player_html = queryAdapter(item, name=mimetype, interface=IMediaPlayer)
+            player_html = queryAdapter(item, name=mimetype,
+                                       interface=IMediaPlayer)
             player_html.max_width = 200 - 16
             player_html.autoplay = False
             player_html.autobuffer = False
@@ -405,6 +442,8 @@ class DocumentRelated(BrowserView):
         return None
 
     def pages(self):
+        """ Pages
+        """
         pages = []
         for item in self.related_pages:
             pages.append({ 'title': item.Title(),
@@ -412,6 +451,8 @@ class DocumentRelated(BrowserView):
         return pages
 
     def other(self):
+        """ Other
+        """
         other = []
 
         for item in self.related_other:
@@ -432,13 +473,19 @@ class DocumentRelated(BrowserView):
                            'item_wf_state': item_wf_state,
                            'item_wf_state_class': item_wf_state_class,
                            'is_video': IVideoEnhanced.providedBy(item),
-                           'has_img': imgview != None and imgview.display() == True })
+                           'has_img': (imgview != None and
+                                       imgview.display() == True )
+                           })
         return other
 
     def top_count(self):
+        """ Top count
+        """
         return len(self.top_media())
 
     def top_media(self):
+        """ Top media
+        """
         media = []
 
         for item in self.related_media_with_player[:TOP_VIDEOS]:

@@ -1,38 +1,11 @@
-# -*- coding: utf-8 -*-
-#
-# File: organisation.py
-#
-# Copyright (c) 2006 by []
-# Generator: ArchGenXML Version 1.5.1-svn
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
-#
-
-__author__ = """unknown <unknown>"""
-__docformat__ = 'plaintext'
-
+""" Organisation
+"""
 from App.Common import package_home
 from DateTime import DateTime
 from Products.CMFCore.exceptions import ResourceLockedError
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
-from interfaces import IOrganisation, IEmployee
+from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
 from rdflib.Graph import ConjunctiveGraph
 from rdflib.Namespace import Namespace
 from rdflib.StringInputSource import StringInputSource
@@ -42,13 +15,12 @@ import os
 import sys
 import urllib2
 import zope.interface
-
-
-#import rdflib
 logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
 
 
 def breakNameIfToLong(name, length=13, where='-'):
+    """ Break name
+    """
     name = name.replace(' - Deputy Director', '')
     if len(name) > length:
         if name.find(where) > -1:
@@ -58,17 +30,24 @@ def breakNameIfToLong(name, length=13, where='-'):
 
 
 def getOnlyOrgName(orgPath):
+    """ Org name
+    """
     orgNameIdx = orgPath.rfind('/') + 1
     return orgPath[ orgNameIdx:]
 
 
 def isHeadOfProgramme(org):
+    """ Head of programme
+    """
     for k in range(10):
-        if str(k) in org: return False
+        if str(k) in org:
+            return False
     return True
 
 
 def prepareStaffNumber(data):
+    """ Staff number
+    """
     total = 0
     for k in data.keys():
         if not isHeadOfProgramme(k):
@@ -102,27 +81,34 @@ emailjs_dot = """
 
 
 class UpdateStaffList(BrowserView):
-
+    """ Update staff list
+    """
     def update(self):
+        """ Update
+        """
         rdf = urllib2.urlopen(self.context.url).read()
         self.context.setModificationDate(DateTime())
         self.context.setFile(rdf)
 
 
 class UpdateOrganigram(BrowserView):
-    """
+    """ Update organigram
     """
 
     def update(self):
+        """ Update
+        """
         props = getToolByName(self.context, 'portal_properties', None)
         staff_props = getattr(props, 'eeastaff_properties')
         eeastaff_fs = staff_props.getProperty('eeastaff_fs', '')
         eeastaff_cms = staff_props.getProperty('eeastaff_cms', '')
 
         # get EEAStaff data
-        products_path = os.path.dirname(os.path.dirname(package_home(globals())))
+        products_path = os.path.dirname(
+            os.path.dirname(package_home(globals())))
         try:
-            fs_data = open(os.path.join(os.path.dirname(products_path), eeastaff_fs), 'rb')
+            fs_data = open(os.path.join(
+                os.path.dirname(products_path), eeastaff_fs), 'rb')
             fs_data = fs_data.read()
         except Exception, err:
             fs_data = ''
@@ -139,6 +125,8 @@ class UpdateOrganigram(BrowserView):
 
 
 class RDF2Employee(object):
+    """ RDF to employee
+    """
     zope.interface.implements(IEmployee)
 
     first_name = u''
@@ -174,11 +162,14 @@ class RDF2Employee(object):
         return result
 
     def items(self):
-        return [ (key, getattr(self, key, '')) for key in getFieldNames(IEmployee) ]
+        """ Items
+        """
+        return [ (key, getattr(self, key, '')) for
+                 key in getFieldNames(IEmployee) ]
 
 
 class Organisation(BrowserView):
-    """
+    """ Organisation
     """
     zope.interface.implements(IOrganisation)
 
@@ -219,21 +210,31 @@ class Organisation(BrowserView):
         """ Employees
         """
         if not self._employees:
-            self._employees = [emp for emp in
-                               self.rdf.subjects(RDF2Employee.NS['first_name'])]
+            self._employees = [
+                emp for emp in
+                self.rdf.subjects(RDF2Employee.NS['first_name'])]
         return self._employees
 
     def validData(self):
+        """ Valid data
+        """
         return self.validDatas
 
     def getLastUpdated(self):
+        """ Last updated
+        """
         return self.context.getEffectiveDate()
 
     def getOrgData(self, org, title=None, manager=None, main=0):
+        """ Org data
+        """
         managers = []
         result = []
-        employees = [ empId for empId, orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code'])
-                            if self._checkOrgCode(org, orgCode) ]
+        employees = [
+            empId for empId, orgCode in
+            self.rdf.subject_objects(RDF2Employee.NS['organisation_code'])
+            if self._checkOrgCode(org, orgCode)
+        ]
 
         for empId in employees:
             emp = RDF2Employee(list(self.rdf.predicate_objects(empId)))
@@ -253,20 +254,27 @@ class Organisation(BrowserView):
         return self._prepareData(result, org, main)
 
     def getManagers(self):
-        pass
+        """ Managers
+        """
+        return
 
     def getOrganisations(self):
+        """ Organisations
+        """
         orgs = {}
         orgs_info = {}
         res = {'orgs': [], 'orgs_info': {}, 'orgs_names': {}}
-        for empId, orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']):
+        for empId, orgCode in self.rdf.subject_objects(
+            RDF2Employee.NS['organisation_code']):
             emp = RDF2Employee(list(self.rdf.predicate_objects(empId)))
             orgCode = getOnlyOrgName(orgCode)
             if isHeadOfProgramme(orgCode):
                 orgs[orgCode] = emp.organisation_name
             orgs_info[orgCode] = orgs_info.get(orgCode, 0) + 1
-            if orgCode[0] == '/': orgCode = orgCode[-3:]
-            else:                 orgCode = orgCode[:3]
+            if orgCode[0] == '/':
+                orgCode = orgCode[-3:]
+            else:
+                orgCode = orgCode[:3]
 
         res['orgs_names'] = orgs
         res['orgs'].extend(orgs.keys())
@@ -275,6 +283,8 @@ class Organisation(BrowserView):
         return res
 
     def _checkOrgCode(self, org, orgcode):
+        """ Org code
+        """
         res = False
         if org.upper() == 'EDO':
             if ('EDO/EDO' in orgcode) or (len(orgcode) == 13):
@@ -285,6 +295,8 @@ class Organisation(BrowserView):
         return res
 
     def _prepareData(self, data, org, main=0):
+        """ Data
+        """
         orgs = []
         orgnames = []
         for res in data:
@@ -292,32 +304,42 @@ class Organisation(BrowserView):
             org_code = org_code[ org_code.find(org): ]
             orgname = getOnlyOrgName(res['organisation_code'])
             res_jobTitle = res['job_title']
-            #if res_jobTitle == 'Executive Director': res_jobTitle = 'Head of programme'
+            #if res_jobTitle == 'Executive Director':
+            #    res_jobTitle = 'Head of programme'
             if main and org_code.endswith(org):
-                result = { 'orgname' : orgname,
-                                   'last_name' : breakNameIfToLong(res['last_name']),
-                                   'first_name' :  breakNameIfToLong(res['first_name']),
-                                   'empid' : res['personnelNb'],
-                                   'organisation_name' :  res['organisation_name'],
-                                   'job_title' : breakNameIfToLong(res_jobTitle, where='/'),
-                                   'manager' : int(res['manager']) }
+                result = {
+                    'orgname' : orgname,
+                    'last_name' : breakNameIfToLong(res['last_name']),
+                    'first_name' :  breakNameIfToLong(res['first_name']),
+                    'empid' : res['personnelNb'],
+                    'organisation_name' :  res['organisation_name'],
+                    'job_title' : breakNameIfToLong(res_jobTitle, where='/'),
+                    'manager' : int(res['manager'])
+                }
                 return [ result ]
             elif not main and org_code.startswith(org):
                 if orgname not in orgnames:
                     orgnames.append(orgname)
-                    orgs.append({ 'orgname' : orgname,
-                                   'last_name' : breakNameIfToLong(res['last_name']),
-                                   'first_name' :  breakNameIfToLong(res['first_name']),
-                                   'empid' : res['personnelNb'],
-                                   'organisation_name' :  res['organisation_name'],
-                                   'job_title' : breakNameIfToLong(res_jobTitle, where='/'),
-                                   'manager' : int(res['manager']) })
+                    orgs.append({
+                        'orgname' : orgname,
+                        'last_name' : breakNameIfToLong(res['last_name']),
+                        'first_name' :  breakNameIfToLong(res['first_name']),
+                        'empid' : res['personnelNb'],
+                        'organisation_name' :  res['organisation_name'],
+                        'job_title' : breakNameIfToLong(
+                            res_jobTitle, where='/'),
+                        'manager' : int(res['manager']) })
         orgs.sort(lambda x, y : cmp(x['orgname'], y['orgname']))
         return orgs
 
     def getStaffList(self, org=None):
+        """ Staff list
+        """
         result = []
-        employees = [ empId for empId, _orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']) ]
+        employees = [
+            empId for empId, _orgCode in
+            self.rdf.subject_objects(RDF2Employee.NS['organisation_code'])
+        ]
 
         for empId in employees:
             name = ''
@@ -326,7 +348,8 @@ class Organisation(BrowserView):
             org_name = getOnlyOrgName(employee['organisation_code'])
 
             emp = dict(employee.items())
-            emp['programme'] = '%s - %s' % (org_name, employee['organisation_name'])
+            emp['programme'] = '%s - %s' % (
+                org_name, employee['organisation_name'])
             if employee['email'].find('@') > 0:
                 name, domain = employee['email'].split('@')
             emp['email'] = emailjs % (name, domain, 'Email')
@@ -337,18 +360,26 @@ class Organisation(BrowserView):
 
 
     def getDirector(self):
+        """ Director
+        """
         return self.getManager(org='EDO', title='executive director')
 
     def getDeputyDirector(self):
+        """ Deputy director
+        """
         return self.getManager(org='GAN', title='deputy director')
 
     def getManager(self, org='EDO', title=None):
+        """ Manager
+        """
         result = self.getOrgData(org, title, manager='1', main=1)
         if len(result) > 0:
             return result[0]
         return None
 
     def getOrgUnits(self, orgs=None):
+        """ Org units
+        """
         if orgs is None:
             orgs = []
         units = []

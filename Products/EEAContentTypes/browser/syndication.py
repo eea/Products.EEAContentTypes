@@ -1,3 +1,5 @@
+""" Syndication
+"""
 from Products.CMFCore.utils import getToolByName
 
 class SKOS(object):
@@ -8,6 +10,8 @@ class SKOS(object):
         self.request = request
 
     def concepts(self):
+        """ Concepts
+        """
         synTool = getToolByName(self.context, 'portal_syndication')
 
         maxs = self.request.get('size', None)

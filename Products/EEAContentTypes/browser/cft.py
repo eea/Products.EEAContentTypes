@@ -1,26 +1,29 @@
-#import zope.interface
-#import zope.component
-
+""" CFT
+"""
 from Products.Five import BrowserView
-#from Products.CMFCore.utils import getToolByName
 
 class CFTRegistration(BrowserView):
-
+    """ CFT
+    """
     canView = True
-    
+
     def __init__(self, context, request):
         BrowserView.__init__(self, context, request)
 
     def hasCanceled(self):
-        if self.request.get('portal_status_message') == 'Add New Item operation was cancelled.':
+        """ Canceled
+        """
+        if (self.request.get('portal_status_message') ==
+            'Add New Item operation was cancelled.'):
             return True
         return False
-    
+
     def getAwardNotice(self):
+        """ Award notice
+        """
         context = self.context
         awardNotice = context.getAwardNoticeObject()
         if awardNotice is not None and awardNotice != context:
             return { 'url' : awardNotice.absolute_url(),
                      'title' : awardNotice.Title() }
         return None
-    

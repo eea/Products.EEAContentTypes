@@ -1,17 +1,12 @@
 """ CallForTender """
-
-# -*- coding: utf-8 -*-
-
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import (
-        Schema, ReferenceField, ReferenceWidget, BaseFolderSchema, BaseFolder,
-        registerType
-        )
+    Schema, ReferenceField, ReferenceWidget, BaseFolderSchema, BaseFolder,
+    registerType
+)
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.CallForInterest import CallForInterest
-from interfaces import ICallForTender
+from Products.EEAContentTypes.content.interfaces import ICallForTender
 import zope.interface
 
 
@@ -39,15 +34,16 @@ CallForTender_schema = BaseFolderSchema.copy() + \
 
 
 class CallForTender(CallForInterest, BaseFolder):
-    """
+    """ Call for tenders
     """
     security = ClassSecurityInfo()
     archetype_name = 'CallForTender'
 
     meta_type = 'CallForTender'
     portal_type = 'CallForTender'
-    allowed_content_types = ['CFTRequestor', 'CFT Requestor', 'File', 'Document'] + \
-            list(getattr(CallForInterest, 'allowed_content_types', []))
+    allowed_content_types = [
+        'CFTRequestor', 'CFT Requestor', 'File', 'Document'] + list(getattr(
+            CallForInterest, 'allowed_content_types', []))
     filter_content_types = 1
     global_allow = 1
     #content_icon = 'CallForTender.gif'
@@ -65,14 +61,21 @@ class CallForTender(CallForInterest, BaseFolder):
 
 
     def getNextDoc(self):
+        """ Next doc
+        """
         return self.getField('nextDoc').get(self)
 
     def getPossibleAwardNotice(self, *args, **kw):
+        """ Award notice
+        """
         result = [ ( self.UID(), 'none yet') ]
-        docs = self.portal_catalog( path = { 'query' : '/'.join(self.getPhysicalPath()),
-                                             'depth' : 1 },
-                                    portal_type = ['Document','File'],
-                                    review_state = 'published')
+        docs = self.portal_catalog(
+            path = {
+                'query' : '/'.join(self.getPhysicalPath()),
+                'depth' : 1 },
+            portal_type = ['Document','File'],
+            review_state = 'published'
+        )
         for brain in docs:
             obj = brain.getObject()
             result.append( (obj.UID(), obj.getId()))
@@ -87,6 +90,8 @@ class CallForTender(CallForInterest, BaseFolder):
         return award.UID()
 
     def setAwardNotice(self, values, field):
+        """ Set award notice UID
+        """
         field = self.schema[field]
         field.set(self, values)
 

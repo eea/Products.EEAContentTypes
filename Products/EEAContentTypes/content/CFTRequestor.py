@@ -1,33 +1,5 @@
-""" CFTRequestor """
-
-# -*- coding: utf-8 -*-
-#
-# File: CFTRequestor.py
-#
-# Copyright (c) 2006 by []
-# Generator: ArchGenXML Version 1.5.1-svn
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
-#
-
-__docformat__ = 'plaintext'
-
+""" CFTRequestor
+"""
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
@@ -36,7 +8,7 @@ from Products.Archetypes.atapi import SelectionWidget, registerType
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.config import  PROJECTNAME
 from Products.validation.validators import ExpressionValidator
-from interfaces import ICFTRequestor
+from Products.EEAContentTypes.content.interfaces import ICFTRequestor
 from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.interface import implements
@@ -170,17 +142,17 @@ CFTRequestor_schema['description'].schemata = 'metadata'
 CFTRequestor_schema['title'].widget.label = 'Name'
 
 class CFTRequestor(ATCTContent):
-    """
+    """ CFT Requestor
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATCTContent, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'CFTRequestor'
 
     meta_type = 'CFTRequestor'
     portal_type = 'CFTRequestor'
-    allowed_content_types = [] + list(getattr(ATCTContent, 'allowed_content_types', []))
+    allowed_content_types = [] + list(
+        getattr(ATCTContent, 'allowed_content_types', []))
     filter_content_types = 0
     global_allow = 0
     #content_icon = 'CFTRequestor.gif'
@@ -206,15 +178,21 @@ class CFTRequestor(ATCTContent):
         return new_id
 
     def objectModified(self):
+        """ Object modified
+        """
         notify(ObjectModifiedEvent(self))
 
     def reindexObject(self, **kw):
-        pass
+        """ Reindex
+        """
+        return
 
 registerType(CFTRequestor, PROJECTNAME)
 
 
 def submit_requestor(obj, event):
+    """ Submit requestor
+    """
     valid = getMultiAdapter((obj, obj.REQUEST), name='isValid')
     if valid.validate():
         obj.setRemoteAddr(obj.REQUEST.get('REMOTE_ADDR'))
@@ -222,4 +200,3 @@ def submit_requestor(obj, event):
         actions = wf.getTransitionsFor(obj)
         if len(actions) > 0:
             wf.doActionFor(obj, 'submit')
-

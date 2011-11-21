@@ -10,10 +10,8 @@ from Products.CMFCore import utils as cmfutils
 from Products.EEAContentTypes.config import ADD_CONTENT_PERMISSIONS
 from Products.EEAContentTypes.config import DEFAULT_ADD_CONTENT_PERMISSION
 from Products.EEAContentTypes.config import PROJECTNAME
-import langprefs
+from Products.EEAContentTypes import langprefs
 import logging
-
-langprefs
 logger = logging.getLogger('Products.EEAContentTypes')
 
 
@@ -46,7 +44,7 @@ def finalizeSchema(schema, disableRelated=False, moveDiscussion=True,
 def setupSchemas():
     """ Setup schema
     """
-    from content import (
+    from Products.EEAContentTypes.content import (
         Promotion,
         PressRelease,
         Highlight,
@@ -76,8 +74,7 @@ def initialize(context):
     """ Zope 2
     """
     # imports packages and types for registration
-    import content #pylint: disable-msg=W0612
-    content
+    from Products.EEAContentTypes import content
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(

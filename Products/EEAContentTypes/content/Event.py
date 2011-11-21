@@ -10,7 +10,7 @@ from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from eea.locationwidget.locationwidget import LocationWidget
 from eea.themecentre.interfaces import IThemeTagging
-from interfaces import IQuickEvent
+from Products.EEAContentTypes.content.interfaces import IQuickEvent
 from zExceptions import NotFound
 import zope.interface
 

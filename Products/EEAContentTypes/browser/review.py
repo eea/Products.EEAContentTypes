@@ -48,7 +48,8 @@ class ReviewList(object):
                 #wlists = []
                 for worklist in wf.worklists._objects:
                     wlist_def = wf.worklists._mapping[worklist['id']]
-                    # Make the var_matches a dict instead of PersistentMapping to enable access from scripts
+                    # Make the var_matches a dict instead of PersistentMapping
+                    # to enable access from scripts
                     catalog_vars = dict(portal_type=types_by_wf.get(wid, []))
                     for key in wlist_def.var_matches.keys():
                         catalog_vars[key] = wlist_def.var_matches[key]
