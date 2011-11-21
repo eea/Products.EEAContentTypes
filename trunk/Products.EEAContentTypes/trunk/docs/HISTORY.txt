@@ -3,17 +3,20 @@ Changelog
 
 4.1-dev - (unreleased)
 ----------------------
- * Bug fix: added header for rssAllowed script [tiberich #4738]
+* Bug fix: Removed themes from ExternalDataSpec schema as this CT gets themes
+  from back references
+  [voineali #4740]
+* Bug fix: added header for rssAllowed script [tiberich #4738]
 
 4.0 - (2011-11-18)
 ------------------
  * Bug fix: Removed date fields from frontpage tab [szabozo #4708]
- * Bug fix: Only include languages which have a translated eea homepage [demarant] 
+ * Bug fix: Only include languages which have a translated eea homepage [demarant]
  * Bug fix: Added missing image scales on the image field for IExternalHighlights [demarant]
- * Change: Made eea geotag required for IExternalHighlight via schemaextender 
+ * Change: Made eea geotag required for IExternalHighlight via schemaextender
    [demarant #4694]
  * Change: Migrated promolink_view from custom [szabozo0 #4161]
- * Bug fix: Added on-error handler to related_multimedia portlet, it 
+ * Bug fix: Added on-error handler to related_multimedia portlet, it
    triggers errors in portal_relations view [tiberich #4690]
  * Change: Migrated portlet_center_map from custom [szabozo0 #4161]
  * Change: Migrated flashfileStyle, rssAllowed from custom [szabozo0 #4161 #4685]
@@ -22,7 +25,7 @@ Changelog
  * Bug fix: Enabled resize.js [szabozo0 #4667]
  * Bug fix: added AssessmentPart to list of content types that are displayed as Other related items [tiberich #4629]
  * Bug fix: use dcterms namespace instead of dc in @@rdf view [tiberich #4250] (backport v2.30)
- * Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container 
+ * Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container
    [tiberich #4582]
  * Optimization: changed the way the related information is computed to optimize load times [tiberich #4510]
  * Bugfix: Fixed maps right widget (countries) [szabozo0 #4510]
