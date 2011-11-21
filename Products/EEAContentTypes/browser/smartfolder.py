@@ -108,7 +108,7 @@ class SmartFolderPortlets(object):
                     # location is unicode in the brain, it shouldn't be, but it is
                     try:
                         detail += brain[field]
-                    continue:
+                    except Exception:
                         continue
                 elif isinstance(brain[field], (list, tuple)):
                     detail += ', '.join([value.decode('utf8') for value in brain[field]])
