@@ -105,7 +105,7 @@ class UpdateStaffList(BrowserView):
 
     def update(self):
         rdf = urllib2.urlopen(self.context.url).read()
-        self.context.setModificationDate( DateTime())
+        self.context.setModificationDate(DateTime())
         self.context.setFile(rdf)
 
 
@@ -122,7 +122,7 @@ class UpdateOrganigram(BrowserView):
         # get EEAStaff data
         products_path = os.path.dirname(os.path.dirname(package_home(globals())))
         try:
-            fs_data = open(os.path.join(os.path.dirname(products_path), eeastaff_fs),'rb')
+            fs_data = open(os.path.join(os.path.dirname(products_path), eeastaff_fs), 'rb')
             fs_data = fs_data.read()
         except Exception, err:
             fs_data = ''
@@ -159,7 +159,7 @@ class RDF2Employee(object):
         for fieldName in getFieldNames(IEmployee):
             fieldNSmapping[self.NS[fieldName]] = fieldName
         # predicate, object
-        for p,o in empInfo:
+        for p, o in empInfo:
             fieldName = fieldNSmapping.get(p, None)
             if fieldName:
                 setattr(self, fieldName, o.encode('utf8'))
@@ -170,11 +170,11 @@ class RDF2Employee(object):
     def __str__(self):
         result = ''
         for fieldName in getFieldNames(IEmployee):
-            result += '%s: %s\n' % (fieldName, getattr(self,fieldName))
+            result += '%s: %s\n' % (fieldName, getattr(self, fieldName))
         return result
 
     def items(self):
-        return [ (key, getattr(self, key,'')) for key in getFieldNames(IEmployee) ]
+        return [ (key, getattr(self, key, '')) for key in getFieldNames(IEmployee) ]
 
 
 class Organisation(BrowserView):
@@ -185,7 +185,7 @@ class Organisation(BrowserView):
     def __init__(self, context, request):
         super(Organisation, self).__init__(context, request)
         if getattr(context, 'portal_type', 'No Archetype') not in [
-            'File', 'ATFile','No Archetype']:
+            'File', 'ATFile', 'No Archetype']:
             self.context = context.unrestrictedTraverse('eeastaff', None)
 
         self.validDatas = True
@@ -232,7 +232,7 @@ class Organisation(BrowserView):
     def getOrgData(self, org, title=None, manager=None, main=0):
         managers = []
         result = []
-        employees = [ empId for empId,orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code'])
+        employees = [ empId for empId, orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code'])
                             if self._checkOrgCode(org, orgCode) ]
 
         for empId in employees:
@@ -242,9 +242,9 @@ class Organisation(BrowserView):
                 continue
 
             if emp.manager == '1':
-                managers.append( emp )
+                managers.append(emp)
             else:
-                result.append( emp )
+                result.append(emp)
         if manager is not None:
             if manager == '1':
                 result = managers
@@ -259,7 +259,7 @@ class Organisation(BrowserView):
         orgs = {}
         orgs_info = {}
         res = {'orgs': [], 'orgs_info': {}, 'orgs_names': {}}
-        for empId,orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']):
+        for empId, orgCode in self.rdf.subject_objects(RDF2Employee.NS['organisation_code']):
             emp = RDF2Employee(list(self.rdf.predicate_objects(empId)))
             orgCode = getOnlyOrgName(orgCode)
             if isHeadOfProgramme(orgCode):
@@ -305,14 +305,14 @@ class Organisation(BrowserView):
             elif not main and org_code.startswith(org):
                 if orgname not in orgnames:
                     orgnames.append(orgname)
-                    orgs.append( { 'orgname' : orgname,
+                    orgs.append({ 'orgname' : orgname,
                                    'last_name' : breakNameIfToLong(res['last_name']),
                                    'first_name' :  breakNameIfToLong(res['first_name']),
                                    'empid' : res['personnelNb'],
                                    'organisation_name' :  res['organisation_name'],
                                    'job_title' : breakNameIfToLong(res_jobTitle, where='/'),
                                    'manager' : int(res['manager']) })
-        orgs.sort(lambda x,y : cmp(x['orgname'], y['orgname']))
+        orgs.sort(lambda x, y : cmp(x['orgname'], y['orgname']))
         return orgs
 
     def getStaffList(self, org=None):
@@ -332,7 +332,7 @@ class Organisation(BrowserView):
             emp['email'] = emailjs % (name, domain, 'Email')
             emp['org_name'] = org_name
             result.append(emp)
-        result.sort(lambda x,y: cmp(x['first_name'], y['first_name']))
+        result.sort(lambda x, y: cmp(x['first_name'], y['first_name']))
         return result
 
 
@@ -348,7 +348,7 @@ class Organisation(BrowserView):
             return result[0]
         return None
 
-    def getOrgUnits(self, orgs = None):
+    def getOrgUnits(self, orgs=None):
         if orgs is None:
             orgs = []
         units = []
@@ -358,6 +358,6 @@ class Organisation(BrowserView):
             orgs = staff_props.getProperty('organisations', [])
 
         for org in orgs:
-            units.append( self.getOrgData(org))
+            units.append(self.getOrgData(org))
         return units
 

@@ -30,8 +30,8 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, BaseSchema, BaseContent,
-        registerType )
+from Products.Archetypes.atapi import (Schema, BaseSchema, BaseContent,
+        registerType)
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.config import PROJECTNAME
 
@@ -59,7 +59,7 @@ class Speech(Highlight, BaseContent):
     """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(Highlight,'__implements__',()),) + (getattr(BaseContent,'__implements__',()),)
+    __implements__ = (getattr(Highlight, '__implements__', ()),) + (getattr(BaseContent, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'Speech'

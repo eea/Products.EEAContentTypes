@@ -48,7 +48,7 @@ class Languages(BrowserView):
                 cmp_two = 'Is'
             return cmp(cmp_one, cmp_two)
         languages.sort(_cmp)
-        exclude = ['ru','sr', 'ga']
+        exclude = ['ru', 'sr', 'ga']
         return [ lang for lang in languages
                       if lang[0] not in exclude ]
 
@@ -66,9 +66,9 @@ class Languages(BrowserView):
                 localSite = site.getTranslation(langcode)
                 if localSite is not None:
                     url = localSite.absolute_url()
-                    sites.append( { 'lang' : lang[1],
+                    sites.append({ 'lang' : lang[1],
                             'langcode' : langcode,
-                            'url' : url } )
+                            'url' : url })
         return sites
 
 

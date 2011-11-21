@@ -30,8 +30,8 @@ __author__ = """unknown <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import ( Schema, StringField, StringWidget,
-       DateTimeField, CalendarWidget, registerType )
+from Products.Archetypes.atapi import (Schema, StringField, StringWidget,
+       DateTimeField, CalendarWidget, registerType)
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
 from Products.EEAContentTypes.config import PROJECTNAME
@@ -99,7 +99,7 @@ class CallForInterest(ATFolder, ATDocument):
     """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATFolder,'__implements__',()),) + (getattr(ATDocument,'__implements__',()),)
+    __implements__ = (getattr(ATFolder, '__implements__', ()),) + (getattr(ATDocument, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'CallForInterest'

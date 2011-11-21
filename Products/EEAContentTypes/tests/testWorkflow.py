@@ -34,6 +34,8 @@ class TestWorkflow(EEAContentTypeTestCase):
             '<span class="historyaction state-publish">publish</span>'
 
     def beforeTearDown(self):
+        """ Tear down
+        """
         self.portal.MailHost = self.portal._original_MailHost
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
@@ -69,6 +71,8 @@ class TestWorkflowModified(EEAContentTypeTestCase):
     _ptypes = set()
 
     def beforeTearDown(self):
+        """ Tear down
+        """
         self.portal.MailHost = self.portal._original_MailHost
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
@@ -177,9 +181,9 @@ class TestWorkflowModified(EEAContentTypeTestCase):
 
         # Publish
 
-        manager=getUtility(IKeyManager)
-        secret=manager.secret()
-        user=_getUserName()
+        manager = getUtility(IKeyManager)
+        secret = manager.secret()
+        user = _getUserName()
 
         hmac.new(secret, user, sha).hexdigest()
 

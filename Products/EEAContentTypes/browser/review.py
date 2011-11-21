@@ -1,3 +1,5 @@
+""" Review
+"""
 from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 import logging
@@ -41,11 +43,11 @@ class ReviewList(object):
         objects_by_path = {}
         for wid in wftool.getWorkflowIds():
 
-            wf=wftool.getWorkflowById(wid)
+            wf = wftool.getWorkflowById(wid)
             if hasattr(wf, 'worklists'):
                 #wlists = []
                 for worklist in wf.worklists._objects:
-                    wlist_def=wf.worklists._mapping[worklist['id']]
+                    wlist_def = wf.worklists._mapping[worklist['id']]
                     # Make the var_matches a dict instead of PersistentMapping to enable access from scripts
                     catalog_vars = dict(portal_type=types_by_wf.get(wid, []))
                     for key in wlist_def.var_matches.keys():

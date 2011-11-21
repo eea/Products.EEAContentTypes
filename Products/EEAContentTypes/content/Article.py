@@ -28,11 +28,11 @@ import sys
 import rdflib
 
 try:
-    from Products.LinguaPlone.public import ( Schema, LinesField,
+    from Products.LinguaPlone.public import (Schema, LinesField,
             InAndOutWidget, registerType)
     Schema, LinesField, InAndOutWidget, registerType
 except ImportError:
-    from Products.Archetypes.public import ( Schema, LinesField,
+    from Products.Archetypes.public import (Schema, LinesField,
             InAndOutWidget, registerType)
 
 
@@ -52,11 +52,11 @@ schema = Schema((
 ),
 )
 
-Article_schema =  getattr(Highlight, 'schema', Schema(())).copy() + \
+Article_schema = getattr(Highlight, 'schema', Schema(())).copy() + \
                   schema.copy()
 
-fields2Move2DefaultSchemata = ['management_plan','image','imageLink',
-                               'imageCaption','imageNote']
+fields2Move2DefaultSchemata = ['management_plan', 'image', 'imageLink',
+                               'imageCaption', 'imageNote']
 for fieldname in getNames(ExtHighlightSchema):
     field = Article_schema[fieldname]
     if fieldname in fields2Move2DefaultSchemata:
@@ -75,7 +75,7 @@ class Article(Highlight):
     displayed on frontpage of a website and sent as notification as any other news-alike content type.</p>
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ExternalHighlight,'__implements__',()),) + (getattr(ATNewsItem,'__implements__',()),)
+    __implements__ = (getattr(ExternalHighlight, '__implements__', ()),) + (getattr(ATNewsItem, '__implements__', ()),)
     implements(IArticle)
 
     # This name appears in the 'add' box
@@ -95,7 +95,7 @@ class Article(Highlight):
     _at_rename_after_creation = True
 
     schema = Article_schema
-    content_icon   = 'highlight_icon.gif'
+    content_icon = 'highlight_icon.gif'
 
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')

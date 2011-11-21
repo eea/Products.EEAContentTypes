@@ -1,12 +1,11 @@
+""" Workflow
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import ILocalRoleEmails
 from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
 from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
 from zope.component import adapts, queryAdapter
 from zope.interface import implements, Interface
-
-#from Acquisition import aq_inner, aq_parent, aq_base
-
 
 class TransitionLogicalGuard(object):
     """ get right transition logic adapter for the context and transition """
@@ -17,7 +16,8 @@ class TransitionLogicalGuard(object):
 
     def __call__(self):
         state_change = self.context
-        guard = queryAdapter(state_change.object, ITransitionLogicalGuard, name=state_change.transition.getId())
+        guard = queryAdapter(state_change.object,
+                ITransitionLogicalGuard, name=state_change.transition.getId())
         if guard is not None:
             return guard.available
         return True
@@ -25,12 +25,12 @@ class TransitionLogicalGuard(object):
 
 class SubmitForWebQAGuard(object):
     """ guard for transition """
-    
+
     implements(ITransitionLogicalGuard)
 
     notNeededFor = [ 'Link' ]
-    needContentReview = [ 'Event','Document','News Item','Highlight' ]
-    
+    needContentReview = [ 'Event', 'Document', 'News Item', 'Highlight' ]
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -41,7 +41,8 @@ class SubmitForWebQAGuard(object):
         if portal_type not in self.notNeededFor:
             if portal_type in self.needContentReview:
                 wf = getToolByName(context, 'portal_workflow')
-                history = [ h['action'] for h in wf.getInfoFor(context,'review_history', None) ]
+                history = [ h['action'] for
+                            h in wf.getInfoFor(context, 'review_history', None) ]
                 return 'submitContentReview' in history
             return True
         return False
@@ -49,10 +50,10 @@ class SubmitForWebQAGuard(object):
 
 class SubmitForMultimediaEdit(object):
     """ guard for transition """
-    
+
     implements(ITransitionLogicalGuard)
 
-    canBeUsedFor = [ 'Highlight','PressRelease', 'Document', 'News Item',
+    canBeUsedFor = [ 'Highlight', 'PressRelease', 'Document', 'News Item',
                      'HelpCenterFAQ', 'Speech', 'Topic']
 
     def __init__(self, context, request):
@@ -62,13 +63,15 @@ class SubmitForMultimediaEdit(object):
     def __call__(self):
         context = self.context
         wf = getToolByName(context, 'portal_workflow')
-        history = [ h['action'] for h in wf.getInfoFor(context,'review_history', None) ]
-        return self.context.portal_type in self.canBeUsedFor and 'submitMultimediaEdit' not in history
-    
+        history = [ h['action'] for
+                    h in wf.getInfoFor(context, 'review_history', None) ]
+        return (self.context.portal_type
+                in self.canBeUsedFor and 'submitMultimediaEdit' not in history)
+
 
 class SubmitForContentReview(object):
     """ guard for transition """
-    
+
     implements(ITransitionLogicalGuard)
 
     canBeUsedFor = [ 'Highlight', 'Document', 'News Item', 'HelpCenterFAQ',
@@ -81,10 +84,10 @@ class SubmitForContentReview(object):
     def __call__(self):
         return self.context.portal_type in self.canBeUsedFor
 
-    
+
 class SubmitForProofReading(object):
     """ guard for transition """
-    
+
     implements(ITransitionLogicalGuard)
 
     canBeUsedFor = [ 'Highlight', 'Document', 'HelpCenterFAQ' ]
@@ -99,7 +102,7 @@ class SubmitForProofReading(object):
 
 class QuickPublish(object):
     """ guard for transition """
-    
+
     implements(ITransitionLogicalGuard)
 
     canBeUsedFor = [ 'Link' ]
@@ -118,15 +121,15 @@ class LocalRoleEmails(object):
     adapts(Interface)
 
     emails = {}
-    
+
     def __init__(self, context):
         self.context = context
         self.emails = {}
         self.takenRoles = []
         self.existing_role_settings()
-    
+
     def existing_role_settings(self):
-        """  from computeRoleMap.py 
+        """  from computeRoleMap.py
         """
         context = self.context
 
@@ -175,7 +178,7 @@ class LocalRoleEmails(object):
     def getInheritedLocalRoles(self, here):
         """Returns a tuple with the acquired local roles."""
         portal = getToolByName(here, 'portal_url').getPortalObject()
-        pu= getToolByName(here,'plone_utils')
+        pu = getToolByName(here, 'plone_utils')
         result = []
         takenRoles = self.takenRoles
         cont = 1
@@ -196,12 +199,12 @@ class LocalRoleEmails(object):
                             tmpRoles.append(role)
                             if role not in rolesOnCurrentParent:
                                 rolesOnCurrentParent.append(role)
-                                
+
                     if not tmpRoles:
                         # no new roles
                         continue
                     roles = tmpRoles
-                    
+
                     for user2, roles2, _type2, _name2 in result:
                         if user2 == user:
                             # Check which roles must be added to roles2
@@ -217,7 +220,7 @@ class LocalRoleEmails(object):
 
                 # parent done, append taken roles
                 takenRoles.extend(rolesOnCurrentParent)
-                    
+
                 if parent == portal:
                     cont = 0
                 elif not pu.isLocalRoleAcquired(parent):
@@ -227,7 +230,7 @@ class LocalRoleEmails(object):
                     parent = parent.aq_parent
 
         # Tuplize all inner roles
-        for pos in range(len(result)-1,-1,-1):
+        for pos in range(len(result) - 1, -1, -1):
             result[pos][1] = tuple(result[pos][1])
             result[pos] = tuple(result[pos])
 
@@ -245,14 +248,14 @@ class LocalRoleEmails(object):
                            if role not in takenRoles ]
             if roles:
                 retlist.append((member.getUserName(), roles, 'user', member.getUserId()))
-            
+
         for grpId in groups_tool.getGroupIds():
             group = groups_tool.getGroupById(grpId)
             roles = [ role2 for role2 in group.getRoles()
                            if role2 not in takenRoles ]
             if roles:
                 retlist.append((group.getGroupName(), roles, 'group', group.getGroupName()))
-            
+
         return retlist
 
 
@@ -260,10 +263,10 @@ class WorkflowEmails(object):
 
     implements(IWorkflowEmails)
     adapts(Interface)
-    
+
     action = []
     confirmation = []
-    
+
     def __init__(self, context):
         self.context = context
         self.action = []
@@ -275,14 +278,16 @@ class WorkflowEmails(object):
         self.action = local.emails.get(actionRole, [])
 
         # confirmation is sent to all roles except actionRoles
-        confirmationRoles = [ role for role in ('ContentManager', 'Editor', 'Reviewer', 'WebReviewer', 'Owner', 'Manager')
-                              if role != actionRole ]
+        confirmationRoles = [
+            role for role in ('ContentManager', 'Editor',
+                              'Reviewer', 'WebReviewer', 'Owner', 'Manager')
+            if role != actionRole ]
         for role in confirmationRoles:
             emails = local.emails.get(role, [])
             for email in emails:
                 if email not in self.action and email not in self.confirmation:
                     self.confirmation.append(email)
-                    
+
     @property
     def sender(self):
         portal = self.context.portal_url.getPortalObject()
@@ -292,11 +297,12 @@ class WorkflowEmails(object):
         email = portal.email_from_address
         if member is not None:
             memberEmail = member.getProperty('email', None)
-            memberName = member.getProperty('fullname', '') or memberEmail.replace('@',' ')
+            memberName = member.getProperty('fullname',
+                                            '') or memberEmail.replace('@', ' ')
             if memberEmail and memberName:
                 email = memberEmail
                 name = memberName
-            
+
         return "%s <%s>" % (name, email)
 
 
@@ -308,7 +314,7 @@ class WorkflowActionReviewer(WorkflowEmails):
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Reviewer')
-        
+
 
 class WorkflowActionProofReader(WorkflowEmails):
 
@@ -326,7 +332,7 @@ class WorkflowActionWebReviewer(WorkflowEmails):
 
 class WorkflowActionEditor(WorkflowEmails):
     """ Used for state new """
-    
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Editor')
@@ -334,7 +340,7 @@ class WorkflowActionEditor(WorkflowEmails):
 
 class WorkflowActionContentManager(WorkflowEmails):
     """ Used when sent back for revision. """
-    
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ContentManager')
