@@ -6,6 +6,7 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.themecentre.content.ThemeTaggable import ThemesField
+from eea.indicators.content.interfaces import IExternalDataSpec
 from eea.geotags import field
 from eea.geotags import widget
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
@@ -113,8 +114,10 @@ class RequiredSchemaModifier(object):
             schema['subject'].required = True
         if 'location' in schema:
             schema['location'].required = True
+
         if 'themes' in schema:
-            schema['themes'].required = True
+            if not IExternalDataSpec.providedBy(self.context):
+                schema['themes'].required = True
 
 class GeotagMixinEdit(object):
     """ Edit
