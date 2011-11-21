@@ -1,5 +1,6 @@
 """ Event
 """
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.event import ATEvent
 from Products.Archetypes.atapi import Schema, registerType
@@ -13,7 +14,7 @@ from interfaces import IQuickEvent
 from zExceptions import NotFound
 import zope.interface
 
-QuickEvent_schema = getattr(ATEvent,'schema',Schema(())).copy() + \
+QuickEvent_schema = getattr(ATEvent, 'schema', Schema(())).copy() + \
                     getattr(ThemeTaggable, 'schema', Schema(())).copy()
 
 QuickEvent_schema.delField('text')
@@ -29,14 +30,14 @@ QuickEvent_schema['themes'].widget.maxValues = 1
 QuickEvent_schema['description'].required = True
 
 QuickEvent_schema['location'].widget = LocationWidget(
-                                   description = "",
-                                   description_msgid = "help_event_location",
-                                   label = "Event Location",
-                                   label_msgid = "label_event_location",
-                                   i18n_domain = "plone")
-QuickEvent_schema['location'].widget.description = 'Use the address to " \
-        "retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen " \
-        "K, Denmark)</em>'
+                                   description="",
+                                   description_msgid="help_event_location",
+                                   label="Event Location",
+                                   label_msgid="label_event_location",
+                                   i18n_domain="plone")
+QuickEvent_schema['location'].widget.description = (
+    "Use the address to retrieve the location <em>(e.g. "
+    "Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>")
 QuickEvent_schema['location'].widget.description_msgid = \
         'EEAContentTypes_help_location_event'
 
@@ -50,22 +51,22 @@ class QuickEvent(ATEvent, ThemeTaggable):
     """ Quick Event content type
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATEvent,'__implements__',()),)
+    __implements__ = (getattr(ATEvent, '__implements__', ()),)
     zope.interface.implements(IQuickEvent)
 
     # This name appears in the 'add' box
-    archetype_name             = 'QuickEvent'
+    archetype_name = 'QuickEvent'
 
-    meta_type                  = 'QuickEvent'
-    portal_type                = 'QuickEvent'
-    allowed_content_types      = []
-    filter_content_types       = 0
-    global_allow               = 0
-    allow_discussion           = 0
-    immediate_view             = 'base_view'
-    default_view               = 'base_view'
-    typeDescription            = "Event submitted by public"
-    typeDescMsgId              = 'description_edit_quickevent'
+    meta_type = 'QuickEvent'
+    portal_type = 'QuickEvent'
+    allowed_content_types = []
+    filter_content_types = 0
+    global_allow = 0
+    allow_discussion = 0
+    immediate_view = 'base_view'
+    default_view = 'base_view'
+    typeDescription = "Event submitted by public"
+    typeDescMsgId = 'description_edit_quickevent'
 
     _at_rename_after_creation = True
 

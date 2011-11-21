@@ -5,7 +5,7 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.vocabulary import vocabs
-from Products.kupu.plone import util
+#from Products.kupu.plone import util
 
 import logging
 

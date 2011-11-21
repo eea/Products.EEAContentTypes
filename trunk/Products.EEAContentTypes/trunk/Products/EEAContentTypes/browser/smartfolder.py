@@ -40,7 +40,7 @@ class SmartFolderPortlets(object):
             if portlet['entries']:
                 portlets.append(portlet)
 
-        portlets.sort(cmp=lambda x,y: cmp(x['sort_key'], y['sort_key']))
+        portlets.sort(cmp=lambda x, y: cmp(x['sort_key'], y['sort_key']))
 
         return portlets
 
@@ -95,7 +95,7 @@ class SmartFolderPortlets(object):
         for index, field in enumerate(extra_fields):
             if field in DATE_FIELDS:
                 time = localized_time(brain[field])
-                if index > 0 and extra_fields[index-1] in DATE_FIELDS and time:
+                if index > 0 and extra_fields[index - 1] in DATE_FIELDS and time:
                     detail += u' - ' + time
                 elif detail and time:
                     detail += u', ' + time

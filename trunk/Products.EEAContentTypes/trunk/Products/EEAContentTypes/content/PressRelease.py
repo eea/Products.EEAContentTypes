@@ -36,13 +36,13 @@ from Products.EEAContentTypes.content.quotation import quotation_schema
 
 ##code-section module-header #fill in your manual code here
 try:
-    from Products.LinguaPlone.public import ( Schema, BaseSchema,
+    from Products.LinguaPlone.public import (Schema, BaseSchema,
             BaseContent, registerType)
     Schema, BaseSchema, BaseContent, registerType
 
 except ImportError:
     # No multilingual support
-    from Products.Archetypes.public import ( Schema, BaseSchema,
+    from Products.Archetypes.public import (Schema, BaseSchema,
             BaseContent, registerType)
 
 
@@ -68,7 +68,7 @@ class PressRelease(Highlight, BaseContent):
     """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(Highlight,'__implements__',()),) + (getattr(BaseContent,'__implements__',()),)
+    __implements__ = (getattr(Highlight, '__implements__', ()),) + (getattr(BaseContent, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'Press Release'

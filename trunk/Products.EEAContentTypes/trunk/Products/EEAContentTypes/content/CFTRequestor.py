@@ -173,7 +173,7 @@ class CFTRequestor(ATCTContent):
     """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ATCTContent,'__implements__',()),)
+    __implements__ = (getattr(ATCTContent, '__implements__', ()),)
 
     # This name appears in the 'add' box
     archetype_name = 'CFTRequestor'
@@ -217,7 +217,7 @@ registerType(CFTRequestor, PROJECTNAME)
 def submit_requestor(obj, event):
     valid = getMultiAdapter((obj, obj.REQUEST), name='isValid')
     if valid.validate():
-        obj.setRemoteAddr(obj.REQUEST.get('REMOTE_ADDR') )
+        obj.setRemoteAddr(obj.REQUEST.get('REMOTE_ADDR'))
         wf = getToolByName(obj, 'portal_workflow')
         actions = wf.getTransitionsFor(obj)
         if len(actions) > 0:

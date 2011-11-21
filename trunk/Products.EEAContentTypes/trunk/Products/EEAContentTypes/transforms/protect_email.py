@@ -7,7 +7,7 @@ import re
 
 EMAIL_RE = re.compile(r"(?<!mailto:)(?<!>)(?<!\.)\b(?P<name>(?:[a-zA-Z0-9-]+)(?:\.[a-zA-Z0-9-]+)*)@(?P<domain>(?:[a-zA-Z0-9-]+)(?:\.[a-zA-Z0-9-]+)*(?:\.[a-zA-Z]{2,4}))(?P<dot>[\.\"]?)\b")
 # `email title <email@domain.com>`__
-EMAIL_TITLE= re.compile(r"`([^`]+)(\s+)&lt;(.+)&gt;`__")
+EMAIL_TITLE = re.compile(r"`([^`]+)(\s+)&lt;(.+)&gt;`__")
 
 
 class ProtectEmail:
@@ -16,7 +16,7 @@ class ProtectEmail:
     implements(ITransform)
 
     __name__ = "protect_email"
-    inputs   = ('text/x-html-safe',)
+    inputs = ('text/x-html-safe',)
     output = "text/x-html-safe"
 
     def __init__(self, name=None):
@@ -44,7 +44,7 @@ class ProtectEmail:
             js = emailjs % (name, domain, title)
             toReplace = "`%s%s&lt;%s&gt;`__" % (title, space, email)
             orig = orig.replace(toReplace, js)
-            
+
         emails = EMAIL_RE.findall(orig)
         for name, domain, dot in emails:
             email = '%s@%s' % (name, domain)

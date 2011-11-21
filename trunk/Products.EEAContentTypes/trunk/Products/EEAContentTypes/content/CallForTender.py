@@ -42,8 +42,6 @@ class CallForTender(CallForInterest, BaseFolder):
     """
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(CallForInterest,'__implements__',()),) + (getattr(BaseFolder,'__implements__',()),)
-
     archetype_name = 'CallForTender'
 
     meta_type = 'CallForTender'
