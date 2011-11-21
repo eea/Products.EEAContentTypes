@@ -1,0 +1,9 @@
+<metal:fulldocument define-macro="document">
+
+  <metal:slot define-slot="related_multimedia" />
+
+  <metal:field use-macro="python:context.widget('text', mode='view')">
+    Body text
+  </metal:field>
+
+</metal:fulldocument>
