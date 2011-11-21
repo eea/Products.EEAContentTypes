@@ -1,4 +1,5 @@
 from Acquisition import Implicit
+from DateTime import DateTime
 from Products.ATContentTypes.interface import IATFolder, IATTopic
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import IFeedItemPortletInfo
@@ -221,7 +222,7 @@ class FolderFeed(FeedMixin, Implicit):
         return self.encoding
 
     def getModifiedDate(self):
-        return self.modifiedDate
+        return DateTime(self.modifiedDate)
 
     def getImageURL(self):
         return self.imageURL

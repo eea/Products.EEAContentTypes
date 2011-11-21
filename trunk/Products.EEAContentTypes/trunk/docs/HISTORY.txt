@@ -7,6 +7,7 @@ Changelog
   from back references
   [voineali #4740]
 * Bug fix: added header for rssAllowed script [tiberich #4738]
+* Bug fix: make getModifiedDate return a DateTime object for folder based feeds [tiberich #4739]
 
 4.0 - (2011-11-18)
 ------------------
