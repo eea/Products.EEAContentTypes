@@ -1,3 +1,5 @@
+""" Ref browser
+"""
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_parent, aq_inner
@@ -10,11 +12,15 @@ class ReferenceBrowserView(object):
         self.request = request
 
     def at_obj(self):
+        """ Obj
+        """
         at_url = self.request.get('at_url', '')
         obj = self.context.unrestrictedTraverse(at_url)
         return obj
 
     def breadcrumbs(self):
+        """ Breadcrumbs
+        """
         breadcrumbs = []
         obj = self.context
 
@@ -27,9 +33,12 @@ class ReferenceBrowserView(object):
         return breadcrumbs
 
     def contents(self):
+        """ Contents
+        """
         # Returns content that should be listed
         if self.context.portal_type == 'Topic':
-            contents = [brain.getObject() for brain in self.context.queryCatalog()]
+            contents = [brain.getObject() for brain
+                        in self.context.queryCatalog()]
         else:
             contents = self.context.listFolderContents()
         return contents

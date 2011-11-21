@@ -130,6 +130,6 @@ class FlashFile(ATFile, ThemeTaggable):
     def index_html(self, REQUEST=None, RESPONSE=None):
         """ Use the chosen template to display the flash file.
         """
-        return self() # pylint: disable-msg = E1102
+        return self()
 
 registerType(FlashFile, PROJECTNAME)

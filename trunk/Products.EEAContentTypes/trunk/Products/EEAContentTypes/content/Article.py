@@ -1,11 +1,4 @@
 """ Article """
-
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner
 from Products.ATContentTypes.content.newsitem import ATNewsItem
@@ -16,10 +9,13 @@ from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone import log
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
-from Products.EEAContentTypes.content.ExternalHighlight import schema as ExtHighlightSchema
+from Products.EEAContentTypes.content.ExternalHighlight import schema as \
+     ExtHighlightSchema
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.content.interfaces import IArticle
-from eea.rdfmarshaller.interfaces import IArchetype2Surf, ISurfSession, IATField2Surf
+from eea.rdfmarshaller.interfaces import(
+    IArchetype2Surf, ISurfSession, IATField2Surf
+)
 from eea.rdfmarshaller.marshaller import ATCT2Surf
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts, queryMultiAdapter
@@ -30,25 +26,25 @@ import rdflib
 try:
     from Products.LinguaPlone.public import (Schema, LinesField,
             InAndOutWidget, registerType)
-    Schema, LinesField, InAndOutWidget, registerType
 except ImportError:
     from Products.Archetypes.public import (Schema, LinesField,
             InAndOutWidget, registerType)
 
 
 schema = Schema((
-            LinesField('publication_groups',
-                schemata='categorization',
-                vocabulary=NamedVocabulary("publications_groups"),
-                languageIndependent=True,
-                index="KeywordIndex:brains",
-                widget=InAndOutWidget(
-                    label=_(u'label_publication_groups', default=u'Publication groups'),
-                    description=_(u'description_publication_groups', default=u'Fill in publication groups'),
-                    i18n_domain='eea.reports',
-                ),
+    LinesField(
+        'publication_groups',
+        schemata='categorization',
+        vocabulary=NamedVocabulary("publications_groups"),
+        languageIndependent=True,
+        index="KeywordIndex:brains",
+        widget=InAndOutWidget(
+            label=_(u'label_publication_groups', default=u'Publication groups'),
+            description=_(u'description_publication_groups',
+                          default=u'Fill in publication groups'),
+            i18n_domain='eea.reports',
             ),
-
+        ),
 ),
 )
 
@@ -71,11 +67,15 @@ Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 
 class Article(Highlight):
-    """<p>Articles are very similar to Highlights: folderish news-alike pages which contains information abous specific subjects and can be
-    displayed on frontpage of a website and sent as notification as any other news-alike content type.</p>
+    """
+    Articles are very similar to Highlights: folderish news-alike
+    pages which contains information abous specific subjects and can be
+    displayed on frontpage of a website and sent as notification as any other
+    news-alike content type.
     """
     security = ClassSecurityInfo()
-    __implements__ = (getattr(ExternalHighlight, '__implements__', ()),) + (getattr(ATNewsItem, '__implements__', ()),)
+    __implements__ = (getattr(ExternalHighlight, '__implements__', ()),) + (
+        getattr(ATNewsItem, '__implements__', ()),)
     implements(IArticle)
 
     # This name appears in the 'add' box
@@ -83,7 +83,9 @@ class Article(Highlight):
 
     meta_type = 'Article'
     portal_type = 'Article'
-    allowed_content_types = [] + list(getattr(ExternalHighlight, 'allowed_content_types', [])) + list(getattr(ATNewsItem, 'allowed_content_types', []))
+    allowed_content_types = [] + list(getattr(
+        ExternalHighlight, 'allowed_content_types', [])) + list(
+            getattr(ATNewsItem, 'allowed_content_types', []))
     filter_content_types = 1
     global_allow = 1
     immediate_view = 'base_view'
@@ -110,15 +112,19 @@ registerType(Article, PROJECTNAME)
 
 
 class Article2Surf(ATCT2Surf):
-    """Override the ATCT2Surf adapter because the media field accessor doesn't return the real values;
+    """Override the ATCT2Surf adapter because the media field accessor doesn't
+    return the real values;
 
-    NOTE: It should not be necessary to copy so much code from eea.rdfmarshaller, but there's
-    no 3 way adapter for (contenttype, fieldtype, surfsession) that would solve the problem.
+    NOTE: It should not be necessary to copy so much code from
+    eea.rdfmarshaller, but there's no 3 way adapter for (contenttype,
+    fieldtype, surfsession) that would solve the problem.
     """
     implements(IArchetype2Surf)
     adapts(IArticle, ISurfSession)
 
     def _schema2surf(self):
+        """ Surf
+        """
         context = self.context
         #session = self.session
         resource = self.surfResource
@@ -127,7 +133,8 @@ class Article2Surf(ATCT2Surf):
             fieldName = fld.getName()
             if fieldName in self.blacklist_map:
                 continue
-            fieldAdapter = queryMultiAdapter((fld, self.session), interface=IATField2Surf)
+            fieldAdapter = queryMultiAdapter((fld, self.session),
+                                             interface=IATField2Surf)
             if fieldAdapter.exportable:
                 if fieldName != "media":
                     value = fieldAdapter.value(context)
@@ -148,10 +155,12 @@ class Article2Surf(ATCT2Surf):
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
                     except Exception:
-                        log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' % (context.absolute_url(), fieldName,
-                                                                                                  sys.exc_info()[0],
-                                                                                                  sys.exc_info()[1]),
-                                                                                                severity=log.logging.WARN)
+                        log.log('RDF marshaller error for context[field] '
+                                '"%s[%s]": \n%s: %s' % (
+                                    context.absolute_url(), fieldName,
+                                    sys.exc_info()[0],
+                                    sys.exc_info()[1]),
+                                severity=log.logging.WARN)
         parent = getattr(aq_inner(context), 'aq_parent', None)
         if parent is not None:
             resource.dcterms_isPartOf = rdflib.URIRef(parent.absolute_url())

@@ -1,4 +1,4 @@
-""" validators """
+""" Validators """
 
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
@@ -6,6 +6,8 @@ from zope.interface import implements
 
 
 class ManagementPlanCodeValidator:
+    """ Validator
+    """
     implements(IValidator)
 
     def __init__(self,

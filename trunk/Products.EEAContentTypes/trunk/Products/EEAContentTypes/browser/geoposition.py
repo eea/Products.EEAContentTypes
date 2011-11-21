@@ -1,26 +1,35 @@
+""" Geo position
+"""
 from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.interfaces import IGeoPosition
 from Products.EEAContentTypes.content.interfaces import IGeoPositioned
 from Products.Five.browser import BrowserView
-from interfaces import IGeoMapData, IGeoMapView, IGeoConverter
-from interfaces import IGeoPositionView, IGoogleEarthView
+from Products.EEAContentTypes.browser.interfaces import (
+    IGeoMapData,
+    IGeoMapView,
+    IGeoConverter
+)
+from Products.EEAContentTypes.browser.interfaces import (
+    IGeoPositionView,
+    IGoogleEarthView
+)
 from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 from zope.interface import implements
 import logging
 from plone.i18n.locales.interfaces import ICountryAvailability
 
-
-#from Products.PloneLanguageTool.availablelanguages import getCountries
-
 logger = logging.getLogger('Products.EEAContentTypes.browser.geoposition')
 
 
 class GeoLocationTools(BrowserView):
-
+    """ Geo location tools
+    """
     def isGeoContainer(self):
+        """ Is geo container?
+        """
         syn = getToolByName(self.context, 'portal_syndication')
         catalog = getToolByName(self.context, 'portal_catalog')
 
@@ -34,14 +43,16 @@ class GeoLocationTools(BrowserView):
             path = '/'.join(self.context.getPhysicalPath())
         res = catalog.searchResults({
                     'path' : { 'query': path, 'depth': 1},
-                    'object_provides': 'Products.EEAContentTypes.content.interfaces.IGeoPositioned'
+                    'object_provides':
+                    'Products.EEAContentTypes.content.interfaces.IGeoPositioned'
                     })
 
-        if len(res) > 0: return True
+        if len(res) > 0:
+            return True
         return False
 
 class GoogleEarthView(object):
-    """ """
+    """ Google Earth View """
 
     implements(IGoogleEarthView)
 
@@ -75,7 +86,8 @@ class GoogleEarthView(object):
         for obj in placemarkers:
             geoobject = IGeoPosition(obj)
             placemark_url = obj.event_url()
-            if not placemark_url.startswith('http://'): placemark_url = 'http://%s' % placemark_url
+            if not placemark_url.startswith('http://'):
+                placemark_url = 'http://%s' % placemark_url
 
             kml_info = {'placemark_title':       obj.Title(),
                         'placemark_description': obj.Description(),
@@ -89,7 +101,7 @@ class GoogleEarthView(object):
         return res
 
 class GeoPositionView(BrowserView):
-    """ """
+    """ Geo Position View """
 
     implements(IGeoPositionView)
 
@@ -118,21 +130,25 @@ class GeoPositionView(BrowserView):
                 map_template = GOOGLE_SINGLE_TPL
                 api_key = geo_properties.getProperty('google_key', '')
 
-        #TODO: if no external URL the 'Read more' link to be hiddden on maps info
+        # TODO: if no external URL the 'Read more'
+        # link to be hiddden on maps info
         map_data = {'api_key':      api_key,
                     'latitude':     geoobject.latitude,
                     'longitude':    geoobject.longitude,
                     'location':     self.context.location,
                     'external_url': obj_url,
-                    'point_zoom':   geo_properties.getProperty('PointZoom_single', 'null') or 'null',
-                    'map_loc':      geo_properties.getProperty('MapLoc_single', 'null') or 'null',
-                    'map_zoom':     geo_properties.getProperty('MapZoom_single', 'null') or 'null'}
+                    'point_zoom':   geo_properties.getProperty(
+                        'PointZoom_single', 'null') or 'null',
+                    'map_loc':      geo_properties.getProperty(
+                        'MapLoc_single', 'null') or 'null',
+                    'map_zoom':     geo_properties.getProperty(
+                        'MapZoom_single', 'null') or 'null'}
 
         res = map_template % map_data
         return res
 
 class GeoConverter(BrowserView):
-    """ """
+    """ Geo converter """
     implements(IGeoConverter)
 
     def __init__(self, context, request):
@@ -140,18 +156,23 @@ class GeoConverter(BrowserView):
         self.request = request
 
     def geoConvert(self, data):
+        """ Geo convert
+        """
         res = ''
         for item in data:
-            try:	obj = item.getObject()
-            except Exception:	obj = item
+            try:
+                obj = item.getObject()
+            except Exception:
+                obj = item
             if IGeoPositioned.providedBy(obj):
                 geoobject = IGeoPosition(obj)
                 res += "%s|%s###" % (geoobject.latitude, geoobject.longitude)
 
-        return '<script type="text/javascript">var geo_data = "%s"</script>' % res
+        return '<script type="text/javascript">var geo_data = "%s"</script>' % (
+            res,)
 
 class GeoMapData(BrowserView):
-    """ """
+    """ Geo map data """
     implements(IGeoMapData)
 
     def __init__(self, context, request):
@@ -160,7 +181,7 @@ class GeoMapData(BrowserView):
 
     def __call__(self, cc=None, tc=None, **kwargs):
         #TODO: kwargs to be used for filter call
-        
+
         props = getToolByName(self.context, 'portal_properties').site_properties
         placemarkers = []
         placemarkers_add = placemarkers.append
@@ -176,8 +197,8 @@ class GeoMapData(BrowserView):
         maxi = syn.getMaxItems(self.context)
         maxi = type(maxi) == type(1) and maxi or default_max
         objects = list(syn.getSyndicatableContent(self.context))[:maxi]
-        ### plone4.1 couldn't find the interface brovided by brains 
-        ### so we are asking for the objects 
+        ### plone4.1 couldn't find the interface brovided by brains
+        ### so we are asking for the objects
         objects = [obj.getObject() for obj in objects]
 
         for obj in objects:
@@ -221,27 +242,38 @@ class GeoMapData(BrowserView):
             # Set theme widget info
             #TODO: general method to get themes list
             obj_theme = []
-            try:    obj_theme.extend(obj.getThemes())
-            except Exception, err: logger.info(err)
+            try:
+                obj_theme.extend(obj.getThemes())
+            except Exception, err:
+                logger.info(err)
             for th in obj_theme:
                 if th != 'default':
                     th_count = theme_inf_sort.get(th, 0)
-                    if th_count == 0: th_count = 1
-                    else: th_count = th_count[1] + 1
-                    theme_inf_sort[th] = (themeVocab.getTerm(th).title, th_count)
+                    if th_count == 0:
+                        th_count = 1
+                    else:
+                        th_count = th_count[1] + 1
+                    theme_inf_sort[th] = (themeVocab.getTerm(th).title,
+                                          th_count)
 
-            if ((country_filter is not None and country_filter == country_code) or (country_filter is None)) and \
-               ((theme_filter is None) or (theme_filter is not None and theme_filter in obj_theme)):
+            if ((country_filter is not None and country_filter == country_code)
+                or (country_filter is None)) and \
+               ((theme_filter is None) or (theme_filter is not None
+                                           and theme_filter in obj_theme)):
 
                 ob_lat = geoobject.latitude
                 ob_long = geoobject.longitude
 
                 if (ob_lat, ob_long) in tmp_identical.keys():
-                    if float(ob_long) > 0: ob_long = str(float(ob_long) + 0.02)
-                    else:	           ob_long = str(float(ob_long) - 0.02)
+                    if float(ob_long) > 0:
+                        ob_long = str(float(ob_long) + 0.02)
+                    else:
+                        ob_long = str(float(ob_long) - 0.02)
                     while (ob_lat, ob_long) in tmp_identical.keys():
-                        if float(ob_long) > 0: ob_long = str(float(ob_long) + 0.02)
-                        else:	               ob_long = str(float(ob_long) - 0.02)
+                        if float(ob_long) > 0:
+                            ob_long = str(float(ob_long) + 0.02)
+                        else:
+                            ob_long = str(float(ob_long) - 0.02)
 
                 tmp_identical[(ob_lat, ob_long)] = obj.id
                 res_add('%s|%s|mk_%s|%s|%s' % (ob_lat,
@@ -251,23 +283,31 @@ class GeoMapData(BrowserView):
                                                'mk_GEOTYPE'))
 
                 obj_desc = obj.Description()
-                if len(obj_desc)>550: obj_desc = obj_desc[:550] + ' ...'
-                start_date = DateTime(obj.start()).strftime( props.localLongTimeFormat )
-                end_date = DateTime(obj.end()).strftime( props.localLongTimeFormat )
-                reshtml_add(YAHOO_MULTI_MARKER_TPL % {'id': 'mk_%s' % obj.id,
-                                                      'title': obj.Title(),
-                                                      'description': obj_desc,
-                                                      'location': obj.location.encode('utf8'),
-                                                      'period': '%s to %s' % (start_date, end_date),
-                                                      'link': obj.absolute_url()})
+                if len(obj_desc) > 550:
+                    obj_desc = obj_desc[:550] + ' ...'
+                start_date = DateTime(obj.start()).strftime(
+                    props.localLongTimeFormat)
+                end_date = DateTime(obj.end()).strftime(
+                    props.localLongTimeFormat)
+                reshtml_add(YAHOO_MULTI_MARKER_TPL % {
+                    'id': 'mk_%s' % obj.id,
+                    'title': obj.Title(),
+                    'description': obj_desc,
+                    'location': obj.location.encode('utf8'),
+                    'period': '%s to %s' % (start_date, end_date),
+                    'link': obj.absolute_url()})
 
         # Generate country widget content
         cc_list = country_inf_sort.keys()
         cc_list.sort()
         for country_name in cc_list:
             country_code = country_inf_sort.get(country_name, '')
-            country_html += '<span class="widget_row" id="%s" onclick="javascript:selectCountry(this);">%s (%s)</span>' % (country_code, country_name, country_inf[country_code])
-        if country_inf.get('Other', None): country_html += '<br/><span>%s (%s)</span>' % ('Other', country_inf['Other'])
+            country_html += ('<span class="widget_row" id="%s" '
+                'onclick="javascript:selectCountry(this);">%s (%s)</span>') % (
+                country_code, country_name, country_inf[country_code])
+        if country_inf.get('Other', None):
+            country_html += '<br/><span>%s (%s)</span>' % (
+                'Other', country_inf['Other'])
 
         # Themes filtering
         th_list = theme_inf_sort.keys()
@@ -275,12 +315,15 @@ class GeoMapData(BrowserView):
 
         for th in th_list:
             th_info = theme_inf_sort[th]
-            theme_html += '<span class="widget_row" id="%s" onclick="javascript:selectTheme(this);">%s (%s)</span>' % (th, th_info[0], th_info[1])
+            theme_html += ('<span class="widget_row" id="%s" '
+                'onclick="javascript:selectTheme(this);">%s (%s)</span>') % (
+                    th, th_info[0], th_info[1])
 
-        return '%s####%s####%s####%s' % ('###'.join(res), ''.join(res_html), str(country_html), theme_html)
+        return '%s####%s####%s####%s' % (
+            '###'.join(res), ''.join(res_html), str(country_html), theme_html)
 
 class GeoMapView(BrowserView):
-    """ """
+    """ Geo map view """
 
     implements(IGeoMapView)
 
@@ -311,8 +354,10 @@ class GeoMapView(BrowserView):
                 #api_key = geo_properties.getProperty('google_key', '')
 
         map_data = {'api_key':      api_key,
-                    'map_loc':      geo_properties.getProperty('MapLoc_multi', ''),
-                    'map_zoom':     geo_properties.getProperty('MapZoom_multi', ''),
+                    'map_loc':      geo_properties.getProperty(
+                        'MapLoc_multi', ''),
+                    'map_zoom':     geo_properties.getProperty(
+                        'MapZoom_multi', ''),
                     'context_url':  self.context.absolute_url(),
                     'portal_url':   portal_url}
 
@@ -495,7 +540,7 @@ div.marker-body h3 {
     left: 455px;
     height: 18px;
 }
-a#themes-close:hover, a#country-close:hover { 
+a#themes-close:hover, a#country-close:hover {
     background: orange !important;
     color: #000;
 }
@@ -505,343 +550,369 @@ a#themes-close:visited, a#country-close:visited {
 </style>
 
 <div style="display:none" id="map_markers"></div>
-<script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
+<script type="text/javascript"
+    src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
 
 <div id="map_events_yahoo" style="border: 1px solid black">
-                <span id="map_left_widget" style="display:none">
-                <span class="map_left_widget_header">Filter by theme</span>
-                <div id="theme_info"></div>
-                <div class="widget_tip" onclick="javascript:deselectAll('theme');">Show all</div>
-                </span>
-                <a href="#" id="themes-close">Close</a>
-                <span id="map_right_widget" style="display:none">
-                <div id="country_info"></div>
-                <div class="widget_tip" onclick="javascript:deselectAll('country');">Show all</div>
-                </span>
-                <a href="#" id="country-close">Close</a>
+    <span id="map_left_widget" style="display:none">
+    <span class="map_left_widget_header">Filter by theme</span>
+    <div id="theme_info"></div>
+    <div class="widget_tip"
+        onclick="javascript:deselectAll('theme');">Show all</div>
+    </span>
+    <a href="#" id="themes-close">Close</a>
+    <span id="map_right_widget" style="display:none">
+    <div id="country_info"></div>
+    <div class="widget_tip"
+        onclick="javascript:deselectAll('country');">Show all</div>
+    </span>
+    <a href="#" id="country-close">Close</a>
 </div>
 
 <center style="margin-right: 10em">
-<span id="map_center_widget" style=""><span id="record_counter">0</span> events on map</span>
+<span id="map_center_widget" style="">
+  <span id="record_counter">0</span> events on map</span>
 </center>
 
 <script type="text/javascript">
-                <!--
-                var thc = jQuery("#themes-close, #country-close"),
-                    maps = jQuery("#map_left_widget, #map_right_widget");
-                thc.toggle(function(e) {
-                    e.preventDefault();
-                    maps.fadeOut('slow');
-                    thc.text("Show");
-                }, function(e){
-                    e.preventDefault();
-                    maps.fadeIn('slow');
-                    thc.text("Close");
-                });
+    <!--
+    var thc = jQuery("#themes-close, #country-close"),
+        maps = jQuery("#map_left_widget, #map_right_widget");
+    thc.toggle(function(e) {
+        e.preventDefault();
+        maps.fadeOut('slow');
+        thc.text("Show");
+    }, function(e){
+        e.preventDefault();
+        maps.fadeIn('slow');
+        thc.text("Close");
+    });
 
-                var xmlhttp;
-                var map = null;
-                var country_filter = '';
-                var theme_filter = '';
+    var xmlhttp;
+    var map = null;
+    var country_filter = '';
+    var theme_filter = '';
 
-                function handlerYahooMap() {
-                var mapCenterLoc = "%(map_loc)s", mapCenterZoom = %(map_zoom)s+11;
-                map = new YMap(document.getElementById("map_events_yahoo"), YAHOO_MAP_REG);
-                // Set map container height and width
-                document.getElementById("map_events_yahoo").style.width = '99%%';
-                document.getElementById("map_events_yahoo").style.height = '300px';
-                // Display the map centered on given address
-                map.drawZoomAndCenter(mapCenterLoc, mapCenterZoom);
-                map.addTypeControl();
-                map.addPanControl();
-                map.addZoomLong();
-                map.disableKeyControls();
+    function handlerYahooMap() {
+    var mapCenterLoc = "%(map_loc)s", mapCenterZoom = %(map_zoom)s+11;
+    map = new YMap(document.getElementById("map_events_yahoo"), YAHOO_MAP_REG);
+    // Set map container height and width
+    document.getElementById("map_events_yahoo").style.width = '99%%';
+    document.getElementById("map_events_yahoo").style.height = '300px';
+    // Display the map centered on given address
+    map.drawZoomAndCenter(mapCenterLoc, mapCenterZoom);
+    map.addTypeControl();
+    map.addPanControl();
+    map.addZoomLong();
+    map.disableKeyControls();
 
-                //markers
-                //#TODO: define markers type
+    //markers
+    //#TODO: define markers type
 
-                var zp = new YCoordPoint(100,100);
-                zp.translate('left','bottom');
-                var cOverlay = new YCustomOverlay(zp);
-                showSelectedLocations();
+    var zp = new YCoordPoint(100,100);
+    zp.translate('left','bottom');
+    var cOverlay = new YCustomOverlay(zp);
+    showSelectedLocations();
 
-                document.getElementById("map_left_widget").style.display = 'inline';
-                document.getElementById("map_right_widget").style.display = 'inline';
-                }
+    document.getElementById("map_left_widget").style.display = 'inline';
+    document.getElementById("map_right_widget").style.display = 'inline';
+    }
 
-                function initXMLdoc() {
-                xmlhttp = null;
-                if (window.XMLHttpRequest) {
-                xmlhttp=new XMLHttpRequest()
-                }
-                else if (window.ActiveXObject) {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                }
+    function initXMLdoc() {
+    xmlhttp = null;
+    if (window.XMLHttpRequest) {
+    xmlhttp=new XMLHttpRequest()
+    }
+    else if (window.ActiveXObject) {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    }
 
-                function loadXMLDoc(url, handler) {
-                initXMLdoc();
-                function wrapper()
-                {
-                if (xmlhttp.readyState == 4) {
-                if (xmlhttp.status == 200) {
-                handler();
-                return true;
-                } else {
-                alert('GeoMap, there was a problem retrieving the XML data:' + xmlhttp.statusText);
-                return false;
-                }
-                }
-                }
-                if (xmlhttp != null)
-                {
-                xmlhttp.onreadystatechange = wrapper;
-                xmlhttp.open("GET", url, true);
-                xmlhttp.send(null);
-                }
-                }
+    function loadXMLDoc(url, handler) {
+    initXMLdoc();
+    function wrapper()
+    {
+    if (xmlhttp.readyState == 4) {
+    if (xmlhttp.status == 200) {
+    handler();
+    return true;
+    } else {
+    alert('GeoMap,
+        there was a problem retrieving the XML data:' + xmlhttp.statusText);
+    return false;
+    }
+    }
+    }
+    if (xmlhttp != null)
+    {
+    xmlhttp.onreadystatechange = wrapper;
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send(null);
+    }
+    }
 
-                function trim(str) {
-                var ret;
-                if(typeof(str) != "string") str = str + "";
-                return str.replace(/(^\s+)|(\s+$)/gi, "");
-                }
+    function trim(str) {
+    var ret;
+    if(typeof(str) != "string") str = str + "";
+    return str.replace(/(^\s+)|(\s+$)/gi, "");
+    }
 
-                function createMarker(map, lat, lng, id) {
-                var geo_loc = new YGeoPoint(lat, lng);
-                var geo_image = new YImage();
-                geo_image.src = '%(portal_url)s/event_icon.gif';
-                geo_image.size = new YSize(16,16);
+    function createMarker(map, lat, lng, id) {
+    var geo_loc = new YGeoPoint(lat, lng);
+    var geo_image = new YImage();
+    geo_image.src = '%(portal_url)s/event_icon.gif';
+    geo_image.size = new YSize(16,16);
 
-                var marker = new YMarker(geo_loc, geo_image)
-                marker.setSmartWindowColor("grey");
-                YEvent.Capture(marker, EventsList.MouseClick, function() {
-                marker.openSmartWindow(document.getElementById(id).innerHTML);});
-                map.addOverlay(marker);
+    var marker = new YMarker(geo_loc, geo_image)
+    marker.setSmartWindowColor("grey");
+    YEvent.Capture(marker, EventsList.MouseClick, function() {
+    marker.openSmartWindow(document.getElementById(id).innerHTML);});
+    map.addOverlay(marker);
 
-                return marker.id
-                }
+    return marker.id
+    }
 
-                function showSelectedLocations_request_handler(filter)
-                {
-                var mapMarker = null;
-                // clear map
-                map.removeMarkersAll();
+    function showSelectedLocations_request_handler(filter)
+    {
+    var mapMarker = null;
+    // clear map
+    map.removeMarkersAll();
 
-                // set markers
-                var data = xmlhttp.responseText.split('####'), b = '', c = '', d = '';
-                b = trim(data[1]);
-                if (b != '') document.getElementById('map_markers').innerHTML = b;
+    // set markers
+    var data = xmlhttp.responseText.split('####'), b = '', c = '', d = '';
+    b = trim(data[1]);
+    if (b != '') document.getElementById('map_markers').innerHTML = b;
 
-                // set country widget
-                if (country_filter == '') {
-                c = trim(data[2]);
-                if (c != '') document.getElementById('country_info').innerHTML = c;
-                }
+    // set country widget
+    if (country_filter == '') {
+    c = trim(data[2]);
+    if (c != '') document.getElementById('country_info').innerHTML = c;
+    }
 
-                // set theme widget
-                if (theme_filter == '') {
-                d = trim(data[3]);
-                if (d != '') document.getElementById('theme_info').innerHTML = d;
-                }
+    // set theme widget
+    if (theme_filter == '') {
+    d = trim(data[3]);
+    if (d != '') document.getElementById('theme_info').innerHTML = d;
+    }
 
-                // put markers on map
-                var arrMarkers = trim(data[0]).split('###');
-                var num_records = 0;
-                for (var i = 0; i < arrMarkers.length; i++) {
-                var b = trim(arrMarkers[i]);
-                if (b != '') {
-                var m = b.split('|');
-                lat = parseFloat(m[0]);
-                lng = parseFloat(m[1]);
-                id = m[2].toString();
-                label = m[3].toString();
-                mapMarker = m[4].toString();
-                mapid = createMarker(map, lat, lng, id);
-                num_records++;
-                }
-                }
+    // put markers on map
+    var arrMarkers = trim(data[0]).split('###');
+    var num_records = 0;
+    for (var i = 0; i < arrMarkers.length; i++) {
+    var b = trim(arrMarkers[i]);
+    if (b != '') {
+    var m = b.split('|');
+    lat = parseFloat(m[0]);
+    lng = parseFloat(m[1]);
+    id = m[2].toString();
+    label = m[3].toString();
+    mapMarker = m[4].toString();
+    mapid = createMarker(map, lat, lng, id);
+    num_records++;
+    }
+    }
 
-                // update record counter
-                // if (country_filter == '') document.getElementById('record_counter').innerHTML = num_records.toString();
-                document.getElementById('record_counter').innerHTML = num_records.toString();
-                }
+    // update record counter
+    // if (country_filter == '') document.getElementById('record_counter')
+    //   .innerHTML = num_records.toString();
+    document.getElementById('record_counter')
+        .innerHTML = num_records.toString();
+    }
 
-                function showSelectedLocations() {
-                loadXMLDoc('%(context_url)s/geoEventsData' + createQuery(), showSelectedLocations_request_handler);
-                }
+    function showSelectedLocations() {
+    loadXMLDoc('%(context_url)s/geoEventsData' + createQuery(),
+        showSelectedLocations_request_handler);
+    }
 
-                function testSelected(elem_color) {
-                return elem_color == "#c8e368" || elem_color == "rgb(200, 227, 104)";
-                }
+    function testSelected(elem_color) {
+    return elem_color == "#c8e368" || elem_color == "rgb(200, 227, 104)";
+    }
 
-                function selectCountry(elem) {
-                if (testSelected(elem.style.backgroundColor)) {
-                elem.style.backgroundColor = "";
-                country_filter = '';
-                }
-                else {
-                country_list = document.getElementById("country_info").getElementsByTagName("span");
-                for (var i = 0; i < country_list.length; i++) {
-                country_list[i].style.backgroundColor = "";
-                }
-                elem.style.backgroundColor = "#C8E368";
-                country_filter = elem.id;
-                }
-                showSelectedLocations()
-                }
+    function selectCountry(elem) {
+    if (testSelected(elem.style.backgroundColor)) {
+    elem.style.backgroundColor = "";
+    country_filter = '';
+    }
+    else {
+    country_list = document.getElementById("country_info")
+      .getElementsByTagName("span");
+    for (var i = 0; i < country_list.length; i++) {
+    country_list[i].style.backgroundColor = "";
+    }
+    elem.style.backgroundColor = "#C8E368";
+    country_filter = elem.id;
+    }
+    showSelectedLocations()
+    }
 
-                function selectTheme(elem) {
-                if (testSelected(elem.style.backgroundColor)) {
-                elem.style.backgroundColor = "";
-                theme_filter = '';
-                }
-                else {
-                theme_list = document.getElementById("theme_info").getElementsByTagName("span");
-                for (var i = 0; i < theme_list.length; i++) {
-                theme_list[i].style.backgroundColor = "";
-                }
-                elem.style.backgroundColor = "#C8E368";
-                theme_filter = elem.id;
-                }
-                showSelectedLocations()
-                }
+    function selectTheme(elem) {
+    if (testSelected(elem.style.backgroundColor)) {
+    elem.style.backgroundColor = "";
+    theme_filter = '';
+    }
+    else {
+    theme_list = document.getElementById("theme_info")
+        .getElementsByTagName("span");
+    for (var i = 0; i < theme_list.length; i++) {
+    theme_list[i].style.backgroundColor = "";
+    }
+    elem.style.backgroundColor = "#C8E368";
+    theme_filter = elem.id;
+    }
+    showSelectedLocations()
+    }
 
-                function deselectAll(widget) {
-                var widget_id = widget + '_info';
-                var elem_list = document.getElementById(widget_id).getElementsByTagName("span");
-                for (var i = 0; i < elem_list.length; i++) {
-                elem_list[i].style.backgroundColor = "";
-                }
-                showSelectedLocations()
-                }
+    function deselectAll(widget) {
+    var widget_id = widget + '_info';
+    var elem_list = document.getElementById(widget_id)
+        .getElementsByTagName("span");
+    for (var i = 0; i < elem_list.length; i++) {
+    elem_list[i].style.backgroundColor = "";
+    }
+    showSelectedLocations()
+    }
 
-                function createQuery() {
-                var query = "";
+    function createQuery() {
+    var query = "";
 
-                // Create themes query
-                var theme_list = document.getElementById("theme_info").getElementsByTagName("span");
-                for (var i = 0; i < theme_list.length; i++) {
-                if (testSelected(theme_list[i].style.backgroundColor)) {
-                query = "tc=" + theme_list[i].id;
-                break;
-                }
-                }
+    // Create themes query
+    var theme_list = document.getElementById("theme_info")
+        .getElementsByTagName("span");
+    for (var i = 0; i < theme_list.length; i++) {
+    if (testSelected(theme_list[i].style.backgroundColor)) {
+    query = "tc=" + theme_list[i].id;
+    break;
+    }
+    }
 
-                // Create country query
-                var country_list = document.getElementById("country_info").getElementsByTagName("span");
-                for (var i = 0; i < country_list.length; i++) {
-                if (testSelected(country_list[i].style.backgroundColor)) {
-                query += "&cc=" + country_list[i].id;
-                break;
-                }
-                }
+    // Create country query
+    var country_list = document.getElementById("country_info")
+        .getElementsByTagName("span");
+    for (var i = 0; i < country_list.length; i++) {
+    if (testSelected(country_list[i].style.backgroundColor)) {
+    query += "&cc=" + country_list[i].id;
+    break;
+    }
+    }
 
-                if (query != "") query = "?" + query;
-                return query;
-                }
+    if (query != "") query = "?" + query;
+    return query;
+    }
 
-                var geo_onload=window.onload;
-                if (typeof(geo_onload)=='function')
-                window.onload=function(){geo_onload();handlerYahooMap()};
-                else window.onload=function(){handlerYahooMap()};
-                // -->
+    var geo_onload=window.onload;
+    if (typeof(geo_onload)=='function')
+    window.onload=function(){geo_onload();handlerYahooMap()};
+    else window.onload=function(){handlerYahooMap()};
+    // -->
 </script>
 """
 
 YAHOO_SINGLE_TPL = """
-<script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
+<script type="text/javascript"
+    src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=%(api_key)s"></script>
 <div class="mapContainer">
-                 <div id="map_yahoo"></div>
-                 <br />
-                 <a href="http://developer.yahoo.com/about" title="Yahoo.com | About Applications that Use Yahoo! Web Services">Service provided by Yahoo!</a>
+    <div id="map_yahoo"></div>
+    <br />
+    <a href="http://developer.yahoo.com/about"
+        title="Yahoo.com | About Applications that Use Yahoo! Web Services">
+        Service provided by Yahoo!
+    </a>
 </div>
 <script type="text/javascript">
-                 <!--
-                 function handlerYahooMapSingle() {
-                 var map = null;
-                 var PointLat = "%(latitude)s", PointLon = "%(longitude)s", PointZoom = %(point_zoom)s, MapLoc = "%(map_loc)s", MapZoom = %(map_zoom)s+10;
-                 map = new YMap(document.getElementById("map_yahoo"));
-                 map.addTypeControl();
-                 map.addZoomLong();
-                 map.addPanControl();
-                 map.setMapType(YAHOO_MAP_REG);
+    <!--
+    function handlerYahooMapSingle() {
+    var map = null;
+    var PointLat = "%(latitude)s", PointLon = "%(longitude)s";
+    var PointZoom = %(point_zoom)s, MapLoc = "%(map_loc)s";
+    var MapZoom = %(map_zoom)s+10;
+    map = new YMap(document.getElementById("map_yahoo"));
+    map.addTypeControl();
+    map.addZoomLong();
+    map.addPanControl();
+    map.setMapType(YAHOO_MAP_REG);
 
-                 if (PointLat == 0.0 || PointLon == 0.0) {
-                 map.drawZoomAndCenter(MapLoc, MapZoom); }
-                 else {
-                 marker = new YGeoPoint(PointLat, PointLon);
-                 map.drawZoomAndCenter(marker, PointZoom);
-                 map.addMarker(map.getCenterLatLon());
-                 map.showSmartWindow(marker, '<span>%(location)s</span><br /><p><a href="%(external_url)s" title="">Read more info</a></p>'); }
-                 }
+    if (PointLat == 0.0 || PointLon == 0.0) {
+    map.drawZoomAndCenter(MapLoc, MapZoom); }
+    else {
+        marker = new YGeoPoint(PointLat, PointLon);
+        map.drawZoomAndCenter(marker, PointZoom);
+        map.addMarker(map.getCenterLatLon());
+        map.showSmartWindow(marker, '<span>%(location)s</span>' +
+         '<br /><p><a href="%(external_url)s" title="">Read more info</a></p>');
+       }
+    }
 
-                 var geo_onload=window.onload;
-                 if (typeof(geo_onload)=='function')
-                 window.onload=function(){geo_onload();handlerYahooMapSingle()};
-                 else window.onload=function(){handlerYahooMapSingle()};
-                 // -->
+    var geo_onload=window.onload;
+    if (typeof(geo_onload)=='function')
+    window.onload=function(){geo_onload();handlerYahooMapSingle()};
+    else window.onload=function(){handlerYahooMapSingle()};
+    // -->
 </script>
 """
 
 GOOGLE_SINGLE_TPL = """
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=%(api_key)s" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=%(api_key)s"
+    type="text/javascript"></script>
 <div class="mapContainer">
-                  <div id="map_google"></div>
-                  <br />
-                  <a href="http://code.google.com/apis/maps/terms.html" title="Google Maps API Terms of Service - Google Maps API - Google Code">Service provided by Google!</a>
+    <div id="map_google"></div>
+    <br />
+    <a href="http://code.google.com/apis/maps/terms.html"
+      title="Google Maps API Terms of Service - Google Maps API - Google Code">
+      Service provided by Google!
+    </a>
 </div>
 <script type="text/javascript">
-                  <!--
-                  function handlerGoogleMap() {
-                  var location = "%(location)s";
-                  var location_url = "%(external_url)s";
-                  var latitude = %(latitude)s;
-                  var longitude = %(longitude)s;
-                  var map_zoom = %(map_zoom)s;
-                  var marker_text = location + '<br/><a href="' + location_url + '">Read more info</a>'
+    <!--
+    function handlerGoogleMap() {
+    var location = "%(location)s";
+    var location_url = "%(external_url)s";
+    var latitude = %(latitude)s;
+    var longitude = %(longitude)s;
+    var map_zoom = %(map_zoom)s;
+    var marker_text = location;
+    marker_text += '<br/><a href="' + location_url + '">Read more info</a>'
 
-                  function html_data(){
-                  var data = document.createElement("span");
-                  data.innerHTML = marker_text;
-                  return data;
-                  }
+    function html_data(){
+    var data = document.createElement("span");
+    data.innerHTML = marker_text;
+    return data;
+    }
 
-                  if (GBrowserIsCompatible()) {
-                  //Set map
-                  var map = new GMap2(document.getElementById("map_google"));
-                  map.setCenter(new GLatLng(latitude, longitude), map_zoom);
-                  map.enableScrollWheelZoom();
-                  map.addControl(new GLargeMapControl());
-                  map.addControl(new GMapTypeControl());
+    if (GBrowserIsCompatible()) {
+    //Set map
+    var map = new GMap2(document.getElementById("map_google"));
+    map.setCenter(new GLatLng(latitude, longitude), map_zoom);
+    map.enableScrollWheelZoom();
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GMapTypeControl());
 
-                  //Draw bubble info
-                  map.openInfoWindow(map.getCenter(), html_data());
+    //Draw bubble info
+    map.openInfoWindow(map.getCenter(), html_data());
 
-                  //Add marker
-                  function createMarker(latlng) {
-                  var marker = new GMarker(latlng);
-                  GEvent.addListener(marker,"click", function() {
-                  var myHtml = marker_text;
-                  map.openInfoWindowHtml(latlng, myHtml);
-                  });
-                  return marker;
-                  }
-                  var point = new GLatLng(latitude, longitude);
-                  map.addOverlay(createMarker(point));
-                  }
-                  else { alert('Incompatible browser'); }
-                  }
+    //Add marker
+    function createMarker(latlng) {
+    var marker = new GMarker(latlng);
+    GEvent.addListener(marker,"click", function() {
+    var myHtml = marker_text;
+    map.openInfoWindowHtml(latlng, myHtml);
+    });
+    return marker;
+    }
+    var point = new GLatLng(latitude, longitude);
+    map.addOverlay(createMarker(point));
+    }
+    else { alert('Incompatible browser'); }
+    }
 
-                  var geo_onload=window.onload;
-                  if (typeof(geo_onload)=='function')
-                  window.onload=function(){geo_onload();handlerGoogleMap()};
-                  else window.onload=function(){handlerGoogleMap()};
+    var geo_onload=window.onload;
+    if (typeof(geo_onload)=='function')
+    window.onload=function(){geo_onload();handlerGoogleMap()};
+    else window.onload=function(){handlerGoogleMap()};
 
-                  var geo_unload=window.onunload;
-                  if (typeof(geo_unload)=='function')
-                  window.onunload=function(){GUnload();geo_unload();};
-                  else window.onunload=function(){GUnload()};
-                  // -->
+    var geo_unload=window.onunload;
+    if (typeof(geo_unload)=='function')
+    window.onunload=function(){GUnload();geo_unload();};
+    else window.onunload=function(){GUnload()};
+    // -->
 </script>
 """

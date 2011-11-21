@@ -1,11 +1,8 @@
+""" Orderable Field
+"""
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.OrderableReferenceField._field import OrderableReferenceField
-
-#from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
-#from Products.Archetypes.Field import ReferenceField
-#from Products.OrderableReferenceField._field import OrderableReferenceWidget
-
 
 field = OrderableReferenceField(
     'relatedItems',
@@ -43,6 +40,6 @@ from Products.EEAContentTypes.content.Speech import Speech_schema
 types_and_schema = (
     (ATDocument, ATDocumentSchema),
     (Highlight, Highlight_schema),
-    (Article, Article_schema),    
+    (Article, Article_schema),
     (Speech, Speech_schema)
     )

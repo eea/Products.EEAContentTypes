@@ -1,7 +1,11 @@
+""" Interfaces
+"""
 from zope.interface import Interface
 from zope.schema import TextLine
 
 class IRSSShare(Interface):
+    """ RSS Share
+    """
 
     def main():
         """ Returns objects for the main rss share. It takes all frontpage
@@ -11,6 +15,8 @@ class IRSSShare(Interface):
         The old highlights.rdf. """
 
 class ICFTRegistration(Interface):
+    """ CFT Registration
+    """
 
     def hasCanceled():
         """ return true if user has canceled registration """
@@ -23,6 +29,8 @@ class ICFTRegistration(Interface):
         """ Return true if there has been published a award notice. """
 
 class IOrganisation(Interface):
+    """ Organisation
+    """
 
     def validData():
         """ return xml data status """
@@ -58,12 +66,16 @@ class IOrganisation(Interface):
               'programme' : '' } """
 
 class IRelatedThemes(Interface):
+    """ Related themes
+    """
 
     def getRelatedThemes():
         """ Fetch themes for the current object and return a dict with
             theme name, id, url to theme. """
 
 class IFrontPageHighlights(Interface):
+    """ Front page highlights
+    """
 
     def getHigh():
         """ Return the published highlights with visibility `top` and that
@@ -82,7 +94,7 @@ class IFrontPageHighlights(Interface):
     def getPromotions():
         """ Return all published promotions and group them in categories.
             Categories are defined by the folders containing the promotions. """
-            
+
     def getHighArticles():
         """ Return the published articles with visibility `top` and that
             haven't expired. Sort by publish date and return the number
@@ -101,11 +113,15 @@ class IFrontPageHighlights(Interface):
         """
 
 class IPromotionCategory(Interface):
+    """ Promotion category
+    """
 
     def getPromotions():
         """ Return published promotions in this group. """
 
 class IQuickEvent(Interface):
+    """ Quick event
+    """
 
     def hasCanceled():
         """ return true if user has canceled submition """
@@ -117,6 +133,8 @@ class IQuickEvent(Interface):
         """ Handle confirmation or correction of event. """
 
 class ILanguages(Interface):
+    """ Languages
+    """
 
     def getTranslationLanguages():
         """ Return languages for translation. """
@@ -159,68 +177,96 @@ class IEmployee(Interface):
                         required=True)
 
 class IDocumentRelated(Interface):
+    """ Document related
+    """
+
     def bottom_media():
-        pass
+        """ Bottom media
+        """
 
     def feeds():
-        pass
+        """ Feeds
+        """
 
     def mediacount():
-        pass
+        """ Media count
+        """
 
     def multimedia():
-        pass
+        """ Multimedia
+        """
 
     def pages():
-        pass
+        """ Pages
+        """
 
     def other():
-        pass
+        """ Other
+        """
 
     def top_count():
-        pass
+        """ Top count
+        """
 
     def top_media():
-        pass
+        """ Top media
+        """
 
 class IAutoRelated(Interface):
+    """ Auto related
+    """
 
     def sameTheme():
-        """ return related documents of the same type. Relation is by theme. """
+        """ Return related documents of the same type. Relation is by theme.
+        """
 
     def autoContext():
-        """ return related items in a specific order: manually tagged, same theme, latest items."""
+        """ Return related items in a specific order: manually tagged,
+            same theme, latest items.
+        """
 
     def sameType():
-        """ return related documents of the same type. Relation is by type. """
+        """ Return related documents of the same type. Relation is by type. """
 
     def sameTypeByTheme():
-        """ return related documents of the same type. Grouped by theme. """
+        """ Return related documents of the same type. Grouped by theme. """
 
     def sameTypeByPublicationGroup():
-        """ return related doucments of the same type, grouped by publication group. """
+        """ Return related doucments of the same type, grouped by
+            publication group.
+        """
 
 class IGeoConverter(Interface):
+    """ Geo converter
+    """
+
     def geoConvert():
-        """ """
+        """ Geo convert
+        """
 
 class IGeoMapData(Interface):
-    pass
+    """ Geo map data
+    """
 
 class IGeoMapView(Interface):
-    pass
+    """ Geo map view
+    """
 
 class IGeoPositionView(Interface):
-    pass
+    """ Geo position view
+    """
 
 class IGoogleEarthView(Interface):
-    pass
+    """ Google earth view
+    """
 
 class IURL(Interface):
+    """ URL
+    """
 
     def object_url(brain=None):
         """ Return the URL which should be used to view the object """
-    
+
     def listing_url(brain=None):
         """ Return the URL that represents the URL in a listing """
 

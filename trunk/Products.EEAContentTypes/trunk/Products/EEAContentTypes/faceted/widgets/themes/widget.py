@@ -20,6 +20,8 @@ class Widget(AbstractWidget):
 
     @property
     def themes(self):
+        """ Themes
+        """
         tagging = queryAdapter(self.context, IThemeTagging)
         if not tagging:
             return []

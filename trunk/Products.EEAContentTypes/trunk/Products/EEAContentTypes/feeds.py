@@ -1,3 +1,5 @@
+""" Feeds
+"""
 from Acquisition import Implicit
 from DateTime import DateTime
 from Products.ATContentTypes.interface import IATFolder, IATTopic
@@ -19,6 +21,8 @@ import itertools
 
 
 class FeedPortletInfo(object):
+    """ Info
+    """
     implements(IFeedPortletInfo)
     adapts(IFeed)
 
@@ -27,26 +31,38 @@ class FeedPortletInfo(object):
 
     @property
     def feed_id(self):
+        """ ID
+        """
         return self.feed.id
 
     @property
     def button_link(self):
+        """ Link
+        """
         return self.feed.feed_url
 
     @property
     def title(self):
+        """ Title
+        """
         return self.feed.title
 
     @property
     def title_link(self):
+        """ Title link
+        """
         return self.feed.home_url
 
     @property
     def more_link(self):
+        """ More link
+        """
         return self.feed.home_url
 
     @property
     def items(self):
+        """ Items
+        """
         noWithDescription = self.feed.get('entries_with_description')
         noWithThumbnail = self.feed.get('entries_with_thumbnail')
         descriptionLength = 200
@@ -60,8 +76,9 @@ class FeedPortletInfo(object):
                 image_url = item.get('image_url') or \
                             item.get('eeapub_image_url')
                 if coverimage_id and noWithThumbnail > 0:
-                    image = 'http://dataconnector.eea.europa.eu/getimg.asp?gid=%s' \
-                            % coverimage_id
+                    image = (
+                        'http://dataconnector.eea.europa.eu/getimg.asp?gid=%s' %
+                        coverimage_id)
                 elif image_url:
                     image = image_url
 
@@ -88,6 +105,8 @@ class FeedPortletInfo(object):
 
 
 class FeedItemPortletInfo(object):
+    """ Item info
+    """
     implements(IFeedItemPortletInfo)
     adapts(IFeedItem)
 
@@ -98,19 +117,27 @@ class FeedItemPortletInfo(object):
 
     @property
     def detail(self):
+        """ Detail
+        """
         return self.published
 
     @property
     def title(self):
+        """ Title
+        """
         return self.item.title
 
     @property
     def published_unparsed(self):
+        """ Published
+        """
         published = self.item.get('published')
         return published
 
     @property
     def published(self):
+        """ Published
+        """
         published = self.published_unparsed
         if published:
             if published[-1] == 'W':
@@ -124,14 +151,20 @@ class FeedItemPortletInfo(object):
 
     @property
     def url(self):
+        """ URL
+        """
         return self.item.url
 
     @property
     def summary(self):
+        """ Description
+        """
         return self.item.get('summary')
 
 
 class ContextAwareFeedPortletInfo(FeedPortletInfo):
+    """ Portlet info
+    """
     implements(IRDFPortletInfo)
     adapts(Interface, IFeed)
 
@@ -141,30 +174,38 @@ class ContextAwareFeedPortletInfo(FeedPortletInfo):
 
     @property
     def title_link(self):
+        """ Title link
+        """
         return self.more_link
 
     @property
     def more_link(self):
+        """ More link
+        """
         # check if the link is already cached
         if not hasattr(self, '_link'):
             catalog = getToolByName(self.context, 'portal_catalog')
             portal_types = getToolByName(self.context, 'portal_types')
             types = portal_types.objectIds()
 
-            res = catalog.searchResults({ 'path' : { 'query':'/'.join(self.context.getPhysicalPath()),
-                                                     'depth': 1},
-                                          'Title' : self.feed.title,
-                                          'portal_type' : types })
+            res = catalog.searchResults({
+                'path' : { 'query':'/'.join(self.context.getPhysicalPath()),
+                           'depth': 1},
+                'Title' : self.feed.title,
+                'portal_type' : types })
 
             if len(res):
                 self._link = res[0].getURL()
             else:
-                self._link = self.context.absolute_url() + '/listfeed?feed=' + self.feed.id
+                self._link = (self.context.absolute_url() + '/listfeed?feed=' +
+                              self.feed.id)
 
         return self._link
 
 
 class NavigationRootRDFPortletDataCollector(object):
+    """ Data collector
+    """
     implements(IRDFPortletDataCollector)
     adapts(INavigationRoot)
 
@@ -173,6 +214,8 @@ class NavigationRootRDFPortletDataCollector(object):
 
     @property
     def feeds(self):
+        """ Feeds
+        """
         return []
 
 
@@ -186,6 +229,8 @@ class FolderFeed(FeedMixin, Implicit):
         self.context = context
 
     def getMaxEntries(self):
+        """ Max entries
+        """
         syntool = getToolByName(self.context, 'portal_syndication')
         return syntool.getMaxItems()
 
@@ -204,39 +249,60 @@ class FolderFeed(FeedMixin, Implicit):
         return res[:self.getMaxEntries()]
 
     def getWebURL(self):
+        """ Web URL
+        """
         return self.context.absolute_url()
 
     def getTitle(self):
+        """ Title
+        """
         return self.context.Title()
 
     def getDescription(self):
+        """ Description
+        """
         return self.context.Description()
 
     def getUID(self):
+        """ UID
+        """
         return self.context.UID()
 
     def getSortedFeedEntries(self):
+        """ Feed entries
+        """
         return self.getFeedEntries()
 
     def getEncoding(self):
+        """ Encoding
+        """
         return self.encoding
 
     def getModifiedDate(self):
+        """ Modified date
+        """
         return DateTime(self.modifiedDate)
 
     def getImageURL(self):
+        """ Image URL
+        """
         return self.imageURL
 
 
 class TopicFeed(FolderFeed):
-
+    """ Topic
+    """
     adapts(IATTopic)
     implements(IFeedBase)
 
     def getFeedEntries(self, max_only=True):
+        """ Entries
+        """
         brains = self.context.queryCatalog()
 
         def slice():
+            """ Slice
+            """
             for brain in brains:
                 obj = brain.getObject()
                 entry = queryAdapter(obj, IFeedEntry)
@@ -246,4 +312,6 @@ class TopicFeed(FolderFeed):
         return list(itertools.islice(slice(), self.getMaxEntries()))
 
     def getModifiedDate(self):
+        """ Modified date
+        """
         return DateTime(self.modifiedDate)

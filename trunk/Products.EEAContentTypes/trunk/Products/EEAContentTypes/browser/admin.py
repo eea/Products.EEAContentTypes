@@ -1,3 +1,5 @@
+""" Admin
+"""
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import getToolByName
 
@@ -11,7 +13,7 @@ class BaseReorder(object):
         if not self.request.form.get("save"):
             return self.index()
 
-        url = self.context.absolute_url() + ('/@@reorder_%s' % 
+        url = self.context.absolute_url() + ('/@@reorder_%s' %
                                              self.resource_type)
         resources = self.request.form.get("resources")
 
@@ -33,6 +35,8 @@ class BaseReorder(object):
 
     @property
     def resources(self):
+        """ Resources
+        """
         util = getToolByName(self.context, "portal_%s" % self.resource_type)
         res = [r.getId() for r in util.resources]
         return res
@@ -50,4 +54,3 @@ class ReorderJavascript(BrowserView, BaseReorder):
 
     title = "Reorder Javascript resources"
     resource_type = "javascripts"
-

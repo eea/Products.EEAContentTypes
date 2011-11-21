@@ -35,7 +35,11 @@ class SendAsNotification(object):
                 else:
                     status = \
                      '<span style="color:red">notification not yet sent</span>'
-                message = _(u'Email notification already generated. Please check under <a title="Notification center" href="${url}/folder_contents">notification center</a>. Status: ${status}',
+                message = _((
+                    u'Email notification already generated. Please check under '
+                    '<a title="Notification center" href="${url}/'
+                    'folder_contents">notification center</a>. '
+                    'Status: ${status}'),
                             mapping = {u'url' : notif_center.absolute_url(),
                                        u'status' : status})
                 pu.addPortalMessage(message, 'structure')
@@ -47,7 +51,10 @@ class SendAsNotification(object):
                                    id=obj_id,
                                    title=obj_title,
                                    relatedItem=obj_uid)
-        message = _(u'Email notification object created. Check under <a title="Notification center" href="${url}/folder_contents">notification center</a> if you want to be sent',
-                mapping={u'url' : notif_center.absolute_url()})
+        message = _((
+            u'Email notification object created. Check under '
+            '<a title="Notification center" href="${url}/folder_contents">'
+            'notification center</a> if you want to be sent'),
+                    mapping={u'url' : notif_center.absolute_url()})
         pu.addPortalMessage(message, 'structure')
         return self.request.RESPONSE.redirect(self.context.absolute_url())
