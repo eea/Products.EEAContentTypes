@@ -8,6 +8,9 @@ from bda.feed.atfeedentries import ArchetypesFeedEntry
 from bda.feed.interfaces import ILogo
 from zope.component import adapts, queryMultiAdapter
 from zope.interface import implements
+import logging
+
+logger = logging.getLogger("Products.EEAContentTypes")
 
 
 class FeedLogo(object):
@@ -82,7 +85,14 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
 
     def getEnclosure(self):
         """ Enclosure """
-        return self.enclosures and self.enclosures[0] or []
+        try:
+            return self.enclosures and self.enclosures[0] or []
+        except:
+            logger.warning("Got an error while trying to get "
+                           "enclosure for object %s" % self.context)
+            #the problem is caused by the fact that some blob images
+            #don't have the filename set. we should fix that
+            return []
 
     def getTitle(self):
         """ Title
