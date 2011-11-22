@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Cleanup: Fixed all pylint, pyflakes warnings
   [voineali]
+* Bug fix: added workaround for failure to get filename for RSS enclosures
+ [tiberich #4746]
 
 4.1 - (2011-11-21)
 ------------------
