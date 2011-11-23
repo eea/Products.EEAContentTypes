@@ -5,6 +5,7 @@ Changelog
 ----------------------
 * Change: commented the eea.locationwidget widget for QuickEvent, as it is
   already provided by the geotags subtyper [tiberich #4763]
+* Change: add instruction when editing location widgets [tiberich #4763]
 * Bug fix: hide metadata fields for quickevent [tiberich #4763]
 * Bug fix: make all fields appear in the default schemata [tiberich #4763]
 * Bug fix: show location when viewing a QuickEvent [tiberich #4763]

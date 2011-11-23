@@ -47,7 +47,8 @@ class LocationSchemaExtender(object):
                 widget=widget.GeotagsWidget(
                     label='Geotags / Locations',
                     description=('Geotags: multiple geographical locations '
-                                 'related to this content.')
+                                 'related to this content. Click Edit button '
+                                 'to select a location')
                     )
                 )
             ]
