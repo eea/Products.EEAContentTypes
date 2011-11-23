@@ -29,22 +29,26 @@ QuickEvent_schema['themes'].widget.description_msgid = \
 QuickEvent_schema['themes'].widget.maxValues = 1
 QuickEvent_schema['description'].required = True
 
-QuickEvent_schema['location'].widget = LocationWidget(
-                                   description="",
-                                   description_msgid="help_event_location",
-                                   label="Event Location",
-                                   label_msgid="label_event_location",
-                                   i18n_domain="plone")
-QuickEvent_schema['location'].widget.description = (
-    "Use the address to retrieve the location <em>(e.g. "
-    "Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>")
-QuickEvent_schema['location'].widget.description_msgid = \
-        'EEAContentTypes_help_location_event'
+#this is done by schema extender
+#QuickEvent_schema['location'].widget = LocationWidget(
+                                   #description="Click Edit to pinpoint to event locations",
+                                   #description_msgid="help_event_location",
+                                   #label="Event Location",
+                                   #label_msgid="label_event_location",
+                                   #i18n_domain="plone")
+#QuickEvent_schema['location'].widget.description = (
+    #"Use the address to retrieve the location <em>(e.g. "
+    #"Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>")
+#QuickEvent_schema['location'].widget.description_msgid = \
+        #'EEAContentTypes_help_location_event'
+
+#TODO: these doesn't appear to have effect
+QuickEvent_schema['themes'].schemata = 'default'
 
 
 for field in ExtensibleMetadata.schema.keys() + ['excludeFromNav']:
     QuickEvent_schema[field].widget.visible = \
-        {'view':'hidden', 'edit':'hidden'}
+        {'view':'invisible', 'edit':'invisible'}
 
 
 class QuickEvent(ATEvent, ThemeTaggable):

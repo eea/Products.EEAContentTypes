@@ -108,6 +108,7 @@
                   <metal:field use-macro="python:context.widget('location', mode='view')">
                     Location
                   </metal:field>
+                  <div tal:content="python:context.getField('location')" />
                 </td>
               </tr>
               <tr tal:define="contact_email context/contact_email;

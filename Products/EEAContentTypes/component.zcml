@@ -24,6 +24,10 @@
     for="Products.Archetypes.interfaces.IBaseContent"
     factory=".subtypes.LocationSchemaExtender"/>
 
+  <adapter name="eea.locationfield"
+    for="Products.EEAContentTypes.content.Event.QuickEvent"
+    factory=".subtypes.QuickEventSchemaModifier"/>
+
   <adapter name="eea.themesfield"
     for="Products.Archetypes.interfaces.IBaseContent"
     factory=".subtypes.ThemesSchemaExtender"/>

@@ -60,6 +60,21 @@ class LocationSchemaExtender(object):
         """
         return self.fields
 
+
+class QuickEventSchemaModifier(object):
+    """ Extends base schema with extra fields.
+    To be used for base content class. """
+
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        schema['location'].schemata = 'default'
+        schema['themes'].schemata = 'default'
+
+
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
