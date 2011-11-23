@@ -18,7 +18,7 @@
       <metal:body define-macro="body">
         <metal:body use-macro="here/edit_macros/macros/body">
 
-          <metal:buttons fill-slot="buttons">
+          <!--metal:buttons fill-slot="buttons">
             <input class="context"
               type="submit"
               name="form_submit"
@@ -26,7 +26,7 @@
               i18n:attributes="value label_next;"
               tal:attributes="disabled python:test(isLocked, 'disabled', None);"
               />
-          </metal:buttons>
+          </metal:buttons-->
         </metal:body>
         <script>
           jQuery(window).load(function(){
