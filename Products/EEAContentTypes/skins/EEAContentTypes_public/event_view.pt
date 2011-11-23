@@ -105,9 +105,8 @@
                 <th i18n:translate="event_where">Where</th>
                 <td class="location">
 
-                  <metal:field use-macro="python:context.widget('location', mode='view')">
-                    Location
-                  </metal:field>
+                  <div tal:define="field python:context.getField('location')" 
+                          tal:content="python:field.json2string(field.getJSON(context))" />
                 </td>
               </tr>
               <tr tal:define="contact_email context/contact_email;
