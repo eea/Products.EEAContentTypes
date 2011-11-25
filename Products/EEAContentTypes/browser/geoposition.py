@@ -132,10 +132,14 @@ class GeoPositionView(BrowserView):
 
         # TODO: if no external URL the 'Read more'
         # link to be hiddden on maps info
+        location = self.context.location
+        if isinstance(location, (tuple, list)):
+            location = u', '.join(location)
+
         map_data = {'api_key':      api_key,
                     'latitude':     geoobject.latitude,
                     'longitude':    geoobject.longitude,
-                    'location':     self.context.location,
+                    'location':     location,
                     'external_url': obj_url,
                     'point_zoom':   geo_properties.getProperty(
                         'PointZoom_single', 'null') or 'null',
