@@ -34,7 +34,7 @@ location = '{"type": "FeatureCollection", "features": [{"geometry": '\
         '"37197", "types": ["postal_code"], "short_name": "37197"}], "formatte'\
         'd_address": "37197 Hattorf am Harz, Germany", "types": ["locality", "'\
         'political"]}, "center": [51.651370900000003, 10.235499699999991]}}]}'
-
+location = '37197 Hattorf am Harz, Germany'
 
 class TestSyndication(EEAContentTypeTestCase):
     """ Test-cases for syndication. """
@@ -69,7 +69,7 @@ class TestSyndication(EEAContentTypeTestCase):
 
         entry = IFeedEntry(self.folder.event)
         self.assertEquals(entry.getTitle(),
-                          "Some Event [('37197 Hattorf am Harz, Germany',)]")
+                          'Some Event [37197 Hattorf am Harz, Germany]')
 
     def testDate(self):
         """ Date
