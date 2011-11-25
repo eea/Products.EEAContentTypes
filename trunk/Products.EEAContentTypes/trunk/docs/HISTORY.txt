@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.5-dev - (unreleased)
+----------------------
+
 4.4 - (2011-11-25)
 ------------------
 * Bug fix: Reverted location field/widget for QuickEvent and Organisation to
