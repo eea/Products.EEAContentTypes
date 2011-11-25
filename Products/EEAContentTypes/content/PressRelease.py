@@ -3,14 +3,8 @@ from AccessControl import ClassSecurityInfo
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.quotation import quotation_schema
-try:
-    from Products.LinguaPlone.public import (Schema, BaseSchema,
-            BaseContent, registerType)
-except ImportError:
-    # No multilingual support
-    from Products.Archetypes.public import (Schema, BaseSchema,
-            BaseContent, registerType)
-
+from Products.LinguaPlone.public import (
+    Schema, BaseSchema, BaseContent, registerType)
 
 from Products.CMFCore.permissions import ModifyPortalContent
 from eea.themecentre.interfaces import IThemeTagging

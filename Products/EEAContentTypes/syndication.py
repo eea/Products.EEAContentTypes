@@ -3,7 +3,7 @@
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.Archetypes.interfaces import IBaseObject
 from Products.CMFCore.utils import getToolByName
-from bda.feed.atfeedentries import ATPrimaryFieldEnclosure 
+from bda.feed.atfeedentries import ATPrimaryFieldEnclosure
 from bda.feed.atfeedentries import ArchetypesFeedEntry
 from bda.feed.interfaces import ILogo
 from zope.component import adapts, queryMultiAdapter
@@ -87,9 +87,9 @@ class ATContentFeedEntry(ArchetypesFeedEntry):
         """ Enclosure """
         try:
             return self.enclosures and self.enclosures[0] or []
-        except:
+        except Exception, err:
             logger.warning("Got an error while trying to get "
-                           "enclosure for object %s" % self.context)
+                           "enclosure for object %s: %s", self.context, err)
             #the problem is caused by the fact that some blob images
             #don't have the filename set. we should fix that
             return []

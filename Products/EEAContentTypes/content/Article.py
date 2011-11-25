@@ -22,14 +22,8 @@ from zope.component import adapts, queryMultiAdapter
 from zope.interface import implements
 import sys
 import rdflib
-
-try:
-    from Products.LinguaPlone.public import (Schema, LinesField,
-            InAndOutWidget, registerType)
-except ImportError:
-    from Products.Archetypes.public import (Schema, LinesField,
-            InAndOutWidget, registerType)
-
+from Products.LinguaPlone.public import (
+    Schema, LinesField, InAndOutWidget, registerType)
 
 schema = Schema((
     LinesField(

@@ -77,6 +77,8 @@ class QuickEventSchemaModifier(object):
         self.context = context
 
     def fiddle(self, schema):
+        """ Modify schema
+        """
         schema['location'].schemata = 'default'
         schema['themes'].schemata = 'default'
 
@@ -128,7 +130,7 @@ class RequiredSchemaModifier(object):
             'DiversityReport', 'Data', 'EEAFigure', 'EcoTip',
             'EyewitnessStory', 'GIS Application', 'Document',
             'PolicyDocumentReference', 'Report', 'SOERKeyFact',
-            'SOERMessage', 'File']:
+            'SOERMessage']:
             return
 
         if 'subject' in schema:
