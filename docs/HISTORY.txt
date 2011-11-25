@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.4-dev - (unreleased)
-----------------------
+4.4 - (2011-11-25)
+------------------
 * Bug fix: Reverted location field/widget for QuickEvent and Organisation to
   eea.locationwidget as there is a lot of custom logic and it needs upgrade
   steps (same for /events map)
