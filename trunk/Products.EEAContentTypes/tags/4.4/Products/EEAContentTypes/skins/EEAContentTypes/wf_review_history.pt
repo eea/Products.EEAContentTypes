@@ -1,0 +1,10 @@
+<metal:wrapper define-macro="review_history">
+  <tal:wtool define="wtool nocall:here/portal_workflow;
+    portal_url nocall:here/portal_url;
+    portal portal_url/getPortalObject;
+    mtool nocall:here/portal_membership;
+    view here/@@plone;
+    toLocalizedTime nocall:view/toLocalizedTime">
+    <div tal:replace="structure here/@@contenthistorypopup" tal:on-error="string:Error on insertion of content history">Content history</div>
+  </tal:wtool>
+</metal:wrapper>
