@@ -25,7 +25,7 @@
     factory=".subtypes.LocationSchemaExtender"/>
 
   <adapter name="eea.locationfield"
-    for="Products.EEAContentTypes.content.Event.QuickEvent"
+    for="Products.EEAContentTypes.content.interfaces.IQuickEvent"
     factory=".subtypes.QuickEventSchemaModifier"/>
 
   <adapter name="eea.themesfield"

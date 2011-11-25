@@ -59,6 +59,11 @@ class LocationSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
+        #TODO Refactor location for Organisation and Event #4788
+        if getattr(self.context, 'portal_type', None) in (
+            'Organisation', 'QuickEvent'):
+            # No schema extender
+            return []
         return self.fields
 
 
