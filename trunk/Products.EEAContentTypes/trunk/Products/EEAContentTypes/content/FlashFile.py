@@ -95,10 +95,6 @@ FlashFile_schema = (getattr(ATFile, 'schema', Schema(())).copy() +
                     ThemeTaggable_schema.copy() +
                     schema.copy())
 
-FlashFile_schema['themes'].required = True
-FlashFile_schema['subject'].required = True
-FlashFile_schema['location'].required = True
-
 class FlashFile(ATFile, ThemeTaggable):
     """ Flash File content-type
     """

@@ -6,7 +6,6 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.themecentre.content.ThemeTaggable import ThemesField
-from eea.indicators.content.interfaces import IExternalDataSpec
 from eea.geotags import field
 from eea.geotags import widget
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
@@ -21,7 +20,7 @@ from zope.component import queryAdapter
 from zope.interface import Interface, implements
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import InAndOutWidget
-
+from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
@@ -40,18 +39,19 @@ class LocationSchemaExtender(object):
     To be used for base content class. """
     implements(ISchemaExtender)
 
-    fields =  [
-            ExtensionGeotagsMultifield(
-                name='location',
-                schemata='categorization',
-                widget=widget.GeotagsWidget(
-                    label='Geotags / Locations',
-                    description=('Geotags: multiple geographical locations '
-                                 'related to this content. Click Edit button '
-                                 'to select a location')
-                    )
+    fields =  (
+        ExtensionGeotagsMultifield(
+            name='location',
+            schemata='categorization',
+            required=False,
+            widget=widget.GeotagsWidget(
+                label='Geotags / Locations',
+                description=('Geotags: multiple geographical locations '
+                             'related to this content. Click Edit button '
+                             'to select a location')
                 )
-            ]
+            ),
+        )
 
     def __init__(self, context):
         self.context = context
@@ -66,33 +66,17 @@ class LocationSchemaExtender(object):
             return []
         return self.fields
 
-
-class QuickEventSchemaModifier(object):
-    """ Extends base schema with extra fields.
-    To be used for base content class. """
-
-    implements(ISchemaModifier)
-
-    def __init__(self, context):
-        self.context = context
-
-    def fiddle(self, schema):
-        """ Modify schema
-        """
-        schema['location'].schemata = 'default'
-        schema['themes'].schemata = 'default'
-
-
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
     implements(ISchemaExtender)
 
-    fields = [
+    fields = (
         ExtensionThemesField(
             name='themes',
             schemata='categorization',
             validators=('maxValues',),
+            required=False,
             widget=InAndOutWidget(
                 maxValues=3,
                 label="Themes",
@@ -101,7 +85,7 @@ class ThemesSchemaExtender(object):
             languageIndependent=True,
             vocabulary_factory=u"Allowed themes for edit",
         ),
-    ]
+    )
 
     def __init__(self, context):
         self.context = context
@@ -109,6 +93,9 @@ class ThemesSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
+        if getattr(self.context, 'portal_type', None) in ('QuickEvent',):
+            # No schema extender for QuickEvent
+            return []
         return self.fields
 
 class RequiredSchemaModifier(object):
@@ -120,27 +107,34 @@ class RequiredSchemaModifier(object):
         self.context = context
 
     def fiddle(self, schema):
-        """ Modify schema
+        """ Fields
+        """
+        if 'location' in schema:
+            xfield = schema['location'].copy()
+            xfield.required = True
+            schema['location'] = xfield
+        if 'themes' in schema:
+            xfield = schema['themes'].copy()
+            xfield.required = True
+            schema['themes'] = xfield
+        if 'subject' in schema:
+            xfield = schema['subject'].copy()
+            xfield.required = True
+            schema['subject'] = xfield
+
+class RequiredByPortalTypeSchemaModifier(RequiredSchemaModifier):
+    """ Modify schema
+    """
+    implements(ISchemaModifier)
+
+    def fiddle(self, schema):
+        """ Fields
         """
         portal_type = getattr(self.context, 'portal_type', '')
-
-        #TODO Move this to zcml
-        if portal_type not in [
-            'Article', 'Highlight', 'PressRelease', 'Speech',
-            'DiversityReport', 'Data', 'EEAFigure', 'EcoTip',
-            'EyewitnessStory', 'GIS Application', 'Document',
-            'PolicyDocumentReference', 'Report', 'SOERKeyFact',
-            'SOERMessage']:
+        if portal_type not in REQUIRED_METADATA_FOR:
             return
+        return super(RequiredByPortalTypeSchemaModifier, self).fiddle(schema)
 
-        if 'subject' in schema:
-            schema['subject'].required = True
-        if 'location' in schema:
-            schema['location'].required = True
-
-        if 'themes' in schema:
-            if not IExternalDataSpec.providedBy(self.context):
-                schema['themes'].required = True
 
 class GeotagMixinEdit(object):
     """ Edit

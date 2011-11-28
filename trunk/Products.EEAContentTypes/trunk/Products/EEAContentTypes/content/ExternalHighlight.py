@@ -119,7 +119,7 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         """
         img = self.getAccessor(instance)()
         size = img.getSize()
-            
+
         if not size:
             return None
 
@@ -353,10 +353,6 @@ schema = public.Schema((
 ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
     ).copy() + getattr(ThemeTaggable, 'schema', public.Schema(())
     ).copy() + schema.copy()
-
-# themes is required for all news-alike content types
-ExternalHighlight_schema['themes'].required = True
-
 
 class ExternalHighlight(ATFolder, ThemeTaggable):
     """ External highlight

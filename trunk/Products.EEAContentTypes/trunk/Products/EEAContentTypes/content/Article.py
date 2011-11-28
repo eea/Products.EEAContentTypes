@@ -55,7 +55,6 @@ for fieldname in getNames(ExtHighlightSchema):
         field.schemata = 'Front Page'
 
 Article_schema['text'].required = True
-Article_schema['subject'].required = True
 Article_schema['relatedItems'].schemata = 'categorization'
 Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
