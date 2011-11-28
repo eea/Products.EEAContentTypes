@@ -3,6 +3,8 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed event_view to use the old location widget
+  [voineali #4736]
 
 4.4 - (2011-11-25)
 ------------------
