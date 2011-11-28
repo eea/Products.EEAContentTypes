@@ -30,8 +30,11 @@ QuickEvent_schema['themes'].widget.maxValues = 1
 QuickEvent_schema['description'].required = True
 
 for field in ExtensibleMetadata.schema.keys() + ['excludeFromNav']:
-    QuickEvent_schema[field].widget.visible = \
-        {'view':'invisible', 'edit':'invisible'}
+    # plone4 we need to check for description otherwise the edit
+    # widget for description is hidden when editing a quickevent
+    if field != 'description':
+        QuickEvent_schema[field].widget.visible = \
+            {'view':'invisible', 'edit':'invisible'}
 
 QuickEvent_schema['location'].widget = LocationWidget(
     description="Click Edit to pinpoint to event locations",
