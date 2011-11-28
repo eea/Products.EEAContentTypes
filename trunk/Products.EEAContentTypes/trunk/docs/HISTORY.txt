@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.6-dev - (unreleased)
+----------------------
+
 4.5 - (2011-11-28)
 ------------------
 * Bug fix: Show description widget in edit mode for a quickevent [ichimdav #4789]
