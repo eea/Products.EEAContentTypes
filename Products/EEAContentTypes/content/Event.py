@@ -20,7 +20,6 @@ QuickEvent_schema = getattr(ATEvent, 'schema', Schema(())).copy() + \
 QuickEvent_schema.delField('text')
 QuickEvent_schema['attendees'].schemata = 'metadata'
 QuickEvent_schema['eventUrl'].required = True
-QuickEvent_schema['themes'].required = True
 QuickEvent_schema['themes'].widget.description = \
         'Please choose one theme to relate with this Event. ' \
         'If none apply please select default.'
@@ -50,7 +49,8 @@ QuickEvent_schema['location'].widget.description_msgid = (
 
 #TODO: these doesn't appear to have effect
 QuickEvent_schema['themes'].schemata = 'default'
-
+QuickEvent_schema['location'].schemata = 'default'
+QuickEvent_schema['subject'].schemata = 'default'
 
 class QuickEvent(ATEvent, ThemeTaggable):
     """ Quick Event content type

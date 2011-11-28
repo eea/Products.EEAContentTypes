@@ -74,3 +74,8 @@ class IRelations(Interface):
 
     def references():
         """" Gets both forward and backward references. """
+
+class IRequiredFields(Interface):
+    """ Marker interface for Content-Types that should have required metadata
+    like: subject, location, themes
+    """
