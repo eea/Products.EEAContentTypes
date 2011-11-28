@@ -3,6 +3,7 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Bug fix: Show description widget in edit mode for a quickevent [ichimdav #4789]
 * Bug fix: Fixed event_view to use the old location widget
   [voineali #4736]
 
