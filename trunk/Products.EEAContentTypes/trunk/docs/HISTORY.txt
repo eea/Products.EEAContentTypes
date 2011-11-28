@@ -3,6 +3,7 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+ * Bug fix: show only date in event_view and quickevent_view [tiberich #4763]
 
 4.5 - (2011-11-28)
 ------------------
