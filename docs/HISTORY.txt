@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.7-dev - (unreleased)
+----------------------
+
 4.6 - (2011-11-28)
 ------------------
  * Bug fix: Fixed required themes, subject and location fields for specified content-types
