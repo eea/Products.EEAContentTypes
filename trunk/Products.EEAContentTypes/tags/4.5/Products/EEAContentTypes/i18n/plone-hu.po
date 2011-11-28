@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2008-03-05 10:03+CET\n"
+"PO-Revision-Date: 2008-11-14 14:21+0100\n"
+"Last-Translator: Marie Jaegly <marie.jaegly@eea.europa.eu>\n"
+"Language-Team: HUNGARIAN <HU@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Code: hu\n"
+"Language-Name: Hungarian\n"
+"Domain: plone\n"
+
+#. Site map
+msgid "Site map"
+msgstr "Oldaltérkép"
+
+#. Orginal text:
+#. Accessibility
+msgid "Accessibility"
+msgstr "Akadálymentesség"
+
+#. Orginal text:
+#. FAQ
+msgid "FAQ"
+msgstr "GYIK"
+
+#. Orginal text:
+#. Glossary
+msgid "Glossary"
+msgstr "Fogalommagyarázat"
+
+#. Orginal text:
+#. Subscriptions
+msgid "Subscriptions"
+msgstr "Feliratkozások"
+
+#. Original text:
+#. Find older highlights in the
+msgid "find_older_highlights"
+msgstr "Régebbi kiemelt hírek keresése"
+
+#. Original text: archive
+msgid "archive"
+msgstr "az archívumban"
+
+#. Translate the word 'more' in messages like 'more reports', 'more images'
+msgid "morelink_multiple"
+msgstr "Tovább"
+
+#. Default: "More multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:34
+msgid "More multimedia"
+msgstr "További multimédia"
+
+#. Default: "Multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:9
+msgid "Multimedia"
+msgstr "Multimédia"
+
+#. Default: "Multimedia highlights"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:19
+msgid "Multimedia highlights"
+msgstr "Kiemelt multimédia"
+
+#. Default: "Play in popup window"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:46
+msgid "Play in popup window"
+msgstr "Lejátszás előugró ablakban"
+
+#. Default: "Read more"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/portlet_feed.pt:34
+msgid "Read more"
+msgstr "Részletek elolvasása"
+
+msgid "Switch theme"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "Press release"
+msgstr "Sajtóközlemények"
+
+msgid "box_morelink"
+msgstr "További kedvencek"
+
+#. Default: Comments on translations
+msgid "title_feedback_translations"
+msgstr "Fordítással kapcsolatos észrevételek"
+
+#. Default: Please help us increase the quality of the translations.
+msgid "help_feedback_translations"
+msgstr "Kérjük, segítse a fordítás minőségének javítását!"
+
+# Default: "ISBN"
+#: /subtypes/report.py:102
+msgid "label_isbn"
+msgstr ""
+
+# Default: "ORDER ID (Catalogue Number)"
+#: /subtypes/report.py:121
+msgid "label_order_id"
+msgstr ""
+
+# Default: "Price (Euro)"
+#: /subtypes/report.py:222
+msgid "label_price"
+msgstr ""
