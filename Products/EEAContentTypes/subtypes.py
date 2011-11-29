@@ -122,6 +122,23 @@ class RequiredSchemaModifier(object):
             xfield.required = True
             schema['subject'] = xfield
 
+class KeywordsSchemaModifier(object):
+    """ Fix keywords postback bug
+
+    http://dev.plone.org/ticket/12334
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        """ Fields
+        """
+        if 'subject' in schema:
+            schema['subject'].widget.macro = 'eea_keywords'
+
+
 class RequiredByPortalTypeSchemaModifier(RequiredSchemaModifier):
     """ Modify schema
     """
