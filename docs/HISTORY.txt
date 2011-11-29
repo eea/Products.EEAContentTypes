@@ -6,14 +6,13 @@ Changelog
 * Bug fix: Fixed keywords widget to keep filled values if the edit form fails to
   submit due to validation errors
   [voineali #4773]
-
+* Bug fix: fix problem caused by redirections for Manager when creating QuickEvent [tiberich #4763]
 
 4.6 - (2011-11-28)
 ------------------
 * Bug fix: Fixed required themes, subject and location fields for specified content-types
   [voineali #4694]
 * Bug fix: show only date in event_view and quickevent_view [tiberich #4763]
-* Bug fix: fix problem caused by redirections for Manager when creating QuickEvent [tiberich #4763]
 
 4.5 - (2011-11-28)
 ------------------
