@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.8-dev - (unreleased)
+----------------------
+
 4.7 - (2011-11-29)
 ------------------
 * Bug fix: Fixed keywords widget to keep filled values if the edit form fails to
