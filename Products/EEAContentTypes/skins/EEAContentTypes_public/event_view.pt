@@ -104,7 +104,6 @@
               <tr tal:condition="context/location">
                 <th i18n:translate="event_where">Where</th>
                 <td class="location">
-
                   <metal:field use-macro="python:context.widget('location', mode='view')" />
                 </td>
               </tr>

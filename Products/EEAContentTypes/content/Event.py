@@ -133,5 +133,7 @@ class QuickEvent(ATEvent, ThemeTaggable):
 
         return ATEvent.processForm(self, data, metadata, REQUEST, values)
 
+    def toLocalizedTime(self, time, long_format, time_only):
+        return time.date()
 
 registerType(QuickEvent, PROJECTNAME)

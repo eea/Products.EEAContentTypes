@@ -33,6 +33,13 @@ class SubmitEvent(BrowserView):
         """
         context = self.context
         #enquiry =  context.UID()
+        confirm = self.request.get('confirm')
+        correct = self.request.get('correct')
+        step2   = self.request.get('step2')
+
+        if (confirm is None) and (correct is None) and (step2 is not None): #initial save
+            return (self.request.response.redirect(context.absolute_url() + 
+                    '/quickevent_view?step2=on'))
 
         if self.request.get('confirm', None) is not None:
             workflow = getToolByName(context, 'portal_workflow')
