@@ -28,6 +28,12 @@
     for="Products.Archetypes.interfaces.IBaseContent"
     factory=".subtypes.ThemesSchemaExtender"/>
 
+  <!-- Keyword postback fix http://dev.plone.org/ticket/12334 -->
+  <adapter name="eea.keywordsfield"
+    for="Products.Archetypes.interfaces.IExtensibleMetadata"
+    factory=".subtypes.KeywordsSchemaModifier" />
+
+
   <!-- Required fields -->
 
   <!-- Article -->
