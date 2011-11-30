@@ -3,6 +3,8 @@ Changelog
 
 4.8-dev - (unreleased)
 ----------------------
+* Bug fix: Made location, themes and subject language independant
+  [voineali #4776]
 
 4.7 - (2011-11-29)
 ------------------
