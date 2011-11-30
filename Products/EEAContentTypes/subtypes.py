@@ -1,5 +1,6 @@
 """ Subtypes
 """
+import logging
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from archetypes.schemaextender.field import ExtensionField
@@ -21,6 +22,8 @@ from zope.interface import Interface, implements
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import InAndOutWidget
 from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
+
+logger = logging.getLogger('EEAContentTypes')
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
@@ -44,6 +47,7 @@ class LocationSchemaExtender(object):
             name='location',
             schemata='categorization',
             required=False,
+            languageIndependent=True,
             widget=widget.GeotagsWidget(
                 label='Geotags / Locations',
                 description=('Geotags: multiple geographical locations '
@@ -109,6 +113,17 @@ class RequiredSchemaModifier(object):
     def fiddle(self, schema):
         """ Fields
         """
+        getCanonical = getattr(self.context, 'getCanonical', None)
+        if getCanonical:
+            try:
+                canonical = getCanonical()
+            except Exception, err:
+                logger.debug(err)
+            else:
+                if self.context != canonical:
+                    # Language independent doesn't work with required property
+                    return
+
         if 'location' in schema:
             xfield = schema['location'].copy()
             xfield.required = True
@@ -136,6 +151,7 @@ class KeywordsSchemaModifier(object):
         """ Fields
         """
         if 'subject' in schema:
+            schema['subject'].languageIndependent = True
             schema['subject'].widget.macro = 'eea_keywords'
 
 
