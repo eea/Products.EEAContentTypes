@@ -42,8 +42,8 @@ class SubmitForWebQAGuard(object):
             if portal_type in self.needContentReview:
                 wf = getToolByName(context, 'portal_workflow')
                 history = [ h['action'] for
-                            h in wf.getInfoFor(context,
-                                               'review_history', None) ]
+                            h in (wf.getInfoFor(context,
+                                               'review_history', None) or [])]
                 return 'submitContentReview' in history
             return True
         return False
