@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.9-dev - (unreleased)
+----------------------
+
 4.8 - (2011-12-02)
 ------------------
 * Bug fix: Made location, themes and subject language independant
