@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.8-dev - (unreleased)
-----------------------
+4.8 - (2011-12-02)
+------------------
 * Bug fix: Made location, themes and subject language independant
   [voineali #4776]
 * Bug fix: fix error that caused zope created ContentManager users not able to access site [tiberich]
