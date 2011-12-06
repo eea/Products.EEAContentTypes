@@ -3,6 +3,7 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+ * Bug fix: disabled press release text from pressroom view [ichimdav #4619]
 
 4.8 - (2011-12-02)
 ------------------
