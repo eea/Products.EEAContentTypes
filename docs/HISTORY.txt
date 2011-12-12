@@ -3,6 +3,8 @@ Changelog
 
 4.10-dev - (unreleased)
 -----------------------
+* Bug fix: Fixed events map JS
+  [voineali #4798]
 
 4.9 - (2011-12-07)
 ------------------
