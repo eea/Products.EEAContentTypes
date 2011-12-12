@@ -641,8 +641,8 @@ a#themes-close:visited, a#country-close:visited {
     handler();
     return true;
     } else {
-    alert('GeoMap,
-        there was a problem retrieving the XML data:' + xmlhttp.statusText);
+    alert('GeoMap, there was a problem retrieving the XML data:' +
+           xmlhttp.statusText);
     return false;
     }
     }
