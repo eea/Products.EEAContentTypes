@@ -11,7 +11,7 @@
         template="related_pages.pt"
         permission="zope.Public"
         />
-        
+
     <browser:viewlet
         name="eea.related_multimedia"
         for="*"
@@ -20,7 +20,7 @@
         template="related_multimedia.pt"
         permission="zope.Public"
         />
-        
+
     <browser:viewlet
         name="eea.related_bytheme"
         for="*"
@@ -29,7 +29,7 @@
         template="related_bytheme.pt"
         permission="zope.Public"
         />
-        
+
     <browser:page
         for="*"
         name="reorder_css"
@@ -65,7 +65,7 @@
     <browser:page
         for="*"
         name="invalidate_cache"
-        permission="zope.Public"
+        permission="cmf.ModifyPortalContent"
         class=".cache.InvalidateCache"
         attribute="invalidate"
         />
