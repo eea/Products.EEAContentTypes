@@ -118,29 +118,6 @@ class PromotionTestCase(base.EEAContentTypeFunctionalTestCase):
         self.frontpage = frontpage
         self.request = request
 
-
-#TODO: migrate this to plone4
-#class CacheTestCase(base.EEAContentTypeFunctionalTestCase):
-    #""" Cache test case
-    #"""
-
-    #def afterSetUp(self):
-        #""" Set up """
-        #self.setRoles(['Manager'])
-        #cacheTool = getToolByName(self.portal, 'portal_cache_settings', None)
-        #cacheTool.setProxyPurgeConfig('custom-rewrite')
-        #cacheTool.setSquidURLs(['http://127.0.0.1:3128'])
-        #cacheTool.setDomains(['http://nohost:80'])
-        #cacheTool.setEnabled(True)
-        #squidTool = getToolByName(self.portal, 'portal_squid', None)
-        #squidTool.setUrlExpression(
-            #'python:object.portal_cache_settings.getUrlsToPurge(object)')
-
-    #def beforeTearDown(self):
-        #""" Tear down """
-        #stopThreads(wait=False)
-
-
 def test_suite():
     """ Suite """
     from Testing.ZopeTestCase import FunctionalDocFileSuite
@@ -166,11 +143,6 @@ def test_suite():
                     package='Products.EEAContentTypes',
                     optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
                     ),
-        #FunctionalDocFileSuite('cache.txt',
-                     #test_class = CacheTestCase,
-                     #package = 'Products.EEAContentTypes.browser',
-                     #optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     #),
         FunctionalDocFileSuite('language.txt',
                     test_class=base.EEAContentTypeFunctionalTestCase,
                     package='Products.EEAContentTypes.browser',

@@ -3,6 +3,9 @@ Changelog
 
 4.10-dev - (unreleased)
 -----------------------
+* Bug fix: Updated @@invalidate_cache browser view to use plone.app.caching
+  [voineali #4689]
+
 * Bug fix: Fixed events map JS
   [voineali #4798]
 
