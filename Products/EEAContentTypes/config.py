@@ -4,6 +4,9 @@
 from Products.CMFCore.permissions import setDefaultRoles
 from Globals import DevelopmentMode
 
+from zope.i18nmessageid.message import MessageFactory
+EEAMessageFactory = MessageFactory('eea')
+
 DEBUG = DevelopmentMode
 PROJECTNAME = "EEAContentTypes"
 
