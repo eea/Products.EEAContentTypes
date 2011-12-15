@@ -65,7 +65,7 @@
     <browser:page
         for="*"
         name="invalidate_cache"
-        permission="cmf.ModifyPortalContent"
+        permission="zope.Public"
         class=".cache.InvalidateCache"
         attribute="invalidate"
         />
