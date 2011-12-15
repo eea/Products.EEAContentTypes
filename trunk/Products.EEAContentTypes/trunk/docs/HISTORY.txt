@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.11-dev - (unreleased)
+-----------------------
+
 4.10 - (2011-12-15)
 -------------------
 * Bug fix: Updated @@invalidate_cache browser view to use plone.app.caching
