@@ -3,6 +3,7 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed quickevent view [tiberich #4839]
 
 4.10 - (2011-12-15)
 -------------------
