@@ -2,15 +2,16 @@
 """
 
 from AccessControl import ClassSecurityInfo
+from DateTime.interfaces import IDateTime
 from Products.ATContentTypes.content.event import ATEvent
-from Products.Archetypes.atapi import Schema, registerType
 from Products.Archetypes.ExtensibleMetadata import ExtensibleMetadata
+from Products.Archetypes.atapi import Schema, registerType
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from Products.EEAContentTypes.content.interfaces import IQuickEvent
 from eea.locationwidget.locationwidget import LocationWidget
 from eea.themecentre.interfaces import IThemeTagging
-from Products.EEAContentTypes.content.interfaces import IQuickEvent
 from zExceptions import NotFound
 import zope.interface
 
@@ -138,6 +139,10 @@ class QuickEvent(ATEvent, ThemeTaggable):
         """
         if not time:
             return None
+
+        if IDateTime.providedBy(time):
+            return time.Date()
+
         return time.date()
 
 registerType(QuickEvent, PROJECTNAME)
