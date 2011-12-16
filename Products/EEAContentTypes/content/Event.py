@@ -136,6 +136,8 @@ class QuickEvent(ATEvent, ThemeTaggable):
     def toLocalizedTime(self, time, *args, **kwds):
         """ Localized time
         """
+        if not time:
+            return None
         return time.date()
 
 registerType(QuickEvent, PROJECTNAME)
