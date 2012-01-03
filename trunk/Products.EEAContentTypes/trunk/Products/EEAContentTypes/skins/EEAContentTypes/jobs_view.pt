@@ -29,7 +29,7 @@
             <strong>A letter of motivation</strong></li></ul>
         <p><strong>E-mail (Questions only)</strong>: should you have any questions, please use this email: 
           <script type="text/javascript">
-            document.write(create_contact_info_local('personnel','eea.europa.eu','personnel at eea.europa.eu') + '');
+            document.write(create_contact_info_local('recruitment.enquiries','eea.europa.eu','recruitment.enquiries at eea.europa.eu') + '');
             </script><noscript>
             <em>Email Protected.<br />
               Please enable JavaScript.</em>
