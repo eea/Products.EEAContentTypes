@@ -3,6 +3,7 @@ Changelog
 
 4.12-dev - (unreleased)
 -----------------------
+ * Bug fix: updated email address for jobs enquiries [tiberich #4845]
 
 4.11 - (2011-12-16)
 -------------------
