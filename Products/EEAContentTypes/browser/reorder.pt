@@ -117,6 +117,9 @@
               <tal:block tal:condition="entry/getExpression | nothing">
                 - <span tal:replace="entry/getExpression" />
               </tal:block>
+              <tal:block tal:condition="entry/getAuthenticated | nothing">
+                - (restricted to authenticated)
+              </tal:block>
             </div>
             <ul tal:define="sheets context/portal_css/concatenatedresources">
               <tal:stylesheets tal:define="portal python:context.portal_url.getPortalObject();"
