@@ -10,6 +10,7 @@ class BaseReorder(object):
     title = ""
 
     def __call__(self):
+
         if not self.request.form.get("save"):
             return self.index()
 
@@ -26,6 +27,7 @@ class BaseReorder(object):
         for _i, res_id in enumerate(resources.split("\n")):
             res = util.getResource(res_id.strip())
             result.append(res)
+
 
         util.resources = tuple(result)
         util.cookResources()
@@ -48,9 +50,15 @@ class ReorderCSS(BrowserView, BaseReorder):
     title = "Reorder CSS resources"
     resource_type = "css"
 
+    def __call__(self):
+        return BaseReorder.__call__(self)
+
 
 class ReorderJavascript(BrowserView, BaseReorder):
     """Reorder Javascript view"""
 
     title = "Reorder Javascript resources"
     resource_type = "javascripts"
+
+    def __call__(self):
+        return BaseReorder.__call__(self)

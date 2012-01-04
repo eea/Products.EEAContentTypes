@@ -3,6 +3,7 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed reorder resources views [tiberich #4737]
 
 4.12 - (2012-01-03)
 -------------------
