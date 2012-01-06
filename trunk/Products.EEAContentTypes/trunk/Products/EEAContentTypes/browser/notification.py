@@ -2,6 +2,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
+from Products.statusmessages.interfaces import IStatusMessage
 
 class SendAsNotification(object):
     """ Send the context as email notification """
@@ -11,7 +12,6 @@ class SendAsNotification(object):
         self.request = request
 
     def __call__(self):
-        pu = getToolByName(self.context, 'plone_utils')
         cat = getToolByName(self.context, 'portal_catalog')
         wf = getToolByName(self.context, 'portal_workflow')
         obj_uid = self.context.UID()
@@ -42,7 +42,8 @@ class SendAsNotification(object):
                     'Status: ${status}'),
                             mapping = {u'url' : notif_center.absolute_url(),
                                        u'status' : status})
-                pu.addPortalMessage(message, 'structure')
+
+                IStatusMessage(self.request).addStatusMessage(message)
                 return self.request.RESPONSE.redirect(
                     self.context.absolute_url())
 
@@ -56,5 +57,5 @@ class SendAsNotification(object):
             '<a title="Notification center" href="${url}/folder_contents">'
             'notification center</a> if you want to be sent'),
                     mapping={u'url' : notif_center.absolute_url()})
-        pu.addPortalMessage(message, 'structure')
+        IStatusMessage(self.request).addStatusMessage(message)
         return self.request.RESPONSE.redirect(self.context.absolute_url())
