@@ -3,6 +3,8 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: added an override utility for p4a.videoembed that will not change
+   Links with swf in their url into Videos [tiberich #4865]
  * Bug fix: Fixed portal status message on @@sendAsNotification
    [voineali #4706]
  * Bug fix: fixed reorder resources views [tiberich #4737]

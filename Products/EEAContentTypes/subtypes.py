@@ -1,27 +1,30 @@
 """ Subtypes
 """
-import logging
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
+from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
+from Products.LinguaPlone.public import InAndOutWidget
+from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
-from eea.themecentre.content.ThemeTaggable import ThemesField
 from eea.geotags import field
 from eea.geotags import widget
+from eea.themecentre.content.ThemeTaggable import ThemesField
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
-from p4a.subtyper.interfaces import (
-    IPossibleDescriptors,
-    IPortalTypedPossibleDescriptors
-)
-from p4a.video.subtype import TopicVideoContainerDescriptor as \
-        BaseTopicVideoContainerDescriptor, _
+from p4a.subtyper.interfaces import IPortalTypedPossibleDescriptors
+from p4a.subtyper.interfaces import IPossibleDescriptors
+from p4a.videoembed.interfaces import IURLChecker
+from p4a.videoembed.interfaces import provider
+from p4a.videoembed.utils import break_url
 from zope.component import adapts
 from zope.component import queryAdapter
 from zope.interface import Interface, implements
-from Products.LinguaPlone.public import StringField
-from Products.LinguaPlone.public import InAndOutWidget
-from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
+from p4a.video.subtype import TopicVideoContainerDescriptor as \
+        BaseTopicVideoContainerDescriptor, _
+
+import logging
+
 
 logger = logging.getLogger('EEAContentTypes')
 
@@ -258,3 +261,26 @@ class TopicVideoContainerDescriptor(BaseTopicVideoContainerDescriptor):
     """ Topic container
     """
     title = _("Video Topic Container")
+
+
+
+
+@provider(IURLChecker)
+def swf_check(url):
+    """Customized utility to check for swf in URL just so
+    that we don't transform GIS Applications into videos
+
+    """
+    host, path, query, fragment = break_url(url)
+
+    return False    
+
+    if "discomap.eea.europa.eu" in host and 'index.swf' in path:
+        return False
+
+    if path.endswith('.swf'):
+        return True
+
+    return False
+
+swf_check.index = 10100

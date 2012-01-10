@@ -13,4 +13,8 @@
         name="p4a.video.TopicVideoContainer"
         factory=".subtypes.TopicVideoContainerDescriptor" />
 
+    <utility
+        component=".subtypes.swf_check"
+        name="flashswf" />
+
 </configure>
