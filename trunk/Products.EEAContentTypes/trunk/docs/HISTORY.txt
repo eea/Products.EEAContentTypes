@@ -3,6 +3,9 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Bug fix: replaced attribute modifiedDate (introduced in r24888 and not found 
+            with new plone 4) with standard dublic core modified() method.
+            [demarant #4875]
 
 4.13 - (2012-01-10)
 -------------------
