@@ -281,7 +281,7 @@ class FolderFeed(FeedMixin, Implicit):
     def getModifiedDate(self):
         """ Modified date
         """
-        return DateTime(self.modifiedDate)
+        return DateTime(self.modified())
 
     def getImageURL(self):
         """ Image URL
@@ -314,4 +314,4 @@ class TopicFeed(FolderFeed):
     def getModifiedDate(self):
         """ Modified date
         """
-        return DateTime(self.modifiedDate)
+        return DateTime(self.modified())
