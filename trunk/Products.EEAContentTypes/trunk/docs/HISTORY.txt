@@ -3,6 +3,7 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Change: Mark any Daviz presentation with Interactive Data interface. [demarant]
  * Bug fix: replaced attribute modifiedDate (introduced in r24888 and not found 
             with new plone 4) with standard dublic core modified() method.
             [demarant #4875]
