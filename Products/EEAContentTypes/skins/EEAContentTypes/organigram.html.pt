@@ -6,7 +6,7 @@
         i18n:domain="eea.translations">
 <head>
 
-<metal:organigramcss fill-slot="css_slot">
+<metal:organigramcss fill-slot="style_slot">
 
 <style type="text/css" media="print">
 #eea-comments {
@@ -20,9 +20,14 @@
 .org_container dt, .director_container dt { font-weight:bold }
 
 .org_container dd, .director_container dd {
-    margin:0;
-    padding:0;
+    margin:0 !important;
+    padding:0 !important;
 }
+
+#organisation-chart-container dl {
+   margin-bottom: 0px !important;
+}
+
 
 #organisation-chart-container .visualClear {
 clear:both !important;
@@ -283,8 +288,12 @@ page-break-after: always;
 .org_container dt, .director_container dt { font-weight:bold }
 
 .org_container dd, .director_container dd {
-margin:0;
-padding:0;
+margin:0 !important;
+padding:0 !important;
+}
+
+#organisation-chart-container dl {
+   margin-bottom: 0px !important;
 }
 
 .director_container {
@@ -483,7 +492,7 @@ margin-top: 75px;
                         orgs_data here/@@eeaorglist">
 
     <h1 i18n:translate="title_eeastaff_list"  class="documentFirstHeading">
-        EEA Organisational chart (NEW)
+        EEA Organisational chart
     </h1>
     <p>
         <strong i18n:translate="">Last updated on:</strong>
@@ -584,6 +593,3 @@ margin-top: 75px;
 </metal:main>
 </body>
 </html>
-
-
-
