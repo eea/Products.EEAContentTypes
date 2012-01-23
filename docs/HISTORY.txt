@@ -3,10 +3,11 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
- * Bug fix: fixed overlapping text in organisational chart and 
+ * Bug fix: Fixed Content-Disposition for PDF files [voineali #4898]
+ * Bug fix: fixed overlapping text in organisational chart and
             replaced deprecated css_slot with style_slot [demarant]
  * Change: Mark any Daviz presentation with Interactive Data interface. [demarant]
- * Bug fix: replaced attribute modifiedDate (introduced in r24888 and not found 
+ * Bug fix: replaced attribute modifiedDate (introduced in r24888 and not found
             with new plone 4) with standard dublic core modified() method.
             [demarant #4875]
 
