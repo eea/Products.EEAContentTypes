@@ -35,5 +35,12 @@ for otype, schema in types_and_schema:
 from Products.ATContentTypes.content import file as atfile
 atfile.ATFileSchema['file'].languageIndependent = False
 
+# #4898 Set Content-Disposition: attachment for PDF files
+inlineMimetypes = atfile.ATFile.inlineMimetypes
+if 'application/pdf' in inlineMimetypes:
+    inlineMimetypes = set(inlineMimetypes)
+    inlineMimetypes.remove('application/pdf')
+    atfile.ATFile.inlineMimetypes = tuple(inlineMimetypes)
+
 from Products.ATContentTypes.content import image
 image.ATImageSchema['rights'].languageIndependent = True
