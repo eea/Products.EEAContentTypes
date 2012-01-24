@@ -293,6 +293,7 @@ schema = public.Schema((
             label="Visibility Level",
             label_msgid='EEAContentTypes_label_visibilityLevel',
             i18n_domain='EEAContentTypes',
+            visible=False, #disabled/deprecated by default for most content
         ),
         enforceVocabulary=1,
         vocabulary="getVisibilityLevels",
