@@ -3,6 +3,8 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Change: Made field visibilityLevel hidden by default and visible only
+           for articles where we use it for frontpage feature article. [demarant]
  * Bug fix: Fixed Content-Disposition for PDF files [voineali #4898]
  * Bug fix: fixed overlapping text in organisational chart and
             replaced deprecated css_slot with style_slot [demarant]

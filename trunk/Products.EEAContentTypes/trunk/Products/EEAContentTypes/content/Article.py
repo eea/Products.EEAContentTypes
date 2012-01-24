@@ -59,6 +59,10 @@ Article_schema['relatedItems'].schemata = 'categorization'
 Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 
+#visibility level is "deprecated/hidden" by default
+# used on feature article 
+Article_schema["visibilityLevel"].widget.visible = True
+
 class Article(Highlight):
     """
     Articles are very similar to Highlights: folderish news-alike
