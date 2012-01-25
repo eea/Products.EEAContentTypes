@@ -23,10 +23,17 @@ from zope.interface import Interface, implements
 from p4a.video.subtype import TopicVideoContainerDescriptor as \
         BaseTopicVideoContainerDescriptor, _
 
+
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+
 import logging
 
 
 logger = logging.getLogger('EEAContentTypes')
+
+class ExtensionRelationsField(ExtensionField, EEAReferenceField):
+    """ derivative of relations for extending schemas """
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
@@ -39,6 +46,30 @@ class ExtensionGeotagsMultifield(ExtensionField, field.GeotagsLinesField):
 
 class ExtensionThemesField(ExtensionField, ThemesField):
     """ derivative of themesfield for extending schemas """
+
+class RelationsSchemaExtender(object):
+    """ Extends relations filed
+    """
+    implements(ISchemaExtender)
+    
+    fields = (
+     ExtensionRelationsField('relatedItems',
+        schemata='categorization',
+        relationship = 'relatesTo',
+        multiValued = True,
+        keepReferencesOnCopy=True,
+        widget=EEAReferenceBrowserWidget(
+            label='Related items',
+            description='Specify relations to other content within Plone.'
+        )
+      ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        return self.fields
 
 class LocationSchemaExtender(object):
     """ Extends base schema with extra fields.
