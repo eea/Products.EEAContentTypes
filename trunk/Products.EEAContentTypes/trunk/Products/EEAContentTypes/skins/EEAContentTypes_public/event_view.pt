@@ -158,6 +158,11 @@
           </table>
         </div>
 
+        <div tal:condition="python:context.getText()">
+            <metal:field use-macro="python:context.widget('text', mode='view')">
+               Body text
+            </metal:field>
+        </div>
 
         <p tal:condition="context/event_url|nothing">
           <a class="url"
