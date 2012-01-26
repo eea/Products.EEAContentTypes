@@ -3,6 +3,7 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Bug fix: show body text on events [demarant #4906]
  * Feature: Enabled the EEA relation widget on highlights types [demarant #4705]
  * Change: Made field visibilityLevel hidden by default and visible only
            for articles where we use it for frontpage feature article. [demarant]
