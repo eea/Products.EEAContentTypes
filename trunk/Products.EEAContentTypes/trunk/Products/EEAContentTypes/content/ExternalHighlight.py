@@ -23,7 +23,6 @@ from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
 from zope.interface import implements
 import logging
-
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
 
 
@@ -45,7 +44,6 @@ class ImageCaptionRequiredIfImageValidator:
         return 1
 
 validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
-
 
 class MaxValuesValidator:
     """ Max values validator
@@ -152,7 +150,7 @@ schema = public.Schema((
                 'icon'    :  (32, 32),
                 'listing' :  (16, 16),
                },
-        validators = ('isNonEmptyFile', ),
+        validators = ('isNonEmptyFile', 'imageMinSize'),
         widget = public.ImageWidget(
             description = (
                 "Will be shown in the news listing, and in the news "
