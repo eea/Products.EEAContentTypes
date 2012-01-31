@@ -3,7 +3,7 @@
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
 from zope.interface import implements
-
+import PIL
 
 class ManagementPlanCodeValidator:
     """ Validator
@@ -36,3 +36,24 @@ class ManagementPlanCodeValidator:
 
 validation.register(
     ManagementPlanCodeValidator('management_plan_code_validator'))
+
+
+class ImageMinSize:
+    """ Image minimum size validator
+    """
+    implements(IValidator)
+
+    def __init__( self, name, title='ImageSizeValidator',
+                        description='Image size validator'):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, instance, *args, **kwargs):
+        """ check to see if the image is at least 1024px """
+        image = PIL.Image.open(value)
+        if image.size[0] < 1024:
+            return "Image needs to be at least 1024px in width"
+        return 1
+
+validation.register(ImageMinSize('imageMinSize'))
