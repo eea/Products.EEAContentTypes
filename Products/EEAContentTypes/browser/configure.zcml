@@ -409,4 +409,7 @@
         allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
         />
 
+  <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".event.highlightModified" />
 </configure>

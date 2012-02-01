@@ -154,7 +154,8 @@ schema = public.Schema((
         widget = public.ImageWidget(
             description = (
                 "Will be shown in the news listing, and in the news "
-                "item itself. Image will be scaled to a sensible size."),
+                "item itself. Image will be scaled to a sensible size "
+                "and image width should be of minimum 1024px"),
             description_msgid = "help_news_image",
             label= "Image",
             label_msgid = "label_news_image",
