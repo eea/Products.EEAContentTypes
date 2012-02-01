@@ -58,4 +58,16 @@
     <!--adapter for="Products.ATContentTypes.content.base.ATCTContent"
                 factory=".schemaextender.RelatedItemsModifier" /-->
 
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        component=".vocabulary.imageRatioVocabulary"
+        name="ImageResolutions"
+    />
+
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        component=".vocabulary.imageResolutionVocabulary"
+        name="ImageRatios"
+    />
+
 </configure>

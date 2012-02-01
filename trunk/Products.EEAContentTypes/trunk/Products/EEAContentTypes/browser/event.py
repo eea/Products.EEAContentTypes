@@ -2,6 +2,10 @@
 """
 from Products.Five import BrowserView as FiveBrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 class BrowserView(FiveBrowserView):
     """ View
@@ -66,3 +70,18 @@ class SubmitEvent(BrowserView):
         if state == 'published':
             return True
         return False
+
+
+def highlightModified(obj, event):
+    """ Checks if the object's image has the right proportions and prompt
+    an error message with a link if the image has wrong proportions
+    """
+    img = obj.getImage()
+    img_size = img.getSize()
+    vocab = getUtility(IVocabularyFactory, "ImageRatios")
+    values = [item.value for item in vocab]
+    widths = [i.split("x")[0] for i in values]
+    if img_size[0] not in width:
+        msg = "The image ratio is not correct, please click here to <a href=" \
+            + obj.absolute_url() + '/atct_image_transform'">edit the image</a>"
+        IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='warning')
