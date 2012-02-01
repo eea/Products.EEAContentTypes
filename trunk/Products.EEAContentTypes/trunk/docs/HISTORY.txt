@@ -3,6 +3,14 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Bug fix: Fixed location field and widget on Event content types
+   [ghicaale #4913]
+ * Bug fix: Fixed iCal export for Event content types
+   [ghicaale #4913]
+ * Bug fix: Fixed Google geocoding used on Event and QuickEvent content types
+   [ghicaale #4913]
+ * Bug fix: Fixed geocoding subscriber to be active only for Event and QuickEvent content types
+   [ghicaale #4913]
  * Bug fix: show body text on events [demarant #4906]
  * Feature: Enabled the EEA relation widget on highlights types [demarant #4705]
  * Change: Made field visibilityLevel hidden by default and visible only
