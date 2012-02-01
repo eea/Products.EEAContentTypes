@@ -76,7 +76,7 @@ class LocationSchemaExtender(object):
     To be used for base content class. """
     implements(ISchemaExtender)
 
-    fields =  (
+    multiple_location =  (
         ExtensionGeotagsMultifield(
             name='location',
             schemata='categorization',
@@ -91,18 +91,34 @@ class LocationSchemaExtender(object):
             ),
         )
 
+    single_location = (
+        ExtensionGeotagsSinglefield(
+            name='location',
+            schemata='categorization',
+            required=False,
+            languageIndependent=True,
+            widget=widget.GeotagsWidget(
+                label='Geotag / Location',
+                description=('Geotags: geographical location '
+                             'related to this content. Click Edit button '
+                             'to select a location')
+                )
+            ),
+        )
+
     def __init__(self, context):
         self.context = context
 
     def getFields(self):
         """ Fields
         """
-        #TODO Refactor location for Organisation and Event #4788
         if getattr(self.context, 'portal_type', None) in (
-            'Organisation', 'QuickEvent'):
+            'Organisation', 'QuickEvent', 'Event'):
             # No schema extender
+            #TODO Refactor location for Organisation and QuickEvent #4788
+            #TODO Add location field/widget for Event, see #4913
             return []
-        return self.fields
+        return self.multiple_location
 
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field

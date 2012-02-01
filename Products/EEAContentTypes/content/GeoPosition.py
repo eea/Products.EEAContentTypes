@@ -1,5 +1,5 @@
-""" GeoPosition """
-
+""" GeoPosition
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.interfaces import IGeoPosition
 from Products.EEAContentTypes.content.interfaces import IGeoPositionDecider
@@ -11,12 +11,13 @@ from zope.component import getUtility, adapts
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.interface import implements
 import urllib
+import logging
 
+logger = logging.getLogger("Products.EEAContentTypes")
 
 GEOKEYS =   ['latitude', 'longitude']
 GEOCOORDS = ['coordonates']
 GEOINFO =   ['country_code']
-
 
 class GeoPositioned(object):
     """ Geographical location (latitude, longitude). """
@@ -161,8 +162,6 @@ def geopositionEventHandler(obj, event):
 
 def geocodeLocation(location, service_keys, services):
     """ Geocode location """
-    #TODO: maybe to add http://maps.live.com geocoding service too
-
     for service in services:
         if service.find('Google') != -1:
             geoGoogle = geocodeGoogle(location, service_keys)
@@ -204,9 +203,11 @@ def geocodeGoogleCSV(location, service_keys):
             #TODO: implement get country code
             res = (latitude, longitude, '')
         else:
-            res = None #err
+            res = None
+            logger.warning('Geocoding via Google CSV failed')
     except Exception:
-        res = None #err
+        res = None
+        logger.warning('Geocoding via Google CSV failed')
     return res
 
 def geocodeGoogleXML(location, service_keys):
@@ -224,18 +225,22 @@ def geocodeGoogleXML(location, service_keys):
         #result_count = len(results)
         for result in results:
             for mark in result.getElementsByTagName('Placemark'):
-                geoInfo = mark.childNodes[
-                    2].childNodes[0].childNodes[0].nodeValue.split(',')
+                geoInfo = mark.getElementsByTagName('Point')[
+                          0].getElementsByTagName('coordinates')[
+                          0].childNodes[0].nodeValue.split(',')
                 lat = geoInfo[1]
                 longitude = geoInfo[0]
 
-                cc = mark.childNodes[
-                    1].childNodes[0].childNodes[0].childNodes[0].nodeValue
+                cc = mark.getElementsByTagName('AddressDetails')[
+                     0].getElementsByTagName('Country')[
+                     0].getElementsByTagName('CountryNameCode')[
+                     0].childNodes[0].nodeValue
 
         res = (lat.encode('utf-8'), longitude.encode('utf-8'),
                cc.encode('utf-8'))
     except Exception:
         res = None
+        logger.warning('Geocoding via Google XML failed')
     return res
 
 def geocodeYahoo(location, service_keys):
@@ -266,6 +271,7 @@ def geocodeYahoo(location, service_keys):
             'utf-8'), addr['Country'].encode('utf-8'))
     except Exception:
         res = None
+        logger.warning('Geocoding via Yahoo failed')
     return res
 
 def geocodeMapquest(location, service_keys):
@@ -298,4 +304,5 @@ def geocodeMapquest(location, service_keys):
         res = (d['longitude'].encode('utf-8'), d['latitude'].encode('utf-8'))
     except Exception:
         res = None
+        logger.warning('Geocoding via Mapquest failed')
     return res
