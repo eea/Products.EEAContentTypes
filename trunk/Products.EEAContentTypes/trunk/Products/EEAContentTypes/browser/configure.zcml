@@ -409,7 +409,30 @@
         allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
         />
 
-  <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
-                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-              handler=".event.highlightModified" />
+    <browser:page
+        for="Products.EEAContentTypes.content.Highlight.Highlight"
+        name="cropping"
+        class=".crop.cropping.CroppableImagesView"
+        template="crop/cropping.pt"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="Products.EEAContentTypes.content.Highlight.Highlight"
+        name="cropimage"
+        class=".crop.cropping.CropImageView"
+        template="crop/cropimage.pt"
+        permission="cmf.ModifyPortalContent"
+        allowed_attributes="cropImage"
+        />
+
+    <browser:resourceDirectory
+        name="products.eeacontenttypes.crop.resources"
+        directory="crop/crop_resources"
+        />
+
+    <!-- subscribers -->
+    <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.highlightModified" />
 </configure>

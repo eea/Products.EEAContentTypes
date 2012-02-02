@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+</head>
+<body>
+<metal:main fill-slot="main">
+
+  <form id="cropImage" action="" method="post">
+    <img src="" id="croppableImage"
+      tal:define="field python: view.field();
+                  aspectratio python: view.aspectRatio()"
+      tal:attributes="src string:${context/absolute_url}/image_large;
+        data-field field;
+        data-aspectratio python: aspectratio;
+        data-previewratiox python: view.scaleToLargeRatios()[0];
+        data-previewratioy python: view.scaleToLargeRatios()[1]"/>
+    <div class="formControls">
+
+      <input disabled="disabled" class="standalone" id="image-recrop" type="submit" value="Crop" name="recrop" i18n:attributes="value"/>
+    </div>
+  </form>
+
+</metal:main>
+</body>
+</html>
