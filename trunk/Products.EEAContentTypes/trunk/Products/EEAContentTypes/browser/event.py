@@ -76,12 +76,19 @@ def highlightModified(obj, event):
     """ Checks if the object's image has the right proportions and prompt
     an error message with a link if the image has wrong proportions
     """
+
     img = obj.getImage()
-    img_size = img.getSize()
+    img_size = img.getSize()[0]
+    if img_size == 0:
+        msg = "No image is found, please click here to <a href=" \
+            + obj.absolute_url() + '/edit'">add an image</a>"
+        IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='warning')
+        return 1
+
     vocab = getUtility(IVocabularyFactory, "ImageRatios")
     values = [item.value for item in vocab]
     widths = [i.split("x")[0] for i in values]
-    width = unicode(img_size[0])
+    width = unicode(img_size)
     if width not in widths:
         msg = "The image ratio is not correct, please click here to <a href=" \
             + obj.absolute_url() + '/cropping'">edit the image</a>"
