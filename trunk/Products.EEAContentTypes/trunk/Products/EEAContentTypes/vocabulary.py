@@ -77,7 +77,6 @@ vocabs = {
     ('ZZZ','Other'),
 )}
 
-from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 ratios = [
     (u"16:9", "16:9 image ratio"),
