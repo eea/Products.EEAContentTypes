@@ -81,7 +81,7 @@ def highlightModified(obj, event):
     vocab = getUtility(IVocabularyFactory, "ImageRatios")
     values = [item.value for item in vocab]
     widths = [i.split("x")[0] for i in values]
-    if img_size[0] not in width:
+    if img_size[0] not in widths:
         msg = "The image ratio is not correct, please click here to <a href=" \
             + obj.absolute_url() + '/atct_image_transform'">edit the image</a>"
         IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='warning')
