@@ -93,7 +93,7 @@ resolutions = [
     (u"1366x768",  "1366x768 16:9 resolution"),
     (u"1920x1080", "1920x1080 16:9 resolution")]
 
-res_terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1])
-                                            for pair in resolutions]
+res_terms = [ SimpleTerm(value=p[0], token=p[0], title=p[1])
+                                            for p in resolutions]
 
 imageResolutionVocabulary = SimpleVocabulary(res_terms)
