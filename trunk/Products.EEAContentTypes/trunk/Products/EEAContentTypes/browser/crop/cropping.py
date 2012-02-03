@@ -60,18 +60,6 @@ class CropImageView(BrowserView):
         else:
             return {'name': 'image', 'image' : ''}
 
-    def aspectRatio(self):
-        """ Aspect ratio to crop to
-        """
-        return 1.78
-
-    def imageSizes(self):
-        """ Select field with 16:9 image resolution
-        """
-        vocab = getUtility(IVocabularyFactory, "ImageRatios")
-        values = [item.value for item in vocab]
-        return values
-
     def publishTraverse(self, request, name):
         """ Custom traversal to allow cropImage to be called
         """
