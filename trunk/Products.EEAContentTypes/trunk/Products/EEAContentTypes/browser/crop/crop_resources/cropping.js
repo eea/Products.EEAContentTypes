@@ -8,7 +8,8 @@ jQuery(document).ready(function () {
         config: {
             onLoad: function () {
                 var cropimage = jQuery("#croppableImage"),
-                    field, yratio, xratio, crop_size, jcrop, cropbox;
+                    size_selector = jQuery("#imagesize-selector"),
+                    sel_size, field, yratio, xratio, crop_size, jcrop, cropbox;
                 if (cropimage.length) {
                     field = cropimage.attr('data-field');
                     yratio = window.parseFloat(cropimage.attr('data-previewratioy'));
@@ -34,6 +35,7 @@ jQuery(document).ready(function () {
 
                     jQuery('input#image-recrop').click(function (e) {
                             e.preventDefault();
+                            sel_size = size_selector.find(":selected").attr('value') || "";
                             var context_url = jQuery('base').attr('href');
                             if (context_url.substr(-1) !== '/') {
                                 context_url = context_url + '/';
@@ -45,7 +47,8 @@ jQuery(document).ready(function () {
                                        x1: cropbox.x,
                                        y1: cropbox.y,
                                        x2: cropbox.x2,
-                                       y2: cropbox.y2
+                                       y2: cropbox.y2,
+                                       resize_size: sel_size
                                       },
                                 success: function () {
                                     window.location.replace(context_url);
