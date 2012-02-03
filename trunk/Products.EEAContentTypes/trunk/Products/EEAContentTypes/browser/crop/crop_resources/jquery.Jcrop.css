@@ -39,10 +39,30 @@ div.overlay-iframe, div.overlay-ajax {
 }
 
 .pb-ajax > div {
-    width: 98%;
+    width: 97%;
+}
+
+div.formControls {
+    margin: 1em 0;
 }
 
 #formControls {
     float: right;
-    width: 185px;
+    width: 180px;
+}
+
+#formControls ul {
+    margin: 0px;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+div.overlay {
+    font-size: 100%;
+}
+
+.warning {
+    border: 0px;
+    color: red;
+    font-size: 100%;
 }

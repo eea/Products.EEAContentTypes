@@ -21,8 +21,6 @@
         select below the image you want to crop.
       </p>
 
-      <h2 tal:content="field/title">Image</h2>
-
       <div id="cropping-original-image">
           <h3 i18n:translate="label_original_image">Original image</h3>
           <img src="" tal:attributes="src string:${context/absolute_url}/${field}_preview" />
@@ -32,7 +30,7 @@
           <div class="formControls">
               <a class="selImageToCropBtn standardButton"
                  tal:attributes="href string:${context/absolute_url}/cropimage?field=${field}"
-                 i18n:translate="">Crop Menu</a>
+                 i18n:translate="">Correct the image ratio</a>
           </div>
       </div>
   </div>

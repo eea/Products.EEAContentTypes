@@ -19,9 +19,10 @@
     <div id="formControls">
 
         <ul>
-            <li>Image Size: <span tal:content="field/image">content size</span></li>
-            <li>Crop Size: <span id="crop_size">crop size</span></li>
+            <li><strong>Image Size:</strong> <span tal:content="field/image">content size</span></li>
+            <li><strong>Crop Size:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span id="crop_size">0x0px</span></li>
         </ul>
+        <h3 class="warning">*Warning: Hitting the crop button will replace the original image with this cropped image</h3>
       <input disabled="disabled" class="standalone" id="image-recrop" type="submit" value="Crop" name="recrop" i18n:attributes="value"/>
     </div>
     <div class="visualClear" />
