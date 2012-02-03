@@ -7,19 +7,24 @@
 <body>
 <metal:main fill-slot="main">
 
-  <form id="cropImage" action="" method="post">
-    <img src="" id="croppableImage"
+<form id="cropImage" action="" method="post"
       tal:define="field python: view.field();
-                  aspectratio python: view.aspectRatio()"
+                  aspectratio python: view.aspectRatio()">
+    <img src="" id="croppableImage"
       tal:attributes="src string:${context/absolute_url}/image_large;
-        data-field field;
+        data-field field/name;
         data-aspectratio python: aspectratio;
         data-previewratiox python: view.scaleToLargeRatios()[0];
         data-previewratioy python: view.scaleToLargeRatios()[1]"/>
-    <div class="formControls">
+    <div id="formControls">
 
+        <ul>
+            <li>Image Size: <span tal:content="field/image">content size</span></li>
+            <li>Crop Size: <span id="crop_size"></span></li>
+        </ul>
       <input disabled="disabled" class="standalone" id="image-recrop" type="submit" value="Crop" name="recrop" i18n:attributes="value"/>
     </div>
+    <div class="visualClear" />
   </form>
 
 </metal:main>

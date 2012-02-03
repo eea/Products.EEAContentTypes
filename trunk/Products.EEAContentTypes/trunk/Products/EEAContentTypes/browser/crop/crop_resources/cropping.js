@@ -7,18 +7,27 @@ jQuery(document).ready(function () {
         filter: 'form#cropImage',
         config: {
             onLoad: function () {
-                if (jQuery('img#croppableImage').length > 0) {
-                    var field = jQuery('img#croppableImage').attr('data-field'),
-                        ar = jQuery('img#croppableImage').attr('data-aspectratio'),
-                        jcrop = jQuery.Jcrop('img#croppableImage'),
+                var cropimage = jQuery("#croppableImage");
+                if (cropimage.length) {
+                    var field = cropimage.attr('data-field'),
+                        yratio = window.parseFloat(cropimage.attr('data-previewratioy')),
+                        xratio = window.parseFloat(cropimage.attr('data-previewratiox')),
+                        crop_size = jQuery("#crop_size"),
+                        jcrop = jQuery.Jcrop(cropimage),
                         cropbox = null;
-                    jcrop.setOptions({aspectRatio: ar,
+                    jcrop.setOptions({                                      
+                                      aspectRatio: 16 / 9,
                                       allowSelect: true,
                                       allowResize: true,
                                       allowMove: true,
                                       onSelect: function (coords) {
-                                            jQuery('input#image-recrop').removeAttr('disabled');
                                             cropbox = coords;
+                                            var cropbox_x = window.parseInt(cropbox.w * xratio),
+                                                cropbox_y = window.parseInt(cropbox.h * yratio),
+                                                crop_text = cropbox_x + "x" + cropbox_y + "px";
+                                            crop_size.html(crop_text);
+                                            
+                                            jQuery('input#image-recrop').removeAttr('disabled');
                                         }
                      });
                     jcrop.focus();
@@ -39,7 +48,7 @@ jQuery(document).ready(function () {
                                        y2: cropbox.y2
                                       },
                                 success: function () {
-                                    window.location.replace(context_url + 'cropping');
+                                    window.location.replace(context_url);
                                 }
                             });
                         });

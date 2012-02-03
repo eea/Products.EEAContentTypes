@@ -1,5 +1,5 @@
 /* Fixes issue here http://code.google.com/p/jcrop/issues/detail?id=1 */
-.jcrop-holder { text-align: left; }
+.jcrop-holder { text-align: left; float: left; }
 
 .jcrop-vline, .jcrop-hline
 {
@@ -32,4 +32,17 @@
 	background-color: #C7BB00;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+}
+
+div.overlay-iframe, div.overlay-ajax {
+    width: 1000px;
+}
+
+.pb-ajax > div {
+    width: 98%;
+}
+
+#formControls {
+    float: right;
+    width: 185px;
 }
