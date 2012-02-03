@@ -14,9 +14,6 @@ from plone.app.blob.interfaces import IBlobImageField
 
 from plone.app.imaging.traverse import DefaultImageScaleHandler
 
-from zope.component import getUtility
-from zope.schema.interfaces import IVocabularyFactory
-
 class CroppableImagesView(BrowserView):
     """
     Lists the image fields together with the scales that are specified
