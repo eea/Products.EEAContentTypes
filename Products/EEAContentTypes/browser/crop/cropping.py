@@ -114,13 +114,6 @@ class CropImageView(BrowserView):
         image = PIL.Image.open(original_file)
         img_format = image.format
         image = image.crop(box)
-        # resize the crop to a predifined width & height if 
-        # such width if present in request
-        resize = self.request['resize_size']
-        if (resize):
-            resize = resize.split("x")
-            resize = tuple([int(i) for i in resize])
-            image = image.resize(resize, PIL.Image.ANTIALIAS)
         image_file = StringIO()
         image.save(image_file, img_format, quality=60)
         image_file.seek(0)
