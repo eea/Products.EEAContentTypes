@@ -8,12 +8,10 @@
 <metal:main fill-slot="main">
 
 <form id="cropImage" action="" method="post"
-      tal:define="field python: view.field();
-                  aspectratio python: view.aspectRatio()">
+      tal:define="field python: view.field();">
     <img src="" id="croppableImage"
       tal:attributes="src string:${context/absolute_url}/image_large;
         data-field field/name;
-        data-aspectratio python: aspectratio;
         data-previewratiox python: view.scaleToLargeRatios()[0];
         data-previewratioy python: view.scaleToLargeRatios()[1]"/>
     <div id="formControls">
