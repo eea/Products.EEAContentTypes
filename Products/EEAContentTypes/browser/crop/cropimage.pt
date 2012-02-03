@@ -22,6 +22,15 @@
             <li>Image Size: <span tal:content="field/image">content size</span></li>
             <li>Crop Size: <span id="crop_size"></span></li>
         </ul>
+        <h3>Resize cropped image to these predefined standards:</h3>
+      <select tal:define="items view/imageSizes" id="imagesize-selector">
+            <option value="">Select image resolution</option>
+            <tal:items tal:repeat="item items">
+                <option  
+                        tal:attributes="value item;"
+                        tal:content="item" />
+            </tal:items>
+    </select>
       <input disabled="disabled" class="standalone" id="image-recrop" type="submit" value="Crop" name="recrop" i18n:attributes="value"/>
     </div>
     <div class="visualClear" />

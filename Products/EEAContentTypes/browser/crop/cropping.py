@@ -14,6 +14,9 @@ from plone.app.blob.interfaces import IBlobImageField
 
 from plone.app.imaging.traverse import DefaultImageScaleHandler
 
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
+
 class CroppableImagesView(BrowserView):
     """
     Lists the image fields together with the scales that are specified
@@ -62,6 +65,13 @@ class CropImageView(BrowserView):
         """
         return 1.78
 
+    def imageSizes(self):
+        """ Select field with 16:9 image resolution
+        """
+        vocab = getUtility(IVocabularyFactory, "ImageRatios")
+        values = [item.value for item in vocab]
+        return values
+
     def publishTraverse(self, request, name):
         """ Custom traversal to allow cropImage to be called
         """
@@ -104,7 +114,13 @@ class CropImageView(BrowserView):
         image = PIL.Image.open(original_file)
         img_format = image.format
         image = image.crop(box)
-        #image = image.resize((1920, 1080), PIL.Image.ANTIALIAS)
+        # resize the crop to a predifined width & height if 
+        # such width if present in request
+        resize = self.request['resize_size']
+        if (resize):
+            resize = resize.split("x")
+            resize = tuple([int(i) for i in resize])
+            image = image.resize(resize, PIL.Image.ANTIALIAS)
         image_file = StringIO()
         image.save(image_file, img_format, quality=60)
         image_file.seek(0)
