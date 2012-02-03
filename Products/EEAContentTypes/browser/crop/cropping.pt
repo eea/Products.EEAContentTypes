@@ -6,7 +6,6 @@
 </head>
 <body>
 
-
 <metal:main fill-slot="main"
      tal:define="context_state context/@@plone_context_state;
                  fields view/imageFields">

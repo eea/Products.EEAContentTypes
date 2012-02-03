@@ -47,7 +47,15 @@ class CropImageView(BrowserView):
     def field(self):
         """ Image field getter
         """
-        return self.field_name
+        field = "get" + self.field_name.capitalize()
+        image = getattr(self.context, field, '')
+        if image:
+            img_size = image().getSize()
+            size = "%sx%spx" % (img_size[0], img_size[1])
+            f = { 'name' : self.field_name, 'image' : size }
+            return f
+        else:
+            return {'name': 'image', 'image' : ''}
 
     def aspectRatio(self):
         """ Aspect ratio to crop to
