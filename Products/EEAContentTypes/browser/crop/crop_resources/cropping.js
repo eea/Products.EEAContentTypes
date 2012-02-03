@@ -9,11 +9,13 @@ jQuery(document).ready(function () {
             onLoad: function () {
                 var cropImage = jQuery("#croppableImage"),
                     imageRecrop = jQuery('#image-recrop'),
-                    field, yratio, xratio, crop_size, jcrop, cropbox;
+                    field, yratio, xratio, crop_size, jcrop, cropbox, minX, minY;
                 if (cropImage.length) {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
                     xratio = window.parseFloat(cropImage.attr('data-previewratiox'));
+                    minX = 1024 / xratio;
+                    minY = 576 / yratio;
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
                     cropbox = null;
@@ -22,6 +24,7 @@ jQuery(document).ready(function () {
                         allowSelect: true,
                         allowResize: true,
                         allowMove: true,
+                        minSize: [minX, minY],
                         onSelect: function (coords) {
                                 cropbox = coords;
                                 var cropbox_x = window.parseInt(cropbox.w * xratio),
