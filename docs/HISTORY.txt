@@ -3,6 +3,8 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Feature: added 16:9 crop functionality for IExternalHighlight contentTypes
+   [ichimdav #4816]
  * Bug fix: fixed rss feed for at topics [tiberich #4992]
  * Bug fix: Fixed location field and widget on Event content types
    [ghicaale #4913]
