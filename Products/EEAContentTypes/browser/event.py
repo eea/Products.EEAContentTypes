@@ -4,9 +4,6 @@ from Products.Five import BrowserView as FiveBrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
-from zope.component import getUtility
-from zope.schema.interfaces import IVocabularyFactory
-
 class BrowserView(FiveBrowserView):
     """ View
     """
@@ -80,14 +77,9 @@ def highlightModified(obj, event):
     img = obj.getImage()
     img_size = img.getSize()
 
-    if img_size[0] == 0:
-        msg = "No image is found, please click here to <a href=" \
-            + obj.absolute_url() + '/edit'">add an image</a>"
-        IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='warning')
-        return 1
-
-    ratio = float(img_size[0]) / float(img_size[1])
-    if (ratio < 1.77 or ratio > 1.78):
-        msg = "The image ratio is not correct, please click here to <a href=" \
-            + obj.absolute_url() + '/cropping'">edit the image</a>"
-        IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='warning')
+    if img_size[0] != 0:
+        ratio = float(img_size[0]) / float(img_size[1])
+        if (ratio < 1.77 or ratio > 1.78):
+            msg = "The image ratio is not correct, please click here to <a href=" \
+                + obj.absolute_url() + '/cropping'">Correct the image ratio</a>"
+            IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='error')
