@@ -7,29 +7,29 @@ jQuery(document).ready(function () {
         filter: 'form#cropImage',
         config: {
             onLoad: function () {
-                var cropimage = jQuery("#croppableImage");
+                var cropimage = jQuery("#croppableImage"),
+                    field, yratio, xratio, crop_size, jcrop, cropbox;
                 if (cropimage.length) {
-                    var field = cropimage.attr('data-field'),
-                        yratio = window.parseFloat(cropimage.attr('data-previewratioy')),
-                        xratio = window.parseFloat(cropimage.attr('data-previewratiox')),
-                        crop_size = jQuery("#crop_size"),
-                        jcrop = jQuery.Jcrop(cropimage),
-                        cropbox = null;
+                    field = cropimage.attr('data-field');
+                    yratio = window.parseFloat(cropimage.attr('data-previewratioy'));
+                    xratio = window.parseFloat(cropimage.attr('data-previewratiox'));
+                    crop_size = jQuery("#crop_size");
+                    jcrop = jQuery.Jcrop(cropimage);
+                    cropbox = null;
                     jcrop.setOptions({                                      
-                                      aspectRatio: 16 / 9,
-                                      allowSelect: true,
-                                      allowResize: true,
-                                      allowMove: true,
-                                      onSelect: function (coords) {
-                                            cropbox = coords;
-                                            var cropbox_x = window.parseInt(cropbox.w * xratio),
-                                                cropbox_y = window.parseInt(cropbox.h * yratio),
-                                                crop_text = cropbox_x + "x" + cropbox_y + "px";
-                                            crop_size.html(crop_text);
-                                            
-                                            jQuery('input#image-recrop').removeAttr('disabled');
-                                        }
-                     });
+                        aspectRatio: 16 / 9,
+                        allowSelect: true,
+                        allowResize: true,
+                        allowMove: true,
+                        onSelect: function (coords) {
+                                cropbox = coords;
+                                var cropbox_x = window.parseInt(cropbox.w * xratio),
+                                    cropbox_y = window.parseInt(cropbox.h * yratio),
+                                    crop_text = cropbox_x + "x" + cropbox_y + "px";
+                                crop_size.html(crop_text);
+                                jQuery('input#image-recrop').removeAttr('disabled');
+                            }
+                    });
                     jcrop.focus();
 
                     jQuery('input#image-recrop').click(function (e) {
