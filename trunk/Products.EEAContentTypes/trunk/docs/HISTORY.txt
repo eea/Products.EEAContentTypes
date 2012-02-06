@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.14-dev - (unreleased)
------------------------
+4.14 - (2012-02-06)
+-------------------
  * Feature: added 16:9 crop functionality for IExternalHighlight contentTypes
    [ichimdav #4816]
  * Bug fix: fixed rss feed for at topics [tiberich #4992]
