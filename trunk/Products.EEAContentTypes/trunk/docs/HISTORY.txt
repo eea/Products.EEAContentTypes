@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.15-dev - (unreleased)
------------------------
+4.15 - (2012-02-06)
+-------------------
  * Change: disabled crop functionality until it is better tested to ensure 
    that no issues would arrive from using it [ichimdav]
 
