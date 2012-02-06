@@ -432,7 +432,8 @@
         />
 
     <!-- subscribers -->
-    <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".event.highlightModified" />
+    <!-- disabled until it is better tested -->
+    <!--<subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight-->
+    <!--    zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
+    <!--    handler=".event.highlightModified" />-->
 </configure>
