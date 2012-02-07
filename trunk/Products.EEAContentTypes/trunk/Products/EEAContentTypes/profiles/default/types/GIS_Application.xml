@@ -6,8 +6,8 @@
  <property name="description">A link to an external GIS MAp Application made in flash (SWF).</property>
  <property name="content_icon">link_icon.gif</property>
  <property name="content_meta_type">GISMapApplication</property>
- <property name="product">ATContentTypes</property>
- <property name="factory">addATLink</property>
+ <property name="product">EEAContentTypes</property>
+ <property name="factory">addGISMapApplication</property>
  <property name="immediate_view">gis_view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>

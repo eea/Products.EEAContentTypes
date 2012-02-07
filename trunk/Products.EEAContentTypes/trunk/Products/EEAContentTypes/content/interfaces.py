@@ -75,3 +75,7 @@ class IInteractiveMap(Interface):
 class IInteractiveData(Interface):
     """ Marker interface for all interactive data viewers (ex pivot tables)
     """
+
+class IGISMapApplication(Interface):
+    """ Marker interface for GIS Map Applications
+    """
