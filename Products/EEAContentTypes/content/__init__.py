@@ -4,19 +4,20 @@
 import Products.EEAContentTypes.content.validators
 
 # Classes
-import Products.EEAContentTypes.content.CallForTender
-import Products.EEAContentTypes.content.PressRelease
-import Products.EEAContentTypes.content.Speech
-import Products.EEAContentTypes.content.ExternalHighlight
-import Products.EEAContentTypes.content.Highlight
 import Products.EEAContentTypes.content.Article
-import Products.EEAContentTypes.content.Promotion
 import Products.EEAContentTypes.content.CFTRequestor
-import Products.EEAContentTypes.content.ThemeTaggable
 import Products.EEAContentTypes.content.CallForInterest
-import Products.EEAContentTypes.content.FlashFile
+import Products.EEAContentTypes.content.CallForTender
 import Products.EEAContentTypes.content.Event
+import Products.EEAContentTypes.content.ExternalHighlight
+import Products.EEAContentTypes.content.FlashFile
+import Products.EEAContentTypes.content.GISApplication
+import Products.EEAContentTypes.content.Highlight
 import Products.EEAContentTypes.content.Link
+import Products.EEAContentTypes.content.PressRelease
+import Products.EEAContentTypes.content.Promotion
+import Products.EEAContentTypes.content.Speech
+import Products.EEAContentTypes.content.ThemeTaggable
 
 # monkey patch, replaces reference field of certain content types to
 # an orderable reference field

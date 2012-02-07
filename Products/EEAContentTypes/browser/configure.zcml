@@ -436,4 +436,11 @@
     <!--<subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight-->
     <!--    zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
     <!--    handler=".event.highlightModified" />-->
+
+    <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
+                  name="imgview"
+                  class="valentine.imagescales.browser.atfield.ATFieldImageView"
+                  permission="zope.Public"
+                  allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+
 </configure>
