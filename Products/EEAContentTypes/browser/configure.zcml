@@ -433,9 +433,9 @@
 
     <!-- subscribers -->
     <!-- disabled until it is better tested -->
-    <!--<subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight-->
-    <!--    zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
-    <!--    handler=".event.highlightModified" />-->
+    <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.highlightModified" />
 
     <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
                   name="imgview"
