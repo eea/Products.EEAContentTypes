@@ -206,8 +206,28 @@ def setupVarious(context):
 
 
 class InplaceGisMigrator(InplaceATItemMigrator):
+    """Migrator for TTW Type to disk based GIS Application
+    """
     dst_meta_type="GISMapApplication"
     dst_portal_type="GIS Application"
+
+
+def upgrade_gisapplication(site):
+    """Upgrade handler for gisapplication
+    """
+
+    logger.info("Started migration of ATLink based GIS Application")
+    catalog = getToolByName(site, 'portal_catalog')
+    brains = catalog.searchResults(meta_type="ATLink", 
+            portal_type="GIS Application")
+
+    for brain in brains:
+        obj = brain.getObject()
+        migrator = InplaceGisMigrator(obj)
+        migrator.migrate()
+        logger.info("Migrated ATLink to GIS Application for %s", migrator.new)
+
+    logger.info("Finished migration of ATLink based GIS Application")
 
 
 def migrate_gisapplication(context):
@@ -216,16 +236,8 @@ def migrate_gisapplication(context):
 
     if context.readDataFile('eeacontenttypes_various.txt') is None:
         return
-
     site = context.getSite()
-    catalog = getToolByName(site, 'portal_catalog')
-    brains = catalog.searchResults(meta_type="ATLink", portal_type="GIS Application")
-
-    for brain in brains:
-        obj = brain.getObject()
-        migrator = InplaceGisMigrator(obj)
-        migrator.migrate()
-        logger.info("Migrated ATLink to GIS Application for %s", migrator.new)
+    upgrade_gisapplication(site)
 
 
 #this is a migration procedure, not needed for plone4 migration
