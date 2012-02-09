@@ -32,7 +32,9 @@ jQuery(document).ready(function () {
                                     cropbox_y = window.parseInt(cropbox.h * yratio),
                                     crop_text = cropbox_x + "x" + cropbox_y + "px";
                                 crop_size.html(crop_text);
-                                imageRecrop.removeAttr('disabled');
+                                if (crop_size.text() !== '0x0px') {
+                                    imageRecrop.removeClass('hidden');
+                                }
                             }
                     });
                     jcrop.focus();

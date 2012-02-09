@@ -409,16 +409,22 @@
         allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
         />
 
+    <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
+                  name="imgview"
+                  class="valentine.imagescales.browser.atfield.ATFieldImageView"
+                  permission="zope.Public"
+                  allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+
     <browser:page
-        for="Products.EEAContentTypes.content.Highlight.Highlight"
-        name="cropping"
+        for="*"
+        name="crop"
         class=".crop.cropping.CroppableImagesView"
         template="crop/cropping.pt"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
-        for="Products.EEAContentTypes.content.Highlight.Highlight"
+        for="*"
         name="cropimage"
         class=".crop.cropping.CropImageView"
         template="crop/cropimage.pt"
@@ -432,15 +438,9 @@
         />
 
     <!-- subscribers -->
-    <!-- disabled until it is better tested -->
     <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.highlightModified" />
 
-    <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
-                  name="imgview"
-                  class="valentine.imagescales.browser.atfield.ATFieldImageView"
-                  permission="zope.Public"
-                  allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
 
 </configure>

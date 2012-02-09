@@ -66,3 +66,7 @@ div.overlay {
     color: red;
     font-size: 100%;
 }
+
+.hidden {
+    display: none;
+}

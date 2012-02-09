@@ -3,6 +3,8 @@ Changelog
 
 4.16-dev - (unreleased)
 -----------------------
+ * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
+   Action Providers steps which adds the crop action 
  * Feature: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]
  * Feature: added arcgis_id field to GIS Application [tiberich #4467]
  * Upgrade step: go to /prefs_install_products_form and upgrade EEAContentTypes to version 4.16
