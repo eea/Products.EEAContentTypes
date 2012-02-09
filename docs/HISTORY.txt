@@ -4,6 +4,7 @@ Changelog
 4.16-dev - (unreleased)
 -----------------------
  * Feature: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]
+ * Feature: added arcgis_id field to GIS Application [tiberich #4467]
  * Upgrade step: import portal_setup step: profile "EEA Content Types", 
    choose upgrade step "EEAContentTypes: Migrate GIS Application content".
 
