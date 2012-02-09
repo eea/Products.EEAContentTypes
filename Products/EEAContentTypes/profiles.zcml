@@ -31,4 +31,10 @@
     <depends name="workflow"/>
   </genericsetup:importStep>
 
+  <genericsetup:importStep
+    name="eeacontenttypes_migrate_gis"
+    title="EEAContentTypes: Migrate GIS Application content" description=""
+    handler="Products.EEAContentTypes.setuphandlers.migrate_gisapplication"
+    />
+
 </configure>
