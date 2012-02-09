@@ -17,13 +17,19 @@
 
   <genericsetup:upgradeSteps
     source="4.0"
-    destination="4.16"
+    destination="4.2"
     profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+        title="Dependency on types info"
+        import_profile="Products.EEAContentTypes:default"
+        import_steps="typeinfo"
+        />
 
     <genericsetup:upgradeStep
       title="Migrate GISApplication content type"
       description="Move from a TTW definition to a disk based class"
-      handler="Products.EEAContentTypes.setuphandlers.migrate_gisapplication"
+      handler="Products.EEAContentTypes.setuphandlers.upgrade_gisapplication"
       />
 
   </genericsetup:upgradeSteps>
