@@ -5,11 +5,11 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.vocabulary import vocabs
-#from Products.kupu.plone import util
-
+from Products.contentmigration.archetypes import InplaceATItemMigrator
 import logging
 
 logger = logging.getLogger("Products.EEAContentTypes")
+
 
 def setupGeographicalProperties(self, portal):
     """ sets up the default propertysheet for geographical related stuff """
@@ -170,7 +170,9 @@ def setupGeocoding(context):
     already_ran = False
     if not already_ran:
         add_eeaInternalIps(portal, portal)
+        print "not proper"
         #geocodeEvents(portal, portal)
+
 
 #TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
@@ -201,6 +203,29 @@ def setupVarious(context):
     setupEEAStaffProperties(portal, portal)
     setupCalendarTypes(portal)
     setupCustomRoles(context, portal)
+
+
+class InplaceGisMigrator(InplaceATItemMigrator):
+    dst_meta_type="GISMapApplication"
+    dst_portal_type="GIS Application"
+
+
+def migrate_gisapplication(context):
+    """Migrate GIS Application content from ATLink to its own class
+    """
+
+    if context.readDataFile('eeacontenttypes_various.txt') is None:
+        return
+
+    site = context.getSite()
+    catalog = getToolByName(site, 'portal_catalog')
+    brains = catalog.searchResults(meta_type="ATLink", portal_type="GIS Application")
+
+    for brain in brains:
+        obj = brain.getObject()
+        migrator = InplaceGisMigrator(obj)
+        migrator.migrate()
+        logger.info("Migrated ATLink to GIS Application for %s", migrator.new)
 
 
 #this is a migration procedure, not needed for plone4 migration
@@ -245,5 +270,6 @@ def setupVarious(context):
         #obj = brain.getObject()
         #decider = getUtility(IGeoPositionDecider, context=obj)
         #decider.run(obj)
+
 
 

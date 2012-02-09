@@ -3,7 +3,9 @@ Changelog
 
 4.16-dev - (unreleased)
 -----------------------
- * WIP: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]
+ * Feature: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]
+ * Upgrade step: import portal_setup step: profile "EEA Content Types", 
+   choose upgrade step "EEAContentTypes: Migrate GIS Application content".
 
 4.15 - (2012-02-06)
 -------------------
