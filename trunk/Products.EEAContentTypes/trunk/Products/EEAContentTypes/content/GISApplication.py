@@ -6,10 +6,12 @@ from Products.Archetypes.atapi import AnnotationStorage
 from Products.Archetypes.atapi import ImageField
 from Products.Archetypes.atapi import ImageWidget
 from Products.Archetypes.atapi import Schema, registerType
+from Products.Archetypes.atapi import StringField
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
 from Products.validation import V_REQUIRED
 from zope.interface import implements
+
 
 schema = Schema((ImageField('image',
                required=True,
@@ -33,6 +35,16 @@ schema = Schema((ImageField('image',
                         description = '',
                         label= _(u'label_image', default=u'Image'),
                         show_content_type = False,)),
+
+               StringField(
+                        name="arcgis_id",
+                        widget=StringField._properties['widget'](
+                            label="ArcGIS id",
+                            description="Enter arcgis id",
+                            ),
+                        required=True,
+                        schemata="default",
+                        ),
 
     ))
 
