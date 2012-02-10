@@ -73,7 +73,6 @@ def highlightModified(obj, event):
     """ Checks if the object's image has the right proportions and prompt
     an error message with a link if the image has wrong proportions
     """
-
     img = obj.getImage()
     img_size = img.getSize()
 
@@ -81,5 +80,5 @@ def highlightModified(obj, event):
         ratio = float(img_size[0]) / float(img_size[1])
         if (ratio < 1.77 or ratio > 1.78):
             msg = "The image ratio is not correct, please click here to <a href=" \
-                + obj.absolute_url() + '/cropping'">Correct the image ratio</a>"
+                + obj.absolute_url() + '/crop'">Correct the image ratio</a>"
             IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='error')
