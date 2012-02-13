@@ -3,6 +3,8 @@ Changelog
 
 4.16-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed an error in flasfileStyle script when it got invalid
+   width/height for flash file [tiberich #4947]
  * Bug fix: fixed error in RSS on locations where syndication is not allowed
    [tiberich #4947]
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes

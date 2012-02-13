@@ -5,10 +5,10 @@
 ##bind script=script
 ##bind subpath=traverse_subpath
 ##parameters=
-##title=style for clean flashfile templat
+##title=style for clean flashfile template
 ##
-width = context.getWidth()
-height = context.getHeight()
+width = context.getWidth() or 0
+height = context.getHeight() or 0
 
 style = "margin: 0 0 0 -%spx;" % int(width/2)
 
