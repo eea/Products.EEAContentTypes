@@ -120,6 +120,9 @@
               <tal:block tal:condition="entry/getAuthenticated | nothing">
                 - (restricted to authenticated)
               </tal:block>
+              <tal:block tal:condition="entry/getMedia | nothing">
+                - [Media: <span tal:content="entry/getMedia" />]
+              </tal:block>
             </div>
             <ul tal:define="sheets context/portal_css/concatenatedresources">
               <tal:stylesheets tal:define="portal python:context.portal_url.getPortalObject();"

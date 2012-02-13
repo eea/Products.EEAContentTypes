@@ -3,6 +3,8 @@ Changelog
 
 4.16-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed error in RSS on locations where syndication is not allowed
+   [tiberich #4947]
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
    Action Providers steps which adds the crop action 
  * Feature: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]

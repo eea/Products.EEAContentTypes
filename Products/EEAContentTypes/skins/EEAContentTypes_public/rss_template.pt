@@ -14,6 +14,7 @@
     tal:define="
                     syn context/portal_syndication; 
                     max max_items|python:syn.getMaxItems(here);
+                    max python: max and max != 'Syndication is not allowed' or 0;
                     objects python: objectList[:max]"
     >
 
