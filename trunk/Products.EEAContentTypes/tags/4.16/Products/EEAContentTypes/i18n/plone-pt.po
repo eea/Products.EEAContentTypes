@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2008-03-05 10:03+CET\n"
+"PO-Revision-Date: 2008-11-12 11:27+0100\n"
+"Last-Translator: Marie Jaegly <marie.jaegly@eea.europa.eu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Code: pt\n"
+"Language-Name: Portugees\n"
+"Domain: plone\n"
+
+#. Site map
+msgid "Site map"
+msgstr "Mapa do sítio"
+
+#. Orginal text:
+#. Accessibility
+msgid "Accessibility"
+msgstr "Acessibilidade"
+
+#. Orginal text:
+#. FAQ
+msgid "FAQ"
+msgstr "Perguntas mais frequentes (FAQ)"
+
+#. Orginal text:
+#. Glossary
+msgid "Glossary"
+msgstr "Glossário"
+
+#. Orginal text:
+#. Subscriptions
+msgid "Subscriptions"
+msgstr "Assinaturas"
+
+#. Original text:
+#. Find older highlights in the
+msgid "find_older_highlights"
+msgstr "Encontrar destaques mais antigos no"
+
+#. Original text: archive
+msgid "archive"
+msgstr "arquivo"
+
+#. Translate the word 'more' in messages like 'more reports', 'more images'
+msgid "morelink_multiple"
+msgstr "mais"
+
+#. Default: "More multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:34
+msgid "More multimedia"
+msgstr "Mais multimédia"
+
+#. Default: "Multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:9
+msgid "Multimedia"
+msgstr "Multimédia"
+
+#. Default: "Multimedia highlights"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:19
+msgid "Multimedia highlights"
+msgstr "Destaques multimédia"
+
+#. Default: "Play in popup window"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:46
+msgid "Play in popup window"
+msgstr "Mostrar numa janela de pop-up"
+
+#. Default: "Read more"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/portlet_feed.pt:34
+msgid "Read more"
+msgstr "Leia mais"
+
+msgid "Switch theme"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "Press release"
+msgstr ""
+
+msgid "box_morelink"
+msgstr "Mais"
+
+#. Default: Comments on translations
+msgid "title_feedback_translations"
+msgstr "Comentários sobre as traduções"
+
+#. Default: Please help us increase the quality of the translations.
+msgid "help_feedback_translations"
+msgstr "Por favor, ajude-nos a melhorar a qualidade das traduções."
+
+# Default: "ISBN"
+#: /subtypes/report.py:102
+msgid "label_isbn"
+msgstr ""
+
+# Default: "ORDER ID (Catalogue Number)"
+#: /subtypes/report.py:121
+msgid "label_order_id"
+msgstr ""
+
+# Default: "Price (Euro)"
+#: /subtypes/report.py:222
+msgid "label_price"
+msgstr ""

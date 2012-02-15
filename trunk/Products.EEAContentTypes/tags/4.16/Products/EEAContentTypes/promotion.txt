@@ -1,0 +1,46 @@
+==============================
+Integration with eea.promotion
+==============================
+
+External Promotions
+-------------------
+
+The external promotions have their own content type:
+
+  >>> multimedia = portal.SITE.quicklinks.multimedia
+  >>> id = multimedia.invokeFactory('Promotion', id='test')
+  >>> epromo = multimedia[id]
+
+
+IPromotion Adapter
+------------------
+
+ExternalPromotions can be converted to the IPromotion style inteface through an
+adapter:
+
+  >>> quicklinks = portal.SITE.quicklinks
+  >>> id = quicklinks.spotlight.invokeFactory('Promotion', id='epromo')
+  >>> epromo = quicklinks.spotlight[id]
+  >>> import transaction
+  >>> foo = transaction.savepoint()
+
+Lets verify the IPromotion interface on the external
+
+  >>> from eea.promotion.interfaces import IPromotion
+  >>> promo = IPromotion(epromo)
+
+If we tag our promotion with a theme, it should show up on the theme page as well:
+
+  >>> from eea.themecentre.interfaces import IThemeTagging
+  >>> IThemeTagging(epromo).tags = ['climate']
+  >>> u'Themes' in promo.locations
+  True
+
+We use navigation sections to determine where on the theme page a promotions is
+placed:
+
+  >>> from Products.NavigationManager.interfaces import INavigationSectionPosition
+  >>> INavigationSectionPosition(epromo).section = u'Live maps and data'
+  >>> promo.themepage_section
+  u'Live maps and data'
+

@@ -1,0 +1,87 @@
+Normalizer
+==========
+Converter from unicode to safe ASCII URL id.
+Accepts:
+  - max_length to cut it to a maximum number of chars. Default 255
+  - max_words to cut it to a maximum number of words. Default 5
+  - orphans to avoid cutting last x words. Default 1
+
+   >>> from Products.EEAContentTypes.normalizer import eeaurlnormalizer as normalizer
+
+Common EEA languages
+
+   >>> normalizer.normalize("Bathing water quality improving in the EU")
+   'bathing-water-quality-improving-in'
+
+   >>> normalizer.normalize("Качеството на водите за къпане в ЕС се подобрява")
+   'kachestvoto-na-vodite-za-kapane'
+
+   >>> normalizer.normalize("Zlepšování jakosti vod ke koupání v EU")
+   'zlepsovani-jakosti-vod-ke-koupani'
+
+   >>> normalizer.normalize("Badevandskvaliteten forbedres i EU")
+   'badevandskvaliteten-forbedres-i-eu'
+
+   >>> normalizer.normalize("Bessere Qualität der Badegewässer in der EU")
+   'bessere-qualitaet-der-badegewaesser-in'
+
+   >>> normalizer.normalize("Η ποιότητα των υδάτων κολύμβησης βελτιώνεται στην ΕΕ")
+   'i-poiotita-ton-ydaton-kolymbisis'
+
+   >>> normalizer.normalize("La calidad de las aguas de baño mejora en la UE")
+   'la-calidad-de-las-aguas'
+
+   >>> normalizer.normalize("Uimavesien laatu yhä parempi EU:ssa")
+   'uimavesien-laatu-yhae-parempi-eu-ssa'
+
+   >>> normalizer.normalize("Amélioration de la qualité des eaux de baignade dans l'UE")
+   'amelioration-de-la-qualite-des'
+
+   >>> normalizer.normalize("Javul az Európai Unió fürdővizeinek minősége")
+   'javul-az-europai-unio-fuerdovizeinek-minosege'
+
+   >>> normalizer.normalize("Migliora la qualità delle acque di balneazione nell'UE")
+   'migliora-la-qualita-delle-acque'
+
+   >>> normalizer.normalize("Europos Sąjungos maudyklų vandens kokybė gerėja")
+   'europos-sajungos-maudyklu-vandens-kokybe-gereja'
+
+   >>> normalizer.normalize("Peldūdeņu kvalitāte ES uzlabojas")
+   'peldudenu-kvalitate-es-uzlabojas'
+
+   >>> normalizer.normalize("Il-kwalità tal-ilma għall-għawm fl-UE qed titjieb")
+   'il-kwalita-tal-ilma-ghall'
+
+   >>> normalizer.normalize("Kwaliteit zwemwater EU wordt beter")
+   'kwaliteit-zwemwater-eu-wordt-beter'
+
+   >>> normalizer.normalize("Jakość wody w kąpieliskach UE coraz lepsza")
+   'jakosc-wody-w-kapieliskach-ue'
+
+   >>> normalizer.normalize("Qualidade das águas balneares melhora na UE")
+   'qualidade-das-aguas-balneares-melhora'
+
+   >>> normalizer.normalize("Calitatea apei pentru scăldat se îmbunătățește în UE")
+   'calitatea-apei-pentru-scaldat-se'
+
+   >>> normalizer.normalize("Zvýšenie kvality vody na kúpanie na území EÚ")
+   'zvysenie-kvality-vody-na-kupanie'
+
+   >>> normalizer.normalize("Kakovost kopalnih voda v EU se izboljšuje")
+   'kakovost-kopalnih-voda-v-eu'
+
+   >>> normalizer.normalize("Förbättrad badvattenkvalitet i EU")
+   'foerbaettrad-badvattenkvalitet-i-eu'
+
+Files
+
+   >>> normalizer.normalize("Uimavesien laatu yhä parempi EU:ssa.png")
+   'uimavesien-laatu-yhae-parempi-eu-ssa.png'
+
+   >>> normalizer.normalize("Europos Sąjungos maudyklų vandens kokybė gerėja.html")
+   'europos-sajungos-maudyklu-vandens-kokybe-gereja.html'
+
+Only 4 chars extensions are accepted
+
+   >>> normalizer.normalize("Calitatea apei pentru scăldat se îmbunătățește în UE.desktop")
+   'calitatea-apei-pentru-scaldat-se'
