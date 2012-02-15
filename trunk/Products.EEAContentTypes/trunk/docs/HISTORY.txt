@@ -3,6 +3,9 @@ Changelog
 
 4.16-dev - (unreleased)
 -----------------------
+ * Feature: Added possibility to disable the application form for vacancy.
+   Very rare use case: vacancy application for Director must be send 
+   to EU Commission. So property in ZMI is enough. [demarant]
  * Bug fix: fixed an error in flasfileStyle script when it got invalid
    width/height for flash file [tiberich #4947]
  * Bug fix: fixed error in RSS on locations where syndication is not allowed
