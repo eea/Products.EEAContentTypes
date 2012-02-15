@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.17-dev - (unreleased)
+-----------------------
+
 4.16 - (2012-02-15)
 -------------------
  * Feature: Added possibility to disable the application form for vacancy.
