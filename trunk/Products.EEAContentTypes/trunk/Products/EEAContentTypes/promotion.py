@@ -94,6 +94,13 @@ class Promotion(object):
         pass
 
     @property
+    def display_on_datacentre(self):
+        """ Display in datacentre
+        """
+        # XXX: not implemented for external promotions
+        pass
+
+    @property
     def themes(self):
         """ Themes
         """

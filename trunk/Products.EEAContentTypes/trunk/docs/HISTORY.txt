@@ -3,6 +3,7 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Change: added display_on_datacentre for IExternalHighlight [ichimdav #4936]
  * Feature: all GIS Application objects will provide by now 
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
    [ghicaale #4467]
