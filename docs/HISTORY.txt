@@ -3,6 +3,8 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Bug fix: check if img_size is tuple since getSize could return an int value of the
+   image size for non Image or IExternalHighlight content [ichimdav #4816]
  * Change: better name for the image ratio check handler, since it is generic. 
    [demarant #4816]
  * Change: Added minsize validator on preview image for gis map application
