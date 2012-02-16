@@ -440,7 +440,7 @@
     <!-- subscribers -->
     <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".event.highlightModified" />
+        handler=".event.imageRatioCheck" />
 
 
 </configure>
