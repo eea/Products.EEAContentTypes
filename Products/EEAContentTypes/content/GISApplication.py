@@ -30,31 +30,28 @@ schema = Schema((ImageField('image',
                        'listing' :  (16, 16),
                       },
                validators = (('isNonEmptyFile', V_REQUIRED),
-                             ('checkImageMaxSize', V_REQUIRED)),
+                             ('imageMinSize', V_REQUIRED)),
                widget = ImageWidget(
-                        description = '',
-                        label= _(u'label_image', default=u'Image'),
+                        description = 'High-res preview image'
+                                      ' (at least 1024px width)',
+                        label= 'Preview image',
                         show_content_type = False,)),
-
-               StringField(
-                        name="arcgis_id",
-                        widget=StringField._properties['widget'](
-                            label="ArcGIS id",
-                            description="Enter arcgis id",
-                            ),
-                        required=True,
-                        schemata="default",
-                        ),
 
     ))
 
 GIS_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 
+#Schema overwrites
+GIS_schema['remoteUrl'].widget.label = 'GIS application url'
+GIS_schema['remoteUrl'].widget.description = 'Enter the full web address ' \
+                       'for EEA Discomap, Eye on Earth map, ArcGIS map etc...'
+
+
 class GISMapApplication(ATLink):
     security = ClassSecurityInfo()
     schema = GIS_schema
     implements(IGISMapApplication)
-
+    
     # This name appears in the 'add' box
     archetype_name = 'GIS Application'
     portal_type = 'GIS Application'

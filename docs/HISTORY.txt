@@ -3,6 +3,10 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Change: Added minsize validator on preview image for gis map application
+   [demarant #4959]
+ * Change: for GIS Application use same url field for both the flash object and the url 
+   to an external site like Eyeonearth. adjusted labels and descriptions  [demarant #4959]
  * Change: added display_on_datacentre for IExternalHighlight [ichimdav #4936]
  * Feature: all GIS Application objects will provide by now 
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
