@@ -69,8 +69,8 @@ class SubmitEvent(BrowserView):
         return False
 
 
-def highlightModified(obj, event):
-    """ Checks if the object's image has the right proportions and prompt
+def imageRatioCheck(obj, event):
+    """ Checks if the object's image has the right 16:9 proportions and prompt
     an error message with a link if the image has wrong proportions
     """
     img = obj.getImage()
