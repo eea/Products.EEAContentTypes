@@ -3,6 +3,8 @@
 from Products.Five import BrowserView as FiveBrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
+import PIL
+from cStringIO import StringIO
 
 class BrowserView(FiveBrowserView):
     """ View
@@ -68,17 +70,25 @@ class SubmitEvent(BrowserView):
             return True
         return False
 
-
 def imageRatioCheck(obj, event):
     """ Checks if the object's image has the right 16:9 proportions and prompt
     an error message with a link if the image has wrong proportions
     """
+
     img = obj.getImage()
     img_size = img.getSize()
+
+    # check if img_size isn't tuple since getSize could return the size of 
+    # the image in kb
+    if type(img_size) != tuple:
+        orig_img = StringIO(img.data)
+        image = PIL.Image.open(orig_img)
+        img_size = image.size
 
     if img_size[0] != 0:
         ratio = float(img_size[0]) / float(img_size[1])
         if (ratio < 1.77 or ratio > 1.78):
-            msg = "The image ratio is not correct, please click here to <a href=" \
-                + obj.absolute_url() + '/crop'">Correct the image ratio</a>"
+            msg = "The image ratio is not correct, please click here to" + \
+                " <a href=" + obj.absolute_url() + \
+                '/crop'">Correct the image ratio</a>"
             IStatusMessage(obj.REQUEST).addStatusMessage(msg, type='error')
