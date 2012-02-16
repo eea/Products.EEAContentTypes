@@ -3,6 +3,12 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Feature: all GIS Application objects will provide by now 
+   Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
+   [ghicaale #4467]
+ * Upgrade step: remove duplicate Products.EEAContentTypes.content.interfaces.IInteractiveMap
+   interface and reindex all GIS Application objects. Ask ghicaale to do it.
+   [ghicaale #4467]
 
 4.16 - (2012-02-15)
 -------------------
