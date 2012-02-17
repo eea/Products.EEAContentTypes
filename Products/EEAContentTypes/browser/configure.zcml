@@ -438,9 +438,14 @@
         />
 
     <!-- subscribers -->
-    <subscriber for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
+    <subscriber for="
+        Products.EEAContentTypes.content.interfaces.IExternalHighlight
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
 
+    <subscriber for="
+        Products.EEAContentTypes.content.interfaces.IGISMapApplication
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.imageRatioCheck" />
 
 </configure>
