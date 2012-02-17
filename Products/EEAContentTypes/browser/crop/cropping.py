@@ -50,7 +50,15 @@ class CropImageView(BrowserView):
         field = "get" + self.field_name.capitalize()
         image = getattr(self.context, field, '')
         if image:
-            img_size = image().getSize()
+            img = image()
+            img_size = img.getSize()
+            if img_size != tuple:
+                data = getattr(aq_base(img), 'data')
+                if isinstance(data, Pdata):
+                    data = str(data)
+                    original_file = StringIO(data)
+                    img_size = PIL.Image.open(original_file).size
+
             size = "%sx%spx" % (img_size[0], img_size[1])
             f = { 'name' : self.field_name, 'image' : size }
             return f
