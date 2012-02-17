@@ -52,7 +52,6 @@ class ImageMinSize:
 
     def __call__(self, value, instance, *args, **kwargs):
         """ check to see if the image is at least 1024px """
-        import pdb; pdb.set_trace( )
         try:
             image = PIL.Image.open(value)
         except AttributeError:
