@@ -5,6 +5,8 @@ from Products.validation import validation
 from zope.interface import implements
 import PIL
 from cStringIO import StringIO
+from OFS.Image import Pdata
+from Acquisition import aq_base
 
 class ManagementPlanCodeValidator:
     """ Validator
@@ -55,7 +57,11 @@ class ImageMinSize:
         try:
             image = PIL.Image.open(value)
         except AttributeError:
-            img_stream = StringIO(value.data.data)
+            # OFS Image 
+            data = getattr(aq_base(value), 'data')
+            if isinstance(data, Pdata):
+                data = str(data)
+            img_stream = StringIO(value.data)
             image = PIL.Image.open(img_stream)
         if image.size[0] < 1024:
             return "Image needs to be at least 1024px in width"

@@ -5,6 +5,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 import PIL
 from cStringIO import StringIO
+from OFS.Image import Pdata
+from Acquisition import aq_base
 
 class BrowserView(FiveBrowserView):
     """ View
@@ -74,15 +76,18 @@ def imageRatioCheck(obj, event):
     """ Checks if the object's image has the right 16:9 proportions and prompt
     an error message with a link if the image has wrong proportions
     """
-
+    
     img = obj.getImage()
     img_size = img.getSize()
 
     # check if img_size isn't tuple since getSize could return the size of 
     # the image in kb
     if type(img_size) != tuple:
-        orig_img = StringIO(img.data)
-        image = PIL.Image.open(orig_img)
+        data = getattr(aq_base(img), 'data')
+        if isinstance(data, Pdata):
+            data = str(data)
+        img_stream = StringIO(data)
+        image = PIL.Image.open(img_stream)
         img_size = image.size
 
     if img_size[0] != 0:
