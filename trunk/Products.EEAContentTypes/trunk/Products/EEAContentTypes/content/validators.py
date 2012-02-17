@@ -4,6 +4,7 @@ from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
 from zope.interface import implements
 import PIL
+from cStringIO import StringIO
 
 class ManagementPlanCodeValidator:
     """ Validator
@@ -51,7 +52,12 @@ class ImageMinSize:
 
     def __call__(self, value, instance, *args, **kwargs):
         """ check to see if the image is at least 1024px """
-        image = PIL.Image.open(value)
+        import pdb; pdb.set_trace( )
+        try:
+            image = PIL.Image.open(value)
+        except AttributeError:
+            img_stream = StringIO(value.data.data)
+            image = PIL.Image.open(img_stream)
         if image.size[0] < 1024:
             return "Image needs to be at least 1024px in width"
         return 1
