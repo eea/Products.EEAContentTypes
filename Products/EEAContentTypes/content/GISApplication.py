@@ -1,12 +1,10 @@
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import AnnotationStorage
 from Products.Archetypes.atapi import ImageField
 from Products.Archetypes.atapi import ImageWidget
 from Products.Archetypes.atapi import Schema, registerType
-from Products.Archetypes.atapi import StringField
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
 from Products.validation import V_REQUIRED
@@ -51,7 +49,7 @@ class GISMapApplication(ATLink):
     security = ClassSecurityInfo()
     schema = GIS_schema
     implements(IGISMapApplication)
-    
+
     # This name appears in the 'add' box
     archetype_name = 'GIS Application'
     portal_type = 'GIS Application'

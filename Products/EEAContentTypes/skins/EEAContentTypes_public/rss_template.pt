@@ -56,7 +56,7 @@
 
 <tal:block repeat="brain python: objects">    <item rdf:about="" tal:attributes="rdf:about obj_item/getURL|obj_item/absolute_url" tal:define="obj_item brain/getObject|nocall:brain;
 modified brain/EffectiveDate|obj_item/modified;
-modified modified/HTML4|modified">        
+modified modified/HTML4|modified">
  <title tal:content="obj_item/pretty_title_or_id">Title</title> <link 
 tal:content="string:${obj_item/Identifier}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic">Link</link> <description 
 tal:content="obj_item/Description">Description</description> <dc:publisher tal:content="obj_item/Publisher">Publisher</dc:publisher> <dc:creator tal:content="obj_item/Creator">Creator</dc:creator> <dc:rights tal:content="obj_item/Rights">Rights</dc:rights> <tal:block tal:repeat="item obj_item/Subject"><dc:subject tal:content="item">Item</dc:subject></tal:block> <dc:date tal:content="modified">Modification date</dc:date><dc:type tal:content="obj_item/Type">Type</dc:type></item>
