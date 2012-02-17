@@ -3,6 +3,7 @@ from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import AnnotationStorage
 from Products.Archetypes.atapi import ImageField
+from Products.Archetypes.atapi import StringField
 from Products.Archetypes.atapi import ImageWidget
 from Products.Archetypes.atapi import Schema, registerType
 from Products.EEAContentTypes.config import PROJECTNAME
@@ -34,6 +35,15 @@ schema = Schema((ImageField('image',
                                       ' (at least 1024px width)',
                         label= 'Preview image',
                         show_content_type = False,)),
+                 
+               StringField(name="arcgis_url", 
+                           widget=StringField._properties['widget']( 
+                           label="ArcGIS/EyeOnEarth url", 
+                           description="Enter the full url of the map on arcgis.com or eyeonearth site", 
+                           ), 
+                           required=False, 
+                           schemata="default", 
+              ), 
 
     ))
 
@@ -65,5 +75,17 @@ class GISMapApplication(ATLink):
     typeDescMsgId = 'description_edit_gismapapplication'
 
     _at_rename_after_creation = True
+    
+    
+    def getArcGisUID(self):
+        """extract and return arcgis id from the arcgis url.
+        """
+        gisurl = self.arcgis_url
+        idx = gisurl.rfind('?webmap=')
+        uid = ''
+        if idx > 0 :
+            uid = gisurl[idx+8:]
+            
+        return uid
 
 registerType(GISMapApplication, PROJECTNAME)
