@@ -3,6 +3,8 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Feature: GIS Application can now have ArcGIS or EyeOnEarth embedded map.
+   [demarant #4959]
  * Bug fix: check if img_size is tuple since getSize could return an int value of the
    image size for non Image or IExternalHighlight content [ichimdav #4816]
  * Change: better name for the image ratio check handler, since it is generic. 

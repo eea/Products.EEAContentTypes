@@ -437,7 +437,7 @@
         directory="crop/crop_resources"
         />
 
-    <!-- subscribers -->
+    <!-- image ratio check subscribers-->
     <subscriber for="
         Products.EEAContentTypes.content.interfaces.IExternalHighlight
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
@@ -447,5 +447,6 @@
         Products.EEAContentTypes.content.interfaces.IGISMapApplication
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
+
 
 </configure>
