@@ -12,48 +12,54 @@ from Products.validation import V_REQUIRED
 from zope.interface import implements
 
 
-schema = Schema((ImageField('image',
-               required=True,
-               languageIndependent=True,
-               storage = AnnotationStorage(migrate=True),
-               swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
-               pil_quality = zconf.pil_config.quality,
-               pil_resize_algo = zconf.pil_config.resize_algo,
-               max_size = zconf.ATImage.max_image_dimension,
-               sizes= {'large'   : (768, 768),
-                       'preview' : (400, 400),
-                       'mini'    : (200, 200),
-                       'thumb'   : (128, 128),
-                       'tile'    :  (64, 64),
-                       'icon'    :  (32, 32),
-                       'listing' :  (16, 16),
-                      },
-               validators = (('isNonEmptyFile', V_REQUIRED),
-                             ('imageMinSize', V_REQUIRED)),
-               widget = ImageWidget(
-                        description = 'High-res preview image'
-                                      ' (at least 1024px width)',
-                        label= 'Preview image',
-                        show_content_type = False,)),
-                 
+schema = Schema((
                StringField(name="arcgis_url", 
                            widget=StringField._properties['widget']( 
                            label="ArcGIS/EyeOnEarth url", 
-                           description="Enter the full url of the map on arcgis.com or eyeonearth site", 
+                           description='Enter the full web address ' \
+                      'for Eye on Earth map, ArcGIS map etc...'
                            ), 
                            required=False, 
                            schemata="default", 
                            validators=('isURL',),
-              ), 
-
+               ), 
+    
+               ImageField('image',
+                    required=True,
+                    languageIndependent=True,
+                    storage = AnnotationStorage(migrate=True),
+                    swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
+                    pil_quality = zconf.pil_config.quality,
+                    pil_resize_algo = zconf.pil_config.resize_algo,
+                    max_size = zconf.ATImage.max_image_dimension,
+                    sizes= {'large'   : (768, 768),
+                            'preview' : (400, 400),
+                            'mini'    : (200, 200),
+                            'thumb'   : (128, 128),
+                            'tile'    :  (64, 64),
+                            'icon'    :  (32, 32),
+                            'listing' :  (16, 16),
+                           },
+                    validators = (('isNonEmptyFile', V_REQUIRED),
+                                  ('imageMinSize', V_REQUIRED)),
+                    widget = ImageWidget(
+                             description = 'High-res preview image'
+                                           ' (at least 1024px width)',
+                             label= 'Preview image',
+                             show_content_type = False,)
+                    ),
+                      
     ))
 
 GIS_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 
 #Schema overwrites
-GIS_schema['remoteUrl'].widget.label = 'GIS application url'
-GIS_schema['remoteUrl'].widget.description = 'Enter the full web address ' \
-                       'for EEA Discomap, Eye on Earth map, ArcGIS map etc...'
+
+GIS_schema['description'].required = True #required to increase findability.
+GIS_schema['remoteUrl'].required = False
+GIS_schema['remoteUrl'].widget.label = 'Flash/Flex GIS application url'
+GIS_schema['remoteUrl'].widget.description = 'Enter address to a flash/flex '\
+          'application usually ending with .swf'
 
 
 class GISMapApplication(ATLink):
