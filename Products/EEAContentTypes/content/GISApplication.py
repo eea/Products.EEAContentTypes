@@ -43,6 +43,7 @@ schema = Schema((ImageField('image',
                            ), 
                            required=False, 
                            schemata="default", 
+                           validators=('isURL',),
               ), 
 
     ))
