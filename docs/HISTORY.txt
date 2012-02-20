@@ -17,6 +17,9 @@ Changelog
  * Feature: all GIS Application objects will provide by now 
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
    [ghicaale #4467]
+ * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
+   Action Providers steps which adds the crop action for Image and IExternalHighlights 
+   [ichimdav #4816]
  * Upgrade step: remove duplicate Products.EEAContentTypes.content.interfaces.IInteractiveMap
    interface and reindex all GIS Application objects. Ask ghicaale to do it.
    [ghicaale #4467]
