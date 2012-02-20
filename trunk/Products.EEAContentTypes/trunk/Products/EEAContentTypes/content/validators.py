@@ -61,7 +61,7 @@ class ImageMinSize:
             data = getattr(aq_base(value), 'data')
             if isinstance(data, Pdata):
                 data = str(data)
-            img_stream = StringIO(value.data)
+            img_stream = StringIO(data)
             image = PIL.Image.open(img_stream)
         if image.size[0] < 1024:
             return "Image needs to be at least 1024px in width"
