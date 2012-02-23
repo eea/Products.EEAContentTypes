@@ -249,6 +249,7 @@ def upgrade_plonesite_interface(context):
         return
     site = context.getSite()
     alsoProvides(site, IEEAPloneSite)
+    logger.info("Added IEEPloneSite to interfaces provided by Plone root")
 
 
 #this is a migration procedure, not needed for plone4 migration

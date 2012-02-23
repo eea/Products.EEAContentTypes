@@ -15,7 +15,7 @@
 
   <genericsetup:upgradeSteps
     source="4.0"
-    destination="4.2"
+    destination="4.16"
     profile="Products.EEAContentTypes:default">
     <genericsetup:upgradeDepends
         title="Dependency on types info"
@@ -26,17 +26,6 @@
       title="Migrate GISApplication content type"
       description="Move from a TTW definition to a disk based class"
       handler="Products.EEAContentTypes.setuphandlers.upgrade_gisapplication"
-      />
-  </genericsetup:upgradeSteps>
-
-  <genericsetup:upgradeSteps
-    source="*"
-    destination="4.2.1"
-    profile="Products.EEAContentTypes:default">
-    <genericsetup:upgradeStep
-      title="Make the Plone site implement IEEAPloneSite"
-      description=""
-      handler="Products.EEAContentTypes.setuphandlers.upgrade_plonesite_interface"
       />
   </genericsetup:upgradeSteps>
 

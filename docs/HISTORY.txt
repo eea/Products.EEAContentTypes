@@ -20,9 +20,8 @@ Changelog
  * Feature: all GIS Application objects will provide by now 
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
    [ghicaale #4467]
- * Upgrade step: go to /prefs_install_products_form and upgrade EEAContentTypes to version 4.2.1
-   (or go to plone root /aq_parent/@@manage_interfaces and make the Plone site
-   implement IEEAPloneSite) 
+ * Upgrade step: go to plone root /aq_parent/@@manage_interfaces and make the Plone site
+   implement IEEAPloneSite 
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
    Action Providers steps which adds the crop action for Image and IExternalHighlights 
    [ichimdav #4816]
