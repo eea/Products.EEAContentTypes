@@ -2,6 +2,11 @@
 """
 from zope.interface import Interface, Attribute
 
+class IEEAPloneSite(Interface):
+    """A marker interface for the EEA Plone site
+    """
+
+
 class IFeedPortletInfo(Interface):
     """ Any object that wants to be displayed in a themecentre portlet
         should provide an adapter providing this interface. """
