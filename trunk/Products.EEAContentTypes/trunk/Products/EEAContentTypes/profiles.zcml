@@ -37,4 +37,10 @@
     handler="Products.EEAContentTypes.setuphandlers.migrate_gisapplication"
     />
 
+  <genericsetup:importStep
+    name="eeacontenttypes_upgrade_plonesite_interface"
+    title="EEAContentTypes: apply IEEAPloneSite to Plone root" description=""
+    handler="Products.EEAContentTypes.setuphandlers.upgrade_plonesite_interface"
+    />
+
 </configure>
