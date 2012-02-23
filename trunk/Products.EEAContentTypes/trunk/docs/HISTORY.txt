@@ -3,6 +3,9 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Bug fix: added the IEEAPloneSite interface that should be provided by the EEA Plone Site
+   The intention is to make it possible to create other plone sites in Data.fs that don't
+   run code specific to EEA (for example some event subscribers)
  * Feature: GIS Application can now have ArcGIS or EyeOnEarth embedded map.
    [demarant #4959]
  * Bug fix: check if img_size is tuple since getSize could return an int value of the
@@ -17,6 +20,9 @@ Changelog
  * Feature: all GIS Application objects will provide by now 
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
    [ghicaale #4467]
+ * Upgrade step: go to /prefs_install_products_form and upgrade EEAContentTypes to version 4.2.1
+   (or go to plone root /aq_parent/@@manage_interfaces and make the Plone site
+   implement IEEAPloneSite) 
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
    Action Providers steps which adds the crop action for Image and IExternalHighlights 
    [ichimdav #4816]

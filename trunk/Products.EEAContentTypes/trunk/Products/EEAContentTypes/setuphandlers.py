@@ -4,8 +4,10 @@
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.interfaces import IEEAPloneSite
 from Products.EEAContentTypes.vocabulary import vocabs
 from Products.contentmigration.archetypes import InplaceATItemMigrator
+from zope.interface import alsoProvides
 import logging
 
 logger = logging.getLogger("Products.EEAContentTypes")
@@ -239,6 +241,14 @@ def migrate_gisapplication(context):
     site = context.getSite()
     upgrade_gisapplication(site)
 
+def migrate_gisapplication(context):
+    """Migrate GIS Application content from ATLink to its own class
+    """
+
+    if context.readDataFile('eeacontenttypes_various.txt') is None:
+        return
+    site = context.getSite()
+    alsoProvides(site, IEEAPloneSite)
 
 #this is a migration procedure, not needed for plone4 migration
 #def setupCatalog(context):
