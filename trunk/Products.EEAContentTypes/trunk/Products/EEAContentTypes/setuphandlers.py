@@ -241,14 +241,15 @@ def migrate_gisapplication(context):
     site = context.getSite()
     upgrade_gisapplication(site)
 
-def migrate_gisapplication(context):
-    """Migrate GIS Application content from ATLink to its own class
+def upgrade_plonesite_interface(context):
+    """Make the Plone site implement the IEEAPloneSite interface
     """
 
     if context.readDataFile('eeacontenttypes_various.txt') is None:
         return
     site = context.getSite()
     alsoProvides(site, IEEAPloneSite)
+
 
 #this is a migration procedure, not needed for plone4 migration
 #def setupCatalog(context):
