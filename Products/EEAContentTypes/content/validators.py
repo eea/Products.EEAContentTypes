@@ -93,7 +93,7 @@ def youtube_cloud_validator(value, instance = None):
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
     mutator = field.getMutator(instance)
-
+    value = value or ""
     if 'youtu.be' in value:
         # transform youtu.be links iframe code
         url = urllib2.urlopen(value).url
