@@ -8,7 +8,6 @@ from cStringIO import StringIO
 from OFS.Image import Pdata
 from Acquisition import aq_base
 import re
-import urllib2
 from Products.Archetypes.interfaces import ISchema
 
 class ManagementPlanCodeValidator:
@@ -72,62 +71,68 @@ class ImageMinSize:
 
 validation.register(ImageMinSize('imageMinSize'))
 
-
-# validator functions used for youtube cloudUrl check for mediacentre
-# and eeacontenttypes
-def youtube_params(vid_url, params = None):
-    """ youtube iframe used for cloudUrl field setter
-    """
-    symbol = "&" if "?" in vid_url else "?"
-    params = params or symbol + "autoplay=1&playnext=1&egm=1&rel=1" \
-                                            "&fs=1&wmode=opaque"
-    return '<iframe width="640" height="360" ' \
-            'src="http://www.youtube.com/embed/%s%s" ' \
-            'frameborder="0" allowfullscreen></iframe>' % (vid_url, params)
-
-def youtube_cloud_validator(value, instance = None):
+def video_cloud_validator(value, instance = None):
     """ check if cloudUrl has a youtube link and construct an iframe out
     of it if it's just a link
     """
-    pattern = re.compile('[0-9a-zA-z]{8,100}')
+    youtube_id = re.compile('[0-9a-zA-z\-_]{6,}[A-Z]{1,}')
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
     mutator = field.getMutator(instance)
     value = value or ""
+    youtube_url = "http://www.youtube.com/watch?v="
+    vimeo_url = "http://vimeo.com"
+
     if 'youtu.be' in value:
         # transform youtu.be links iframe code
-        url = urllib2.urlopen(value).url
-        res = pattern.findall(url)
-        if 'list' in url:
-            vid_url = res[0] + '?list=' + res[-1]
+        res = youtube_id.findall(value)
+        if 'list' in value:
+            vid_url = res[0] + '&list=' + res[-1]
         else:
             vid_url = res[0]
-        value = youtube_params(vid_url)
+        value = youtube_url + vid_url
+        #instance.mapping['cloud_url']['youtube'] = vid_url
 
     elif 'playlist' in value:
         # transform playlist link to iframe code
-        res = pattern.findall(value)
-        vid_url = 'videoseries?list=' + res[1]
-        value = youtube_params(vid_url)
+        res = youtube_id.findall(value)
+        playlist = 'http://www.youtube.com/playlist?'
+        vid_url = playlist + 'list=' + res[1]
+        value = vid_url
+        #instance.mapping['cloud_url']['youtube'] = vid_url
 
     elif ('youtube' in value) and ('iframe' not in value):
         # transform long youtube link to iframe code
-        res = pattern.findall(value)
+        res = youtube_id.findall(value)
         if 'list' in value:
             vid_url = res[0] + '?list=' + res[-1]
         else:
             vid_url = res[0]
-        value = youtube_params(vid_url)
+        value = youtube_url + vid_url
+        #instance.mapping['cloud_url']['youtube'] = vid_url
+    elif ('youtube' in value) and ('iframe' in value):
+        res = youtube_id.findall(value)
+        if 'list' in value:
+            vid_url = res[0] + '?list=' + res[-1]
+        else:
+            vid_url = res[0]
+        value = youtube_url + vid_url
+        #instance.mapping['cloud_url']['youtube'] = vid_url
+
+    if 'vimeo' in value:
+        vimeo = re.compile('[\d]{5,}')
+        res = vimeo.findall(value)
+        value = vid_url
 
     mutator(value)
 
-class YoutubeCloudUrlValidator:
+class VideoCloudUrlValidator:
     """ Image minimum size validator
     """
     implements(IValidator)
 
-    def __init__( self, name, title='YoutubeCloudUrlValidator',
-                        description='YoutubeCloudUrl Validator'):
+    def __init__( self, name, title='VideoCloudUrlValidator',
+                        description='VideoCloudUrl Validator'):
         self.name = name
         self.title = title or name
         self.description = description
@@ -136,6 +141,6 @@ class YoutubeCloudUrlValidator:
         """ check and transform links if we don't get iframe code
         for youtube
         """
-        youtube_cloud_validator(value, instance)
+        video_cloud_validator(value, instance)
 
-validation.register(YoutubeCloudUrlValidator('youtubeCloudUrlValidator'))
+validation.register(VideoCloudUrlValidator('videoCloudUrlValidator'))
