@@ -81,7 +81,7 @@ def video_cloud_validator(value, instance = None):
     mutator = field.getMutator(instance)
     value = value or ""
     youtube_url = "http://www.youtube.com/watch?v="
-    vimeo_url = "http://vimeo.com"
+    #vimeo_url = "http://vimeo.com"
 
     if 'youtu.be' in value:
         # transform youtu.be links iframe code

@@ -11,7 +11,7 @@ from Products.EEAContentTypes.content.ThemeTaggable import (
 )
 from Products.Archetypes.atapi import (
     Schema, ImageWidget, 
-    registerType, AnnotationStorage
+    registerType
 )
 
 schema = Schema((
