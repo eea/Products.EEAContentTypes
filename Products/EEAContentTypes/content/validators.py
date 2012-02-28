@@ -10,6 +10,10 @@ from Acquisition import aq_base
 import re
 from Products.Archetypes.interfaces import ISchema
 
+from zope.annotation.interfaces import IAnnotations
+from persistent.dict import PersistentDict
+KEY = 'eea.mediacentre.multimedia'
+
 class ManagementPlanCodeValidator:
     """ Validator
     """
@@ -72,59 +76,68 @@ class ImageMinSize:
 validation.register(ImageMinSize('imageMinSize'))
 
 def video_cloud_validator(value, instance = None):
-    """ check if cloudUrl has a youtube link and construct an iframe out
-    of it if it's just a link
+    """ check if cloudUrl has a youtube or vimeo link, saves the id
+    in an annotation and save a clean link to the video for the field
     """
-    youtube_id = re.compile('[0-9a-zA-z\-_]{6,}[A-Z]{1,}')
-    obj_schema = ISchema(instance)
-    field = obj_schema['cloudUrl']
-    mutator = field.getMutator(instance)
-    value = value or ""
-    youtube_url = "http://www.youtube.com/watch?v="
-    #vimeo_url = "http://vimeo.com"
+    if value:
+        obj_schema = ISchema(instance)
+        field = obj_schema['cloudUrl']
+        mutator = field.getMutator(instance)
+        value = value or ""
 
-    if 'youtu.be' in value:
-        # transform youtu.be links iframe code
-        res = youtube_id.findall(value)
-        if 'list' in value:
-            vid_url = res[0] + '&list=' + res[-1]
-        else:
-            vid_url = res[0]
-        value = youtube_url + vid_url
-        #instance.mapping['cloud_url']['youtube'] = vid_url
+        youtube_id = re.compile('[0-9a-zA-z\-_]{8,100}[A-Z]{1,}')
+        youtube_url = "http://www.youtube.com/watch?v="
+        vimeo_url = "http://vimeo.com/"
 
-    elif 'playlist' in value:
-        # transform playlist link to iframe code
-        res = youtube_id.findall(value)
-        playlist = 'http://www.youtube.com/playlist?'
-        vid_url = playlist + 'list=' + res[1]
-        value = vid_url
-        #instance.mapping['cloud_url']['youtube'] = vid_url
+        annotations = IAnnotations(instance)
+        mapping = annotations.get(KEY)
+        if mapping is None:
+            cloud_url =  { 'cloud_url': PersistentDict() }
+            mapping = annotations[KEY] = PersistentDict(cloud_url)
 
-    elif ('youtube' in value) and ('iframe' not in value):
-        # transform long youtube link to iframe code
-        res = youtube_id.findall(value)
-        if 'list' in value:
-            vid_url = res[0] + '?list=' + res[-1]
-        else:
-            vid_url = res[0]
-        value = youtube_url + vid_url
-        #instance.mapping['cloud_url']['youtube'] = vid_url
-    elif ('youtube' in value) and ('iframe' in value):
-        res = youtube_id.findall(value)
-        if 'list' in value:
-            vid_url = res[0] + '?list=' + res[-1]
-        else:
-            vid_url = res[0]
-        value = youtube_url + vid_url
-        #instance.mapping['cloud_url']['youtube'] = vid_url
+        if 'youtu.be' in value:
+            # transform youtu.be links iframe code
+            res = youtube_id.findall(value)
+            if 'list' in value:
+                vid_id = res[0] + '?list=' + res[-1]
+            else:
+                vid_id = res[0]
+            value = youtube_url + vid_id
+            mapping['cloud_url']['youtube'] = vid_id
 
-    if 'vimeo' in value:
-        vimeo = re.compile('[\d]{5,}')
-        res = vimeo.findall(value)
-        value = vid_url
+        elif 'playlist' in value:
+            # transform playlist link to iframe code
+            res = youtube_id.findall(value)
+            playlist = 'http://www.youtube.com/playlist?'
+            vid_id = playlist + 'list=' + res[1]
+            value = vid_id
+            mapping['cloud_url']['youtube'] = vid_id
 
-    mutator(value)
+        elif ('youtube' in value) and ('iframe' not in value):
+            # transform long youtube link to iframe code
+            res = youtube_id.findall(value)
+            if 'list' in value:
+                vid_id = res[0] + '?list=' + res[-1]
+            else:
+                vid_id = res[0]
+            value = youtube_url + vid_id
+            mapping['cloud_url']['youtube'] = vid_id
+        elif ('youtube' in value) and ('iframe' in value):
+            res = youtube_id.findall(value)
+            if 'list' in value:
+                vid_id = res[0] + '?list=' + res[-1]
+            else:
+                vid_id = res[0]
+            value = youtube_url + vid_id
+            mapping['cloud_url']['youtube'] = vid_id
+
+        if 'vimeo' in value:
+            vimeo = re.compile('[\d]{5,}')
+            vid_id = vimeo.findall(value)[0]
+            value = vimeo_url + vid_id
+            mapping['cloud_url']['vimeo'] = vid_id
+
+        mutator(value)
 
 class VideoCloudUrlValidator:
     """ Image minimum size validator
@@ -138,8 +151,7 @@ class VideoCloudUrlValidator:
         self.description = description
 
     def __call__(self, value, instance, *args, **kwargs):
-        """ check and transform links if we don't get iframe code
-        for youtube
+        """ check and transform links for video embedding
         """
         video_cloud_validator(value, instance)
 
