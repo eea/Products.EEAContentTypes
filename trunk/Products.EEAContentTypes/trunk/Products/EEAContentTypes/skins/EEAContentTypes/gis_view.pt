@@ -58,7 +58,7 @@ div.archived p
                       src="">
                  </iframe>
                  <br />
-                 <small><a href="" tal:attributes="href python:'%s&amp;extent=-41.8394,29.8481,65.6508,72.2113' % (arcgis_url)" style="color:#0000FF;text-align:left" target="_blank">View Larger Map</a></small>
+                 <p><a class="externalsites-eoe" href="" tal:attributes="href python:'%s&amp;extent=-41.8394,29.8481,65.6508,72.2113' % (arcgis_url)" target="_blank">View larger map on Eye on Earth</a></p>
                  </tal:block>
                  
              <tal:block condition="not:uid">    
