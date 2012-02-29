@@ -83,7 +83,6 @@ def video_cloud_validator(value, instance = None):
         obj_schema = ISchema(instance)
         field = obj_schema['cloudUrl']
         mutator = field.getMutator(instance)
-        value = value or ""
 
         youtube_id = re.compile('[0-9a-zA-z\-_]{8,}[A-Z]*')
         youtube_url = "http://www.youtube.com/watch?v="
@@ -117,7 +116,12 @@ def video_cloud_validator(value, instance = None):
             vimeo = re.compile('[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
-            mapping['cloud_url']['vimeo'] = vid_id
+            cloud = mapping['cloud_url']
+            # remove youtube entry if found since youtube macro
+            # is before vimeo             
+            if cloud.get('youtube'):
+                cloud.pop('youtube')
+            cloud['vimeo'] = vid_id
         else:
             return "Please enter a video link from Youtube or Vimeo only"
 
