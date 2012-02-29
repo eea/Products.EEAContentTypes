@@ -118,6 +118,8 @@ def video_cloud_validator(value, instance = None):
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
             mapping['cloud_url']['vimeo'] = vid_id
+        else:
+            return "Please enter a video link from Youtube or Vimeo only"
 
         mutator(value)
 
@@ -135,6 +137,8 @@ class VideoCloudUrlValidator:
     def __call__(self, value, instance, *args, **kwargs):
         """ check and transform links for video embedding
         """
-        video_cloud_validator(value, instance)
+        res = video_cloud_validator(value, instance)
+        if res:
+            return res
 
 validation.register(VideoCloudUrlValidator('videoCloudUrlValidator'))
