@@ -85,7 +85,7 @@ def video_cloud_validator(value, instance = None):
         mutator = field.getMutator(instance)
         value = value or ""
 
-        youtube_id = re.compile('[0-9a-zA-z\-_]{8,100}[A-Z]{1,}')
+        youtube_id = re.compile('[0-9a-zA-z\-_]{8,}[A-Z]*')
         youtube_url = "http://www.youtube.com/watch?v="
         vimeo_url = "http://vimeo.com/"
 
@@ -95,43 +95,25 @@ def video_cloud_validator(value, instance = None):
             cloud_url =  { 'cloud_url': PersistentDict() }
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
-        if 'youtu.be' in value:
-            # transform youtu.be links iframe code
+        if ('youtu' and 'playlist' in value):
+            # transform youtube playlist link 
+            res = youtube_id.findall(value)[1]
+            vid_id = 'videoseries&' + 'list=' + res
+            value = 'http://www.youtube.com/playlist?list=' + res
+            mapping['cloud_url']['youtube'] = vid_id
+
+        elif ('youtu' in value):
+            # check youtube links with youtu since they might be
+            # used with youtu.be our youtube.com links
             res = youtube_id.findall(value)
             if 'list' in value:
-                vid_id = res[0] + '?list=' + res[-1]
+                vid_id = res[0] + '?list=' + res[1]
             else:
                 vid_id = res[0]
             value = youtube_url + vid_id
             mapping['cloud_url']['youtube'] = vid_id
 
-        elif 'playlist' in value:
-            # transform playlist link to iframe code
-            res = youtube_id.findall(value)
-            playlist = 'http://www.youtube.com/playlist?'
-            vid_id = playlist + 'list=' + res[1]
-            value = vid_id
-            mapping['cloud_url']['youtube'] = vid_id
-
-        elif ('youtube' in value) and ('iframe' not in value):
-            # transform long youtube link to iframe code
-            res = youtube_id.findall(value)
-            if 'list' in value:
-                vid_id = res[0] + '?list=' + res[-1]
-            else:
-                vid_id = res[0]
-            value = youtube_url + vid_id
-            mapping['cloud_url']['youtube'] = vid_id
-        elif ('youtube' in value) and ('iframe' in value):
-            res = youtube_id.findall(value)
-            if 'list' in value:
-                vid_id = res[0] + '?list=' + res[-1]
-            else:
-                vid_id = res[0]
-            value = youtube_url + vid_id
-            mapping['cloud_url']['youtube'] = vid_id
-
-        if 'vimeo' in value:
+        elif ('vimeo' in value):
             vimeo = re.compile('[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
