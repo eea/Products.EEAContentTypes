@@ -26,6 +26,8 @@
     <cmf:registerDirectory name="EEAContentTypes"/>
     <cmf:registerDirectory name="EEAContentTypes_public"/>
 
+    <interface interface=".interfaces.IEEAPloneSite" />
+
     <class class=".feeds.FeedPortletInfo">
         <require permission="zope2.Public"
                  interface=".interfaces.IFeedPortletInfo" />
