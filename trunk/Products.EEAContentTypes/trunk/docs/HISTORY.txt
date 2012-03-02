@@ -3,6 +3,8 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Bug fix: added an override for tiny_mce_script.js that fixes a bug 
+   http://www.tinymce.com/develop/bugtracker_view.php?id=3152 [tiberich #4982]
  * Bug fix: added the IEEAPloneSite interface that should be provided by the EEA Plone Site
    The intention is to make it possible to create other plone sites in Data.fs that don't
    run code specific to EEA (for example some event subscribers)
