@@ -85,13 +85,17 @@ class GISMapApplication(ATLink):
     
     
     def getArcGisUID(self):
-        """extract and return arcgis id from the arcgis url.
+        """extract and return arcgis id from the arcgis url if exists otherwise
+           return None.
         """
-        gisurl = self.arcgis_url
-        idx = gisurl.rfind('?webmap=')
-        uid = ''
+        idx = 0
+        uid = None
+        if hasattr(self,'arcgis_url'):
+            idx = self.arcgis_url.rfind('?webmap=')
+        else:
+            return None
         if idx > 0 :
-            uid = gisurl[idx+8:]
+            uid = self.arcgis_url[idx+8:]
             
         return uid
 

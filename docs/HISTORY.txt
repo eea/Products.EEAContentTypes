@@ -3,6 +3,8 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Bug fix: backward compatibility for gis application with no arcgis_url set.
+   [demarant #4959]
  * Bug fix: added the IEEAPloneSite interface that should be provided by the EEA Plone Site
    The intention is to make it possible to create other plone sites in Data.fs that don't
    run code specific to EEA (for example some event subscribers)
