@@ -25,6 +25,7 @@
 
     <cmf:registerDirectory name="EEAContentTypes"/>
     <cmf:registerDirectory name="EEAContentTypes_public"/>
+    <cmf:registerDirectory name="EEAContentTypes_popupedit"/>
 
     <interface interface=".interfaces.IEEAPloneSite" />
 

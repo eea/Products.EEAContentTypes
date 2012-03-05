@@ -3,6 +3,10 @@ Changelog
 
 4.18-dev - (unreleased)
 -----------------------
+ * Change: relocated the schemata_edit functionality from eea.indicators here
+   [tiberich #4982]
+ * Upgrade step: import Products.EEAContentTypes > Skins tool in portal_setup.
+   This adds the EEAContentTypes_popupedit skin layer.
 
 4.17 - (2012-03-05)
 -------------------
