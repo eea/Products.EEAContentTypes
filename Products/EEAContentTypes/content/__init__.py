@@ -11,7 +11,7 @@ import Products.EEAContentTypes.content.CallForTender
 import Products.EEAContentTypes.content.Event
 import Products.EEAContentTypes.content.ExternalHighlight
 import Products.EEAContentTypes.content.FlashFile
-import Products.EEAContentTypes.content.CloudVideo
+#import Products.EEAContentTypes.content.CloudVideo
 import Products.EEAContentTypes.content.GISApplication
 import Products.EEAContentTypes.content.Highlight
 import Products.EEAContentTypes.content.Link
