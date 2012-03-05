@@ -3,6 +3,8 @@ Changelog
 
 4.17-dev - (unreleased)
 -----------------------
+ * Feature: added cloudUrl validator which is used by the cloudUrl field for flv video
+   [ichimdav #4963]
  * Bug fix: backward compatibility for gis application with no arcgis_url set.
    [demarant #4959]
  * Bug fix: added the IEEAPloneSite interface that should be provided by the EEA Plone Site
