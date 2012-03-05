@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.17-dev - (unreleased)
------------------------
+4.17 - (2012-03-05)
+-------------------
  * Feature: added cloudUrl validator which is used by the cloudUrl field for flv video
    to check validation of url, extract the video id, and serve a normalized url
    [ichimdav #4963]
