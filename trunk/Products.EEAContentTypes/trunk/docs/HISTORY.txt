@@ -4,6 +4,7 @@ Changelog
 4.17-dev - (unreleased)
 -----------------------
  * Feature: added cloudUrl validator which is used by the cloudUrl field for flv video
+   to check validation of url, extract the video id, and serve a normalized url
    [ichimdav #4963]
  * Bug fix: backward compatibility for gis application with no arcgis_url set.
    [demarant #4959]
