@@ -79,11 +79,10 @@ def video_cloud_validator(value, instance = None):
     """ check if cloudUrl has a youtube or vimeo link, saves the id
     in an annotation and save a clean link to the video for the field
     """
+    obj_schema = ISchema(instance)
+    field = obj_schema['cloudUrl']
+    mutator = field.getMutator(instance)
     if value:
-        obj_schema = ISchema(instance)
-        field = obj_schema['cloudUrl']
-        mutator = field.getMutator(instance)
-
         youtube_id = re.compile('[0-9a-zA-z\-_]{8,}[A-Z]*')
         youtube_url = "http://www.youtube.com/watch?v="
         vimeo_url = "http://vimeo.com/"
@@ -125,7 +124,7 @@ def video_cloud_validator(value, instance = None):
         else:
             return "Please enter a video link from Youtube or Vimeo only"
 
-        mutator(value)
+    mutator(value)
 
 class VideoCloudUrlValidator:
     """ Image minimum size validator
