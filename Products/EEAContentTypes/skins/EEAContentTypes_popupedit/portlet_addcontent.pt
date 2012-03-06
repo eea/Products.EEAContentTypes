@@ -20,7 +20,7 @@
         tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&use_schemata_edit=true">Create New</a>
 
     <div id="dialog_edit_target">edit target</div>
-    <script tal:attributes="src string:${context/portal_url}/eea.reference.contentcreation.js" ></script>
+    <script tal:attributes="src string:${context/portal_url}/eea.contentcreation.js" ></script>
 
 </metal:macro>
 </body>
