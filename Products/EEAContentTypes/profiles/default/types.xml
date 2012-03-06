@@ -30,6 +30,6 @@
     meta_type="Factory-based Type Information with dynamic views"/>
  <object name="FlashFile"
     meta_type="Factory-based Type Information with dynamic views"/>
- <!-- <object name="CloudVideo" -->
- <!--    meta_type="Factory-based Type Information with dynamic views"/> -->
+ <object name="CloudVideo"
+    meta_type="Factory-based Type Information with dynamic views"/>
 </object>
