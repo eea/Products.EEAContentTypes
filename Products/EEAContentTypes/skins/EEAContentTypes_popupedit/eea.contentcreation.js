@@ -1,5 +1,5 @@
 function ContentCreationPopup(){
-    this.set_creators()
+    this.set_creators();
 }
 
 ContentCreationPopup.prototype.init_tinymce = function (el){
@@ -20,7 +20,7 @@ ContentCreationPopup.prototype.init_tinymce = function (el){
     //delete InitializedTinyMCEInstances[id];
     config.init();
   });
-}
+};
 
 ContentCreationPopup.prototype.schemata_ajaxify = function(el){
 
@@ -76,7 +76,7 @@ ContentCreationPopup.prototype.schemata_ajaxify = function(el){
       });
       return false;
     });
-}
+};
 
 ContentCreationPopup.prototype.set_creators = function(){
     var self = this;
@@ -97,7 +97,7 @@ ContentCreationPopup.prototype.set_creators = function(){
 
         return false;
     });
-}
+};
 
 ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, options){
       // Opens a modal dialog with the given title
@@ -141,7 +141,7 @@ ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, opti
           callback();
         }
       });
-}
+};
 
 var contentcreation_popup = new ContentCreationPopup();
 
@@ -154,4 +154,4 @@ function close_dialog(info) {
        reload_region($("#"+region));
        jq("#dialog-inner").dialog("close");
    }
-}
+};
