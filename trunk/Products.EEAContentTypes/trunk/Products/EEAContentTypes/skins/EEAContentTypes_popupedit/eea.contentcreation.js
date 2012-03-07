@@ -2,37 +2,44 @@ function ContentCreationPopup(){
     this.set_creators();
 }
 
-ContentCreationPopup.prototype.init_tinymce = function (el){
-  // init tinymce edit fields
-  jq('.mce_editable', el).each(function(){
-    //ids can be repeated because of duplicated field names
-    //same field can exist in the main page and also in the popup dialog
-    var id = "popup-" + jq(this).attr('id');
-    jq(this).attr('id', id);
-    delete InitializedTinyMCEInstances[id];
-    var config = new TinyMCEConfig(id);
-    // TODO: fix the editor sizes
-    config.widget_config.editor_height = 800;
-    config.widget_config.editor_width = 630;
-    config.widget_config.autoresize = true;
-    config.widget_config.resizing = true;
-    config.widget_config.resizing_use_cookie = false;
-    //delete InitializedTinyMCEInstances[id];
-    config.init();
-  });
-};
+ContentCreationPopup.prototype.fix_form_widgets = function(el){
 
-ContentCreationPopup.prototype.schemata_ajaxify = function(el){
-
-    var self = this;
-    //set_actives();
-    self.init_tinymce(el);
+    // init tinymce edit fields
+    jq('.mce_editable', el).each(function(){
+        //ids can be repeated because of duplicated field names
+        //same field can exist in the main page and also in the popup dialog
+        if (jq(this).attr('id').indexOf('p0') === 0) {
+            return;
+        };
+        var id = "p0" + Math.random().toString().replace('.', '') + jq(this).attr('id');
+        jq(this).attr('id', id);
+        //delete InitializedTinyMCEInstances[id];
+        var config = new TinyMCEConfig(id);
+        // TODO: fix the editor sizes
+        //config.widget_config.editor_height = 800;
+        //config.widget_config.editor_width = 630;
+        //config.widget_config.autoresize = true;
+        //config.widget_config.resizing = true;
+        //config.widget_config.resizing_use_cookie = false;
+        //delete InitializedTinyMCEInstances[id];
+        config.init();
+    });
 
     //set the tags widget
     var widgets = jq('.ArchetypesKeywordWidget');
     if(widgets.length){
-    widgets.eeatags();
+        widgets.eeatags();
     }
+
+    // fix organisations widget
+  //jq(".dummy-org-selector", el).each(function(){
+  //    var id = jq(this).attr('id');
+  //    if (id.indexOf('p0') !== 0) {
+  //        id = "p0" + Math.random().toString().replace('.', '').substr(2,6) + jq(this).attr('id');
+  //        jq(this).attr('id', id);
+  //        //new SelectAutocompleteWidget(jq("#" + id));
+  //    }
+  //});
 
     // other fixes to include: 
     // geographical coverage
@@ -41,9 +48,17 @@ ContentCreationPopup.prototype.schemata_ajaxify = function(el){
     // reference system widget has no label
     // geographical accuracy, contact person and disclaimer are not tinymce!?
 
+};
+
+ContentCreationPopup.prototype.schemata_ajaxify = function(el){
+
+    var self = this;
+
+    self.fix_form_widgets(el);
+    //set_actives();
+
     jq("form", el).submit(
     function(e){
-      //block_ui();
       tinyMCE.triggerSave();
       var form = this;
 
@@ -64,13 +79,11 @@ ContentCreationPopup.prototype.schemata_ajaxify = function(el){
         cache:false,
         // timeout: 2000,
         error: function() {
-          //unblock_ui();
           alert("Failed to submit");
         },
         success: function(r) {
           jq(el).html(r);
           self.schemata_ajaxify(el);
-          //unblock_ui();
           return false;
         }
       });
@@ -81,7 +94,6 @@ ContentCreationPopup.prototype.schemata_ajaxify = function(el){
 ContentCreationPopup.prototype.set_creators = function(){
     var self = this;
     jq('a.new_content_creator').click(function(){
-        //block_ui();
         var link = jq(this).attr('href');
         var portal_type = "";
         var title = "Edit new " + portal_type;    // should insert portal type here
