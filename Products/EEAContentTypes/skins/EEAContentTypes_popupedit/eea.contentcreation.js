@@ -10,7 +10,7 @@ ContentCreationPopup.prototype.fix_form_widgets = function(el){
         //same field can exist in the main page and also in the popup dialog
         if (jq(this).attr('id').indexOf('p0') === 0) {
             return;
-        };
+        }
         var id = "p0" + Math.random().toString().replace('.', '') + jq(this).attr('id');
         jq(this).attr('id', id);
         //delete InitializedTinyMCEInstances[id];
@@ -166,6 +166,6 @@ function close_dialog(info) {
        reload_region($("#"+region));
        jq("#dialog-inner").dialog("close");
    }
-};
+}
 
 //jq("#content-creation-portlet legend").show();
