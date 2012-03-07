@@ -14,12 +14,34 @@
 
     <style>
     .widgets-list {display:none}
+    .faceted-widget .legend {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.6;
+        padding: 5px 10px;
+        text-shadow: 1px 1px 1px #555555;
+        background-color: #777C1F;
+        background-image: -moz-linear-gradient(center top , #B1C748, #777C1F);
+    }
     </style>
 
-    <a href="" class="new_content_creator"
-        tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&use_schemata_edit=true">Create New</a>
-
+<div class="faceted-widget" i18n:domain="eea" id="content-creation-portlet">
     <div id="dialog_edit_target"></div>
+
+
+    <fieldset class="widget-fieldset">
+      <legend>Create new</legend>
+        <div class="legend">Create new</div>
+      <dl><dt>
+        <a href="" class="new_content_creator"
+            tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&use_schemata_edit=true">
+           <img src="" tal:attributes="src string:${context/portal_url}/add.png" /> 
+            Create <span tal:content="context/Title" /></a>
+    </dt>
+    <dd>Press the link to create a new content item in its default location</dd></dl>
+    </fieldset>
+</div>
     <script tal:attributes="src string:${context/portal_url}/eea.contentcreation.js" ></script>
     <script tal:attributes="src string:${context/portal_url}/selectautocomplete_widget.js" ></script>
 

@@ -167,3 +167,5 @@ function close_dialog(info) {
        jq("#dialog-inner").dialog("close");
    }
 };
+
+//jq("#content-creation-portlet legend").show();
