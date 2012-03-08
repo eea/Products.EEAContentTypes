@@ -6,7 +6,6 @@ from plone.i18n.normalizer import urlnormalizer
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 
 from Products.EEAContentTypes.config import MAX_URL_WORDS, URL_ORPHANS
-from Products.EEAContentTypes.normalizer.base import mapUnicode
 
 class EEAURLNormalizer(object):
     """ Customize default URL normalizer
@@ -18,7 +17,6 @@ class EEAURLNormalizer(object):
         """
         Override plone.i18n URLNormalizer to accept cutting by words.
         """
-        text = mapUnicode(text)
         text = urlnormalizer.normalize(text, locale, max_length)
         if not max_words:
             return text
