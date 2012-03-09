@@ -1,11 +1,14 @@
 """ Custom URL normalizer
 """
+import logging
 from zope.interface import implements
 from plone.i18n.normalizer import MAX_URL_LENGTH, FILENAME_REGEX
 from plone.i18n.normalizer import urlnormalizer
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 
 from Products.EEAContentTypes.config import MAX_URL_WORDS, URL_ORPHANS
+
+logger = logging.getLogger("Products.EEAContentTypes")
 
 class EEAURLNormalizer(object):
     """ Customize default URL normalizer
@@ -17,6 +20,12 @@ class EEAURLNormalizer(object):
         """
         Override plone.i18n URLNormalizer to accept cutting by words.
         """
+        if not isinstance(text, unicode):
+            try:
+                text = text.decode('utf-8')
+            except Exception:
+                logger.info("Can't decode URL to be normalized")
+
         text = urlnormalizer.normalize(text, locale, max_length)
         if not max_words:
             return text
