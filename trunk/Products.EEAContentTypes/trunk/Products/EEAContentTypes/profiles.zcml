@@ -43,4 +43,13 @@
     handler="Products.EEAContentTypes.setuphandlers.upgrade_plonesite_interface"
     />
 
+  <genericsetup:registerProfile
+      name="eeacontenttypes_upgrade_4.17"
+      title="Upgrade profile for EEAContentTypes 4.17"
+      description="This profile contains configuration changes from 4.16 to 4.17"
+      directory="profiles/upgrade-4.17"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>
