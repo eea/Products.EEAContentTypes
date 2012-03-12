@@ -60,6 +60,4 @@ if o is None:
 if script_id:
     state.setId(script_id)
 
-if message:
-    context.plone_utils.addPortalMessage(message)
 return state.set(context=o)
