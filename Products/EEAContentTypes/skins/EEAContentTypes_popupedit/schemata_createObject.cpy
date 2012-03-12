@@ -48,9 +48,11 @@ else:
     if new_id is None or new_id == '':
        new_id = id
     o=getattr(context, new_id, None)
-    tname = o.getTypeInfo().Title()
-    message = _(u'${tname} has been created.', mapping={u'tname' : tname})
-    transaction_note('Created %s with id %s in %s' % (o.getTypeInfo().getId(), new_id, context.absolute_url()))
+
+    #we don't want status messages to appear from this type of content creation
+    #tname = o.getTypeInfo().Title()
+    #message = _(u'${tname} has been created.', mapping={u'tname' : tname})
+    #transaction_note('Created %s with id %s in %s' % (o.getTypeInfo().getId(), new_id, context.absolute_url()))
 
 if o is None:
     raise Exception
