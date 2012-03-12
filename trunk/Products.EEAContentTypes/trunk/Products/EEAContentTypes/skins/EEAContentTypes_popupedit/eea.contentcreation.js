@@ -157,15 +157,15 @@ ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, opti
 
 var contentcreation_popup = new ContentCreationPopup();
 
-function close_dialog(info) {
-   if (info.search('http://') !== -1) {
-       jq("#dialog-inner").dialog("close");
-       jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
-   } else {
-       // compatibility with eea.indicators
-       reload_region($("#"+region));
-       jq("#dialog-inner").dialog("close");
-   }
-}
+//function close_dialog(info) {
+   //if (info.search('http://') !== -1) {
+       //jq("#dialog-inner").dialog("close");
+       //jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
+   //} else {
+       //// compatibility with eea.indicators
+       //reload_region($("#"+region));
+       //jq("#dialog-inner").dialog("close");
+   //}
+//}
 
 //jq("#content-creation-portlet legend").show();
