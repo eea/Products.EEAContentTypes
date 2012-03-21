@@ -31,7 +31,8 @@
                         allowedKeywords python: context.collectKeywords(fieldName, field.accessor, widget.vocab_source);
                         site_props context/portal_properties/site_properties|nothing;
                         format widget/format | string:select;
-                        allowRolesToAddKeywords site_props/allowRolesToAddKeywords|nothing;">
+                        allowRolesToAddKeywords site_props/allowRolesToAddKeywords|nothing;
+                        roleBasedAdd widget/roleBasedAdd|nothing;">
                     <div tal:condition="allowedKeywords" id="existingTagsSection">
                         <tal:comment tal:replace="nothing">
                             dl semantically associates selector name with values
@@ -78,19 +79,6 @@
                             </tal:comment>
                             <span id="noTagsSelected" i18n:translate="label_noTagsSelected">No tags currently selected.</span>
                             <span id="oneOrMoreTagsSelected" i18n:translate="label_oneOrMoreTagsSelected">% tags currently selected.</span>
-                            <tal:comment tal:replace="nothing">
-                                Call js to modify this widget with both a scrollbar and checkboxes.
-                                There may be a better place to put this js call;
-                                examples exist in others' widget.py and js files,
-                                but having it here covers cases where some but not all select elements
-                                call js to be modified.
-                                Todo: The #subject should eventually refer to the template variable.
-                            </tal:comment>
-                            <script type="text/javascript">
-                                jq(document).ready( function() {
-                                    jq("#subject").multiSelect();
-                                });
-                            </script>
                             <input type="hidden"
                                    value=""
                                    tal:condition="not:field/required | nothing"
@@ -121,7 +109,7 @@
                         <div class="visualClear"><!-- --></div>
                     </div>
 
-                    <tal:condition condition="python:not widget.roleBasedAdd or (allowRolesToAddKeywords and [role for role in user.getRolesInContext(context) if role in allowRolesToAddKeywords])">
+                    <tal:condition condition="python:not roleBasedAdd or (allowRolesToAddKeywords and [role for role in user.getRolesInContext(context) if role in allowRolesToAddKeywords])">
                         <dl id="newTagsSection">
                             <label for="subject_keywords">
                                 <dt id="newTagsTitle">

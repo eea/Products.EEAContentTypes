@@ -3,8 +3,10 @@ Changelog
 
 4.18-dev - (unreleased)
 -----------------------
- * Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" > 
+ * Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" >
    Skins tool [tiberich #4982]
+ * Bug fix: Fixed eea_keywords macros
+   [voineali #5021]
  * Bug fix: fixed unicode error when object id is normalized
    [ghicaale #4998]
  * Feature: a portlet that can be used in the eea.relations portlet to add
@@ -27,20 +29,20 @@ Changelog
    [demarant #4959]
  * Bug fix: check if img_size is tuple since getSize could return an int value of the
    image size for non Image or IExternalHighlight content [ichimdav #4816]
- * Change: better name for the image ratio check handler, since it is generic. 
+ * Change: better name for the image ratio check handler, since it is generic.
    [demarant #4816]
  * Change: Added minsize validator on preview image for gis map application
    [demarant #4959]
- * Change: for GIS Application use same url field for both the flash object and the url 
+ * Change: for GIS Application use same url field for both the flash object and the url
    to an external site like Eyeonearth. adjusted labels and descriptions  [demarant #4959]
  * Change: added display_on_datacentre for IExternalHighlight [ichimdav #4936]
- * Feature: all GIS Application objects will provide by now 
+ * Feature: all GIS Application objects will provide by now
    Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
    [ghicaale #4467]
  * Upgrade step: go to plone root /aq_parent/@@manage_interfaces and make the Plone site
-   implement IEEAPloneSite 
+   implement IEEAPloneSite
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
-   Action Providers steps which adds the crop action for Image and IExternalHighlights 
+   Action Providers steps which adds the crop action for Image and IExternalHighlights
    [ichimdav #4816]
  * Upgrade step: remove duplicate Products.EEAContentTypes.content.interfaces.IInteractiveMap
    interface and reindex all GIS Application objects. Ask ghicaale to do it.
@@ -49,21 +51,21 @@ Changelog
 4.16 - (2012-02-15)
 -------------------
  * Feature: Added possibility to disable the application form for vacancy.
-   Very rare use case: vacancy application for Director must be send 
+   Very rare use case: vacancy application for Director must be send
    to EU Commission. So property in ZMI is enough. [demarant]
  * Bug fix: fixed an error in flasfileStyle script when it got invalid
    width/height for flash file [tiberich #4947]
  * Bug fix: fixed error in RSS on locations where syndication is not allowed
    [tiberich #4947]
  * Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
-   Action Providers steps which adds the crop action 
+   Action Providers steps which adds the crop action
  * Feature: Changed GIS Application to be disk based product instead of TTW type [tiberich #4467]
  * Feature: added arcgis_id field to GIS Application [tiberich #4467]
  * Upgrade step: go to /prefs_install_products_form and upgrade EEAContentTypes to version 4.16
 
 4.15 - (2012-02-06)
 -------------------
- * Change: disabled crop functionality until it is better tested to ensure 
+ * Change: disabled crop functionality until it is better tested to ensure
    that no issues would arrive from using it [ichimdav]
 
 4.14 - (2012-02-06)
