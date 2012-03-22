@@ -4,7 +4,12 @@ Changelog
 4.18-dev - (unreleased)
 -----------------------
  * Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" >
-   Skins tool [tiberich #4982]
+   Skins tool [tiberich #4982];
+   Set default location for ExternalDataSpec, in portal_relations, to 
+   python:object.restrictedTraverse("/www/SITE/data-and-maps/data/external-datasets-catalog")
+   Add a new portlet in the Faceted criteria tab, with type "Plone Portlet" and
+       title: Create new
+       path: here/portlet_addcontent/macros/portlet
  * Bug fix: Fixed eea_keywords macros
    [voineali #5021]
  * Bug fix: fixed unicode error when object id is normalized
