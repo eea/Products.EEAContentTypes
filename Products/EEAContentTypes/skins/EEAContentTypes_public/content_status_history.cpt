@@ -314,12 +314,10 @@
                          tal:attributes="value review_state;
                                          title review_state;
                                          checked python:test(request.get('workflow_action', review_state)==review_state,1,0);" />
-                  <label for="workflow_action"
-                         i18n:translate="label_no_change">No change</label>
+                  <label for="workflow_action" i18n:translate="label_no_change">No change</label>
                   <br />
 
-                  <tal:block define="transitions python:context.portal_workflow.getTransitionsFor(target, context);
-                                     wEmails context/@@workflowEmails|nothing"
+                  <tal:block define="transitions python:context.portal_workflow.getTransitionsFor(target, context);"
                              repeat="transition transitions">
                       <input class="noborder"
                              id=""
@@ -337,14 +335,23 @@
                              tal:attributes="for transition/id;"
                              tal:content="transition/name"
                              >Transition Name</label>
-                             <br />
 
-                     <tal:emails define="id transition/id; emails wEmails/?id|nothing;" condition="wEmails">
-                         Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />
-                         Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />
-                     </tal:emails>
+                     <div class="placehold_workflow_emails">
+                        <a href="" 
+                            tal:attributes="href string:${context/absolute_url}/workflow_emails_info?id=${transition/id}">Loading workflow emails</a>
+                     </div>
 
                   </tal:block>
+
+                  <script>
+                  jq(document).ready(function(){
+                    jq(".placehold_workflow_emails a").each(function(){
+                       var parent = jq(this).parent();
+                       var url = jq(this).attr('href');
+                       jq(parent).load(url);
+                    }); 
+                  });
+                  </script>
 
                 </div>
 
