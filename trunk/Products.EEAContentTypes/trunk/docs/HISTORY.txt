@@ -19,6 +19,8 @@ Changelog
    [tiberich #4982]
  * Change: relocated the schemata_edit functionality from eea.indicators here
    [tiberich #4982]
+ * Bug fix: load workflow emails information with ajax in content_modify_form
+   [tiberich #5037]
 
 4.17 - (2012-03-05)
 -------------------
