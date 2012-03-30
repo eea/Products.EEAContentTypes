@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.19-dev - (unreleased)
+-----------------------
+
 4.18 - (2012-03-30)
 -------------------
  * Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" >
