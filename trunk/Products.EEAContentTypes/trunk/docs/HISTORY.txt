@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.18-dev - (unreleased)
------------------------
+4.18 - (2012-03-30)
+-------------------
  * Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" >
    Skins tool [tiberich #4982];
    Set default location for ExternalDataSpec, in portal_relations, to 
