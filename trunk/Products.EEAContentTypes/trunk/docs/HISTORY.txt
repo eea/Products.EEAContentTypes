@@ -3,6 +3,8 @@ Changelog
 
 4.19-dev - (unreleased)
 -----------------------
+ * Bug fix: added override for wysiwyg template which always shows richtext
+   editor [tiberich #5055]
 
 4.18 - (2012-03-30)
 -------------------
