@@ -47,9 +47,10 @@
         <p tal:condition="here/getUrl|nothing"><a href="" title="Read more"
             tal:attributes="href here/getUrl" class="moreLink">Read more</a></p>
 
-        <metal:field use-macro="python:context.widget('location', mode='view')">
+        <!-- Geotags view hidden for now for more styling -->
+        <!-- metal:field use-macro="python:context.widget('location', mode='view')">
           Location field
-        </metal:field>
+        </metal:field -->
 
       </metal:content-core>
     </metal:content-core>
