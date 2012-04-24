@@ -3,6 +3,9 @@
 from Products.Five.browser import BrowserView
 from Products.EEAContentTypes.content.interfaces import IGeoPosition
 from eea.geotags.interfaces import IGeoTags
+import logging
+
+logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
 
 class LocationMigrate(BrowserView):
     """ Run location migration for events
@@ -15,8 +18,14 @@ class LocationMigrate(BrowserView):
                         path={'query': folder_path, 'depth': 1})
         for brain in brains:
             obj = brain.getObject()
-            loc = IGeoPosition(obj)
+            try:
+                loc = IGeoPosition(obj)
+            except Exception:
+                logger.info("Event not migrated %s" % obj.absolute_url())
+                continue
             geo = IGeoTags(obj)
+            name  = loc.context.location
+            name_list = name.split(',')
             template = {
                 'type': 'FeatureCollection',
                 'features': []
@@ -29,10 +38,20 @@ class LocationMigrate(BrowserView):
                     'coordinates': [loc.latitude, loc.longitude],
                     },
                 'properties': {
-                    'name': loc.context.location,
-                    'title': loc.context.location,
+                    'name': name,
+                    'title': name,
                     'center': [loc.latitude, loc.longitude],
                     'country': loc.country_code,
+                    'other':{
+                        'countryCode': loc.country_code,
+                        'countryName': name_list[-1],
+                        'adminName1': name_list[0],
+                        'lat': loc.latitude,
+                        'lng': loc.longitude,
+                        'name': name_list[0],
+                    },
+                    'tags' : "",
+
                 }
             }
             template['features'].append(feature)
