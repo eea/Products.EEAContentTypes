@@ -51,5 +51,23 @@
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+  <genericsetup:registerProfile
+      name="eeacontenttypes_upgrade_4.19"
+      title="Upgrade profile for EEAContentTypes 4.19"
+      description="This profile contains configuration changes from 4.18 to 4.19"
+      directory="profiles/upgrade/to_419"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+   />
 
+  <genericsetup:upgradeSteps
+    source="416"
+    destination="419"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+      title="Enabled CloudVideo contenttype from EEAContentTypes"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_4.19"
+      />
+
+  </genericsetup:upgradeSteps>
 </configure>
