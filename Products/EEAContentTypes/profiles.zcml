@@ -65,7 +65,7 @@
     profile="Products.EEAContentTypes:default">
 
     <genericsetup:upgradeDepends
-      title="Enabled CloudVideo contenttype from EEAContentTypes"
+      title="Add new CloudVideo ContentType from EEAContentTypes"
       import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_4.19"
       />
 
