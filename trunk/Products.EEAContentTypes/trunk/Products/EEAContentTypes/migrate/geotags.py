@@ -6,6 +6,7 @@ import logging
 import urllib
 import json
 from Products.Archetypes import atapi
+import time
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
 
 class LocationMigrate(BrowserView):
@@ -17,16 +18,25 @@ class LocationMigrate(BrowserView):
         folder_path = '/'.join(context.getPhysicalPath())
         brains = catalog.searchResults(portal_type=('QuickEvent', 'Event'),
                         path={'query': folder_path, 'depth': 1})
-
         errors = []
+        not_found = []
+        no_location = []
         for brain in brains:
             try:
                 obj = brain.getObject()
+                url = obj.absolute_url()
                 geo = IGeoTags(obj)
                 location = obj.location
                 if type(location) == tuple:
                     location = location[0]
                 location = location.encode('utf-8')
+                if not location:
+                    logger.info("NO Location %s" % url)
+                    no_location.append(url)
+                    continue
+                if len(geo.tags):
+                    continue
+                time.sleep(0.5)
                 params = {
                           'address': location,
                           'sensor' : 'false'}
@@ -35,7 +45,13 @@ class LocationMigrate(BrowserView):
                                                     urllib.urlencode(params))
                 gbuffer = u.read()
                 js = json.loads(gbuffer)
-                res = js.get('results')[0]
+                res = js.get('results')
+                if res:
+                    res = res[0]
+                else:
+                    item = "url: %s  location: %s" % (url, obj.location)
+                    not_found.append(item)
+                    continue
 
                 template = {
                     'type': 'FeatureCollection',
@@ -70,10 +86,12 @@ class LocationMigrate(BrowserView):
                 obj.reindexObject()
             except Exception, exp:
                 error_msg = "%s with error: \n %s" % \
-                        (obj.absolute_url(), exp.message)
+                        (url, exp.message)
                 logger.info(error_msg)
                 errors.append(error_msg)
                 continue
-
-        return errors if len(errors) else "done"
+        if len(not_found) or len(no_location):
+            return (not_found, no_location)
+        else:
+            return errors if len(errors) else "done"
 
