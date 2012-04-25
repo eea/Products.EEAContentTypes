@@ -3,6 +3,8 @@ Changelog
 
 4.19-dev - (unreleased)
 -----------------------
+ * Upgrade step: go to portal_setup > upgrades > Products.EEAContentTypes:default
+   and run the Enabled CloudVideo contenttype from EEAContentTypes step
  * Bug fix: do not show an empty portlet when there are no videos related.
    [demarant]
  * Bug fix: added override for wysiwyg template which always shows richtext
