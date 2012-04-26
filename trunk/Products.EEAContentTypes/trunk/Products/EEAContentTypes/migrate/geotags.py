@@ -16,11 +16,12 @@ class LocationMigrate(BrowserView):
         context = self.context
         catalog = context.portal_catalog
         folder_path = '/'.join(context.getPhysicalPath())
+        depth = 6 if self.context.portal_type == "Folder" else 0
         brains = catalog.searchResults(portal_type=('QuickEvent', 'Event'),
-                        path={'query': folder_path, 'depth': 1})
-        errors = []
-        not_found = []
-        no_location = []
+                                path={'query': folder_path, 'depth': depth})
+        errors = ["Errors:"]
+        not_found = ["Not Found:"]
+        no_location = ["No location"]
         for brain in brains:
             try:
                 obj = brain.getObject()
@@ -32,7 +33,7 @@ class LocationMigrate(BrowserView):
                 location = location.encode('utf-8')
                 if not location:
                     logger.info("NO Location %s" % url)
-                    no_location.append(url)
+                    no_location.append("NO Location %s" % url)
                     continue
                 if len(geo.tags):
                     continue
@@ -91,7 +92,7 @@ class LocationMigrate(BrowserView):
                 errors.append(error_msg)
                 continue
         if len(not_found) or len(no_location):
-            return (not_found, no_location)
+            return (not_found, no_location, errors)
         else:
             return errors if len(errors) else "done"
 
