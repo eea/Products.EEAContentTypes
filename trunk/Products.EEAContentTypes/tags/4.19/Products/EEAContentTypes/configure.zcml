@@ -1,0 +1,64 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:cmf="http://namespaces.zope.org/cmf"
+           i18n_domain="eea">
+
+    <include file="dependencies.zcml" />
+
+    <include file="patches.zcml" />
+
+    <include package=".browser" />
+    <include package=".content" />
+    <include package=".faceted" />
+    <include package=".migrate" />
+    <include package=".upgrades" />
+
+    <include file="cache.zcml" />
+
+    <include file="profiles.zcml" />
+    <include file="catalog.zcml" />
+    <include file="component.zcml" />
+    <include file="geoposition.zcml" />
+    <include file="rss.zcml" />
+    <include file="workflow.zcml" />
+
+    <cmf:registerDirectory name="EEAContentTypes"/>
+    <cmf:registerDirectory name="EEAContentTypes_public"/>
+    <cmf:registerDirectory name="EEAContentTypes_popupedit"/>
+
+    <interface interface=".interfaces.IEEAPloneSite" />
+
+    <class class=".feeds.FeedPortletInfo">
+        <require permission="zope2.Public"
+                 interface=".interfaces.IFeedPortletInfo" />
+    </class>
+
+    <class class=".feeds.FeedItemPortletInfo">
+        <require permission="zope2.Public"
+                 interface=".interfaces.IFeedItemPortletInfo" />
+    </class>
+
+    <class class=".feeds.ContextAwareFeedPortletInfo">
+        <require permission="zope2.Public"
+                 interface="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+
+        TODO: this is not supported by Zope 2
+        <!--<require permission="cmf.ModifyPortalContent"
+                     set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
+    </class>
+
+    <subscriber for=".content.CFTRequestor.ICFTRequestor
+                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".content.CFTRequestor.submit_requestor"   />
+
+    <subscriber for="Products.ATContentTypes.content.topic.ATTopic
+                     Products.LinguaPlone.events.ObjectTranslatedEvent"
+                handler=".smartfolder.smartFolderAdded"   />
+
+    TODO: this is disabled in the original code. Should remove from here.
+    <!--adding keepReferencesOnCopy feature to the AT schema field 'relatedItems'-->
+    <!--adapter for="Products.ATContentTypes.content.base.ATCTContent"
+                factory=".schemaextender.RelatedItemsModifier" /-->
+
+</configure>
