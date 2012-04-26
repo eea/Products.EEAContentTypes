@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.20-dev - (unreleased)
+-----------------------
+
 4.19 - (2012-04-26)
 -------------------
  * Upgrade step: go to portal_setup > upgrades > Products.EEAContentTypes:default
