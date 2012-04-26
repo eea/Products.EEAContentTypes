@@ -293,6 +293,7 @@ class GeoMapData(BrowserView):
                     props.localLongTimeFormat)
                 end_date = DateTime(obj.end()).strftime(
                     props.localLongTimeFormat)
+
                 reshtml_add(YAHOO_MULTI_MARKER_TPL % {
                     'id': 'mk_%s' % obj.id,
                     'title': obj.Title(),
@@ -480,7 +481,9 @@ YAHOO_MULTI_TPL = """
                 /* margin: 0; for IE7 */
                 width: 70px; /* for IE7*/
 }
-
+#map_events_yahoo table {
+    display: table;
+}
 div.marker {
                 display: none;
 }
