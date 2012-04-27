@@ -448,5 +448,11 @@
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
 
+    <browser:page
+        class=".app.UnicodeTestIn"
+        for="*"
+        name="unicode_test_in"
+        permission="zope.Public"
+    />
 
 </configure>

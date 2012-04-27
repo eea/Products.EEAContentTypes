@@ -69,8 +69,9 @@
                                 tal:attributes="id string:${fieldName};
                                                 name string:${fieldName}_existing_keywords:list;">
                                 <option value="#" tal:repeat="keyword allowedKeywords"
+                                    tal:define="test_unicode nocall:context/@@unicode_test_in"
                                     tal:content="keyword" tal:attributes="value keyword;
-                                    selected python:test(context.unicodeTestIn(keyword, existingTags_value), 'selected', None)">
+                                    selected python:test(test_unicode(keyword, existingTags_value), 'selected', None)">
                                     An existing tag
                                 </option>
                             </select>
@@ -88,11 +89,12 @@
                                 <div class="ArchetypesKeywordValue" id=""
                                      tal:attributes="id string:archetypes-value-${fieldName}_${repeat/keyword/number}">
                                     <input class="blurrable"
+                                        tal:define="test_unicode nocall:context/@@unicode_test_in"
                                         tal:attributes="
                                             type string:checkbox;
                                             name string:${fieldName}_existing_keywords:list;
                                             id string:${fieldName}_${repeat/keyword/number};
-                                            checked python:test(context.unicodeTestIn(keyword, existingTags_value), 'checked', None);
+                                            checked python:test(test_unicode (keyword, existingTags_value), 'checked', None);
                                             value keyword" />
                                     <label
                                         tal:content="keyword"
