@@ -3,6 +3,7 @@ Changelog
 
 4.20-dev - (unreleased)
 -----------------------
+ * Bug fix: added view replacement for unicodeInTest [tiberich #5106]
 
 4.19 - (2012-04-26)
 -------------------
