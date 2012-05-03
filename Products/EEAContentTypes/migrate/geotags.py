@@ -7,6 +7,7 @@ import urllib
 import json
 from Products.Archetypes import atapi
 import time
+import transaction
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
 
 class LocationMigrate(BrowserView):
@@ -22,6 +23,8 @@ class LocationMigrate(BrowserView):
         errors = ["Errors:"]
         not_found = ["Not Found:"]
         no_location = ["No location"]
+
+        count = 0
         for brain in brains:
             try:
                 obj = brain.getObject()
@@ -91,6 +94,10 @@ class LocationMigrate(BrowserView):
                 logger.info(error_msg)
                 errors.append(error_msg)
                 continue
+            count +=1
+            if count == 10:
+                transaction.commit()
+
         if len(not_found) or len(no_location):
             return (not_found, no_location, errors)
         else:
