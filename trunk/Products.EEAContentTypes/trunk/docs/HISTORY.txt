@@ -3,10 +3,13 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Change: geotags migration script is now transaction aware
+   [ghicaale refs #4778]
 
 4.20 - (2012-04-27)
 -------------------
- * Bug fix: added view replacement for unicodeInTest [tiberich #5106]
+ * Bug fix: added view replacement for unicodeInTest
+   [tiberich #5106]
 
 4.19 - (2012-04-26)
 -------------------
@@ -14,8 +17,8 @@ Changelog
    and run the Enabled CloudVideo contenttype from EEAContentTypes step
  * Bug fix: do not show an empty portlet when there are no videos related.
    [demarant]
- * Bug fix: added override for wysiwyg template which always shows richtext
-   editor [tiberich #5055]
+ * Bug fix: added override for wysiwyg template which always shows richtext editor
+   [tiberich #5055]
 
 4.18 - (2012-03-30)
 -------------------
