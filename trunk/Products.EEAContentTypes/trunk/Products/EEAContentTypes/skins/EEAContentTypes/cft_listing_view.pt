@@ -22,6 +22,22 @@
                   Download PDF
                 </a>
 
+        <div metal:define-macro="text-field-view"
+                 id="parent-fieldname-text" class="stx"
+                 tal:define="
+                             templateId template/getId;
+                             kssClassesView context/@@kss_field_decorator_view;
+                             getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                             kss_class python:getKssClasses('text',
+                             templateId=templateId, macro='text-field-view');
+                             has_text exists:context/aq_explicit/getText;
+                             text python:has_text and here.getText() or ''"
+                 tal:condition="text"
+                 tal:attributes="class python:test(context.Format() in ('text/structured',
+                                                       'text/x-rst', ), 'stx' + kss_class, 'plain' + kss_class)">
+            <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+        </div>
+
 
                 <!-- Navigation -->
                 <div metal:use-macro="here/batch_macros/macros/navigation" />
