@@ -67,9 +67,12 @@ class TestSyndication(EEAContentTypeTestCase):
         entry = IFeedEntry(self.folder.doc)
         self.assertEquals(entry.getTitle(), 'Some Document')
 
+
         entry = IFeedEntry(self.folder.event)
+        # ichimdav location changes
+        #'Some Event [37197 Hattorf am Harz, Germany]'
         self.assertEquals(entry.getTitle(),
-                          'Some Event [37197 Hattorf am Harz, Germany]')
+                          'Some Event')
 
     def testDate(self):
         """ Date
