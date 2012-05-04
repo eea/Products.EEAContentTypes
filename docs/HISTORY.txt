@@ -5,6 +5,8 @@ Changelog
 -----------------------
  * Change: geotags migration script is now transaction aware
    [ghicaale refs #4778]
+ * Bug fix: added body text in cft_listing_view
+   [tiberich #5111]
 
 4.20 - (2012-04-27)
 -------------------
