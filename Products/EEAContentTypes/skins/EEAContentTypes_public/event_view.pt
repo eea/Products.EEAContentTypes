@@ -14,10 +14,6 @@
         templateId template/getId;
         toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
 
-        <tal:block tal:condition="here/@@geopositionMap|nothing">
-          <tal:map replace="structure here/@@geopositionMap" /><br />
-        </tal:block>
-
         <tal:hideMap define="hideMap python:False;">
            <metal:field use-macro="python:context.widget('location', mode='view')">
                 <metal:location fill-slot="location-listing"></metal:location>
