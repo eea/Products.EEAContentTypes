@@ -48,11 +48,9 @@
             tal:attributes="href here/getUrl" class="moreLink">Read more</a></p>
 
         <!-- Geotags view hidden for now for more styling -->
-        <tal:hideMap define="hideMap python:False; modal python:True;">
-           <metal:field use-macro="python:context.widget('location', mode='view')">
-                <!--<metal:location fill-slot="location-listing"></metal:location>-->
-            </metal:field>
-        </tal:hideMap>
+        <!-- metal:field use-macro="python:context.widget('location', mode='view')">
+          Location field
+        </metal:field -->
 
       </metal:content-core>
     </metal:content-core>
