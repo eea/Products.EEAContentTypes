@@ -134,6 +134,7 @@
     </dl>
     </tal:bytheme>
     </dd>
+    <div class="visualClear"></div>
     </dl>
 </tal:auto>
 </metal:autorelated>
@@ -162,6 +163,7 @@
                 </tal:block>
             </dl>
         </dd>
+    <div class="visualClear"></div>
     </dl>
 </tal:auto>
 </metal:autorelated>
@@ -254,6 +256,7 @@
                         tal:content="info/title">page title</a>
             </dd>
         </tal:block>
+    <div class="visualClear"></div>
     </dl>
 </tal:auto>
 </metal:autorelated>
