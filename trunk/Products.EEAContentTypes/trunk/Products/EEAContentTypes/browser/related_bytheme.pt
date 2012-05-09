@@ -24,6 +24,7 @@
     </dl>
     </tal:bytheme>
     </dd>
+    <div class="visualClear"></div>
     </dl>
 </tal:auto>
 </metal:autorelated>
