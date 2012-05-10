@@ -9,4 +9,5 @@
                         tal:content="page/title" />
         </dd>
     </tal:cond>
+    <div class="visualClear"></div>
 </dl>
