@@ -1,3 +1,4 @@
+
 """ Migration script from location widget to geotags
 """
 from Products.Five.browser import BrowserView
@@ -9,6 +10,7 @@ from Products.Archetypes import atapi
 import time
 import transaction
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
+from Products.EEAContentTypes.content.interfaces import IGeoPosition 
 
 class LocationMigrate(BrowserView):
     """ Run location migration for events
@@ -25,10 +27,13 @@ class LocationMigrate(BrowserView):
         no_location = ["No location"]
 
         count = 0
+        limit = 10
+
         for brain in brains:
             try:
                 obj = brain.getObject()
                 url = obj.absolute_url()
+                loc = IGeoPosition(obj)
                 geo = IGeoTags(obj)
                 location = obj.location
                 if type(location) == tuple:
@@ -40,46 +45,37 @@ class LocationMigrate(BrowserView):
                     continue
                 if len(geo.tags):
                     continue
-                time.sleep(0.5)
-                params = {
-                          'address': location,
-                          'sensor' : 'false'}
-                u = urllib.urlopen(
-                    "http://maps.googleapis.com/maps/api/geocode/json?%s" % \
-                                                    urllib.urlencode(params))
-                gbuffer = u.read()
-                js = json.loads(gbuffer)
-                res = js.get('results')
-                if res:
-                    res = res[0]
-                else:
-                    item = "url: %s  location: %s" % (url, obj.location)
-                    not_found.append(item)
-                    continue
+                #time.sleep(0.5)
 
-                template = {
-                    'type': 'FeatureCollection',
-                    'features': []
-                }
-                loc = res['geometry']['location']
-                viewport = res['geometry']['viewport']
-                ne = viewport['northeast']
-                sw = viewport['southwest']
-                feature = {
-                    'type': 'Feature',
-                    'bbox': [sw['lat'], sw['lng'], ne['lat'], ne['lng']],
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [loc['lat'], loc['lng']],
-                        },
-                    'properties': {
-                        'name': location,
-                        'title': res['address_components'][0]['long_name'],
-                        'description': res['formatted_address'],
-                        'center': [loc['lat'], loc['lng']],
-                        'other': res,
-                        'tags' : res['types']
-                    }
+                geo = IGeoTags(obj) 
+                name  = loc.context.location 
+                name_list = name.split(',') 
+                template = { 
+                    'type': 'FeatureCollection', 
+                    'features': [] 
+                } 
+                feature = { 
+                    'type': 'Feature', 
+                    'bbox': [], 
+                    'geometry': { 
+                        'type': 'Point', 
+                        'coordinates': [loc.latitude, loc.longitude], 
+                        }, 
+                    'properties': { 
+                        'name': name, 
+                        'title': name, 
+                        'center': [loc.latitude, loc.longitude], 
+                        'country': loc.country_code, 
+                        'other':{ 
+                            'countryCode': loc.country_code, 
+                            'countryName': name_list[-1], 
+                            'adminName1': name_list[0], 
+                            'lat': loc.latitude, 
+                            'lng': loc.longitude, 
+                            'name': name_list[0], 
+                        }, 
+                        'tags' : "" 
+                        }
                 }
 
                 template['features'].append(feature)
@@ -88,18 +84,23 @@ class LocationMigrate(BrowserView):
                 atapi.LinesField.set(field, obj, obj.location)
                 geo.tags = template
                 obj.reindexObject()
+
+                count += 1
+                if count == limit:
+                    limit += 10
+                    transaction.commit()
             except Exception, exp:
+                message = exp.message
+                if not message:
+                    message = exp.args
                 error_msg = "%s with error: \n %s" % \
-                        (url, exp.message)
+                        (url, message)
                 logger.info(error_msg)
                 errors.append(error_msg)
                 continue
-            count +=1
-            if count == 10:
-                transaction.commit()
 
-        if len(not_found) or len(no_location):
+        if len(not_found) > 1 or len(no_location) > 1:
             return (not_found, no_location, errors)
         else:
-            return errors if len(errors) else "done"
+            return errors if len(errors) > 1 else "done"
 
