@@ -4,10 +4,10 @@
 from Products.Five.browser import BrowserView
 from eea.geotags.interfaces import IGeoTags
 import logging
-import urllib
-import json
+#import urllib
+#import json
 from Products.Archetypes import atapi
-import time
+#import time
 import transaction
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
 from Products.EEAContentTypes.content.interfaces import IGeoPosition 
