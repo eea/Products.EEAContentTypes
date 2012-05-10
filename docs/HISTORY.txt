@@ -3,7 +3,7 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
- * Bug fix: fixed floating issues with auto related portlet [ichimdav #5157]
+ * Bug fix: fixed floating issues with related portlets [ichimdav #5157]
  * Change: geotags migration script is now transaction aware
    [ghicaale refs #4778]
  * Bug fix: added body text in cft_listing_view
