@@ -29,6 +29,8 @@ class LocationMigrate(BrowserView):
         count = 0
         limit = 10
 
+        #brains = [self.context] if len(brains) == 0 \
+        #        and self.context.portal_type == "QuickEvent"
         for brain in brains:
             try:
                 obj = brain.getObject()
@@ -43,12 +45,12 @@ class LocationMigrate(BrowserView):
                     logger.info("NO Location %s" % url)
                     no_location.append("NO Location %s" % url)
                     continue
-                if len(geo.tags):
-                    continue
+                #if len(geo.tags):
+                #    continue
                 #time.sleep(0.5)
 
                 geo = IGeoTags(obj) 
-                name  = loc.context.location 
+                name = location
                 name_list = name.split(',') 
                 template = { 
                     'type': 'FeatureCollection', 
@@ -62,8 +64,9 @@ class LocationMigrate(BrowserView):
                         'coordinates': [loc.latitude, loc.longitude], 
                         }, 
                     'properties': { 
-                        'name': name, 
+                        'name': '', 
                         'title': name, 
+                        'description': name,
                         'center': [loc.latitude, loc.longitude], 
                         'country': loc.country_code, 
                         'other':{ 
