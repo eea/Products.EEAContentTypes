@@ -4,8 +4,6 @@
 from Products.Five.browser import BrowserView
 from eea.geotags.interfaces import IGeoTags
 import logging
-#import urllib
-#import json
 from Products.Archetypes import atapi
 #import time
 import transaction
@@ -20,17 +18,14 @@ class LocationMigrate(BrowserView):
         catalog = context.portal_catalog
         folder_path = '/'.join(context.getPhysicalPath())
         depth = 6 if self.context.portal_type == "Folder" else 0
-        brains = catalog.searchResults(portal_type=('QuickEvent', 'Event'),
-                                path={'query': folder_path, 'depth': depth})
+        brains = catalog.searchResults(portal_type = ('QuickEvent', 'Event'),
+             path = {'query': folder_path, 'depth': depth}, Language = "all",
+                                                        show_inactive = True)
         errors = ["Errors:"]
         not_found = ["Not Found:"]
         no_location = ["No location"]
 
         count = 0
-        limit = 10
-
-        #brains = [self.context] if len(brains) == 0 \
-        #        and self.context.portal_type == "QuickEvent"
         for brain in brains:
             try:
                 obj = brain.getObject()
@@ -89,8 +84,8 @@ class LocationMigrate(BrowserView):
                 obj.reindexObject()
 
                 count += 1
-                if count == limit:
-                    limit += 10
+                if count % 10 == 0:
+                    logger.info("Committing geotags migration transaction")
                     transaction.commit()
             except Exception, exp:
                 message = exp.message
