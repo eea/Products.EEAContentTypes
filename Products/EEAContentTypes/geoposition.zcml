@@ -4,15 +4,16 @@
     i18n_domain="eea">
 
     <!-- Geoposition related -->
-    <subscriber
-        for="Products.ATContentTypes.interfaces.event.IATEvent
-             zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-        handler=".content.GeoPosition.geopositionEventHandler" />
+    <!-- disabled #4788 -->
+    <!--<subscriber-->
+    <!--    for="Products.ATContentTypes.interfaces.event.IATEvent-->
+    <!--         zope.lifecycleevent.interfaces.IObjectCreatedEvent"-->
+    <!--    handler=".content.GeoPosition.geopositionEventHandler" />-->
 
-    <subscriber
-        for="Products.ATContentTypes.interfaces.event.IATEvent
-             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".content.GeoPosition.geopositionEventHandler" />
+    <!--<subscriber-->
+    <!--    for="Products.ATContentTypes.interfaces.event.IATEvent-->
+    <!--         zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
+    <!--    handler=".content.GeoPosition.geopositionEventHandler" />-->
 
     <subscriber
         for="eea.dataservice.interfaces.IOrganisation

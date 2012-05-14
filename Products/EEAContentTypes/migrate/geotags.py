@@ -5,10 +5,14 @@ from Products.Five.browser import BrowserView
 from eea.geotags.interfaces import IGeoTags
 import logging
 from Products.Archetypes import atapi
-#import time
+import time
+import json
+import urllib
 import transaction
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
-from Products.EEAContentTypes.content.interfaces import IGeoPosition 
+#from Products.EEAContentTypes.content.interfaces import IGeoPositioned
+#from zope.interface import noLongerProvides
+#from zope.annotation.interfaces import IAnnotations
 
 class LocationMigrate(BrowserView):
     """ Run location migration for events
@@ -30,50 +34,58 @@ class LocationMigrate(BrowserView):
             try:
                 obj = brain.getObject()
                 url = obj.absolute_url()
-                loc = IGeoPosition(obj)
-                geo = IGeoTags(obj)
                 location = obj.location
                 if type(location) == tuple:
                     location = location[0]
                 location = location.encode('utf-8')
-                if not location:
+                if not location or \
+                            location == u'<street address>, <city>, <country>':
+                    obj.location = ''
                     logger.info("NO Location %s" % url)
                     no_location.append("NO Location %s" % url)
                     continue
-                #if len(geo.tags):
-                #    continue
-                #time.sleep(0.5)
 
-                geo = IGeoTags(obj) 
-                name = location
-                name_list = name.split(',') 
-                template = { 
-                    'type': 'FeatureCollection', 
-                    'features': [] 
-                } 
-                feature = { 
-                    'type': 'Feature', 
-                    'bbox': [], 
-                    'geometry': { 
-                        'type': 'Point', 
-                        'coordinates': [loc.latitude, loc.longitude], 
-                        }, 
-                    'properties': { 
-                        'name': '', 
-                        'title': name, 
-                        'description': name,
-                        'center': [loc.latitude, loc.longitude], 
-                        'country': loc.country_code, 
-                        'other':{ 
-                            'countryCode': loc.country_code, 
-                            'countryName': name_list[-1], 
-                            'adminName1': name_list[0], 
-                            'lat': loc.latitude, 
-                            'lng': loc.longitude, 
-                            'name': name_list[0], 
-                        }, 
-                        'tags' : "" 
-                        }
+                time.sleep(1.0)
+                params = {
+                          'address': location,
+                          'sensor' : 'false'}
+                u = urllib.urlopen(
+                    "http://maps.googleapis.com/maps/api/geocode/json?%s" % \
+                                                    urllib.urlencode(params))
+                gbuffer = u.read()
+                js = json.loads(gbuffer)
+                res = js.get('results')
+                if res:
+                    res = res[0]
+                else:
+                    item = "url: %s  location: %s" % (url, obj.location)
+                    not_found.append(item)
+                    continue
+
+                geo = IGeoTags(obj)
+                template = {
+                    'type': 'FeatureCollection',
+                    'features': []
+                }
+                loc = res['geometry']['location']
+                viewport = res['geometry']['viewport']
+                ne = viewport['northeast']
+                sw = viewport['southwest']
+                feature = {
+                    'type': 'Feature',
+                    'bbox': [sw['lat'], sw['lng'], ne['lat'], ne['lng']],
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [loc['lat'], loc['lng']],
+                        },
+                    'properties': {
+                        'name': location,
+                        'title': res['address_components'][0]['long_name'],
+                        'description': location,
+                        'center': [loc['lat'], loc['lng']],
+                        'other': res,
+                        'tags' : res['types']
+                    }
                 }
 
                 template['features'].append(feature)
