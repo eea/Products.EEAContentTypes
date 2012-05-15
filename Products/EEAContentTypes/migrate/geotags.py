@@ -10,9 +10,9 @@ import json
 import urllib
 import transaction
 logger = logging.getLogger('EEAContentTypes.geotypes.migrate')
-#from Products.EEAContentTypes.content.interfaces import IGeoPositioned
-#from zope.interface import noLongerProvides
-#from zope.annotation.interfaces import IAnnotations
+from Products.EEAContentTypes.content.interfaces import IGeoPositioned
+from zope.interface import noLongerProvides
+from zope.annotation.interfaces import IAnnotations
 
 class LocationMigrate(BrowserView):
     """ Run location migration for events
@@ -30,6 +30,7 @@ class LocationMigrate(BrowserView):
         no_location = ["No location"]
 
         count = 0
+
         for brain in brains:
             try:
                 obj = brain.getObject()
@@ -45,48 +46,91 @@ class LocationMigrate(BrowserView):
                     no_location.append("NO Location %s" % url)
                     continue
 
-                time.sleep(1.0)
-                params = {
-                          'address': location,
-                          'sensor' : 'false'}
-                u = urllib.urlopen(
-                    "http://maps.googleapis.com/maps/api/geocode/json?%s" % \
-                                                    urllib.urlencode(params))
-                gbuffer = u.read()
-                js = json.loads(gbuffer)
-                res = js.get('results')
-                if res:
-                    res = res[0]
-                else:
-                    item = "url: %s  location: %s" % (url, obj.location)
-                    not_found.append(item)
-                    continue
-
-                geo = IGeoTags(obj)
                 template = {
                     'type': 'FeatureCollection',
                     'features': []
                 }
-                loc = res['geometry']['location']
-                viewport = res['geometry']['viewport']
-                ne = viewport['northeast']
-                sw = viewport['southwest']
-                feature = {
-                    'type': 'Feature',
-                    'bbox': [sw['lat'], sw['lng'], ne['lat'], ne['lng']],
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [loc['lat'], loc['lng']],
-                        },
-                    'properties': {
-                        'name': location,
-                        'title': res['address_components'][0]['long_name'],
-                        'description': location,
-                        'center': [loc['lat'], loc['lng']],
-                        'other': res,
-                        'tags' : res['types']
+                # check if geoposition information is already set on the object
+                anno = IAnnotations(self.context)
+                anno_loc = anno.get(['coordonates'])
+                anno_country = anno.get(['country_code'])
+                if anno_loc and anno_country:
+                    latitude = anno_loc.get('latitude')
+                    longitude = anno_loc.get('longitude')
+                    country_code = anno_country.get('country_code')
+                    name = location
+                    name_list = name.split(',')
+                    feature = {
+                        'type': 'Feature',
+                        'bbox': [],
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [latitude, longitude],
+                            },
+                        'properties': {
+                            'name': '',
+                            'title': name,
+                            'description': name,
+                            'center': [latitude, longitude],
+                            'country': country_code,
+                            'other':{
+                                'countryCode': country_code,
+                                'countryName': name_list[-1],
+                                'adminName1': name_list[0],
+                                'lat': latitude,
+                                'lng': longitude,
+                                'name': name_list[0],
+                            },
+                            'tags' : ""
+                        }
                     }
-                }
+                    # remove these entries from annotation as they
+                    # are no longer needed, and remove IGeoPositioned  
+                    del(anno[['coordonates']])
+                    del(anno[['country_code']])
+                    noLongerProvides(obj, IGeoPositioned)
+                else:
+                    # search with google geoposition information for
+                    # current location
+                    time.sleep(1.0)
+                    params = {
+                              'address': location,
+                              'sensor' : 'false'}
+                    u = urllib.urlopen(
+                      "http://maps.googleapis.com/maps/api/geocode/json?%s" % \
+                                                      urllib.urlencode(params))
+                    gbuffer = u.read()
+                    js = json.loads(gbuffer)
+                    res = js.get('results')
+                    if res:
+                        res = res[0]
+                    else:
+                        item = "url: %s  location: %s" % (url, obj.location)
+                        not_found.append(item)
+                        continue
+
+                    loc = res['geometry']['location']
+                    viewport = res['geometry']['viewport']
+                    ne = viewport['northeast']
+                    sw = viewport['southwest']
+                    feature = {
+                        'type': 'Feature',
+                        'bbox': [sw['lat'], sw['lng'], ne['lat'], ne['lng']],
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [loc['lat'], loc['lng']],
+                            },
+                        'properties': {
+                            'name': location,
+                            'title': res['address_components'][0]['long_name'],
+                            'description': location,
+                            'center': [loc['lat'], loc['lng']],
+                            'other': res,
+                            'tags' : res['types']
+                        }
+                    }
+
+                geo = IGeoTags(obj)
 
                 template['features'].append(feature)
 
