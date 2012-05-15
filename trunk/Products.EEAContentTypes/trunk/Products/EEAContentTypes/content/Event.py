@@ -26,7 +26,8 @@ QuickEvent_schema['themes'].widget.description = \
         'If none apply please select default.'
 QuickEvent_schema['themes'].widget.description_msgid = \
         'EEAContentTypes_help_themes_event'
-QuickEvent_schema['themes'].widget.maxValues = 1
+# disabled maxValues customization #4788
+#QuickEvent_schema['themes'].widget.maxValues = 1
 QuickEvent_schema['description'].required = True
 
 for field in ExtensibleMetadata.schema.keys() + ['excludeFromNav']:
