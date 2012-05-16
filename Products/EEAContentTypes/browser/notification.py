@@ -1,7 +1,6 @@
 """ Send as notification """
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import PloneMessageFactory as _
 from Products.statusmessages.interfaces import IStatusMessage
 
 class SendAsNotification(object):
@@ -35,7 +34,7 @@ class SendAsNotification(object):
                 else:
                     status = \
                      '<span style="color:red">notification not yet sent</span>'
-                message = _((
+                message = ((
                     u'Email notification already generated. Please check under '
                     '<a title="Notification center" href="${url}/'
                     'folder_contents">notification center</a>. '
@@ -52,7 +51,7 @@ class SendAsNotification(object):
                                    id=obj_id,
                                    title=obj_title,
                                    relatedItem=obj_uid)
-        message = _((
+        message = ((
             u'Email notification object created. Check under '
             '<a title="Notification center" href="${url}/folder_contents">'
             'notification center</a> if you want to be sent'),
