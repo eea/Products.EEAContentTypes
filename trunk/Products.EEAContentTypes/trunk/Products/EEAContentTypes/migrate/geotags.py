@@ -22,16 +22,25 @@ class LocationMigrate(BrowserView):
         catalog = context.portal_catalog
         folder_path = '/'.join(context.getPhysicalPath())
         depth = 6 if self.context.portal_type == "Folder" else 0
-        brains = catalog.searchResults(portal_type = ('QuickEvent', 'Event'),
-             path = {'query': folder_path, 'depth': depth}, Language = "all",
-                                                        show_inactive = True)
+        portal_type = self.request.get('type')
+        # allow the selection of the portal type from the migration script 
+        # EX: http://localhost:8081/www/SITE/@@migrate2geotags?type=Organisation
+        if portal_type:
+            brains = catalog.searchResults(portal_type = portal_type,
+                        path = {'query': folder_path, 'depth': depth},
+                            Language ="all", show_inactive = True)
+        else:
+            brains = catalog.searchResults(portal_type = ('QuickEvent',
+                 'Event'), path = {'query': folder_path, 'depth': depth},
+                                   Language = "all", show_inactive = True)
+
         # get the brains from topic result if script is runned on a object
         # that is a topic
         if context.portal_type == 'Topic':
             brains = context.queryCatalog()
-        errors = ["Errors:"]
-        not_found = ["Not Found:"]
-        no_location = ["No location"]
+        errors = ["ERRORS:"]
+        not_found = ["NOT FOUND:"]
+        no_location = ["NO LOCATION:"]
 
         count = 0
 

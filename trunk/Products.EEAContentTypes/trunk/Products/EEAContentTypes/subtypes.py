@@ -112,13 +112,8 @@ class LocationSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
-        if getattr(self.context, 'portal_type', None) in ('Organisation',):
-            # No schema extender
-            #TODO Refactor location for Organisation and QuickEvent #4788
-            #TODO Add location field/widget for Event, see #4913
-            return []
         # quickevents has all information on the default editing form
-        elif getattr(self.context, 'portal_type', None) in ('QuickEvent',):
+        if getattr(self.context, 'portal_type', None) in ('QuickEvent',):
             self.multiple_location[0].schemata = 'default'
             return self.multiple_location
         return self.multiple_location
