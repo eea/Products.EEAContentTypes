@@ -4,7 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 class SendAsNotification(object):
-    """ Send the context email notification """
+    """ Send the context as email notification """
 
     def __init__(self, context, request):
         self.context = context
