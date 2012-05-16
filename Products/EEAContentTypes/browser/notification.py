@@ -34,14 +34,9 @@ class SendAsNotification(object):
                 else:
                     status = \
                      '<span style="color:red">notification not yet sent</span>'
-                message = ((
-                    u'Email notification already generated. Please check under '
-                    '<a title="Notification center" href="${url}/'
-                    'folder_contents">notification center</a>. '
-                    'Status: ${status}'),
-                            mapping = {u'url' : notif_center.absolute_url(),
-                                       u'status' : status})
-
+                message = u'''Email notification already generated. Please check under 
+                              <a title="Notification center" href="%s/folder_contents">notification center</a>.
+                               Status: %s ''' % (notif_center.absolute_url(), status)
                 IStatusMessage(self.request).addStatusMessage(message)
                 return self.request.RESPONSE.redirect(
                     self.context.absolute_url())
@@ -51,10 +46,8 @@ class SendAsNotification(object):
                                    id=obj_id,
                                    title=obj_title,
                                    relatedItem=obj_uid)
-        message = ((
-            u'Email notification object created. Check under '
-            '<a title="Notification center" href="${url}/folder_contents">'
-            'notification center</a> if you want to be sent'),
-                    mapping={u'url' : notif_center.absolute_url()})
+        message = u'''Email notification object created. Check under
+            <a title="Notification center" href="%s/folder_contents">notification center</a>
+             if you want to be sent''' % (notif_center.absolute_url())
         IStatusMessage(self.request).addStatusMessage(message)
         return self.request.RESPONSE.redirect(self.context.absolute_url())
