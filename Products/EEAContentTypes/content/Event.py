@@ -22,7 +22,7 @@ QuickEvent_schema.delField('text')
 QuickEvent_schema['attendees'].schemata = 'metadata'
 QuickEvent_schema['eventUrl'].required = True
 QuickEvent_schema['themes'].widget.description = \
-        'Please choose one theme to relate with this Event. ' \
+        'Please choose max 3 themes to relate with this Event. ' \
         'If none apply please select default.'
 QuickEvent_schema['themes'].widget.description_msgid = \
         'EEAContentTypes_help_themes_event'

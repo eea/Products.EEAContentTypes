@@ -15,15 +15,15 @@
     <!--         zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
     <!--    handler=".content.GeoPosition.geopositionEventHandler" />-->
 
-    <subscriber
-        for="eea.dataservice.interfaces.IOrganisation
-             zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-        handler=".content.GeoPosition.geopositionEventHandler" />
+    <!--<subscriber-->
+    <!--    for="eea.dataservice.interfaces.IOrganisation-->
+    <!--         zope.lifecycleevent.interfaces.IObjectCreatedEvent"-->
+    <!--    handler=".content.GeoPosition.geopositionEventHandler" />-->
 
-    <subscriber
-        for="eea.dataservice.interfaces.IOrganisation
-             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".content.GeoPosition.geopositionEventHandler" />
+    <!--<subscriber-->
+    <!--    for="eea.dataservice.interfaces.IOrganisation-->
+    <!--         zope.lifecycleevent.interfaces.IObjectModifiedEvent"-->
+    <!--    handler=".content.GeoPosition.geopositionEventHandler" />-->
 
     <utility provides=".content.interfaces.IGeoPositionDecider"
         factory=".content.GeoPosition.GeoPositionDecider" />
