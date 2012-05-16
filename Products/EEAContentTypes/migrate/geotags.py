@@ -51,9 +51,11 @@ class LocationMigrate(BrowserView):
                 obj = brain.getObject()
                 url = obj.absolute_url()
                 location = obj.location
-                if type(location) == tuple and len(location):
+                location_len = len(location)
+                if type(location) == tuple and location_len:
                     location = location[0]
-                location = location.encode('utf-8')
+                if location_len:
+                    location = location.encode('utf-8')
                 if not location or \
                             location == u'<street address>, <city>, <country>':
                     obj.location = ''
@@ -132,7 +134,7 @@ class LocationMigrate(BrowserView):
                                                     urllib.urlencode(params))
                         ybuffer = u.read()
                         js = json.loads(ybuffer)
-                        res = js['ResultSet']['Results']
+                        res = js['ResultSet'].get('Results')
                         if res:
                             res = res[0]
                             latitude = res.get('latitude')
@@ -144,6 +146,11 @@ class LocationMigrate(BrowserView):
                         else:
                             item = "url: %s  location: %s" % (url, obj.location)
                             not_found.append(item)
+                            # add the curent location to the lines field so that
+                            # we don't repeat over the string location
+                            field = obj.getField('location')
+                            atapi.LinesField.set(field, obj, obj.location)
+                            obj.reindexObject()
                             continue
 
                 geo = IGeoTags(obj)
