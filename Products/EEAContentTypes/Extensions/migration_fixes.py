@@ -559,3 +559,25 @@ def fix_categories_maps(self):
 
     logging.info("Done changing figure types")
     return "Done"
+
+def update_publications_subobjects(self):
+    """ Update publications subobjects
+    """
+    cat = getToolByName(self, 'portal_catalog')
+    query = {'Language': 'all',
+             'portal_type': ['Report']}
+
+    brains = cat(**query)
+    count = 0
+    logger.info('Start updating subobjects for all Publications')
+    for brain in brains:
+        logger.info('Updating %s' % brain.getURL())
+        obj = brain.getObject()
+        obj.setConstrainTypesMode(0)
+        count += 1
+        if count == 10:
+            count = 0
+            transaction.commit()
+
+    logger.info('Done updating subobjects for all Publications')
+    return "Done"

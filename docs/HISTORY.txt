@@ -3,6 +3,11 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Upgrade step: add an External Method called update_publications_subobjects with:
+   module name -  Products.EEAContentTypes.migration_fixes
+   function name - update_publications_subobjects
+   Execute it
+   [ghicaale refs #5178]
  * Bug fix: fixed notification.py so PO files can be generated
    [prospchr #5159]
  * Bug fix: added migration script to fix some figuretype for some figures 
@@ -15,7 +20,8 @@ Changelog
  * Upgrade step: add an External Method called fix_categories_maps with:
    module name -  Products.EEAContentTypes.migration_fixes 
    function name - fix_categories_maps
-   Execute it [tiberich #5082] 
+   Execute it
+   [tiberich #5082]
 
 4.20 - (2012-04-27)
 -------------------
