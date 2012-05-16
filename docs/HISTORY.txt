@@ -3,6 +3,8 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed notification.py so PO files can be generated
+   [prospchr #5159]
  * Bug fix: added migration script to fix some figuretype for some figures 
    [tiberich #5082]
  * Bug fix: fixed floating issues with related portlets [ichimdav #5157]
