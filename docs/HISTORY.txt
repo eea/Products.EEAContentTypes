@@ -3,6 +3,9 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Upgrade step: with a serviceWWW instance from the root of the site run:
+    www/@@migrate2geotags -- to migrate Events and QuickEvents to geotags 
+    www/@@migrate2geotags?type=Organisation -- to migrate Organisation to geotags
  * Upgrade step: add an External Method called update_publications_subobjects with:
    module name -  Products.EEAContentTypes.migration_fixes
    function name - update_publications_subobjects
