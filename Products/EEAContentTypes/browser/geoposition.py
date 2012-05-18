@@ -137,12 +137,12 @@ class GeoPositionView(BrowserView):
         # link to be hiddden on maps info
         location = self.context.location
         if isinstance(location, (tuple, list)):
-            location = u', '.join(location)
+            location = ', '.join(location)
 
         map_data = {'api_key':      api_key,
                     'latitude':     geoobject.latitude,
                     'longitude':    geoobject.longitude,
-                    'location':     location,
+                    'location':     location.encode('utf-8'),
                     'external_url': obj_url,
                     'point_zoom':   geo_properties.getProperty(
                         'PointZoom_single', 'null') or 'null',
@@ -299,12 +299,12 @@ class GeoMapData(BrowserView):
 
                 location = obj.location
                 if isinstance(location, (tuple, list)):
-                    location = u', '.join(location)
+                    location = ', '.join(location)
                 reshtml_add(YAHOO_MULTI_MARKER_TPL % {
                     'id': 'mk_%s' % obj.id,
                     'title': obj.Title(),
                     'description': obj_desc,
-                    'location': location,
+                    'location': location.encode('utf-8'),
                     'period': '%s to %s' % (start_date, end_date),
                     'link': obj.absolute_url()})
 
