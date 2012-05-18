@@ -68,7 +68,7 @@ class LocationMigrate(BrowserView):
                 if not location or \
                             location == u'<street address>, <city>, <country>':
                     obj.location = ''
-                    logger.info("NO Location %s" % url)
+                    #logger.info("NO Location %s" % url)
                     no_location.append("NO Location %s" % url)
                     continue
 
@@ -154,6 +154,7 @@ class LocationMigrate(BrowserView):
                         # no geocode was found for the given location
                         else:
                             item = "url: %s  location: %s" % (url, obj.location)
+                            logger.info("NOT FOUND: %s" % item)
                             not_found.append(item)
                             # add the curent location to the lines field so that
                             # we don't repeat over the string location
