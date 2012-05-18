@@ -69,6 +69,8 @@ class RelationsSchemaExtender(object):
         self.context = context
 
     def getFields(self):
+        """ Returns relatedItems field
+        """
         return self.fields
 
 class LocationSchemaExtender(object):
@@ -115,6 +117,29 @@ class LocationSchemaExtender(object):
         # quickevents has all information on the default editing form
         if getattr(self.context, 'portal_type', None) in ('QuickEvent',):
             self.multiple_location[0].schemata = 'default'
+            self.multiple_location[0].widget.label = 'Event Location'
+            self.multiple_location[0].widget.label_msgid = \
+                                                    "label_event_location"
+            self.multiple_location[0].widget.description = \
+                             'Geographical location ' \
+                             'related to this Event. Click Edit button' \
+                             ' to select a location'
+            self.multiple_location[0].widget.description_msgid = (
+                            'EEAContentTypes_help_location_event')
+
+            return self.multiple_location
+        # likewise Organisation had the previous location widget on default
+        if getattr(self.context, 'portal_type', None) in ('Organisation',):
+            self.multiple_location[0].schemata = 'default'
+            self.multiple_location[0].widget.label = "Organisation Address"
+            self.multiple_location[0].widget.label_msgid = \
+                                                    "dataservice_label_address"
+            self.multiple_location[0].widget.description = \
+                             'Geographical location ' \
+                             'related to this Organisation. Click Edit button' \
+                             ' to select a location'
+            self.multiple_location[0].widget.description_msgid = \
+                                                    "dataservice_help_address"
             return self.multiple_location
         return self.multiple_location
 
@@ -317,8 +342,9 @@ def swf_check(url):
 
     """
     host, path, query, fragment = break_url(url)
-
-    return False    
+    # TODO: plone4 this return false shouldn't be here
+    # or the rules after it should be deleted
+    return False
 
     if "discomap.eea.europa.eu" in host and 'index.swf' in path:
         return False
