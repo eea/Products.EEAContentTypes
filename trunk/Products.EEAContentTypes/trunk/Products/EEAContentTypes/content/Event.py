@@ -10,7 +10,6 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IQuickEvent
-from eea.locationwidget.locationwidget import LocationWidget
 from eea.themecentre.interfaces import IThemeTagging
 from zExceptions import NotFound
 import zope.interface
@@ -37,21 +36,8 @@ for field in ExtensibleMetadata.schema.keys() + ['excludeFromNav']:
         QuickEvent_schema[field].widget.visible = \
             {'view':'invisible', 'edit':'invisible'}
 
-QuickEvent_schema['location'].widget = LocationWidget(
-    description="Click Edit to pinpoint to event locations",
-    description_msgid="help_event_location",
-    label="Event Location",
-    label_msgid="label_event_location",
-    i18n_domain="plone")
-QuickEvent_schema['location'].widget.description = (
-    "Use the address to retrieve the location <em>(e.g. "
-    "Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>")
-QuickEvent_schema['location'].widget.description_msgid = (
-    'EEAContentTypes_help_location_event')
-
 #TODO: these doesn't appear to have effect
 QuickEvent_schema['themes'].schemata = 'default'
-QuickEvent_schema['location'].schemata = 'default'
 QuickEvent_schema['subject'].schemata = 'default'
 
 class QuickEvent(ATEvent, ThemeTaggable):
