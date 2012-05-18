@@ -185,6 +185,7 @@ class LocationMigrate(BrowserView):
                 errors.append(error_msg)
                 continue
 
+        logger.info("Migration to geotags DONE")
         if len(not_found) > 1 or len(no_location) > 1:
             return (not_found, no_location, errors)
         else:
