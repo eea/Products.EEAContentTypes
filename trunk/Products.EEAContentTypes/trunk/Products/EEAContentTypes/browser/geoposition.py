@@ -31,13 +31,16 @@ class GeoLocationTools(BrowserView):
         """ Is geo container?
         """
         syn = getToolByName(self.context, 'portal_syndication')
-        catalog = getToolByName(self.context, 'portal_catalog')
+        context = self.context
+        if hasattr(context, 'context'):
+            context = context.context
+        catalog = getToolByName(context, 'portal_catalog')
 
-        if not syn.isSyndicationAllowed(self.context):
+        if not syn.isSyndicationAllowed(context):
             return False
 
-        if self.context.meta_type == 'ATTopic':
-            cont = aq_parent(aq_inner(self.context))
+        if context.meta_type == 'ATTopic':
+            cont = aq_parent(aq_inner(context))
             path = '/'.join(cont.getPhysicalPath())
         else:
             path = '/'.join(self.context.getPhysicalPath())
@@ -294,11 +297,14 @@ class GeoMapData(BrowserView):
                 end_date = DateTime(obj.end()).strftime(
                     props.localLongTimeFormat)
 
+                location = obj.location
+                if isinstance(location, (tuple, list)):
+                    location = u', '.join(location)
                 reshtml_add(YAHOO_MULTI_MARKER_TPL % {
                     'id': 'mk_%s' % obj.id,
                     'title': obj.Title(),
                     'description': obj_desc,
-                    'location': obj.location.encode('utf8'),
+                    'location': location,
                     'period': '%s to %s' % (start_date, end_date),
                     'link': obj.absolute_url()})
 
@@ -339,7 +345,8 @@ class GeoMapView(BrowserView):
     def __call__(self):
         map_template = ''
         api_key = ''
-
+        if hasattr(self.context, 'context'):
+            self.context = self.context.context
         pu = getToolByName(self.context, 'portal_url')
         #portal = pu.getPortalObject()
         portal_url = pu.absolute_url()
