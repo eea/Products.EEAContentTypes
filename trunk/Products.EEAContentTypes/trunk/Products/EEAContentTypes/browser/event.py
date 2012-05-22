@@ -63,12 +63,17 @@ class SubmitEvent(BrowserView):
         context = self.context
         mb = getToolByName(context, 'portal_membership')
         roles = mb.getAuthenticatedMember().getRoles()
+        pp = getToolByName(context, 'portal_properties')
+        # get creator name from the site_properties quick_event creator property
+        creator = pp.site_properties.getProperty(
+                                                'quick_event_anonymous_creator')
+        creators = creator if creator else 'demarant'
         if 'Manager' in roles:
             return True
         # set Creator to EEA if quickevent is being submitted by the 
         # anonymous quickevent submit #4788
         elif 'Anonymous' in roles:
-            self.context.setCreators('EEA')
+            self.context.setCreators(creators)
 
         wf = getToolByName(context, 'portal_workflow')
         state = wf.getInfoFor(context, 'review_state')

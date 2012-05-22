@@ -3,9 +3,14 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Upgrade step: in www/portal_properties/site_properties:
+   - add quick_event_anonymous_creator property of type string with the name of the user 
+     that should be the creator of the anonymous quick events  
+     [ichimdav #4788]
  * Upgrade step: with a serviceWWW instance from the root of the site run:
     www/SITE/@@migrate2geotags -- to migrate Events and QuickEvents to geotags 
     www/SITE/@@migrate2geotags?type=Organisation -- to migrate Organisation to geotags
+    [ichimdav #4788]
  * Upgrade step: add an External Method called update_publications_subobjects with:
    module name -  Products.EEAContentTypes.migration_fixes
    function name - update_publications_subobjects
