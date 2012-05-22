@@ -61,10 +61,14 @@ class SubmitEvent(BrowserView):
         """ Can view
         """
         context = self.context
-
         mb = getToolByName(context, 'portal_membership')
-        if 'Manager' in mb.getAuthenticatedMember().getRoles():
+        roles = mb.getAuthenticatedMember().getRoles()
+        if 'Manager' in roles:
             return True
+        # set Creator to EEA if quickevent is being submitted by the 
+        # anonymous quickevent submit #4788
+        elif 'Anonymous' in roles:
+            self.context.setCreators('EEA')
 
         wf = getToolByName(context, 'portal_workflow')
         state = wf.getInfoFor(context, 'review_state')
