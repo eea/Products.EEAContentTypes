@@ -66,8 +66,11 @@ class LocationMigrate(BrowserView):
                 if location_len:
                     location = location.encode('utf-8')
                 if not location or \
-                            location == u'<street address>, <city>, <country>':
-                    obj.location = ''
+                            location == '<street address>, <city>, <country>':
+                    obj.location = ()
+                    if IGeoPositioned.providedBy(obj):
+                        noLongerProvides(obj, IGeoPositioned)
+                    obj.reindexObject()
                     #logger.info("NO Location %s" % url)
                     no_location.append("NO Location %s" % url)
                     continue
@@ -78,7 +81,7 @@ class LocationMigrate(BrowserView):
                 }
                 # check if geoposition information is already set on the object
                 # and if so we make a geotag from the current information
-                anno = IAnnotations(self.context)
+                anno = IAnnotations(obj)
                 anno_loc = anno.get(['coordonates'])
                 anno_country = anno.get(['country_code'])
                 name = location
@@ -160,6 +163,8 @@ class LocationMigrate(BrowserView):
                             # we don't repeat over the string location
                             field = obj.getField('location')
                             atapi.LinesField.set(field, obj, obj.location)
+                            if IGeoPositioned.providedBy(obj):
+                                noLongerProvides(obj, IGeoPositioned)
                             obj.reindexObject()
                             continue
 
