@@ -3,6 +3,8 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Feature: use a subscriber to add dcterms:replacedBy and dcterms:replaces
+   to IVersionEnhanced content [tiberich #5129]
  * Upgrade step: in www/portal_properties/site_properties:
    - add quick_event_anonymous_creator property of type string with the name of the user 
      that should be the creator of the anonymous quick events  
