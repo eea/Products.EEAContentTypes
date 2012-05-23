@@ -21,6 +21,9 @@ from zope.interface import implements
 import logging
 from plone.i18n.locales.interfaces import ICountryAvailability
 
+from eea.themecentre.interfaces import IThemeTagging
+from eea.geotags.interfaces import IGeoTags
+
 logger = logging.getLogger('Products.EEAContentTypes.browser.geoposition')
 
 
@@ -189,6 +192,7 @@ class GeoMapData(BrowserView):
     def __call__(self, cc=None, tc=None, **kwargs):
         #TODO: kwargs to be used for filter call
 
+        
         props = getToolByName(self.context, 'portal_properties').site_properties
         placemarkers = []
         placemarkers_add = placemarkers.append
@@ -198,7 +202,6 @@ class GeoMapData(BrowserView):
         res_html = []
         reshtml_add = res_html.append
 
-        # Get IGeoPositioned objects
         syn = getToolByName(self.context, 'portal_syndication')
         default_max = syn.getMaxItems()
         maxi = syn.getMaxItems(self.context)
@@ -209,7 +212,9 @@ class GeoMapData(BrowserView):
         objects = [obj.getObject() for obj in objects]
 
         for obj in objects:
-            if IGeoPositioned.providedBy(obj):
+            #if IGeoPositioned.providedBy(obj):
+            geotags = IGeoTags(obj).tags
+            if geotags:
                 placemarkers_add(obj)
 
         # Country widget
@@ -233,8 +238,12 @@ class GeoMapData(BrowserView):
         vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
         themeVocab = vocabFactory(self)
         for obj in placemarkers:
-            geoobject = IGeoPosition(obj)
-            country_code = getattr(geoobject, 'country_code', '')
+            # #3355 get first geotag for the events map
+            geotags = IGeoTags(obj).tags
+            geoobject = geotags['features'][0]['properties']
+            country_code = geoobject.get('country', '')
+            country_code = country_code if country_code else \
+                    geoobject['other']['address_components'][-1]['short_name']
             country_name = country_list.get(country_code.lower(), '')
 
             if country_code:
@@ -247,12 +256,8 @@ class GeoMapData(BrowserView):
                 country_inf['Other'] += 1
 
             # Set theme widget info
-            #TODO: general method to get themes list
             obj_theme = []
-            try:
-                obj_theme.extend(obj.getThemes())
-            except Exception, err:
-                logger.info(err)
+            obj_theme.extend(IThemeTagging(obj).tags)
             for th in obj_theme:
                 if th != 'default':
                     th_count = theme_inf_sort.get(th, 0)
@@ -268,8 +273,10 @@ class GeoMapData(BrowserView):
                ((theme_filter is None) or (theme_filter is not None
                                            and theme_filter in obj_theme)):
 
-                ob_lat = geoobject.latitude
-                ob_long = geoobject.longitude
+                ob_lat = geoobject.get('lat')
+                ob_lat = ob_lat if ob_lat else geoobject['center'][0] 
+                ob_long = geoobject.get('lng')
+                ob_long = ob_long if ob_long else geoobject['center'][1]
 
                 if (ob_lat, ob_long) in tmp_identical.keys():
                     if float(ob_long) > 0:
@@ -286,7 +293,7 @@ class GeoMapData(BrowserView):
                 res_add('%s|%s|mk_%s|%s|%s' % (ob_lat,
                                                ob_long,
                                                obj.id,
-                                               obj.Title(),
+                                               obj.Title().decode('utf-8'),
                                                'mk_GEOTYPE'))
 
                 obj_desc = obj.Description()
@@ -299,7 +306,7 @@ class GeoMapData(BrowserView):
 
                 location = obj.location
                 if isinstance(location, (tuple, list)):
-                    location = ', '.join(location)
+                    location = u', '.join(location)
                 reshtml_add(YAHOO_MULTI_MARKER_TPL % {
                     'id': 'mk_%s' % obj.id,
                     'title': obj.Title(),
@@ -330,8 +337,11 @@ class GeoMapData(BrowserView):
                 'onclick="javascript:selectTheme(this);">%s (%s)</span>') % (
                     th, th_info[0], th_info[1])
 
-        return '%s####%s####%s####%s' % (
-            '###'.join(res), ''.join(res_html), str(country_html), theme_html)
+        result = '%s' % '###'.join(res)
+        result += '####%s' % ''.join(res_html).decode('utf8')
+        result += '####%s' % country_html
+        result += '####%s' % theme_html
+        return result
 
 class GeoMapView(BrowserView):
     """ Geo map view """
