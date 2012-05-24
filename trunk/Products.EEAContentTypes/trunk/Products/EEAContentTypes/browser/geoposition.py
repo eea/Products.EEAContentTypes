@@ -1,6 +1,5 @@
 """ Geo position
 """
-from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.interfaces import IGeoPosition
@@ -43,17 +42,18 @@ class GeoLocationTools(BrowserView):
             return False
 
         if context.meta_type == 'ATTopic':
-            cont = aq_parent(aq_inner(context))
-            path = '/'.join(cont.getPhysicalPath())
+            res = context.queryCatalog()
+            # check if result of topic query contains events 
+            res = 'true' if 'Products.ATContentTypes.interfaces.event.IATEvent'\
+                 in res[0].object_provides else ''
         else:
             path = '/'.join(self.context.getPhysicalPath())
-        res = catalog.searchResults({
-                    'path' : { 'query': path, 'depth': 1},
-                    'object_provides':
-                    'Products.ATContentTypes.interfaces.event.IATEvent'
-                    })
-
-        if len(res) > 0:
+            res = catalog.searchResults({
+                        'path' : { 'query': path, 'depth': 1},
+                        'object_provides':
+                        'Products.ATContentTypes.interfaces.event.IATEvent'
+                        })
+        if len(res):
             return True
         return False
 
