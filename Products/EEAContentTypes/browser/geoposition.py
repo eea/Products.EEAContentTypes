@@ -50,7 +50,7 @@ class GeoLocationTools(BrowserView):
         res = catalog.searchResults({
                     'path' : { 'query': path, 'depth': 1},
                     'object_provides':
-                    'Products.EEAContentTypes.content.interfaces.IGeoPositioned'
+                    'Products.ATContentTypes.interfaces.event.IATEvent'
                     })
 
         if len(res) > 0:
@@ -242,8 +242,12 @@ class GeoMapData(BrowserView):
             geotags = IGeoTags(obj).tags
             geoobject = geotags['features'][0]['properties']
             country_code = geoobject.get('country', '')
-            country_code = country_code if country_code else \
+            try:
+                country_code = country_code if country_code else \
                     geoobject['other']['address_components'][-1]['short_name']
+            except Exception:
+                # no country code exists so we skip this item
+                continue
             country_name = country_list.get(country_code.lower(), '')
 
             if country_code:

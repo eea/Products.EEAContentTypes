@@ -57,8 +57,6 @@ class LocationMigrate(BrowserView):
 
         for brain in brains:
             try:
-                import pdb; pdb.set_trace( )
-                
                 obj = brain.getObject()
                 url = obj.absolute_url()
                 location = obj.location
