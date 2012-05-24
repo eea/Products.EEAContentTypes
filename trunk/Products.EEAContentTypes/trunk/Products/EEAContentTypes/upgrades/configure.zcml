@@ -29,4 +29,16 @@
       />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="416"
+    destination="419"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+      title="Add new CloudVideo ContentType from EEAContentTypes"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_4.19"
+      />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
