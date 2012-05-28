@@ -43,19 +43,20 @@ class GeoLocationTools(BrowserView):
 
         if context.meta_type == 'ATTopic':
             res = context.queryCatalog()
-            # check if result of topic query contains events 
+            # check if result of topic query contains events
             res = 'true' if 'Products.ATContentTypes.interfaces.event.IATEvent'\
                  in res[0].object_provides else ''
         else:
             path = '/'.join(self.context.getPhysicalPath())
             res = catalog.searchResults({
-                        'path' : { 'query': path, 'depth': 1},
+                        'path': {'query': path, 'depth': 1},
                         'object_provides':
                         'Products.ATContentTypes.interfaces.event.IATEvent'
                         })
         if len(res):
             return True
         return False
+
 
 class GoogleEarthView(object):
     """ Google Earth View """
@@ -105,6 +106,7 @@ class GoogleEarthView(object):
             res_add(kml_info)
 
         return res
+
 
 class GeoPositionView(BrowserView):
     """ Geo Position View """
@@ -157,6 +159,7 @@ class GeoPositionView(BrowserView):
         res = map_template % map_data
         return res
 
+
 class GeoConverter(BrowserView):
     """ Geo converter """
     implements(IGeoConverter)
@@ -181,6 +184,7 @@ class GeoConverter(BrowserView):
         return '<script type="text/javascript">var geo_data = "%s"</script>' % (
             res,)
 
+
 class GeoMapData(BrowserView):
     """ Geo map data """
     implements(IGeoMapData)
@@ -191,8 +195,6 @@ class GeoMapData(BrowserView):
 
     def __call__(self, cc=None, tc=None, **kwargs):
         #TODO: kwargs to be used for filter call
-
-        
         props = getToolByName(self.context, 'portal_properties').site_properties
         placemarkers = []
         placemarkers_add = placemarkers.append
@@ -212,9 +214,8 @@ class GeoMapData(BrowserView):
         objects = [obj.getObject() for obj in objects]
 
         for obj in objects:
-            #if IGeoPositioned.providedBy(obj):
             geotags = IGeoTags(obj).tags
-            if geotags:
+            if geotags.get('features'):
                 placemarkers_add(obj)
 
         # Country widget
@@ -278,7 +279,7 @@ class GeoMapData(BrowserView):
                                            and theme_filter in obj_theme)):
 
                 ob_lat = geoobject.get('lat')
-                ob_lat = ob_lat if ob_lat else geoobject['center'][0] 
+                ob_lat = ob_lat if ob_lat else geoobject['center'][0]
                 ob_long = geoobject.get('lng')
                 ob_long = ob_long if ob_long else geoobject['center'][1]
 
@@ -346,6 +347,7 @@ class GeoMapData(BrowserView):
         result += '####%s' % country_html
         result += '####%s' % theme_html
         return result
+
 
 class GeoMapView(BrowserView):
     """ Geo map view """
