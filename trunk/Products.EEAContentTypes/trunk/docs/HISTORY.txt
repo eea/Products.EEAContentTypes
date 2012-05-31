@@ -15,8 +15,8 @@
   that should be the creator of the anonymous quick events
   [ichimdav #4788]
 * Upgrade step: with a serviceWWW instance from the root of the site run:
-   www/SITE/@@migrate2geotags -- to migrate Events and QuickEvents to geotags
-   www/SITE/@@migrate2geotags?type=Organisation -- to migrate Organisation to geotags
+  www/SITE/@@migrate2geotags -- to migrate Events and QuickEvents to geotags
+  www/SITE/@@migrate2geotags?type=Organisation -- to migrate Organisation to geotags
   [ichimdav #4788]
 * Upgrade step: add an External Method called update_publications_subobjects with:
   module name -  Products.EEAContentTypes.migration_fixes
