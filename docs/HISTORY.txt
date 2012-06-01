@@ -3,6 +3,9 @@
 
 4.21-dev - (unreleased)
 -----------------------
+* Change: Images on highlights and articles are now wider and span entire 
+  content area. this change also fixes some floating layout issues.
+  [demarant fixes #5023 refs #4206]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
 * Bug fix: set effective date to now() when a content item is first published
