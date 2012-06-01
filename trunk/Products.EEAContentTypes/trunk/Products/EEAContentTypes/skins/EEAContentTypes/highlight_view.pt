@@ -23,22 +23,23 @@
               <tal:description tal:content="teaserDescription" >
                 News summary</tal:description>
             </div>
-            <blockquote class="quote-left" tal:condition="hasQuote" >
-              <p tal:content="here/getQuotationText" />
-              <p class="source" tal:content="here/getQuotationSource" />
-            </blockquote>
-            <div class="figure-right related-in-content-area"
+            <div tal:omit-tag=""
               tal:define="figure_title here/getImageCaption;
               figure_note python:test(not here.Description() or here.Description() == here.getTeaser(),
               here.getImageNote(), here.getTeaser());
+              figure_scale string:xlarge;
               figure_source_copyright here/getImageCopyright;
               figure_link here/getImageLink">
 
               <tal:figure tal:condition="figure">
-                <metal:thefigure use-macro="here/media_macros/macros/figure-plus" />
+                <metal:thefigure use-macro="here/media_macros/macros/figure-plus-wide" />
               </tal:figure>
 
             </div>
+            <blockquote class="quote-left" tal:condition="hasQuote" >
+              <p tal:content="here/getQuotationText" />
+              <p class="source" tal:content="here/getQuotationSource" />
+            </blockquote>
           </tal:descriptionOrTeaser>
         </metal:teaserFigureRelated>
         <metal:field use-macro="python:context.widget('text', mode='view')">
