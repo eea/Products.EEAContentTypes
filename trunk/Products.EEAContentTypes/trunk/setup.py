@@ -56,6 +56,7 @@ setup(name=NAME,
           'rdflib',
           'collective.monkeypatcher',
           'eea.reports',
+          'eea.relations',
 
           'lovely.memcached',
 

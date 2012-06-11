@@ -8,11 +8,11 @@
         name="Themepage Promotion Sections"
         />
 
-    <subscriber factory=".marshaller.VersioningModifier" 
+    <subscriber factory=".marshaller.VersioningModifier"
                 for="eea.versions.interfaces.IVersionEnhanced"
                 provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
 
-    <subscriber handler=".events.handle_content_state_changed" 
+    <subscriber handler=".events.handle_content_state_changed"
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
@@ -32,9 +32,8 @@
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.LocationSchemaExtender"/>
 
-    <!-- #4705 It should be for IBaseContent once generic relation works #4908 -->
     <adapter name="eea.relationsfield"
-        for="Products.EEAContentTypes.content.interfaces.IExternalHighlight"
+        for="eea.relations.interfaces.IBaseObject"
         factory=".subtypes.RelationsSchemaExtender" />
 
     <adapter name="eea.themesfield"
