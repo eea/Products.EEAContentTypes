@@ -32,8 +32,9 @@
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.LocationSchemaExtender"/>
 
+    <!-- #4705 It should be for IBaseContent once generic relation works #4908 -->
     <adapter name="eea.relationsfield"
-        for="eea.relations.interfaces.IBaseObject"
+        for="Products.EEAContentTypes.content.interfaces.IExternalHighlight"
         factory=".subtypes.RelationsSchemaExtender" />
 
     <adapter name="eea.themesfield"

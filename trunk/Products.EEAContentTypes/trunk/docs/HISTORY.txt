@@ -3,8 +3,6 @@
 
 4.21-dev - (unreleased)
 -----------------------
-* Change: Use eea.relations widget on all content-types
-  [voineali fixes #4705]
 * Change: Images on highlights and articles are now wider and span entire
   content area. this change also fixes some floating layout issues.
   [demarant fixes #5023 refs #4206]
