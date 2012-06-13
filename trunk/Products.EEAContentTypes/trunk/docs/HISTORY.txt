@@ -1,6 +1,9 @@
 ﻿Changelog
 =========
 
+4.22-dev - (unreleased)
+-----------------------
+
 4.21 - (2012-06-13)
 -------------------
 * Change: Images on highlights and articles are now wider and span entire
