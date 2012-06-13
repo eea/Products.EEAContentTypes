@@ -1,0 +1,20 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five">
+
+    <include package=".normalizer" file="overrides.zcml" />
+
+    <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
+    <adapter factory=".syndication.FeedLogo" />
+    <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
+
+    <utility factory=".subtypes.Subtyper" />
+    <utility
+        name="p4a.video.TopicVideoContainer"
+        factory=".subtypes.TopicVideoContainerDescriptor" />
+
+    <utility
+        component=".subtypes.swf_check"
+        name="flashswf" />
+
+</configure>

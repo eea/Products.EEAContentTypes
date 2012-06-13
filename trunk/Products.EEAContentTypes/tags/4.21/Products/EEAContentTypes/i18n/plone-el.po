@@ -1,0 +1,111 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2008-03-05 10:03+CET\n"
+"PO-Revision-Date: 2008-11-12 11:27+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Code: el\n"
+"Language-Name: Greek\n"
+"Domain: plone\n"
+
+#. Site map
+msgid "Site map"
+msgstr "Χάρτης της ιστοθέσης"
+
+#. Orginal text:
+#. Accessibility
+msgid "Accessibility"
+msgstr "Προσβασιμότητα"
+
+#. Orginal text:
+#. FAQ
+msgid "FAQ"
+msgstr "Συχνές ερωτήσεις"
+
+#. Orginal text:
+#. Glossary
+msgid "Glossary"
+msgstr "Γλωσσάριο"
+
+#. Orginal text:
+#. Subscriptions
+msgid "Subscriptions"
+msgstr "Εγγραφές"
+
+#. Original text:
+#. Find older highlights in the
+msgid "find_older_highlights"
+msgstr "Εύρεση παλαιότερων σημαντικών γεγονότων στο"
+
+#. Original text: archive
+msgid "archive"
+msgstr "αρχείο"
+
+#. Translate the word 'more' in messages like 'more reports', 'more images'
+msgid "morelink_multiple"
+msgstr "περισσότερα"
+
+#. Default: "More multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:34
+msgid "More multimedia"
+msgstr "Περισσότερα πολυμέσα"
+
+#. Default: "Multimedia"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:9
+msgid "Multimedia"
+msgstr "Πολυμέσα"
+
+#. Default: "Multimedia highlights"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:19
+msgid "Multimedia highlights"
+msgstr "Σημαντικά πολυμέσα"
+
+#. Default: "Play in popup window"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/document_relateditems.pt:46
+msgid "Play in popup window"
+msgstr "Αναπαραγωγή σε αναδυόμενο παράθυρο"
+
+#. Default: "Read more"
+#: ../eea-buildout-clean/products/EEAContentTypes/skins/EEAContentTypes_public/portlet_feed.pt:34
+msgid "Read more"
+msgstr "Διαβάστε περισσότερα"
+
+msgid "Switch theme"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "Press release"
+msgstr ""
+
+msgid "box_morelink"
+msgstr "Περισσότερα"
+
+#. Default: Comments on translations
+msgid "title_feedback_translations"
+msgstr "Παρατηρήσεις σχετικά με τις μεταφράσεις"
+
+#. Default: Please help us increase the quality of the translations.
+msgid "help_feedback_translations"
+msgstr ""
+"Παρακαλούμε να μας βοηθήσουν να βελτιώσουμε την ποιότητα των μεταφράσεων."
+
+# Default: "ISBN"
+#: /subtypes/report.py:102
+msgid "label_isbn"
+msgstr ""
+
+# Default: "ORDER ID (Catalogue Number)"
+#: /subtypes/report.py:121
+msgid "label_order_id"
+msgstr ""
+
+# Default: "Price (Euro)"
+#: /subtypes/report.py:222
+msgid "label_price"
+msgstr ""
