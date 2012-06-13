@@ -51,7 +51,7 @@ class RelationsSchemaExtender(object):
     """ Extends relations filed
     """
     implements(ISchemaExtender)
-    
+
     fields = (
      ExtensionRelationsField('relatedItems',
         schemata='categorization',
@@ -115,7 +115,7 @@ class LocationSchemaExtender(object):
         """ Fields
         """
         # quickevents has all information on the default editing form
-        if getattr(self.context, 'portal_type', None) in ('QuickEvent',):
+        if getattr(self.context, 'portal_type', None) == 'QuickEvent':
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = 'Event Location'
             self.multiple_location[0].widget.label_msgid = \
@@ -126,22 +126,28 @@ class LocationSchemaExtender(object):
                              ' to select a location'
             self.multiple_location[0].widget.description_msgid = (
                             'EEAContentTypes_help_location_event')
-
             return self.multiple_location
         # likewise Organisation had the previous location widget on default
-        if getattr(self.context, 'portal_type', None) in ('Organisation',):
+        elif getattr(self.context, 'portal_type', None) == 'Organisation':
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = "Organisation Address"
             self.multiple_location[0].widget.label_msgid = \
                                                     "dataservice_label_address"
-            self.multiple_location[0].widget.description = \
+            self.multiple_location[0].widget.description = (
                              'Geographical location ' \
                              'related to this Organisation. Click Edit button' \
-                             ' to select a location'
+                             ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
             return self.multiple_location
-        return self.multiple_location
+        else:
+            self.multiple_location[0].widget.label = "Geotag / Location"
+            self.multiple_location[0].widget.description = (
+                             'Geotags: geographical location '
+                             'related to this content. Click Edit button '
+                             'to select a location')
+            return self.multiple_location
+
 
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
