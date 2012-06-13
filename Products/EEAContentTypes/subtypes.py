@@ -141,6 +141,7 @@ class LocationSchemaExtender(object):
                                                     "dataservice_help_address"
             return self.multiple_location
         else:
+            self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geotag / Location"
             self.multiple_location[0].widget.description = (
                              'Geotags: geographical location '
