@@ -1,8 +1,8 @@
 ﻿Changelog
 =========
 
-4.21-dev - (unreleased)
------------------------
+4.21 - (2012-06-13)
+-------------------
 * Change: Images on highlights and articles are now wider and span entire
   content area. this change also fixes some floating layout issues.
   [demarant fixes #5023 refs #4206]
