@@ -3,6 +3,8 @@
 
 4.22-dev - (unreleased)
 -----------------------
+* Bug fix: check if results are found for topics on isGeoContainer
+  [ichimdav #3355]
 
 4.21 - (2012-06-13)
 -------------------

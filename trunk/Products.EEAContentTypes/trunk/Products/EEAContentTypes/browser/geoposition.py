@@ -44,7 +44,9 @@ class GeoLocationTools(BrowserView):
         if context.meta_type == 'ATTopic':
             res = context.queryCatalog()
             # check if result of topic query contains events
-            res = 'true' if 'Products.ATContentTypes.interfaces.event.IATEvent'\
+            if res:
+                res = 'true' if \
+                    'Products.ATContentTypes.interfaces.event.IATEvent' \
                  in res[0].object_provides else ''
         else:
             path = '/'.join(self.context.getPhysicalPath())
