@@ -24,8 +24,8 @@ class VersioningModifier(object):
         """
         api = get_versions_api(self.context)
 
-        rdf.dcterms_isReplacedBy = [rdflib.URIRef(i['url']) for i in api.newest()]
-        rdf.dcterms_replaces = [rdflib.URIRef(i['url']) for i in api.oldest()]
+        rdf.dcterms_isReplacedBy = [rdflib.URIRef(i['url']) for
+                                                        i in api.newest()]
+        rdf.dcterms_replaces = [rdflib.URIRef(a['url']) for a in api.oldest()]
 
         rdf.save()
-        
