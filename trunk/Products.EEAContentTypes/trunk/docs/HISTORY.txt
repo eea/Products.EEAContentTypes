@@ -3,6 +3,8 @@
 
 4.22-dev - (unreleased)
 -----------------------
+* Bug fix: fixed rdf dcterms:isReplacedBy (it was set to wrongly to replacedBy)
+  [demarant fixes #5129]
 * Bug fix: check if results are found for topics on isGeoContainer
   [ichimdav #3355]
 
@@ -15,9 +17,9 @@
   [ciobabog refs #5231]
 * Bug fix: set effective date to now() when a content item is first published
   [tiberich #5125]
-* Feature: use a subscriber to add dcterms:replacedBy and dcterms:replaces
+* Feature: use a subscriber to add dcterms:isReplacedBy and dcterms:replaces
   to IVersionEnhanced content
-  [tiberich #5129]
+  [tiberich, demarant #5129]
 * Upgrade step: in www/portal_properties/site_properties:
   - add quick_event_anonymous_creator property of type string with the name of the user
   that should be the creator of the anonymous quick events
