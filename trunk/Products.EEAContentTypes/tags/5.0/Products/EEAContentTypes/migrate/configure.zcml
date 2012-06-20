@@ -1,0 +1,54 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="Products.EEAContentTypes">
+
+  <class class="Products.EEAContentTypes.content.Highlight.Highlight">
+    <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <class class="Products.EEAContentTypes.content.Article.Article">
+    <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <class class="Products.EEAContentTypes.content.PressRelease.PressRelease">
+    <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <class class="Products.EEAContentTypes.content.Promotion.Promotion">
+    <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <class class="Products.EEAContentTypes.content.Speech.Speech">
+    <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <browser:page
+    for=".interfaces.IContentToMigrate"
+    name="migrate2blobs"
+    class=".blob.Migrate"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="Products.EEAContentTypes.content.interfaces.IFlashAnimation"
+    name="migrate2blobs"
+    class=".blob.FlashFileMigrate"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="OFS.interfaces.IFolder"
+    name="migrate-eea2blobs"
+    class=".migrate.Migrate"
+    template="migrate.pt"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="*"
+    name="migrate2geotags"
+    class=".geotags.LocationMigrate"
+    permission="cmf.ManagePortal"
+    />
+</configure>
