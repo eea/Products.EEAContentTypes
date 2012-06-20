@@ -1,8 +1,8 @@
 ﻿Changelog
 =========
 
-4.22-dev - (unreleased)
------------------------
+5.0 - (2012-06-20)
+------------------
 * Bug fix: fixed rdf dcterms:isReplacedBy (it was set to wrongly to replacedBy)
   [demarant fixes #5129]
 * Bug fix: check if results are found for topics on isGeoContainer
