@@ -150,7 +150,11 @@ schema = public.Schema((
                 'icon'    :  (32, 32),
                 'listing' :  (16, 16),
                },
-        validators = ('isNonEmptyFile', 'imageMinSize'),
+        validators = (
+                    ('isNonEmptyFile', V_REQUIRED),
+                    ('imageMinSize', V_REQUIRED),
+                    ('checkFileMaxSize', V_REQUIRED),
+                    ),
         widget = public.ImageWidget(
             description = (
                 "Will be shown in the news listing, and in the news "

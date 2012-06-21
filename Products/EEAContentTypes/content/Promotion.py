@@ -13,6 +13,7 @@ from Products.LinguaPlone.public import ImageWidget
 from Products.LinguaPlone.public import Schema
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import StringWidget, registerType
+from Products.validation import V_REQUIRED
 from eea.promotion.interfaces import IFrontpageSectionIndex
 from zope.component import adapts
 from zope.interface import implements
@@ -34,7 +35,8 @@ schema = Schema((
                 'icon'    :  (32, 32),
                 'listing' :  (16, 16),
                },
-        validators = ('isNonEmptyFile', ),
+        validators = (('isNonEmptyFile', V_REQUIRED),
+                      ('checkFileMaxSize', V_REQUIRED)),
         widget = ImageWidget(
             description = (
                 "Will be shown in the news listing, and in the news "
