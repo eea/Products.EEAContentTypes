@@ -11,6 +11,7 @@ from Products.Archetypes.utils import shasattr
 from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.LinguaPlone import public
+from Products.validation import V_REQUIRED
 from Products.validation.config import validation
 from Products.validation.interfaces.IValidator import IValidator
 from datetime import datetime
@@ -23,6 +24,7 @@ from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
 from zope.interface import implements
 import logging
+
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
 
 
