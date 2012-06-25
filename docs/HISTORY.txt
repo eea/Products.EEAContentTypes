@@ -1,8 +1,10 @@
-﻿Changelog
+Changelog
 =========
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: display validation error when translating if error is present
+  [ichimdav #5302]
 
 5.0 - (2012-06-20)
 ------------------
