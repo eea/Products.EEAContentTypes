@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1"
-     xmlns:tal="http://xml.zope.org/namespaces/tal">
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     i18n:domain="eea">
 
 <tal:kml define="place_marks context/@@g_earth">
 
@@ -8,22 +9,23 @@
     <tal:block tal:define="dummy python:request.RESPONSE.setHeader('Content-Disposition', 'attachment;;filename='+context.id+'.kml')" />
     
     <Document>
-	<name>Environmental events around the world</name>
+	<name i18n:translate="">Environmental events around the world</name>
 	<open>1</open>
 	<Style id="eea_balloon_style">
 	    <BalloonStyle>
-		<bgColor>dddddddd</bgColor>
-		<text><![CDATA[
-		    <h3><strong><font size="+2" style="color:#00446A">$[name]</font></strong></h3>
-		    <div><strong>Location:</strong> <span>$[address]</span></div><br/>
-		    $[description]
-		]]></text>
+    		<bgColor tal:content="string:dddddddd"></bgColor>
+    		<text> 
+    		  <![CDATA[<h3><strong><font size="+2" style="color:#00446A">$[name]</font></strong></h3>
+        		    <div><strong>Location:</strong> <span>$[address]</span></div><br/>
+        		    $[description]
+        		]]>
+    		</text>
 	    </BalloonStyle>
 	    <IconStyle>
-		<scale>0.8</scale>
-		<Icon>
-		    <href>http://www.eea.europa.eu/event_icon.gif</href>
-		</Icon>
+    		<scale>0.8</scale>
+    		<Icon>
+    		    <href tal:content="string:http://www.eea.europa.eu/event_icon.gif"></href>
+    		</Icon>
 	    </IconStyle>
 	</Style>
 	
@@ -32,11 +34,14 @@
 	    <name tal:content="mark/placemark_title" />
 	    <description>
 		<div tal:content="mark/placemark_description" />
-		<a tal:attributes="href mark/placemark_url" title="More info">Read more info</a>
+		<a tal:attributes="href mark/placemark_url" 
+		   title="More info"
+		   i18n:attributes="title" 
+		   i18n:translate="">Read more info</a>
 	    </description>
 	    <address tal:content="mark/placemark_location" />
 	    <visibility>1</visibility>
-	    <styleUrl>#eea_balloon_style</styleUrl>
+	    <styleUrl tal:content="string:#eea_balloon_style"></styleUrl>
 	    <Snippet maxLines="2" tal:content="mark/placemark_description" />
 	    <Point>
 		<coordinates tal:content="string:${mark/placemark_longitude},${mark/placemark_latitude},0.0" />

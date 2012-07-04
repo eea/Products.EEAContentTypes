@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: display validation error when translating if error is present
   [ichimdav #5302]
+* Bug Fix: Fixed missing i18n attributes and i18n:domain in *.pt 
+  [prospchr refs #5162]
 
 5.0 - (2012-06-20)
 ------------------

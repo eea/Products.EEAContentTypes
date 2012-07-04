@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="eea">
   <body>
 
     <metal:content-core fill-slot="content-core">
@@ -20,8 +20,7 @@
           <tal:descriptionOrTeaser define="teaserDescription here/getTeaser">
             <div class="documentDescription"
               tal:condition="python:not here.Description()">
-              <tal:description tal:content="teaserDescription" >
-                News summary</tal:description>
+              <tal:description tal:content="teaserDescription" ></tal:description>
             </div>
             <div tal:omit-tag=""
               tal:define="figure_title here/getImageCaption;
@@ -45,8 +44,12 @@
         <metal:field use-macro="python:context.widget('text', mode='view')">
           Body text
         </metal:field>
-        <p tal:condition="here/getUrl|nothing"><a href="" title="Read more"
-            tal:attributes="href here/getUrl" class="moreLink">Read more</a></p>
+        <p tal:condition="here/getUrl|nothing">
+            <a href="" title="Read more"
+               tal:attributes="href here/getUrl" 
+               class="moreLink"
+               i18n:attributes="title"
+               i18n:translate="">Read more</a></p>
 
         <!-- Geotags view hidden for now for more styling -->
         <!-- metal:field use-macro="python:context.widget('location', mode='view')">

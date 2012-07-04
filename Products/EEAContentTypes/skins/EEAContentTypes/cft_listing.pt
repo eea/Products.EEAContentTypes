@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
   lang="en"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="plone">
+  i18n:domain="eea">
 
   <body>
 
@@ -77,12 +77,11 @@
                           </tal:modified>
                         </tal:anon>
 
-
-                        <span class="date">
-                          <br />
-                          (Open: <span tal:omit-tag="" tal:content="python:toLocalizedTime(item_open)">from date</span>
+                        <br />
+                        <span class="date" i18n:translate="">
+                          (Open: <span tal:omit-tag="" tal:content="python:toLocalizedTime(item_open)" i18n:name="from-date">from date</span>
                           &mdash;
-                          Close: <span tal:omit-tag="" tal:content="python:toLocalizedTime(item_close)">to date</span>)
+                          Close: <span tal:omit-tag="" tal:content="python:toLocalizedTime(item_close)" i18n:name="to-date">to date</span>)
                         </span>
 
                         <tal:award tal:define="obj item/getObject;
@@ -92,7 +91,7 @@
                           &mdash;
                           <a href="" title="" 
                             tal:attributes="href award/absolute_url;
-                            title award/Title">Award notice</a>
+                            title award/Title"></a>
                         </tal:award>
 
 

@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
   lang="en-US"
   metal:use-macro="here/prefs_main_template/macros/master"
-  i18n:domain="Products.EEAContentTypes">
+  i18n:domain="eea">
 
 <body>
 <div metal:fill-slot="prefs_configlet_main">
@@ -12,7 +12,7 @@
 
 <form action="@@migrate-eea2blobs" method="post">
   <fieldset>
-    <legend>Portal types</legend>
+    <legend i18n:translate="">Portal types</legend>
     <ul>
       <li tal:repeat="ptype python:template.content_types">
         <input type="checkbox" checked="checked" name="types:list"
@@ -23,7 +23,7 @@
     </ul>
   </fieldset>
   <div class="field" style="clear: both; text-align: right">
-    <input class="context" type="submit" value="Migrate" name="action.submit" />
+    <input class="context" type="submit" value="Migrate" i18n:attributes="value" name="action.submit" />
   </div>
 </form>
 </div>

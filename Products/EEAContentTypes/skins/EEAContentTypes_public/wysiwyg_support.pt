@@ -1,4 +1,4 @@
-<html i18n:domain="plone">
+<html i18n:domain="eea">
 
 <!-- wysiwyg multiplexing widget, this allows for both TinyMCE, Epoz, Kupu, and Straight HTML to coexist -->
 <div metal:define-macro="wysiwygEditorBox">

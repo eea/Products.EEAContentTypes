@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="eea">
 
 <body>
 
@@ -9,7 +9,9 @@
     <metal:body define-macro="body"
                 tal:define="cftView here/@@cftregistration">
        <tal:canceled condition="cftView/hasCanceled">
-          <a href="" title="Request Call for tender information"
+          <a href="" title="Request call for tender information"
+             i18n:attributes="title"
+             i18n:translate=""
              tal:attributes="href here/absolute_url">Request call for tender information</a>
        </tal:canceled>
 
@@ -22,7 +24,8 @@
                     tal:condition="award">
                     <a href="" title=""
                        tal:attributes="href award/url;
-                                       title award/title">Award notice</a>
+                                       title award/title"
+                       i18n:translate="">Award notice</a>
                </div>
 
                <div class="stx"

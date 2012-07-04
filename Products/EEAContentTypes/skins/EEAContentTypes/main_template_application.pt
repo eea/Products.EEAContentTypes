@@ -3,7 +3,7 @@
     <metal:customheader fill-slot="header"
       tal:define="application python:test(here.is_folderish(), here, here.getParentNode())">
       <metal:header metal:define-slot="header" tal:content="nothing">
-        Visual Header
+     
       </metal:header>
       <ul tal:repeat="item application/getFolderContents">
         <li><a href="" title=""
@@ -16,7 +16,7 @@
            
     <metal:bodytext fill-slot="main">
       <metal:slot metal:define-slot="main" tal:content="nothing">
-        Page body text
+        
       </metal:slot>       
     </metal:bodytext>
     <metal:columnone fill-slot="column_one_slot" />

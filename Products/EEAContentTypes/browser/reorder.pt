@@ -1,10 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
   lang="en"
   metal:use-macro="here/prefs_main_template/macros/master"
-  i18n:domain="indicators">
+  i18n:domain="eea">
 
   <metal:slot fill-slot="head_slot">
-    <title>Reorder resources</title>
+    <title i18n:translate="">Reorder resources</title>
   </metal:slot>
 
   <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)" />
@@ -55,22 +55,25 @@
 
       <ul class="contentViews">
         <li class="selected" tal:attributes="class python: ('css' in request.URL) and 'selected' or ''">
-          <a href="" tal:attributes="href string:$portal_url/@@reorder_css">Reorder CSS</a>
+          <a href="" 
+             tal:attributes="href string:$portal_url/@@reorder_css"
+             i18n:translate="">Reorder CSS</a>
         </li>
         <li class="selected" tal:attributes="class python: ('javascripts' in request.URL) and 'selected' or ''">
-          <a tal:attributes="href string:$portal_url/@@reorder_javascripts">Reorder Javascripts</a>
+          <a tal:attributes="href string:$portal_url/@@reorder_javascripts"
+             i18n:translate="">Reorder Javascripts</a>
         </li>
       </ul>
 
       <h1 tal:content="view/title">Reorder resources</h1>
-      <p>On the left side you have a list resources. Drag from the handle icon to reorder. After reordering, you need to use the Save button at the bottom of the list. On the right side you can see how the resources have been composed. Notice: this is not a preview. Hitting Save will generate new merged resources.
+      <p i18n:translate="list-ressources-desc">On the left side you have a list resources. Drag from the handle icon to reorder. After reordering, you need to use the Save button at the bottom of the list. On the right side you can see how the resources have been composed. Notice: this is not a preview. Hitting Save will generate new merged resources.
 </p>
 
       <div style="width:380px; float:left">
       <form method="POST" id="reorder_form" action="" tal:attributes="action request/URL">
         <textarea name="resources" tal:content="python: '\n'.join(view.resources)" style="display:none"></textarea>
         <p>
-          <input type="submit" name="save" value="Save" />
+          <input type="submit" name="save" value="Save" i18n:attributes="value"/>
         </p>
       </form>
       </div>
@@ -86,7 +89,7 @@
                 - <span tal:replace="entry/getExpression" />
               </tal:block>
 
-              <tal:block tal:condition="entry/getAuthenticated | nothing">
+              <tal:block tal:condition="entry/getAuthenticated | nothing" i18n:translate="">
                 - (restricted to authenticated)
               </tal:block>
 
@@ -117,11 +120,11 @@
               <tal:block tal:condition="entry/getExpression | nothing">
                 - <span tal:replace="entry/getExpression" />
               </tal:block>
-              <tal:block tal:condition="entry/getAuthenticated | nothing">
+              <tal:block tal:condition="entry/getAuthenticated | nothing" i18n:translate="">
                 - (restricted to authenticated)
               </tal:block>
-              <tal:block tal:condition="entry/getMedia | nothing">
-                - [Media: <span tal:content="entry/getMedia" />]
+              <tal:block tal:condition="entry/getMedia | nothing" i18n:translate="">
+                - [Media: <span tal:content="entry/getMedia" i18n:name="media"></span>]
               </tal:block>
             </div>
             <ul tal:define="sheets context/portal_css/concatenatedresources">

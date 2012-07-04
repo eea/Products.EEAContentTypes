@@ -1,4 +1,4 @@
-<html>
+<html i18n:domain="eea">
 <head>
     <script tal:attributes="src string:${context/portal_url}/jquery.js" ></script>
     <script tal:attributes="src string:${context/portal_url}/++resource++jquery-ui.min.js" ></script>
@@ -32,14 +32,14 @@
 
     <div class="faceted-widget" i18n:domain="eea" id="content-creation-portlet" style="padding-bottom:0 !important">
         <div id="dialog_edit_target"></div>
-            <div class="legend">Create new</div>
+            <div class="legend" i18n:translate="">Create new</div>
           <dl><dt>
             <a href="" class="new_content_creator"
-                tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&use_schemata_edit=true">
+               tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&amp;use_schemata_edit=true">
                <img src="" tal:attributes="src string:${context/portal_url}/add.png" /> 
-                Create <span tal:content="context/Title" /></a>
+               <tal:block i18n:translate="">Create <span tal:replace="context/Title" /></tal:block></a>
         </dt>
-        <dd>Press the link to create a new content item in its default location</dd></dl>
+        <dd i18n:translate="">Press the link to create a new content item in its default location</dd></dl>
     </div>
     <script tal:attributes="src string:${context/portal_url}/eea.contentcreation.js" ></script>
     <script tal:attributes="src string:${context/portal_url}/selectautocomplete_widget.js" ></script>

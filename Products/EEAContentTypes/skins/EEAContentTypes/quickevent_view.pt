@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="eea">
    
 <body>
 
@@ -21,7 +21,7 @@
       id="enquiry_login_form">
 
     <fieldset>
-        <legend>Confirm your event</legend>
+        <legend i18n:translate="">Confirm your event</legend>
         
        <metal:eventview use-macro="here/event_view/macros/content-core" />
       <div class="formControls">
@@ -30,14 +30,14 @@
                    type="submit"
                    name="correct"
                    value="Go back and correct"
-                   i18n:attributes="value label_correct;"
+                   i18n:attributes="value"
                    />
 
             <input class="context"
                    type="submit"
                    name="confirm"
                    value="Confirm and send"
-                   i18n:attributes="value label_confirm;"
+                   i18n:attributes="value"
                    />
 
         </div>

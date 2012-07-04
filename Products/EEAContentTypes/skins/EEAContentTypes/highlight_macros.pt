@@ -1,6 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      i18n:domain="plone">
+      i18n:domain="eea">
 
 <body>
 
@@ -164,7 +164,7 @@
      tal:define="highlights frontpage_view/getLow;
                  plone_view nocall:plone_view|here"
      tal:condition="highlights">
-    <h4 i18n:domain="eea.translations" i18n:translate="Previous">Previous</h4>
+    <h4 i18n:domain="eea" i18n:translate="Previous">Previous</h4>
     <ul metal:define-macro="lownews"
                 tal:condition="highlights">
         <li class="highlightLow" tal:repeat="hl highlights">

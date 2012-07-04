@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
   lang="en"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="plone">
+  i18n:domain="eea">
   <body>
 
     <metal:main fill-slot="content-core">
@@ -12,8 +12,14 @@
           tal:define="bgcolor flash/bgcolor|nothing">
           <div id="" class="flashmovie" style=""
             tal:attributes="id string:container-${flash/getId};
-            style here/relatedFlashStyle"> 
-            This page requires Flashplayer, please download it for free from <a href="http://www.macromedia.com/go/getflashplayer" title="get flashplayer">http://www.macromedia.com/go/getflashplayer</a> 
+                            style here/relatedFlashStyle"
+            i18n:translate=""> 
+            This page requires Flashplayer, please download it for free from 
+                <a href="http://www.macromedia.com/go/getflashplayer"
+                   title="get flashplayer" 
+                   i18n:attributes="title"
+                   i18n:name="flashpalyer-link"
+                   tal:content="string:http://www.macromedia.com/go/getflashplayer"></a> 
           </div>
           <tal:flashjs replace="structure flash/flash_js_inline" />
         </div>    
