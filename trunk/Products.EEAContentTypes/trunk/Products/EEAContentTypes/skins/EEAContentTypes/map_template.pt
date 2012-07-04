@@ -1,6 +1,7 @@
 <metal:portlet define-macro="portlet">
 
-	<script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.7&appid=c5h5YSHV34ExDn1gtsTGwh6JK5TtSSqZrzJ1UHxhFQGZgkKNBDXKlGnguYCpWjdvT3TaYnz.3xE-"></script>
+	<script type="text/javascript" 
+	        src="http://api.maps.yahoo.com/ajaxymap?v=3.7&amp;appid=c5h5YSHV34ExDn1gtsTGwh6JK5TtSSqZrzJ1UHxhFQGZgkKNBDXKlGnguYCpWjdvT3TaYnz.3xE-"></script>
 
 	<metal:css define-slot="css_slot" />
 

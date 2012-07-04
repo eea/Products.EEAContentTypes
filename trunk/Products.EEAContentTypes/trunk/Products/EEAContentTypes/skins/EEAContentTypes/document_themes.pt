@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-      i18n:domain="plone">
+      i18n:domain="eea">
 
 <body>
 
@@ -11,7 +11,7 @@
                <span  i18n:translate="related_themes">Related themes</span>
                <ul class="visualNoMarker">
                    <tal:related tal:repeat="item related">
-                      <li><tal:themeTitle tal:content="item">Related theme</tal:themeTitle><tal:notLast tal:condition="not: repeat/item/end">,</tal:notLast></li>
+                      <li><tal:themeTitle tal:content="item"></tal:themeTitle><tal:notLast tal:condition="not: repeat/item/end">,</tal:notLast></li>
                    </tal:related>
                </ul>
             </tal:block>

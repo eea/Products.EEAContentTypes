@@ -2,7 +2,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="atreferencebrowserwidget">
+      i18n:domain="eea">
 
   <head><title></title></head>
 
@@ -23,7 +23,7 @@
                            obj python:refsupport.brain(uid);
                            obj_path python:obj and obj.getURL(1) or ''">
             <tal:if condition="image_portal_types">
-              <img src="#" alt="Image"
+              <img src="#" alt="Image" i18n:attributes="alt"
                    tal:condition="python: obj.portal_type in image_portal_types"
                    tal:attributes="src string:${obj/getURL}/$image_method"
               />

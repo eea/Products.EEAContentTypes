@@ -3,7 +3,7 @@
 <html xmlns::tal="http://xml.zope.org/namespaces/tal"
         xmlns:metal="http://xml.zope.org/namespaces/metal"
         metal:use-macro="here/main_template/macros/master"
-        i18n:domain="eea.translations">
+        i18n:domain="eea">
 <head>
 
 <metal:organigramcss fill-slot="style_slot">
@@ -501,7 +501,7 @@ margin-top: 75px;
     </p>
 
     <div class="portalMessage" tal:condition="not:context/portal_membership/isAnonymousUser">
-    <span>The source file XML contains the following organisations:</span>
+    <span i18n:translate="">The source file XML contains the following organisations:</span>
     &nbsp;
     <tal:Orgs repeat="org orgs_data/orgs">
         <span tal:content="org"/>&nbsp;

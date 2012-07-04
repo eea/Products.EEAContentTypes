@@ -1,6 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
 	  xmlns:metal="http://xml.zope.org/namespaces/metal"
-	  i18n:domain="plone">
+	  i18n:domain="eea">
 <body>
 <metal:portlet define-macro="mini-map">
 	<metal:template use-macro="here/map_template/macros/portlet">
@@ -57,7 +57,8 @@
 		</metal:css>
 
 		<metal:widget fill-slot="widget_slot">
-			<span id="ymap-widget" style=""><span id="ymap-count">0</span> events on map</span>
+			<span id="ymap-widget" style="" i18n:translate="">
+			    <span id="ymap-count" i18n:name="number">0</span> events on map</span>
 		</metal:widget>
 
 		<metal:geodata fill-slot="geo_data_slot">

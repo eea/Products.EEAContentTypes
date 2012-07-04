@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-      i18n:domain="eea.translations">
+      i18n:domain="eea">
 
 <body>
 
@@ -106,7 +106,7 @@
 <tal:auto
     tal:define="themes context/@@auto_related/sameTypeByTheme"
     tal:condition="themes"
-    i18n:domain="eea.translations">
+    i18n:domain="eea">
     <dl id="auto-related" class="portlet">
         <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
         <dd class="portletItem">
@@ -128,7 +128,7 @@
              tal:condition="theme/more_link"
              tal:attributes="href theme/more_link;
                              title string:More multimedia on ${theme/name}">
-            <span i18n:domain="plone" i18n:translate="box_morelink" tal:omit-tag="">More</span>
+            <span i18n:domain="eea" i18n:translate="box_morelink" tal:omit-tag="">More</span>
           </a>
         </dd>
     </dl>
@@ -148,7 +148,7 @@
                 portal_type portal_type|context/portal_type;
                 items python:autorel.autoContext(portal_type, fill_limit)"
     tal:condition="items"
-    i18n:domain="eea.translations">
+    i18n:domain="eea">
     <dl class="portlet auto-related">
         <dt class="portletHeader" i18n:translate="Related">Related</dt>
         <dd class="portletItem">
@@ -174,7 +174,7 @@
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
-            <h2 i18n:domain="plone" i18n:translate="label_related_items">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="label_related_items">Related content</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
@@ -198,7 +198,7 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
-            <h2 i18n:domain="plone" i18n:translate="label_related_items">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="label_related_items">Related content</h2>
             <div class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <div class="tileItem visualIEFloatFix vevent">
@@ -243,7 +243,7 @@
 <tal:auto
     tal:define="related context/@@auto_related/sameTypeByPublicationGroup"
     tal:condition="related"
-    i18n:domain="eea.translations">
+    i18n:domain="eea">
     <dl id="auto-related" class="portlet">
         <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
 

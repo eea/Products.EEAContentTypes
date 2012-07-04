@@ -1,6 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      i18n:domain="plone">
+      i18n:domain="eea">
       
 <body>
 
@@ -72,9 +72,7 @@
         </p>
         <p class="figure-source-copyright"
            tal:condition="figure_source_copyright|nothing">
-            &copy; <tal:copyright tal:content="figure_source_copyright">
-            Additional source and copyright information
-           </tal:copyright>
+            &copy; <tal:copyright tal:content="figure_source_copyright"></tal:copyright>
         </p>
 </metal:caption>
 

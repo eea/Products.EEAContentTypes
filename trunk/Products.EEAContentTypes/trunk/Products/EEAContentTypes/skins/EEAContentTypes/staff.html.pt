@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
   lang="en"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="eea.translations">
+  i18n:domain="eea">
   <head>
 
     <metal:hideemailjs fill-slot="javascript_slot">
@@ -28,7 +28,7 @@
           org_name python:orgs_info['orgs_names'].get(org_id, org_id)">
           <p tal:condition="org_id">Members of <strong tal:content="org_name" />.</p>
           <p tal:condition="not:org_id">You can sort the table by clicking on the column or filtering by the programme name:</p>
-          <div><a href="staff.html" title="EEA Staff list" tal:condition="org_id">All staff</a><strong tal:condition="not:org_id">All staff</strong><tal:Orgs repeat="org orgs_data">&nbsp;|&nbsp;<a tal:condition="python:org!=org_id" tal:attributes="href string:staff.html?orgid=${org}; title python:'Members of ' + orgs_info['orgs_names'].get(org, org)" tal:content="org"/><strong tal:condition="python:org==org_id" tal:content="org"/></tal:Orgs></div>
+          <div><a href="staff.html" title="EEA Staff list" i18n:attributes="title" tal:condition="org_id">All staff</a><strong tal:condition="not:org_id">All staff</strong><tal:Orgs repeat="org orgs_data">&nbsp;|&nbsp;<a tal:condition="python:org!=org_id" tal:attributes="href string:staff.html?orgid=${org}; title python:'Members of ' + orgs_info['orgs_names'].get(org, org)" tal:content="org"/><strong tal:condition="python:org==org_id" tal:content="org"/></tal:Orgs></div>
         </tal:block>
 
         <dl style="float: right; padding-left: 1em;">

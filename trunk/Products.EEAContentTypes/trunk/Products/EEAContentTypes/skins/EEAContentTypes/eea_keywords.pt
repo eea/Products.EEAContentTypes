@@ -2,7 +2,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="plone">
+    i18n:domain="eea">
     <head><title></title></head>
     <body>
 
@@ -34,7 +34,7 @@
                         allowRolesToAddKeywords site_props/allowRolesToAddKeywords|nothing;
                         roleBasedAdd widget/roleBasedAdd|nothing;">
                     <div tal:condition="allowedKeywords" id="existingTagsSection">
-                        <tal:comment tal:replace="nothing">
+                        <tal:comment replace="nothing">
                             dl semantically associates selector name with values
                         </tal:comment>
                         <dl id="existingTags">
@@ -47,7 +47,7 @@
                                 <span id="existingTagsHelp" class="formHelp" i18n:translate="label_existingTagsHelp">
                                     Use Control/Command/Shift keys to select multiple tags.
                                 </span>
-                                <tal:comment tal:replace="nothing">
+                                <tal:comment replace="nothing">
                                     Type-to-skip functionality with javascript enabled
                                     could be described as
                                     "Hover and type the first letter to skip through tags."
@@ -75,7 +75,7 @@
                                     An existing tag
                                 </option>
                             </select>
-                            <tal:comment tal:replace="nothing">
+                            <tal:comment replace="nothing">
                                 These spans are hidden by css, and used by the JavaScript called below.
                             </tal:comment>
                             <span id="noTagsSelected" i18n:translate="label_noTagsSelected">No tags currently selected.</span>

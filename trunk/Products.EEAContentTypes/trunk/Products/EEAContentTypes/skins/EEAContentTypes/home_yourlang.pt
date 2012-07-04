@@ -1,1 +1,1 @@
-<tal:homeinyourlang i18n:domain="eea.translations" i18n:translate="homepage_yourlang" />
+<tal:homeinyourlang i18n:domain="eea" i18n:translate="homepage_yourlang" />

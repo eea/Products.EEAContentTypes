@@ -4,7 +4,7 @@
     on-error="string:"
     tal:define="themes context/@@auto_related/sameTypeByTheme"
     tal:condition="themes"
-    i18n:domain="eea.translations">
+    i18n:domain="eea">
     <dl id="auto-related" class="portlet">
         <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
         <dd class="portletItem">

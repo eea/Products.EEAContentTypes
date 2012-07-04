@@ -1,19 +1,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      i18n:domain="plone"
+      i18n:domain="eea"
       metal:use-macro="here/main_template/macros/master">
   <head>
   </head>
 
   <body>
     <div metal:fill-slot="main">
-        <h1 class="hiddenStructure">EEA Home page - select your preferred language</h1>
+        <h1 class="hiddenStructure" i18n:translate="eea-select-language">EEA Home page - select your preferred language</h1>
 
         <dl id="languageMenu">
-          <dt>
+          <dt i18n:translate="choose-eea-web-site">
              Choose the EEA local website in your preferred language 
           </dt>
-          <dd>In these websites you will find all the summarised environmental information available in your language.</dd>
+          <dd i18n:translate="eea-web-site-desc">In these websites you will find all the summarised environmental information available in your language.</dd>
           <dd>
             <ul>
 	    <tal:languages repeat="lang here/@@translatedSitesLanguages">

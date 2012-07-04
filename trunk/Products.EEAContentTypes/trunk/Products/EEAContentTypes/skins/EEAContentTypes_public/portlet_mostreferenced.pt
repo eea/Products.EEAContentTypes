@@ -1,11 +1,11 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      i18n:domain="plone">
+      i18n:domain="eea">
 <body>
 
 <!-- Most popular data and maps -->
 <div metal:define-macro="datamap"
-     i18n:domain="plone"
+     i18n:domain="eea"
      tal:omit-tag=""
      tal:define="portal_type python:['Data', 'EEAFigure'];
                  count python:15">
@@ -18,7 +18,7 @@
 
 <!-- Most popular datasets -->
 <div metal:define-macro="dataset"
-     i18n:domain="plone"
+     i18n:domain="eea"
      tal:omit-tag=""
      tal:define="portal_type python:['Data',];
                  count python:5">
@@ -31,7 +31,7 @@
 
 <!-- Main macro -->
 <div metal:define-macro="portlet"
-     i18n:domain="plone"
+     i18n:domain="eea"
      tal:omit-tag=""
      tal:define="view nocall:context/@@mostReferenced;
                  portal_type python:None;
