@@ -3,6 +3,8 @@ Changelog
 
 5.1-dev - (unreleased)
 ----------------------
+* Feature: re-enabled eea.relations widget for Base Content
+  [ichimdav #4705]
 * Bug fix: display validation error when translating if error is present
   [ichimdav #5302]
 * Bug Fix: Fixed missing i18n attributes and i18n:domain in *.pt 
