@@ -174,7 +174,7 @@
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
-            <h2 i18n:domain="eea" i18n:translate="label_related_items">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="label_related_content">Related content</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
@@ -198,7 +198,7 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
-            <h2 i18n:domain="eea" i18n:translate="label_related_items">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="label_related_content">Related content</h2>
             <div class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <div class="tileItem visualIEFloatFix vevent">

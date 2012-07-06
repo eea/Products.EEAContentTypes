@@ -51,8 +51,8 @@
     <dd class="portletItem"			  
         tal:condition="item/description">
         <tal:description  tal:content="item/description"></tal:description>
-        <a href="" title="Read more" tal:attributes="href item/url;" i18n:translate="box_morelink" i18n:attributes="title">
-            more
+        <a href="" title="Read more" tal:attributes="href item/url;" i18n:translate="" i18n:attributes="title">
+            More
         </a>
     </dd>    
 
