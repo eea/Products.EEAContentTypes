@@ -43,7 +43,7 @@
                     <label for="searchGadget"
                            class="hiddenStructure"
                            i18n:domain="eea"
-                           i18n:translate="text_search">
+                           i18n:translate="">
                         Search
                     </label>
                     <input name="SearchableText"

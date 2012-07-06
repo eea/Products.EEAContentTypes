@@ -46,7 +46,7 @@
 
             <tal:if condition="show_path"
                  i18n:translate="label_directory">
-              ( Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
+              (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
             </tal:if>
 
         </tal:block>
@@ -85,7 +85,7 @@
 
                 <tal:if condition="show_path"
                      i18n:translate="label_directory">
-                  ( Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '') ">directory</span>)
+                  (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '') ">directory</span>)
                 </tal:if>
 
              </tal:block>
@@ -134,7 +134,7 @@
 
                       <tal:if condition="show_path"
                            i18n:translate="label_directory">
-                        ( Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
+                        (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
                       </tal:if>
 
                   </tal:block>
@@ -144,7 +144,7 @@
                      type="text"
                      value="No reference set. Click the browse button to select."
                      readonly="readonly"
-                     i18n:attributes="value label_no_reference_set;"
+                     i18n:attributes="value label_browse_reference_set;"
                      tal:condition="not:  value"
                      tal:attributes="id string:${fieldName}_label"/>
               <input type="hidden"
@@ -220,7 +220,7 @@
                      class="destructive"
                      value="Remove reference"
                      onClick=""
-                     i18n:attributes="value label_remove_reference;"
+                     i18n:attributes="value"
                      tal:condition="not: multiVal"
                      tal:attributes="onClick string:javascript:referencebrowser_removeReference('${fieldName}', ${multiVal})" />
               <input type="button"

@@ -22,7 +22,7 @@
 
 <channel rdf:about="" tal:attributes="rdf:about request/URL" >
   <title tal:content="context/pretty_title_or_id">The title</title>
-  <link tal:content="context/portal_url">http://url.to.portal</link>
+  <link tal:attributes="href context/portal_url" />
   
   <description>
     <metal:block define-slot="description">
@@ -57,8 +57,8 @@
 <tal:block repeat="brain python: objects">    <item rdf:about="" tal:attributes="rdf:about obj_item/getURL|obj_item/absolute_url" tal:define="obj_item brain/getObject|nocall:brain;
 modified brain/EffectiveDate|obj_item/modified;
 modified modified/HTML4|modified">
- <title tal:content="obj_item/pretty_title_or_id">Title</title> <link 
-tal:content="string:${obj_item/Identifier}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic">Link</link> <description 
+ <title tal:content="obj_item/pretty_title_or_id">Title</title> 
+ <link tal:attributes="href string:${obj_item/Identifier}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic" /> <description 
 tal:content="obj_item/Description">Description</description> <dc:publisher tal:content="obj_item/Publisher"></dc:publisher> <dc:creator tal:content="obj_item/Creator"></dc:creator> <dc:rights tal:content="obj_item/Rights"></dc:rights> <tal:block tal:repeat="item obj_item/Subject"><dc:subject tal:content="item"></dc:subject></tal:block> <dc:date tal:content="modified"></dc:date><dc:type tal:content="obj_item/Type"></dc:type></item>
 </tal:block>
 

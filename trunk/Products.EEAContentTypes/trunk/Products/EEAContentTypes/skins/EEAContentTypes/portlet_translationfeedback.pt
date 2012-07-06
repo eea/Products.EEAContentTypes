@@ -25,17 +25,16 @@
                      alt="Email address"
                      value="Enter email"  
                      size="20" 
-                     i18n:attributes="alt label_email;
-				      value label_email;" />
-	          <label for="message" class="hiddenStructure" i18n:translate="label_message">Message</label>
+                     i18n:attributes="alt;value;" />
+	          <label for="message" class="hiddenStructure" i18n:translate="">Message</label>
               <textarea 
                      name="message" 
                      id="message"  
-                     alt="Message address"
+                     alt="Your message"
                      value="Enter message"  
                      rows="8"
-                     i18n:attributes="alt label_message;"
-		     i18n:translate="label_message">Your message</textarea>
+                     i18n:attributes="alt"
+		             i18n:translate="">Your message</textarea>
 		       <input type="submit" 
 		               class="standalone"
                        name="submit"
