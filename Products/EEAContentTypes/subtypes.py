@@ -71,6 +71,14 @@ class RelationsSchemaExtender(object):
     def getFields(self):
         """ Returns relatedItems field
         """
+        if self.context.portal_type in (
+            "DavizVisualization", "EEAFigure", "Specification", "Assessment",
+            "QuickEvent", "Report"):
+            return []
+        # #4705 base_view shows related widget which should be rendered by 
+        # the macro from main_template
+        if self.context.portal_type in ("Promotion",):
+            self.fields[0].widget.visible['view'] = 'invisible'
         return self.fields
 
 class LocationSchemaExtender(object):
