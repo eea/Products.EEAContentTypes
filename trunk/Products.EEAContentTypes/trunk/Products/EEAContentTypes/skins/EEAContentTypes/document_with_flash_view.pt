@@ -18,7 +18,7 @@
                 <a href="http://www.macromedia.com/go/getflashplayer"
                    title="get flashplayer" 
                    i18n:attributes="title"
-                   i18n:name="flashpalyer-link"
+                   i18n:name="flashplayer-link"
                    tal:content="string:http://www.macromedia.com/go/getflashplayer"></a> 
           </div>
           <tal:flashjs replace="structure flash/flash_js_inline" />

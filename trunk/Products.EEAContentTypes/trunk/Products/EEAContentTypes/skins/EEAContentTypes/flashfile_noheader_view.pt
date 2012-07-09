@@ -17,7 +17,7 @@
               <br />
 	          <div id="" class="flashmovie" 
                 tal:attributes="id string:container-${here/getId};"
-                i18n:translate="">
+                i18n:translate="flashmovie-desc">
                  You need Flash player to be able to see and use the ozone map viewer, please download it for free from 
                  <a href="http://www.macromedia.com/go/getflashplayer" 
                     title="get flashplayer"
