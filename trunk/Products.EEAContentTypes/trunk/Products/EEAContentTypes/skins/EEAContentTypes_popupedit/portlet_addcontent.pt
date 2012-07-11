@@ -37,7 +37,7 @@
             <a href="" class="new_content_creator"
                tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&amp;use_schemata_edit=true">
                <img src="" tal:attributes="src string:${context/portal_url}/add.png" /> 
-               <tal:block i18n:translate="" /></tal:block></a>
+               <tal:block i18n:translate="">Create <span tal:replace="context/Title" /></tal:block></a>
         </dt>
         <dd i18n:translate="">Press the link to create a new content item in its default location</dd></dl>
     </div>

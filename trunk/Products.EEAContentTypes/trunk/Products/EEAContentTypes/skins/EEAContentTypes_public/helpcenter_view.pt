@@ -136,14 +136,14 @@
 
                     <dd class="portletFooter">
                         <a tal:attributes="href section/getURL">
-                          <span i18n:translate="">
+                          <span i18n:translate="all_helptype" tal:condition="python:len(objs) > 0"> 
                             All <span tal:content="python:len(objs)"
                                       i18n:name="number" />
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section
                             </span>&hellip;
                           </span>
-                          <span i18n:translate="">
+                          <span i18n:translate="nopublished_helptype" tal:condition="python:len(objs) == 0"> 
                             Nothing published in
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section

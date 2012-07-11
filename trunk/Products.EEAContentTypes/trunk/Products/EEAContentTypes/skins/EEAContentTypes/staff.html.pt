@@ -13,7 +13,7 @@
     <div metal:fill-slot="main">
       <metal:main-macro define-macro="main">
 
-        <h1 i18n:translate="">
+        <h1 i18n:translate="EEA Staff list"  class="documentFirstHeading"> 
           EEA Staff list
         </h1>
         <p>
