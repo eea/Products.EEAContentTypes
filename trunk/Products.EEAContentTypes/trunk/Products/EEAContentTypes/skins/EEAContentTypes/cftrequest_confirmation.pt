@@ -8,7 +8,7 @@
 <div metal:fill-slot="main">
    <h1 i18n:translate="">Thank you for your request</h1>
 
-   <p i18n:translate="email-confirmation-mes">You should shortly receive an email with further information.</p>
+   <p i18n:translate="">You should shortly receive an email with further information.</p>
 </div>
 
 </body>

@@ -66,7 +66,7 @@
       </ul>
 
       <h1 tal:content="view/title">Reorder resources</h1>
-      <p i18n:translate="list-ressources-desc">On the left side you have a list resources. Drag from the handle icon to reorder. After reordering, you need to use the Save button at the bottom of the list. On the right side you can see how the resources have been composed. Notice: this is not a preview. Hitting Save will generate new merged resources.
+      <p i18n:translate="">On the left side you have a list resources. Drag from the handle icon to reorder. After reordering, you need to use the Save button at the bottom of the list. On the right side you can see how the resources have been composed. Notice: this is not a preview. Hitting Save will generate new merged resources.
 </p>
 
       <div style="width:380px; float:left">

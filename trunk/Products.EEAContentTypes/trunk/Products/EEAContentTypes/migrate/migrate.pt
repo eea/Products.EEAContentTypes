@@ -6,7 +6,7 @@
 <body>
 <div metal:fill-slot="prefs_configlet_main">
 
-  <h1 i18n:translate="" id="page-title" class="documentFirstHeading">
+  <h1 i18n:translate="">
     Migrate EEA Content-types: Image to Blob
   </h1>
 

@@ -38,7 +38,7 @@
 
                 <fieldset style="float: right;">
 
-                    <legend i18n:translate="phc_doc_search">Documentation search</legend>
+                    <legend i18n:translate="">Documentation search</legend>
 
                     <label for="searchGadget"
                            class="hiddenStructure"
@@ -66,17 +66,17 @@
 
                     <br />
 
-                    <span i18n:translate="" tal:omit-tag="">in</span>
+                    <span i18n:translate="">in</span>
 
                       <select name="phc_selection">
-                        <option value="all" i18n:translate="phc_full_area">Entire documentation area</option>
-                        <option value="faq" i18n:translate="phc_faq">FAQs</option>
-                        <option value="howto" i18n:translate="phc_howto">How-tos</option>
-                        <option value="tutorial" i18n:translate="phc_tutorial">Tutorials</option>
-                        <option value="link" i18n:translate="phc_links">Links</option>
-                        <option value="error" i18n:translate="phc_errorreference">Error references</option>
-                        <option value="glossary" i18n:translate="phc_definition">Glossary definitions</option>
-                        <option value="manual" i18n:translate="phc_referencemanual">Reference manuals</option>
+                        <option value="all" i18n:translate="">Entire documentation area</option>
+                        <option value="faq" i18n:translate="">FAQs</option>
+                        <option value="howto" i18n:translate="">How-tos</option>
+                        <option value="tutorial" i18n:translate="">Tutorials</option>
+                        <option value="link" i18n:translate="">Links</option>
+                        <option value="error" i18n:translate="">Error references</option>
+                        <option value="glossary" i18n:translate="">Glossary definitions</option>
+                        <option value="manual" i18n:translate="">Reference manuals</option>
                     </select>
                 </fieldset>
             </form>
@@ -89,7 +89,7 @@
             <p>
               <img tal:replace="structure here/rss.gif" />
               <a tal:define="view nocall:context/@@hc_view" tal:attributes="href python:view.getSyndicationURL()"
-                 i18n:translate="phc_rss_all">
+                 i18n:translate="">
                 Feed for all documentation.
               </a>
             </p>
@@ -97,7 +97,7 @@
             <p tal:condition="exists:here/how-to/use-help-center">
               <img tal:replace="structure here/helpcenter_icon.gif" />
               <a tal:attributes="href string:${here_url}/how-to/use-help-center"
-                 i18n:translate="phc_contrib_use">
+                 i18n:translate="">
                 Instructions on how to contribute to and use this resource.
               </a>
             </p>
@@ -114,7 +114,7 @@
                     <dt class="portletHeader">
                       <a tal:attributes="href section/getURL;
                                          title section/Description|nothing;">
-                      <span i18n:translate="latest_helptype">
+                      <span i18n:translate="">
                         Latest <span i18n:name="title" tal:content="section/Title">Section title</span>
                       </span>
                     </a>
@@ -136,14 +136,14 @@
 
                     <dd class="portletFooter">
                         <a tal:attributes="href section/getURL">
-                          <span i18n:translate="all_helptype" tal:condition="python:len(objs) > 0">
+                          <span i18n:translate="">
                             All <span tal:content="python:len(objs)"
                                       i18n:name="number" />
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section
                             </span>&hellip;
                           </span>
-                          <span i18n:translate="nopublished_helptype" tal:condition="python:len(objs) == 0">
+                          <span i18n:translate="">
                             Nothing published in
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section
@@ -158,7 +158,7 @@
             </tal:listings>
 
             <tal:nolist tal:condition="python: not sections">
-              <p class="discreet" i18n:translate="phc_nolist">
+              <p class="discreet" i18n:translate="">
                 There are no contained help center object types.
               </p>
             </tal:nolist>

@@ -10,7 +10,7 @@
 
 		<div metal:define-macro="header">
 
-			<h1 i18n:translate="heading_edit_item" class="documentFirstHeading"
+			<h1 i18n:translate=""
 				metal:define-slot="title">
 				Edit
 				<span i18n:name="itemtype"
@@ -37,7 +37,7 @@
 
 			<p class="portalMessage"
 				tal:condition="isLocked"
-				i18n:translate="description_webdav_locked">
+				i18n:translate="">
 				This item is in use by someone else and cannot be modified
 			</p>
 

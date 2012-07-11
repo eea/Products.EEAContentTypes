@@ -9,10 +9,10 @@
 
 <div metal:fill-slot="main">
 
-    <h1 i18n:translate="heading_event_sent">Event sent</h1>
+    <h1 i18n:translate="">Event sent</h1>
 
     <div>
-        <p i18n:translate="description_event_sent">
+        <p i18n:translate="">
 Thank you for your event. The EEA web team will try to publish it as soon as possible.
         </p>
     </div>

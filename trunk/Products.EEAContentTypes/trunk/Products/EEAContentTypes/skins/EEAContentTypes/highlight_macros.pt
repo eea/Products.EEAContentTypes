@@ -55,7 +55,7 @@
                <a href="" title=""
                   tal:attributes="href hl/getUrl;
                                   title hl/getNewsTitle" class="moreLink"
-                  i18n:translate="box_morelink">More</a>
+                  i18n:translate="">More</a>
                <br /></p>
          </div>
         <div class="visualClear"><!-- --></div>
@@ -124,7 +124,7 @@
                  <a href="" title=""
                    tal:attributes="href hl/getUrl;
                                    title hl/getNewsTitle" class="moreLink"
-                   i18n:translate="box_morelink">More</a>
+                   i18n:translate="">More</a>
              <br /></p>
        </div>
     </metal:items>
@@ -164,7 +164,7 @@
      tal:define="highlights frontpage_view/getLow;
                  plone_view nocall:plone_view|here"
      tal:condition="highlights">
-    <h4 i18n:domain="eea" i18n:translate="Previous">Previous</h4>
+    <h4 i18n:domain="eea" i18n:translate="">Previous</h4>
     <ul metal:define-macro="lownews"
                 tal:condition="highlights">
         <li class="highlightLow" tal:repeat="hl highlights">

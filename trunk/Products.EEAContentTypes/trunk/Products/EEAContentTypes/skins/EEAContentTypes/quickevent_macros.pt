@@ -9,8 +9,8 @@
       <metal:enquirySteps define-macro="steps">
         <h1 i18n:translate="">Submit an environmental event</h1>
         <div class="lightBGC" style="padding: 3pt 3pt 1pt 3pt;">
-          <p i18n:translate="submit-form-desc">Use this form to submit an environmental event. We will then check if the submitted event is relevant for publishing.</p>
-          <p><strong i18n:translate="publish-event-desc">We do not publish events that are purely commercial and with no references to the environment.</strong></p></div>
+          <p i18n:translate="">Use this form to submit an environmental event. We will then check if the submitted event is relevant for publishing.</p>
+          <p><strong i18n:translate="">We do not publish events that are purely commercial and with no references to the environment.</strong></p></div>
         <dl class="wizard"  tal:define="defaultClass python:'';
           currentClass python:'currentStep'">
           <dt tal:attributes="class python:test(currentStep == 1, currentClass, defaultClass)">1</dt>

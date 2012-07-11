@@ -17,7 +17,7 @@
            tal:define="parent_url python:here.navigationParent(here, template_id)"
            tal:condition="parent_url"
            tal:attributes="href parent_url"
-           i18n:translate="go_to_parent_url">
+           i18n:translate="">
         Up one level
         </a>
 
@@ -47,15 +47,15 @@
                 <caption class="hiddenStructure" i18n:translate="">Content listing</caption>
                 <thead>
                     <tr>
-                        <th class="nosort">&nbsp;<tal:title i18n:translate="listingheader_title"
+                        <th class="nosort">&nbsp;<tal:title i18n:translate=""
                           >Title</tal:title>&nbsp;</th>
                         <th class="nosort"
-                            tal:condition="show_about">&nbsp;<tal:title i18n:translate="listingheader_author"
+                            tal:condition="show_about">&nbsp;<tal:title i18n:translate=""
                           >Author</tal:title>&nbsp;</th>
-                        <th class="nosort">&nbsp;<tal:title i18n:translate="listingheader_type"
+                        <th class="nosort">&nbsp;<tal:title i18n:translate=""
                           >Type</tal:title>&nbsp;</th>
                         <th class="nosort"
-                            tal:condition="show_about">&nbsp;<tal:modified i18n:translate="listingheader_modified"
+                            tal:condition="show_about">&nbsp;<tal:modified i18n:translate=""
                           >Modified</tal:modified>&nbsp;</th>
                     </tr>
                 </thead>
@@ -142,7 +142,7 @@
         <metal:empty metal:define-slot="no_items_in_listing">
             <p class="discreet"
                tal:condition="not: folderContents"
-               i18n:translate="description_no_items_in_folder">
+               i18n:translate="">
                 There are currently no items in this folder.
             </p>
         </metal:empty>

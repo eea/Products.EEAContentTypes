@@ -77,7 +77,7 @@ div.archived p
 
                <tal:flashjs replace="structure here/flash_js" />
                <h2 i18n:translate="">Full screen</h2>
-               <p i18n:translate="full-screen-desc">
+               <p i18n:translate="">
                    If the map application above does not provide an integrated full screen feature (usually in the upper right corner), 
                    then you can try with the following
                    <tal:block i18n:name="full-screen-mode"> 

@@ -491,7 +491,7 @@ margin-top: 75px;
             tal:define="view here/@@eeaorganisation;
                         orgs_data here/@@eeaorglist">
 
-    <h1 i18n:translate="title_eeastaff_list"  class="documentFirstHeading">
+    <h1 i18n:translate="">
         EEA Organisational chart
     </h1>
     <p>
@@ -588,7 +588,7 @@ margin-top: 75px;
     </div>
 
     <tal:block condition="not:view/validData">
-        <p i18n:translate="loading_data">loading data ...</p>
+        <p i18n:translate="">loading data ...</p>
     </tal:block>
 </metal:main>
 </body>

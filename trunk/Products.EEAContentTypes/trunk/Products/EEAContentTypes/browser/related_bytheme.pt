@@ -6,7 +6,7 @@
     tal:condition="themes"
     i18n:domain="eea">
     <dl id="auto-related" class="portlet">
-        <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
+        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
         <dd class="portletItem">
 
     <tal:bytheme repeat="theme themes">

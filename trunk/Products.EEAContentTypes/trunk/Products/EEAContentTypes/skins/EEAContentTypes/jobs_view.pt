@@ -16,7 +16,7 @@
       <tal:applicationform 
            condition="python:not hasattr(context, 'disabled_form')">
         <h2 i18n:translate="">Application form</h2>
-        <p><strong i18n:translate="app-from-desc">Interested candidates must apply by
+        <p><strong i18n:translate="">Interested candidates must apply by
             filling in the application form below. To the application form must be attached:
         </strong></p>
         <ul>

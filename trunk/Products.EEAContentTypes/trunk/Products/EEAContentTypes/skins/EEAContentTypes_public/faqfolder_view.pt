@@ -55,7 +55,7 @@
               <dl class="portlet visualNoPrint faqSectionsToc"
                   tal:condition="not:noSections">
                 <dt class="portletHeader"
-                    i18n:translate="phc_index_sections">Sections</dt>
+                    i18n:translate="">Sections</dt>
                 <dd class="portletItem">
                   <ol>
                     <li tal:repeat="section sections">
@@ -69,14 +69,14 @@
               <div tal:condition="full">
                 <a class="link-expand"
                   tal:attributes="href python:'%s' % here.absolute_url()">
-                  &laquo; <span i18n:translate="phc_up_to_toc">Back to Table of Contents</span>
+                  &laquo; <span i18n:translate="">Back to Table of Contents</span>
                 </a>
               </div>
 
               <div tal:condition="not: full">
                 <a class="link-expand"
                   tal:attributes="href python:'%s?full=1' % here.absolute_url()">
-                  <span i18n:translate="phc_view_entire_faq">View entire FAQ expanded</span>
+                  <span i18n:translate="">View entire FAQ expanded</span>
                 </a>
               </div>
 
@@ -137,7 +137,7 @@
                   </span>
 
                   <span tal:condition="not: faq/Versions | nothing">
-                      <span i18n:translate="phc_any_version">
+                      <span i18n:translate="">
                       Any version.
                       </span>
                   </span>
