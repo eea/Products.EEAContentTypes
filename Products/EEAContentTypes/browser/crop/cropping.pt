@@ -16,13 +16,13 @@
     No images found.
   </p>
   <div tal:repeat="field fields" tal:condition="fields">
-      <h1 class="documentFirstHeading" i18n:translate="header_edit_crops">Edit croppable images</h1>
-      <p class="documentDescription" i18n:translate="text_edit_crops_description">For each image field in your content you can
+      <h1 class="documentFirstHeading" i18n:translate="">Edit croppable images</h1>
+      <p class="documentDescription" i18n:translate="">For each image field in your content you can
         select below the image you want to crop.
       </p>
 
       <div id="cropping-original-image">
-          <h3 i18n:translate="label_original_image">Original image</h3>
+          <h3 i18n:translate="">Original image</h3>
           <img src="" tal:attributes="src string:${context/absolute_url}/${field}_preview" />
       </div>
 

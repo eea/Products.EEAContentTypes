@@ -7,13 +7,13 @@
 
   <body>
     <div metal:fill-slot="main">
-        <h1 class="hiddenStructure" i18n:translate="eea-select-language">EEA Home page - select your preferred language</h1>
+        <h1 class="hiddenStructure" i18n:translate="">EEA Home page - select your preferred language</h1>
 
         <dl id="languageMenu">
-          <dt i18n:translate="choose-eea-web-site">
+          <dt i18n:translate="">
              Choose the EEA local website in your preferred language 
           </dt>
-          <dd i18n:translate="eea-web-site-desc">In these websites you will find all the summarised environmental information available in your language.</dd>
+          <dd i18n:translate="">In these websites you will find all the summarised environmental information available in your language.</dd>
           <dd>
             <ul>
 	    <tal:languages repeat="lang here/@@translatedSitesLanguages">

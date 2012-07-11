@@ -45,7 +45,7 @@
             </a>
 
             <tal:if condition="show_path"
-                 i18n:translate="label_directory">
+                 i18n:translate="">
               (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
             </tal:if>
 
@@ -84,7 +84,7 @@
                 </a>
 
                 <tal:if condition="show_path"
-                     i18n:translate="label_directory">
+                     i18n:translate="">
                   (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '') ">directory</span>)
                 </tal:if>
 
@@ -133,7 +133,7 @@
                       />
 
                       <tal:if condition="show_path"
-                           i18n:translate="label_directory">
+                           i18n:translate="">
                         (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
                       </tal:if>
 

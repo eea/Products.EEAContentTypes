@@ -19,7 +19,7 @@
         <metal:fill fill-slot="main">
             
             <metal:main define-macro="main" >
-                 <p i18n:translate="popup-desc">A new window has been opened with the flash application. <br/>
+                 <p i18n:translate="">A new window has been opened with the flash application. <br/>
                     If you don't see the window please check your browser preferences to allow popup windows. You'll then need to reload this page.</p>
             </metal:main>
         </metal:fill>

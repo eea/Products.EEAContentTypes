@@ -108,7 +108,7 @@
     tal:condition="themes"
     i18n:domain="eea">
     <dl id="auto-related" class="portlet">
-        <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
+        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
         <dd class="portletItem">
 
     <tal:bytheme repeat="theme themes">
@@ -128,7 +128,7 @@
              tal:condition="theme/more_link"
              tal:attributes="href theme/more_link;
                              title string:More multimedia on ${theme/name}">
-            <span i18n:domain="eea" i18n:translate="box_morelink" tal:omit-tag="">More</span>
+            <span i18n:domain="eea" i18n:translate="">More</span>
           </a>
         </dd>
     </dl>
@@ -150,7 +150,7 @@
     tal:condition="items"
     i18n:domain="eea">
     <dl class="portlet auto-related">
-        <dt class="portletHeader" i18n:translate="Related">Related</dt>
+        <dt class="portletHeader" i18n:translate="">Related</dt>
         <dd class="portletItem">
             <dl>
                 <tal:block repeat="info python:items[:nr_items]">
@@ -174,7 +174,7 @@
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
-            <h2 i18n:domain="eea" i18n:translate="label_related_content">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="">Related content</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
@@ -198,7 +198,7 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedItems tal:define="related context/@@document_related/other"
                           tal:condition="related">
-            <h2 i18n:domain="eea" i18n:translate="label_related_content">Related content</h2>
+            <h2 i18n:domain="eea" i18n:translate="">Related content</h2>
             <div class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <div class="tileItem visualIEFloatFix vevent">
@@ -226,7 +226,7 @@
                         <a class="moreLink" href=""
                            tal:attributes="href item/url;
                                            title item/title;"
-                           i18n:translate="read_more">
+                           i18n:translate="">
                         Read more
                         </a>
                     </p>
@@ -245,7 +245,7 @@
     tal:condition="related"
     i18n:domain="eea">
     <dl id="auto-related" class="portlet">
-        <dt class="portletHeader" i18n:translate="Latest addition">Latest addition</dt>
+        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
 
         <tal:block repeat="info related">
             <tal:media define="media info" condition="info/is_video">

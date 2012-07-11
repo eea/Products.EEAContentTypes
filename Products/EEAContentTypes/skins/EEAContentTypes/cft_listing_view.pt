@@ -17,7 +17,7 @@
                 <a style='text-align: right' href="#"
                   tal:condition="nocall: here/asPDF|nothing"
                   tal:attributes="href string:${here_url}/asPDF/atct_topic_pdf_template/atct_topic_pdf"
-                  i18n:translate="label_download_as_pdf"
+                  i18n:translate=""
                   i18n:domain="eea">
                   Download PDF
                 </a>
@@ -53,7 +53,7 @@
               <p class="discreet"
                 tal:condition="python: not topicContents and here.listCriteria()"
                 i18n:domain="eea"
-                i18n:translate="description_no_items_in_topic">
+                i18n:translate="">
                 There are currently no results for this search.
               </p>
 

@@ -22,7 +22,7 @@
 
         <table class="sectionIndex" tal:condition="not:noSections">
           <thead>
-            <tr><th i18n:translate="phc_index_sections">Sections</th></tr>
+            <tr><th i18n:translate="">Sections</th></tr>
           </thead>
           <tbody>
             <tr tal:repeat="section sections">

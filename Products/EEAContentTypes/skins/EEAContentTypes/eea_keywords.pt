@@ -40,11 +40,11 @@
                         <dl id="existingTags">
                             <label for="subject">
                                 <dt id="existingTagsTitle">
-                                    <span i18n:translate="label_select_existing_tags">
+                                    <span i18n:translate="">
                                         Select from existing tags.
                                     </span>
                                 </dt>
-                                <span id="existingTagsHelp" class="formHelp" i18n:translate="label_existingTagsHelp">
+                                <span id="existingTagsHelp" class="formHelp" i18n:translate="">
                                     Use Control/Command/Shift keys to select multiple tags.
                                 </span>
                                 <tal:comment replace="nothing">
@@ -78,8 +78,8 @@
                             <tal:comment replace="nothing">
                                 These spans are hidden by css, and used by the JavaScript called below.
                             </tal:comment>
-                            <span id="noTagsSelected" i18n:translate="label_noTagsSelected">No tags currently selected.</span>
-                            <span id="oneOrMoreTagsSelected" i18n:translate="label_oneOrMoreTagsSelected">% tags currently selected.</span>
+                            <span id="noTagsSelected" i18n:translate="">No tags currently selected.</span>
+                            <span id="oneOrMoreTagsSelected" i18n:translate="">% tags currently selected.</span>
                             <input type="hidden"
                                    value=""
                                    tal:condition="not:field/required | nothing"
@@ -115,11 +115,11 @@
                         <dl id="newTagsSection">
                             <label for="subject_keywords">
                                 <dt id="newTagsTitle">
-                                    <span i18n:translate="label_create_new_tags">
+                                    <span i18n:translate="">
                                         Create and apply new tags.
                                     </span>
                                 </dt>
-                                <span id="newTagsHelp" i18n:translate="label_newTagsHelp" class="formHelp">
+                                <span id="newTagsHelp" i18n:translate="">
                                     Enter one tag per line, multiple words allowed.
                                 </span>
                             </label>

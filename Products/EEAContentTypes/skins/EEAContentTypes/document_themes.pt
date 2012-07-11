@@ -8,7 +8,7 @@
     <tal:allowed condition="isViewTemplate">
         <tal:relatedThemes tal:define="related here/@@relatedThemes|nothing">
             <tal:block tal:condition="python:related">
-               <span  i18n:translate="related_themes">Related themes</span>
+               <span  i18n:translate="">Related themes</span>
                <ul class="visualNoMarker">
                    <tal:related tal:repeat="item related">
                       <li><tal:themeTitle tal:content="item"></tal:themeTitle><tal:notLast tal:condition="not: repeat/item/end">,</tal:notLast></li>

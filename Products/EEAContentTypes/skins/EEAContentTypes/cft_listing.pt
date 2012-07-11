@@ -54,7 +54,7 @@
                         <tal:anon tal:condition="not: isAnon">
                           <tal:name tal:condition="item_creator"
                             tal:define="author python:mtool.getMemberInfo(item_creator)">
-                            <span i18n:translate="label_by_author">
+                            <span i18n:translate="">
                               by
                               <a href="#"
                                 tal:attributes="href string:${portal_url}/author/${item_creator}"
@@ -68,7 +68,7 @@
                           </tal:name>
                           <tal:modified condition="python: item_type != 'Event'">
                             &mdash;
-                            <tal:mod i18n:translate="box_last_modified">
+                            <tal:mod i18n:translate="">
                               last modified
                             </tal:mod>
                             <span tal:replace="python:toLocalizedTime(item_modified,long_format=1)">
@@ -119,7 +119,7 @@
             <metal:empty metal:define-slot="no_items_in_listing">
               <p class="discreet"
                 tal:condition="not: folderContents"
-                i18n:translate="description_no_items_in_folder">
+                i18n:translate="">
                 There are currently no items in this folder.
               </p>
             </metal:empty>

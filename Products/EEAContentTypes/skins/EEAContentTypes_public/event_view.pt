@@ -27,7 +27,7 @@
             <tbody>
 
               <tr tal:condition="context/Subject">
-                <th i18n:translate="event_what">What</th>
+                <th i18n:translate="">What</th>
                 <td>
                   <metal:field use-macro="python:context.widget('subject', mode='view')">
                     Categories
@@ -35,10 +35,10 @@
                 </td>
               </tr>
               <tr>
-                <th i18n:translate="event_when">When</th>
+                <th i18n:translate="">When</th>
                 <td>
                   <tal:differentday tal:condition="python:not context.start().Date() == context.end().Date()"
-                    i18n:translate="event_when_differentday">
+                    i18n:translate="">
                     <abbr i18n:name="startdate"
                       metal:define-macro="startdate-field-view"
                       tal:define="kss_class python:getKssClasses('startDate',
@@ -48,7 +48,7 @@
                       title python:context.start().ISO8601()">
                       <span metal:define-slot="inside" class="explain">
                         <span tal:replace="python:toLocalizedTime(context.start())">Start Date</span>
-                        <!--<tal:word i18n:translate="event_when_differentday_optional_word_between_date_and_time" />-->
+                        <!--<tal:word i18n:translate="" />-->
                         <!--<span tal:replace="python:toLocalizedTime(context.start(), time_only=1)">Start Time</span>-->
                       </span>
                     </abbr>
@@ -63,7 +63,7 @@
                       title python:context.end().ISO8601()">
                       <span metal:define-slot="inside" class="explain">
                         <span tal:replace="python:toLocalizedTime(context.end())">End Date</span>
-                        <!--<tal:word i18n:translate="event_when_differentday_optional_word_between_date_and_time" />-->
+                        <!--<tal:word i18n:translate="" />-->
                         <!--<span tal:replace="python:toLocalizedTime(context.end(), time_only=1)">End Time</span>-->
                       </span>
                     </abbr>
@@ -72,7 +72,7 @@
                   <tal:sameday tal:condition="python:context.start().Date() == context.end().Date()"
                     tal:define="ampm
                     python:site_properties.getProperty('localLongTimeFormat').find('%p') >= 0"
-                    i18n:translate="event_when_sameday">
+                    i18n:translate="">
                     <span tal:replace="python:toLocalizedTime(context.start())"
                       i18n:name="date">
                       Start Date Time</span>
@@ -104,7 +104,7 @@
                 </td>
               </tr>
               <tr tal:condition="context/location">
-                <th i18n:translate="event_where">Where</th>
+                <th i18n:translate="">Where</th>
                 <td class="location">
                 <tal:hideMap tal:define="events python:True">
                     <metal:field use-macro="python:context.widget('location', mode='view')">
@@ -116,7 +116,7 @@
               <tr tal:define="contact_email context/contact_email;
                 contact_name python:context.contact_name() or None;"
                 tal:condition="python:contact_name or contact_email">
-                <th i18n:translate="contact_name">Contact Name</th>
+                <th i18n:translate="">Contact Name</th>
                 <td>
                   <a id="parent-fieldname-contactEmail"
                     tal:condition="contact_email"
@@ -128,7 +128,7 @@
                 </td>
               </tr>
               <tr tal:condition="context/contact_phone">
-                <th i18n:translate="contact_phone">Contact Phone</th>
+                <th i18n:translate="">Contact Phone</th>
                 <td class="tel">
                   <metal:field use-macro="python:context.widget('contactPhone', mode='view')">
                     Phone number
@@ -136,7 +136,7 @@
                 </td>
               </tr>
               <tr tal:condition="context/getAttendees|nothing">
-                <th i18n:translate="contact_attendees">Attendees</th>
+                <th i18n:translate="">Attendees</th>
                 <td class="attendees">
                   <metal:field use-macro="python:context.widget('attendees', mode='view')">
                     Attendees
@@ -144,20 +144,20 @@
                 </td>
               </tr>
               <tr>
-                <th i18n:translate="heading_add_to_calendar">Add event to calendar</th>
+                <th i18n:translate="">Add event to calendar</th>
                 <td tal:define="here_url context/@@plone_context_state/object_url;">
                   <a href="#"
                     tal:attributes="href string:$here_url/vcs_view"
                     title="Download this event in vCal format"
                     i18n:attributes="title title_add_to_vcal;">
                     <img tal:replace="structure context/icon_export_vcal.png" src="" alt="" />
-                    <span i18n:translate="label_add_to_vcal">vCal</span></a><br />
+                    <span i18n:translate="">vCal</span></a><br />
                   <a href="#"
                     tal:attributes="href string:$here_url/ics_view"
                     title="Download this event in iCal format"
                     i18n:attributes="title title_add_to_ical;">
                     <img tal:replace="structure context/icon_export_ical.png" src="" alt="" />
-                    <span i18n:translate="label_add_to_ical">iCal</span></a>
+                    <span i18n:translate="">iCal</span></a>
                 </td>
               </tr>
             </tbody>
@@ -173,7 +173,7 @@
         <p tal:condition="context/event_url|nothing">
           <a class="url"
             href="event_url"
-            i18n:translate="event_more_information"
+            i18n:translate=""
             tal:define="field python:context.getField('eventUrl');"
             id="parent-fieldname-eventUrl"
             tal:attributes="href context/event_url">

@@ -13,7 +13,7 @@
     <div metal:fill-slot="main">
       <metal:main-macro define-macro="main">
 
-        <h1 i18n:translate="EEA Staff list"  class="documentFirstHeading">
+        <h1 i18n:translate="">
           EEA Staff list
         </h1>
         <p>
@@ -32,9 +32,9 @@
         </tal:block>
 
         <dl style="float: right; padding-left: 1em;">
-          <dt i18n:translate="EEA Switchboard">EEA Switchboard</dt>
+          <dt i18n:translate="">EEA Switchboard</dt>
           <dd>+45 3336 7100</dd>
-          <dt i18n:translate="EEA Central fax">EEA Central fax</dt>
+          <dt i18n:translate="">EEA Central fax</dt>
           <dd>+45 3336 7199</dd>
         </dl>
 
@@ -55,15 +55,15 @@
                 i18n:attributes="summary summary_content_listing;">
                 <thead>
                   <tr>
-                    <th>&nbsp;<tal:title i18n:translate="First name"
+                    <th>&nbsp;<tal:title i18n:translate=""
                         >First name</tal:title>&nbsp;</th>
-                    <th>&nbsp;<tal:title i18n:translate="Last name"
+                    <th>&nbsp;<tal:title i18n:translate=""
                         >Last name</tal:title>&nbsp;</th>
-                    <th class="nosort">&nbsp;<tal:title i18n:translate="Contact"
+                    <th class="nosort">&nbsp;<tal:title i18n:translate=""
                         >Contact</tal:title>&nbsp;</th>
-                    <th>&nbsp;<tal:title i18n:translate="Job title"
+                    <th>&nbsp;<tal:title i18n:translate=""
                         >Job title</tal:title>&nbsp;</th>
-                    <th>&nbsp;<tal:title i18n:translate="Programme"
+                    <th>&nbsp;<tal:title i18n:translate=""
                         >Programme</tal:title>&nbsp;</th>
                   </tr>
                 </thead>
