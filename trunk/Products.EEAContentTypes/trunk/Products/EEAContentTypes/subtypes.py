@@ -73,7 +73,8 @@ class RelationsSchemaExtender(object):
         """
         if self.context.portal_type in (
             "DavizVisualization", "EEAFigure", "Specification", "Assessment",
-            "QuickEvent", "Report"):
+            "AssessmentPart", "QuickEvent", "Report", "Data",
+            "IndicatorFactSheet"):
             return []
         # #4705 base_view shows related widget which should be rendered by 
         # the macro from main_template
