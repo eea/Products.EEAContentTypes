@@ -54,7 +54,7 @@
                            title="Search"
                            style="margin-bottom: 0.5em;"
                            accesskey="accesskeys-search"
-                           i18n:attributes="alt title"
+                           i18n:attributes="alt ;title"
                            tal:attributes="value request/SearchableText|nothing"
                     />
 
@@ -62,7 +62,7 @@
                            type="submit"
                            value="Search"
                            accesskey="accesskeys-search"
-                           i18n:attributes="value accesskey" />
+                           i18n:attributes="value" />
 
                     <br />
 
@@ -136,14 +136,14 @@
 
                     <dd class="portletFooter">
                         <a tal:attributes="href section/getURL">
-                          <span i18n:translate="all_helptype" tal:condition="python:len(objs) > 0"> 
+                          <span i18n:translate="" tal:condition="python:len(objs) > 0"> 
                             All <span tal:content="python:len(objs)"
                                       i18n:name="number" />
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section
                             </span>&hellip;
                           </span>
-                          <span i18n:translate="nopublished_helptype" tal:condition="python:len(objs) == 0"> 
+                          <span i18n:translate="" tal:condition="python:len(objs) == 0"> 
                             Nothing published in
                             <span i18n:name="title" tal:content="string:${section/Title}">
                                 Title of section

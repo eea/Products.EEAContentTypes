@@ -33,10 +33,9 @@ schema = Schema((
         languageIndependent=True,
         index="KeywordIndex:brains",
         widget=InAndOutWidget(
-            label=_(u'label_publication_groups', default=u'Publication groups'),
-            description=_(u'description_publication_groups',
-                          default=u'Fill in publication groups'),
-            i18n_domain='eea.reports',
+            label=_(u'Publication groups'),
+         description=_(u'Fill in publication groups'),
+            i18n_domain='eea',
             ),
         ),
 ),

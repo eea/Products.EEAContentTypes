@@ -52,7 +52,7 @@
               <!-- Navigation -->
               <table class="listing"
                 summary="Content listing"
-                i18n:attributes="summary summary_content_listing;">
+                i18n:attributes="summary">
                 <thead>
                   <tr>
                     <th>&nbsp;<tal:title i18n:translate=""

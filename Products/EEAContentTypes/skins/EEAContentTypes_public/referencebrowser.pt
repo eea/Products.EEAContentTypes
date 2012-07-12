@@ -144,7 +144,7 @@
                      type="text"
                      value="No reference set. Click the browse button to select."
                      readonly="readonly"
-                     i18n:attributes="value label_browse_reference_set;"
+                     i18n:attributes="value"
                      tal:condition="not:  value"
                      tal:attributes="id string:${fieldName}_label"/>
               <input type="hidden"
@@ -180,28 +180,28 @@
                    class="reference-widget-sorting">
                   <input style="width: 100pt"
                          type="button"
-                         i18n:attributes="value label_move_top;"
+                         i18n:attributes="value"
                          value="Move top"
                          tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_to_top(el, pos);;"
                   />
                   <br/>
                   <input style="width: 100pt"
                          type="button"
-                         i18n:attributes="value label_move_up;"
+                         i18n:attributes="value"
                          value="Move up"
                          tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_up(el, pos);;"
                   />
                   <br/>
                   <input style="width: 100pt"
                          type="button"
-                         i18n:attributes="value label_move_down;"
+                         i18n:attributes="value"
                          value="Move down"
                          tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_down(el, pos);;"
                   />
                   <br/>
                   <input style="width: 100pt"
                          type="button"
-                         i18n:attributes="value label_move_bottom;"
+                         i18n:attributes="value"
                          value="Move bottom"
                          tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_to_bottom(el, pos);;"
                   />
@@ -214,7 +214,7 @@
                      class="searchButton"
                      value="Browse..."
                      onClick=""
-                     i18n:attributes="value label_browse;"
+                     i18n:attributes="value"
                      tal:attributes="onClick string:javascript:referencebrowser_openBrowser('${startup_directory}','${fieldName}', '${at_url}', '${fieldRealName}')" />
               <input type="button"
                      class="destructive"
@@ -227,7 +227,7 @@
                      class="destructive"
                      value="Remove selected items"
                      onClick=""
-                     i18n:attributes="value label_remove_selected_items;"
+                     i18n:attributes="value"
                      tal:condition="multiVal"
                      tal:attributes="onClick string:javascript:referencebrowser_removeReference('${fieldName}', ${multiVal})" />
           </div>
