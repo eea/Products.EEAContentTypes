@@ -149,13 +149,13 @@
                   <a href="#"
                     tal:attributes="href string:$here_url/vcs_view"
                     title="Download this event in vCal format"
-                    i18n:attributes="title title_add_to_vcal;">
+                    i18n:attributes="title">
                     <img tal:replace="structure context/icon_export_vcal.png" src="" alt="" />
                     <span i18n:translate="">vCal</span></a><br />
                   <a href="#"
                     tal:attributes="href string:$here_url/ics_view"
                     title="Download this event in iCal format"
-                    i18n:attributes="title title_add_to_ical;">
+                    i18n:attributes="title">
                     <img tal:replace="structure context/icon_export_ical.png" src="" alt="" />
                     <span i18n:translate="">iCal</span></a>
                 </td>
