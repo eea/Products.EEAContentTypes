@@ -1,0 +1,20 @@
+<html i18n:domain="eea">
+  <body>
+    <p>
+      <strong i18n:translate="">
+        Action message for <tal:type content="options/type" i18n:name="type"></tal:type> with scheduled publishing date 
+        <tal:date content="python: here.toLocalizedTime(here.getEffectiveDate(), long_format=1)" i18n:name="date">date</tal:date>
+      </strong>
+    </p>
+    <h2 tal:content="here/Title">Title</h2>
+    <tal:block i18n:translate="">Login at:</tal:block>
+    <a href="" tal:attributes="href options/editUrl"
+      tal:content="options/editUrl">Edit url</a>
+
+    <p tal:content="here/Description">description</p>
+
+    <metal:review use-macro="here/wf_review_history/macros/review_history">Review history</metal:review>
+
+    <p i18n:translate="">Regards<br />EEA Web Team</p>
+  </body>
+</html>

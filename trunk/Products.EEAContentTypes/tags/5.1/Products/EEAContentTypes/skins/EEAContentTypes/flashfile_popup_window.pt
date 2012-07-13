@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    i18n:domain="eea">
+
+    <head 
+        tal:define="portal python:here.portal_url.getPortalObject();">
+       <script type="text/javascript" src=""
+              tal:attributes="src string:${portal/absolute_url}/swfobject.js"></script>
+    </head>    
+    <body bgcolor="" tal:attributes="bgcolor here/getBgcolor" style="padding: 0; margin: 0">
+            <metal:main define-macro="main"
+                   tal:define="flash nocall:here">
+		             <div id="" class="flashmovie" 
+                tal:attributes="id string:container-${here/getId};"
+                i18n:translate="">
+                   This page requires Flashplayer, please download it for free from 
+                   <a href="http://www.macromedia.com/go/getflashplayer" 
+                      title="get flashplayer"
+                      i18n:attributes="title"
+                      i18n:name="flashplayer-link">http://www.macromedia.com/go/getflashplayer</a>
+                    </div>
+
+
+            <tal:flashjs replace="structure here/flash_js_inline" />
+
+                
+            </metal:main>
+        
+    </body>
+</html>
+

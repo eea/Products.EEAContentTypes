@@ -1,0 +1,87 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+	  xmlns:metal="http://xml.zope.org/namespaces/metal"
+	  i18n:domain="eea">
+<body>
+<metal:portlet define-macro="mini-map">
+	<metal:template use-macro="here/map_template/macros/portlet">
+
+		<metal:css fill-slot="css_slot">
+			<style type="text/css">
+			.map-portlet dd {
+				padding-left: 4px;
+			}
+			.map-portlet #ymap {
+				border: 1px solid #95B229;
+			}
+			</style>
+		</metal:css>
+
+		<metal:geodata fill-slot="geo_data_slot">
+			<tal:geoData define="geoConverter here/@@geoConverter;
+								 geoData python:here.portal_catalog.searchResults({'object_provides': 'Products.EEAContentTypes.content.interfaces.IGeoPositioned', 'review_state': 'published'})">
+				<tal:block content="structure python:geoConverter.geoConvert(geoData)" />
+			</tal:geoData>
+		</metal:geodata>
+
+	</metal:template>
+</metal:portlet>
+
+<metal:portlet define-macro="themes-map">
+	<metal:template use-macro="here/map_template/macros/portlet">
+
+		<metal:css fill-slot="css_slot">
+			<style type="text/css">
+			.map-portlet dl {
+				margin-left: 0;
+				margin-top: 5px;
+			}
+			.map-portlet #ymap {
+				border: 1px solid #95B229;
+			}
+			#ymap-widget {
+				display: inline;
+				cursor: pointer;
+				background-color:black;
+				border:1px solid black;
+				height:15px;opacity:0.5;
+				padding:0 2px;
+				position:absolute;
+				right:221px;
+				top:6px;
+				z-index:99;
+				color: #DDD;
+				line-height:1.2em;
+				filter: alpha (opacity=50);
+			}
+			</style>
+		</metal:css>
+
+		<metal:widget fill-slot="widget_slot">
+			<span id="ymap-widget" style="" i18n:translate="">
+			    <span id="ymap-count" i18n:name="number">0</span> events on map</span>
+		</metal:widget>
+
+		<metal:geodata fill-slot="geo_data_slot">
+			<tal:geoData define="geoConverter here/@@geoConverter;
+								 geoData python:here.portal_catalog.searchResults(here.events.events_topic.buildQuery())">
+				<tal:block content="structure python:geoConverter.geoConvert(geoData)" />
+			</tal:geoData>
+		</metal:geodata>
+
+		<metal:mapsettings fill-slot="map_settings_slot">
+			<script type="text/javascript">
+				<!--
+				function setMapControls(map) {
+					map.addTypeControl();
+					map.addZoomShort();
+				}
+				// -->
+			</script>
+		</metal:mapsettings>
+
+	</metal:template>
+</metal:portlet>
+
+</body>
+</html>
+

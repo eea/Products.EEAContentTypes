@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="eea">
+<head>
+</head>
+<body>
+<metal:main fill-slot="main">
+
+<form id="cropImage" action="" method="post"
+      tal:define="field python: view.field();">
+    <img src="" id="croppableImage"
+      tal:attributes="src string:${context/absolute_url}/image_large;
+        data-field field/name;
+        data-previewratiox python: view.scaleToLargeRatios()[0];
+        data-previewratioy python: view.scaleToLargeRatios()[1]"/>
+    <div id="formControls">
+
+        <ul>
+<li><strong i18n:translate="">Image Size:</strong> <span tal:content="field/image">content size</span></li>
+ <li><strong i18n:translate="">Crop Size:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span id="crop_size" tal:content="string:0x0px"></span></li> 
+
+        </ul>
+        <h3 class="warning" i18n:translate="">*Note: Hitting the crop button will replace the original image with this cropped image</h3>
+      <input  class="standalone hidden" id="image-recrop" type="submit" value="Crop" name="recrop" i18n:attributes="value"/>
+    </div>
+    <div class="visualClear" />
+  </form>
+
+</metal:main>
+</body>
+</html>

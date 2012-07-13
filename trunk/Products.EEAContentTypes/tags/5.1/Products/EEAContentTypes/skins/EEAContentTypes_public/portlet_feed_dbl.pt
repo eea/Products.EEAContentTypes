@@ -1,0 +1,91 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+
+<body>
+<div metal:define-macro="portlet"
+     tal:define="feed nocall:feed|here;
+                 plone_view nocall:plone_view|here;"
+     tal:condition="dblFeed">
+
+<dl class="portlet portlet-rss portlet-rss-dbl">
+
+    <dt>
+        <tal:rssTabs repeat="feed dblFeed">
+            <span tal:condition="feed/title_link" title="" id="" class="portletTabHead"
+                  tal:define="feed_odd repeat/feed/odd"
+                  tal:attributes="title feed/title;
+                                  id feed/feed_id;
+                                  class python:test(feed_odd, 'portletTabHead', 'portletTabHead_current')"
+                  tal:content="feed/title">Title of the feed recipe</span>
+        </tal:rssTabs>
+    </dt>
+
+<tal:rssFeeds repeat="feed dblFeed">
+    <dd tal:define="feed_odd repeat/feed/odd" id="container-rss"
+        tal:attributes="id string:container-rss-${feed/feed_id};
+                        style python:test(feed_odd, 'display:none', '')">
+
+<dl class="portlet" id="portlet-rss"
+    tal:attributes="id string:portlet-rss-${feed/feed_id}">
+
+    <tal:items tal:repeat="item feed/items">
+    <tal:rssitem  tal:define="oddrow repeat/item/odd">
+
+    <dt class="portletItem">
+        <tal:cover tal:condition="item/image">
+        <span class="figure-left">
+         <span class="figure">
+          <a href="#" title="Read more" i18n:attributes="title" class=""
+            tal:attributes="href item/url">
+            <img src="" alt=""
+                tal:attributes="src item/image; alt item/title;" />
+          </a>
+         </span>
+        </span>
+        </tal:cover>
+
+        <a href="" tal:attributes="href item/url;">
+            <span tal:replace="item/title">Item title</span>
+        </a>
+    </dt>
+
+    <dd class="portletItem date" tal:content="item/detail">07 Dec 2005</dd>
+
+    <dd class="portletItem"
+        tal:condition="item/description">
+        <tal:description  tal:content="item/description"></tal:description>
+        <a href="" title="More" i18n:attributes="title" tal:attributes="href item/url;" 
+           i18n:translate="">
+            More
+        </a>
+    </dd>
+
+    </tal:rssitem>
+    </tal:items>
+
+    <dd class="portletFooter">
+        <a href="" title="" class="moreLink"
+            tal:condition="feed/more_link"
+            tal:attributes="href feed/more_link;
+                            title feed/title;"
+            i18n:translate="">
+            More
+        </a>
+        <a href="" class="feedButton" tal:attributes="href feed/button_link">
+                <img alt="RSS" title="news items" 
+                     i18n:attributes="alt;title"
+                     src="RSSFeedRecipe_icon.png"
+                     tal:attributes="title string:RSS subscription feed for ${feed/title}" />
+        </a><br />
+    </dd>
+</dl>
+
+    </dd>
+    </tal:rssFeeds>
+</dl>
+
+
+</div>
+</body>
+</html>

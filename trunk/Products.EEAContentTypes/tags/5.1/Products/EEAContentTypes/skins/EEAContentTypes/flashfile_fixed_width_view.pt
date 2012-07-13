@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/main_template/macros/master"
+    i18n:domain="eea">
+
+    <head>
+    </head>    
+    <body>
+        <metal:header fill-slot="header">
+            <h1 class="documentFirstHeading" tal:content="here/Title">
+                Flash animation
+            </h1>
+        </metal:header>
+        
+        <metal:fill fill-slot="main">
+            
+            <metal:main define-macro="main"
+                   tal:define="flash nocall:here">
+		             <div id="" class="flashmovie" 
+                tal:attributes="id string:container-${here/getId};"
+                i18n:translate="">
+                 This page requires Flashplayer, please download it for free from 
+                 <a href="http://www.macromedia.com/go/getflashplayer" 
+                    title="get flashplayer"
+                    i18n:attributes="title"
+                    i18n:name="flashplayer-link"
+                    tal:content="string:http://www.macromedia.com/go/getflashplayer"></a> </div>
+
+
+            <tal:flashjs replace="structure here/flash_js_inline" />
+
+                
+            </metal:main>
+        </metal:fill>
+        
+    </body>
+</html>
+

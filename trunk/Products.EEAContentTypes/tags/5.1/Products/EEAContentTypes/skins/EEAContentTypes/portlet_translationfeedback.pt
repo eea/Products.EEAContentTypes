@@ -1,0 +1,51 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+<div metal:define-macro="portlet"
+     tal:omit-tag=""
+     tal:define="language context/@@plone_portal_state/language;"
+     tal:condition="python:language != 'en'">
+
+<dl class="portlet gradientBG" id="portlet-translationfeedback">
+    <dt i18n:translate="">Comments on translations</dt>
+    <dd class="portletItem"
+        i18n:translate="">Please help us increase the quality of the translations.</dd>
+    <dd class="portletItem">
+        <form style="margin-bottom:5px;" action="send_feedback_site"
+              name="translationfeedback" id="translationfeedback"
+              method="post">
+	          <input type="text" name="myurl" id="url" value="Enter this page's url" alt="This page's url" />
+	          <input type="hidden" name="subject" value="Translation comment" alt="Subject" 
+		         tal:attributes="value string:Translation comment for ${language}"/>
+	          <label for="sender_from_address" class="hiddenStructure" i18n:translate="">Sender_From_Address</label>
+                  <input type="text" 
+                     name="sender_from_address" 
+                     id="sender_from_address"  
+                     alt="Email address"
+                     value="Enter email"  
+                     size="20" 
+                     i18n:attributes="alt;value;" />
+	          <label for="message" class="hiddenStructure" i18n:translate="">Message</label>
+              <textarea 
+                     name="message" 
+                     id="message"  
+                     alt="Your message"
+                     value="Enter message"  
+                     rows="8"
+                     i18n:attributes="alt"
+		             i18n:translate="">Your message</textarea>
+		       <input type="submit" 
+		               class="standalone"
+                       name="submit"
+                       value="Send"
+                       alt="Send"
+                       i18n:attributes="value label_send; alt label_send;" />
+        </form>
+    </dd>  
+    <dd class="portletFooter"></dd>
+</dl>
+
+</div>
+</body>
+</html>

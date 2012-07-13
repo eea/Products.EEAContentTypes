@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+  <body>
+
+    <metal:main fill-slot="content-core">
+      <tal:main-macro metal:define-macro="main"
+        tal:define="flash here/relatedFlash">
+
+        <div tal:condition="flash" style="padding-left: 50%; margin: 1em;"
+          tal:define="bgcolor flash/bgcolor|nothing">
+          <div id="" class="flashmovie" style=""
+            tal:attributes="id string:container-${flash/getId};
+                            style here/relatedFlashStyle"
+            i18n:translate=""> 
+            This page requires Flashplayer, please download it for free from 
+                <a href="http://www.macromedia.com/go/getflashplayer"
+                   title="get flashplayer" 
+                   i18n:attributes="title"
+                   i18n:name="flashplayer-link"
+                   tal:content="string:http://www.macromedia.com/go/getflashplayer"></a> 
+          </div>
+          <tal:flashjs replace="structure flash/flash_js_inline" />
+        </div>    
+
+        <metal:field use-macro="python:context.widget('text', mode='view')">
+          Body text
+        </metal:field>
+
+      </tal:main-macro>
+    </metal:main>
+
+  </body>
+</html>
