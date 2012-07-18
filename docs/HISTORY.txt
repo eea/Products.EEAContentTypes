@@ -3,7 +3,9 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
-
+* Bug fix: return a number instead of a boolean for the max number in syndication
+  in order for search RSS to display more than 1 result
+  [ichimdav #5354]
 5.1 - (2012-07-13)
 ------------------
 * Feature: re-enabled eea.relations widget for Base Content
