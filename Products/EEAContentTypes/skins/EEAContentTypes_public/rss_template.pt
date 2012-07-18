@@ -57,7 +57,7 @@
                     modified brain/EffectiveDate|obj_item/modified;
                     modified modified/HTML4|modified">
   <title tal:content="obj_item/pretty_title_or_id">Title</title> 
-  <link tal:content="obj_item/Identifier">Identifier</link>
+  <link tal:content="string:${obj_item/Identifier}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic">Identifier</link>
   <description tal:content="obj_item/Description">Description</description> 
   <dc:publisher tal:content="obj_item/Publisher">Publisher</dc:publisher> 
   <dc:creator tal:content="obj_item/Creator">Creator</dc:creator> 
