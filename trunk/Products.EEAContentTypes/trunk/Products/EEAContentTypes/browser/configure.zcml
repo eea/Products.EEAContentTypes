@@ -297,14 +297,6 @@
         />
 
     <browser:page
-        for="Products.EEAContentTypes.content.interfaces.IGeoPositioned"
-        name="g_earth"
-        class=".geoposition.GoogleEarthView"
-        allowed_interface=".interfaces.IGoogleEarthView"
-        permission="zope.Public"
-        />
-
-    <browser:page
         for="Products.ATContentTypes.content.topic.ATTopic"
         name="g_earth"
         class=".geoposition.GoogleEarthView"
