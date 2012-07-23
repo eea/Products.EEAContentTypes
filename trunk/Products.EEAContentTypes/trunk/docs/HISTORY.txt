@@ -3,6 +3,8 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Bug fix: fixed google_earth page template from breaking on soer pages 
+  [ichimdav #5386]
 * Bug fix: return a number instead of a boolean for the max number in syndication
   in order for search RSS to display more than 1 result
   [ichimdav #5354]
