@@ -21,9 +21,10 @@ import logging
 from plone.i18n.locales.interfaces import ICountryAvailability
 
 from eea.themecentre.interfaces import IThemeTagging
-from eea.geotags.interfaces import IGeoTags
+from eea.geotags.interfaces import IGeoTags, IGeoTagged
 
 logger = logging.getLogger('Products.EEAContentTypes.browser.geoposition')
+
 
 
 class GeoLocationTools(BrowserView):
@@ -76,7 +77,7 @@ class GoogleEarthView(object):
         res_add = res.append
         placemarkers_add = placemarkers.append
 
-        if IGeoPositioned.providedBy(self.context):
+        if IGeoTagged.providedBy(self.context):
             detect_flag = True
 
         if detect_flag:
@@ -89,21 +90,29 @@ class GoogleEarthView(object):
             objects = list(syn.getSyndicatableContent(self.context))[:maxi]
 
             for obj in objects:
-                if IGeoPositioned.providedBy(obj):
+                if "eea.geotags.storage.interfaces.IGeoTagged" \
+                                                    in obj.object_provides:
                     placemarkers_add(obj)
 
-        for obj in placemarkers:
-            geoobject = IGeoPosition(obj)
+        for places in placemarkers:
+            obj = places.getObject()
             placemark_url = obj.event_url()
+            geotags = IGeoTags(obj).tags
+            geotags = geotags['features'][0].get('geometry', {}) \
+                                                          .get('coordinates')
+            geotags = geotags if geotags else [0, 0]
+            location = obj.location
+            location = "# ".join(location) if type(location) == tuple else \
+                                                                      location
             if not placemark_url.startswith('http://'):
                 placemark_url = 'http://%s' % placemark_url
 
             kml_info = {'placemark_title':       obj.Title(),
                         'placemark_description': obj.Description(),
-                        'placemark_location':    obj.location,
+                        'placemark_location':    location,
                         'placemark_url':         placemark_url,
-                        'placemark_latitude':    geoobject.latitude,
-                        'placemark_longitude':   geoobject.longitude}
+                        'placemark_latitude':    geotags[0],
+                        'placemark_longitude':   geotags[1]}
 
             res_add(kml_info)
 
