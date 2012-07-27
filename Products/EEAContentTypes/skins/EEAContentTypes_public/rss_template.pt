@@ -58,15 +58,15 @@
                     modified modified/HTML4|modified">
   <title tal:content="obj_item/pretty_title_or_id">Title</title> 
   <link tal:content="string:${obj_item/Identifier}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic">Identifier</link>
-  <description tal:content="obj_item/Description">Description</description> 
-  <dc:publisher tal:content="obj_item/Publisher">Publisher</dc:publisher> 
-  <dc:creator tal:content="obj_item/Creator">Creator</dc:creator> 
-  <dc:rights tal:content="obj_item/Rights">Rights</dc:rights> 
+  <description tal:content="obj_item/Description"></description> 
+  <dc:publisher tal:content="obj_item/Publisher"></dc:publisher> 
+  <dc:creator tal:content="obj_item/Creator"></dc:creator> 
+  <dc:rights tal:content="obj_item/Rights"></dc:rights> 
   <tal:block tal:repeat="item obj_item/Subject">
-      <dc:subject tal:content="item">Item</dc:subject>
+      <dc:subject tal:content="item"></dc:subject>
   </tal:block> 
-  <dc:date tal:content="modified">Last modified</dc:date>
-  <dc:type tal:content="obj_item/Type">Type</dc:type>
+  <dc:date tal:content="modified"></dc:date>
+  <dc:type tal:content="obj_item/Type"></dc:type>
   </item>
 </tal:block>
 

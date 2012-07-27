@@ -24,7 +24,7 @@
         	    </description>
                 <address tal:content="mark/placemark_location">address</address>
         	    <visibility>1</visibility>
-        	    <styleUrl>#eea_ballon_style</styleUrl>
+        	    <styleUrl tal:content="string:#eea_ballon_style"></styleUrl>
                 <Snippet maxLines="2" tal:content="mark/placemark_description">Snippet</Snippet>
         	    <Point>
                     <coordinates tal:content="string:${mark/placemark_longitude},${mark/placemark_latitude},0.0">coords</coordinates>
