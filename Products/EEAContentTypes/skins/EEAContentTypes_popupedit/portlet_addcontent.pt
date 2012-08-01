@@ -1,6 +1,7 @@
 <html i18n:domain="eea">
 <head>
-    <script tal:attributes="src string:${context/portal_url}/jquery.js" ></script>
+    <script type="text/javascript" tal:condition="exists:here/jquery.js" tal:attributes="src string:${portal_url}/jquery.js"></script>
+    <script type="text/javascript" tal:condition="exists:here/++resource++plone.app.jquery.js" tal:attributes="src string:${portal_url}/++resource++plone.app.jquery.js"></script>
     <script tal:attributes="src string:${context/portal_url}/++resource++jquery-ui.min.js" ></script>
     <link type="text/css" rel="stylesheet" href="" 
         tal:attributes="src string:${context/portal_url}/++resource++jquery-ui-themes/sunburst/jquery-ui-1.8.9.custom.css" />

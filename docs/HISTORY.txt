@@ -3,6 +3,8 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Bug fix: reference jquery.js in a way that is compatible also with Plone 4.2
+  [ichimdav #5398]
 * Bug fix: added Topic content type info in profile, to fix tests 
   [tiberich #5346]
 * Bug fix: fix googleEarthView logic to use IGeoTagged information instead of 
