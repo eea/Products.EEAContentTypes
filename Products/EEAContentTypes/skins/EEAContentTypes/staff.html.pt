@@ -31,13 +31,6 @@
           <div><a href="staff.html" title="EEA Staff list" i18n:attributes="title" tal:condition="org_id">All staff</a><strong tal:condition="not:org_id">All staff</strong><tal:Orgs repeat="org orgs_data">&nbsp;|&nbsp;<a tal:condition="python:org!=org_id" tal:attributes="href string:staff.html?orgid=${org}; title python:'Members of ' + orgs_info['orgs_names'].get(org, org)" tal:content="org"/><strong tal:condition="python:org==org_id" tal:content="org"/></tal:Orgs></div>
         </tal:block>
 
-        <dl style="float: right; padding-left: 1em;">
-          <dt i18n:translate="">EEA Switchboard</dt>
-          <dd>+45 3336 7100</dd>
-          <dt i18n:translate="">EEA Central fax</dt>
-          <dd>+45 3336 7199</dd>
-        </dl>
-
         <metal:listingmacro define-macro="listing">
           <tal:foldercontents define="limit_display limit_display|request/limit_display|nothing;
             more_url more_url|request/more_url|string:folder_contents;
