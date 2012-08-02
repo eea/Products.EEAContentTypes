@@ -3,6 +3,8 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Bug fix: fixed EEA organigram for cases when there is no Deputy Director.
+  [demarant fixes #5402]
 * Bug fix: reference jquery.js in a way that is compatible also with Plone 4.2
   [ichimdav #5398]
 * Bug fix: added Topic content type info in profile, to fix tests 
