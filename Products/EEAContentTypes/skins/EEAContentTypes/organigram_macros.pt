@@ -64,8 +64,8 @@
 					tal:attributes="href string:staff-list?searchterm=${director/last_name} ${director/first_name}#${director/empid};
 										 title string:${director/last_name} ${director/first_name}"
 					tal:content="string:${director/last_name}, ${director/first_name}">last_name, first_name</a></dd>
-			<dd i18n:translate="">Deputy Director</dd>
-			<dd>
+			<dd i18n:translate="" tal:condition="deputy_director|nothing">Deputy Director</dd>
+			<dd tal:condition="deputy_director|nothing">
 				<a href="" title="" class="noPrint"
 					tal:attributes="href string:staff-list?searchterm=${deputy_director/last_name} ${deputy_director/first_name}#${deputy_director/empid};
 										 title string:${deputy_director/last_name} ${deputy_director/first_name}"
