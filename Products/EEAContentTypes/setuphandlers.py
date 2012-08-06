@@ -251,6 +251,30 @@ def upgrade_plonesite_interface(context):
     alsoProvides(site, IEEAPloneSite)
     logger.info("Added IEEPloneSite to interfaces provided by Plone root")
 
+def unregisterTransform(site, name):
+    """ Remove portal transform
+    """
+    transforms = getToolByName(site, 'portal_transforms')
+    try:
+        transforms.unregisterTransform(name)
+        logger.info("Removed %s transform" % name)
+    except AttributeError:
+        logger.info("Could not remove %s transform" % name)
+
+def unregister_email_transform(site):
+    """ Remove protect_email transform
+    """
+    unregisterTransform(site, 'protect_email')
+
+def fix_html_eea_chain_transform(site):
+    """ Remove from html_eea_chain transform chain absolete
+        transforms like html-to-captioned, captioned-to-html
+        and protect_email
+    """
+    transforms = getToolByName(site, 'portal_transforms')
+    html_eea_chain = getattr(transforms, 'html_eea_chain')
+    html_eea_chain.manage_delObjects(['html-to-captioned', 'captioned-to-html', 'protect_email'])
+    logger.info("Fixed html_eea_chain transform chain")
 
 #this is a migration procedure, not needed for plone4 migration
 #def setupCatalog(context):

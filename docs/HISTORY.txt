@@ -3,6 +3,19 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Change: removed protect_email transform
+  [ghicaale refs #4926]
+* Bug fix: fixed profile version number
+  [ghicaale]
+* Buf fix: fixed html_eea_chain transform chain
+  [ghicaale]
+* Upgrade step: under www/portal_setup/manage_upgrades:
+   - select "Products.EEAContentTypes:default"
+   - click "choose profile"
+   - click "show"
+   - select both upgrade steps for 4.19 to 5.2
+   - click "upgrade"
+   - [ghicaale refs #4926]
 * Bug fix: fixed EEA organigram for cases when there is no Deputy Director.
   [demarant fixes #5402]
 * Bug fix: reference jquery.js in a way that is compatible also with Plone 4.2
