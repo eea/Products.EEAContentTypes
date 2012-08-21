@@ -3,6 +3,12 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Change: implemented default template for external promotions. Now google 
+  search results will have proper templates with active links.
+  [demarant]
+* Upgrade step: replace base_view with promotion_view in portal_types
+  for type Promotion. Already done on production.
+  [demarant]
 * Change: removed protect_email transform
   [ghicaale refs #4926]
 * Bug fix: fixed profile version number
