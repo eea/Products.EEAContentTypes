@@ -21,6 +21,8 @@ Changelog
    - click "show"
    - select both upgrade steps for 4.19 to 5.2
    - click "upgrade"
+   - svn del Products.EEAContentTypes/transforms/protect_email.py
+   - svn commit
    - [ghicaale refs #4926]
 * Bug fix: fixed EEA organigram for cases when there is no Deputy Director.
   [demarant fixes #5402]
