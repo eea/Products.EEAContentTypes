@@ -17,7 +17,7 @@
  <property name="view_methods" />
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="index_html"/>
- <alias from="edit" to="atct_edit"/>
+ <alias from="edit" to="base_edit"/>
  <alias from="index.html" to="(dynamic view)"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>

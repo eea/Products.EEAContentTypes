@@ -3,6 +3,12 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Upgrade step: under www/portal_types/CloudVideo/manage_aliases: 
+   - Set "base_edit" to edit method instead of atct_edit
+* Upgrade step: under www/portal_properties/site_properties:
+   - Set "CloudVideo" to typesUseViewActionInListings property
+* Bug fix: display view page for CloudVideo when viewing without /view
+  [ichimdav #5480]
 * Change: implemented default template for external promotions. Now google 
   search results will have proper templates with active links.
   [demarant]
