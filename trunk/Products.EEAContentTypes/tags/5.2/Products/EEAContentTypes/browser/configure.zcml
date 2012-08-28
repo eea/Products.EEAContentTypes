@@ -1,0 +1,450 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="Products.EEAContentTypes">
+
+    <browser:viewlet
+        name="eea.related_pages"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_pages.pt"
+        permission="zope.Public"
+        />
+
+    <browser:viewlet
+        name="eea.related_multimedia"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_multimedia.pt"
+        permission="zope.Public"
+        />
+
+    <browser:viewlet
+        name="eea.related_bytheme"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        template="related_bytheme.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="reorder_css"
+        class=".admin.ReorderCSS"
+        permission="cmf.ManagePortal"
+        template="reorder.pt"
+        />
+
+    <browser:page
+        for="*"
+        name="reorder_javascripts"
+        class=".admin.ReorderJavascript"
+        permission="cmf.ManagePortal"
+        template="reorder.pt"
+        />
+
+    <browser:page
+        for="*"
+        name="isValid"
+        class=".validate.NotValid"
+        permission="zope.Public"
+        attribute="validate"
+        />
+
+    <browser:page
+        for="Products.EEAContentTypes.content.CFTRequestor.ICFTRequestor"
+        name="isValid"
+        class=".validate.CFTRequestorValidator"
+        permission="zope.Public"
+        attribute="validate"
+        />
+
+    <browser:page
+        for="*"
+        name="invalidate_cache"
+        permission="zope.Public"
+        class=".cache.InvalidateCache"
+        attribute="invalidate"
+        />
+
+    <browser:page
+        for="*"
+        name="eeaorganisation"
+        class=".organisation.Organisation"
+        permission="zope.Public"
+        allowed_interface=".interfaces.IOrganisation"
+        />
+
+    <browser:page
+        for="*"
+        name="updateOrganigram"
+        class=".organisation.UpdateOrganigram"
+        permission="zope.Public"
+        attribute="update"
+        />
+
+
+    <browser:page
+        for="*"
+        name="eealastupdated"
+        class=".organisation.Organisation"
+        permission="zope.Public"
+        attribute="getLastUpdated"
+        />
+
+    <browser:page
+        for="*"
+        name="eeastafflist"
+        class=".organisation.Organisation"
+        permission="zope.Public"
+        attribute="getStaffList"
+        />
+
+    <browser:page
+        for="*"
+        name="eeaorglist"
+        class=".organisation.Organisation"
+        permission="zope.Public"
+        attribute="getOrganisations"
+        />
+
+    <browser:page
+        for="*"
+        name="updateStaffList"
+        class=".organisation.UpdateStaffList"
+        permission="zope.Public"
+        attribute="update"
+        />
+
+    <!-- Call for tender -->
+    <browser:page
+        for="Products.EEAContentTypes.content.interfaces.ICallForTender"
+        name="cftregistration"
+        class=".cft.CFTRegistration"
+        permission="zope.Public"
+        allowed_interface=".interfaces.ICFTRegistration"
+        />
+
+    <!-- RSS related -->
+    <browser:page
+        for="*"
+        name="rssFeeds"
+        class=".rss.RSSFeeds"
+        permission="zope.Public"
+        attribute="getFeeds"
+        />
+
+    <browser:page
+        for="*"
+        name="rssDblFeeds"
+        class=".rss.RSSFeeds"
+        permission="zope.Public"
+        attribute="getDblFeeds"
+        />
+
+    <browser:page
+        for="*"
+        name="rssMain"
+        class=".rss.RSSShare"
+        permission="zope.Public"
+        attribute="main"
+        />
+
+    <browser:page
+        for="*"
+        name="rdf_portlets"
+        class=".feeds.RDFPortlet"
+        permission="zope2.View"
+        />
+
+    <!-- Related flash -->
+    <browser:page
+        for="*"
+        name="relatedFlash"
+        class=".flash.RelatedFlash"
+        permission="zope.Public"
+        attribute="relatedFlash"
+        />
+
+    <browser:page
+        for="*"
+        name="relatedFlashStyle"
+        class=".flash.RelatedFlash"
+        permission="zope.Public"
+        attribute="relatedFlashStyle"
+        />
+
+    <!-- QuickEvent -->
+    <browser:page
+        for="Products.EEAContentTypes.content.interfaces.IQuickEvent"
+        name="quickEventStep2"
+        class=".event.SubmitEvent"
+        permission="zope.Public"
+        allowed_interface=".interfaces.IQuickEvent"
+        />
+
+
+    <!-- langugages -->
+    <browser:page
+        for="*"
+        name="translatedSitesLanguages"
+        class=".language.Languages"
+        permission="zope.Public"
+        attribute="getTranslatedSitesLanguages"
+        />
+
+    <browser:page
+        for="*"
+        name="translatedSites"
+        class=".language.Languages"
+        permission="zope.Public"
+        attribute="getLocalSites"
+        />
+
+    <browser:page
+        for="*"
+        name="languageSelector"
+        class=".language.LanguageSelectorData"
+        permission="zope.Public"
+        attribute="data"
+        />
+
+    <browser:page
+        for="*"
+        name="navigationHeader"
+        class=".navigation.NavigationHeader"
+        permission="zope.Public"
+        allowed_attributes="shouldDisplayLogo logoUrl logoLinkUrl"
+        />
+
+    <!-- views providing related objects -->
+
+    <browser:page
+        for="*"
+        name="document_related"
+        class=".related.DocumentRelated"
+        allowed_interface=".interfaces.IDocumentRelated"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="auto_related"
+        class=".related.AutoRelated"
+        allowed_interface=".interfaces.IAutoRelated"
+        permission="zope.Public"
+        />
+
+    <!-- reference browser contents -->
+
+    <browser:page
+        for="*"
+        name="topic_refbrowser"
+        class=".refbrowser.ReferenceBrowserView"
+        allowed_attributes="contents at_obj breadcrumbs"
+        permission="cmf.ListFolderContents"
+        />
+
+    <browser:page
+        for="*"
+        name="refwidget_support"
+        class=".refbrowser.ReferenceBrowserWidgetSupport"
+        allowed_attributes="brain"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="*"
+        name="reviewlist"
+        class=".review.ReviewList"
+        permission="zope.Public"
+        />
+
+    <!-- geoposition related -->
+    <browser:page
+        for="Products.EEAContentTypes.content.interfaces.IGeoPositioned"
+        name="geopositionMap"
+        class=".geoposition.GeoPositionView"
+        allowed_interface=".interfaces.IGeoPositionView"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="geoConverter"
+        class=".geoposition.GeoConverter"
+        allowed_interface=".interfaces.IGeoConverter"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="geoEventsData"
+        class=".geoposition.GeoMapData"
+        allowed_interface=".interfaces.IGeoMapData"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="geoEventsMap"
+        class=".geoposition.GeoMapView"
+        allowed_interface=".interfaces.IGeoMapView"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="Products.ATContentTypes.content.topic.ATTopic"
+        name="g_earth"
+        class=".geoposition.GoogleEarthView"
+        allowed_interface=".interfaces.IGoogleEarthView"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="isGeoContainer"
+        class=".geoposition.GeoLocationTools"
+        permission="zope.Public"
+        attribute="isGeoContainer"
+        />
+
+    <!-- skos syndication -->
+    <browser:page
+        for="Products.ATContentTypes.content.topic.ATTopic"
+        name="skos_syndication"
+        class=".syndication.SKOS"
+        allowed_attributes="concepts"
+        permission="zope.Public"
+        />
+
+    <!-- workflow  -->
+    <browser:page
+        for="*"
+        name="workflowEmails"
+        class=".workflow.TransitionEmails"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
+    <!-- portlets -->
+    <browser:page
+        for="*"
+        name="smartfolder_portlets"
+        class=".smartfolder.SmartFolderPortlets"
+        permission="zope2.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="latesthighlightsInEnglish_portlets"
+        class=".smartfolder.LatestHighlightsSmartFolderPortlet"
+        permission="zope2.Public"
+        />
+
+    <!-- rss syndication -->
+    <browser:page
+        for="*"
+        name="RSS2"
+        class="Products.fatsyndication.browser.feed.GenericFeedView"
+        permission="zope2.View"
+        attribute="rss"
+        />
+
+    <!-- notifications -->
+    <browser:page
+        for="eea.themecentre.interfaces.IPossibleThemeCentre"
+        name="sendAsNotification"
+        permission="cmf.ModifyPortalContent"
+        class=".notification.SendAsNotification"
+        />
+
+    <browser:page
+        for="*"
+        name="url"
+        class=".url.URL"
+        permission="zope2.View"
+        allowed_attributes="listing_url object_url is_external css_class"
+        />
+
+    <browser:page
+        for="p4a.video.interfaces.IVideoEnhanced"
+        name="url"
+        class=".url.MultimediaURL"
+        permission="zope2.View"
+        allowed_attributes="listing_url object_url is_external css_class"
+        />
+
+    <browser:page
+        for="*"
+        name="randomecotip"
+        class=".ecotip.RandomEcotip"
+        permission="zope2.View"
+        />
+
+    <!-- most referenced -->
+    <browser:page
+        for="*"
+        name="mostReferenced"
+        class=".mostreferenced.MostReferenced"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="Products.EEAContentTypes.content.Highlight.Highlight"
+        name="imgview"
+        class="valentine.imagescales.browser.atfield.ATFieldImageView"
+        permission="zope.Public"
+        allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+        />
+
+    <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
+                  name="imgview"
+                  class="valentine.imagescales.browser.atfield.ATFieldImageView"
+                  permission="zope.Public"
+                  allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+
+    <browser:page
+        for="*"
+        name="crop"
+        class=".crop.cropping.CroppableImagesView"
+        template="crop/cropping.pt"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="*"
+        name="cropimage"
+        class=".crop.cropping.CropImageView"
+        template="crop/cropimage.pt"
+        permission="cmf.ModifyPortalContent"
+        allowed_attributes="cropImage"
+        />
+
+    <browser:resourceDirectory
+        name="products.eeacontenttypes.crop.resources"
+        directory="crop/crop_resources"
+        />
+
+    <!-- image ratio check subscribers-->
+    <subscriber for="
+        Products.EEAContentTypes.content.interfaces.IExternalHighlight
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.imageRatioCheck" />
+
+    <subscriber for="
+        Products.EEAContentTypes.content.interfaces.IGISMapApplication
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.imageRatioCheck" />
+
+    <browser:page
+        class=".app.UnicodeTestIn"
+        for="*"
+        name="unicode_test_in"
+        permission="zope.Public"
+    />
+
+</configure>

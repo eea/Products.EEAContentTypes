@@ -1,0 +1,34 @@
+<script type="text/javascript">
+   // <![CDATA[
+   <dtml-call "REQUEST.set('queryStart',0)">
+   <dtml-if remoteUrl>
+   //parse remoteUrl for optional flash variables
+      <dtml-call "REQUEST.set('queryStart',remoteUrl.find('?'))">
+   </dtml-if>   
+   var so = new SWFObject("<dtml-if remoteUrl><dtml-if "queryStart>0"><dtml-var "remoteUrl[:queryStart]"><dtml-else>&dtml-remoteUrl;</dtml-if><dtml-else>&dtml-absolute_url;/getFile</dtml-if>", "sotester", "100%", "100%", "7", "<dtml-if bgcolor>&dtml-bgcolor;<dtml-else>ffffff</dtml-if>");
+   so.addParam("scale", "<dtml-if swf_scale>&dtml-swf_scale;<dtml-else>noscale</dtml-if>");
+   so.addParam("wmode", "<dtml-if swf_wmode>&dtml-swf_wmode;<dtml-else>opaque</dtml-if>");
+   so.addParam("allowfullscreen", "true");
+   so.addParam("allowScriptAccess", "always");
+   so.addVariable("sessionid", getQueryParamValue("sessionid"));
+   <dtml-if remoteUrl>
+   //parse remoteUrl for optional flash variables
+   <dtml-if "queryStart>0">
+   <dtml-call "REQUEST.set('urlvars',remoteUrl[queryStart+1:].split('&'))">
+   //URLVARS: <dtml-var urlvars>
+   <dtml-in urlvars><dtml-let qvar=sequence-item sepidx="qvar.find('=')" qvarkey="qvar[:sepidx]" qvarvalue="qvar[sepidx+1:]">so.addVariable("<dtml-var qvarkey>", "<dtml-var qvarvalue>");</dtml-let>
+   </dtml-in>
+   </dtml-if>
+   </dtml-if>
+   so.write("container-&dtml-getId;");
+   newHeight = resizeDiv();
+   map = document.getElementById("container-&dtml-getId;")
+
+   if(map != null) {   
+       map.style.height=newHeight + 'px';
+       map.style.width='100%';
+   }
+							
+   // ]]>
+   
+</script>

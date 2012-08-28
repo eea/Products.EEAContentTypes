@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="eea">
+
+	<include package="collective.monkeypatcher" />
+
+    TODO: plone4, is this patch still needed?
+    disabled, because it triggers errors when creating content. See if it's still needed
+    <!--<monkey:patch-->
+        <!--description="Monkeypatch unknown reason"-->
+        <!--class="Products.LinguaPlone.I18NBaseObject.I18NBaseObject"-->
+        <!--original="getTranslations"-->
+        <!--replacement=".patches.getTranslations"-->
+        <!--preserveOriginal="true"-->
+        <!--/>-->
+
+    TODO: plone4, is this patch still needed?
+    <monkey:patch
+        description="Checks if a language is part of the current path."
+        class="Products.PloneLanguageTool.LanguageTool"
+        original="getPathLanguage"
+        replacement=".patches.getPathLanguage"
+        preserveOriginal="true"
+        />
+
+</configure>
