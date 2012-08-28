@@ -3,6 +3,9 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Upgrade step: Manual step ask ichimdav to do it 
+  - Set images on CloudVideos to the renamed image field
+  [ichimdav #5480]
 * Upgrade step: under www/portal_types/CloudVideo/manage_aliases: 
    - Set "base_edit" to edit method instead of atct_edit
 * Upgrade step: under www/portal_properties/site_properties:
