@@ -18,7 +18,7 @@ from Products.CMFCore.permissions import View
 
 from Products.LinguaPlone import public
 schema = Schema((
-        ImageField('Image',
+        ImageField('image',
             required=False,
             storage = public.AnnotationStorage(migrate=True),
               languageIndependent=True,
