@@ -3,6 +3,8 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: removed unused protect_email transform
+  [ghicaale refs #4926]
 
 5.2 - (2012-08-28)
 ------------------
