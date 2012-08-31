@@ -6,7 +6,7 @@
       name="imgview"
       class=".imagescales.ImageView"
       permission="zope.Public"
-      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      allowed_interface="eea.imagescales.browser.interfaces.IImageView"
       />
 
   <browser:page
@@ -14,7 +14,7 @@
       name="imgview"
       class=".imagescales.ImageView"
       permission="zope.Public"
-      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      allowed_interface="eea.imagescales.browser.interfaces.IImageView"
       />
 
 </configure>

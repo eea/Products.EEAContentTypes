@@ -396,16 +396,16 @@
     <browser:page
         for="Products.EEAContentTypes.content.Highlight.Highlight"
         name="imgview"
-        class="valentine.imagescales.browser.atfield.ATFieldImageView"
+        class="eea.imagescales.browser.atfield.ATFieldImageView"
         permission="zope.Public"
-        allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+        allowed_interface="eea.imagescales.browser.interfaces.IImageView"
         />
 
     <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
                   name="imgview"
-                  class="valentine.imagescales.browser.atfield.ATFieldImageView"
+                  class="eea.imagescales.browser.atfield.ATFieldImageView"
                   permission="zope.Public"
-                  allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+                  allowed_interface="eea.imagescales.browser.interfaces.IImageView" />
 
     <browser:page
         for="*"
