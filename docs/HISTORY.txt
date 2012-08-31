@@ -3,21 +3,23 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Change: Update references to eea.imagescales (formerly valentine.imagescales)
+  [voineali refs #5497]
 * Bug fix: removed unused protect_email transform
   [ghicaale refs #4926]
 
 5.2 - (2012-08-28)
 ------------------
-* Upgrade step: Manual step ask ichimdav to do it 
+* Upgrade step: Manual step ask ichimdav to do it
   - Set images on CloudVideos to the renamed image field
   [ichimdav #5480]
-* Upgrade step: under www/portal_types/CloudVideo/manage_aliases: 
+* Upgrade step: under www/portal_types/CloudVideo/manage_aliases:
    - Set "base_edit" to edit method instead of atct_edit
 * Upgrade step: under www/portal_properties/site_properties:
    - Set "CloudVideo" to typesUseViewActionInListings property
 * Bug fix: display view page for CloudVideo when viewing without /view
   [ichimdav #5480]
-* Change: implemented default template for external promotions. Now google 
+* Change: implemented default template for external promotions. Now google
   search results will have proper templates with active links.
   [demarant]
 * Upgrade step: replace base_view with promotion_view in portal_types
@@ -42,12 +44,12 @@ Changelog
   [demarant fixes #5402]
 * Bug fix: reference jquery.js in a way that is compatible also with Plone 4.2
   [ichimdav #5398]
-* Bug fix: added Topic content type info in profile, to fix tests 
+* Bug fix: added Topic content type info in profile, to fix tests
   [tiberich #5346]
-* Bug fix: fix googleEarthView logic to use IGeoTagged information instead of 
+* Bug fix: fix googleEarthView logic to use IGeoTagged information instead of
   IGeoPositioned
   [ichimdav #5386]
-* Bug fix: fixed google_earth page template from breaking on soer pages 
+* Bug fix: fixed google_earth page template from breaking on soer pages
   [ichimdav #5386]
 * Bug fix: return a number instead of a boolean for the max number in syndication
   in order for search RSS to display more than 1 result
@@ -60,7 +62,7 @@ Changelog
 * Bug fix: display validation error when translating if error is present
   [ichimdav #5302]
 * Bug Fix: Fixed missing i18n attributes, i18n:domain and duplicate keys
-  in .pt 
+  in .pt
   [prospchr refs #5162]
 
 5.0 - (2012-06-20)
