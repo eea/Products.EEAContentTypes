@@ -34,7 +34,7 @@
     <include package="eea.relations" />
     <include package="eea.translations" />
     <include package="plone.app.imaging" />
-    <include package="eea.imagescales" />
+    <include package="eea.depiction" />
     <include package="valentine.linguaflow" />
     <include package="Products.UserAndGroupSelectionWidget" />
     <include package="Products.DataGridField" />

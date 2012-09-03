@@ -15,7 +15,7 @@ PRODUCTS = [
         'kupu',
         'ATVocabularyManager',
         'EEAContentTypes',
-        ##'valentine.linguaflow', 'eea.imagescales', 'LinguaPlone',
+        ##'valentine.linguaflow', 'eea.depiction', 'LinguaPlone',
         'EEAPloneAdmin'
 ]
 
