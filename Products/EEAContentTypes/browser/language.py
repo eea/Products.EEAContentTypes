@@ -129,10 +129,24 @@ class LanguageSelectorData(BrowserView):
                                     default=u'Switch language to ${language}',
                                     mapping={'language': name},
                                     domain='linguaplone')
-
+            
             lingua_state = None
             if available:
                 translation = translations[code][0]
+
+                ## New
+                #if translation.portal_type in ('ATFolder', 'Folder'):
+                #    folder_content = translation.getFolderContents()
+                #    len_folder_content = len(folder_content)
+                #    if len_folder_content == 0:
+                #        available = None
+                ## special test for folder 
+                #    elif len_folder_content == 1:
+                #        if folder_content[0].id == 'en':
+                #            available = None
+
+                ## end new
+
                 if putils.isDefaultPage(translation):
                     translation = aq_parent(aq_inner(translation))
 
