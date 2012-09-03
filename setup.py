@@ -47,7 +47,7 @@ setup(name=NAME,
           'eea.translations',
           'eea.promotion',
           'eea.vocab',
-          'eea.imagescales',
+          'eea.depiction',
           'Products.EEAPloneAdmin',
           'Products.NavigationManager',
 

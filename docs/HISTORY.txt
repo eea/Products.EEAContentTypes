@@ -3,7 +3,7 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
-* Change: Update references to eea.imagescales (formerly valentine.imagescales)
+* Change: Update references to eea.depiction (formerly valentine.imagescales)
   [voineali refs #5497]
 * Bug fix: removed unused protect_email transform
   [ghicaale refs #4926]
