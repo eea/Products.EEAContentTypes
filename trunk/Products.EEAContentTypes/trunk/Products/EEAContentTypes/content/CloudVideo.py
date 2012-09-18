@@ -11,12 +11,18 @@ from Products.EEAContentTypes.content.ThemeTaggable import (
 )
 from Products.Archetypes.atapi import (
     Schema, ImageWidget, 
-    registerType
+    registerType, TextField, TextAreaWidget
 )
 
 from Products.CMFCore.permissions import View
 
+from Products.Archetypes.atapi import AnnotationStorage
 from Products.LinguaPlone import public
+
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
+from datetime import datetime
+
 schema = Schema((
         ImageField('image',
             required=False,
@@ -30,6 +36,39 @@ schema = Schema((
                 show_content_type = False
             )
         ),
+        TextField('cloudUrl', 
+                languageIndependent=True,
+                required = True,
+                schemata = 'default',
+                storage = AnnotationStorage(migrate=True),
+                default_content_type = 'text/plain',
+                validators = ('videoCloudUrlValidator',),
+                allowable_content_types =('text/plain',),
+                default_output_type = 'text/plain',
+                widget = TextAreaWidget(
+                    description = 'The embedding code for the video from' \
+                                    ' external sites eg. Vimeo or Youtube',
+                    label = "Cloud Url"
+                )
+        ), 
+        ManagementPlanField(
+            name='eeaManagementPlan',
+            languageIndependent=True,
+            required=True,
+            default=(datetime.now().year, ''),
+            validators = ('management_plan_code_validator',),
+
+            vocabulary_factory="Temporal coverage",
+            storage = AnnotationStorage(migrate=True),
+            widget = ManagementPlanWidget(
+                format="select",
+                label="EEA Management Plan",
+                description = ("EEA Management plan code."),
+                label_msgid='dataservice_label_eea_mp',
+                description_msgid='dataservice_help_eea_mp',
+                i18n_domain='eea.dataservice',
+                ),
+            ),
     ),
 )
 
