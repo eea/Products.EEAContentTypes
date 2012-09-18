@@ -53,7 +53,7 @@ class IFlashAnimation(IVideoEnhanced):
     height = Attribute("height of flash file")
     bgcolor = Attribute("background color of flash file")
 
-class ICloudVideo(IVideoEnhanced):
+class ICloudVideo(Interface):
     """  Cloud Video marker interface
     """
 
