@@ -4,6 +4,7 @@ from zope.interface import Interface, Attribute
 from p4a.video.interfaces import IVideoEnhanced
 from Products.ATContentTypes.interface.news import IATNewsItem
 from Products.ATContentTypes.interface.folder import IATFolder
+from eea.mediacentre.interfaces import IVideo
 
 class ICFTRequestor(Interface):
     """ CFT Requestor
@@ -53,7 +54,7 @@ class IFlashAnimation(IVideoEnhanced):
     height = Attribute("height of flash file")
     bgcolor = Attribute("background color of flash file")
 
-class ICloudVideo(Interface):
+class ICloudVideo(IVideo):
     """  Cloud Video marker interface
     """
 
