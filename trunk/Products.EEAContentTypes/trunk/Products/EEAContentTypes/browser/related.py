@@ -14,7 +14,7 @@ from Products.EEAContentTypes.browser.interfaces import (
     IDocumentRelated, IAutoRelated
 )
 from p4a.video.interfaces import IMediaPlayer, IVideo
-from p4a.video.interfaces import IVideoEnhanced
+from eea.mediacentre.interfaces import IVideo as MIVideo
 from zope.schema.interfaces import IVocabularyFactory
 from zope.component import (
     queryAdapter, getUtility,
@@ -46,7 +46,7 @@ def getObjectInfo(item, request):
              'url': url,
              'absolute_url': item.absolute_url(),
              'has_img': imgview != None and imgview.display() == True,
-             'is_video': IVideoEnhanced.providedBy(item),
+             'is_video': MIVideo.providedBy(item),
              'item_type': item.portal_type,
              'item_mimetype':mimetype,
              'item_type_class': item_type_class,
@@ -64,7 +64,7 @@ def getBrainInfo(brain, plone_utils):
              'description': brain.Description,
              'absolute_url': brain.getURL(),
              'is_video':
-             "p4a.video.interfaces.IVideoEnhanced" in brain.object_provides,
+             "eea.mediacentre.interface.IVideo" in brain.object_provides,
              'item_type': brain.portal_type,
              'item_type_class': plone_utils.normalizeString(brain.portal_type),
              'item_wf_state': brain.review_state,
@@ -472,7 +472,7 @@ class DocumentRelated(BrowserView):
                            'item_type_class': item_type_class,
                            'item_wf_state': item_wf_state,
                            'item_wf_state_class': item_wf_state_class,
-                           'is_video': IVideoEnhanced.providedBy(item),
+                           'is_video': MIVideo.providedBy(item),
                            'has_img': (imgview != None and
                                        imgview.display() == True )
                            })

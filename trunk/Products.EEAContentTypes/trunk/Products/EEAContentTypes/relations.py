@@ -9,7 +9,7 @@ from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.interfaces import IRelations
 
-from p4a.video.interfaces import IVideoEnhanced
+from eea.mediacentre.interfaces import IVideo
 
 class Relations(object):
     """ Relations
@@ -112,8 +112,8 @@ class Relations(object):
                 portal_type = ['Highlight', 'PressRelease']
 
             elif (portal_type == 'File' and
-                  IVideoEnhanced.providedBy(self.context)):
-                query['object_provides'] = 'p4a.video.interfaces.IVideoEnhanced'
+                  IVideo.providedBy(self.context)):
+                query['object_provides'] = 'eea.mediacentre.interfaces.IVideo'
 
             query['portal_type'] = portal_type
 
