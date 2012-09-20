@@ -39,7 +39,6 @@ def getObjectInfo(item, request):
     url = state.view_url()
     mimetype = item.get_content_type()
     imgview = queryMultiAdapter((item, request), name='imgview')
-
     info = { 'title': item.Title(),
              'uid': item.UID(),
              'description': item.Description(),
@@ -64,7 +63,7 @@ def getBrainInfo(brain, plone_utils):
              'description': brain.Description,
              'absolute_url': brain.getURL(),
              'is_video':
-             "eea.mediacentre.interface.IVideo" in brain.object_provides,
+             "eea.mediacentre.interfaces.IVideo" in brain.object_provides,
              'item_type': brain.portal_type,
              'item_type_class': plone_utils.normalizeString(brain.portal_type),
              'item_wf_state': brain.review_state,
@@ -463,7 +462,7 @@ class DocumentRelated(BrowserView):
             urlview = getMultiAdapter((item, self.request), name="url")
             imgview = queryMultiAdapter((item, self.request), name="imgview")
             url = urlview.listing_url()
-
+            
             other.append({ 'title': item.Title(),
                            'description': item.Description(),
                            'url': url,
