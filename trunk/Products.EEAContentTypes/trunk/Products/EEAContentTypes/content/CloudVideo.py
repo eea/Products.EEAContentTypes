@@ -11,7 +11,7 @@ from Products.EEAContentTypes.content.ThemeTaggable import (
 )
 from Products.Archetypes.atapi import (
     Schema, ImageWidget, 
-    registerType, TextField, TextAreaWidget
+    registerType, TextField, TextAreaWidget, RichWidget
 )
 
 from Products.CMFCore.permissions import View
@@ -32,7 +32,7 @@ schema = Schema((
                 label='Image',
                 label_msgid='EEAContentTypes_label_image',
                 description_msgid='EEAContentTypes_help_image',
-                i18n_domain='EEAContentTypes',
+                i18n_domain='eea',
                 show_content_type = False
             )
         ),
@@ -48,9 +48,21 @@ schema = Schema((
                 widget = TextAreaWidget(
                     description = 'The embedding code for the video from' \
                                     ' external sites eg. Vimeo or Youtube',
-                    label = "Cloud Url"
+                    description_msgid="EEAContentTypes_help_quotationtext",
+                    label = "Cloud Url",
+                    label_msgid="EEAContentTypes_label_cloud_url"
                 )
         ), 
+        TextField(
+            name='text',
+            widget=RichWidget
+            (
+                label="Rich Text Description",
+                label_msgid="EEAContentTypes_label_rich_description",
+                i18n_domain="eea",
+                rows=10,
+            ),
+        ),
         ManagementPlanField(
             name='eeaManagementPlan',
             languageIndependent=True,
