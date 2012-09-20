@@ -3,6 +3,9 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Feature: added rich text field to CloudVideo to bring it up to par with the
+  file based video content 
+  [ichimdav #5480]
 * Change: Update references to eea.daviz content
   [voineali refs #5420]
 * Change: Update references to eea.depiction (formerly valentine.imagescales)
