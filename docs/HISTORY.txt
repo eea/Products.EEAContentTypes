@@ -3,6 +3,9 @@ Changelog
 
 5.4-dev - (unreleased)
 ----------------------
+* Bug fix: fixed some layers not showing up. removed fixed extent. 
+  for gis applications template, now zoom defined on arcgis.com is applied.
+  [demarant refs #5546]
 
 5.3 - (2012-09-27)
 ------------------

@@ -11,6 +11,10 @@
     <subscriber factory=".marshaller.VersioningModifier"
                 for="eea.versions.interfaces.IVersionEnhanced"
                 provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+                
+    <subscriber factory=".marshaller.GeoTagRDFModifier"
+                for="eea.geotags.storage.interfaces.IGeoTaggable"
+                provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
 
     <subscriber handler=".events.handle_content_state_changed"
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
