@@ -1,0 +1,732 @@
+Changelog
+=========
+
+5.4 - (2012-09-27)
+------------------
+* Bug fix: Fixed error: Couldn't import eea.daviz.content.visualization,
+  No module named visualization (eea.daviz 6.0 not-released yet)
+  [voineali]
+* Bug fix: fixed some layers not showing up. removed fixed extent.
+  for gis applications template, now zoom defined on arcgis.com is applied.
+  [demarant refs #5546]
+
+5.3 - (2012-09-27)
+------------------
+* Feature: added rich text field to CloudVideo to bring it up to par with the
+  file based video content
+  [ichimdav #5480]
+* Change: Update references to eea.daviz content
+  [voineali refs #5420]
+* Change: Update references to eea.depiction (formerly valentine.imagescales)
+  [voineali refs #5497]
+* Bug fix: removed unused protect_email transform
+  [ghicaale refs #4926]
+
+5.2 - (2012-08-28)
+------------------
+* Upgrade step: Manual step ask ichimdav to do it
+  - Set images on CloudVideos to the renamed image field
+  [ichimdav #5480]
+* Upgrade step: under www/portal_types/CloudVideo/manage_aliases:
+   - Set "base_edit" to edit method instead of atct_edit
+* Upgrade step: under www/portal_properties/site_properties:
+   - Set "CloudVideo" to typesUseViewActionInListings property
+* Bug fix: display view page for CloudVideo when viewing without /view
+  [ichimdav #5480]
+* Change: implemented default template for external promotions. Now google
+  search results will have proper templates with active links.
+  [demarant]
+* Upgrade step: replace base_view with promotion_view in portal_types
+  for type Promotion. Already done on production.
+  [demarant]
+* Change: removed protect_email transform
+  [ghicaale refs #4926]
+* Bug fix: fixed profile version number
+  [ghicaale]
+* Buf fix: fixed html_eea_chain transform chain
+  [ghicaale]
+* Upgrade step: under www/portal_setup/manage_upgrades:
+   - select "Products.EEAContentTypes:default"
+   - click "choose profile"
+   - click "show"
+   - select both upgrade steps for 4.19 to 5.2
+   - click "upgrade"
+   - svn del Products.EEAContentTypes/transforms/protect_email.py
+   - svn commit
+   - [ghicaale refs #4926]
+* Bug fix: fixed EEA organigram for cases when there is no Deputy Director.
+  [demarant fixes #5402]
+* Bug fix: reference jquery.js in a way that is compatible also with Plone 4.2
+  [ichimdav #5398]
+* Bug fix: added Topic content type info in profile, to fix tests
+  [tiberich #5346]
+* Bug fix: fix googleEarthView logic to use IGeoTagged information instead of
+  IGeoPositioned
+  [ichimdav #5386]
+* Bug fix: fixed google_earth page template from breaking on soer pages
+  [ichimdav #5386]
+* Bug fix: return a number instead of a boolean for the max number in syndication
+  in order for search RSS to display more than 1 result
+  [ichimdav #5354]
+
+5.1 - (2012-07-13)
+------------------
+* Feature: re-enabled eea.relations widget for Base Content
+  [ichimdav #4705]
+* Bug fix: display validation error when translating if error is present
+  [ichimdav #5302]
+* Bug Fix: Fixed missing i18n attributes, i18n:domain and duplicate keys
+  in .pt
+  [prospchr refs #5162]
+
+5.0 - (2012-06-20)
+------------------
+* Bug fix: fixed rdf dcterms:isReplacedBy (it was set to wrongly to replacedBy)
+  [demarant fixes #5129]
+* Bug fix: check if results are found for topics on isGeoContainer
+  [ichimdav #3355]
+* Bug fix: add a validator for max file size in ExternalHighlight and Promotion
+  [tiberich refs #5259]
+* Bug fix: removed usage of isEmpty
+  [tiberich refs #5289]
+
+4.21 - (2012-06-13)
+-------------------
+* Change: Images on highlights and articles are now wider and span entire
+  content area. this change also fixes some floating layout issues.
+  [demarant fixes #5023 refs #4206]
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
+* Bug fix: set effective date to now() when a content item is first published
+  [tiberich #5125]
+* Feature: use a subscriber to add dcterms:isReplacedBy and dcterms:replaces
+  to IVersionEnhanced content
+  [tiberich, demarant #5129]
+* Upgrade step: in www/portal_properties/site_properties:
+  - add quick_event_anonymous_creator property of type string with the name of the user
+  that should be the creator of the anonymous quick events
+  [ichimdav #4788]
+* Upgrade step: with a serviceWWW instance from the root of the site run:
+  www/SITE/@@migrate2geotags -- to migrate Events and QuickEvents to geotags
+  www/SITE/@@migrate2geotags?type=Organisation -- to migrate Organisation to geotags
+  [ichimdav #4788]
+* Upgrade step: add an External Method called update_publications_subobjects with:
+  module name -  Products.EEAContentTypes.migration_fixes
+  function name - update_publications_subobjects
+  Execute it
+  [ghicaale refs #5178]
+* Bug fix: fixed notification.py so PO files can be generated
+  [prospchr #5159]
+* Bug fix: added migration script to fix some figuretype for some figures
+  [tiberich #5082]
+* Bug fix: fixed floating issues with related portlets
+  [ichimdav #5157]
+* Change: geotags migration script is now transaction aware
+  [ghicaale refs #4778]
+* Bug fix: added body text in cft_listing_view
+  [tiberich #5111]
+* Upgrade step: add an External Method called fix_categories_maps with:
+  module name -  Products.EEAContentTypes.migration_fixes
+  function name - fix_categories_maps
+  Execute it
+  [tiberich #5082]
+
+4.20 - (2012-04-27)
+-------------------
+* Bug fix: added view replacement for unicodeInTest
+  [tiberich #5106]
+
+4.19 - (2012-04-26)
+-------------------
+* Upgrade step: go to portal_setup > upgrades > Products.EEAContentTypes:default
+  and run the Enabled CloudVideo contenttype from EEAContentTypes step
+* Bug fix: do not show an empty portlet when there are no videos related.
+  [demarant]
+* Bug fix: added override for wysiwyg template which always shows richtext editor
+  [tiberich #5055]
+
+4.18 - (2012-03-30)
+-------------------
+* Upgrade step: import profile "Upgrade profile for EEAContentTypes 4.17" >
+  Skins tool
+  [tiberich #4982];
+  Set default location for ExternalDataSpec, in portal_relations, to
+  python:object.restrictedTraverse("/www/SITE/data-and-maps/data/external-datasets-catalog")
+  Add a new portlet in the Faceted criteria tab, with type "Plone Portlet" and
+  title: Create new
+  path: here/portlet_addcontent/macros/portlet
+* Bug fix: Fixed eea_keywords macros
+  [voineali #5021]
+* Bug fix: fixed unicode error when object id is normalized
+  [ghicaale #4998]
+* Feature: a portlet that can be used in the eea.relations portlet to add
+  new content in a simple popup form
+  [tiberich #4982]
+* Change: relocated the schemata_edit functionality from eea.indicators here
+  [tiberich #4982]
+* Bug fix: load workflow emails information with ajax in content_modify_form
+  [tiberich #5037]
+
+4.17 - (2012-03-05)
+-------------------
+* Feature: added cloudUrl validator which is used by the cloudUrl field for flv video
+  to check validation of url, extract the video id, and serve a normalized url
+  [ichimdav #4963]
+* Bug fix: backward compatibility for gis application with no arcgis_url set.
+  [demarant #4959]
+* Bug fix: added the IEEAPloneSite interface that should be provided by the EEA Plone Site
+  The intention is to make it possible to create other plone sites in Data.fs that don't
+  run code specific to EEA (for example some event subscribers)
+* Feature: GIS Application can now have ArcGIS or EyeOnEarth embedded map.
+  [demarant #4959]
+* Bug fix: check if img_size is tuple since getSize could return an int value of the
+  image size for non Image or IExternalHighlight content
+  [ichimdav #4816]
+* Change: better name for the image ratio check handler, since it is generic.
+  [demarant #4816]
+* Change: Added minsize validator on preview image for gis map application
+  [demarant #4959]
+* Change: for GIS Application use same url field for both the flash object and the url
+  to an external site like Eyeonearth. adjusted labels and descriptions
+  [demarant #4959]
+* Change: added display_on_datacentre for IExternalHighlight
+  [ichimdav #4936]
+* Feature: all GIS Application objects will provide by now
+  Products.EEAContentTypes.content.interfaces.IInteractiveMap interface
+  [ghicaale #4467]
+* Upgrade step: go to plone root /aq_parent/@@manage_interfaces and make the Plone site
+  implement IEEAPloneSite
+* Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
+  Action Providers steps which adds the crop action for Image and IExternalHighlights
+  [ichimdav #4816]
+* Upgrade step: remove duplicate Products.EEAContentTypes.content.interfaces.IInteractiveMap
+  interface and reindex all GIS Application objects. Ask ghicaale to do it.
+  [ghicaale #4467]
+
+4.16 - (2012-02-15)
+-------------------
+* Feature: Added possibility to disable the application form for vacancy.
+  Very rare use case: vacancy application for Director must be send
+  to EU Commission. So property in ZMI is enough.
+  [demarant]
+* Bug fix: fixed an error in flasfileStyle script when it got invalid
+  width/height for flash file
+  [tiberich #4947]
+* Bug fix: fixed error in RSS on locations where syndication is not allowed
+  [tiberich #4947]
+* Upgrade step: go to /portal_setup > import steps and reimport EEAContentTypes
+  Action Providers steps which adds the crop action
+* Feature: Changed GIS Application to be disk based product instead of TTW type
+  [tiberich #4467]
+* Feature: added arcgis_id field to GIS Application
+  [tiberich #4467]
+* Upgrade step: go to /prefs_install_products_form and upgrade EEAContentTypes to version 4.16
+
+4.15 - (2012-02-06)
+-------------------
+* Change: disabled crop functionality until it is better tested to ensure
+  that no issues would arrive from using it
+  [ichimdav]
+
+4.14 - (2012-02-06)
+-------------------
+* Feature: added 16:9 crop functionality for IExternalHighlight contentTypes
+  [ichimdav #4816]
+* Bug fix: fixed rss feed for at topics
+  [tiberich #4992]
+* Bug fix: Fixed location field and widget on Event content types
+  [ghicaale #4913]
+* Bug fix: Fixed iCal export for Event content types
+  [ghicaale #4913]
+* Bug fix: Fixed Google geocoding used on Event and QuickEvent content types
+  [ghicaale #4913]
+* Bug fix: Fixed geocoding subscriber to be active only for Event and QuickEvent content types
+  [ghicaale #4913]
+* Bug fix: show body text on events
+  [demarant #4906]
+* Feature: Enabled the EEA relation widget on highlights types
+  [demarant #4705]
+* Change: Made field visibilityLevel hidden by default and visible only
+  for articles where we use it for frontpage feature article.
+  [demarant]
+* Bug fix: Fixed Content-Disposition for PDF files
+  [voineali #4898]
+* Bug fix: fixed overlapping text in organisational chart and
+  replaced deprecated css_slot with style_slot
+  [demarant]
+* Change: Mark any Daviz presentation with Interactive Data interface.
+  [demarant]
+* Bug fix: replaced attribute modifiedDate (introduced in r24888 and not found
+  with new plone 4) with standard dublic core modified() method.
+  [demarant #4875]
+
+4.13 - (2012-01-10)
+-------------------
+* Bug fix: added an override utility for p4a.videoembed that will not change
+  Links with swf in their url into Videos
+  [tiberich #4865]
+* Bug fix: Fixed portal status message on @@sendAsNotification
+  [voineali #4706]
+* Bug fix: fixed reorder resources views
+  [tiberich #4737]
+
+4.12 - (2012-01-03)
+-------------------
+* Bug fix: updated email address for jobs enquiries
+  [tiberich #4845]
+
+4.11 - (2011-12-16)
+-------------------
+* Bug fix: fixed quickevent view
+  [tiberich #4839]
+
+4.10 - (2011-12-15)
+-------------------
+* Bug fix: Updated @@invalidate_cache browser view to use plone.app.caching
+  [voineali #4689]
+* Bug fix: Fixed events map JS
+  [voineali #4798]
+
+4.9 - (2011-12-07)
+------------------
+* Bug fix: disabled press release text from pressroom view [ichimdav #4619]
+
+4.8 - (2011-12-02)
+------------------
+* Bug fix: Made location, themes and subject language independant
+  [voineali #4776]
+* Bug fix: fix error that caused zope created ContentManager users not able to access site
+  [tiberich]
+
+4.7 - (2011-11-29)
+------------------
+* Bug fix: Fixed keywords widget to keep filled values if the edit form fails to
+  submit due to validation errors
+  [voineali #4773]
+* Bug fix: fix problem caused by redirections for Manager when creating QuickEvent
+  [tiberich #4763]
+
+4.6 - (2011-11-28)
+------------------
+* Bug fix: Fixed required themes, subject and location fields for specified content-types
+  [voineali #4694]
+* Bug fix: show only date in event_view and quickevent_view
+  [tiberich #4763]
+
+4.5 - (2011-11-28)
+------------------
+* Bug fix: Show description widget in edit mode for a quickevent
+  [ichimdav #4789]
+* Bug fix: Fixed event_view to use the old location widget
+  [voineali #4736]
+
+4.4 - (2011-11-25)
+------------------
+* Bug fix: Reverted location field/widget for QuickEvent and Organisation to
+  eea.locationwidget as there is a lot of custom logic and it needs upgrade
+  steps (same for /events map)
+  [voineali #4736]
+
+4.3 - (2011-11-23)
+------------------
+* Change: commented the eea.locationwidget widget for QuickEvent, as it is
+  already provided by the geotags subtyper
+  [tiberich #4763]
+* Change: add instruction when editing location widgets
+  [tiberich #4763]
+* Bug fix: hide metadata fields for quickevent
+  [tiberich #4763]
+* Bug fix: make all fields appear in the default schemata
+  [tiberich #4763]
+* Bug fix: show location when viewing a QuickEvent
+  [tiberich #4763]
+
+4.2 - (2011-11-22)
+------------------
+* Cleanup: Fixed all pylint, pyflakes warnings
+  [voineali]
+* Bug fix: added workaround for failure to get filename for RSS enclosures
+  [tiberich #4746]
+
+4.1 - (2011-11-21)
+------------------
+* Bug fix: Removed themes from ExternalDataSpec schema as this CT gets themes
+  from back references
+  [voineali #4740]
+* Bug fix: added header for rssAllowed script
+  [tiberich #4738]
+* Bug fix: make getModifiedDate return a DateTime object for folder based feeds
+  [tiberich #4739]
+
+4.0 - (2011-11-18)
+------------------
+* Bug fix: Removed date fields from frontpage tab
+  [szabozo #4708]
+* Bug fix: Only include languages which have a translated eea homepage
+  [demarant]
+* Bug fix: Added missing image scales on the image field for IExternalHighlights
+  [demarant]
+* Change: Made eea geotag required for IExternalHighlight via schemaextender
+  [demarant #4694]
+* Change: Migrated promolink_view from custom
+  [szabozo0 #4161]
+* Bug fix: Added on-error handler to related_multimedia portlet, it
+  triggers errors in portal_relations view
+  [tiberich #4690]
+* Change: Migrated portlet_center_map from custom
+  [szabozo0 #4161]
+* Change: Migrated flashfileStyle, rssAllowed from custom
+  [szabozo0 #4161 #4685]
+* Bug fix: make document_mediatop_view use standard macros for viewing documents
+  [tiberich #4681]
+* Change: Migrated cft_listing from custom
+  [szabozo0 #4161 #4685]
+* Bug fix: Enabled resize.js
+  [szabozo0 #4667]
+* Bug fix: added AssessmentPart to list of content types that are displayed as Other related items
+  [tiberich #4629]
+* Bug fix: use dcterms namespace instead of dc in @@rdf view (backport v2.30)
+  [tiberich #4250]
+* Change: allow hiding the subtyper menu based on context portal type; renamed Topic subtyper as video container
+  [tiberich #4582]
+* Optimization: changed the way the related information is computed to optimize load times
+  [tiberich #4510]
+* Bugfix: Fixed maps right widget (countries)
+  [szabozo0 #4510]
+* Change: Fixed the video template to fill slot content-core. Made all the related
+  templates available as viewlets and registered below content body.
+* Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+  with other JS frameworks
+  [szabozo0 #4542]
+* Change: Design fix, moved the "related multimedia content" from the floating slot in document
+  to the bottom, due to smaller content column width. (will be converted to viewlets)
+  [demarant #4537]
+* Change: Replace plone 4 default location field with eea.geotags location field
+  [szabozo #4510]
+* Bugfix: Fixed Images on PressRelease
+  [szabozo0 #4510]
+* Change: Removed portlet themes from highlights view since we now use it as viewlet below title
+  [demarant #4206, #4458].
+* Bugfix: Removed import of swfobject.js (it's included in portal_javascripts), fixed interactive maps
+  [szabozo0 #4446]
+* Feature: Added Spotlight promotion type
+  [szabozo0 #4425]
+* Bug fix: Fixed helpcenter_view template for Products.PloneHelpCenter 4.0
+  [szabozo0 #4430 #4431]
+* Bug fix: Fixed view for Quick Event, EEA Job Vacancy
+  [szabozo0 #4431]
+* Bug fix: Fixed Tooltip for Article and Highlight. Don't forget to reimport the profile
+  [szabozo0 #4431]
+* Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice
+  [szabozo0 #4423]
+* TODO: there are a lot of issues to complete the migration, search for "plone4"
+* Bug fix: fix swf upload, flash view
+* Change: Rename FlashFile to Animation (swf)
+  [szabozo0 #4379]
+* Feature: Added upgrade steps
+  [voineali #4392]
+* Feature: migrated to Plone 4.0.4
+  [tiberich #4277]
+
+2.29-dev - (unreleased)
+-----------------------
+* Bug fix: fixed "send as notification"
+  [ghicaale]
+
+2.28 - (2011-04-20)
+-------------------
+* Bug fix: Change schema extension to adapt IVideoEnhanced instead of IBaseContent
+  [szabozo0 #4260]
+
+2.27 - (2011-04-19)
+-------------------
+* Feature: Extend schema with location field
+  [szabozo0 #4260]
+* Bug fix: Added migration fix script for images and files positions in parents
+  [tiberich #4135]
+
+2.26 - (2011-04-07)
+-------------------
+* Bug fix: Fixed staff list
+  [ghicaale #4237]
+
+2.25 - (2011-04-01)
+-------------------
+* Cleanup: Removed PloneRSSPortlet
+  [voineali #4169]
+* Feature: added rss feeds adaptor for ATFolders
+  [ichimdav #4202]
+* Change: Updated FlashFile file field to blob and added migration script
+  for it. See Upgrade steps bellow
+  [voineali #4200]
+* Change: Updated ExternalHighlight image field to blob and added migration
+  script for it. See Upgrade steps bellow
+  [voineali #4200]
+* Bug fix: Refactoring Organisation BrowserView adapter as having logic in
+  __init__ can break other packages while using queryMultiAdapter
+  [voineali #4196]
+* Cleanup: of pyflakes compiler errors
+  [ichimdav #4141]
+* Cleanup: of pylint violations
+  [ichimdav #4140]
+* Cleanup: Removed .mo file as they are auto-generated now
+  [voineali #4139]
+* Cleanup: Removed portal_migration scripts as portal_migration is deprecated.
+  Please check that there are no un-applied migration scripts before
+  upgrading to this version
+  [voineali #4139]
+* Cleanup: Added translation domain to ZCML files
+  [voineali #4139]
+* Cleanup: Fixed DeprecationWarning: CMFCorePermissions
+  [voineali #4139]
+* Cleanup: Fixed DeprecationWarning: CustomizationPolicies
+  [voineali #4139]
+* Upgrade steps:
+  - Migrate EEA Content-types image field to Blob:
+  - Go to <site root>/@@migrate-eea2blobs (e.g. http://eea.europa.eu/@@migrate-eea2blobs)
+  - Check Portal Types to migrate and click on '''migrate''' button.
+
+2.24 - (2011-03-08)
+-------------------
+* Bug fix: Fixed broken egg 2.23
+  [ghicaale]
+
+2.23 - (2011-03-08)
+-------------------
+* Bug fix: by now, "management_plan_code_validator" validator is registered
+  from this package. This will fix the validation of "management plan code" field
+  for all content types defined under this pacakge
+  [ghicaale #4174]
+* Feature: Test modificaton date on state change
+  [voineali #3986]
+* Bug fix: Cleanup tests and fix tests hang up
+  [voineali #4136]
+
+2.22 - (2011-03-01)
+-------------------
+* Change: removed PloneRDFCalendar & RDFEvent type
+  [ichimdav #2931]
+* Change: Organigram structure updated
+  [ghicaale #4152]
+* Bug fix: Fixed organigram print CSS
+  [ghicaale #4152]
+
+2.21 - (2011-02-21)
+-------------------
+* Bug fix: Invalidate varnish cache for parents image scales
+  [voineali #4105]
+* Bug fix: fixed code intendation
+  [ghicaale #4130]
+* Bug fix: fixed a bug in relationbrowser widget
+  [tiberich #3241]
+
+2.20 - (2011-02-11)
+-------------------
+* Bug fix: pdb removed
+  [ghicaale]
+* Bug fix: fixed tests when trying to get portal_cache_settings
+  [ghicaale]
+
+2.19 - (2011-02-03)
+-------------------
+* Bug fix: fixed editing of metadata for QuickEvents
+  [tiberich #4104]
+
+2.18 - (2011-02-01)
+-------------------
+* Hudson fix: Fixed zptlint warnings.
+  [voineali]
+
+2.17 - (2011-01-14)
+-------------------
+* Change: improve code formatting in Promotion
+  [tiberich]
+* Bug fix: manually specify mutator for setThemes in Promotion
+  [tiberich #3972]
+* Feature: Added feature to disallow certain content types to be published
+  via the "advanced" state change form and bulk publishing from folder contents,
+  this is needed for content types that uses the "self QA dialog box" refs #4003
+  [demarant]
+
+2.16 - (2011-01-05)
+-------------------
+* Bug fix: make reorder pages available in any context, because of VHM issues
+  [tiberich #3411]
+* Bug fix: fix css issues related to reorder pages
+  [tiberich #3411]
+
+2.15 - (2010-12-22)
+-------------------
+* Bug fix: Fixed error in portal_relations view
+  [voineali #4020]
+* Change: Added windmill tests
+  [voineali #3821]
+* Feature: Added reorder CSS and JS views to improve UX for portal registries
+  [tiberich #3411]
+
+2.14 - (2010-12-16)
+-------------------
+* Feature: added spam protection for QuickEvent content types
+  [tiberich #3869]
+
+2.13 - (2010-12-13)
+-------------------
+* Bug fix: humanize widget labels for CallForInterest and CallForTender objects
+  [tiberich]
+* Bug fix: add mutator code for CallForTender.setAwardNotice
+  [tiberich #3969]
+
+2.12 - (2010-12-03)
+-------------------
+* Bug fix: don't throw error anymore when calling SKOS on an not-topic object
+  [tiberich #3945]
+
+2.11 - (2010-11-29)
+-------------------
+* Bug fix: added a custom Article2Surf adapter to fix @@rdf view for articles
+  [tiberich #3893]
+
+2.10 - (2010-11-24)
+-------------------
+* Bug fix: 'video-fancybox' CSS class present on non-video files
+  [voineali #3895]
+* Change: Cleaned up history and update methods
+  [ghicaale]
+
+2.9.2 - (2010-10-20)
+--------------------
+* Bug fix: Removed pdb
+  [vincisas]
+
+2.9.1 - (2010-10-13)
+--------------------
+* Bug fix: Language code is only checked in the beginning of the URL
+  [vincisas #3746]
+
+2.9 - (2010-09-30)
+------------------
+* Change: Rerelease to use zip format instead of tar.gz; Nothing has changed since previous release
+  [tiberich #3642]
+
+2.8 - (2010-09-29)
+------------------
+* Bug fix: now workflow sends email even when states goes to visible/hide and eionet level, refs #2041 and #3640
+  [demarant]
+
+2.7 (2010-09-06)
+----------------
+* Feature: Added general portlet "Most referenced"
+  [demarant,ghicaale #3477]
+
+2.6 (2010-08-16)
+----------------
+* Change: Use new fancybox based video popup
+  [thuliper #3040]
+
+2.4 (2010-08-04)
+----------------
+* Bug fix: Fixed creative common icon path in colophon to reduce dns lookup
+  and improve spped, the original was nnot cached
+  [demarant]
+
+2.3 (2010-07-01)
+----------------
+* Bug fixed: Fixed failing tests
+  [vincisas]
+
+2.2 (2010--06-16)
+------------------
+* Feature: Added migration step for eea.jquery
+  [thuliper, #3451]
+* Bug fix: Fixed bug in GIS Application edit form where wrong
+  URL was displayed
+  [thuliper, #3404]
+* Change: Merged subfolder_view and dc_view
+  [thuliper, #3372]
+* Bug fix: Added migration script to fix inconsistent catalog values
+  for getThemes index. See portal_migration
+  [voineali #3332]
+* Change: When eeastaff.xml is empty will not be uploaded into Plone so
+  we keep last valid version of eeastaff.xml
+  [ghicaale]
+
+2.1 (2010-05-10)
+----------------
+* Bug fix: Make sure migration step publishes the 'dc' documents
+  [thuliper]
+
+2.0 (2010-05-07)
+----------------
+* Feature: Migration step for theme data centres
+  [thuliper #2939]
+* Feature: Added marker interface for data viewers so we can list them
+  together with interactive maps on data centre
+  [demarant #2939]
+* Feature: Added portal_migration function that sets up the 'dc' themes folders
+  [thulin #3254]
+
+1.9 (2010-03-26)
+----------------
+* Change: Make image 'rights' field language independant
+  [thulin #3164]
+* Bug fix: Fixed import step for adding EEA internal IPs under portal_properties.
+  [ghicaale #2996]
+
+1.8 (2010-03-16)
+----------------
+* Feature: Avoid too long url, make id shorter on creation
+  [voineali #2807]
+* Bug fix: Fixed when david clicks on "derived datasets" browse button to pick
+  a relation he is asked to login
+  [voineali #3018]
+* Bug fix: Fixed ReferenceWidget asks for more permissions, even though user
+  has local Manager role
+  [voineali #3082]
+
+1.7 (2010-03-08)
+----------------
+* Feature: Internal EEA IPs can now be set from portal_properties.
+  [ghicaale #2996]
+
+1.6 (2010-02-16)
+----------------
+* Change: Internal EEA IPs updated for invalidate cache.
+  [ghicaale #2996]
+
+1.5 (2010-01-18)
+----------------
+* Change: Make kupu configuration use our transform chain instead of their default
+  [vincisas #2882]
+* Feature: Added faceted navigation widget for context theme tags
+  [voineali #2616]
+
+1.4 (2010-01-04)
+----------------
+* Feature: Functional tests for dataservice added
+  [ghicaale #2880]
+* Change: Events map height and width are now set after map ie generated as
+  if map html element is hidden by default this values are reseted to 400px X 400px
+  by YMap API
+  [ghicaale #2771]
+* Bug fix: Changed  handler function name for single maps not to conflit with
+  events map handler
+  [ghicaale #2771]
+
+1.3 (2009-12-04)
+----------------
+* Feature: Thumbnails generated with valentine.imagescales view in RSS2 feeds
+  [vincisas #2140]
+* Change: More flexible path configuration for staff file
+  [vincisas #2844]
+
+1.2 (2009-11-27)
+----------------
+* Change; Added "relatesTo" parameter to "def backReferences"
+  [ghicaale #2823]
+* Bug fix: Fix organigram width on lower resolutions
+  [voineali #2830]
+
+1.1 (2009-11-10)
+----------------
+* Initial release
+
