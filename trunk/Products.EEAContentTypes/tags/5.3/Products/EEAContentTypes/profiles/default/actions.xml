@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n" name="portal_actions">
+    <object name="object_buttons">
+        <object name="send_as_notification" meta_type="CMF Action" i18n:domain="eea">
+            <property name="title" i18n:translate="">Send as notification</property>
+            <property name="description" i18n:translate=""/>
+            <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@sendAsNotification</property>
+            <property name="available_expr">python:'Products.Archetypes.interfaces.base.IBaseFolder' in object.restrictedTraverse('@@get_interfaces')()</property>
+            <property name="permissions">
+                <element value="Modify portal content"/>
+            </property>
+            <property name="visible">True</property>
+        </object>
+
+        <object name="crop_image" meta_type="CMF Action" i18n:domain="eea">
+            <property name="title" i18n:translate="">Crop Image</property>
+            <property name="description" i18n:translate=""/>
+            <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@crop</property>
+            <property name="available_expr">python:'Products.EEAContentTypes.content.interfaces.IExternalHighlight'  in object.restrictedTraverse('@@get_interfaces')() or 'Products.ATContentTypes.interfaces.image.IATImage' in object.restrictedTraverse('@@get_interfaces')()</property>
+            <property name="permissions">
+                <element value="Modify portal content"/>
+            </property>
+            <property name="visible">True</property>
+        </object>
+
+    </object>
+</object>
+
