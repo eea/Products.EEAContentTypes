@@ -78,7 +78,6 @@ class GeoTagRDFModifier(object):
         """change the rdf resource
         """
         #import pdb; pdb.set_trace()
-        geo = getAdapter(self.context, IGeoTags)
-        rdf.
-        rdf.dcterms_geotagtest = [rdflib.URIRef('http://rdfdata.eionet.europa.eu/page/ramon/nuts/RO')]
-        rdf.save()
+        #geo = getAdapter(self.context, IGeoTags)
+        #rdf.dcterms_geotagtest = [rdflib.URIRef('http://rdfdata.eionet.europa.eu/page/ramon/nuts/RO')]
+        #rdf.save()
