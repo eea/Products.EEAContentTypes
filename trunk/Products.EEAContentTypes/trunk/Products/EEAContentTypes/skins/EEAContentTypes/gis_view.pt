@@ -54,12 +54,12 @@ div.archived p
                  <iframe  width="940" height="600" 
                       frameborder="0" scrolling="no" 
                       marginheight="0" marginwidth="0" 
-                      tal:attributes="src python:'http://eea.maps.arcgis.com/home/webmap/templates/OnePane/basicviewer/embed.html?webmap=%s&amp;gcsextent=-41.8394,29.8481,65.6508,72.2113&amp;displayslider=true&amp;displayscalebar=true&amp;displaylegend=true&amp;displaysearch=true&amp;displaybasemaps=true' % (uid)"
+                      tal:attributes="src python:'http://eea.maps.arcgis.com/home/webmap/templates/OnePane/basicviewer/embed.html?webmap=%s&amp;displayslider=true&amp;displayscalebar=true&amp;displaylegend=true&amp;displaysearch=true&amp;displaybasemaps=true' % (uid)"
                       src="">
                  </iframe>
                  <br />
                  <p><a class="externalsites-eoe" href="" 
-                       tal:attributes="href python:'%s&amp;extent=-41.8394,29.8481,65.6508,72.2113' % (arcgis_url)" 
+                       tal:attributes="href arcgis_url" 
                        target="_blank" 
                        i18n:translate="">View larger map on Eye on Earth</a></p>
                  </tal:block>
