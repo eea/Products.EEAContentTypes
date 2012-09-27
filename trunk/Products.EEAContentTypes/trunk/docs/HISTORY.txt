@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.5-dev - (unreleased)
+----------------------
+
 5.4 - (2012-09-27)
 ------------------
 * Bug fix: Fixed error: Couldn't import eea.daviz.content.visualization,
