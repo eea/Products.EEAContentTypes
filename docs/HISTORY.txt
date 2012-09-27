@@ -3,14 +3,17 @@ Changelog
 
 5.4-dev - (unreleased)
 ----------------------
-* Bug fix: fixed some layers not showing up. removed fixed extent. 
+* Bug fix: Fixed error: Couldn't import eea.daviz.content.visualization,
+  No module named visualization (eea.daviz 6.0 not-released yet)
+  [voineali]
+* Bug fix: fixed some layers not showing up. removed fixed extent.
   for gis applications template, now zoom defined on arcgis.com is applied.
   [demarant refs #5546]
 
 5.3 - (2012-09-27)
 ------------------
 * Feature: added rich text field to CloudVideo to bring it up to par with the
-  file based video content 
+  file based video content
   [ichimdav #5480]
 * Change: Update references to eea.daviz content
   [voineali refs #5420]
