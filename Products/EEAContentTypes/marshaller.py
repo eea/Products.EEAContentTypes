@@ -22,7 +22,7 @@ class VersioningModifier(object):
     def __init__(self, context):
         self.context = context
 
-    def run(self, rdf, session):
+    def run(self, rdf):
         """change the rdf resource
         """
         api = get_versions_api(self.context)
