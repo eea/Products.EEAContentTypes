@@ -3,6 +3,8 @@ Changelog
 
 5.5-dev - (unreleased)
 ----------------------
+* Change: modify code to conform to api change in eea.rdfhmarshaller
+  [tiberich #5545]
 
 5.4 - (2012-09-27)
 ------------------
