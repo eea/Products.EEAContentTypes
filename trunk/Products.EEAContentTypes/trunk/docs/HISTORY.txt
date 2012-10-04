@@ -3,6 +3,9 @@ Changelog
 
 5.6-dev - (unreleased)
 ----------------------
+* WIP :: Change: merged values from relatedProducts fiels to relatedItems
+  field for EEAFigure and Data objects.
+  [ghicaale refs #2790]
 
 5.5 - (2012-10-04)
 ------------------
