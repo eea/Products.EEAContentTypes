@@ -7,7 +7,6 @@ import logging
 
 logger = logging.getLogger("Migration fix")
 
-
 def write_folder_order(self):
     """ Write folder order
     """
@@ -44,7 +43,6 @@ def write_folder_order(self):
     out.close()
 
     return "Done export"
-
 
 def read_folder_order(self):
     """ Folder order
@@ -122,7 +120,6 @@ def get_order(self):
     objs = [o for o in self.objectValues() if hasattr(o, 'meta_type')]
     return getCMFObjectsSubsetIds(objs)
 
-
 def get_order_contents(self):
     """ Order contents
     """
@@ -135,7 +132,6 @@ def get_order_contents(self):
 
     objs = self.getFolderContents(full_objects=True)
     return getCMFObjectsSubsetIds(objs)
-
 
 def set_folder_order(self):
     """Fixes just a folder"""
@@ -163,7 +159,6 @@ def set_folder_order(self):
     parent.reindexObject()
 
     return "Reorder done"
-
 
 _UIDS = """
 D66A344D-43D5-4FBB-9B6A-B4F5114D8141
@@ -540,7 +535,6 @@ D13380BB-D037-4926-BBDB-8AD86150D383
 699f15acb0985665f5e2cb639f63f762
 8d62e22562eab38d283a5832c37ef320
 """
-
 
 def fix_categories_maps(self):
     """ Recategorize some maps as graphs
