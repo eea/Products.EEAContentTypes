@@ -1,0 +1,1 @@
+width: <dtml-var "figure_obj.width + 5" missing="150">px;

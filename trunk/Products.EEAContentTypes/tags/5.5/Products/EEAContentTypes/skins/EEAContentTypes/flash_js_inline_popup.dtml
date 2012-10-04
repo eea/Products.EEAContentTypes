@@ -1,0 +1,11 @@
+<script type="text/javascript">
+
+function openPopupFlash() {
+   windowargs='width=<dtml-var "flash.getWidth()">,height=<dtml-var "flash.getHeight()">,resizable=no,scrollbars=no,toolbar=no,status=no,menubar=no';
+   window.open('<dtml-var "flash.absolute_url()">/flashfile_popup_window', 'flashpopup', windowargs);
+
+}
+
+AttachEvent(window,'load', openPopupFlash, false);
+
+</script>

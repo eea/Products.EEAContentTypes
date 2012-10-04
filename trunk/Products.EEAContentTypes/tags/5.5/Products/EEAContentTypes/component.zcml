@@ -1,0 +1,131 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="eea">
+
+    <utility
+        component=".promotion.ThemepageSectionsVocabularyFactory"
+        name="Themepage Promotion Sections"
+        />
+
+    <subscriber factory=".marshaller.VersioningModifier"
+                for="eea.versions.interfaces.IVersionEnhanced"
+                provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+                
+    <subscriber factory=".marshaller.GeoTagRDFModifier"
+                for="eea.geotags.storage.interfaces.IGeoTaggable"
+                provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+
+    <subscriber handler=".events.handle_content_state_changed"
+                for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
+                />
+
+    <adapter factory=".feeds.FeedPortletInfo" />
+    <adapter factory=".feeds.FeedItemPortletInfo" />
+    <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
+    <adapter factory=".feeds.ContextAwareFeedPortletInfo"
+        provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
+
+    <adapter factory=".relations.Relations" />
+    <adapter factory=".promotion.Promotion" />
+    <adapter factory=".content.Article.Article2Surf" />
+    <adapter factory=".subtypes.GeotagSingleEdit"/>
+    <adapter factory=".subtypes.GeotagMultiEdit"/>
+
+    <adapter name="eea.locationfield"
+        for="Products.Archetypes.interfaces.IBaseContent"
+        factory=".subtypes.LocationSchemaExtender"/>
+
+    <!-- #4705 It should be for IBaseContent once generic relation works #4908 -->
+    <adapter name="eea.relationsfield"
+        for="eea.relations.interfaces.IBaseObject"
+        factory=".subtypes.RelationsSchemaExtender" />
+
+    <adapter name="eea.themesfield"
+        for="Products.Archetypes.interfaces.IBaseContent"
+        factory=".subtypes.ThemesSchemaExtender"/>
+
+    <!-- Keyword postback fix http://dev.plone.org/ticket/12334 -->
+    <adapter name="eea.keywordsfield"
+        for="Products.Archetypes.interfaces.IExtensibleMetadata"
+        factory=".subtypes.KeywordsSchemaModifier" />
+
+
+    <!-- Required fields -->
+
+    <!-- Article -->
+    <class class="Products.EEAContentTypes.content.Article.Article">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Highlight -->
+    <class class="Products.EEAContentTypes.content.Highlight.Highlight">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- PressRelease -->
+    <class class="Products.EEAContentTypes.content.PressRelease.PressRelease">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Speech -->
+    <class class="Products.EEAContentTypes.content.Speech.Speech">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Country profile -->
+    <class class="eea.soer.content.DiversityReport.DiversityReport">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Data -->
+    <class class="eea.dataservice.content.Data.Data">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Figure -->
+    <class class="eea.dataservice.content.EEAFigure.EEAFigure">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!--Policy Document -->
+    <class class="eea.indicators.content.PolicyDocumentReference.PolicyDocumentReference">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Animation -->
+    <class class="Products.EEAContentTypes.content.FlashFile.FlashFile">
+        <implements interface="Products.EEAContentTypes.interfaces.IRequiredFields" />
+    </class>
+
+    <!-- Required fields adapter -->
+    <adapter name="eea.requiredfields"
+        for="Products.EEAContentTypes.interfaces.IRequiredFields"
+        factory=".subtypes.RequiredSchemaModifier" />
+
+    <!-- Publication -->
+    <adapter name="eea.requiredfields4publication"
+        for="eea.reports.interfaces.IReportContainerEnhanced"
+        factory=".subtypes.RequiredSchemaModifier" />
+
+    <!-- Video -->
+    <adapter name="eea.requiredfields4video"
+        for="p4a.video.interfaces.IVideoEnhanced"
+        factory=".subtypes.RequiredSchemaModifier" />
+
+    <!-- EcoTip, Page, SOER Key fact, SOER Message -->
+    <adapter name="eea.requiredfields4document"
+        for="Products.ATContentTypes.interfaces.IATDocument"
+        factory=".subtypes.RequiredByPortalTypeSchemaModifier" />
+
+    <!-- Eyewitness story -->
+    <adapter name="eea.requiredfields4folder"
+        for="Products.ATContentTypes.interfaces.IATFolder"
+        factory=".subtypes.RequiredByPortalTypeSchemaModifier" />
+
+    <!-- GIS Map Application -->
+    <adapter name="eea.requiredfields4link"
+        for="Products.ATContentTypes.interfaces.IATLink"
+        factory=".subtypes.RequiredByPortalTypeSchemaModifier" />
+
+</configure>
