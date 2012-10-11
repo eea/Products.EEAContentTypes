@@ -22,7 +22,7 @@ class VersioningModifier(object):
     def __init__(self, context):
         self.context = context
 
-    def run(self, rdf):
+    def run(self, resource, *args, **kwds):
         """change the rdf resource
         """
         api = get_versions_api(self.context)
@@ -74,7 +74,7 @@ class GeoTagRDFModifier(object):
     def __init__(self, context):
         self.context = context
 
-    def run(self, rdf):
+    def run(self, resource, *args, **kwds):
         """change the rdf resource
         """
         #import pdb; pdb.set_trace()
