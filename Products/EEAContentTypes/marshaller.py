@@ -6,6 +6,7 @@ from eea.geotags.interfaces import IGeoTags
 from eea.geotags.storage.interfaces import IGeoTaggable 
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
 from eea.rdfmarshaller.interfaces import ISurfSession
+from eea.rdfmarshaller.archetypes.fields import ATField2Surf
 from eea.versions.interfaces import IVersionEnhanced
 from eea.versions.versions import get_versions_api
 from zope.component import adapts
