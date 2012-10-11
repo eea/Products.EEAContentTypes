@@ -20,6 +20,8 @@
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
+    <adapter factory=".marshaller.MediaField2Surf" />
+
     <adapter factory=".feeds.FeedPortletInfo" />
     <adapter factory=".feeds.FeedItemPortletInfo" />
     <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
