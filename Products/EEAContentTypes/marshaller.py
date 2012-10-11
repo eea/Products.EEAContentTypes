@@ -1,14 +1,16 @@
 """Plugins to modify @@rdf info
 """
 
+from Products.Archetypes.interfaces import IField
+from eea.geotags.interfaces import IGeoTags
+from eea.geotags.storage.interfaces import IGeoTaggable 
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
+from eea.rdfmarshaller.interfaces import ISurfSession
 from eea.versions.interfaces import IVersionEnhanced
 from eea.versions.versions import get_versions_api
 from zope.component import adapts
-from zope.interface import implements
 from zope.component import getAdapter
-from eea.geotags.interfaces import IGeoTags
-from eea.geotags.storage.interfaces import IGeoTaggable 
+from zope.interface import implements, Interface
 import rdflib
 
 
@@ -32,7 +34,16 @@ class VersioningModifier(object):
         rdf.dcterms_replaces = [rdflib.URIRef(a['url']) for a in api.oldest()]
 
         rdf.save()
+
         
+class MediaField2Surf(ATField2Surf):
+    """A mediafield to surf adapter for the "media" field
+    """
+    adapts(IField, Interface, ISurfSession)
+
+    def value(self):
+        return self.context.getMedia()
+
         
 class GeoTagRDFModifier(object):
     """Adds geotags information in rdf

@@ -8,6 +8,9 @@ Changelog
   [ghicaale refs #2790]
 * Bug fix: change rdfmarshaller modifiers to conform to API changes
   [tiberich #3981]
+* Bug fix: use a field adapter instead of a full content adapter for the
+  Article media, for the @@rdf view
+  [tiberich #3981]
 
 5.5 - (2012-10-04)
 ------------------

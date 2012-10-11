@@ -13,10 +13,6 @@ from Products.EEAContentTypes.content.ExternalHighlight import schema as \
      ExtHighlightSchema
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.content.interfaces import IArticle
-#from eea.rdfmarshaller.interfaces import(
-    #IArchetype2Surf, ISurfSession, IATField2Surf
-#)
-#from eea.rdfmarshaller.marshaller import ATCT2Surf
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts, queryMultiAdapter
 from zope.interface import implements
@@ -104,61 +100,3 @@ class Article(Highlight):
         tagging.tags = value
 
 registerType(Article, PROJECTNAME)
-
-
-#class Article2Surf(ATCT2Surf):
-    #"""Override the ATCT2Surf adapter because the media field accessor doesn't
-    #return the real values;
-
-    #NOTE: It should not be necessary to copy so much code from
-    #eea.rdfmarshaller, but there's no 3 way adapter for (contenttype,
-    #fieldtype, surfsession) that would solve the problem.
-    #"""
-    #implements(IArchetype2Surf)
-    #adapts(IArticle, ISurfSession)
-
-    #def _schema2surf(self):
-        #""" Surf
-        #"""
-        #context = self.context
-        ##session = self.session
-        #resource = self.surfResource
-        #language = context.Language()
-        #for fld in context.Schema().fields():
-            #fieldName = fld.getName()
-            #if fieldName in self.blacklist_map:
-                #continue
-            #fieldAdapter = queryMultiAdapter((fld, self.session),
-                                             #interface=IATField2Surf)
-            #if fieldAdapter.exportable:
-                #if fieldName != "media":
-                    #value = fieldAdapter.value(context)
-                #else:
-                    #value = context.getMedia()
-                #if (value and value != "None") or \
-                        #(isinstance(value, basestring) and value.strip()) :
-                    #prefix = self.prefix
-                    #if isinstance(value, (list, tuple)):
-                        #value = list(value)
-                    #else:
-                        #value = (str(value), language)
-                    #if fieldName in self.field_map:
-                        #fieldName = self.field_map.get(fieldName)
-                    #elif fieldName in self.dc_map:
-                        #fieldName = self.dc_map.get(fieldName)
-                        #prefix = 'dcterms'
-                    #try:
-                        #setattr(resource, '%s_%s' % (prefix, fieldName), value)
-                    #except Exception:
-                        #log.log('RDF marshaller error for context[field] '
-                                #'"%s[%s]": \n%s: %s' % (
-                                    #context.absolute_url(), fieldName,
-                                    #sys.exc_info()[0],
-                                    #sys.exc_info()[1]),
-                                #severity=log.logging.WARN)
-        #parent = getattr(aq_inner(context), 'aq_parent', None)
-        #if parent is not None:
-            #resource.dcterms_isPartOf = rdflib.URIRef(parent.absolute_url())
-        #resource.save()
-        #return resource
-
