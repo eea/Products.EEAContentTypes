@@ -2,7 +2,6 @@
 """
 
 from Products.Archetypes.interfaces import IField
-from eea.geotags.interfaces import IGeoTags
 from eea.geotags.storage.interfaces import IGeoTaggable 
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
 from eea.rdfmarshaller.interfaces import ISurfSession
@@ -13,6 +12,8 @@ from zope.component import adapts
 from zope.component import getAdapter
 from zope.interface import implements, Interface
 import rdflib
+
+#from eea.geotags.interfaces import IGeoTags
 
 
 class VersioningModifier(object):
@@ -30,11 +31,11 @@ class VersioningModifier(object):
         """
         api = get_versions_api(self.context)
 
-        rdf.dcterms_isReplacedBy = [rdflib.URIRef(i['url']) for
+        resource.dcterms_isReplacedBy = [rdflib.URIRef(i['url']) for
                                                         i in api.newest()]
-        rdf.dcterms_replaces = [rdflib.URIRef(a['url']) for a in api.oldest()]
+        resource.dcterms_replaces = [rdflib.URIRef(a['url']) for a in api.oldest()]
 
-        rdf.save()
+        resource.save()
 
         
 class MediaField2Surf(ATField2Surf):
@@ -43,6 +44,8 @@ class MediaField2Surf(ATField2Surf):
     adapts(IField, Interface, ISurfSession)
 
     def value(self):
+        """Tranform value to surf value
+        """
         return self.context.getMedia()
 
         
@@ -77,7 +80,9 @@ class GeoTagRDFModifier(object):
     #
     # <dct:subject rdf:resource="http://www.geonames.org/630671" />
     # or
-    # <dct:subject rdf:resource="http://rdfdata.eionet.europa.eu/eea/biogeographic-regions/ALP" />
+    # <dct:subject 
+    # rdf:resource="
+    # http://rdfdata.eionet.europa.eu/eea/biogeographic-regions/ALP" />
     #
     # or/and (but it looks like dct:spatial is defined to only have literals?)
     # <dct:spatial rdf:resource="http://www.geonames.org/630671" />
@@ -91,5 +96,6 @@ class GeoTagRDFModifier(object):
         """
         #import pdb; pdb.set_trace()
         #geo = getAdapter(self.context, IGeoTags)
-        #rdf.dcterms_geotagtest = [rdflib.URIRef('http://rdfdata.eionet.europa.eu/page/ramon/nuts/RO')]
+        #rdf.dcterms_geotagtest = \
+            #[rdflib.URIRef('http://rdfdata.eionet.europa.eu/page/ramon/nuts/RO')]
         #rdf.save()
