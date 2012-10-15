@@ -20,7 +20,7 @@
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
-    <adapter factory=".marshaller.MediaField2Surf" />
+    <adapter factory=".marshaller.MediaField2Surf" name="media" />
 
     <adapter factory=".feeds.FeedPortletInfo" />
     <adapter factory=".feeds.FeedItemPortletInfo" />
@@ -30,7 +30,6 @@
 
     <adapter factory=".relations.Relations" />
     <adapter factory=".promotion.Promotion" />
-    <adapter factory=".content.Article.Article2Surf" />
     <adapter factory=".subtypes.GeotagSingleEdit"/>
     <adapter factory=".subtypes.GeotagMultiEdit"/>
 
