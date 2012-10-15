@@ -1,12 +1,10 @@
 """ Article """
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_inner
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFPlone import PloneMessageFactory as _
-from Products.CMFPlone import log
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
@@ -14,10 +12,7 @@ from Products.EEAContentTypes.content.ExternalHighlight import schema as \
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.content.interfaces import IArticle
 from eea.themecentre.interfaces import IThemeTagging
-from zope.component import adapts, queryMultiAdapter
 from zope.interface import implements
-import sys
-import rdflib
 from Products.LinguaPlone.public import (
     Schema, LinesField, InAndOutWidget, registerType)
 
