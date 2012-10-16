@@ -6,7 +6,8 @@ Changelog
 * WIP :: Change: merged values from relatedProducts fiels to relatedItems
   field for EEAFigure and Data objects.
   [ghicaale refs #2790]
-* Bug fix: change rdfmarshaller modifiers to conform to API changes
+* Bug fix: change rdfmarshaller modifiers to conform to API changes, added
+  test for marshaller modifiers
   [tiberich #3981]
 * Bug fix: use a field adapter instead of a full content adapter for the
   Article media, for the @@rdf view
