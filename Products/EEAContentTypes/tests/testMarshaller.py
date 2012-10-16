@@ -23,11 +23,11 @@ class testHighlight(EEAContentTypeTestCase):
 
         rdf = high.restrictedTraverse('@@rdf')()
         self.failUnless ('<dcterms:isReplacedBy rdf:resource="' + 
-               'http://nohost/plone/Members/test_user_1_/h1-1"/>' not in rdf)
+               'http://nohost/plone/Members/test_user_1_/h1-1"/>' in rdf)
 
         rdf = ver.restrictedTraverse('@@rdf')()
         self.failUnless('<dcterms:replaces rdf:resource=' + 
-                        '"http://nohost/plone/Members/test_user_1_/h1"/>' not in rdf)
+                        '"http://nohost/plone/Members/test_user_1_/h1"/>' in rdf)
 
 
 def test_suite():
@@ -37,6 +37,3 @@ def test_suite():
     suite = TestSuite()
     suite.addTest(makeSuite(testHighlight))
     return suite
-
-
-
