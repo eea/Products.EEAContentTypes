@@ -2,7 +2,7 @@
 """
 
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from eea.versions.versions import createVersion
+from eea.versions.versions import create_version
 import os
 
 
@@ -19,7 +19,7 @@ class testHighlight(EEAContentTypeTestCase):
         """ Get publication date
         """
         high = self.folder['h1']
-        ver = createVersion(high)
+        ver = create_version(high)
 
         rdf = high.restrictedTraverse('@@rdf')()
         self.failUnless ('<dcterms:isReplacedBy rdf:resource="' + 
