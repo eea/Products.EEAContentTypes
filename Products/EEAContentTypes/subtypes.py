@@ -22,13 +22,9 @@ from zope.component import queryAdapter
 from zope.interface import Interface, implements
 from p4a.video.subtype import TopicVideoContainerDescriptor as \
         BaseTopicVideoContainerDescriptor, _
-
-
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-
 import logging
-
 
 logger = logging.getLogger('EEAContentTypes')
 
@@ -157,7 +153,6 @@ class LocationSchemaExtender(object):
                              'to select a location')
             return self.multiple_location
 
-
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
@@ -242,7 +237,6 @@ class KeywordsSchemaModifier(object):
             schema['subject'].languageIndependent = True
             schema['subject'].widget.macro = 'eea_keywords'
 
-
 class RequiredByPortalTypeSchemaModifier(RequiredSchemaModifier):
     """ Modify schema
     """
@@ -255,7 +249,6 @@ class RequiredByPortalTypeSchemaModifier(RequiredSchemaModifier):
         if portal_type not in REQUIRED_METADATA_FOR:
             return
         return super(RequiredByPortalTypeSchemaModifier, self).fiddle(schema)
-
 
 class GeotagMixinEdit(object):
     """ Edit
@@ -283,7 +276,6 @@ class GeotagMixinEdit(object):
         mutator = xfield.getMutator(self.context)
         mutator(value)
 
-
 class IGeotagSingleEdit(Interface):
     """Interface for editing single location"""
     geotag = widget.location.GeotagSingleField(
@@ -292,12 +284,10 @@ class IGeotagSingleEdit(Interface):
                          "this content.")
             )
 
-
 class GeotagSingleEdit(GeotagMixinEdit):
     """ Single edit
     """
     implements(IGeotagSingleEdit)
-
 
 class IGeotagMultiEdit(Interface):
     """Interface for editing multiple locations"""
@@ -308,12 +298,10 @@ class IGeotagMultiEdit(Interface):
                          " this content.")
             )
 
-
 class GeotagMultiEdit(GeotagMixinEdit):
     """ Multi Edit
     """
     implements(IGeotagMultiEdit)
-
 
 class Subtyper(BaseSubtyper):
     """We override the default subtyper because of broken logic in its
@@ -341,14 +329,10 @@ class Subtyper(BaseSubtyper):
         possible = IPossibleDescriptors(obj)
         return (DescriptorWithName(n, c) for n, c in possible.possible)
 
-
 class TopicVideoContainerDescriptor(BaseTopicVideoContainerDescriptor):
     """ Topic container
     """
     title = _("Video Topic Container")
-
-
-
 
 @provider(IURLChecker)
 def swf_check(url):
