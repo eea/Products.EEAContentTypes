@@ -67,19 +67,24 @@ class RelationsSchemaExtender(object):
     def getFields(self):
         """ Returns relatedItems field
         """
+        # List of content types where relatedItems field
+        # is override in specific schemata
         if self.context.portal_type in (
             "DavizVisualization", "Specification", "Assessment",
             "AssessmentPart", "QuickEvent", "Report", "IndicatorFactSheet"):
             return []
-        # #4705 base_view shows related widget which should be rendered by 
-        # the macro from main_template
+
+        # Due to #4705 base_view shows related widget which should be
+        # rendered by the macro from main_template
         if self.context.portal_type in ("Promotion",):
             self.fields[0].widget.visible['view'] = 'invisible'
+
         return self.fields
 
 class LocationSchemaExtender(object):
     """ Extends base schema with extra fields.
-    To be used for base content class. """
+        To be used for base content class.
+    """
     implements(ISchemaExtender)
 
     multiple_location =  (
@@ -221,9 +226,7 @@ class RequiredSchemaModifier(object):
             schema['subject'] = xfield
 
 class KeywordsSchemaModifier(object):
-    """ Fix keywords postback bug
-
-    http://dev.plone.org/ticket/12334
+    """ Fix keywords postback bug http://dev.plone.org/ticket/12334
     """
     implements(ISchemaModifier)
 
@@ -277,7 +280,8 @@ class GeotagMixinEdit(object):
         mutator(value)
 
 class IGeotagSingleEdit(Interface):
-    """Interface for editing single location"""
+    """ Interface for editing single location
+    """
     geotag = widget.location.GeotagSingleField(
             title = u"Geotag",
             description=(u"Geotag: a single geographical location for "
@@ -290,8 +294,8 @@ class GeotagSingleEdit(GeotagMixinEdit):
     implements(IGeotagSingleEdit)
 
 class IGeotagMultiEdit(Interface):
-    """Interface for editing multiple locations"""
-
+    """ Interface for editing multiple locations
+    """
     geotag = widget.location.GeotagMultiField(
             title = u"Geotags",
             description=(u"Geotags: multiple geographical locations related to"
@@ -304,15 +308,15 @@ class GeotagMultiEdit(GeotagMixinEdit):
     implements(IGeotagMultiEdit)
 
 class Subtyper(BaseSubtyper):
-    """We override the default subtyper because of broken logic in its
-    possible_types implementation. The default implementation, due to
-    adapter resolution order, doesn't take into account adapters for
-    IPortalTypedPossibleDescriptors
+    """ We override the default subtyper because of broken logic in its
+        possible_types implementation. The default implementation, due to
+        adapter resolution order, doesn't take into account adapters for
+        IPortalTypedPossibleDescriptors
 
-    Also, not it's possible to hide the menu for content types where
-    it doesn't make sense. This is due to the fact that the subtyper
-    in p4a.video is registered for somewhat generic interfaces
-    (for ex: IATFolder)
+        Also, not it's possible to hide the menu for content types where
+        it doesn't make sense. This is due to the fact that the subtyper
+        in p4a.video is registered for somewhat generic interfaces
+        (for ex: IATFolder)
     """
     _skip = ('Data', 'EEAFigure')
 
@@ -336,9 +340,8 @@ class TopicVideoContainerDescriptor(BaseTopicVideoContainerDescriptor):
 
 @provider(IURLChecker)
 def swf_check(url):
-    """Customized utility to check for swf in URL just so
-    that we don't transform GIS Applications into videos
-
+    """ Customized utility to check for swf in URL just so
+        that we don't transform GIS Applications into videos
     """
     host, path, query, fragment = break_url(url)
     # TODO: plone4 this return false shouldn't be here
