@@ -149,6 +149,9 @@ class LocationSchemaExtender(object):
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
             return self.multiple_location
+        # #9423 remove location schema extender for Data 
+        elif self.context.portal_type == 'Data':
+            return ()
         else:
             self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geotag / Location"
@@ -212,7 +215,7 @@ class RequiredSchemaModifier(object):
                     # Language independent doesn't work with required property
                     return
 
-        if 'location' in schema:
+        if 'location' in schema and self.context.portal_type != 'Data':
             xfield = schema['location'].copy()
             xfield.required = True
             schema['location'] = xfield
