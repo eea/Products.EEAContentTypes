@@ -5,9 +5,9 @@ Changelog
 ----------------------
 * Change: removed schema extender of location for Data content type 
   [ichimdav #9423]
-* WIP :: Change: merged values from relatedProducts field to relatedItems
+* Change: merged values from relatedProducts field to relatedItems
   field for EEAFigure and Data objects.
-  [ghicaale refs #2790]
+  [ghicaale refs #6773]
 * Bug fix: change rdfmarshaller modifiers to conform to API changes, added
   test for marshaller modifiers
   [tiberich #3981]
