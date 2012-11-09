@@ -6,7 +6,7 @@ from plone.indexer.decorator import indexer
 
 @indexer(IBaseContent)
 def CountReferences(obj):
-    """index number of references on objects
+    """ Index number of references on objects
     """
 
     try:
