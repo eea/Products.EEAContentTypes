@@ -1,0 +1,14 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:define-macro="portlet">
+  <tal:rssFeeds repeat="dblFeed here/@@rssDblFeeds|nothing">
+      <metal:feed use-macro="here/portlet_feed_dbl/macros/portlet" />
+  </tal:rssFeeds>
+</div>
+
+</body>
+</html>
