@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.7-dev - (unreleased)
+----------------------
+
 5.6 - (2012-11-22)
 ------------------
 * Change: removed schema extender of location for Data content type 
