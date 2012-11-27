@@ -1,5 +1,42 @@
 <script type="text/javascript">
    // <![CDATA[
+
+   // START OF JS FOR IFRAME HANDLING
+   // from Jon Maidens (atkins)
+   // new component in the WISE maps which uses an iframe to embed content 
+   // in the map from an external source (Microsoft reporting services in this case). 
+   // The iframe implementation needs some javascript methods and a div in the surrounding html.
+
+            $(window).load(function() {
+              $('#content-core').append("<div id='divFrame' style='position:absolute;background-color:#FFFFFF;border:0px;visibility:visible;'>")
+            });
+
+            function loadIFrame(url){
+                  $("#divFrame").html("<iframe id='htmlFlashIFrame' src='" + url + "'frameborder='0'></iframe>");
+            }
+            
+            function moveIFrame(x,y,w,h) {
+               var position = $('#content-core').position();
+               var top =  y + position.top;            
+               var left = x + position.left;
+               var frameRef=$("#divFrame");
+                frameRef.css({"top": top+"px", "left": left+"px"});
+                var iFrameRef= $("#htmlFlashIFrame"); 
+                  iFrameRef.width(w);
+                  iFrameRef.height(h);
+            }
+            
+            function hideIFrame(){
+                $("#divFrame").hide();
+            }
+                  
+            function showIFrame(){
+                $("#divFrame").show();
+            }
+
+   // END OF JS FOR IFRAME HANDLING
+
+   // START OF DYNAMIC SWFObject code
    <dtml-call "REQUEST.set('queryStart',0)">
    <dtml-if remoteUrl>
    //parse remoteUrl for optional flash variables
@@ -28,7 +65,7 @@
        map.style.height=newHeight + 'px';
        map.style.width='100%';
    }
-							
+   // END OF DYNAMIC SWFObject code							
    // ]]>
    
 </script>
