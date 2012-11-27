@@ -3,6 +3,8 @@ Changelog
 
 5.7-dev - (unreleased)
 ----------------------
+* Change: added customizations from productio for flas_js.dtml
+  [ichimdav]
 
 5.6 - (2012-11-22)
 ------------------
