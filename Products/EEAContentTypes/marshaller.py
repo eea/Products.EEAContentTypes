@@ -45,5 +45,9 @@ class MediaField2Surf(ATField2Surf):
     def value(self):
         """Tranform value to surf value
         """
-        return self.context.getMedia()
+        f = self.context.getMedia()
+        if not len(f):
+            return None
+
+        return [rdflib.URIRef(f.absolute_url()+"/image_xlarge")]
 
