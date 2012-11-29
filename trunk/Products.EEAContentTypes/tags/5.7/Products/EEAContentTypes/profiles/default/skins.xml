@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<object name="portal_skins" meta_type="Plone Skins Tool">
+    <object name="EEAContentTypes" meta_type="Filesystem Directory View"
+        directory="EEAContentTypes/skins/EEAContentTypes"/>
+    <object name="EEAContentTypes_public" meta_type="Filesystem Directory View"
+        directory="EEAContentTypes/skins/EEAContentTypes_public"/>
+    <object name="EEAContentTypes_popupedit" meta_type="Filesystem Directory View"
+        directory="EEAContentTypes/skins/EEAContentTypes_popupedit"/>
+
+    <skin-path name="*">
+        <layer insert-after="custom"
+            name="EEAContentTypes"/>
+        <layer insert-after="custom"
+            name="EEAContentTypes_popupedit"/>
+        <layer insert-after="custom"
+            name="EEAContentTypes_public"/>
+    </skin-path>
+</object>
