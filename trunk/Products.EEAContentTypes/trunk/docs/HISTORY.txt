@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Change: added customizations from productio for flas_js.dtml
   [ichimdav]
+* Bug fix: fix @@rdf adapter for media field
+  [tiberich #10130]
 
 5.6 - (2012-11-22)
 ------------------
