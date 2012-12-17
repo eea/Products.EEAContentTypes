@@ -3,6 +3,9 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: Disable award notice value when CallForTender object is created in
+  portal_factory
+  [ichimdav #10204]
 
 5.7 - (2012-11-29)
 ------------------

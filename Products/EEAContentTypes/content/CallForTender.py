@@ -17,6 +17,7 @@ schema = Schema((
             label='Award notice',
             label_msgid='EEAContentTypes_award_notice',
             i18n_domain='EEAContentTypes',
+            helper_js = ("callfortender_widget.js",)
         ),
         allowed_types="('Document','File')",
         multiValued=0,
