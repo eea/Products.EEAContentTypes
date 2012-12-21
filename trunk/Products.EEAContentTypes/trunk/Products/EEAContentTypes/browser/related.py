@@ -186,6 +186,10 @@ class AutoRelated(object):
                     str(themeVocab.getTerm(themename).title)),
                                'items': theme,
                                'more_link': url })
+
+        for dicts in themes:
+            # 9272 reverse sort of latest addition
+            dicts['items'].reverse()
         return themes
 
     def sameTheme(self, portal_type=None):
