@@ -3,6 +3,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: return auto relations in reverse order from newest to oldest
+  [ichimdav #9272]
 * Upgrade step: on instances other than production go to www/portal_types/Article:
    - Add 'Folder' in the list of allowed contenttypes
    - This step has already been applied on production
