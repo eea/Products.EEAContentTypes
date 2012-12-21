@@ -3,6 +3,10 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Upgrade step: go to www/portal_types/Article:
+  - Add 'Folder' in the list of allowed contenttypes
+* Change: Added Folders to allowed content types for Article
+  [ichimdav #9255]
 * Bug fix: Disable award notice value when CallForTender object is created in
   portal_factory
   [ichimdav #10204]

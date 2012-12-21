@@ -16,6 +16,7 @@
   <element value="ATImage"/>
   <element value="Image"/>
   <element value="File"/>
+  <element value="Folder"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">highlight_view</property>
