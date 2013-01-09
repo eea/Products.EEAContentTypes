@@ -3,6 +3,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Change: speedup. do not show workflow emails adresses in state > advanced.
+  [demarant refs #9985] 
 * Bug fix: return auto relations in reverse order from newest to oldest
   [ichimdav #9272]
 * Upgrade step: on instances other than production go to www/portal_types/Article:
