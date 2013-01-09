@@ -335,24 +335,8 @@
                              tal:attributes="for transition/id;"
                              tal:content="transition/name"
                              >Transition Name</label>
-
-                     <div class="placehold_workflow_emails">
-                        <a style="display:none" href="" 
-                            tal:attributes="href string:${context/absolute_url}/workflow_emails_info?id=${transition/id}">Loading workflow emails</a>
-                        <img tal:attributes="src string:$portal_url/eea-ajax-loader.gif" />
-                     </div>
-
+                      <br />
                   </tal:block>
-
-                  <script>
-                  jq(document).ready(function(){
-                    jq(".placehold_workflow_emails a").each(function(){
-                       var parent = jq(this).parent();
-                       var url = jq(this).attr('href');
-                       jq(parent).load(url);
-                    }); 
-                  });
-                  </script>
 
                 </div>
 
