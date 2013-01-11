@@ -3,6 +3,9 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Feature: Better user feedback when sending newsletters.
+  Added portlet to show emails queue status via munin.
+  [demarant fixes #10268]
 * Change: speedup. do not show workflow emails adresses in state > advanced.
   [demarant refs #9985] 
 * Bug fix: return auto relations in reverse order from newest to oldest
