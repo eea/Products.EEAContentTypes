@@ -3,6 +3,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Feature: Added portlet to monitor content updates activity.
+  [demarant fixes #9512]
 * Feature: Better user feedback when sending newsletters.
   Added portlet to show emails queue status via munin.
   [demarant fixes #10268]
