@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.8-dev - (unreleased)
-----------------------
+5.8 - (2013-01-15)
+------------------
 * Feature: Added portlet to monitor content updates activity.
   [demarant fixes #9512]
 * Feature: Better user feedback when sending newsletters.
@@ -775,3 +775,4 @@ Changelog
 1.1 (2009-11-10)
 ----------------
 * Initial release
+
