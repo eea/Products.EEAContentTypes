@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.9-dev - (unreleased)
+----------------------
+
 5.8 - (2013-01-15)
 ------------------
 * Feature: Added portlet to monitor content updates activity.
