@@ -3,6 +3,9 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Bug fix: fix unauthorised to access Title in portlet cms activity 
+  for Authenticated role (when eionet users doing comments in IMS).
+  [demarant refs #9512]
 
 5.8 - (2013-01-15)
 ------------------
