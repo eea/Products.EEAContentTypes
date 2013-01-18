@@ -6,6 +6,12 @@ Changelog
 * Bug fix: fix unauthorised to access Title in portlet cms activity 
   for Authenticated role (when eionet users doing comments in IMS).
   [demarant refs #9512]
+* Bug Fix: Fixed Relations for multilingual objects. Now, when 
+  opening a translated content, the relation widget reflects the
+  relations on the Canonical object (EN).
+  [prospchr refs #9569]
+* Upgrade step: Need to run the script that remove the relations
+  on translated objects.  
 
 5.8 - (2013-01-15)
 ------------------
