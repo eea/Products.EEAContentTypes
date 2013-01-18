@@ -46,8 +46,7 @@
     <adapter name="eea.keywordsfield"
         for="Products.Archetypes.interfaces.IExtensibleMetadata"
         factory=".subtypes.KeywordsSchemaModifier" />
-
-
+        
     <!-- Required fields -->
 
     <!-- Article -->

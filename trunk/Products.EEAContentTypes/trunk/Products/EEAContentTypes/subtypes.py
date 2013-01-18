@@ -24,6 +24,10 @@ from p4a.video.subtype import TopicVideoContainerDescriptor as \
         BaseTopicVideoContainerDescriptor, _
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.relations.interfaces import IAutoRelations
+from eea.relations.component import getForwardRelationWith
+from eea.relations.component import getBackwardRelationWith
+
 import logging
 
 logger = logging.getLogger('EEAContentTypes')
@@ -360,3 +364,89 @@ def swf_check(url):
     return False
 
 swf_check.index = 10100
+
+class GetCanonicalRelations(object):
+    """ Reproduce the relations of the canonical object, 
+        In our case, the canonicals should all be in EN.
+    """
+
+    implements(IAutoRelations)
+
+    def __init__(self, context):
+        self.context = context
+
+    def __call__(self, **kwargs):
+        tabs = {}
+
+        if self.context.isCanonical():
+            # Canonical object, we return nothing
+            return None
+        else: 
+            lang = self.context.Language()
+            canonical = self.context.getCanonical()
+            """ Get canonical relations forward and backward. 
+                As translations are related to the canonical object,
+                we specify the parameters in the backward not to list them. 
+            """
+            
+            fieldname = kwargs.get('fieldname', 'relatedItems')
+            field = canonical.getField(fieldname)
+            if field:
+    
+                accessor = field.getAccessor(self.context)
+                rel_forwards = accessor()            
+            
+                #rel_forwards = canonical.getRefs()
+    
+                """ Get translations of forward relations, if 
+                    translations don't exist, return canonical
+                """
+                for relation in rel_forwards:
+                    # Get the relation type name
+                    
+                    #if not self.checkPermission(relation):
+                    #    continue                    
+          
+                    forward = getForwardRelationWith(self.context, relation)
+                    if not forward:
+                        continue
+                      
+                    name = forward.getField('forward_label').getAccessor(forward)()
+
+                    if name not in tabs:
+                        tabs[name] = []                    
+                    
+                    if relation.getTranslation(lang):
+                        tabs[name].append(relation.getTranslation(lang)) 
+                    else:
+                        tabs[name].append(relation)
+            
+            rel_backwards = canonical.getBRefs(kwargs.get('relation', 
+                                                          'relatesTo'))                
+            if rel_backwards:
+                """ Get translations of backward relations, if 
+                    translations don't exist, return canonical
+                """
+                for relation in rel_backwards:
+                    # Get the relation type name
+                    #if not self.checkPermission(relation):
+                    #    continue
+        
+                    backward = getBackwardRelationWith(self.context, relation)
+                    if not backward:
+                        continue
+                    name = backward.getField('backward_label').getAccessor(backward)()                      
+    
+                    if name not in tabs:
+                        tabs[name] = []
+         
+                    if relation.getTranslation(lang):
+                        tabs[name].append(relation.getTranslation(lang))                 
+                    else:
+                        tabs[name].append(relation)
+
+            if tabs:
+                return tabs.items()
+            else:
+                return None
+

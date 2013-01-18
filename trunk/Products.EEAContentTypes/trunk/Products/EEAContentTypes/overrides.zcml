@@ -7,6 +7,11 @@
     <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
     <adapter factory=".syndication.FeedLogo" />
     <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
+    
+    <!-- Get Canonical object relations -->
+    <adapter for="eea.relations.content.interfaces.IBaseObject"
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".subtypes.GetCanonicalRelations"/>    
 
     <utility factory=".subtypes.Subtyper" />
     <utility
