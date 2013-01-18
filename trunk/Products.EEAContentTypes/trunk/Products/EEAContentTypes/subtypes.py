@@ -395,23 +395,19 @@ class GetCanonicalRelations(object):
     
                 accessor = field.getAccessor(self.context)
                 rel_forwards = accessor()            
-            
-                #rel_forwards = canonical.getRefs()
     
                 """ Get translations of forward relations, if 
                     translations don't exist, return canonical
                 """
                 for relation in rel_forwards:
-                    # Get the relation type name
-                    
-                    #if not self.checkPermission(relation):
-                    #    continue                    
+                    # Get the relation type name                  
           
                     forward = getForwardRelationWith(self.context, relation)
                     if not forward:
                         continue
                       
-                    name = forward.getField('forward_label').getAccessor(forward)()
+                    name = forward.getField('forward_label').getAccessor(
+                                                             forward)()
 
                     if name not in tabs:
                         tabs[name] = []                    
@@ -421,8 +417,8 @@ class GetCanonicalRelations(object):
                     else:
                         tabs[name].append(relation)
             
-            rel_backwards = canonical.getBRefs(kwargs.get('relation', 
-                                                          'relatesTo'))                
+            rel_backwards = canonical.getBRefs(kwargs.get('relation',
+                                                          'relatesTo'))
             if rel_backwards:
                 """ Get translations of backward relations, if 
                     translations don't exist, return canonical
@@ -435,13 +431,14 @@ class GetCanonicalRelations(object):
                     backward = getBackwardRelationWith(self.context, relation)
                     if not backward:
                         continue
-                    name = backward.getField('backward_label').getAccessor(backward)()                      
+                    name = backward.getField('backward_label').getAccessor(
+                                                               backward)()
     
                     if name not in tabs:
                         tabs[name] = []
          
                     if relation.getTranslation(lang):
-                        tabs[name].append(relation.getTranslation(lang))                 
+                        tabs[name].append(relation.getTranslation(lang))
                     else:
                         tabs[name].append(relation)
 
