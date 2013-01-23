@@ -3,6 +3,9 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Change: removed the munin chart from the cms activity portlet,
+  since the munin plugin is disabled.
+  [demarant]
 * Bug fix: fix unauthorised to access Title in portlet cms activity 
   for Authenticated role (when eionet users doing comments in IMS).
   [demarant refs #9512]
