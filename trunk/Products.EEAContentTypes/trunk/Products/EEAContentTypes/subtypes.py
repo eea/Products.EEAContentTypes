@@ -388,14 +388,18 @@ class GetCanonicalRelations(object):
                 As translations are related to the canonical object,
                 we specify the parameters in the backward not to list them. 
             """
+            # Used in relations/browser/app/macro.py, but doesn't work when there 
+            # are no relations on the object
+            #
+            # fieldname = kwargs.get('fieldname', 'relatedItems')
+            # field = canonical.getField(fieldname)
+            # if field:
+            #    accessor = field.getAccessor(self.context)
+            #    rel_forwards = accessor()            
             
-            fieldname = kwargs.get('fieldname', 'relatedItems')
-            field = canonical.getField(fieldname)
-            if field:
-    
-                accessor = field.getAccessor(self.context)
-                rel_forwards = accessor()            
-    
+            rel_forwards = canonical.getRefs(kwargs.get('relation',
+                                                          'relatesTo'))
+            if rel_forwards:
                 """ Get translations of forward relations, if 
                     translations don't exist, return canonical
                 """
