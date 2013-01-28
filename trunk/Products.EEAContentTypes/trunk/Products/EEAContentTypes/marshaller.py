@@ -2,7 +2,6 @@
 """
 
 from Products.Archetypes.interfaces import IField
-from eea.geotags.storage.interfaces import IGeoTaggable 
 from eea.rdfmarshaller.archetypes.fields import ATField2Surf
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
 from eea.rdfmarshaller.interfaces import ISurfSession
