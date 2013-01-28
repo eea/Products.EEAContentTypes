@@ -3,6 +3,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* Bug fix: Corrected errors in code.
+
 
 5.9 - (2013-01-28)
 ------------------
