@@ -1,0 +1,43 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           i18n_domain='eea' >
+
+    <include package="collective.monkeypatcher"
+             file="meta.zcml" />
+    <include package="eea.facetednavigation"
+             file='meta.zcml' />
+
+    <include package="Products.CMFPlone" />
+    <include package="Products.fatsyndication" />
+    <include package="bda.feed" />
+    <include package="collective.monkeypatcher" />
+    <include package="Products.EEAPloneAdmin" />
+    <include package="Products.EEAPloneAdmin" file="patches.zcml" />
+    <include package="Products.NavigationManager" />
+    <include package="p4a.video" />
+    <include package="eea.mediacentre" />
+    <include package="eea.rdfrepository" />
+    <include package="cornerstone.feed.zope" />
+    <include package="eea.rdfmarshaller" />
+    <include package="eea.rdfrepository" />
+    <include package="eea.facetednavigation" />
+    <include package="eea.facetednavigation.subtypes" />
+    <include package="eea.promotion" />
+    <include package="eea.locationwidget" />
+    <include package="eea.themecentre" />
+    <include package="eea.design" />
+    <include package="eea.reports" />
+    <include package="eea.vocab" />
+    <include package="eea.soer" />
+    <include package="eea.dataservice" />
+    <include package="eea.workflow" />
+    <include package="eea.indicators" />
+    <include package="eea.relations" />
+    <include package="eea.translations" />
+    <include package="plone.app.imaging" />
+    <include package="eea.depiction" />
+    <include package="valentine.linguaflow" />
+    <include package="Products.UserAndGroupSelectionWidget" />
+    <include package="Products.DataGridField" />
+    <include package='p4a.video' />
+
+</configure>

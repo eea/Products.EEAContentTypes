@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"                        
+  lang="en"                                                                 
+  metal:use-macro="here/main_template/macros/master"                        
+  i18n:domain="eea">                                                      
+
+  <metal:block fill-slot="top_slot"
+    tal:define="dummy python:request.set('disable_border',1)" />
+  <body>                                                                          
+
+    <div metal:fill-slot="main">                                                    
+      <metal:header define-macro="header"
+        tal:define="currentStep python:1">
+        <metal:stepWizard use-macro="here/quickevent_macros/macros/steps" />
+      </metal:header>
+
+      <div metal:define-macro="typedescription"></div>                                                                      
+
+      <metal:body define-macro="body">
+        <metal:body use-macro="here/edit_macros/macros/body">
+
+          <!--metal:buttons fill-slot="buttons">
+            <input class="context"
+              type="submit"
+              name="form_submit"
+              value="Next"
+              i18n:attributes="value label_next;"
+              tal:attributes="disabled python:test(isLocked, 'disabled', None);"
+              />
+          </metal:buttons-->
+        </metal:body>
+        <script>
+          jQuery(window).load(function(){
+            $("#quickevent-base-edit").append(
+              $("<input>").attr({
+                'type':'hidden','name':'mehuman', 'value':'true'
+                })
+              );
+          });
+        </script>
+      </metal:body>                                                                                
+
+      <metal:footer define-macro="footer">                                        
+        <metal:footer use-macro="here/quickevent_macros/macros/footer" />
+      </metal:footer>                                                             
+
+    </div>
+  </body>                                                                         
+</html>                                                                         

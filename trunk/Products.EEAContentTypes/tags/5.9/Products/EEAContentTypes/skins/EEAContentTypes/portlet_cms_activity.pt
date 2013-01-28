@@ -1,0 +1,30 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+
+<div metal:define-macro="portlet"
+     i18n:domain="eea"
+     tal:define="isAnon context/@@plone_portal_state/anonymous;"
+     tal:omit-tag="">
+
+<dl class="portlet" tal:condition="not: isAnon">
+
+    <dt class="portletHeader" i18n:translate="">Content activity</dt>
+    <dt class="portletItem">Activity lists</dt>
+    <tal:block define="activities context/content-activity/objectValues | nothing">
+          <dd class="portletItem" tal:repeat="action activities"><a tal:attributes="href action/absolute_url" tal:content="action/Title | nothing"/></dd>
+    </tal:block>
+    <dd class="portletFooter">
+        <a href=""
+           tal:attributes="href context/content-activity/absolute_url | nothing" 
+           title="" 
+           class="moreLink">
+            <span i18n:translate="">More</span>
+        </a>
+    </dd>
+</dl>
+
+</div>
+</body>
+</html>
