@@ -273,7 +273,9 @@ def fix_html_eea_chain_transform(site):
     """
     transforms = getToolByName(site, 'portal_transforms')
     html_eea_chain = getattr(transforms, 'html_eea_chain')
-    html_eea_chain.manage_delObjects(['html-to-captioned', 'captioned-to-html', 'protect_email'])
+    html_eea_chain.manage_delObjects(['html-to-captioned', 
+                                       'captioned-to-html', 
+                                       'protect_email'])
     logger.info("Fixed html_eea_chain transform chain")
 
 #this is a migration procedure, not needed for plone4 migration
