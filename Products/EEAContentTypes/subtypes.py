@@ -384,12 +384,12 @@ class GetCanonicalRelations(object):
         else: 
             lang = self.context.Language()
             canonical = self.context.getCanonical()
-            """ Get canonical relations forward and backward. 
-                As translations are related to the canonical object,
-                we specify the parameters in the backward not to list them. 
-            """
-            # Used in relations/browser/app/macro.py, but doesn't work when there 
-            # are no relations on the object
+            # Get canonical relations forward and backward. 
+            # As translations are related to the canonical object,
+            # we specify the parameters in the backward not to list them. 
+            
+            # Used in relations/browser/app/macro.py, but doesn't work 
+            # when there are no relations on the object
             #
             # fieldname = kwargs.get('fieldname', 'relatedItems')
             # field = canonical.getField(fieldname)
@@ -400,9 +400,9 @@ class GetCanonicalRelations(object):
             rel_forwards = canonical.getRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_forwards:
-                """ Get translations of forward relations, if 
-                    translations don't exist, return canonical
-                """
+                # Get translations of forward relations, if 
+                # translations don't exist, return canonical
+                
                 for relation in rel_forwards:
                     # Get the relation type name                  
           
@@ -424,12 +424,12 @@ class GetCanonicalRelations(object):
             rel_backwards = canonical.getBRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_backwards:
-                """ Get translations of backward relations, if 
-                    translations don't exist, return canonical
-                """
+                # Get translations of backward relations, if 
+                # translations don't exist, return canonical
+                
                 for relation in rel_backwards:
                     # Get the relation type name
-                    #if not self.checkPermission(relation):
+                    # if not self.checkPermission(relation):
                     #    continue
         
                     backward = getBackwardRelationWith(self.context, relation)
