@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.9-dev - (unreleased)
-----------------------
+5.9 - (2013-01-28)
+------------------
 * Change: removed the munin chart from the cms activity portlet,
   since the munin plugin is disabled.
   [demarant]
