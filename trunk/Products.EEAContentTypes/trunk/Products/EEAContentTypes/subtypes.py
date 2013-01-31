@@ -57,6 +57,7 @@ class RelationsSchemaExtender(object):
         schemata='categorization',
         relationship = 'relatesTo',
         multiValued = True,
+        languageIndependent=True,        
         keepReferencesOnCopy=True,
         widget=EEAReferenceBrowserWidget(
             label='Related items',
