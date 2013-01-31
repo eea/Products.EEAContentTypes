@@ -8,6 +8,7 @@ Changelog
   [prospchr refs #9569]
 * Upgrade step: Need to run the script that remove the relations
   on translated objects:
+  - Check that the back-up has been done :-)
   - In the ZMI, go to 0maintenance
   - Add an External Method, call it clean_relations_of_translated_items
     Module name: Products.EEAPloneAdmin.clean_relations_of_translated_items
