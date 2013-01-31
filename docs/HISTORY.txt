@@ -4,7 +4,15 @@ Changelog
 6.0-dev - (unreleased)
 ----------------------
 * Bug fix: Corrected errors in code.
-
+* Bug Fix: Removed the possibility to edit relations for translated objects.
+  [prospchr refs #9569]
+* Upgrade step: Need to run the script that remove the relations
+  on translated objects:
+  - In the ZMI, go to 0maintenance
+  - Add an External Method, call it clean_relations_of_translated_items
+    Module name: Products.EEAPloneAdmin.clean_relations_of_translated_items
+    Function Name: clean_relations
+  - Run it
 
 5.9 - (2013-01-28)
 ------------------
@@ -18,8 +26,6 @@ Changelog
   opening a translated content, the relation widget reflects the
   relations on the Canonical object (EN).
   [prospchr refs #9569]
-* Upgrade step: Need to run the script that remove the relations
-  on translated objects.  
 
 5.8 - (2013-01-15)
 ------------------
