@@ -1,0 +1,40 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+
+<div metal:define-macro="portlet"
+     i18n:domain="eea"
+     tal:define="isAnon context/@@plone_portal_state/anonymous;"
+     tal:omit-tag="">
+
+<dl class="portlet" tal:condition="not: isAnon">
+
+    <dt class="portletHeader" i18n:translate="">Emails queue (last 24h)</dt>
+    <dt class="portletItem">
+        <p class="discreet">
+            <a class="fancybox" href="http://unicorn.eea.europa.eu/munin/ZopeBackends/Totals/AG_zope_mailqueue-day.png" title="Emails queue (last 24h)">
+                <img src="http://unicorn.eea.europa.eu/munin/ZopeBackends/Totals/AG_zope_mailqueue-day.png" style="width:98%;" />
+            </a>
+            <br />
+            <strong>Note: Chart is updated every 5 min, so check at earliest 5 min after you sent the email.</strong>
+            <br />
+            The chart shows the number of emails in the queue at a certain point of time in the last 24h. 
+            When you send an email you should expect a spike in the chart (earliest 5 min after). 
+            The spike will decrease as mails are sent until it goes back to 0, which means all mails are sent.
+            The emails in the queue are sent slowly to avoid spam blockers. It could take several hours to send many emails. 
+        </p>
+    </dt>
+    <dd class="portletFooter">
+        <a href="http://unicorn.eea.europa.eu/munin/ZopeBackends/Totals/AG_zope_mailqueue.html" 
+           title="See more historical email queue charts"
+           i18n:attributes="title" 
+           class="moreLink">
+            <span i18n:translate="">More details and history</span>
+        </a>
+    </dd>
+</dl>
+
+</div>
+</body>
+</html>
