@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0-dev - (unreleased)
-----------------------
+6.0 - (2013-02-05)
+------------------
 * Bug fix: bring back initialization code for EEAContentTypes. Fixes 
   eea.themecentre tests
   [tiberich]
