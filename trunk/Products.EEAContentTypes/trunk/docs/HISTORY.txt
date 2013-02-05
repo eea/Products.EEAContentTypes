@@ -3,6 +3,9 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* Bug fix: bring back initialization code for EEAContentTypes. Fixes 
+  eea.themecentre tests
+  [tiberich]
 * Bug fix: Corrected errors in code.
 * Bug Fix: Removed the possibility to edit relations for translated objects.
   [prospchr refs #9569]
