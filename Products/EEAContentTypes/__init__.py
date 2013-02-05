@@ -73,6 +73,9 @@ def initialize(context):
     """ Zope 2
     """
 
+    # imports packages and types for registration
+    from Products.EEAContentTypes import content
+
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(
         listTypes(PROJECTNAME),
