@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<object name="portal_types" meta_type="Plone Types Tool">
+ <property
+    name="title">Controls the available content types in your portal</property>
+ <object name="CFTRequestor"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="CallForInterest"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="CallForTender"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="EEAVacancy"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="EcoTip"                                                                                   
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="GIS Application"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Highlight"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Article"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="PressRelease"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Promotion"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="PubliclyAddableItemsFolder"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="QuickEvent"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Speech"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="FlashFile"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="CloudVideo"
+    meta_type="Factory-based Type Information with dynamic views"/>
+</object>
