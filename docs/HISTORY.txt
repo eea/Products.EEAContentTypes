@@ -6,7 +6,7 @@ Changelog
 
 6.0 - (2013-02-05)
 ------------------
-* Bug fix: bring back initialization code for EEAContentTypes. Fixes 
+* Bug fix: bring back initialization code for EEAContentTypes. Fixes
   eea.themecentre tests
   [tiberich]
 * Bug fix: Corrected errors in code.
@@ -26,10 +26,10 @@ Changelog
 * Change: removed the munin chart from the cms activity portlet,
   since the munin plugin is disabled.
   [demarant]
-* Bug fix: fix unauthorised to access Title in portlet cms activity 
+* Bug fix: fix unauthorised to access Title in portlet cms activity
   for Authenticated role (when eionet users doing comments in IMS).
   [demarant refs #9512]
-* Bug Fix: Fixed Relations for multilingual objects. Now, when 
+* Bug Fix: Fixed Relations for multilingual objects. Now, when
   opening a translated content, the relation widget reflects the
   relations on the Canonical object (EN).
   [prospchr refs #9569]
@@ -42,7 +42,7 @@ Changelog
   Added portlet to show emails queue status via munin.
   [demarant fixes #10268]
 * Change: speedup. do not show workflow emails adresses in state > advanced.
-  [demarant refs #9985] 
+  [demarant refs #9985]
 * Bug fix: return auto relations in reverse order from newest to oldest
   [ichimdav #9272]
 * Upgrade step: on instances other than production go to www/portal_types/Article:
@@ -63,7 +63,7 @@ Changelog
 
 5.6 - (2012-11-22)
 ------------------
-* Change: removed schema extender of location for Data content type 
+* Change: removed schema extender of location for Data content type
   [ichimdav #9423]
 * Change: merged values from relatedProducts field to relatedItems
   field for EEAFigure and Data objects.
