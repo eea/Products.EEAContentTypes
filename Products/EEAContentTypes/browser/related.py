@@ -7,7 +7,7 @@ from eea.mediacentre.interfaces import IMediaType
 from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
 from eea.rdfrepository.plugins.discover import DiscoverPlugin
 from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
-from eea.themecentre.interfaces import IThemeMoreLink
+#from eea.themecentre.interfaces import IThemeMoreLink
 from eea.themecentre.interfaces import IThemeTagging
 from eea.translations import _
 from Products.EEAContentTypes.browser.interfaces import (
@@ -54,14 +54,16 @@ def getObjectInfo(item, request):
 
     return info
 
-def getBrainInfo(brain, plone_utils):
+def getBrainInfo(brain, plone_utils, typesUsingViewUrl=None):
     """ Brain info
     """
+    url = brain.getURL()
     info = { 'title': brain.Title,
              'brain':brain,
              'uid': brain.UID,
              'description': brain.Description,
-             'absolute_url': brain.getURL(),
+             'absolute_url': url,
+             'url': url,
              'is_video':
              "eea.mediacentre.interfaces.IVideo" in brain.object_provides,
              'item_type': brain.portal_type,
@@ -77,10 +79,16 @@ def getBrainInfo(brain, plone_utils):
 
              }
 
+    # 13771 set /view to info dict without waking up object with
+    # annotatedBrainInfo by checking directly on brain if item_type is in the
+    # typesUsingViewUrl
+    if typesUsingViewUrl and info['item_type'] in typesUsingViewUrl:
+        info['url'] = url + '/view'
+
     return info
 
 
-def annotateBrainInfo(info, request):
+def annotateBrainInfo(info, request, urlOnly=None):
     """Adds details about the object taken from its brain
 
     Note on the optimization that this achieves:
@@ -92,26 +100,26 @@ def annotateBrainInfo(info, request):
     result and then call annotateBrainInfo for each brain.
     """
 
-    if not info.get('brain'):
-        return
-
-    brain = info['brain']
-    obj = brain.getObject()
-    state = getMultiAdapter((obj, request), name="plone_context_state")
-    url = state.view_url()
-    imgview = queryMultiAdapter((obj, request), name="imgview")
-    info['has_img'] = (imgview != None and imgview.display() == True)
-    info['item_mimetype'] = obj.get_content_type()
-    info['url'] = url
+    if info.get('brain'):
+        brain = info['brain']
+        obj = brain.getObject()
+        state = getMultiAdapter((obj, request), name="plone_context_state")
+        url = state.view_url()
+        if not urlOnly:
+            imgview = queryMultiAdapter((obj, request), name="imgview")
+            info['has_img'] = (imgview != None and imgview.display() == True)
+            info['item_mimetype'] = obj.get_content_type()
+        info['url'] = url
 
 
 def annotateByThemeInfo(byTheme, request):
     """Add extra information that can only be retrieved from the full object
+       In the case of themes we need only the url
     """
 
     for _theme, infos in byTheme.items():
         for info in infos:
-            annotateBrainInfo(info, request)
+            annotateBrainInfo(info, request, urlOnly=True)
 
 
 def annotateThemeInfos(themeinfos, request):
@@ -122,7 +130,7 @@ def annotateThemeInfos(themeinfos, request):
 
 
 def filterDuplicates(items):
-    """ filter duplicates
+    """ filter duplicates by overriding uid keys with latest dict value
     """
     uids = {}
     for i in items:
@@ -155,94 +163,142 @@ class AutoRelated(object):
         self.context = context
         self.request = request
 
-    def sameTypeByTheme(self):
+    def sameTypeByTheme(self, constraints=None):
         """NOTE: returns full info. The results are limited in number so
         we can afford this
+        :param constraints: a dict which constraints the result of the query
         """
-        result = self.sameTheme(portal_type=self.context.portal_type)
-
+        # doesn't return latest item found at
+        # www/SITE/themes/natural/publications
+        # which was www/SITE/publications/consumption-and-the-environment-2012
+        defaultConstraints = {'review_state': 'published', 'sort_limit': 3,
+                              'queryThemesSeparately': True}
+        if constraints:
+            defaultConstraints.update(constraints)
+        limitResults = defaultConstraints['sort_limit']
+        result = self.sameTheme(portal_type=self.context.portal_type,
+                                constraints=defaultConstraints)
         byTheme = {}
 
-        for res in result:
-            theme = res['commonThemesIds'][0]
+        brainsWithMultipleThemes = []
+        for annotatedBrain in result:
+            themes = annotatedBrain['commonThemesIds']
+            theme = themes[0]
             themeObjs = byTheme.get(theme, [])
-            if len(themeObjs) < 3:
-                themeObjs.append(res)
+            # save items with multiple themes in case we will need them later
+            # if we have less results per theme
+            if len(themes) > 1:
+                brainsWithMultipleThemes.append(annotatedBrain)
+
+            if len(themeObjs) < limitResults:
+                themeObjs.append(annotatedBrain)
                 byTheme[theme] = themeObjs
 
-        annotateByThemeInfo(byTheme, self.request)
+        # check if we have the right amount of items based on limitResults
+        # for every theme
+        for theme in byTheme:
+            if len(byTheme[theme]) < limitResults:
+                for annotatedBrain in brainsWithMultipleThemes:
+                    if theme in annotatedBrain['commonThemesIds']:
+                        byTheme[theme].append(annotatedBrain)
+                    # break if we already have enough results for the given
+                    # theme
+                    if not len(byTheme[theme]) < limitResults:
+                        break
 
         # now we have the themes in a dictionary, put them in a list instead
         themes = []
         vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
-        themeVocab = vocabFactory(self)
+        themesVocab = vocabFactory(self)
         contextThemes = self._contextThemes()
 
         for themename in contextThemes:
             theme = byTheme.get(themename, None)
             if theme:
-                url = IThemeMoreLink(self.context).url(themename)
+                # disabled as auto relation macro from document_relateditems
+                # is no longer used on account of pour performance see ticket
+                # http://taskman.eionet.europa.eu/issues/7452
+                # disabled as part of ticket #13771
+                # url = IThemeMoreLink(self.context).url(themename)
                 themes.append({'name': _(
-                    str(themeVocab.getTerm(themename).title)),
-                               'items': theme,
-                               'more_link': url })
+                    str(themesVocab.getTerm(themename).title)),
+                        'items': theme})
+                        #'more_link': url }) # disabled url see above comment
 
         for dicts in themes:
             # 9272 reverse sort of latest addition
             dicts['items'].reverse()
         return themes
 
-    def sameTheme(self, portal_type=None):
+    def sameTheme(self, portal_type=None, constraints=None):
         """
         NOTE: returns incomplete info, from getBrainInfo. You need to call
         annotateBrainInfo() if you need full info
 
         TODO: this should be made a private methods, not callable through
         the normal API, to emphasize that it doesn't return full info.
-
         """
-        constraints = {'review_state': 'published'}
         result = IRelations(self.context).byTheme(portal_type,
-                                                  getBrains=True,
-                                                  considerDeprecated=True,
-                                                  constraints=constraints)
+                                      getBrains=True,
+                                      considerDeprecated=True,
+                                      constraints=constraints)
 
         contextThemes = self._contextThemes()
-        #vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
-        #themeVocab = vocabFactory(self)
         related = []
         plone_utils = getToolByName(self.context, 'plone_utils')
+        portal_properties = getToolByName(self.context, 'portal_properties',
+                                                                        None)
+        site_properties = getattr(portal_properties, 'site_properties', None)
+        typesUsingViewUrl = site_properties.getProperty(
+                                            'typesUseViewActionInListings', ())
 
         for item in result:
+            # #13771 commented this check introduced in changeset 12733 since
+            # auto-content is being called from video_popup_view which adds
+            # Article as portal_type to check and auto-context calls sameTheme
+
             # skip articles from auto related by theme since they are related
             # by publication group
-            if item.portal_type in ['Article']:
-                continue
+            #if item.portal_type == 'Article':
+            #    continue
 
-            if item.getId != self.context.getId():
-                commonThemesIds = [ theme for theme in item.getThemes
-                                    if theme in contextThemes ]
+
+            # check if path isn't the same between brain and context instead
+            # of getId since we can have results that have the same id but not
+            # path for instance in videos there are multiple 'video-file' ids
+            if item.getPath() != self.context.absolute_url(1):
+                commonThemesIds = [theme for theme in item.getThemes
+                                    if theme in contextThemes]
                 #info = getObjectInfo(item.getObject(), self.request)
-                info = getBrainInfo(item, plone_utils)
+                # pass typesUsingViewUrl to getBrainInfo so we no longer have
+                # to wake up objects for getting the urlview
+                info = getBrainInfo(item, plone_utils, typesUsingViewUrl)
                 info['commonThemesIds'] = commonThemesIds
                 related.append(info)
 
         return related
 
-    def autoContext(self, portal_type=None, fill_limit=0):
+    def autoContext(self, portal_type=None, fill_limit=None):
         """NOTE: returns full info. May end up being slow
         """
+        fill_limit = fill_limit or 25
         refs = IRelations(self.context).autoContextReferences(portal_type)
         refs = [getObjectInfo(i, self.request) for i in refs]
-        theme = self.sameTheme(portal_type)
+        defaultConstraints = {'review_state': 'published',
+                              'sort_limit': fill_limit}
+        theme = self.sameTheme(portal_type, constraints=defaultConstraints)
         items = refs + theme
-        if len(items) < fill_limit:
-            items += self.sameType(portal_type)
+        items_len = len(items)
+        if items_len < fill_limit:
+            # add the remainder of fill_limit - items length to the original
+            # fill_limit if we need more items
+            defaultConstraints['sort_limit'] = fill_limit + (fill_limit -
+                                                             items_len)
+            items += self.sameType(portal_type, constraints=defaultConstraints)
         nondups = filterDuplicates(items)
-        annotateThemeInfos(nondups, self.request)
         return nondups
 
-    def sameType(self, portal_type=None):
+    def sameType(self, portal_type=None, constraints=None):
         """
         NOTE: returns incomplete info, from getBrainInfo. You need to call
         annotateBrainInfo() if you need full info
@@ -251,13 +307,13 @@ class AutoRelated(object):
         the normal API, to emphasize that it doesn't return full info.
 
         """
-        if portal_type == None:
+        if not portal_type:
             portal_type = self.context.portal_type
-        constraints = {'review_state': 'published'}
         result = IRelations(self.context).getItems(portal_type,
                                                   getBrains=True,
                                                   considerDeprecated=True,
-                                                  constraints=constraints)
+                                                  constraints=constraints,
+                                                  )
         related = others(self.context, result)
 
         #for item in related:
@@ -304,7 +360,7 @@ class AutoRelated(object):
 
 
 class DocumentRelated(BrowserView):
-    """ Some docstinrg. """
+    """ DocumentRelated BrowserView """
 
     implements(IDocumentRelated)
 
@@ -363,6 +419,7 @@ class DocumentRelated(BrowserView):
             if queryAdapter(item, IVideo):
                 link['has_media_player'] = True
             else:
+
                 link['has_media_player'] = False
             if item.portal_type == 'FlashFile':
                 link['popup-url'] = item.absolute_url() + \
@@ -430,7 +487,7 @@ class DocumentRelated(BrowserView):
         return len(self._all_media())
 
     def multimedia(self):
-        """ Mutimedia
+        """ Multimedia
         """
         # TODO: delete? Where's this used?
         #multimedia = []
