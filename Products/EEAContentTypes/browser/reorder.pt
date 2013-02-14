@@ -12,8 +12,6 @@
   <body>
     <div metal:fill-slot="prefs_configlet_content" >
 
-
-
   <style>
     .reorder {
       list-style-image:none;
@@ -26,6 +24,7 @@
       margin:1px;
       border:1px solid #CCC;
       background-color:#DDD;
+      display:block;
     }
     .ui-icon {
       float:left;
