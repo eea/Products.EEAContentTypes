@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Bug fix: fix css for resource reordering page
+  [tiberich #10231]
 
 6.0 - (2013-02-05)
 ------------------
