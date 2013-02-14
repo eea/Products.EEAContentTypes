@@ -93,20 +93,27 @@ class Relations(object):
 
         query = { 'sort_on': 'effective',
                   'sort_order': 'reverse',
-                  'Language': self.context.getLanguage(),
-                  'effectiveRange': DateTime() }
+                  'effectiveRange': DateTime()}
+        if getattr(self.context, 'getLanguage', None):
+            query['Language'] = self.context.getLanguage()
 
-        if theme != None:
+        if theme:
             if considerDeprecated:
                 contextThemes = theme.nondeprecated_tags
             else:
                 contextThemes = theme.tags
             query['getThemes'] = contextThemes
 
+        queryThemesSeparately = False
         if constraints:
+            # add 1 more to limit since we might get contextPath as result
+            if constraints.get('sort_limit'):
+                constraints['sort_limit'] += 1
+            if constraints.get('queryThemesSeparately'):
+                queryThemesSeparately = True
             query.update(constraints)
 
-        if portal_type != None:
+        if portal_type:
             # Highlights and Press releases are usually listed together
             if portal_type in ['Highlight', 'PressRelease']:
                 portal_type = ['Highlight', 'PressRelease']
@@ -117,10 +124,17 @@ class Relations(object):
 
             query['portal_type'] = portal_type
 
-        brains = catalog.searchResults(query)
-
+        res = []
+        # split getThemes query only if we have the queryThemesSeparately flag 
+        # enabled 
+        if theme and queryThemesSeparately:
+            for item in contextThemes:
+                query['getThemes'] = item
+                res.extend(catalog.searchResults(query))
+            brains = res
+        else:
+            brains = catalog.searchResults(query)
         contextPath = '/'.join(self.context.getPhysicalPath())
-
         if getBrains:
             return [brain for brain in brains if brain.getPath() != contextPath]
         else:
