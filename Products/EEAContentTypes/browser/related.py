@@ -238,10 +238,14 @@ class AutoRelated(object):
         TODO: this should be made a private methods, not callable through
         the normal API, to emphasize that it doesn't return full info.
         """
+        defaultConstraints = {'review_state': 'published'}
+        if constraints:
+            defaultConstraints.update(constraints)
+
         result = IRelations(self.context).byTheme(portal_type,
                                       getBrains=True,
                                       considerDeprecated=True,
-                                      constraints=constraints)
+                                      constraints=defaultConstraints)
 
         contextThemes = self._contextThemes()
         related = []
@@ -309,10 +313,14 @@ class AutoRelated(object):
         """
         if not portal_type:
             portal_type = self.context.portal_type
+        defaultConstraints = {'review_state': 'published'}
+        if constraints:
+            defaultConstraints.update(constraints)
+
         result = IRelations(self.context).getItems(portal_type,
                                                   getBrains=True,
                                                   considerDeprecated=True,
-                                                  constraints=constraints,
+                                                  constraints=defaultConstraints
                                                   )
         related = others(self.context, result)
 
