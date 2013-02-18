@@ -11,7 +11,7 @@
 <dl class="portlet" tal:condition="not: isAnon">
 
     <dt class="portletHeader" i18n:translate="">Content activity</dt>
-    <dt class="portletItem">Activity lists</dt>
+    <dt class="portletItem" i18n:translate="">Activity lists</dt>
     <tal:block define="activities context/content-activity/objectValues | nothing">
           <dd class="portletItem" tal:repeat="action activities"><a tal:attributes="href action/absolute_url" tal:content="action/Title | nothing"/></dd>
     </tal:block>

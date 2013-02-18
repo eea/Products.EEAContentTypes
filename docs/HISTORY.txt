@@ -22,6 +22,8 @@ Changelog
   [ichimdav #13771]
 * Bug fix: fix css for resource reordering page
   [tiberich #10231]
+* Bug fix: Corrected missing i18n attributes for translations.
+  [prospchr refs #13827]
 
 6.0 - (2013-02-05)
 ------------------
