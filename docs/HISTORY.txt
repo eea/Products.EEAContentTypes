@@ -6,18 +6,18 @@ Changelog
 * Change: optimized smartfolder.py logic responsible for latest events popup
   from cross_site_top
   [ichimdav #13771]
-* Change: optimized sameTypeByTheme which is responsible for the latest 
+* Change: optimized sameTypeByTheme which is responsible for the latest
   addition portlet logic
   [ichimdav #13771]
 * Change: optimized autoContext relations which is called on video_popup_view
   [ichimdav #13771]
-* Bug fix: getattr isCanonical for the relations canonical check to avoid 
+* Bug fix: getattr isCanonical for the relations canonical check to avoid
   portal_relations error
   [ichimdav]
-* Change: disabled eea_keywords macro setting for subject since we already 
+* Change: disabled eea_keywords macro setting for subject since we already
   provide a different macro with the eea.tags widget
   [ichimdav #13771]
-* Change: removed copying of schema to speed up schema modifier which sets a 
+* Change: removed copying of schema to speed up schema modifier which sets a
   different widget for location, themes and subject
   [ichimdav #13771]
 * Bug fix: fix css for resource reordering page

@@ -57,7 +57,7 @@ class RelationsSchemaExtender(object):
         schemata='categorization',
         relationship = 'relatesTo',
         multiValued = True,
-        languageIndependent=True,        
+        languageIndependent=True,
         keepReferencesOnCopy=True,
         widget=EEAReferenceBrowserWidget(
             label='Related items',
@@ -154,7 +154,7 @@ class LocationSchemaExtender(object):
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
             return self.multiple_location
-        # #9423 remove location schema extender for Data 
+        # #9423 remove location schema extender for Data
         elif self.context.portal_type == 'Data':
             return ()
         else:
@@ -220,14 +220,17 @@ class RequiredSchemaModifier(object):
                     # Language independent doesn't work with required property
                     return
         if 'location' in schema and self.context.portal_type != 'Data':
-            xfield = schema['location']
+            xfield = schema['location'].copy()
             xfield.required = True
+            schema['location'] = xfield
         if 'themes' in schema:
-            xfield = schema['themes']
+            xfield = schema['themes'].copy()
             xfield.required = True
+            schema['themes'] = xfield
         if 'subject' in schema:
-            xfield = schema['subject']
+            xfield = schema['subject'].copy()
             xfield.required = True
+            schema['subject'] = xfield
 
 
 class KeywordsSchemaModifier(object):
@@ -373,7 +376,7 @@ def swf_check(url):
 swf_check.index = 10100
 
 class GetCanonicalRelations(object):
-    """ Reproduce the relations of the canonical object, 
+    """ Reproduce the relations of the canonical object,
         In our case, the canonicals should all be in EN.
     """
 
@@ -389,66 +392,66 @@ class GetCanonicalRelations(object):
         if self.context.isCanonical():
             # Canonical object, we return nothing
             return None
-        else: 
+        else:
             lang = self.context.Language()
             canonical = self.context.getCanonical()
-            # Get canonical relations forward and backward. 
+            # Get canonical relations forward and backward.
             # As translations are related to the canonical object,
-            # we specify the parameters in the backward not to list them. 
-            
-            # Used in relations/browser/app/macro.py, but doesn't work 
+            # we specify the parameters in the backward not to list them.
+
+            # Used in relations/browser/app/macro.py, but doesn't work
             # when there are no relations on the object
             #
             # fieldname = kwargs.get('fieldname', 'relatedItems')
             # field = canonical.getField(fieldname)
             # if field:
             #    accessor = field.getAccessor(self.context)
-            #    rel_forwards = accessor()            
-            
+            #    rel_forwards = accessor()
+
             rel_forwards = canonical.getRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_forwards:
-                # Get translations of forward relations, if 
+                # Get translations of forward relations, if
                 # translations don't exist, return canonical
-                
+
                 for relation in rel_forwards:
-                    # Get the relation type name                  
-          
+                    # Get the relation type name
+
                     forward = getForwardRelationWith(self.context, relation)
                     if not forward:
                         continue
-                      
+
                     name = forward.getField('forward_label').getAccessor(
                                                              forward)()
 
                     if name not in tabs:
-                        tabs[name] = []                    
-                    
+                        tabs[name] = []
+
                     if relation.getTranslation(lang):
-                        tabs[name].append(relation.getTranslation(lang)) 
+                        tabs[name].append(relation.getTranslation(lang))
                     else:
                         tabs[name].append(relation)
-            
+
             rel_backwards = canonical.getBRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_backwards:
-                # Get translations of backward relations, if 
+                # Get translations of backward relations, if
                 # translations don't exist, return canonical
-                
+
                 for relation in rel_backwards:
                     # Get the relation type name
                     # if not self.checkPermission(relation):
                     #    continue
-        
+
                     backward = getBackwardRelationWith(self.context, relation)
                     if not backward:
                         continue
                     name = backward.getField('backward_label').getAccessor(
                                                                backward)()
-    
+
                     if name not in tabs:
                         tabs[name] = []
-         
+
                     if relation.getTranslation(lang):
                         tabs[name].append(relation.getTranslation(lang))
                     else:
