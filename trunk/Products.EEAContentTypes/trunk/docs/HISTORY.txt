@@ -24,6 +24,9 @@ Changelog
   [tiberich #10231]
 * Bug fix: Corrected missing i18n attributes for translations.
   [prospchr refs #13827]
+* Bug fix: Added domain=eea.notranslation to views that don't need
+  translations.
+  [prospchr refs #13827]
 
 6.0 - (2013-02-05)
 ------------------
