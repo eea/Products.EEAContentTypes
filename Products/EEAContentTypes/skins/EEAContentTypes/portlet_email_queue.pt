@@ -4,7 +4,7 @@
 <body>
 
 <div metal:define-macro="portlet"
-     i18n:domain="eea"
+     i18n:domain="eea.notranslation"
      tal:define="isAnon context/@@plone_portal_state/anonymous;"
      tal:omit-tag="">
 
