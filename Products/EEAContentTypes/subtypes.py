@@ -388,10 +388,10 @@ class GetCanonicalRelations(object):
     def __call__(self, **kwargs):
         tabs = {}
         if not getattr(self.context, 'isCanonical', None):
-            return tabs
+            return tabs.items()
         if self.context.isCanonical():
             # Canonical object, we return nothing
-            return None
+            return []
         else:
             lang = self.context.Language()
             canonical = self.context.getCanonical()
@@ -460,5 +460,4 @@ class GetCanonicalRelations(object):
             if tabs:
                 return tabs.items()
             else:
-                return None
-
+                return []
