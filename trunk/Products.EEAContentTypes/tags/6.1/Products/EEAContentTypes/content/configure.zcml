@@ -1,0 +1,29 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <include file="imagescales.zcml" />
+
+  <browser:page
+    for=".interfaces.IExternalPromotion"
+    name="frontpage_category"
+    permission="zope.Public"
+    class=".Promotion.FrontpageSectionIndex"
+    />
+
+  <interface interface=".interfaces.IInteractiveMap" />
+  <interface interface=".interfaces.IInteractiveData" />
+
+  <class class=".GISApplication.GISMapApplication">
+    <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveMap" />
+  </class>
+
+  <!-- If eea.daviz installed we treat daviz.presentation as interactive data -->
+  <class
+    zcml:condition="installed eea.daviz"
+    class="eea.daviz.content.presentation.DavizVisualization">
+    <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveData" />
+  </class>
+
+</configure>

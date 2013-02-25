@@ -1,0 +1,24 @@
+<div class="faceted-widget faceted-current-theme-widget" style="display: none" tal:define="
+  wid python:view.data.getId();
+  hidden python:view.hidden;
+  themes python:view.themes;
+  css string:faceted-widget faceted-current-theme-widget;
+  css python:hidden and css + ' faceted-widget-hidden' or css;"
+  tal:attributes="id string:${wid}_widget; class css">
+
+<fieldset class="widget-fieldset faceted-current-theme">
+  <legend  tal:content="python:view.data.get('title', '')">Current theme Widget</legend>
+  <p i18n:translate="">
+  This widget will look for theme tags in current context and
+  if they exist will add them to your faceted navigation query.
+  </p>
+  <p i18n:translate="">
+  This widget is not visible in view mode still you should hide it in order to
+  avoid any possible issue.
+  </p>
+  <dl tal:condition="themes">
+    <dt i18n:translate="">Selected themes for this context:</dt>
+    <dd style="margin-left: 2em" tal:content="string:getThemes = $themes" />
+  </dl>
+</fieldset>
+</div>
