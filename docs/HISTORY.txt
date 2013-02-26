@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Bug fix: Keep consistency in AutoRelations adapter returning values
   [voineali]
+* Bug fix: Chnage the trnaslation domain from eea to eea.notranslation on
+  gis_view.pt.
+  [prospchr refs #13770]
 
 6.1 - (2013-02-25)
 ------------------
