@@ -3,6 +3,9 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Bug fix: check with getattr non_deprecatedthemes since ExternalDataSpec
+  Theme object doesn't have that property
+  [ichimdav #13986]
 * Bug fix: re added moreLink logic for document_relateditems.pt 
   [ichimdav #13994]
 * Bug fix: Keep consistency in AutoRelations adapter returning values

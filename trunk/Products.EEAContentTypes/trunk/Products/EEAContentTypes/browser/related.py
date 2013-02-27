@@ -364,7 +364,10 @@ class AutoRelated(object):
         if theme is None:
             contextThemes = []
         else:
-            contextThemes = theme.nondeprecated_tags
+            # 13986 ExternalDataSpec Theme doesn't have nondepregated_tags
+            contextThemes = getattr(theme, 'nondeprecated_tags', None)
+            if not contextThemes:
+                contextThemes = theme.tags
         return contextThemes
 
 
