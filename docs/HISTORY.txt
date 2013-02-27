@@ -3,6 +3,8 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Bug fix: re added moreLink logic for document_relateditems.pt 
+  [ichimdav #13994]
 * Bug fix: Keep consistency in AutoRelations adapter returning values
   [voineali]
 * Bug fix: Chnage the trnaslation domain from eea to eea.notranslation on

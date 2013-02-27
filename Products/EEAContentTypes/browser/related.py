@@ -7,7 +7,7 @@ from eea.mediacentre.interfaces import IMediaType
 from eea.rdfrepository.interfaces import IFeed, IFeedDiscover
 from eea.rdfrepository.plugins.discover import DiscoverPlugin
 from eea.rdfrepository.utils import getFeedItemsWithoutDuplicates
-#from eea.themecentre.interfaces import IThemeMoreLink
+from eea.themecentre.interfaces import IThemeMoreLink
 from eea.themecentre.interfaces import IThemeTagging
 from eea.translations import _
 from Products.EEAContentTypes.browser.interfaces import (
@@ -219,11 +219,12 @@ class AutoRelated(object):
                 # is no longer used on account of pour performance see ticket
                 # http://taskman.eionet.europa.eu/issues/7452
                 # disabled as part of ticket #13771
-                # url = IThemeMoreLink(self.context).url(themename)
+                # and added back as part of ticket #13994
+                url = IThemeMoreLink(self.context).url(themename)
                 themes.append({'name': _(
                     str(themesVocab.getTerm(themename).title)),
-                        'items': theme})
-                        #'more_link': url }) # disabled url see above comment
+                        'items': theme,
+                        'more_link': url})
 
         for dicts in themes:
             # 9272 reverse sort of latest addition
