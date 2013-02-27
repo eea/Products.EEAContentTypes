@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.3-dev - (unreleased)
+----------------------
+
 6.2 - (2013-02-27)
 ------------------
 * Bug fix: check with getattr non_deprecatedthemes since ExternalDataSpec
