@@ -99,7 +99,10 @@ class Relations(object):
 
         if theme:
             if considerDeprecated:
-                contextThemes = theme.nondeprecated_tags
+                # 13986 ExternalDataSpec Theme doesn't have nondepregated_tags
+                contextThemes = getattr(theme, 'nondeprecated_tags', None)
+                if not contextThemes:
+                    contextThemes = theme.tags
             else:
                 contextThemes = theme.tags
             query['getThemes'] = contextThemes
