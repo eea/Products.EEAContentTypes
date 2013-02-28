@@ -1,4 +1,4 @@
-<html i18n:domain="eea">
+<html i18n:domain="eea.notranslation">
   <body>
     <p i18n:translate="">
         Confirmation message for <strong><tal:type content="options/type" i18n:name="type"></tal:type></strong> with scheduled publishing date 

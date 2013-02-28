@@ -3,6 +3,8 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Change: Confimation and action emails are now sent only in english.
+  [prospchr]
 
 6.2 - (2013-02-27)
 ------------------
@@ -13,7 +15,7 @@ Changelog
   [ichimdav #13994]
 * Bug fix: Keep consistency in AutoRelations adapter returning values
   [voineali]
-* Bug fix: Chnage the trnaslation domain from eea to eea.notranslation on
+* Bug fix: Change the translation domain from eea to eea.notranslation on
   gis_view.pt.
   [prospchr refs #13770]
 
