@@ -22,6 +22,9 @@ from zope.component import (
 )
 from zope.interface import implements
 
+import logging
+
+logger = logging.getLogger('EEAContentTypes.browser.related')
 
 TOP_VIDEOS = 3
 MEDIA_ORDER = ['video']
@@ -221,8 +224,14 @@ class AutoRelated(object):
                 # disabled as part of ticket #13771
                 # and added back as part of ticket #13994
                 url = IThemeMoreLink(self.context).url(themename)
+                try:
+                    themeTitle = themesVocab.getTerm(themename).title
+                except LookupError:
+                    logger.error('unable to retrieve theme name %s from %s' %
+                                    (themename, self.context.absolute_url()))
+                    continue
                 themes.append({'name': _(
-                    str(themesVocab.getTerm(themename).title)),
+                        str(themeTitle)),
                         'items': theme,
                         'more_link': url})
 
