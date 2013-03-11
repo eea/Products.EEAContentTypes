@@ -183,16 +183,17 @@ class AutoRelated(object):
         brainsWithMultipleThemes = []
         for annotatedBrain in result:
             themes = annotatedBrain['commonThemesIds']
-            theme = themes[0]
-            themeObjs = byTheme.get(theme, [])
-            # save items with multiple themes in case we will need them later
-            # if we have less results per theme
-            if len(themes) > 1:
-                brainsWithMultipleThemes.append(annotatedBrain)
+            if themes:
+                theme = themes[0]
+                themeObjs = byTheme.get(theme, [])
+                # save items with multiple themes in case we will need them
+                # later if we have less results per theme
+                if len(themes) > 1:
+                    brainsWithMultipleThemes.append(annotatedBrain)
 
-            if len(themeObjs) < limitResults:
-                themeObjs.append(annotatedBrain)
-                byTheme[theme] = themeObjs
+                if len(themeObjs) < limitResults:
+                    themeObjs.append(annotatedBrain)
+                    byTheme[theme] = themeObjs
 
         # check if we have the right amount of items based on limitResults
         # for every theme
@@ -211,7 +212,6 @@ class AutoRelated(object):
         vocabFactory = getUtility(IVocabularyFactory, name="Allowed themes")
         themesVocab = vocabFactory(self)
         contextThemes = self._contextThemes()
-
         for themename in contextThemes:
             theme = byTheme.get(themename, None)
             if theme:

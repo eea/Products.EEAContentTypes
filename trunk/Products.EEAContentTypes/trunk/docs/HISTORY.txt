@@ -3,6 +3,9 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: check if themes is available to correct a potential bug when calling
+  sameTypeByTheme
+  [ichimdav #14109]
 * Change: Confimation and action emails are now sent only in english.
   [prospchr]
 
