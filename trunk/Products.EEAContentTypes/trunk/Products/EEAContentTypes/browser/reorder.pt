@@ -1,7 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-  lang="en"
-  metal:use-macro="here/prefs_main_template/macros/master"
-  i18n:domain="eea">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="eea">
 
   <metal:slot fill-slot="head_slot">
     <title i18n:translate="">Reorder resources</title>
@@ -43,11 +44,10 @@
       list-style-type:none;
       list-style-image:none;
     }
-	#portal-column-content {
-		width:1010px;
-	}
-
-</style>
+    #portal-column-content {
+      width:1010px;
+    }
+  </style>
 
 
     <script type="text/javascript" tal:attributes="src string:$portal_url/reorder_resources.js" ></script>
@@ -81,6 +81,7 @@
         <ul tal:define="portal_url python:context.portal_url()">
           <li tal:repeat="entry python:context.portal_javascripts.getCookedResources()">
             <div class='composed-entry'>
+              <span tal:content="repeat/entry/number" />&nbsp;
               <a href="" tal:attributes="href string:${portal_url}/portal_javascripts/${entry/getId}">
                 <b tal:content="entry/getId">plone_ecmascript.js</b>
               </a>
@@ -113,7 +114,7 @@
         <ul tal:define="portal_url python:context.portal_url()">
           <li tal:repeat="entry python:context.portal_css.getCookedResources()">
             <div class='composed-entry'>
-              <span tal:content="repeat/entry/index" />&nbsp;
+              <span tal:content="repeat/entry/number" />&nbsp;
               <a href="" tal:attributes="href string:${portal_url}/portal_css/${entry/getId}">
                 <b tal:content="entry/getId">ploneCustom.css</b>
               </a>

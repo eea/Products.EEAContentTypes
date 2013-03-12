@@ -9,7 +9,7 @@ jQuery(document).ready(function($){
         var el = $("<li class='list-item'>").html(
             '<span title="Drag & drop to set order" ' +
             'class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>' +
-            val
+            '(' + (i+1) + ')' + '&nbsp;' + val
             );
         $(".reorder", form).append(el);
     }
