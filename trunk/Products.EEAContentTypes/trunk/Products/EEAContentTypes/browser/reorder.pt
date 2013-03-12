@@ -35,8 +35,8 @@
       padding:3px;
     }
     .composeds {
-      width:450px; 
-      float:left; 
+      width:450px;
+      float:left;
       margin-left:10px;
     }
     .composeds ul {
@@ -54,7 +54,7 @@
 
       <ul class="contentViews">
         <li class="selected" tal:attributes="class python: ('css' in request.URL) and 'selected' or ''">
-          <a href="" 
+          <a href=""
              tal:attributes="href string:$portal_url/@@reorder_css"
              i18n:translate="">Reorder CSS</a>
         </li>
@@ -113,6 +113,7 @@
         <ul tal:define="portal_url python:context.portal_url()">
           <li tal:repeat="entry python:context.portal_css.getCookedResources()">
             <div class='composed-entry'>
+              <span tal:content="repeat/entry/index" />&nbsp;
               <a href="" tal:attributes="href string:${portal_url}/portal_css/${entry/getId}">
                 <b tal:content="entry/getId">ploneCustom.css</b>
               </a>

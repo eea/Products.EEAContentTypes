@@ -11,13 +11,15 @@ Changelog
   [ichimdav #14109]
 * Change: Confimation and action emails are now sent only in english.
   [prospchr]
+* Better display concatenated resources under @@reorder_css
+  [ghicaale refs #14067]
 
 6.2 - (2013-02-27)
 ------------------
 * Bug fix: check with getattr non_deprecatedthemes since ExternalDataSpec
   Theme object doesn't have that property
   [ichimdav #13986]
-* Bug fix: re added moreLink logic for document_relateditems.pt 
+* Bug fix: re added moreLink logic for document_relateditems.pt
   [ichimdav #13994]
 * Bug fix: Keep consistency in AutoRelations adapter returning values
   [voineali]
