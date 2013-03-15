@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.3-dev - (unreleased)
-----------------------
+6.3 - (2013-03-15)
+------------------
 * Bug fix: Added a try except clause when trying to retrieve theme title for
   sameTypeByTheme to avoid future LookupError exceptions
   [ichimdav #14108]
