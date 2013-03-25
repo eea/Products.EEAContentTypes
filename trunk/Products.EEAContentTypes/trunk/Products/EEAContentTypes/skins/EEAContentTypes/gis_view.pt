@@ -49,22 +49,28 @@ div.archived p
             <metal:main define-macro="main">
              
               <tal:gis define="uid here/getArcGisUID|nothing;
-                                  arcgis_url here/arcgis_url|nothing" >
-                 <tal:block condition="uid">
-                 <iframe  width="940" height="600" 
-                      frameborder="0" scrolling="no" 
-                      marginheight="0" marginwidth="0" 
-                      tal:attributes="src python:'http://eea.maps.arcgis.com/home/webmap/templates/OnePane/basicviewer/embed.html?webmap=%s&amp;displayslider=true&amp;displayscalebar=true&amp;displaylegend=true&amp;displaysearch=true&amp;displaybasemaps=true' % (uid)"
+                               arcgis_url here/arcgis_url|nothing;
+                               gis_url python:arcgis_url+'&embed=true' if 'appid' in arcgis_url
+                                              else 'http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid)">
+                 <tal:block condition="python:uid or arcgis_url">
+                 <iframe  width="1000" height="600"
+                      frameborder="0" scrolling="no"
+                      marginheight="0" marginwidth="0"
+                      tal:attributes="src gis_url"
                       src="">
                  </iframe>
                  <br />
-                 <p><a class="externalsites-eoe" href="" 
-                       tal:attributes="href arcgis_url" 
-                       target="_blank" 
-                       i18n:translate="">View larger map on Eye on Earth</a></p>
+                 <tal:comment replace="nothing">
+                     gis_url[:-11] string is cut in order to remove
+                     embed=true when viewing fullscreen map
+                 </tal:comment>
+                 <p><a class="standardButton" href=""
+                       tal:attributes="href python:gis_url[:-11]"
+                       target="_blank"
+                       i18n:translate="">Full screen mode</a></p>
                  </tal:block>
-                 
-             <tal:block condition="not:uid">    
+
+             <tal:block condition="not:arcgis_url">
                <div id="" class="flashmovie"
                 tal:attributes="id string:container-${here/getId};"
                 i18n:translate=""> 
