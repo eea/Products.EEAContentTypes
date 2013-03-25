@@ -3,6 +3,8 @@ Changelog
 
 6.4-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed full screen mode for interactive maps
+  [ichimdav #14215]
 
 6.3 - (2013-03-15)
 ------------------
