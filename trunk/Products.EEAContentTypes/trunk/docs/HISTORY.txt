@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: Fixed full screen mode for interactive maps
   [ichimdav #14215]
+* Bug fix: Fixed wrong tal statement in translation template
+  [prospchr refs #14270]
 
 6.3 - (2013-03-15)
 ------------------
