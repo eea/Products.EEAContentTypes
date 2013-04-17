@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.5-dev - (unreleased)
+----------------------
+
 6.4 - (2013-04-17)
 ------------------
 * Bug fix: Fixed full screen mode for interactive maps
