@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>testWorkflow</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testWorkflow</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/SITE/folder_contents</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add item</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Folder</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>title</td>
+	<td>Testing folder</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>form_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sharing</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>search_param</td>
+	<td>label=Login Name</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>search_term</td>
+	<td>editor</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Perform Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=ContentManager</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=Editor</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=ProofReader</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>user_member_role</td>
+	<td>label=ContentManager</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>user_member_role</td>
+	<td>label=Editor</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>user_member_role</td>
+	<td>label=ProofReader</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=Reviewer</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=ProofReader</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>user_member_role</td>
+	<td>label=Reviewer</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=Reviewer</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>user_member_role</td>
+	<td>label=Reviewer</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=WebReviewer</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=Reviewer</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=ContentManager</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>user_member_role</td>
+	<td>label=Editor</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Assign Local Role to Selected User(s)']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add item</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>title</td>
+	<td>super test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>description</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>kupu-source-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>text</td>
+	<td>Body Text</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>form_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//dt/a/span[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Submit for content review</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a/span[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Submit for Web QA</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Testing folder</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Actions</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Delete']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
