@@ -8,6 +8,8 @@ Changelog
   [voineali refs #9552]
 * Cleanup: Remove "eea.related_multimedia" viewlet
   [voineali refs #9552]
+* Added upgrade to cleanup tags
+  [ghicaale refs #14383]
 
 6.5 - (2013-04-17)
 ------------------
