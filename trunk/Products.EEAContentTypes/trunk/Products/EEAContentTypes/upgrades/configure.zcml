@@ -12,6 +12,11 @@
       handler=".evolve66.cleanup_viewlets"
       />
 
+    <genericsetup:upgradeStep
+      title="Update existing tags based on #14383"
+      handler=".evolve66.update_tags"
+      />
+
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
