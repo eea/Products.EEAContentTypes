@@ -3,8 +3,7 @@
 import logging
 import os
 import csv
-from StringIO import StringIO
-from zope.component.hooks import getSite
+import transaction
 from zope.component import getUtility
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
 from Products.CMFCore.utils import getToolByName
@@ -12,9 +11,8 @@ from Products.CMFCore.utils import getToolByName
 logger = logging.getLogger("Products.EEAContentTypes.upgrades")
 
 def cleanup_viewlets(context):
-    """ Remove deprecated viewlets
+    """ Remove deprecated viewlets #9552
     """
-    site = getSite()
     storage = getUtility(IViewletSettingsStorage)
     skins = (u"EEADesign2006", u"EEADesignCMS")
     manager = u"plone.belowcontentbody"
@@ -39,52 +37,61 @@ def cleanup_viewlets(context):
 def update_tags(context):
     """ Update existing tags based on #14383
     """
-    logger.info("Upgrade step: starting updating all tags from the portal!")
+    logger.info("Updating all tags from the portal...")
     ctool = getToolByName(context, 'portal_catalog')
 
-    # Read CSV data
     data_filename = 'tags_edited_plural.csv'
     file_path = os.path.join(os.path.dirname(__file__), data_filename)
-    file_ob = open(file_path, 'rb')
-    file_data = file_ob.read()
-
-    # Parse CSV data
 
     # CSV columns:
     # "label","gemeturi","glossaryuri","comments","replacewith",
     # "geonames","instructions"
-    file_data = StringIO(file_data)
-    file_data.seek(0)
-    reader = csv.reader(file_data)
-    csv_data = []
-    for index, row in enumerate(reader):
-        csv_data.append(row)
+    reader = csv.reader(open(file_path, 'rb'))
 
     tags_to_update = {}
     tags_to_delete = {}
-    for k in csv_data:
-        if k[4] == 'none':
-            tags_to_delete[k[0]] = k[4]
-        elif k[4]:
-            tags_to_update[k[0]] = k[4].strip()
-        else:
-            pass
+    for row in reader:
+        if row[4] == 'none':
+            tags_to_delete[row[0]] = row[4]
+        elif row[4]:
+            tags_to_update[row[0]] = row[4].strip()
 
-    # Update tags
     count = 1
 
     ### Delete tags
-    for tag in tags_to_delete:
+    for idx, tag in enumerate(tags_to_delete):
         brains = ctool.unrestrictedSearchResults(Subject=tag)
         for brain in brains:
             obj = brain.getObject()
-            current_tags = obj.Subject()
+            field = obj.getField('subject')
+            tags = field.getAccessor(obj)()
+            tags = [kw for kw in tags if kw != tag]
+            field.getMutator(obj)(tags)
+            obj.reindexObject(idxs=['Subject'])
+
+            count += 1
+            if count % 200 == 0:
+                logger.info('Deleting tags %s/%s. Transaction commit: %s',
+                            idx, len(tags_to_delete), count)
+                transaction.commit()
 
     ### Replace tags
-    for tag in tags_to_update:
+    for idx, (tag, new_tag) in enumerate(tags_to_update.items()):
         brains = ctool.unrestrictedSearchResults(Subject=tag)
+        for brain in brains:
+            obj = brain.getObject()
+            field = obj.getField('subject')
+            tags = field.getAccessor(obj)()
+            tags = [kw for kw in tags if kw != tag]
+            if new_tag not in tags:
+                tags.append(new_tag)
+            field.getMutator(obj)(tags)
+            obj.reindexObject(idxs=['Subject'])
 
-    logger.info("Upgrade step: done updating all tags from the portal!")
-    return ""
+            count += 1
+            if count % 200 == 0:
+                logger.info('Replacing tags %s/%s. Transaction commit: %s',
+                            idx, len(tags_to_update), count)
+                transaction.commit()
 
-
+    logger.info("Updating all tags from the portal... DONE")
