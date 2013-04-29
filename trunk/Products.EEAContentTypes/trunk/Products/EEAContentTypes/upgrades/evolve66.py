@@ -94,4 +94,19 @@ def update_tags(context):
                             idx, len(tags_to_update), count)
                 transaction.commit()
 
+    ### Re-index content types with custom logic for indexing keywords
+    count = 1
+    brains = ctool.unrestrictedSearchResults(portal_type=
+                ['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet')
+    total_count = len(brains)
+    for brain in brains:
+        obj = brain.getObjects()
+        obj.reindexObject(idxs=['Subject'])
+
+            count += 1
+            if count % 200 == 0:
+                logger.info('Re-indexing %s objects. Transaction commit: %s',
+                            total_count, count)
+                transaction.commit()
+
     logger.info("Updating all tags from the portal... DONE")
