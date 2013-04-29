@@ -58,7 +58,7 @@ setup(name=NAME,
           'eea.reports',
           'eea.relations',
 
-          'lovely.memcached',
+          'eea.cache',
 
           #required in tests
           'eea.dataservice',

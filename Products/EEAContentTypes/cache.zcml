@@ -57,6 +57,6 @@
       handler=".cache.invalidateParentsImageScales"
       />
 
-  <subscriber handler="lovely.memcached.event.invalidateCache"/>
+  <subscriber handler="eea.cache.event.invalidateCache"/>
 
 </configure>

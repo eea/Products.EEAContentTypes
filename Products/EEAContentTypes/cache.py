@@ -5,7 +5,7 @@
 # plone4 migration
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from lovely.memcached.event import InvalidateCacheEvent
+from eea.cache.event import InvalidateCacheEvent
 from zope.component import queryMultiAdapter
 from zope.event import notify
 import logging
