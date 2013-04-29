@@ -103,10 +103,10 @@ def update_tags(context):
         obj = brain.getObjects()
         obj.reindexObject(idxs=['Subject'])
 
-            count += 1
-            if count % 200 == 0:
-                logger.info('Re-indexing %s objects. Transaction commit: %s',
-                            total_count, count)
-                transaction.commit()
+        count += 1
+        if count % 200 == 0:
+            logger.info('Re-indexing %s objects. Transaction commit: %s',
+                        total_count, count)
+            transaction.commit()
 
     logger.info("Updating all tags from the portal... DONE")
