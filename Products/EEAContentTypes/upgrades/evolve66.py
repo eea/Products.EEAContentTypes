@@ -100,7 +100,7 @@ def update_tags(context):
                 ['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet'])
     total_count = len(brains)
     for brain in brains:
-        obj = brain.getObjects()
+        obj = brain.getObject()
         obj.reindexObject(idxs=['Subject'])
 
         count += 1
