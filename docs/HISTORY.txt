@@ -3,6 +3,12 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Feature: index all subjects/keywords lowercase
+  [ghicaale refs #14384]
+* Upgrade step:
+   - re-index all content types from the portal via a script from
+   - for this purpose use /www/0maintenance/bulk_reindex_objects
+   - [ghicaale refs #14384]
 * Change: refactor marshaller.py to conform to eea.versions API changes
   [tiberich #14008]
 * Upgrade step:

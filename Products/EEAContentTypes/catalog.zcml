@@ -1,8 +1,9 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-	xmlns:five="http://namespaces.zope.org/five"
-	i18n_domain="eea">
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           i18n_domain="eea">
 
-	<adapter factory=".catalog.CountReferences" name="countReferences" />
+    <adapter factory=".catalog.CountReferences" name="countReferences" />
+    <adapter factory=".catalog.Subject" name="Subject" />
 
 </configure>
