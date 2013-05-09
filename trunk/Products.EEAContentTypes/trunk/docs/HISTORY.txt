@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Feature: index all subjects/keywords lowercase
   [ghicaale refs #14384]
+* Feature: store all subjects/keywords lowercase
+  [ghicaale refs #14384]
 * Upgrade step:
    - re-index all content types from the portal via a script from
    - for this purpose use /www/0maintenance/bulk_reindex_objects
