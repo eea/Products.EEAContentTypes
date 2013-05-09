@@ -43,7 +43,7 @@
         <require permission="zope2.Public"
                  interface="eea.rdfrepository.interfaces.IRDFPortletInfo" />
 
-        TODO: this is not supported by Zope 2
+        ZZZ: this is not supported by Zope 2
         <!--<require permission="cmf.ModifyPortalContent"
                      set_schema="eea.rdfrepository.interfaces.IRDFPortletInfo" />-->
     </class>
@@ -56,9 +56,9 @@
                      Products.LinguaPlone.events.ObjectTranslatedEvent"
                 handler=".smartfolder.smartFolderAdded"   />
 
-    TODO: this is disabled in the original code. Should remove from here.
-    <!--adding keepReferencesOnCopy feature to the AT schema field 'relatedItems'-->
-    <!--adapter for="Products.ATContentTypes.content.base.ATCTContent"
-                factory=".schemaextender.RelatedItemsModifier" /-->
+    <!-- store all keywords lowercase, due to #14384 -->
+    <subscriber for="Products.Archetypes.interfaces.base.IBaseObject
+                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".subscribers.lowercaseKeywords" />
 
 </configure>
