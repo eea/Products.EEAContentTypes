@@ -8,8 +8,9 @@ Changelog
 * Feature: store all subjects/keywords lowercase
   [ghicaale refs #14384]
 * Upgrade step:
-   - re-index all content types from the portal via a script from
-   - for this purpose use /www/0maintenance/bulk_reindex_objects
+   - re-save (re-index 'Subject' index) all content types from the portal via a script from /www/0maintenance
+   - this operation should be done via www8 instance, using intermediate transaction commits as it will be a very long process
+   - ideally to be done outside EEA workin hours not to conflict with current editing
    - [ghicaale refs #14384]
 * Change: refactor marshaller.py to conform to eea.versions API changes
   [tiberich #14008]
