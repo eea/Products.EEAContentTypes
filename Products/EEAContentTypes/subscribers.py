@@ -17,8 +17,8 @@ def lowercaseKeywords(obj, evt):
 
     try:
         if 'subject' in schema:
-                data = schema['subject'].getRaw(obj)
-                data = tuple([x.lower() for x in data])
-                schema['subject'].getMutator(obj)(tuple(set(data)))
+            data = schema['subject'].getRaw(obj)
+            data = tuple([x.lower() for x in data])
+            schema['subject'].getMutator(obj)(tuple(set(data)))
     except Exception:
         logger.info('Skipped lowercase keywords')
