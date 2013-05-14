@@ -2,7 +2,9 @@
 """
 
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from eea.versions.versions import create_version
+from eea.versions.interfaces import IVersionEnhanced
+from eea.versions.versions import create_version, assign_new_version_id
+from zope.interface import alsoProvides
 import os
 
 
@@ -19,6 +21,12 @@ class testHighlight(EEAContentTypeTestCase):
         """ Get publication date
         """
         high = self.folder['h1']
+
+        #Highlights are not versionable by default, 
+        #so we need to make it versionable "by hand"
+        alsoProvides(high, IVersionEnhanced)
+        assign_new_version_id(high, None)
+
         ver = create_version(high)
 
         rdf = high.restrictedTraverse('@@rdf')()

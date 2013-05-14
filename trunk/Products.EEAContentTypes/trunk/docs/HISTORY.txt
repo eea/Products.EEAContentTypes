@@ -13,7 +13,9 @@ Changelog
    - ideally to be done outside EEA workin hours not to conflict with current editing
    - based on /www/0maintenance/.find-searchareas-using-subject report update all colelctions/facetednav to use lowercase subjects
    - [ghicaale refs #14384]
-* Change: refactor marshaller.py to conform to eea.versions API changes
+* Change: refactor marshaller.py to conform to eea.versions API changes,
+  change tests to reflect the fact that random objects are no longer versionable by
+  default
   [tiberich #14008]
 * Upgrade step:
    - If #14383 is not closed, ask Alec/Antonio first to run this step
@@ -26,6 +28,7 @@ Changelog
   [ghicaale refs #14383]
 * Feature: Removed lovely.memcached dependency
   [voineali refs #14343]
+* Bug fix: fix test for versioning marshaller t
 
 6.5 - (2013-04-17)
 ------------------
