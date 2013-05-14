@@ -28,7 +28,6 @@ Changelog
   [ghicaale refs #14383]
 * Feature: Removed lovely.memcached dependency
   [voineali refs #14343]
-* Bug fix: fix test for versioning marshaller t
 
 6.5 - (2013-04-17)
 ------------------
