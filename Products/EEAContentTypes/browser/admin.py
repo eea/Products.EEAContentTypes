@@ -25,9 +25,8 @@ class BaseReorder(object):
         util = getToolByName(self.context, "portal_%s" % self.resource_type)
         result = []
         for _i, res_id in enumerate(resources.split("\n")):
-            res = util.getResource(res_id.strip())
+            res = util.getResource(res_id.strip().split('\xc2\xa0')[1])
             result.append(res)
-
 
         util.resources = tuple(result)
         util.cookResources()
