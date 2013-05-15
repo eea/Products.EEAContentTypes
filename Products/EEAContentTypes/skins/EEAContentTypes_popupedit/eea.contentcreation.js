@@ -121,7 +121,10 @@ ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, opti
       };
       var target = jq('#dialog_edit_target');
       jq("#dialog-inner").remove();     // temporary, apply real fix
-      jq(target).append("<div id='dialog-inner'></div>");
+      jq(target).append("<div id='dialog-inner'>" + 
+                        "<p>Please wait, it may take several seconds for the form to appear.</p>" + 
+                        "<img src='./++resource++faceted_images/ajax-loader.gif' />" + 
+                        "</div>");
       window.onbeforeunload = null; // this disables the form unloaders
       jq("#dialog-inner").dialog({
         modal         : true,
