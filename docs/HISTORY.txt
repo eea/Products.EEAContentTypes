@@ -3,6 +3,8 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Bug fix: fixed ReST merkup under HISTORY.txt
+  [ghicaale refs #14554]
 
 6.6 - (2013-05-20)
 ------------------
@@ -25,16 +27,15 @@ Changelog
   [tiberich #14008]
 * Upgrade step:
    - If #14383 is not closed, ask Alec/Antonio first to run this step
-   - Within "Plone > Site setup > Add-ons" click on upgrade button available
-     for EEA Content Types (must pe run under www8)
-  [voineali refs #9552]
+   - Within "Plone > Site setup > Add-ons" click on upgrade button available for EEA Content Types (must pe run under www8)
+   - [voineali refs #9552]
 * Cleanup: Remove "eea.related_multimedia" viewlet
   [voineali refs #9552]
 * Added upgrade to cleanup tags
   [ghicaale refs #14383]
 * Feature: Removed lovely.memcached dependency
   [voineali refs #14343]
-* Bug fix: Fixed reorder of css and javascript when reordering resources in the view @@reorder. 
+* Bug fix: Fixed reorder of css and javascript when reordering resources in the view @@reorder.
   [prospchr fixes #14337]
 
 6.5 - (2013-04-17)
