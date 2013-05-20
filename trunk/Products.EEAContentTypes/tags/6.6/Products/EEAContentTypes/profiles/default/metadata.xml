@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<metadata>
+    <description>EEA Content Types profile</description>
+    <version>6.6</version>
+    <dependencies>
+        <dependency>profile-Products.ATVocabularyManager:default</dependency>
+        <dependency>profile-eea.reports:default</dependency>
+        <dependency>profile-eea.themecentre:default</dependency>
+        <dependency>profile-eea.locationwidget:default</dependency>
+    </dependencies>
+</metadata>
