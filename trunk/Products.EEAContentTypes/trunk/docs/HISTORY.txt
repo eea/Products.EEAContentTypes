@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.6-dev - (unreleased)
-----------------------
+6.6 - (2013-05-20)
+------------------
 * Bug fix: show a visual cue that a wait time might be needed when editing a
   content object in a popup dialog, in the eea.relations popup
   [tiberich #14467]
