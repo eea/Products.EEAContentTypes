@@ -1,0 +1,62 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="eea">
+
+  <genericsetup:registerProfile
+    name="default"
+    title="EEA Content Types"
+    directory="profiles/default"
+    description="Extension profile for EEA Content Types"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot" />
+
+  <genericsetup:importStep
+    name="eeacontenttypes_geocoding"
+    title="EEAContentTypes: geocoding" description=""
+    handler="Products.EEAContentTypes.setuphandlers.setupGeocoding"
+    />
+
+  <genericsetup:importStep
+    name="eeacontenttypes_various"
+    title="EEAContentTypes: complete setup and dependencies" description=""
+    handler="Products.EEAContentTypes.setuphandlers.setupVarious">
+    <depends name="skins"/>
+    <depends name="jsregistry"/>
+    <depends name="catalog"/>
+    <depends name="controlpanel"/>
+    <depends name="typeinfo"/>
+    <depends name="rolemap"/>
+    <depends name="eeacontenttypes_geocoding"/>
+    <depends name="kupu-setup"/>
+    <depends name="workflow"/>
+  </genericsetup:importStep>
+
+  <genericsetup:importStep
+    name="eeacontenttypes_migrate_gis"
+    title="EEAContentTypes: Migrate GIS Application content" description=""
+    handler="Products.EEAContentTypes.setuphandlers.migrate_gisapplication"
+    />
+
+  <genericsetup:importStep
+    name="eeacontenttypes_upgrade_plonesite_interface"
+    title="EEAContentTypes: apply IEEAPloneSite to Plone root" description=""
+    handler="Products.EEAContentTypes.setuphandlers.upgrade_plonesite_interface"
+    />
+
+  <genericsetup:registerProfile
+      name="eeacontenttypes_upgrade_4.17"
+      title="Upgrade profile for EEAContentTypes 4.17"
+      description="This profile contains configuration changes from 4.16 to 4.17"
+      directory="profiles/upgrade-4.17"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <genericsetup:registerProfile
+      name="eeacontenttypes_upgrade_4.19"
+      title="Upgrade profile for EEAContentTypes 4.19"
+      description="This profile contains configuration changes from 4.18 to 4.19"
+      directory="profiles/upgrade/to_419"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+   />
+
+</configure>
