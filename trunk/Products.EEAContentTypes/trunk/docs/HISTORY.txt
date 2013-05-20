@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.7-dev - (unreleased)
-----------------------
+6.7 - (2013-05-20)
+------------------
 * Bug fix: fixed ReST merkup under HISTORY.txt
   [ghicaale refs #14554]
 
