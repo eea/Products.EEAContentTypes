@@ -3,6 +3,9 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Bug fix: added a possibility to simplify the schemata_edit form, to not
+  include so many items such as a header and type description
+  [tiberich #14562]
 
 6.7 - (2013-05-20)
 ------------------
