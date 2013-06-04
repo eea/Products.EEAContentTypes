@@ -22,7 +22,7 @@
   <!-- If eea.daviz installed we treat daviz.presentation as interactive data -->
   <class
     zcml:condition="installed eea.daviz"
-    class="eea.daviz.content.presentation.DavizVisualization">
+    class="eea.daviz.content.visualization.DavizVisualization">
     <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveData" />
   </class>
 
