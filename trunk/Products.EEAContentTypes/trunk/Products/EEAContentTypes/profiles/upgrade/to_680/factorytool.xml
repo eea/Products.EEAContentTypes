@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_factory">
+ <factorytypes>
+  <type portal_type="Article" />
+  <type portal_type="EEAVacancy" />
+  <type portal_type="EcoTip" />
+  <type portal_type="EpubFile" />
+  <type portal_type="EyewitnessStory" />
+  <type portal_type="GIS Application" />
+  <type portal_type="Newsletter" />
+ </factorytypes>
+</object>

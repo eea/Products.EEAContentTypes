@@ -3,6 +3,18 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="6.6"
+    destination="6.8"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+      title="Fix factorytool content-types"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_6.80"
+      />
+
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="5.2"
     destination="6.6"
     profile="Products.EEAContentTypes:default">

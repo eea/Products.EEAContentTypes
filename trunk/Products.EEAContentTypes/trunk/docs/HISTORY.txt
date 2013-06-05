@@ -3,6 +3,15 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types (be aware of previous upgrade
+  steps that may require additional manual steps. If you're not sure about this,
+  you can always run these steps from ZMI > portal_setup > Upgrades Tab and
+  choose Products.EEAContentTypes:default)
+  [voineali refs #14675]
+* Bug fix: Fix content-rules for GIS Application and other EEA Content-Types
+  by adding them to portal_factory
+  [voineali refs #14675]
 * Bug fix: added a possibility to simplify the schemata_edit form, to not
   include so many items such as a header and type description
   [tiberich #14562]
