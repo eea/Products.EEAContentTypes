@@ -51,11 +51,20 @@
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
   <genericsetup:registerProfile
       name="eeacontenttypes_upgrade_4.19"
       title="Upgrade profile for EEAContentTypes 4.19"
       description="This profile contains configuration changes from 4.18 to 4.19"
       directory="profiles/upgrade/to_419"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+   />
+
+  <genericsetup:registerProfile
+      name="eeacontenttypes_upgrade_6.80"
+      title="Upgrade profile for EEAContentTypes 6.80"
+      description="This profile contains configuration changes from 6.6 to 6.8"
+      directory="profiles/upgrade/to_680"
       provides="Products.GenericSetup.interfaces.EXTENSION"
    />
 
