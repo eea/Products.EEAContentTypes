@@ -3,6 +3,9 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Feature: added ManagementPlanField for content described in the ticket, such
+  as IInteractiveData and IInteractiveMap
+  [ichimdav #14719]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Content Types (be aware of previous upgrade
   steps that may require additional manual steps. If you're not sure about this,
