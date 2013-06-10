@@ -42,6 +42,16 @@
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.ThemesSchemaExtender"/>
 
+    <!-- #14719 added ManagementPlanField for the following -->
+    <adapter name="eea.managementplanfield4InteractiveData"
+             for="Products.EEAContentTypes.content.interfaces.IInteractiveData"
+             factory=".subtypes.ManagementPlanFieldExtender"/>
+
+    <adapter name="eea.managementplanfield4InteractiveMap"
+             for="Products.EEAContentTypes.content.interfaces.IInteractiveMap"
+             factory=".subtypes.ManagementPlanFieldExtender"/>
+
+
     <!-- Keyword postback fix http://dev.plone.org/ticket/12334 -->
     <adapter name="eea.keywordsfield"
         for="Products.Archetypes.interfaces.IExtensibleMetadata"

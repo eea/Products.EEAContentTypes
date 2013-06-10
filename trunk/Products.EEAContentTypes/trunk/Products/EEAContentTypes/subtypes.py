@@ -22,6 +22,9 @@ from zope.component import queryAdapter
 from zope.interface import Interface, implements
 from p4a.video.subtype import TopicVideoContainerDescriptor as \
         BaseTopicVideoContainerDescriptor, _
+from eea.dataservice.content.schema import ManagementPlanField
+from eea.dataservice.content.schema import ManagementPlanWidget
+from datetime import datetime
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.relations.interfaces import IAutoRelations
@@ -32,20 +35,30 @@ import logging
 
 logger = logging.getLogger('EEAContentTypes')
 
+
 class ExtensionRelationsField(ExtensionField, EEAReferenceField):
     """ derivative of relations for extending schemas """
+
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
 
+
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
     """ derivative of blobfield for extending schemas """
+
 
 class ExtensionGeotagsMultifield(ExtensionField, field.GeotagsLinesField):
     """ derivative of blobfield for extending schemas """
 
+
 class ExtensionThemesField(ExtensionField, ThemesField):
     """ derivative of themesfield for extending schemas """
+
+
+class ExtensionManagementField(ExtensionField, ManagementPlanField):
+    """ derivative of themesfield for extending schemas """
+
 
 class RelationsSchemaExtender(object):
     """ Extends relations filed
@@ -85,6 +98,7 @@ class RelationsSchemaExtender(object):
             self.fields[0].widget.visible['view'] = 'invisible'
 
         return self.fields
+
 
 class LocationSchemaExtender(object):
     """ Extends base schema with extra fields.
@@ -166,6 +180,7 @@ class LocationSchemaExtender(object):
                              'to select a location')
             return self.multiple_location
 
+
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
@@ -197,6 +212,41 @@ class ThemesSchemaExtender(object):
             # No schema extender for QuickEvent
             return []
         return self.fields
+
+
+class ManagementPlanFieldExtender(object):
+    """ Extends schema with themes field
+    """
+    implements(ISchemaExtender)
+
+    fields = (
+        ExtensionManagementField(
+            name='eeaManagementPlan',
+            languageIndependent=True,
+            schemata='categorization',
+            required=True,
+            default=(datetime.now().year, ''),
+            validators=('management_plan_code_validator',),
+            vocabulary_factory=u"Temporal coverage",
+            widget=ManagementPlanWidget(
+                format="select",
+                label="EEA Management Plan",
+                description=_("EEA Management plan code."),
+                label_msgid='dataservice_label_eea_mp',
+                description_msgid='dataservice_help_eea_mp',
+                i18n_domain='eea',
+            )
+        ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Fields
+        """
+        return self.fields
+
 
 class RequiredSchemaModifier(object):
     """ Modify schema
