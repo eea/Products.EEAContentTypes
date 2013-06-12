@@ -4,6 +4,7 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
@@ -98,6 +99,17 @@ class Promotion(ATNewsItem, ThemeTaggable):
     def setThemes(self, value, **kw):
         """Manually specifing mutator, solves ticket #3972"""
         ThemeTaggable.setThemes(self, value, **kw)
+
+    security.declareProtected(View, 'download')
+    def download(self, REQUEST=None, RESPONSE=None):
+        """ Download the file
+        """
+        if REQUEST is None:
+            REQUEST = self.REQUEST
+        if RESPONSE is None:
+            RESPONSE = REQUEST.RESPONSE
+        field = self.getField('image')
+        return field.download(self, REQUEST, RESPONSE)
 
 
 registerType(Promotion, PROJECTNAME)
