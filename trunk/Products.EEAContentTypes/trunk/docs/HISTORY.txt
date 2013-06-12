@@ -18,6 +18,9 @@ Changelog
 * Bug fix: added a possibility to simplify the schemata_edit form, to not
   include so many items such as a header and type description
   [tiberich #14562]
+* Feature: added /download method for Article/Highlight/PressRelease/Promotion and Speech
+  to have same API as Image like objects.
+  [ghicaale refs #14735]
 
 6.7 - (2013-05-20)
 ------------------

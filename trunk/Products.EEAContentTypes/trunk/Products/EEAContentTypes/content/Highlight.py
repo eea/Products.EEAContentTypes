@@ -3,6 +3,7 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
@@ -74,6 +75,17 @@ class Highlight(ExternalHighlight, ATNewsItem):
         value = [val for val in value if val]
         tagging = IThemeTagging(self)
         tagging.tags = value
+
+    security.declareProtected(View, 'download')
+    def download(self, REQUEST=None, RESPONSE=None):
+        """ Download the file
+        """
+        if REQUEST is None:
+            REQUEST = self.REQUEST
+        if RESPONSE is None:
+            RESPONSE = REQUEST.RESPONSE
+        field = self.getField('image')
+        return field.download(self, REQUEST, RESPONSE)
 
 
 registerType(Highlight, PROJECTNAME)
