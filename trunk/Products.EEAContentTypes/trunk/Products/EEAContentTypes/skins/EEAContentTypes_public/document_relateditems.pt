@@ -108,7 +108,7 @@
     tal:condition="themes"
     i18n:domain="eea">
     <dl id="auto-related" class="portlet">
-        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
+        <dt class="portletHeader" i18n:translate="">See also</dt>
         <dd class="portletItem">
 
     <tal:bytheme repeat="theme themes">
@@ -245,7 +245,7 @@
     tal:condition="related"
     i18n:domain="eea">
     <dl id="auto-related" class="portlet">
-        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
+        <dt class="portletHeader" i18n:translate="">See also</dt>
 
         <tal:block repeat="info related">
             <tal:media define="media info" condition="info/is_video">
