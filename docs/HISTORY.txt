@@ -3,6 +3,9 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Bug fix: fixed duplication of auto relations when retriving them from a non
+  canonical object
+  [ichimdav refs #14831]
 
 6.8 - (2013-06-17)
 ------------------
