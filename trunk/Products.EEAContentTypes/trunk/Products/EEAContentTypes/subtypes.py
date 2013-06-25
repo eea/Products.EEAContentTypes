@@ -474,13 +474,16 @@ class GetCanonicalRelations(object):
                     name = forward.getField('forward_label').getAccessor(
                                                              forward)()
 
-                    if name not in tabs:
-                        tabs[name] = []
-
-                    if relation.getTranslation(lang):
-                        tabs[name].append(relation.getTranslation(lang))
+                    # #14831 check if relations isn't already added since you
+                    # could receive a bunch of translations of a single object
+                    # which would result in duplication of relations
+                    context_relation = relation.getTranslation(lang)
+                    if context_relation:
+                        if context_relation not in tabs[name]:
+                            tabs[name].append(context_relation)
                     else:
-                        tabs[name].append(relation)
+                        if relation not in tabs[name]:
+                            tabs[name].append(relation)
 
             rel_backwards = canonical.getBRefs(kwargs.get('relation',
                                                           'relatesTo'))
@@ -502,10 +505,13 @@ class GetCanonicalRelations(object):
                     if name not in tabs:
                         tabs[name] = []
 
-                    if relation.getTranslation(lang):
-                        tabs[name].append(relation.getTranslation(lang))
+                    context_relation = relation.getTranslation(lang)
+                    if context_relation:
+                        if context_relation not in tabs[name]:
+                            tabs[name].append(context_relation)
                     else:
-                        tabs[name].append(relation)
+                        if relation not in tabs[name]:
+                            tabs[name].append(relation)
 
             if tabs:
                 return tabs.items()
