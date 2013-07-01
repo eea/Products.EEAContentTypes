@@ -474,6 +474,8 @@ class GetCanonicalRelations(object):
                     name = forward.getField('forward_label').getAccessor(
                                                              forward)()
 
+                    if name not in tabs:
+                        tabs[name] = []
                     # #14831 check if relations isn't already added since you
                     # could receive a bunch of translations of a single object
                     # which would result in duplication of relations
