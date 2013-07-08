@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.0-dev - (unreleased)
+----------------------
+
 6.9 - (2013-07-08)
 ------------------
 * Bug fix: fixed duplication of auto relations when retriving them from a non
