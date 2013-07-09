@@ -1,4 +1,5 @@
 <configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five">
 
@@ -7,13 +8,12 @@
     <adapter factory="bda.feed.atfeedentries.ATPrimaryFieldEnclosure" />
     <adapter factory=".syndication.FeedLogo" />
     <adapter factory="bda.feed.taghandler.SubjectTagHandler" />
-    
+
     <!-- Get Canonical object relations -->
     <adapter for="eea.relations.content.interfaces.IBaseObject"
         provides="eea.relations.interfaces.IAutoRelations"
-        factory=".subtypes.GetCanonicalRelations"/>    
+        factory=".subtypes.GetCanonicalRelations"/>
 
-    <utility factory=".subtypes.Subtyper" />
     <utility
         name="p4a.video.TopicVideoContainer"
         factory=".subtypes.TopicVideoContainerDescriptor" />
@@ -21,5 +21,10 @@
     <utility
         component=".subtypes.swf_check"
         name="flashswf" />
+
+    <!-- XXX Deprecated -->
+    <utility
+        zcml:condition="installed p4a.subtyper"
+        factory=".deprecated.Subtyper" />
 
 </configure>
