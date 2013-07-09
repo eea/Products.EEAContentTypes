@@ -3,6 +3,9 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Cleanup: Deprecated p4a.subtyper and remove hard dependency on it (
+  is optional now and it will be removed in a later version of this pacakge)
+  [voineali refs #15234]
 
 6.9 - (2013-07-08)
 ------------------
