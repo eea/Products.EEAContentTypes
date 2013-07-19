@@ -6,6 +6,13 @@ Changelog
 * Cleanup: Deprecated p4a.subtyper and remove hard dependency on it (
   is optional now and it will be removed in a later version of this pacakge)
   [voineali refs #15234]
+* Bug fix: implemented a field2surf adapter for fields named 'provenances'. 
+  This applies to DavizVisualization's @@rdf view.
+  [tiberich #14824]
+* Upgrade Step: in
+  http://www.eea.europa.eu/aq_parent/portal_properties/rdfmarshaller_properties
+  remove the "provenances" field from the "blacklist" list.
+  [tiberich #14824]
 
 6.9 - (2013-07-08)
 ------------------

@@ -11,11 +11,12 @@
     <subscriber factory=".marshaller.VersioningModifier"
                 for="eea.versions.interfaces.IVersionEnhanced"
                 provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-                
+
     <subscriber handler=".events.handle_content_state_changed"
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
+    <adapter factory=".marshaller.Provenances2Surf" name="provenances" />
     <adapter factory=".marshaller.MediaField2Surf" name="media" />
 
     <adapter factory=".feeds.FeedPortletInfo" />
