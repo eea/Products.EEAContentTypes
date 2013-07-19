@@ -117,7 +117,7 @@
 
     <!-- Video -->
     <adapter name="eea.requiredfields4video"
-        for="p4a.video.interfaces.IVideoEnhanced"
+        for="eea.mediacentre.interfaces.IVideo"
         factory=".subtypes.RequiredSchemaModifier" />
 
     <!-- EcoTip, Page, SOER Key fact, SOER Message -->
