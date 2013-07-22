@@ -362,7 +362,7 @@
         />
 
     <browser:page
-        for="p4a.video.interfaces.IVideoEnhanced"
+        for="eea.mediacentre.interfaces.IVideo"
         name="url"
         class=".url.MultimediaURL"
         permission="zope2.View"
