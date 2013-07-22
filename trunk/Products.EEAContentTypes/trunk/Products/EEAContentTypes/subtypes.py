@@ -11,13 +11,8 @@ from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.geotags import field
 from eea.geotags import widget
 from eea.themecentre.content.ThemeTaggable import ThemesField
-# from p4a.videoembed.interfaces import IURLChecker
-# from p4a.videoembed.interfaces import provider
-# from p4a.videoembed.utils import break_url
 from zope.component import adapts
 from zope.interface import Interface, implements
-# from p4a.video.subtype import TopicVideoContainerDescriptor as \
-#         BaseTopicVideoContainerDescriptor, _
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
 from datetime import datetime
@@ -374,30 +369,6 @@ class GeotagMultiEdit(GeotagMixinEdit):
     """
     implements(IGeotagMultiEdit)
 
-# class TopicVideoContainerDescriptor(BaseTopicVideoContainerDescriptor):
-#     """ Topic container
-#     """
-#     title = _("Video Topic Container")
-#
-# @provider(IURLChecker)
-# def swf_check(url):
-#     """ Customized utility to check for swf in URL just so
-#         that we don't transform GIS Applications into videos
-#     """
-#     host, path, query, fragment = break_url(url)
-#     # TODO: plone4 this return false shouldn't be here
-#     # or the rules after it should be deleted
-#     return False
-#
-#     if "discomap.eea.europa.eu" in host and 'index.swf' in path:
-#         return False
-#
-#     if path.endswith('.swf'):
-#         return True
-#
-#     return False
-#
-# swf_check.index = 10100
 
 class GetCanonicalRelations(object):
     """ Reproduce the relations of the canonical object,

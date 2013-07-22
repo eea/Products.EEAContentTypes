@@ -14,17 +14,9 @@
         provides="eea.relations.interfaces.IAutoRelations"
         factory=".subtypes.GetCanonicalRelations"/>
 
-    <!--<utility-->
-        <!--name="p4a.video.TopicVideoContainer"-->
-        <!--factory=".subtypes.TopicVideoContainerDescriptor" />-->
-
-    <!--<utility-->
-        <!--component=".subtypes.swf_check"-->
-        <!--name="flashswf" />-->
-
     <!-- XXX Deprecated -->
-    <!--<utility-->
-        <!--zcml:condition="installed p4a.subtyper"-->
-        <!--factory=".deprecated.Subtyper" />-->
+    <utility
+        zcml:condition="installed p4a.subtyper"
+        factory=".deprecated.Subtyper" />
 
 </configure>
