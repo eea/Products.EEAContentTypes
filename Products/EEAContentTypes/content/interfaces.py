@@ -1,7 +1,6 @@
 """ Interfaces
 """
 from zope.interface import Interface, Attribute
-from p4a.video.interfaces import IVideoEnhanced
 from Products.ATContentTypes.interface.news import IATNewsItem
 from Products.ATContentTypes.interface.folder import IATFolder
 from eea.mediacentre.interfaces import IVideo
@@ -47,7 +46,7 @@ class IGeoPosition(Interface):
         """ Return longitude and latitude. """
 
 
-class IFlashAnimation(IVideoEnhanced):
+class IFlashAnimation(Interface):
     """ Flash animation
     """
     width = Attribute("width of flash file")
