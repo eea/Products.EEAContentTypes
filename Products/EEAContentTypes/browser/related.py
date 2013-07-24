@@ -13,8 +13,7 @@ from eea.translations import _
 from Products.EEAContentTypes.browser.interfaces import (
     IDocumentRelated, IAutoRelated
 )
-from p4a.video.interfaces import IMediaPlayer, IVideo
-from eea.mediacentre.interfaces import IVideo as MIVideo
+from eea.mediacentre.interfaces import IVideo as MIVideo, IMediaPlayer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.component import (
     queryAdapter, getUtility,
@@ -406,7 +405,7 @@ class DocumentRelated(BrowserView):
         self.related_other = []
         self.related_images = []
         for item in self.related:
-            if queryAdapter(item, IVideo):
+            if MIVideo.providedBy(item):
                 self.related_media_with_player.append(item)
             elif item.portal_type == 'Image':
                 self.related_images.append(item)
