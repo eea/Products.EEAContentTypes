@@ -3,6 +3,9 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Feature: WIP: added a plone.app.contentrules action to enable/disable
+  discussions based on rules
+  [tiberich #14858]
 * Bug fix: added adapter registration implementing IFeed for ICollection
   types, fixes /RSS2 view for feeds
   [tiberich #14915]
