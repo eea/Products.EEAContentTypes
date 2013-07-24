@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Feature: got rid of p4a.video dependency
+  [ichimdav #15234]
 * Feature: WIP: added a plone.app.contentrules action to enable/disable
   discussions based on rules
   [tiberich #14858]

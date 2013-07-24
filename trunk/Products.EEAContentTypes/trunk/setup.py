@@ -52,8 +52,6 @@ setup(name=NAME,
           'Products.NavigationManager',
 
           'bda.feed',
-          'p4a.video',
-          'p4a.videoembed',
           'rdflib',
           'collective.monkeypatcher',
           'eea.reports',

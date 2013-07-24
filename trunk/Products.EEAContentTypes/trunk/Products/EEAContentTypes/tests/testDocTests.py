@@ -9,6 +9,8 @@ import doctest
 import unittest, os
 
 #from Products.CMFSquidTool.utils import stopThreads
+from eea.mediacentre.interfaces import IVideo
+from zope.interface import alsoProvides
 
 
 def createObject(parent, portal_type, oid):
@@ -44,9 +46,8 @@ class TestCase(base.EEAContentTypeFunctionalTestCase):
         f = self.portal.video1.getPrimaryField().getAccessor(
             self.portal.video1)()
         f.setContentType('video/x-flv')
-        config = self.portal.video1.restrictedTraverse('@@video-config.html')
-        config.media_activated = True
-
+        alsoProvides(self.portal.video1, IVideo)
+        self.portal.video1.reindexObject()
         user = self.portal.portal_membership.getAuthenticatedMember()
         user.setProperties(email='test@tester.com')
 
