@@ -8,6 +8,7 @@
 
     <include file="patches.zcml" />
 
+    <include package=".contentrules" />
     <include package=".browser" />
     <include package=".content" />
     <include package=".faceted" />
