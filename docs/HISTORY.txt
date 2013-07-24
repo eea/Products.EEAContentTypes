@@ -3,6 +3,9 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Bug fix: added adapter registration implementing IFeed for ICollection
+  types, fixes /RSS2 view for feeds
+  [tiberich #14915]
 * Cleanup: Deprecated p4a.subtyper and remove hard dependency on it (
   is optional now and it will be removed in a later version of this pacakge)
   [voineali refs #15234]

@@ -17,4 +17,8 @@
     <adapter factory=".feeds.TopicFeed"
         provides="Products.basesyndication.interfaces.IFeed" />
 
+    <adapter factory=".feeds.TopicFeed"
+        for="plone.app.collection.interfaces.ICollection"
+        provides="Products.basesyndication.interfaces.IFeed" />
+
 </configure>
