@@ -13,7 +13,6 @@
     <include package="Products.EEAPloneAdmin" />
     <include package="Products.EEAPloneAdmin" file="patches.zcml" />
     <include package="Products.NavigationManager" />
-    <include package="p4a.video" />
     <include package="eea.mediacentre" />
     <include package="eea.rdfrepository" />
     <include package="cornerstone.feed.zope" />
@@ -38,6 +37,5 @@
     <include package="valentine.linguaflow" />
     <include package="Products.UserAndGroupSelectionWidget" />
     <include package="Products.DataGridField" />
-    <include package='p4a.video' />
 
 </configure>
