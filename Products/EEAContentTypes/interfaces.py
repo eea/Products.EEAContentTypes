@@ -68,13 +68,13 @@ class IRelations(Interface):
         the back references should search for
         """
 
-    def byTheme(samePortalType=False, getBrains=False,
-                considerDeprecated=False, constraints=False):
+    def byTheme(samePortalType=False, getBrains=False, constraints=False):
         """ Gets all objects that have the same theme tag is the adapted object.
-            samePortalType argument should be true if the related objects should
-            be of the same portal type as context. getBrains argument should be
-            true if one only wants the brains back instead of the whole objects.
-            This is mainly for performance. """
+           samePortalType argument should be true if the related objects should
+           be of the same portal type as context. getBrains argument should be
+           true if one only wants the brains back instead of the whole objects.
+           This is mainly for performance. 
+        """
 
     def byPublicationGroup(samePortalType=True, getBrains=False):
         """ Get all objects that are the same type and same publication group.
@@ -85,5 +85,5 @@ class IRelations(Interface):
 
 class IRequiredFields(Interface):
     """ Marker interface for Content-Types that should have required metadata
-    like: subject, location, themes
+        like: subject, location, themes
     """
