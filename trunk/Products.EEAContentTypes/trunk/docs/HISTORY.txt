@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.0-dev - (unreleased)
-----------------------
+7.0 - (2013-07-25)
+------------------
 * Feature: removed p4a.video dependency
   [ichimdav #15234]
 * Feature: WIP: added a plone.app.contentrules action to enable/disable
