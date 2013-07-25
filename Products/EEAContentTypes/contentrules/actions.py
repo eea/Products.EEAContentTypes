@@ -5,7 +5,7 @@ from OFS.SimpleItem import SimpleItem
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope import schema
-from zope.component import adapts, getUtility
+from zope.component import adapts #, getUtility
 from zope.formlib import form
 from zope.interface import implements, Interface
 import logging
@@ -31,6 +31,8 @@ class EnableDisableDiscussionAction(SimpleItem):
     action = None #default value
 
     def summary(self):
+        """ Summary
+        """
         if self.action:
             return "Discussions will be %s"  % self.action
         else:
@@ -50,8 +52,8 @@ class EnableDisableDiscussionActionExecutor(object):
         self.event = event
 
     def __call__(self):
-        container = self.context
-        event = self.event
+        #container = self.context
+        #event = self.event
         action = self.action
         obj = self.event.object
 

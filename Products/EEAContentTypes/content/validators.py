@@ -83,7 +83,7 @@ def video_cloud_validator(value, instance = None):
     field = obj_schema['cloudUrl']
     mutator = field.getMutator(instance)
     if value:
-        youtube_id = re.compile('[0-9a-zA-z\-_]{8,}[A-Z]*')
+        youtube_id = re.compile(r'[0-9a-zA-z\-_]{8,}[A-Z]*')
         youtube_url = "http://www.youtube.com/watch?v="
         vimeo_url = "http://vimeo.com/"
 
@@ -112,7 +112,7 @@ def video_cloud_validator(value, instance = None):
             mapping['cloud_url']['youtube'] = vid_id
 
         elif ('vimeo' in value):
-            vimeo = re.compile('[\d]{5,}')
+            vimeo = re.compile(r'[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
             cloud = mapping['cloud_url']

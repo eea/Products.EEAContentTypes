@@ -1,3 +1,5 @@
+""" GisApplication Content type
+"""
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
@@ -28,7 +30,8 @@ schema = Schema((
                     required=True,
                     languageIndependent=True,
                     storage = AnnotationStorage(migrate=True),
-                    swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
+                    swallowResizeExceptions = \
+                                    zconf.swallowImageResizeExceptions.enable,
                     pil_quality = zconf.pil_config.quality,
                     pil_resize_algo = zconf.pil_config.resize_algo,
                     max_size = zconf.ATImage.max_image_dimension,
@@ -63,6 +66,8 @@ GIS_schema['remoteUrl'].widget.description = 'Enter address to a flash/flex '\
 
 
 class GISMapApplication(ATLink):
+    """ GisApplication contenttype
+    """
     security = ClassSecurityInfo()
     schema = GIS_schema
     implements(IGISMapApplication)
