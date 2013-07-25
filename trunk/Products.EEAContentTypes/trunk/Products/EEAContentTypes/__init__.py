@@ -75,6 +75,7 @@ def initialize(context):
 
     # imports packages and types for registration
     from Products.EEAContentTypes import content
+    content.__name__
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(

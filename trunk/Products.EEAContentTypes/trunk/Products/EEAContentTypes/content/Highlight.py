@@ -84,8 +84,8 @@ class Highlight(ExternalHighlight, ATNewsItem):
             REQUEST = self.REQUEST
         if RESPONSE is None:
             RESPONSE = REQUEST.RESPONSE
-        field = self.getField('image')
-        return field.download(self, REQUEST, RESPONSE)
+        img_field = self.getField('image')
+        return img_field.download(self, REQUEST, RESPONSE)
 
 
 registerType(Highlight, PROJECTNAME)

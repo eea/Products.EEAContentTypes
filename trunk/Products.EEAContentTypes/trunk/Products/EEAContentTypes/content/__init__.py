@@ -1,24 +1,25 @@
 """ Content init module """
 
 # Validators
-import Products.EEAContentTypes.content.validators
+from Products.EEAContentTypes.content import validators
 
 # Classes
-import Products.EEAContentTypes.content.Article
-import Products.EEAContentTypes.content.CFTRequestor
-import Products.EEAContentTypes.content.CallForInterest
-import Products.EEAContentTypes.content.CallForTender
-import Products.EEAContentTypes.content.Event
-import Products.EEAContentTypes.content.ExternalHighlight
-import Products.EEAContentTypes.content.FlashFile
-import Products.EEAContentTypes.content.CloudVideo
-import Products.EEAContentTypes.content.GISApplication
-import Products.EEAContentTypes.content.Highlight
-import Products.EEAContentTypes.content.Link
-import Products.EEAContentTypes.content.PressRelease
-import Products.EEAContentTypes.content.Promotion
-import Products.EEAContentTypes.content.Speech
-import Products.EEAContentTypes.content.ThemeTaggable
+from Products.EEAContentTypes.content import Article
+from Products.EEAContentTypes.content import CFTRequestor
+from Products.EEAContentTypes.content import CallForInterest
+from Products.EEAContentTypes.content import CallForTender
+from Products.EEAContentTypes.content import Event
+from Products.EEAContentTypes.content import ExternalHighlight
+from Products.EEAContentTypes.content import FlashFile
+from Products.EEAContentTypes.content import CloudVideo
+from Products.EEAContentTypes.content import GISApplication
+from Products.EEAContentTypes.content import Highlight
+from Products.EEAContentTypes.content import Link
+from Products.EEAContentTypes.content import PressRelease
+from Products.EEAContentTypes.content import Promotion
+from Products.EEAContentTypes.content import Speech
+from Products.EEAContentTypes.content import ThemeTaggable
+
 
 # monkey patch, replaces reference field of certain content types to
 # an orderable reference field
@@ -46,3 +47,22 @@ if 'application/pdf' in inlineMimetypes:
 
 from Products.ATContentTypes.content import image
 image.ATImageSchema['rights'].languageIndependent = True
+
+__all__ = [
+    ThemeTaggable.__name__,
+    Speech.__name__,
+    Article.__name__,
+    CFTRequestor.__name__,
+    CallForInterest.__name__,
+    CallForTender.__name__,
+    Event.__name__,
+    ExternalHighlight.__name__,
+    FlashFile.__name__,
+    CloudVideo.__name__,
+    GISApplication.__name__,
+    Highlight.__name__,
+    Link.__name__,
+    PressRelease.__name__,
+    Promotion.__name__,
+    validators.__name__
+]
