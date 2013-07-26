@@ -27,7 +27,7 @@ class EnableDisableDiscussionAction(SimpleItem):
     """
     implements(IEnableDisableDiscussionAction, IRuleElementData)
 
-    element = 'Products.EEAContentTypes.actions.EnableDisableDiscussion'
+    element = 'Products.EEAContentTypes.actions.enable_disable_discussion'
     action = None #default value
 
     def summary(self):
@@ -54,17 +54,20 @@ class EnableDisableDiscussionActionExecutor(object):
     def __call__(self):
         #container = self.context
         #event = self.event
-        action = self.action
+        action = self.element.action
         obj = self.event.object
 
-        choice = {'enabled':1, 'disabled':0}.get(action.action)
+        choice = {'enabled':1, 'disabled':0}.get(action)
+        if not choice:
+            return False
+
         if choice is not None:
             obj.allowDiscussion(choice)
             logger.info("Discussions for %s set to %s", obj.absolute_url(), 
-                                                   action.action)
+                                                   action)
         else:
-            logger.info("Products.EEAContentTypes.actions.EnableDisableDisc"
-                        "ussion action is not properly configured")
+            logger.info("Products.EEAContentTypes.actions.EnableDisable"
+                        "Discussion action is not properly configured")
 
         return True
 
