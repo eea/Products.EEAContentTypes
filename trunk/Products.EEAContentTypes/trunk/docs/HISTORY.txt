@@ -3,12 +3,15 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Feature: added a plone.app.contentrules action to enable/disable
+  discussions based on rules
+  [tiberich #14858]
 
 7.0 - (2013-07-25)
 ------------------
 * Feature: removed p4a.video dependency
   [ichimdav #15234]
-* Feature: WIP: added a plone.app.contentrules action to enable/disable
+* WIP: added a plone.app.contentrules action to enable/disable
   discussions based on rules
   [tiberich #14858]
 * Bug fix: added adapter registration implementing IFeed for ICollection
