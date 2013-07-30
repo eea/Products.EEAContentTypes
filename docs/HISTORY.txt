@@ -3,6 +3,9 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Bugfix: no longer compute possible relation for every forward or backward
+  relation when retriving the auto relation of non canonical objects
+  [ichimdav refs #14863]
 * Feature: added a plone.app.contentrules action to enable/disable
   discussions based on rules
   [tiberich #14858]
