@@ -402,63 +402,69 @@ class GetCanonicalRelations(object):
             # if field:
             #    accessor = field.getAccessor(self.context)
             #    rel_forwards = accessor()
-
             rel_forwards = canonical.getRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_forwards:
                 # Get translations of forward relations, if
                 # translations don't exist, return canonical
 
+                contentTypes = {}
+                nonForwardRelations = set()
                 for relation in rel_forwards:
                     # Get the relation type name
 
-                    forward = getForwardRelationWith(self.context, relation)
-                    if not forward:
+                    portalType = relation.portal_type
+                    if portalType in nonForwardRelations:
+                        nonForwardRelations.add(portalType)
                         continue
-
-                    name = forward.getField('forward_label').getAccessor(
-                                                             forward)()
-
-                    if name not in tabs:
+                    if portalType not in contentTypes:
+                        forward = getForwardRelationWith(self.context, relation)
+                        name = forward.getField('forward_label').getAccessor(
+                            forward)()
+                        contentTypes[portalType] = name
                         tabs[name] = []
+                    name = contentTypes[portalType]
                     # #14831 check if relations isn't already added since you
                     # could receive a bunch of translations of a single object
                     # which would result in duplication of relations
                     context_relation = relation.getTranslation(lang)
+                    tab = tabs[name]
                     if context_relation:
-                        if context_relation not in tabs[name]:
-                            tabs[name].append(context_relation)
+                        if context_relation not in tab:
+                            tab.append(context_relation)
                     else:
-                        if relation not in tabs[name]:
-                            tabs[name].append(relation)
+                        if relation not in tab:
+                            tab.append(relation)
 
             rel_backwards = canonical.getBRefs(kwargs.get('relation',
                                                           'relatesTo'))
             if rel_backwards:
                 # Get translations of backward relations, if
                 # translations don't exist, return canonical
-
+                contentTypes = {}
+                nonBackwardRelations = set()
                 for relation in rel_backwards:
-                    # Get the relation type name
-                    # if not self.checkPermission(relation):
-                    #    continue
-
-                    backward = getBackwardRelationWith(self.context, relation)
-                    if not backward:
+                    portalType = relation.portal_type
+                    if portalType in nonBackwardRelations:
+                        nonBackwardRelations.add(portalType)
                         continue
-                    name = backward.getField('backward_label').getAccessor(
-                                                               backward)()
-
-                    if name not in tabs:
+                    if portalType not in contentTypes:
+                        backward = getBackwardRelationWith(self.context,
+                                                           relation)
+                        name = backward.getField('backward_label').getAccessor(
+                            backward)()
+                        contentTypes[portalType] = name
                         tabs[name] = []
+                    name = contentTypes[portalType]
 
                     context_relation = relation.getTranslation(lang)
+                    tab = tabs[name]
                     if context_relation:
-                        if context_relation not in tabs[name]:
-                            tabs[name].append(context_relation)
+                        if context_relation not in tab:
+                            tab.append(context_relation)
                     else:
-                        if relation not in tabs[name]:
-                            tabs[name].append(relation)
+                        if relation not in tab:
+                            tab.append(relation)
 
             if tabs:
                 return tabs.items()
