@@ -19,12 +19,6 @@
     <adapter factory=".marshaller.Provenances2Surf" name="provenances" />
     <adapter factory=".marshaller.MediaField2Surf" name="media" />
 
-    <adapter factory=".feeds.FeedPortletInfo" />
-    <adapter factory=".feeds.FeedItemPortletInfo" />
-    <adapter factory=".feeds.NavigationRootRDFPortletDataCollector" />
-    <adapter factory=".feeds.ContextAwareFeedPortletInfo"
-        provides="eea.rdfrepository.interfaces.IRDFPortletInfo" />
-
     <adapter factory=".relations.Relations" />
     <adapter factory=".promotion.Promotion" />
     <adapter factory=".subtypes.GeotagSingleEdit"/>
@@ -57,7 +51,7 @@
     <adapter name="eea.keywordsfield"
         for="Products.Archetypes.interfaces.IExtensibleMetadata"
         factory=".subtypes.KeywordsSchemaModifier" />
-        
+
     <!-- Required fields -->
 
     <!-- Article -->

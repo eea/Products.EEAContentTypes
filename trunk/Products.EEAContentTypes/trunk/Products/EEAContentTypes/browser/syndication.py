@@ -1,6 +1,11 @@
 """ Syndication
 """
+import time
+from email.Utils import formatdate
+from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.browser.syndication.views import FeedView
+
 
 class SKOS(object):
     """ Browser view for generating a SKOS feed from an ATTopic. """
@@ -35,12 +40,35 @@ class SKOS(object):
             prefLabels = []
             for lang, obj_list in languages.items():
                 prefLabel = {'language': lang,
-                             'title': obj_list[0].Title() }
+                             'title': obj_list[0].Title()}
                 prefLabels.append(prefLabel)
 
             concept = {'url': obj.absolute_url(),
                        'prefLabels': prefLabels,
-                       'definition': obj.Description() }
+                       'definition': obj.Description()}
             concepts.append(concept)
 
         return concepts
+
+
+class EEAFeedView(FeedView):
+    def getItemDescription(self, item):
+        img = queryMultiAdapter((item.context, item.context.REQUEST),
+                                name=u'imgview')
+        if img is not None and img.display('mini'):
+            # images, highlights, press releases etc have an 'image'
+            # field - if so then we show a resized version of the image
+            result = '<p><img src="%s" /></p><p>%s</p>' % \
+                     (img('mini').absolute_url(),
+                      item.context.Description())
+        else:
+            result = item.context.Description()
+        return result
+
+    def dateFormatItem(self, item):
+        date = item.published or item.modified
+        date = date.asdatetime()
+        return formatdate(time.mktime(date.timetuple()))
+
+    def getViewName(self):
+        return self.__name__
