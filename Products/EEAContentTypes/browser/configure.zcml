@@ -118,38 +118,14 @@
         permission="zope.Public"
         allowed_interface=".interfaces.ICFTRegistration"
         />
-
-    <!-- RSS related -->
+    <!-- RSS2 alias for portal_syndication in Plone 4.3 -->
     <browser:page
-        for="*"
-        name="rssFeeds"
-        class=".rss.RSSFeeds"
-        permission="zope.Public"
-        attribute="getFeeds"
-        />
-
-    <browser:page
-        for="*"
-        name="rssDblFeeds"
-        class=".rss.RSSFeeds"
-        permission="zope.Public"
-        attribute="getDblFeeds"
-        />
-
-    <browser:page
-        for="*"
-        name="rssMain"
-        class=".rss.RSSShare"
-        permission="zope.Public"
-        attribute="main"
-        />
-
-    <browser:page
-        for="*"
-        name="rdf_portlets"
-        class=".feeds.RDFPortlet"
-        permission="zope2.View"
-        />
+      for="Products.CMFPlone.interfaces.syndication.ISyndicatable"
+      class=".syndication.EEAFeedView"
+      name="RSS2"
+      permission="zope2.View"
+      template="rss.xml.pt"
+      />
 
     <!-- Related flash -->
     <browser:page
@@ -334,15 +310,6 @@
         name="latesthighlightsInEnglish_portlets"
         class=".smartfolder.LatestHighlightsSmartFolderPortlet"
         permission="zope2.Public"
-        />
-
-    <!-- rss syndication -->
-    <browser:page
-        for="*"
-        name="RSS2"
-        class="Products.fatsyndication.browser.feed.GenericFeedView"
-        permission="zope2.View"
-        attribute="rss"
         />
 
     <!-- notifications -->
