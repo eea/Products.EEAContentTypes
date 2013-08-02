@@ -9,6 +9,11 @@ Changelog
 * Feature: added a plone.app.contentrules action to enable/disable
   discussions based on rules
   [tiberich #14858]
+* Feature: Plone 4.3 compatibility
+    - removed 3rd party syndication products (bda.feed, Products.fatsyndication)
+    - removed eea.rdfrepository
+    - added custom RSS2 feed using standard Plone 4.3 syndication framework
+    - [batradav refs #14323]
 
 7.0 - (2013-07-25)
 ------------------
@@ -23,7 +28,7 @@ Changelog
 * Cleanup: Deprecated p4a.subtyper and remove hard dependency on it (
   is optional now and it will be removed in a later version of this pacakge)
   [voineali refs #15234]
-* Bug fix: implemented a field2surf adapter for fields named 'provenances'. 
+* Bug fix: implemented a field2surf adapter for fields named 'provenances'.
   This applies to DavizVisualization's @@rdf view.
   [tiberich #14824]
 * Upgrade Step: in
