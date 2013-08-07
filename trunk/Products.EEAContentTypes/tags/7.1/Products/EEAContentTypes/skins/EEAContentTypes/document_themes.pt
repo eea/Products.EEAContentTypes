@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:define-macro="relatedThemes"
+     id="relatedThemes" class="relatedLinks">
+    <tal:allowed condition="isViewTemplate">
+        <tal:relatedThemes tal:define="related here/@@relatedThemes|nothing">
+            <tal:block tal:condition="python:related">
+               <span  i18n:translate="">Related themes</span>
+               <ul class="visualNoMarker">
+                   <tal:related tal:repeat="item related">
+                      <li><tal:themeTitle tal:content="item"></tal:themeTitle><tal:notLast tal:condition="not: repeat/item/end">,</tal:notLast></li>
+                   </tal:related>
+               </ul>
+            </tal:block>
+        </tal:relatedThemes>
+    </tal:allowed>
+</div>
+
+</body>
+</html>

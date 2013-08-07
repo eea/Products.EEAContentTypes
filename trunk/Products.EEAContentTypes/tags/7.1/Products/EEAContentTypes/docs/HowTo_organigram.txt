@@ -1,0 +1,25 @@
+Info on how to setup organigram for EEA
+=================================================
+Author: Alexandru Ghica <alec.ghica@eaudeweb.ro>
+
+
+1) By default the eeastaff.xml should be available under
+ ../eea-buildout/var
+
+2) On your EEA Plone root a ATFile (ID = 'eeastaff') should be created
+
+3) Under /portal_properties/eeastaff_properties you can set:
+    - organisations to be displayed
+    - the filenames from 1) and 2)
+
+4) A cron job should be set in order to update the eeastaff.xml
+on the file system
+
+5) After updating the eeastaff.xml, the cron job should call
+http://eea.europa.eu/@@updateOrganigram in order to update the
+Plone file (eeastaff)
+
+
+Specific EEA information
+=================================================
+The cron responsable for update is found on Albatross: /etc/cron.daily/syncstaff

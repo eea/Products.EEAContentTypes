@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<rolemap>
+  <roles>
+    <role name="Anonymous"/>
+    <role name="Authenticated"/>
+    <role name="CommonEditor"/>
+    <role name="ContentManager"/>
+    <role name="Editor"/>
+    <role name="Manager"/>
+    <role name="Member"/>
+    <role name="Owner"/>
+    <role name="ProofReader"/>
+    <role name="Reviewer"/>
+    <role name="WebReviewer"/>
+    <role name="packrole"/>
+  </roles>
+  <permissions>
+    <permission name="Kupu: Query libraries" acquire="True">
+      <role name="CommonEditor"/>
+    </permission>
+    <permission name="List folder contents" acquire="True">
+      <role name="CommonEditor"/>
+    </permission>
+    <permission name="Review portal content" acquire="True">
+      <role name="CommonEditor"/>
+    </permission>
+    <permission name="Use mailhost services" acquire="True">
+      <role name="Anonymous"/>
+    </permission>
+    <permission name="Access inactive portal content"
+                acquire="False">
+      <role name="CommonEditor"/>
+      <role name="ContentManager"/>
+      <role name="Editor"/>
+      <role name="EventsManager"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="ProofReader"/>
+      <role name="Reviewer"/>
+      <role name="WebReviewer"/>
+    </permission>
+  </permissions>
+</rolemap>
