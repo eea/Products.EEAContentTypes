@@ -419,8 +419,10 @@ class GetCanonicalRelations(object):
                         continue
                     if portalType not in contentTypes:
                         forward = getForwardRelationWith(self.context, relation)
+                        if not forward:
+                            continue
                         name = forward.getField('forward_label').getAccessor(
-                            forward)()
+                        forward)()
                         contentTypes[portalType] = name
                         tabs[name] = []
                     name = contentTypes[portalType]
@@ -451,6 +453,8 @@ class GetCanonicalRelations(object):
                     if portalType not in contentTypes:
                         backward = getBackwardRelationWith(self.context,
                                                            relation)
+                        if not backward:
+                            continue
                         name = backward.getField('backward_label').getAccessor(
                             backward)()
                         contentTypes[portalType] = name
