@@ -12,7 +12,6 @@
     <include package="Products.EEAPloneAdmin" file="patches.zcml" />
     <include package="Products.NavigationManager" />
     <include package="eea.mediacentre" />
-    <include package="cornerstone.feed.zope" />
     <include package="eea.rdfmarshaller" />
     <include package="eea.facetednavigation" />
     <include package="eea.facetednavigation.subtypes" />
