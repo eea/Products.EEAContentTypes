@@ -3,6 +3,9 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Change: removed upgrade step for cleanup of tags from egg 6.6 for this 
+  upgrade to Plone 4.3
+  [ichimdav refs #14323]
 * Bug fix: fixed forward and backward after changes done in 7.1
   [ichimdav refs #14863]
 * Change: Remove dependency to cornerstone.feed.zope
