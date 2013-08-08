@@ -3,6 +3,8 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Bug fix: fixed forward and backward after changes done in 7.1
+  [ichimdav refs #14863]
 * Change: Remove dependency to cornerstone.feed.zope
   [szabozo0 refs #14323]
 
