@@ -13,7 +13,7 @@
         <metal:field use-macro="python:context.widget('text', mode='view')">
           Body text
         </metal:field>
-      <tal:applicationform 
+      <tal:applicationform
            condition="python:not hasattr(context, 'disabled_form')">
         <h2 i18n:translate="">Application form</h2>
         <p><strong i18n:translate="">Interested candidates must apply by
@@ -23,8 +23,8 @@
             <li>
                 <strong i18n:translate="">The template CV below duly filled in, and</strong>
                 <br />
-                <a title="Template Europass CV" 
-                   class="internal-link" 
+                <a title="Template Europass CV"
+                   class="internal-link"
                    href="/about-us/jobs/europass_cv_template.doc"
                    i18n:attributes="title"
                    i18n:translate="">Template Europass CV</a>
@@ -40,7 +40,7 @@
         </ul>
          <p>
               <strong i18n:translate="">E-mail (Questions only):</strong>
-              <tal:block i18n:translate="">should you have any questions, please use this email:</tal:block> 
+              <tal:block i18n:translate="">should you have any questions, please use this email:</tal:block>
               <script type="text/javascript">
                 document.write(create_contact_info_local('recruitment.enquiries','eea.europa.eu','recruitment.enquiries at eea.europa.eu') + '');
               </script>
