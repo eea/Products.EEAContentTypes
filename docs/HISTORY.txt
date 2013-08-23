@@ -3,6 +3,8 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Bug fix: fixed SKOS view after upgrade to Plone 4.3
+  [ichimdav #16291]
 
 7.2 - (2013-08-09)
 ------------------

@@ -3,7 +3,6 @@
 import time
 from email.Utils import formatdate
 from zope.component import queryMultiAdapter
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.browser.syndication.views import FeedView
 
 
@@ -17,13 +16,10 @@ class SKOS(object):
     def concepts(self):
         """ Concepts
         """
-        synTool = getToolByName(self.context, 'portal_syndication')
-
+        synUtils = self.context.restrictedTraverse('@@syndication-util')
         maxs = self.request.get('size', None)
         if maxs is None:
-            default_max = synTool.getMaxItems()
-            maxs = synTool.getMaxItems(self.context)
-            maxs = type(maxs) == type(1) and maxs or default_max
+            maxs = synUtils.max_items()
         else:
             maxs = int(maxs)
 
