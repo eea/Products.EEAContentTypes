@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.3-dev - (unreleased)
-----------------------
+7.3 - (2013-08-28)
+------------------
 * Feature: Added ManagementPlan field to all SOER 2015 Content-Types
   [voineali refs #14900]
 * Bug fix: fixed SKOS view after upgrade to Plone 4.3
