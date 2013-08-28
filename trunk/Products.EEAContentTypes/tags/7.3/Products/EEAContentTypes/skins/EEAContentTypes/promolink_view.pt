@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+    <tal:main-macro metal:define-macro="content-core">
+
+        <p> 
+            <a href="#" tal:attributes="href here/url">
+               <img src="" tal:attributes="src python:here.absolute_url()+'/image_large';title here/title" />
+            </a>
+ <br /><tal:block i18n:translate="">Visit</tal:block>&nbsp;<a href="#" tal:attributes="href here/url" tal:content="here/title">Title of the webpage</a>
+        </p>
+
+    </tal:main-macro>
+</div>
+
+</body>
+</html>
+
+
