@@ -23,6 +23,7 @@ from plone.app.blob.field import BlobField
 from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
 from zope.interface import implements
+from lxml import html
 import logging
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
@@ -67,6 +68,45 @@ class MaxValuesValidator:
         return 1
 
 validation.register(MaxValuesValidator('maxWords'))
+
+
+class ExistsKeyFactsValidator:
+    """ Check if markup with keyFacts class has been added and if so add a new
+    key fact within a 'key-facts' directory of the given contenttype
+    """
+    implements(IValidator)
+
+    def __init__( self, name, title='', description=''):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, instance, *args, **kwargs):
+        content = html.fromstring(value)
+        facts = content.find_class('keyFact')
+        facts_length = len(facts)
+        if facts_length:
+            if not instance.get('key-facts', None):
+                instance.invokeFactory(type_name="Folder", id="key-facts")
+            folder = instance.get('key-facts')
+            for i, fact in enumerate(facts):
+                fact_text = fact.text_content()
+                keyfact_id = 'keyfact-%d' % i
+                keyfact = folder.get(keyfact_id, None)
+                if not keyfact:
+                    folder.invokeFactory(type_name="SOERKeyFact",
+                                                        id=keyfact_id)
+                    soer_keyfact = folder.get(keyfact_id)
+                    soer_keyfact.processForm(data=1, metadata=1, values={
+                        'description': (
+                            fact_text
+                        ),
+                        }
+                    )
+        return 1
+
+
+validation.register(ExistsKeyFactsValidator('existsKeyFacts'))
 
 
 class ImageBlobField(BlobField, ImageFieldMixin):
