@@ -2,28 +2,29 @@
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-from Products.ATContentTypes.configuration import zconf
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.Archetypes import DisplayList
-from Products.Archetypes.Field import Image as ZODBImage
-from Products.Archetypes.Field import ImageField
-from Products.Archetypes.utils import shasattr
-from Products.CMFCore.permissions import View
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.LinguaPlone import public
-from Products.validation import V_REQUIRED
-from Products.validation.config import validation
-from Products.validation.interfaces.IValidator import IValidator
 from datetime import datetime
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.themecentre.interfaces import IThemeTagging
+from lxml import html
 from plone.app.blob.config import blobScalesAttr
 from plone.app.blob.field import BlobField
 from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
+from Products.Archetypes.Field import Image as ZODBImage
+from Products.Archetypes.Field import ImageField
+from Products.Archetypes import DisplayList
+from Products.Archetypes.utils import shasattr
+from Products.ATContentTypes.configuration import zconf
+from Products.ATContentTypes.content.folder import ATFolder
+from Products.CMFCore.permissions import View
+from Products.CMFPlone.utils import getToolByName
+from eea.themecentre.content.ThemeTaggable import ThemeTaggable
+from Products.LinguaPlone import public
+from Products.validation.config import validation
+from Products.validation import V_REQUIRED
+from Products.validation.interfaces.IValidator import IValidator
 from zope.interface import implements
-from lxml import html
 import logging
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
@@ -86,6 +87,7 @@ class ExistsKeyFactsValidator:
         facts = content.find_class('keyFact')
         facts_length = len(facts)
         if facts_length:
+            wft = getToolByName(instance, 'portal_workflow')
             if not instance.get('key-facts', None):
                 instance.invokeFactory(type_name="Folder", id="key-facts")
             folder = instance.get('key-facts')
@@ -99,10 +101,11 @@ class ExistsKeyFactsValidator:
                     soer_keyfact = folder.get(keyfact_id)
                     soer_keyfact.processForm(data=1, metadata=1, values={
                         'description': (
-                            fact_text
+                            fact_text.encode('utf-8')
                         ),
                         }
                     )
+                    wft.doActionFor(soer_keyfact, 'publish')
         return 1
 
 
