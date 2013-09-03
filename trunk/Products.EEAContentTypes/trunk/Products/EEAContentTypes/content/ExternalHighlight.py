@@ -83,19 +83,29 @@ class ExistsKeyFactsValidator:
         self.description = description
 
     def __call__(self, value, instance, *args, **kwargs):
+
+        # check if current value is same as the current value on the field
+        field = kwargs.get('field')
+        if field:
+            raw_value = field.getRaw(instance)
+            if raw_value == value:
+                return 1
+
+        # find content which has a keyFact class in order to add soer keyfacts
         content = html.fromstring(value)
         facts = content.find_class('keyFact')
         facts_length = len(facts)
+
         if facts_length:
             wft = getToolByName(instance, 'portal_workflow')
             if not instance.get('key-facts', None):
                 instance.invokeFactory(type_name="Folder", id="key-facts")
             folder = instance.get('key-facts')
             for i, fact in enumerate(facts):
-                fact_text = fact.text_content()
                 keyfact_id = 'keyfact-%d' % i
                 keyfact = folder.get(keyfact_id, None)
                 if not keyfact:
+                    fact_text = fact.text_content()
                     folder.invokeFactory(type_name="SOERKeyFact",
                                                         id=keyfact_id)
                     soer_keyfact = folder.get(keyfact_id)
