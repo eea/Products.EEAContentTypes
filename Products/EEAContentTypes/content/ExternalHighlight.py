@@ -85,16 +85,65 @@ class ExistsKeyFactsValidator:
 
     @staticmethod
     def createKeyFact(fact_text, folder, keyfact_id, wft):
+        """
+        :param fact_text: the text value of the html fact object
+        :param folder: folder where SOERKeyFact will be created
+        :param keyfact_id: pattern name of created facts
+        :param wft: portal_workflow tool
+        """
         folder.invokeFactory(type_name="SOERKeyFact",
                              id=keyfact_id)
         soer_keyfact = folder.get(keyfact_id)
         soer_keyfact.processForm(data=1, metadata=1, values={
+            'title': (
+                keyfact_id
+            ),
             'description': (
                 fact_text
             ),
         }
         )
         wft.doActionFor(soer_keyfact, 'publish')
+
+    def createKeyFacts(self, existing_facts, existing_facts_len, fact, folder,
+                       i, wft):
+        """
+        :param existing_facts: existing soer keyfacts created within the
+               key-facts folder
+        :param existing_facts_len: length of existing keyfacts
+        :param fact: html object with class of keyFact which contains the
+                description needed for the soer keyfacts
+        :param folder: the folder used for storing the keyfacts
+        :param i: iterator value
+        :param wft: portal_workflow tool
+        """
+        keyfact_id = 'keyfact-%d' % (i + 1)
+        keyfact = folder.get(keyfact_id, None)
+        fact_text = fact.text_content().encode('utf-8')
+        if not keyfact:
+            self.createKeyFact(fact_text, folder, keyfact_id, wft)
+        else:
+            match = False
+            for child in existing_facts:
+                description = child.getField('description')
+                description_text = description.getRaw(child)
+                match_ratio = difflib.SequenceMatcher(None,
+                                                      description_text,
+                                                      fact_text).ratio()
+                # use standard library difflib module to check for the
+                # ratio match of the two given strings and if they
+                # have a high rate then update the keyfact description
+                if 0.85 < match_ratio < 1.0:
+                    match = True
+                    description.set(child, fact_text)
+                    child.reindexObject(idxs=["Description"])
+                if match_ratio == 1.0:
+                    match = True
+
+            if not match:
+                existing_facts_len += 1
+                keyfact_id = 'keyfact-%d' % existing_facts_len
+                self.createKeyFact(fact_text, folder, keyfact_id, wft)
 
     def __call__(self, value, instance, *args, **kwargs):
 
@@ -123,34 +172,14 @@ class ExistsKeyFactsValidator:
                     existing_facts.append(obj)
                     existing_facts_len += 1
 
-            for i, fact in enumerate(facts):
-                keyfact_id = 'keyfact-%d' % (i + 1)
-                keyfact = folder.get(keyfact_id, None)
-                fact_text = fact.text_content().encode('utf-8')
-                if not keyfact:
-                    self.createKeyFact(fact_text, folder, keyfact_id, wft)
+            for i, nfact in enumerate(facts):
+                if nfact.tag != "li":
+                    for j, fact in enumerate(nfact.getchildren()):
+                        self.createKeyFacts(existing_facts, existing_facts_len,
+                                            fact, folder, j, wft)
                 else:
-                    match = False
-                    for child in existing_facts:
-                        description = child.getField('description')
-                        description_text = description.getRaw(child)
-                        match_ratio = difflib.SequenceMatcher(None,
-                                                              description_text,
-                                                              fact_text).ratio()
-                        # use standard library difflib module to check for the
-                        # ratio match of the two given strings and if they
-                        # have a high rate then update the keyfact description
-                        if 0.85 < match_ratio < 1.0:
-                            match = True
-                            description.set(child, fact_text)
-                            child.reindexObject(idxs=["Description"])
-                        if match_ratio == 1.0:
-                            match = True
-
-                    if not match:
-                        existing_facts_len += 1
-                        keyfact_id = 'keyfact-%d' % existing_facts_len
-                        self.createKeyFact(fact_text, folder, keyfact_id, wft)
+                    self.createKeyFacts(existing_facts, existing_facts_len,
+                                        nfact, folder, i, wft)
 
         return 1
 
