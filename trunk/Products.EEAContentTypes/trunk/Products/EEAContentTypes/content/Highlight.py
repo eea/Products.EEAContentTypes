@@ -6,6 +6,7 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
+from Products.EEAContentTypes.content.ExternalHighlight import ExistsKeyFactsValidator
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
      ExtHighlightSchema
 from Products.EEAContentTypes.content.interfaces import IExternalHighlight
@@ -33,7 +34,10 @@ for fieldname in getNames(ExternalHighlightSchema):
     elif field.schemata != 'metadata':
         field.schemata = 'Front Page'
 
+
 Highlight_schema['text'].required = True
+validators =  Highlight_schema['text'].validators
+validators.appendRequired(ExistsKeyFactsValidator('existsKeyFacts'))
 Highlight_schema.moveField('image', before='imageCaption')
 
 
