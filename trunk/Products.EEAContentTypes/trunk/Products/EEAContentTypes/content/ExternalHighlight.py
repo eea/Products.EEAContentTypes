@@ -82,6 +82,19 @@ class ExistsKeyFactsValidator:
         self.title = title or name
         self.description = description
 
+    @staticmethod
+    def createKeyFact(fact_text, folder, keyfact_id, wft):
+        folder.invokeFactory(type_name="SOERKeyFact",
+                             id=keyfact_id)
+        soer_keyfact = folder.get(keyfact_id)
+        soer_keyfact.processForm(data=1, metadata=1, values={
+            'description': (
+                fact_text
+            ),
+        }
+        )
+        wft.doActionFor(soer_keyfact, 'publish')
+
     def __call__(self, value, instance, *args, **kwargs):
 
         # check if current value is same as the current value on the field
@@ -101,21 +114,32 @@ class ExistsKeyFactsValidator:
             if not instance.get('key-facts', None):
                 instance.invokeFactory(type_name="Folder", id="key-facts")
             folder = instance.get('key-facts')
+            folder_children = folder.objectValues()
+            existing_facts_len = 0
+            existing_facts = []
+            for obj in folder_children:
+                if "keyfact-" in obj.id:
+                    existing_facts.append(obj)
+                    existing_facts_len += 1
+
             for i, fact in enumerate(facts):
                 keyfact_id = 'keyfact-%d' % i
                 keyfact = folder.get(keyfact_id, None)
+                fact_text = fact.text_content().encode('utf-8')
                 if not keyfact:
-                    fact_text = fact.text_content()
-                    folder.invokeFactory(type_name="SOERKeyFact",
-                                                        id=keyfact_id)
-                    soer_keyfact = folder.get(keyfact_id)
-                    soer_keyfact.processForm(data=1, metadata=1, values={
-                        'description': (
-                            fact_text.encode('utf-8')
-                        ),
-                        }
-                    )
-                    wft.doActionFor(soer_keyfact, 'publish')
+                    self.createKeyFact(fact_text, folder, keyfact_id, wft)
+                else:
+                    match = False
+                    for child in existing_facts:
+                        description = child.getField('description').getRaw(
+                            child)
+                        if description == fact_text:
+                            match = True
+                    if not match:
+                        existing_facts_len += 1
+                        keyfact_id = 'keyfact-%d' % existing_facts_len
+                        self.createKeyFact(fact_text, folder, keyfact_id, wft)
+
         return 1
 
 
