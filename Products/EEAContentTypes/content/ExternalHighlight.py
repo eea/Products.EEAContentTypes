@@ -26,6 +26,7 @@ from Products.validation import V_REQUIRED
 from Products.validation.interfaces.IValidator import IValidator
 from zope.interface import implements
 import logging
+import difflib
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
 
@@ -123,7 +124,7 @@ class ExistsKeyFactsValidator:
                     existing_facts_len += 1
 
             for i, fact in enumerate(facts):
-                keyfact_id = 'keyfact-%d' % i
+                keyfact_id = 'keyfact-%d' % (i + 1)
                 keyfact = folder.get(keyfact_id, None)
                 fact_text = fact.text_content().encode('utf-8')
                 if not keyfact:
@@ -131,10 +132,21 @@ class ExistsKeyFactsValidator:
                 else:
                     match = False
                     for child in existing_facts:
-                        description = child.getField('description').getRaw(
-                            child)
-                        if description == fact_text:
+                        description = child.getField('description')
+                        description_text = description.getRaw(child)
+                        match_ratio = difflib.SequenceMatcher(None,
+                                                              description_text,
+                                                              fact_text).ratio()
+                        # use standard library difflib module to check for the
+                        # ratio match of the two given strings and if they
+                        # have a high rate then update the keyfact description
+                        if 0.85 < match_ratio < 1.0:
                             match = True
+                            description.set(child, fact_text)
+                            child.reindexObject(idxs=["Description"])
+                        if match_ratio == 1.0:
+                            match = True
+
                     if not match:
                         existing_facts_len += 1
                         keyfact_id = 'keyfact-%d' % existing_facts_len
