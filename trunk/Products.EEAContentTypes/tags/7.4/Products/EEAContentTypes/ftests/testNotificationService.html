@@ -1,0 +1,230 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>testPloneGazette</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr>
+	<td rowspan="1" colspan="3">
+	<strong>testNotificationService</strong><br />
+	<small>The first 7 steps are just to be sure that no-reply@eea.europa.eu is not subscribed.</small><br />
+	</td>
+</tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/subscription</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscriber_settings</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Unsubscribe</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscription</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Sign up now!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>BAD EMAIL ADDRESS</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>This is not a valid mail address</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscription</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You will receive soon a mail that provides an URL for activating</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscription</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>There is already a subscriber with this address</td>
+	<td></td>
+</tr>
+
+
+<tr>
+	<td>open</td>
+	<td>/login_form</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Please log in</td>
+	<td></td>
+</tr>
+<tr>
+	<td rowspan="1" colspan="3" style="background-color: #f0f0f0">
+	    <strong>Human tester must enter "Login Name", "Password" and (if case) "Verification code".</strong>
+	</td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td>60000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@type='submit' and @value='Log in']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscriber_settings</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Your account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>active</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>form.button.Save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Your newsletter subscription is activated.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/unsubscribe</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You will receive soon an email for confirmation.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/subscriber_settings</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>email</td>
+	<td>no-reply@eea.europa.eu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Unsubscribe</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have been successfully unsubscribed from this newsletter.</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
