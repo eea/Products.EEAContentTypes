@@ -6,11 +6,11 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
-from Products.EEAContentTypes.content.ExternalHighlight import ExistsKeyFactsValidator
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
      ExtHighlightSchema
 from Products.EEAContentTypes.content.interfaces import IExternalHighlight
 from Products.EEAContentTypes.content.quotation import quotation_schema
+from Products.EEAContentTypes.content.validators import ExistsKeyFactsValidator
 from Products.LinguaPlone.public import Schema, registerType
 from eea.themecentre.interfaces import IThemeTagging
 from zope.interface import implements
@@ -36,7 +36,7 @@ for fieldname in getNames(ExternalHighlightSchema):
 
 
 Highlight_schema['text'].required = True
-validators =  Highlight_schema['text'].validators
+validators = Highlight_schema['text'].validators
 validators.appendRequired(ExistsKeyFactsValidator('existsKeyFacts'))
 Highlight_schema.moveField('image', before='imageCaption')
 
