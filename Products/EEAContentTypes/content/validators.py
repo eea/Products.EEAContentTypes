@@ -1,7 +1,10 @@
 """ Validators """
+import difflib
+from Products.CMFCore.utils import getToolByName
 
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
+from lxml import html
 from zope.interface import implements
 import PIL
 from cStringIO import StringIO
@@ -12,7 +15,9 @@ from Products.Archetypes.interfaces import ISchema
 
 from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
+
 KEY = 'eea.mediacentre.multimedia'
+
 
 class ManagementPlanCodeValidator:
     """ Validator
@@ -52,8 +57,8 @@ class ImageMinSize:
     """
     implements(IValidator)
 
-    def __init__( self, name, title='ImageSizeValidator',
-                        description='Image size validator'):
+    def __init__(self, name, title='ImageSizeValidator',
+                 description='Image size validator'):
         self.name = name
         self.title = title or name
         self.description = description
@@ -75,7 +80,8 @@ class ImageMinSize:
 
 validation.register(ImageMinSize('imageMinSize'))
 
-def video_cloud_validator(value, instance = None):
+
+def video_cloud_validator(value, instance=None):
     """ check if cloudUrl has a youtube or vimeo link, saves the id
     in an annotation and save a clean link to the video for the field
     """
@@ -90,7 +96,7 @@ def video_cloud_validator(value, instance = None):
         annotations = IAnnotations(instance)
         mapping = annotations.get(KEY)
         if mapping is None:
-            cloud_url =  { 'cloud_url': PersistentDict() }
+            cloud_url = {'cloud_url': PersistentDict()}
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
         if ('youtu' and 'playlist' in value):
@@ -126,13 +132,14 @@ def video_cloud_validator(value, instance = None):
 
     mutator(value)
 
+
 class VideoCloudUrlValidator:
     """ Image minimum size validator
     """
     implements(IValidator)
 
-    def __init__( self, name, title='VideoCloudUrlValidator',
-                        description='VideoCloudUrl Validator'):
+    def __init__(self, name, title='VideoCloudUrlValidator',
+                 description='VideoCloudUrl Validator'):
         self.name = name
         self.title = title or name
         self.description = description
@@ -145,3 +152,159 @@ class VideoCloudUrlValidator:
             return res
 
 validation.register(VideoCloudUrlValidator('videoCloudUrlValidator'))
+
+
+class ImageCaptionRequiredIfImageValidator:
+    """ Image caption validator
+    """
+    implements(IValidator)
+
+    def __init__(self, name, title='', description=''):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, instance, *args, **kwargs):
+        image = instance.getImage()
+        caption = instance.getImageCaption()
+        if (image or value and value.filename) and not caption:
+            return "Image caption is required for your image."
+        return 1
+
+validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
+
+
+class ExistsKeyFactsValidator:
+    """ Check if markup with keyFacts class has been added and if so add a new
+    key fact within a 'key-facts' directory of the given contenttype
+    """
+    implements(IValidator)
+
+    def __init__(self, name, title='', description=''):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    @staticmethod
+    def createKeyFact(fact_text, folder, keyfact_id, wft):
+        """
+        :param fact_text: the text value of the html fact object
+        :param folder: folder where SOERKeyFact will be created
+        :param keyfact_id: pattern name of created facts
+        :param wft: portal_workflow tool
+        """
+        folder.invokeFactory(type_name="SOERKeyFact",
+                             id=keyfact_id)
+        soer_keyfact = folder.get(keyfact_id)
+        soer_keyfact.processForm(data=1, metadata=1, values={
+            'title': (
+                keyfact_id
+            ),
+            'description': (
+                fact_text
+            ),
+        }
+        )
+        wft.doActionFor(soer_keyfact, 'publish')
+
+    def createKeyFacts(self, existing_facts, existing_facts_len, fact, folder,
+                       i, wft):
+        """
+        :param existing_facts: existing soer keyfacts created within the
+               key-facts folder
+        :param existing_facts_len: length of existing keyfacts
+        :param fact: html object with class of keyFact which contains the
+                description needed for the soer keyfacts
+        :param folder: the folder used for storing the keyfacts
+        :param i: iterator value
+        :param wft: portal_workflow tool
+        """
+        keyfact_id = 'keyfact-%d' % (i + 1)
+        keyfact = folder.get(keyfact_id, None)
+        fact_text = fact.text_content().encode('utf-8')
+        if not keyfact:
+            self.createKeyFact(fact_text, folder, keyfact_id, wft)
+        else:
+            match = False
+            for child in existing_facts:
+                description = child.getField('description')
+                description_text = description.getRaw(child)
+                match_ratio = difflib.SequenceMatcher(None,
+                                                      description_text,
+                                                      fact_text).ratio()
+                # use standard library difflib module to check for the
+                # ratio match of the two given strings and if they
+                # have a high rate then update the keyfact description
+                if 0.85 < match_ratio < 1.0:
+                    match = True
+                    description.set(child, fact_text)
+                    child.reindexObject(idxs=["Description"])
+                if match_ratio == 1.0:
+                    match = True
+
+            if not match:
+                existing_facts_len += 1
+                keyfact_id = 'keyfact-%d' % existing_facts_len
+                self.createKeyFact(fact_text, folder, keyfact_id, wft)
+
+    def __call__(self, value, instance, *args, **kwargs):
+
+        # check if current value is same as the current value on the field
+        field = kwargs.get('field')
+        if field:
+            raw_value = field.getRaw(instance)
+            if raw_value == value:
+                return 1
+
+        # find content which has a keyFact class in order to add soer keyfacts
+        content = html.fromstring(value)
+        facts = content.find_class('keyFact')
+        facts_length = len(facts)
+
+        if facts_length:
+            wft = getToolByName(instance, 'portal_workflow')
+            if not instance.get('key-facts', None):
+                instance.invokeFactory(type_name="Folder", id="key-facts")
+            folder = instance.get('key-facts')
+            folder_children = folder.objectValues()
+            existing_facts_len = 0
+            existing_facts = []
+            for obj in folder_children:
+                if "keyfact-" in obj.id:
+                    existing_facts.append(obj)
+                    existing_facts_len += 1
+
+            for i, nfact in enumerate(facts):
+                if nfact.tag != "li":
+                    for j, fact in enumerate(nfact.getchildren()):
+                        self.createKeyFacts(existing_facts, existing_facts_len,
+                                            fact, folder, j, wft)
+                else:
+                    self.createKeyFacts(existing_facts, existing_facts_len,
+                                        nfact, folder, i, wft)
+
+        return 1
+
+validation.register(ExistsKeyFactsValidator('existsKeyFacts'))
+
+
+class MaxValuesValidator:
+    """ Max values validator
+    """
+    implements(IValidator)
+
+    def __init__(self, name, title='', description=''):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, instance, *args, **kwargs):
+        maxValues = getattr(kwargs['field'].widget, 'maxValues', None)
+        values = value
+        if isinstance(value, str):
+            values = value.split(' ')
+        if maxValues is not None and len(values) > maxValues:
+            return "To many words, please enter max %s words." % maxValues
+        return 1
+
+validation.register(MaxValuesValidator('maxWords'))

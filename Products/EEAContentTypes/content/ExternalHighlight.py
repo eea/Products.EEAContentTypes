@@ -1,190 +1,32 @@
 """ ExternalHighlight """
 
+from datetime import datetime
+import logging
+
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-from datetime import datetime
-from eea.forms.fields.ManagementPlanField import ManagementPlanField
-from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
-from eea.themecentre.interfaces import IThemeTagging
-from lxml import html
 from plone.app.blob.config import blobScalesAttr
 from plone.app.blob.field import BlobField
 from plone.app.blob.interfaces import IBlobImageField
 from plone.app.blob.mixins import ImageFieldMixin
+from Products.ATContentTypes.configuration import zconf
+from Products.ATContentTypes.content.folder import ATFolder
+from Products.CMFCore.permissions import View
+from Products.validation import V_REQUIRED
+from zope.interface import implements
+
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.themecentre.interfaces import IThemeTagging
 from Products.Archetypes.Field import Image as ZODBImage
 from Products.Archetypes.Field import ImageField
 from Products.Archetypes import DisplayList
 from Products.Archetypes.utils import shasattr
-from Products.ATContentTypes.configuration import zconf
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFCore.permissions import View
-from Products.CMFPlone.utils import getToolByName
 from eea.themecentre.content.ThemeTaggable import ThemeTaggable
 from Products.LinguaPlone import public
-from Products.validation.config import validation
-from Products.validation import V_REQUIRED
-from Products.validation.interfaces.IValidator import IValidator
-from zope.interface import implements
-import logging
-import difflib
+
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
-
-
-class ImageCaptionRequiredIfImageValidator:
-    """ Image caption validator
-    """
-    implements(IValidator)
-
-    def __init__( self, name, title='', description=''):
-        self.name = name
-        self.title = title or name
-        self.description = description
-
-    def __call__(self, value, instance, *args, **kwargs):
-        image = instance.getImage()
-        caption = instance.getImageCaption()
-        if (image or value and value.filename) and not caption:
-            return "Image caption is required for your image."
-        return 1
-
-validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
-
-class MaxValuesValidator:
-    """ Max values validator
-    """
-    implements(IValidator)
-
-    def __init__( self, name, title='', description=''):
-        self.name = name
-        self.title = title or name
-        self.description = description
-
-    def __call__(self, value, instance, *args, **kwargs):
-        maxValues = getattr(kwargs['field'].widget, 'maxValues', None)
-        values = value
-        if isinstance(value, str):
-            values = value.split(' ')
-        if maxValues is not None and len(values)>maxValues:
-            return "To many words, please enter max %s words." % maxValues
-        return 1
-
-validation.register(MaxValuesValidator('maxWords'))
-
-
-class ExistsKeyFactsValidator:
-    """ Check if markup with keyFacts class has been added and if so add a new
-    key fact within a 'key-facts' directory of the given contenttype
-    """
-    implements(IValidator)
-
-    def __init__( self, name, title='', description=''):
-        self.name = name
-        self.title = title or name
-        self.description = description
-
-    @staticmethod
-    def createKeyFact(fact_text, folder, keyfact_id, wft):
-        """
-        :param fact_text: the text value of the html fact object
-        :param folder: folder where SOERKeyFact will be created
-        :param keyfact_id: pattern name of created facts
-        :param wft: portal_workflow tool
-        """
-        folder.invokeFactory(type_name="SOERKeyFact",
-                             id=keyfact_id)
-        soer_keyfact = folder.get(keyfact_id)
-        soer_keyfact.processForm(data=1, metadata=1, values={
-            'title': (
-                keyfact_id
-            ),
-            'description': (
-                fact_text
-            ),
-        }
-        )
-        wft.doActionFor(soer_keyfact, 'publish')
-
-    def createKeyFacts(self, existing_facts, existing_facts_len, fact, folder,
-                       i, wft):
-        """
-        :param existing_facts: existing soer keyfacts created within the
-               key-facts folder
-        :param existing_facts_len: length of existing keyfacts
-        :param fact: html object with class of keyFact which contains the
-                description needed for the soer keyfacts
-        :param folder: the folder used for storing the keyfacts
-        :param i: iterator value
-        :param wft: portal_workflow tool
-        """
-        keyfact_id = 'keyfact-%d' % (i + 1)
-        keyfact = folder.get(keyfact_id, None)
-        fact_text = fact.text_content().encode('utf-8')
-        if not keyfact:
-            self.createKeyFact(fact_text, folder, keyfact_id, wft)
-        else:
-            match = False
-            for child in existing_facts:
-                description = child.getField('description')
-                description_text = description.getRaw(child)
-                match_ratio = difflib.SequenceMatcher(None,
-                                                      description_text,
-                                                      fact_text).ratio()
-                # use standard library difflib module to check for the
-                # ratio match of the two given strings and if they
-                # have a high rate then update the keyfact description
-                if 0.85 < match_ratio < 1.0:
-                    match = True
-                    description.set(child, fact_text)
-                    child.reindexObject(idxs=["Description"])
-                if match_ratio == 1.0:
-                    match = True
-
-            if not match:
-                existing_facts_len += 1
-                keyfact_id = 'keyfact-%d' % existing_facts_len
-                self.createKeyFact(fact_text, folder, keyfact_id, wft)
-
-    def __call__(self, value, instance, *args, **kwargs):
-
-        # check if current value is same as the current value on the field
-        field = kwargs.get('field')
-        if field:
-            raw_value = field.getRaw(instance)
-            if raw_value == value:
-                return 1
-
-        # find content which has a keyFact class in order to add soer keyfacts
-        content = html.fromstring(value)
-        facts = content.find_class('keyFact')
-        facts_length = len(facts)
-
-        if facts_length:
-            wft = getToolByName(instance, 'portal_workflow')
-            if not instance.get('key-facts', None):
-                instance.invokeFactory(type_name="Folder", id="key-facts")
-            folder = instance.get('key-facts')
-            folder_children = folder.objectValues()
-            existing_facts_len = 0
-            existing_facts = []
-            for obj in folder_children:
-                if "keyfact-" in obj.id:
-                    existing_facts.append(obj)
-                    existing_facts_len += 1
-
-            for i, nfact in enumerate(facts):
-                if nfact.tag != "li":
-                    for j, fact in enumerate(nfact.getchildren()):
-                        self.createKeyFacts(existing_facts, existing_facts_len,
-                                            fact, folder, j, wft)
-                else:
-                    self.createKeyFacts(existing_facts, existing_facts_len,
-                                        nfact, folder, i, wft)
-
-        return 1
-
-
-validation.register(ExistsKeyFactsValidator('existsKeyFacts'))
 
 
 class ImageBlobField(BlobField, ImageFieldMixin):
@@ -253,38 +95,38 @@ class ImageBlobField(BlobField, ImageFieldMixin):
 schema = public.Schema((
 
     ImageBlobField('image',
-        required = False,
-        storage = public.AnnotationStorage(migrate=True),
-        languageIndependent = True,
-        swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
-        pil_quality = zconf.pil_config.quality,
-        pil_resize_algo = zconf.pil_config.resize_algo,
-        max_size = (1280,1024),
-        sizes= {'xlarge': (633, 356),
-                'wide' : (325, 183 ),
-                'large'   : (768, 768),
-                'preview' : (400, 400),
-                'mini'    : (180,135),
-                'thumb'   : (128, 128),
-                'tile'    :  (64, 64),
-                'icon'    :  (32, 32),
-                'listing' :  (16, 16),
+        required=False,
+        storage=public.AnnotationStorage(migrate=True),
+        languageIndependent=True,
+        swallowResizeExceptions=zconf.swallowImageResizeExceptions.enable,
+        pil_quality=zconf.pil_config.quality,
+        pil_resize_algo=zconf.pil_config.resize_algo,
+        max_size=(1280,1024),
+        sizes={'xlarge': (633, 356),
+               'wide' : (325, 183 ),
+               'large'   : (768, 768),
+               'preview' : (400, 400),
+               'mini'    : (180,135),
+               'thumb'   : (128, 128),
+               'tile'    :  (64, 64),
+               'icon'    :  (32, 32),
+               'listing' :  (16, 16),
                },
-        validators = (
-                    ('isNonEmptyFile', V_REQUIRED),
-                    ('imageMinSize', V_REQUIRED),
-                    ('checkFileMaxSize', V_REQUIRED),
-                    ),
-        widget = public.ImageWidget(
-            description = (
+        validators=(
+            ('isNonEmptyFile', V_REQUIRED),
+            ('imageMinSize', V_REQUIRED),
+            ('checkFileMaxSize', V_REQUIRED),
+        ),
+        widget=public.ImageWidget(
+            description=(
                 "Will be shown in the news listing, and in the news "
                 "item itself. Image will be scaled to a sensible size "
                 "and image width should be of minimum 1024px"),
-            description_msgid = "help_news_image",
-            label= "Image",
-            label_msgid = "label_news_image",
-            i18n_domain = "plone",
-            show_content_type = False)
+            description_msgid="help_news_image",
+            label="Image",
+            label_msgid="label_news_image",
+            i18n_domain="plone",
+            show_content_type=False)
         ),
 
     public.StringField(
@@ -406,7 +248,7 @@ schema = public.Schema((
             i18n_domain='EEAContentTypes',
             visible={'edit': 'invisible', 'view': 'visible'},
         ),
-        languageIndependent = True
+        languageIndependent=True
     ),
 
     public.StringField(
@@ -420,7 +262,7 @@ schema = public.Schema((
         ),
         enforceVocabulary=1,
         vocabulary="getVisibilityLevels",
-        languageIndependent = True
+        languageIndependent=True
     ),
 
     public.DateTimeField(
@@ -433,7 +275,7 @@ schema = public.Schema((
             description=("Date when the content should become available on "
                          "the public site."),
         ),
-        languageIndependent = True
+        languageIndependent=True
     ),
 
     public.DateTimeField(
@@ -447,7 +289,7 @@ schema = public.Schema((
             description_msgid='EEAContentTypes_help_expiryDate',
             i18n_domain='EEAContentTypes',
         ),
-        languageIndependent = True
+        languageIndependent=True
     ),
 
     ManagementPlanField(
@@ -478,12 +320,13 @@ ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
     ).copy() + getattr(ThemeTaggable, 'schema', public.Schema(())
     ).copy() + schema.copy()
 
+
 class ExternalHighlight(ATFolder, ThemeTaggable):
     """ External highlight
     """
     security = ClassSecurityInfo()
     __implements__ = (getattr(ATFolder, '__implements__', ()),) + (
-        getattr(ThemeTaggable, '__implements__' ,()),
+        getattr(ThemeTaggable, '__implements__', ()),
     )
 
     allowed_content_types = ['FlashFile', 'ATImage', 'Image', 'File'] + list(
@@ -499,11 +342,11 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
     def getVisibilityLevels(self):
         """ Visibility levels
         """
-        levels = ( ('top', 'High visibility'),
-                   ('middle','Medium visibility'),
-                   ('bottom','Low visibility') )
+        levels = (('top', 'High visibility'),
+                  ('middle', 'Medium visibility'),
+                  ('bottom', 'Low visibility'))
 
-        return DisplayList( levels )
+        return DisplayList(levels)
 
     security.declarePublic('getPublishDate')
     def getPublishDate(self):
@@ -590,4 +433,3 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
         value = [val for val in value if val is not None]
         tagging = IThemeTagging(self)
         tagging.tags = value
-
