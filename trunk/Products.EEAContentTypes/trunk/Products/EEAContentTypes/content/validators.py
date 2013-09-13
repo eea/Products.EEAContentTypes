@@ -189,12 +189,13 @@ class ExistsKeyFactsValidator:
         self.description = description
 
     @staticmethod
-    def createKeyFact(fact_text, folder, keyfact_id, wft):
+    def createKeyFact(fact_text, folder, keyfact_id, wft, existing_facts):
         """
         :param fact_text: the text value of the html fact object
         :param folder: folder where SOERKeyFact will be created
         :param keyfact_id: pattern name of created facts
         :param wft: portal_workflow tool
+        :param existing_facts: the currently existing_facts
         """
         folder.invokeFactory(type_name="SOERKeyFact",
                              id=keyfact_id)
@@ -209,6 +210,7 @@ class ExistsKeyFactsValidator:
         }
         )
         wft.doActionFor(soer_keyfact, 'publish')
+        existing_facts.append(soer_keyfact)
 
     def createKeyFacts(self, existing_facts, existing_facts_len, fact, folder,
                        i, wft):
@@ -227,7 +229,8 @@ class ExistsKeyFactsValidator:
         fact_text = fact.text_content().encode('utf-8')
         new_facts = False
         if not keyfact:
-            self.createKeyFact(fact_text, folder, keyfact_id, wft)
+            self.createKeyFact(fact_text, folder, keyfact_id, wft,
+                               existing_facts)
             new_facts = True
         else:
             match = False
@@ -253,7 +256,8 @@ class ExistsKeyFactsValidator:
                 existing_facts_len += 1
                 keyfact_id = 'keyfact-%d' % existing_facts_len
                 new_facts = True
-                self.createKeyFact(fact_text, folder, keyfact_id, wft)
+                self.createKeyFact(fact_text, folder, keyfact_id, wft,
+                                   existing_facts)
         return new_facts
 
     def __call__(self, value, instance, *args, **kwargs):
@@ -311,7 +315,7 @@ class ExistsKeyFactsValidator:
                         new_facts_len += 1
             if new_facts:
                 status = IStatusMessage(instance.REQUEST)
-                msg = u"%d Newly Soer keyFacts have been created in the " \
+                msg = u"%d Newly Soer KeyFacts have been created in the " \
                       u"'key-facts' folder of this content type" % new_facts_len
                 status.add(_(msg))
         return 1
