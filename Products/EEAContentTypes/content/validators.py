@@ -212,12 +212,15 @@ class ExistsKeyFactsValidator:
         wft.doActionFor(soer_keyfact, 'publish')
         existing_facts.append(soer_keyfact)
 
-    def createKeyFacts(self, existing_facts, existing_facts_len, fact, folder,
+    def createKeyFacts(self, existing_facts, existing_facts_len,
+                       existing_facts_updated, fact, folder,
                        i, wft):
         """
         :param existing_facts: existing soer keyfacts created within the
                key-facts folder
         :param existing_facts_len: length of existing keyfacts
+        :param existing_facts_updated: length of existing keyfacts that have
+                been updated
         :param fact: html object with class of keyFact which contains the
                 description needed for the soer keyfacts
         :param folder: the folder used for storing the keyfacts
@@ -247,6 +250,7 @@ class ExistsKeyFactsValidator:
                     match = True
                     description.set(child, fact_text)
                     child.reindexObject(idxs=["Description"])
+                    existing_facts_updated += 1
                     break
                 if match_ratio == 1.0:
                     match = True
@@ -258,7 +262,7 @@ class ExistsKeyFactsValidator:
                 new_facts = True
                 self.createKeyFact(fact_text, folder, keyfact_id, wft,
                                    existing_facts)
-        return new_facts
+        return new_facts, existing_facts_updated
 
     def __call__(self, value, instance, *args, **kwargs):
 
@@ -277,13 +281,13 @@ class ExistsKeyFactsValidator:
         new_facts_len = 0
 
         if facts_length:
-            new_facts = False
             wft = getToolByName(instance, 'portal_workflow')
             if not instance.get('key-facts', None):
                 instance.invokeFactory(type_name="Folder", id="key-facts")
             folder = instance.get('key-facts')
             folder_children = folder.objectValues()
             existing_facts_len = 0
+            existing_facts_updated = 0
             existing_facts = []
             # count number of existing keyfacts
             for obj in folder_children:
@@ -296,27 +300,37 @@ class ExistsKeyFactsValidator:
                 if nfact.tag != "li":
                     children = nfact.getchildren()
                     for j, fact in enumerate(children):
-                        new_facts = self.createKeyFacts(existing_facts,
-                                                        existing_facts_len,
-                                                        fact, folder, j, wft)
+                        new_facts, existing_facts_updated = self.createKeyFacts(
+                            existing_facts,
+                            existing_facts_len,
+                            existing_facts_updated,
+                            fact, folder, j, wft)
                         if new_facts:
                             existing_facts_len += 1
                             new_facts_len += 1
                 else:
                     # check situation where
                     if nfact not in children:
-                        new_facts = self.createKeyFacts(existing_facts,
-                                                        existing_facts_len,
-                                                        nfact, folder, i, wft)
+                        new_facts, existing_facts_updated = self.createKeyFacts(
+                            existing_facts,
+                            existing_facts_len,
+                            existing_facts_updated,
+                            nfact, folder, i, wft)
                     else:
                         new_facts = False
                     if new_facts:
                         existing_facts_len += 1
                         new_facts_len += 1
-            if new_facts:
-                status = IStatusMessage(instance.REQUEST)
+
+            status = IStatusMessage(instance.REQUEST)
+            if new_facts_len:
                 msg = u"%d Newly Soer KeyFacts have been created in the " \
                       u"'key-facts' folder of this content type" % new_facts_len
+                status.add(_(msg))
+            if existing_facts_updated:
+                msg = u"%d Soer KeyFacts have been updated in the " \
+                      u"'key-facts' folder of this content type" % \
+                      existing_facts_updated
                 status.add(_(msg))
         return 1
 
