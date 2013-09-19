@@ -9,6 +9,18 @@
       />
     -->
   <genericsetup:upgradeSteps
+    source="7.4"
+    destination="7.5"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeStep
+      title="Add IVersionEnhanced to Plone Gazette"
+      handler=".evolve75.evolve"
+      />
+
+
+  </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
     source="6.6"
     destination="6.8"
     profile="Products.EEAContentTypes:default">
