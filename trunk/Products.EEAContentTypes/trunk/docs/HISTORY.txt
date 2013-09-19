@@ -3,6 +3,9 @@ Changelog
 
 7.5-dev - (unreleased)
 ----------------------
+* Feature: Assigned versionId to PloneGazette Newsletter and NewsletterTheme through
+  upgrade step.
+  [tiberich #16776]
 
 7.4 - (2013-09-06)
 ------------------
