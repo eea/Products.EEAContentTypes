@@ -6,6 +6,8 @@ Changelog
 * Feature: Assigned versionId to PloneGazette Newsletter and NewsletterTheme through
   upgrade step.
   [tiberich #16776]
+* Bug: Removed Arabic from language list in top menu.
+  [prospchr fixes #16755]
 
 7.4 - (2013-09-06)
 ------------------
