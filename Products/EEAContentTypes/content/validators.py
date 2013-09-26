@@ -1,5 +1,6 @@
 """ Validators """
 import difflib
+from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.EEAContentTypes.config import EEAMessageFactory as _
@@ -189,32 +190,30 @@ class ExistsKeyFactsValidator:
         self.description = description
 
     @staticmethod
-    def createKeyFact(fact_text, folder, keyfact_id, wft, existing_facts):
+    def createKeyFact(fact_text, folder, keyfact_id, existing_facts):
         """
         :param fact_text: the text value of the html fact object
         :param folder: folder where SOERKeyFact will be created
         :param keyfact_id: pattern name of created facts
-        :param wft: portal_workflow tool
         :param existing_facts: the currently existing_facts
         """
         folder.invokeFactory(type_name="SOERKeyFact",
                              id=keyfact_id)
         soer_keyfact = folder.get(keyfact_id)
+        themes = folder.getField('themes').getRaw(folder)
+        tags = folder.Subject()
         soer_keyfact.processForm(data=1, metadata=1, values={
-            'title': (
-                keyfact_id
-            ),
-            'description': (
-                fact_text
-            ),
+            'title': keyfact_id,
+            'description': fact_text,
+            'subject': tags,
+            'themes': themes
         }
         )
-        wft.doActionFor(soer_keyfact, 'publish')
         existing_facts.append(soer_keyfact)
 
     def createKeyFacts(self, existing_facts, existing_facts_len,
                        existing_facts_updated, fact, folder,
-                       i, wft):
+                       i):
         """
         :param existing_facts: existing soer keyfacts created within the
                key-facts folder
@@ -225,21 +224,20 @@ class ExistsKeyFactsValidator:
                 description needed for the soer keyfacts
         :param folder: the folder used for storing the keyfacts
         :param i: iterator value
-        :param wft: portal_workflow tool
         """
         keyfact_id = 'keyfact-%d' % (i + 1)
         keyfact = folder.get(keyfact_id, None)
-        fact_text = fact.text_content().encode('utf-8')
+        fact_text = unicode(fact.text_content())
         new_facts = False
         if not keyfact:
-            self.createKeyFact(fact_text, folder, keyfact_id, wft,
+            self.createKeyFact(fact_text, folder, keyfact_id,
                                existing_facts)
             new_facts = True
         else:
             match = False
             for child in existing_facts:
                 description = child.getField('description')
-                description_text = description.getRaw(child)
+                description_text = description.getRaw(child).decode('utf-8')
                 match_ratio = difflib.SequenceMatcher(None,
                                                       description_text,
                                                       fact_text).ratio()
@@ -260,7 +258,7 @@ class ExistsKeyFactsValidator:
                 existing_facts_len += 1
                 keyfact_id = 'keyfact-%d' % existing_facts_len
                 new_facts = True
-                self.createKeyFact(fact_text, folder, keyfact_id, wft,
+                self.createKeyFact(fact_text, folder, keyfact_id,
                                    existing_facts)
         return new_facts, existing_facts_updated
 
@@ -274,18 +272,40 @@ class ExistsKeyFactsValidator:
                 return 1
 
         # find content which has a keyFact class in order to add soer keyfacts
-        content = html.fromstring(value)
+        content = html.fromstring(value.decode('utf-8'))
         facts = content.find_class('keyFact')
         facts_length = len(facts)
 
         new_facts_len = 0
 
         if facts_length:
-            wft = getToolByName(instance, 'portal_workflow')
+            wftool = getToolByName(instance, 'portal_workflow')
             if not instance.get('key-facts', None):
                 instance.invokeFactory(type_name="Folder", id="key-facts")
             folder = instance.get('key-facts')
-            folder_children = folder.objectValues()
+            instance_review_state = wftool.getInfoFor(instance, 'review_state')
+            folder_review_state = wftool.getInfoFor(folder, 'review_state')
+            if instance_review_state != folder_review_state and \
+                    folder_review_state != 'published':
+                try:
+                    workflow = wftool.getWorkflowsFor(folder)[0]
+                    transitions = workflow.transitions
+                    available_transitions = [transitions[i['id']] for i in
+                                             wftool.getTransitionsFor(folder)]
+                    matching_transitions = [k for k in available_transitions
+                                            if k.new_state_id ==
+                                            instance_review_state]
+                    # attempt to give the same review_state for the folder as
+                    # it's parent's review_state
+                    for item in matching_transitions:
+                        wftool.doActionFor(folder, item.id)
+                        break
+                except WorkflowException:
+                    pass
+
+            folder_children = folder.getFolderContents({"portal_type":
+                                                        "SOERKeyFact"})
+            folder_children = [brain.getObject() for brain in folder_children]
             existing_facts_len = 0
             existing_facts_updated = 0
             existing_facts = []
@@ -297,14 +317,14 @@ class ExistsKeyFactsValidator:
 
             children = []
             for i, nfact in enumerate(facts):
-                if nfact.tag != "li":
+                if nfact.tag == "ul":
                     children = nfact.getchildren()
                     for j, fact in enumerate(children):
                         new_facts, existing_facts_updated = self.createKeyFacts(
                             existing_facts,
                             existing_facts_len,
                             existing_facts_updated,
-                            fact, folder, j, wft)
+                            fact, folder, j)
                         if new_facts:
                             existing_facts_len += 1
                             new_facts_len += 1
@@ -315,7 +335,7 @@ class ExistsKeyFactsValidator:
                             existing_facts,
                             existing_facts_len,
                             existing_facts_updated,
-                            nfact, folder, i, wft)
+                            nfact, folder, i)
                     else:
                         new_facts = False
                     if new_facts:
@@ -324,11 +344,11 @@ class ExistsKeyFactsValidator:
 
             status = IStatusMessage(instance.REQUEST)
             if new_facts_len:
-                msg = u"%d Newly Soer KeyFacts have been created in the " \
-                      u"'key-facts' folder of this content type" % new_facts_len
+                msg = u"Key facts have been extracted and stored from this " \
+                    u"page. You may 'manage key facts' through the contents tab"
                 status.add(_(msg))
             if existing_facts_updated:
-                msg = u"%d Soer KeyFacts have been updated in the " \
+                msg = u"%d SOER KeyFacts have been updated in the " \
                       u"'key-facts' folder of this content type" % \
                       existing_facts_updated
                 status.add(_(msg))

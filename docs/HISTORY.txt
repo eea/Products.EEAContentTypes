@@ -3,6 +3,22 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+ * Manual Upgrade step: 
+   - Run before using the upgrade from prefs_install_products_form
+   - Go to www/portal_workflow/manage_selectWorkflows >
+     - Remove the workflow for SOERKeyFact
+     - Hit Change button
+  [ichimdav #9476]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types 
+  [ichimdav #9476]
+* Feature: added upgrade steps to remove workflow from SOERKeyFact and publish
+  it's parent folder
+  [ichimdav #9476]
+* Added validator that can construct SOERKeyFact objects if text has keyFact
+  class, enabled for Highlight Content Type
+  [ichimdav #9476]
+
 
 7.5 - (2013-09-23)
 ------------------

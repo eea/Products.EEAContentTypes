@@ -412,7 +412,8 @@ class GetCanonicalRelations(object):
                 nonForwardRelations = set()
                 for relation in rel_forwards:
                     # Get the relation type name
-
+                    if not relation:
+                        continue
                     portalType = relation.portal_type
                     if portalType in nonForwardRelations:
                         nonForwardRelations.add(portalType)
@@ -446,6 +447,8 @@ class GetCanonicalRelations(object):
                 contentTypes = {}
                 nonBackwardRelations = set()
                 for relation in rel_backwards:
+                    if not relation:
+                        continue
                     portalType = relation.portal_type
                     if portalType in nonBackwardRelations:
                         nonBackwardRelations.add(portalType)
