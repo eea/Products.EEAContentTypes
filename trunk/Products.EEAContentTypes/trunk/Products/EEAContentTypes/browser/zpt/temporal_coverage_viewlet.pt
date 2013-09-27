@@ -1,0 +1,12 @@
+<!-- Temporal coverage -->
+<tal:block metal:define-macro="temp-coverage"
+        define="field python:context.getField('temporalCoverage');
+                       value python:field.getAccessor(context)()"
+        condition="value">
+    <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
+    <dt>
+        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+        <span i18n:translate="">Temporal coverage:</span>
+    </dt>
+    <dd tal:content="context/@@formatTempCoverage" id="tempCoverage" />
+</tal:block>

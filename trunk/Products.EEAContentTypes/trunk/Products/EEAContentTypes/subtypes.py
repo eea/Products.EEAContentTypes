@@ -1,10 +1,12 @@
 """ Subtypes
 """
+from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
 from Products.LinguaPlone.public import InAndOutWidget
 from Products.LinguaPlone.public import StringField
+from Products.LinguaPlone.public import LinesField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
@@ -37,6 +39,10 @@ class ExtensionRelationsField(ExtensionField, EEAReferenceField):
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
+
+
+class ExtensionLinesField(ExtensionField, LinesField):
+    """ derivative of linesfield for extending schemas """
 
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
@@ -205,6 +211,48 @@ class ThemesSchemaExtender(object):
         """
         if getattr(self.context, 'portal_type', None) in ('QuickEvent',):
             # No schema extender for QuickEvent
+            return []
+        return self.fields
+
+
+class TemporalCoverageSchemaExtender(object):
+    """ Extends schema with themes field
+    """
+    implements(ISchemaExtender)
+
+    fields = (
+        ExtensionLinesField(
+            name='temporalCoverage',
+            languageIndependent=True,
+            required=True,
+            multiValued=1,
+            vocabulary_factory=u"Temporal coverage",
+            widget=MultiSelectionWidget(
+                macro="temporal_widget",
+                helper_js=("temporal_widget.js",),
+                size=15,
+                label="Temporal coverage",
+                description=("The temporal scope of the content of the data "
+                             "resource. Temporal coverage will typically "
+                             "include a set of years or time ranges."),
+                label_msgid='dataservice_label_coverage',
+                description_msgid='dataservice_help_coverage',
+                i18n_domain='eea',
+            )
+        ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Fields
+        """
+        if getattr(self.context, 'portal_type', None) in ('EEAFigure', 'Data',
+                                                          'Assessment',
+                                                          'IndicatorFactSheet'):
+            # No schema extender for these content types as they already have
+            # the temporalCoverage field though normal schema
             return []
         return self.fields
 

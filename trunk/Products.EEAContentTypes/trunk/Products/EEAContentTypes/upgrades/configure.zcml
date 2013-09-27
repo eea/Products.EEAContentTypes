@@ -11,6 +11,7 @@
                 title="Reindex SOERKeyFact objects after removal of workflow"
                 handler=".evolve76.evolve"
                 />
+
     </genericsetup:upgradeSteps>
    <!-- Disabled upgrade step of updating tags for the upgrade to Plone 4.3
     <genericsetup:upgradeStep
