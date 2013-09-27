@@ -3,6 +3,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="Products.EEAContentTypes">
 
+    <!-- Viewlets -->
     <browser:viewlet
         name="eea.related_pages"
         for="*"
@@ -20,7 +21,17 @@
         template="related_bytheme.pt"
         permission="zope.Public"
         />
+    <browser:viewlet
+            name="eea.temporal_coverage"
+            for="*"
+            manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+            layer="eea.design.browser.interfaces.IEEACommonLayer"
+            template="zpt/temporal_coverage_viewlet.pt"
+            permission="zope.Public"
+            />
 
+
+    <!-- Browser Pages -->
     <browser:page
         for="*"
         name="reorder_css"

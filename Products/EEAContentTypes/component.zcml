@@ -38,6 +38,11 @@
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.ThemesSchemaExtender"/>
 
+
+    <adapter name="eea.temporalcoveragefield"
+             for="Products.Archetypes.interfaces.IBaseContent"
+             factory=".subtypes.TemporalCoverageSchemaExtender"/>
+
     <!-- #14719 added ManagementPlanField for the following -->
     <adapter name="eea.managementplanfield4InteractiveData"
              for="Products.EEAContentTypes.content.interfaces.IInteractiveData"
