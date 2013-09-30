@@ -1,7 +1,8 @@
 <!-- Temporal coverage -->
 <tal:block metal:define-macro="temp-coverage"
         define="field python:context.getField('temporalCoverage');
-                       value python:field.getAccessor(context)()"
+                       accessor python:field.getAccessor(context) if field else None;
+                       value python: accessor() if accessor else None"
         condition="value">
     <span id="temporal_dynamic" i18n:translate="" class="temporal-coverage">Dynamic</span>
     <dt class="temporal-coverage">

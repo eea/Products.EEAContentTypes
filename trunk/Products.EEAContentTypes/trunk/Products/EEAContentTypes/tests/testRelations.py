@@ -3,7 +3,7 @@
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from Products.EEAContentTypes.interfaces import IRelations
 from eea.themecentre.interfaces import IThemeTagging
-from zope.app.component.hooks import setSite
+from zope.component.hooks import setSite
 
 class TestRelations(EEAContentTypeTestCase):
     """ Test-cases for class(es) relations. """

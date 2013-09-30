@@ -2,7 +2,7 @@
 """
 from zope.component import queryAdapter
 from eea.themecentre.interfaces import IThemeTagging
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from eea.facetednavigation.widgets.widget import Widget as AbstractWidget
 
 class Widget(AbstractWidget):
