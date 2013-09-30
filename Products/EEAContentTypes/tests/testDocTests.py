@@ -4,7 +4,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.tests import base
-from zope.app.component.hooks import setSite
+from zope.component.hooks import setSite
 import doctest
 import unittest, os
 

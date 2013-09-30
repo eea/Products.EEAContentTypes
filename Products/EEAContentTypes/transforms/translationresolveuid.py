@@ -2,7 +2,7 @@
 """
 from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import ITransform
-from Products.kupu.plone.config import UID_PATTERN
+from eea.soer.transform import UID_PATTERN
 from zope.interface import implements
 
 
