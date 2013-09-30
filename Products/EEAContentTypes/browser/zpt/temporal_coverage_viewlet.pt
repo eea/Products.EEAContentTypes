@@ -3,10 +3,10 @@
         define="field python:context.getField('temporalCoverage');
                        value python:field.getAccessor(context)()"
         condition="value">
-    <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
-    <dt>
+    <span id="temporal_dynamic" i18n:translate="" class="temporal-coverage">Dynamic</span>
+    <dt class="temporal-coverage">
         <metal:basic use-macro="here/dataset_view/macros/tooltip" />
         <span i18n:translate="">Temporal coverage:</span>
     </dt>
-    <dd tal:content="context/@@formatTempCoverage" id="tempCoverage" />
+    <dd class="temporal-coverage" tal:content="context/@@formatTempCoverage" id="tempCoverage" />
 </tal:block>
