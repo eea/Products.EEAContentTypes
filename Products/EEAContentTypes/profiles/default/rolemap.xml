@@ -15,9 +15,6 @@
     <role name="packrole"/>
   </roles>
   <permissions>
-    <permission name="Kupu: Query libraries" acquire="True">
-      <role name="CommonEditor"/>
-    </permission>
     <permission name="List folder contents" acquire="True">
       <role name="CommonEditor"/>
     </permission>

@@ -12,7 +12,6 @@ from re import match
 
 
 PRODUCTS = [
-        'kupu',
         'ATVocabularyManager',
         'EEAContentTypes',
         ##'valentine.linguaflow', 'eea.depiction', 'LinguaPlone',

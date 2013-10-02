@@ -27,7 +27,6 @@
     <depends name="typeinfo"/>
     <depends name="rolemap"/>
     <depends name="eeacontenttypes_geocoding"/>
-    <depends name="kupu-setup"/>
     <depends name="workflow"/>
   </genericsetup:importStep>
 
