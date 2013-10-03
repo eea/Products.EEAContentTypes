@@ -3,6 +3,8 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+* Change: removed requirement for hachoir_core from Products.EEAContentTypes
+  [ichimdav refs #15651]
 * Change: removed traces of Products.kupu from Products.EEAContentTypes
   [ichimdav refs #15651]
 * Change: updated zope imports with the versions that require minimum Plone 4.1

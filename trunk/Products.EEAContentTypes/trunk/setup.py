@@ -61,7 +61,6 @@ setup(name=NAME,
           'eea.geotags',
           'eea.indicators',
           'eea.soer',
-          'hachoir-core',   #only for the patch
           'valentine.linguaflow',
 
           #obsolete
