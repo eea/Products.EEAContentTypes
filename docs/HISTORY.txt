@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.6-dev - (unreleased)
-----------------------
+7.6 - (2013-10-04)
+------------------
 * Change: removed requirement for hachoir_core from Products.EEAContentTypes
   [ichimdav refs #15651]
 * Change: removed traces of Products.kupu from Products.EEAContentTypes
@@ -25,7 +25,6 @@ Changelog
 * Added validator that can construct SOERKeyFact objects if text has keyFact
   class, enabled for Highlight Content Type
   [ichimdav #9476]
-
 
 7.5 - (2013-09-23)
 ------------------
