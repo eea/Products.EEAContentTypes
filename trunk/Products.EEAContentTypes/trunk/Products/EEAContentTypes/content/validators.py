@@ -265,6 +265,7 @@ class ExistsKeyFactsValidator:
     def __call__(self, value, instance, *args, **kwargs):
 
         # check if current value is same as the current value on the field
+        import pdb; pdb.set_trace()
         field = kwargs.get('field')
         if field:
             raw_value = field.getRaw(instance)
@@ -303,9 +304,7 @@ class ExistsKeyFactsValidator:
                 except WorkflowException:
                     pass
 
-            folder_children = folder.getFolderContents({"portal_type":
-                                                        "SOERKeyFact"})
-            folder_children = [brain.getObject() for brain in folder_children]
+            folder_children = folder.objectValues()
             existing_facts_len = 0
             existing_facts_updated = 0
             existing_facts = []
