@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+    <metal:body define-macro="body"
+                tal:define="cftView here/@@cftregistration">
+       <tal:canceled condition="cftView/hasCanceled">
+          <a href="" title="Request call for tender information"
+             i18n:attributes="title"
+             i18n:translate=""
+             tal:attributes="href here/absolute_url">Request call for tender information</a>
+       </tal:canceled>
+
+       <tal:notcanceled condition="not: cftView/hasCanceled">
+           <tal:registered condition="cftView/canView"
+                           define="text python:here.CookedBody(stx_level=2);
+                                   len_text python:len(text.strip());">
+               <div class="awardNotice roundedBox mediumBGC"
+                    tal:define="award cftView/getAwardNotice"
+                    tal:condition="award">
+                    <a href="" title=""
+                       tal:attributes="href award/url;
+                                       title award/title"
+                       i18n:translate="">Award notice</a>
+               </div>
+
+               <div class="stx"
+                    tal:condition="len_text"
+                    tal:omit-tag="python:here.text_format != 'structured-text'">
+                   <div tal:replace="structure text" />
+                </div>
+           </tal:registered>
+       </tal:notcanceled>
+    </metal:body>
+</div>
+
+</body>
+</html>
+
