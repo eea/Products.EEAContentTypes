@@ -3,6 +3,11 @@ Changelog
 
 7.7-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types
+  [voineali refs #17008]
+* Feature: Add crop image action for SOER 2015 ctype Fiche
+  [voineali refs #17008]
 
 7.6 - (2013-10-04)
 ------------------
@@ -11,16 +16,16 @@ Changelog
 * Change: removed traces of Products.kupu from Products.EEAContentTypes
   [ichimdav refs #15651]
 * Change: updated zope imports with the versions that require minimum Plone 4.1
-  for Products.EEAContentTypes 
+  for Products.EEAContentTypes
   [ichimdav refs #15651]
- * Manual Upgrade step: 
+ * Manual Upgrade step:
    - Run before using the upgrade from prefs_install_products_form
    - Go to www/portal_workflow/manage_selectWorkflows >
      - Remove the workflow for SOERKeyFact
      - Hit Change button
   [ichimdav #9476]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
-  upgrade button available for EEA Content Types 
+  upgrade button available for EEA Content Types
   [ichimdav #9476]
 * Feature: added upgrade steps to remove workflow from SOERKeyFact and publish
   it's parent folder
