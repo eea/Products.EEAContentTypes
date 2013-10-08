@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.7-dev - (unreleased)
-----------------------
+7.7 - (2013-10-08)
+------------------
 * Bug fix: no longer crash when there is a content type within a content type
   with keyFact classes and automatick SOERKeyFact are created
   [ichimdav refs #17005]
