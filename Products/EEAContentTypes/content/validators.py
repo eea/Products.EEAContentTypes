@@ -188,6 +188,7 @@ class ExistsKeyFactsValidator:
         self.name = name
         self.title = title or name
         self.description = description
+        self.factory_object = False
 
     @staticmethod
     def createKeyFact(fact_text, folder, keyfact_id, existing_facts):
@@ -264,11 +265,16 @@ class ExistsKeyFactsValidator:
 
     def __call__(self, value, instance, *args, **kwargs):
 
+        # only attempt to construct the keyFacts after the object has been moved
+        # from the portal_factory
+        if 'portal_factory' in instance.absolute_url(1):
+            self.factory_object = True
+            return 1
         # check if current value is same as the current value on the field
         field = kwargs.get('field')
         if field:
             raw_value = field.getRaw(instance)
-            if raw_value == value:
+            if raw_value == value and not self.factory_object:
                 return 1
 
         # find content which has a keyFact class in order to add soer keyfacts
@@ -346,7 +352,7 @@ class ExistsKeyFactsValidator:
                     u"page. You may 'manage key facts' through the contents tab"
                 status.add(_(msg))
             if existing_facts_updated:
-                msg = u"%d SOER KeyFacts have been updated in the " \
+                msg = u"%d SOER KeyFact have been updated in the " \
                       u"'key-facts' folder of this content type" % \
                       existing_facts_updated
                 status.add(_(msg))
