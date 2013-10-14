@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Bug fix: no longer create keyFacts within portal_factory
   [ichimdav refs #17005]
+* Bug fix: dump xml file when not possible to parse as rdf,
+  to allow debugging the staff.html page
+  [tiberich #17040]
 
 7.7 - (2013-10-08)
 ------------------

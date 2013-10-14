@@ -4,8 +4,8 @@ from App.Common import package_home
 from DateTime import DateTime
 from Products.CMFCore.exceptions import ResourceLockedError
 from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
 from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
+from Products.Five import BrowserView
 from rdflib.Graph import ConjunctiveGraph
 from rdflib.Namespace import Namespace
 from rdflib.StringInputSource import StringInputSource
@@ -13,8 +13,10 @@ from zope.schema import getFieldNames
 import logging
 import os
 import sys
+import tempfile
 import urllib2
 import zope.interface
+
 logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
 
 
@@ -200,6 +202,11 @@ class Organisation(BrowserView):
         try:
             self._rdf = ConjunctiveGraph().parse(data)
         except Exception:
+            s = data.getByteStream()    # this is a StringIO instance
+            s.seek(0)
+            with tempfile.NamedTemporaryFile(prefix="rdflib_staff_log",
+                                                        delete=False) as f:
+                f.write(s.read())
             self.context.error_log.raising(sys.exc_info())
             self.validDatas = False
             self._rdf = ConjunctiveGraph()
