@@ -8,6 +8,8 @@ Changelog
 * Bug fix: dump xml file when not possible to parse as rdf,
   to allow debugging the staff.html page
   [tiberich #17040]
+* Change: update URL to the Munin email queue
+  [ghicaale refs #17222]
 
 7.7 - (2013-10-08)
 ------------------
