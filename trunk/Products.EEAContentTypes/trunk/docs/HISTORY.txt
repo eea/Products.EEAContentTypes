@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.9-dev - (unreleased)
+----------------------
+
 7.8 - (2013-10-22)
 ------------------
 * Bug fix: no longer create keyFacts within portal_factory
