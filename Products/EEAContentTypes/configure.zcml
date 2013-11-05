@@ -20,6 +20,7 @@
     <include file="profiles.zcml" />
     <include file="catalog.zcml" />
     <include file="component.zcml" />
+    <include file="eeatypes.zcml" />
     <include file="geoposition.zcml" />
     <include file="workflow.zcml" />
 

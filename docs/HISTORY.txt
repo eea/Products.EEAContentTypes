@@ -3,6 +3,14 @@ Changelog
 
 7.9-dev - (unreleased)
 ----------------------
+* Change: enabled temporalCoverage schemaextender for IEEAContent interface
+  without being required
+  [ichimdav refs #16719]
+* Feature: EEA ContentTypes implement IEEAContent interface
+  [ichimdav refs #16719]
+* Feature: Added IEEAContent base interface which will mark our of our Content
+  Types
+  [ichimdav refs #16719]
 
 7.8 - (2013-10-22)
 ------------------

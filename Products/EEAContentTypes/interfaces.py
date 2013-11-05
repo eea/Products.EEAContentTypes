@@ -62,3 +62,8 @@ class IRequiredFields(Interface):
     """ Marker interface for Content-Types that should have required metadata
         like: subject, location, themes
     """
+
+
+class IEEAContent(Interface):
+    """ Marker interface for EEA Content-Types
+    """
