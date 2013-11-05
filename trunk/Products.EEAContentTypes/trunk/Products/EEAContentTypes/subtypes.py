@@ -224,7 +224,7 @@ class TemporalCoverageSchemaExtender(object):
         ExtensionLinesField(
             name='temporalCoverage',
             languageIndependent=True,
-            required=True,
+            required=False,
             multiValued=1,
             vocabulary_factory=u"Temporal coverage",
             widget=MultiSelectionWidget(
