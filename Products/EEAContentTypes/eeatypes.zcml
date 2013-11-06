@@ -60,7 +60,7 @@
     </class>
 
     <!-- DavizVisualization -->
-    <class class="eea.daviz.content.visualization.DavizVisualization">
+    <class class="eea.daviz.content.visualization.DavizVisualization" zcml:condition="installed eea.daviz">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
