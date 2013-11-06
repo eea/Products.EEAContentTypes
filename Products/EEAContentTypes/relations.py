@@ -213,7 +213,10 @@ class Relations(object):
         """ Filter by language
         """
         result = []
-        lang = self.context.getLanguage()
+        try:
+            lang = self.context.getLanguage()
+        except Exception:
+            return result
 
         for i in range(len(references)):
             try:
@@ -221,7 +224,10 @@ class Relations(object):
             except Unauthorized:
                 continue
             if obj not in result:
-                if obj.getLanguage() == lang:
-                    result.append(obj)
+                try:
+                    if obj.getLanguage() == lang:
+                        result.append(obj)
+                except Exception:
+                    continue
 
         return result

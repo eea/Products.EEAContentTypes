@@ -79,7 +79,8 @@
     <!-- EcoTip xxx -->
 
     <!-- EnquiryFolder -->
-    <class class="Products.EEAEnquiry.content.EnquiryFolder.EnquiryFolder">
+    <class class="Products.EEAEnquiry.content.EnquiryFolder.EnquiryFolder"
+            zcml:condition="installed Products.EEAEnquiry">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
@@ -93,7 +94,8 @@
     <!-- EyewitnessStory xxx -->
 
     <!-- Fiche -->
-    <class class="eea.soercontent.content.fiche.Fiche">
+    <class class="eea.soercontent.content.fiche.Fiche"
+            zcml:condition="installed eea.soercontent">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
@@ -103,7 +105,8 @@
     </class>
 
     <!-- Glossary -->
-    <class class="eea.soercontent.content.glossary.Glossary">
+    <class class="eea.soercontent.content.glossary.Glossary"
+           zcml:condition="installed eea.soercontent">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
@@ -118,7 +121,8 @@
     </class>
 
     <!-- Infographic -->
-    <class class="eea.soercontent.content.infographic.Infographic">
+    <class class="eea.soercontent.content.infographic.Infographic"
+           zcml:condition="installed eea.soercontent">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
@@ -166,12 +170,14 @@
     <!-- SOER Message xxx -->
 
     <!-- Sparql -->
-    <class class="eea.sparql.content.sparql.Sparql">
+    <class class="eea.sparql.content.sparql.Sparql"
+           zcml:condition="installed eea.sparql">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
     <!-- SparqlBookmarksFolder -->
-    <class class="eea.sparql.content.sparql.SparqlBookmarksFolder">
+    <class class="eea.sparql.content.sparql.SparqlBookmarksFolder"
+           zcml:condition="installed eea.sparql">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
