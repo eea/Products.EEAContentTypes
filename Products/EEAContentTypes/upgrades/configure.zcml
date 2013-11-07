@@ -3,6 +3,17 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="*"
+    destination="7.9"
+    profile="Products.EEAContentTypes:default">
+
+        <genericsetup:upgradeStep
+                title="Add initial simple contenttypes without own Class"
+                handler=".evolve79.evolve"
+                />
+
+  </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
     source="7.6"
     destination="7.7"
     profile="Products.EEAContentTypes:default">
