@@ -77,3 +77,17 @@ vocabs = {
     ('ZZZ','Other'),
 )}
 
+
+VOCABULARIES = {
+  'nonclass_contenttypes': (
+    ('Report', 'Report'),
+    ('EEAVacancy' , 'EEAVacancy'),
+    ('EcoTip', 'EcoTip'),
+    ('EPubFile', 'EPubFile'),
+    ('EyewitnessStory', 'EyewitnessStory'),
+    ('DataFileLink', 'DataFileLink'),
+    ('SOERKeyFact', 'SOERKeyFact'),
+    ('SOERMessage', 'SOERMessage'),
+    )
+}
+
