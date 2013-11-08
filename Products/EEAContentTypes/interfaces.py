@@ -63,6 +63,11 @@ class IRequiredFields(Interface):
         like: subject, location, themes
     """
 
+class IEEAPossibleContent(Interface):
+    """ Marker interface for posibil EEA Content-Types needed since some
+        content types are created only with the xml types and they usually
+        inherit the meta_type from the product that they are derrived from
+    """
 
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
