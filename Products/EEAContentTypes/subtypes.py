@@ -1,6 +1,7 @@
 """ Subtypes
 """
 from Products.Archetypes.Widget import MultiSelectionWidget
+
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
@@ -224,6 +225,7 @@ class TemporalCoverageSchemaExtender(object):
         ExtensionLinesField(
             name='temporalCoverage',
             languageIndependent=True,
+            schemata='categorization',
             required=False,
             multiValued=1,
             vocabulary_factory=u"Temporal coverage",
