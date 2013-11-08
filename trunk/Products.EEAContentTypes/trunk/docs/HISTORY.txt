@@ -8,6 +8,9 @@ Changelog
   [ichimdav refs #16719]
 * Feature: EEA ContentTypes implement IEEAContent interface
   [ichimdav refs #16719]
+* Feature: Added IEEAPossibleContent base interface which will mark our of our
+  Content Types that have no direct classes, instead using the ATContent classes
+  [ichimdav refs #16719]
 * Feature: Added IEEAContent base interface which will mark our of our Content
   Types
   [ichimdav refs #16719]

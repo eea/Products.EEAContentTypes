@@ -250,9 +250,10 @@ class TemporalCoverageSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
-        if getattr(self.context, 'portal_type', None) in ('EEAFigure', 'Data',
-                                                          'Assessment',
-                                                          'IndicatorFactSheet'):
+        portal_type = getattr(self.context, 'portal_type', False)
+
+        if portal_type in ('EEAFigure', 'Data', 'Assessment',
+                           'IndicatorFactSheet', 'Document', 'Folder', 'Link'):
             # No schema extender for these content types as they already have
             # the temporalCoverage field though normal schema
             return []

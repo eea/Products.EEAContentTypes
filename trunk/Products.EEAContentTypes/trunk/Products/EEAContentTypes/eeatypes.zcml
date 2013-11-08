@@ -1,6 +1,4 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
            xmlns:zcml="http://namespaces.zope.org/zcml"
            i18n_domain="eea">
 
@@ -8,7 +6,37 @@
              for="Products.EEAContentTypes.interfaces.IEEAContent"
              factory=".subtypes.TemporalCoverageSchemaExtender"/>
 
+    <adapter name="eea.possibletemporalcoveragefield"
+             for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+             factory=".subtypes.TemporalCoverageSchemaExtender"/>
+
+
+    <!-- #16719 Add IEEAPossibleContent interface for default contenttypes that
+         our products only inherits from.
+         At the time of this ticket they are the following:
+            EEAVacancy
+            EcoTip
+            EPubFile
+            EyewitnessStory
+            DataFileLink
+            SOER Key Fact
+            SOER Message
+         -->
+    <class class="Products.ATContentTypes.content.folder.ATFolder">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+    <class class="Products.ATContentTypes.content.document.ATDocument">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+    <class class="Products.ATContentTypes.content.link.ATLink">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+
     <!-- #16719 Implement a specific interface for all of our Content types -->
+
     <!-- Animation -->
     <class class="Products.EEAContentTypes.content.FlashFile.FlashFile">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
@@ -64,7 +92,6 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- EEAVacancy xxx -->
 
     <!-- EEAFigure -->
     <class class="eea.dataservice.content.EEAFigure.EEAFigure">
@@ -76,7 +103,6 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- EcoTip xxx -->
 
     <!-- EnquiryFolder -->
     <class class="Products.EEAEnquiry.content.EnquiryFolder.EnquiryFolder"
@@ -84,14 +110,12 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- EPubFile xxx -->
 
     <!-- ExternalDataSpec -->
     <class class="eea.indicators.content.ExternalDataSpec.ExternalDataSpec">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- EyewitnessStory xxx -->
 
     <!-- Fiche -->
     <class class="eea.soercontent.content.fiche.Fiche"
@@ -126,7 +150,6 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- DataFileLink xxx -->
 
     <!-- FlexibilityReport -->
     <class class="eea.soer.content.FlexibilityReport.FlexibilityReport">
@@ -153,7 +176,6 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- Report ( Publication ) xxx -->
 
     <!-- SOER Country -->
     <class class="eea.soer.content.SOERCountry.SOERCountry">
@@ -165,9 +187,7 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- SOER Key Fact xxx -->
 
-    <!-- SOER Message xxx -->
 
     <!-- Sparql -->
     <class class="eea.sparql.content.sparql.Sparql"
