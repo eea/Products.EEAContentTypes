@@ -7,10 +7,15 @@
     destination="7.9"
     profile="Products.EEAContentTypes:default">
 
-        <genericsetup:upgradeStep
-                title="Add initial simple contenttypes without own Class"
-                handler=".evolve79.evolve"
-                />
+        <!--<genericsetup:upgradeStep-->
+                <!--title="Add initial simple contenttypes without own Class"-->
+                <!--handler=".evolve79.evolve"-->
+                <!--/>-->
+
+      <genericsetup:upgradeDepends
+              title="Import upgrade steps for 7.90 profile"
+              import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_7.90"
+              />
 
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps

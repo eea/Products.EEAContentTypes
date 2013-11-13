@@ -67,4 +67,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
    />
 
+    <genericsetup:registerProfile
+            name="eeacontenttypes_upgrade_7.90"
+            title="Upgrade profile for EEAContentTypes 7.90"
+            description="This profile contains configuration changes from 6.8 to 7.9"
+            directory="profiles/upgrade/to_790"
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+            />
+
 </configure>

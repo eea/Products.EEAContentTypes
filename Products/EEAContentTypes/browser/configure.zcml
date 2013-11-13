@@ -26,7 +26,16 @@
             for="*"
             manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
             layer="eea.design.browser.interfaces.IEEACommonLayer"
-            template="zpt/temporal_coverage_viewlet.pt"
+            class=".viewlets.TemporalCoverageViewlet"
+            permission="zope.Public"
+            />
+
+    <browser:viewlet
+            name="eea.geographical_coverage"
+            for="*"
+            manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+            layer="eea.design.browser.interfaces.IEEACommonLayer"
+            class=".viewlets.GeographicalCoverageViewlet"
             permission="zope.Public"
             />
 
