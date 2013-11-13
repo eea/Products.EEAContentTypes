@@ -1,7 +1,11 @@
 """ Interfaces
 """
 from zope.interface import Interface
+from zope import schema
 from zope.schema import TextLine
+
+from Products.EEAContentTypes.config import EEAMessageFactory as _
+
 
 class IRSSShare(Interface):
     """ RSS Share
@@ -278,3 +282,28 @@ class IURL(Interface):
 
     def css_class():
         """ Returns a class name that should be present in anchor links """
+
+
+class IEEAContentTypesSettings(Interface):
+    """ portal_registry EEAContentTypes settings
+    """
+    hideGeographicalCoverageFor = schema.List(
+        title=_(u"Hide Geographical Coverage Viewlet"),
+        description=_(u"Hide the Geographical Coverage Viewlet for the "
+                      "following content-types"),
+        required=False,
+        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'],
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
+
+    hideTemporalCoverageFor = schema.List(
+        title=_(u"Hide Temporal Coverage Viewlet"),
+        description=_(u"Hide the Temporal Coverage Viewlet for the "
+                      "following content-types"),
+        required=False,
+        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'],
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
+
