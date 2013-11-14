@@ -39,4 +39,4 @@ def eeacontenttypes_registry_settings():
     """ Utility method returning the registry entry for IEEAContentTypesSettings
     """
     registry = getUtility(IRegistry)
-    return registry.forInterface(IEEAContentTypesSettings)
+    return registry.forInterface(IEEAContentTypesSettings, check=False)
