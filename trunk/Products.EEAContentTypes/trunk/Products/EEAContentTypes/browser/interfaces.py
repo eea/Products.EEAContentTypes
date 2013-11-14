@@ -292,7 +292,8 @@ class IEEAContentTypesSettings(Interface):
         description=_(u"Hide the Geographical Coverage Viewlet for the "
                       "following content-types"),
         required=False,
-        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'],
+        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
+                 'Event', 'QuickEvent', 'Organisation'],
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
