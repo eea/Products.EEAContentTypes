@@ -253,8 +253,10 @@ class TemporalCoverageSchemaExtender(object):
         """ Fields
         """
         portal_type = getattr(self.context, 'portal_type', False)
+        excluded_types = excluded_temporal_coverage_schemaextender_tuple() or \
+                         []
 
-        if portal_type in excluded_temporal_coverage_schemaextender_tuple():
+        if portal_type in excluded_types:
             # No schema extender for these content types as they already have
             # the temporalCoverage field though normal schema
             return []
