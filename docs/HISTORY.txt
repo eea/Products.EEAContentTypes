@@ -3,6 +3,9 @@ Changelog
 
 7.9-dev - (unreleased)
 ----------------------
+* Feature: added getTemporalCoverage indexer for contenttypes that implement
+  IEEAContent or IEEAPossibleContent
+  [ichimdav refs #16719]
 * Change: enabled temporalCoverage schemaextender for IEEAContent interface
   without being required
   [ichimdav refs #16719]

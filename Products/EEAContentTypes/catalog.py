@@ -1,7 +1,9 @@
 """ Catalog
 """
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
-from Products.EEAContentTypes.interfaces import IRelations
+from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
+from Products.EEAContentTypes.interfaces import IEEAContent
+
 from plone.indexer.decorator import indexer
 
 @indexer(IBaseContent)
@@ -30,3 +32,32 @@ def Subject(obj):
     except (TypeError, ValueError):
         # The catalog expects AttributeErrors when a value can't be found
         raise AttributeError
+
+
+def _getFieldValue(obj, name):
+    """ utility function to return value of field name
+    """
+    try:
+        data = obj.getField(name)
+        if data:
+            return data.getAccessor(obj)()
+        raise AttributeError
+    except (TypeError, ValueError):
+        # The catalog expects AttributeErrors when a value can't be found
+        raise AttributeError
+
+
+@indexer(IEEAContent)
+def GetTemporalCoverageForIEEAContent(obj):
+    """ temporalCoverage indexer for IEEAContent types
+    """
+    return _getFieldValue(obj, 'temporalCoverage')
+
+
+@indexer(IEEAPossibleContent)
+def GetTemporalCoverageForIEEAPossibleContent(obj):
+    """ temporalCoverage indexer for IEEAPossibleContent types
+    """
+    return _getFieldValue(obj, 'temporalCoverage')
+
+

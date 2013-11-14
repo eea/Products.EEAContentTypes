@@ -287,23 +287,34 @@ class IURL(Interface):
 class IEEAContentTypesSettings(Interface):
     """ portal_registry EEAContentTypes settings
     """
-    hideGeographicalCoverageFor = schema.List(
+    hideGeographicalCoverageFor = schema.Tuple(
         title=_(u"Hide Geographical Coverage Viewlet"),
         description=_(u"Hide the Geographical Coverage Viewlet for the "
                       "following content-types"),
         required=False,
-        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
-                 'Event', 'QuickEvent', 'Organisation'],
+        default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
+                 'Event', 'QuickEvent', 'Organisation'),
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
 
-    hideTemporalCoverageFor = schema.List(
+    hideTemporalCoverageFor = schema.Tuple(
         title=_(u"Hide Temporal Coverage Viewlet"),
         description=_(u"Hide the Temporal Coverage Viewlet for the "
                       "following content-types"),
         required=False,
-        default=['EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'],
+        default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
+
+    noTemporalCoverageSubtyperFor = schema.Tuple(
+        title=_(u"Disable Temporal Coverage Schema Extender"),
+        description=_(u"Disables the Temporal Coverage Schema Extender for the "
+                      "following content-types"),
+        required=False,
+        default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
+                 'Link'),
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )

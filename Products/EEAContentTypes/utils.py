@@ -10,7 +10,7 @@ from zope.component import getUtility
 
 @ram.cache(lambda *args: time() // (60 * 60))
 def excluded_geographical_coverage_content_types():
-    """ List of Contenttypes that should not display the geographicalCoverage
+    """ Tuple of Contenttypes that should not display the geographicalCoverage
         viewlet cached for 1 hour
     """
     settings = eeacontenttypes_registry_settings()
@@ -19,11 +19,20 @@ def excluded_geographical_coverage_content_types():
 
 @ram.cache(lambda *args: time() // (60 * 60))
 def excluded_temporal_coverage_content_types():
-    """ List of Contenttypes that should not display the temporalCoverage
+    """ Tuple of Contenttypes that should not display the temporalCoverage
         viewlet cached for 1 hour
     """
     settings = eeacontenttypes_registry_settings()
     return getattr(settings, 'hideTemporalCoverageFor', [])
+
+
+@ram.cache(lambda *args: time() // (60 * 60))
+def excluded_temporal_coverage_schemaextender_tuple():
+    """ Tuple of Contenttypes that should not display the temporalCoverage
+        schemaextender field cached for 1 hour
+    """
+    settings = eeacontenttypes_registry_settings()
+    return getattr(settings, 'noTemporalCoverageSubtyperFor', [])
 
 
 def eeacontenttypes_registry_settings():

@@ -5,6 +5,8 @@ from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from Products.EEAContentTypes.config import REQUIRED_METADATA_FOR
+from Products.EEAContentTypes.utils import \
+    excluded_temporal_coverage_schemaextender_tuple
 from Products.LinguaPlone.public import InAndOutWidget
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import LinesField
@@ -252,8 +254,7 @@ class TemporalCoverageSchemaExtender(object):
         """
         portal_type = getattr(self.context, 'portal_type', False)
 
-        if portal_type in ('EEAFigure', 'Data', 'Assessment',
-                           'IndicatorFactSheet', 'Link'):
+        if portal_type in excluded_temporal_coverage_schemaextender_tuple():
             # No schema extender for these content types as they already have
             # the temporalCoverage field though normal schema
             return []
