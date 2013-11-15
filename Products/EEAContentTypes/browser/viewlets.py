@@ -1,6 +1,7 @@
 """ Custom viewlets
 """
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import getMultiAdapter
 from plone.app.layout.viewlets import common
 from Products.EEAContentTypes.utils import \
     excluded_geographical_coverage_content_types, \
@@ -25,7 +26,10 @@ class GeographicalCoverageViewlet(common.ViewletBase):
     def available(self):
         """ Condition for rendering of this viewlets
         """
-        return _available(self, excluded_geographical_coverage_content_types)
+        plone = getMultiAdapter((self.context, self.request),
+                                name=u'plone_context_state')
+        return plone.is_view_template() and _available(self,
+                                excluded_geographical_coverage_content_types)
 
 
 class TemporalCoverageViewlet(common.ViewletBase):
@@ -37,4 +41,7 @@ class TemporalCoverageViewlet(common.ViewletBase):
     def available(self):
         """ Condition for rendering of this viewlets
         """
-        return _available(self, excluded_temporal_coverage_content_types)
+        plone = getMultiAdapter((self.context, self.request),
+                                name=u'plone_context_state')
+        return plone.is_view_template() and _available(self,
+                                   excluded_temporal_coverage_content_types)
