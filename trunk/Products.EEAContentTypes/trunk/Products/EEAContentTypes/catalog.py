@@ -3,6 +3,7 @@
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from Products.EEAContentTypes.interfaces import IEEAContent
+from Products.ATContentTypes.interfaces.event import IATEvent
 
 from plone.indexer.decorator import indexer
 
@@ -61,3 +62,26 @@ def GetTemporalCoverageForIEEAPossibleContent(obj):
     return _getFieldValue(obj, 'temporalCoverage')
 
 
+@indexer(IATEvent)
+def GetTemporalCoverageForIATEvent(obj):
+    """ temporalCoverage indexer for IATEvent types
+    """
+    if "portal_factory" in obj.absolute_url():
+        raise AttributeError
+
+    # construct the index value from the start and end date
+    start_date = obj.getField('startDate').getAccessor(obj)() or []
+    start_year = []
+    end_year = []
+    if start_date:
+        start_year.append(start_date.year())
+    end_date = obj.getField('endDate').getAccessor(obj)() or []
+    if end_date:
+        end_year.append(end_date.year())
+    if start_year or end_year:
+        start_year.extend(end_year)
+        coverage = set(start_year)
+        if coverage:
+            return tuple(coverage)
+    else:
+        raise AttributeError

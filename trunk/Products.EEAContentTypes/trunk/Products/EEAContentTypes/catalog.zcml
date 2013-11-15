@@ -7,5 +7,6 @@
     <adapter factory=".catalog.Subject" name="Subject" />
     <adapter factory=".catalog.GetTemporalCoverageForIEEAContent" name="getTemporalCoverage" />
     <adapter factory=".catalog.GetTemporalCoverageForIEEAPossibleContent" name="getTemporalCoverage" />
+    <adapter factory=".catalog.GetTemporalCoverageForIATEvent" name="getTemporalCoverage" />
 
 </configure>
