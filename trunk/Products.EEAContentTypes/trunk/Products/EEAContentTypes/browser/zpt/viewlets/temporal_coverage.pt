@@ -2,11 +2,14 @@
 <tal:block metal:define-macro="temp-coverage"
         tal:condition="view/available">
     <tal:render tal:define="value context/@@formatTempCoverage" tal:condition="value">
-            <span id="temporal_dynamic" i18n:translate="" class="temporal-coverage">Dynamic</span>
-            <dt class="temporal-coverage">
-                <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                <span i18n:translate="">Temporal coverage:</span>
-            </dt>
-            <dd class="temporal-coverage" tal:content="value" id="tempCoverage"></dd>
+            <dl class="temporal-coverage">
+                <dd id="temporal_dynamic" i18n:translate="">Dynamic</dd>
+                <dt class="temporal-coverage-title"
+                        tal:define='tooltip python:context.translate("The temporal scope of the content of the data resource. Temporal coverage will typically include a set of years or time ranges.", domain="eea")'>
+                    <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                    <span i18n:translate="">Temporal coverage:</span>
+                </dt>
+                <dd class="temporal-coverage-content" tal:content="value" id="tempCoverage"></dd>
+            </dl>
     </tal:render>
 </tal:block>
