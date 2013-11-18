@@ -72,3 +72,8 @@ class IEEAPossibleContent(Interface):
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
     """
+
+
+class ITemporalCoverageAdapter(Interface):
+    """ Marker interface for objects that will return temporalCoverage values
+    """

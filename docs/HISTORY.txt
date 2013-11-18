@@ -3,6 +3,9 @@ Changelog
 
 7.9-dev - (unreleased)
 ----------------------
+* Feature: addede ITemporalCoverageAdapter which is an adapter than can be
+  overriden in order to return a temporalCoverage value
+  [ichimdav refs #16719]
 * Feature: added getTemporalCoverage indexer for contenttypes that implement
   IEEAContent or IEEAPossibleContent
   [ichimdav refs #16719]
