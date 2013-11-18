@@ -1,8 +1,8 @@
 <!-- Geographical coverage -->
 <tal:block metal:define-macro="geographical-coverage"
            tal:condition="view/available">
-
-    <metal:related use-macro="here/dataset_view/macros/geotags-listing" />
-    <metal:related use-macro="here/dataset_view/macros/geotags-map" />
-
+    <div class="geographical-coverage">
+        <metal:related use-macro="here/dataset_view/macros/geotags-listing" />
+        <metal:related use-macro="here/dataset_view/macros/geotags-map" />
+    </div>
 </tal:block>
