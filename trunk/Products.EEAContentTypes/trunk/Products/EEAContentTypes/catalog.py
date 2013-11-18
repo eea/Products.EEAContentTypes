@@ -2,6 +2,7 @@
 """
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
+from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 from Products.EEAContentTypes.interfaces import IEEAContent
 from Products.ATContentTypes.interfaces.event import IATEvent
 
@@ -35,53 +36,29 @@ def Subject(obj):
         raise AttributeError
 
 
-def _getFieldValue(obj, name):
-    """ utility function to return value of field name
-    """
-    try:
-        data = obj.getField(name)
-        if data:
-            return data.getAccessor(obj)()
-        raise AttributeError
-    except (TypeError, ValueError):
-        # The catalog expects AttributeErrors when a value can't be found
-        raise AttributeError
-
-
 @indexer(IEEAContent)
 def GetTemporalCoverageForIEEAContent(obj):
     """ temporalCoverage indexer for IEEAContent types
     """
-    return _getFieldValue(obj, 'temporalCoverage')
+    if "portal_factory" in obj.absolute_url():
+        raise AttributeError
+    return ITemporalCoverageAdapter(obj).value()
 
 
 @indexer(IEEAPossibleContent)
 def GetTemporalCoverageForIEEAPossibleContent(obj):
     """ temporalCoverage indexer for IEEAPossibleContent types
     """
-    return _getFieldValue(obj, 'temporalCoverage')
+    if "portal_factory" in obj.absolute_url():
+        raise AttributeError
+    return ITemporalCoverageAdapter(obj).value()
 
 
 @indexer(IATEvent)
 def GetTemporalCoverageForIATEvent(obj):
-    """ temporalCoverage indexer for IATEvent types
+    """ temporalCoverage indexer for IATEvent types such as our own QuickEvents
     """
     if "portal_factory" in obj.absolute_url():
         raise AttributeError
+    return ITemporalCoverageAdapter(obj).value()
 
-    # construct the index value from the start and end date
-    start_date = obj.getField('startDate').getAccessor(obj)() or []
-    start_year = []
-    end_year = []
-    if start_date:
-        start_year.append(start_date.year())
-    end_date = obj.getField('endDate').getAccessor(obj)() or []
-    if end_date:
-        end_year.append(end_date.year())
-    if start_year or end_year:
-        start_year.extend(end_year)
-        coverage = set(start_year)
-        if coverage:
-            return tuple(coverage)
-    else:
-        raise AttributeError
