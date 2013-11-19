@@ -319,3 +319,15 @@ class IEEAContentTypesSettings(Interface):
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
 
+
+class IEEAContentTypesSettings2(IEEAContentTypesSettings):
+
+    hideTemporalCoveragesFor = schema.Tuple(
+        title=_(u"Hide Temporal Coverage Viewlets"),
+        description=_(u"Hide the Temporal Coverage Viewlet for the "
+                      "following content-typess"),
+        required=False,
+        default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet'),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
