@@ -25,17 +25,6 @@
     <adapter factory=".subtypes.GeotagSingleEdit"/>
     <adapter factory=".subtypes.GeotagMultiEdit"/>
 
-    <!-- #16719; Temporal Coverage Adapter -->
-    <adapter
-             for="Products.Archetypes.interfaces.IBaseContent"
-             factory=".adapters.DefaultTemporalCoverageAdapter"/>
-
-    <adapter
-            for="Products.ATContentTypes.interfaces.event.IATEvent"
-            factory=".adapters.EventsTemporalCoverageAdapter"/>
-
-
-
     <adapter name="eea.locationfield"
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.LocationSchemaExtender"/>
