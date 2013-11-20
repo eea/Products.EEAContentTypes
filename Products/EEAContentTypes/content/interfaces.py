@@ -83,3 +83,8 @@ class IInteractiveData(Interface):
 class IGISMapApplication(Interface):
     """ Marker interface for GIS Map Applications
     """
+
+
+class IInfographic(Interface):
+    """ Infographic
+    """
