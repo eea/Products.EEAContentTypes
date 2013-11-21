@@ -1,0 +1,2 @@
+var so = new SWFObject('&dtml-absolute_url;/download', 'sotester', '100%', '100%', '8', '&dtml-bgcolor;');so.addParam('scale', 'noscale');so.write('container-&dtml-getId;');alert('loding');
+
