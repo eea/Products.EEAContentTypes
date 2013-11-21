@@ -125,6 +125,11 @@
         for="eea.mediacentre.interfaces.IVideo"
         factory=".subtypes.RequiredSchemaModifier" />
 
+    <!-- Infographics -->
+    <adapter name="eea.requiredfields4infographics"
+             for="Products.EEAContentTypes.content.interfaces.IInfographic"
+             factory=".subtypes.RequiredSchemaModifier" />
+
     <!-- EcoTip, Page, SOER Key fact, SOER Message -->
     <adapter name="eea.requiredfields4document"
         for="Products.ATContentTypes.interfaces.IATDocument"
