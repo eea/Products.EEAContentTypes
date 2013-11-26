@@ -3,6 +3,8 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Change: removed the dependecy to eea.locationwidget
+  [ghicaale refs #9155]
 
 7.9 - (2013-11-21)
 ------------------

@@ -16,7 +16,6 @@
     <include package="eea.facetednavigation" />
     <include package="eea.facetednavigation.subtypes" />
     <include package="eea.promotion" />
-    <include package="eea.locationwidget" />
     <include package="eea.themecentre" />
     <include package="eea.design" />
     <include package="eea.reports" />
