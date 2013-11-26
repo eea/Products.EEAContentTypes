@@ -45,10 +45,4 @@
     permission="cmf.ManagePortal"
     />
 
-  <browser:page
-    for="*"
-    name="migrate2geotags"
-    class=".geotags.LocationMigrate"
-    permission="cmf.ManagePortal"
-    />
 </configure>

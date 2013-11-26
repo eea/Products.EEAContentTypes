@@ -250,55 +250,6 @@
         permission="zope.Public"
         />
 
-    <!-- geoposition related -->
-    <browser:page
-        for="Products.EEAContentTypes.content.interfaces.IGeoPositioned"
-        name="geopositionMap"
-        class=".geoposition.GeoPositionView"
-        allowed_interface=".interfaces.IGeoPositionView"
-        permission="zope.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="geoConverter"
-        class=".geoposition.GeoConverter"
-        allowed_interface=".interfaces.IGeoConverter"
-        permission="zope.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="geoEventsData"
-        class=".geoposition.GeoMapData"
-        allowed_interface=".interfaces.IGeoMapData"
-        permission="zope.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="geoEventsMap"
-        class=".geoposition.GeoMapView"
-        allowed_interface=".interfaces.IGeoMapView"
-        permission="zope.Public"
-        />
-
-    <browser:page
-        for="Products.ATContentTypes.content.topic.ATTopic"
-        name="g_earth"
-        class=".geoposition.GoogleEarthView"
-        allowed_interface=".interfaces.IGoogleEarthView"
-        permission="zope.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="isGeoContainer"
-        class=".geoposition.GeoLocationTools"
-        permission="zope.Public"
-        attribute="isGeoContainer"
-        />
-
     <!-- skos syndication -->
     <browser:page
         for="Products.ATContentTypes.content.topic.ATTopic"

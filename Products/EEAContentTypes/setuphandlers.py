@@ -25,36 +25,8 @@ def setupGeographicalProperties(self, portal):
 
     p = getattr(prop_tool, 'geographical_properties', None)
     if p is not None:
-        if getattr(p, 'geo_services', None) is None:
-            p._setProperty('geo_services', [
-                'None', 'Google Maps', 'Yahoo Maps',
-                'Mapquest (not implemented)',
-                'Microsoft Virtual Earth (not implemented)',
-                'EEA GeoNode (not implemented)'], 'lines')
-        if getattr(p, 'map_service_to_use', None) is None:
-            p._setProperty('map_service_to_use', 'geo_services', 'selection')
-        if getattr(p, 'geocoding_service_priority', None) is None:
-            p._setProperty('geocoding_service_priority', [
-                'Google Maps', 'Yahoo Maps'], 'lines')
         if getattr(p, 'google_key', None) is None:
             p._setProperty('google_key', '', 'string')
-        if getattr(p, 'yahoo_key', None) is None:
-            p._setProperty('yahoo_key', '', 'string')
-        if getattr(p, 'mapquest_key', None) is None:
-            p._setProperty('mapquest_key', '', 'string')
-
-        # Map default values
-        if getattr(p, 'PointZoom_single', None) is None:
-            p._setProperty('PointZoom_single', '', 'string')
-        if getattr(p, 'MapLoc_single', None) is None:
-            p._setProperty('MapLoc_single', '', 'string')
-        if getattr(p, 'MapZoom_single', None) is None:
-            p._setProperty('MapZoom_single', '', 'string')
-        if getattr(p, 'MapLoc_multi', None) is None:
-            p._setProperty('MapLoc_multi', '', 'string')
-        if getattr(p, 'MapZoom_multi', None) is None:
-            p._setProperty('MapZoom_multi', '', 'string')
-
 
 def setupTemplateServiceProperties(self, portal):
     """ sets up the default propertysheet for template service invalidate cache
@@ -220,7 +192,7 @@ def upgrade_gisapplication(site):
 
     logger.info("Started migration of ATLink based GIS Application")
     catalog = getToolByName(site, 'portal_catalog')
-    brains = catalog.searchResults(meta_type="ATLink", 
+    brains = catalog.searchResults(meta_type="ATLink",
             portal_type="GIS Application")
 
     for brain in brains:
@@ -273,53 +245,7 @@ def fix_html_eea_chain_transform(site):
     """
     transforms = getToolByName(site, 'portal_transforms')
     html_eea_chain = getattr(transforms, 'html_eea_chain')
-    html_eea_chain.manage_delObjects(['html-to-captioned', 
-                                       'captioned-to-html', 
+    html_eea_chain.manage_delObjects(['html-to-captioned',
+                                       'captioned-to-html',
                                        'protect_email'])
     logger.info("Fixed html_eea_chain transform chain")
-
-#this is a migration procedure, not needed for plone4 migration
-#def setupCatalog(context):
-    #""" Setup catalog
-    #"""
-    #catalog = getToolByName(context, 'portal_catalog')
-    #indexes = [ "getImageCopyright", "getImageNote",
-                #"getImageSource", "getNewsTitle",
-                #"getQuotationSource", "getQuotationText",
-                #"getTeaser", "getUrl", "getVisibilityLevel",]
-    #toReIndex = [ index.getId()  for index in catalog.index_objects()
-                      #if index.getId() in indexes and index.numObjects() == 0]
-
-    #if toReIndex:
-        #print "The following indexes must be re-indexed: %s" \
-                #% ', '.join(toReIndex)
-        ## Reindex catalog indexes can be time expensive, activate it if needed
-        ##catalog.manage_reindexIndex(ids=toReIndex)
-
-
-#TODO: plone4 this needs to be adapted for plone.app.caching
-#def updateCacheFu(self, portal):
-    #""" Update CacheFu from 1.2 to 1.2.1 """
-    #portal_cache = getToolByName(portal, 'portal_cache_settings', None)
-    #if portal_cache:
-        #if not hasattr(portal_cache, 'installedversion'):
-            #setattr(portal_cache, 'installedversion', '1.2.1')
-            #print "portal_cache_settings 'installedversion' property updated"
-
-
-#TODO: plone4: this is a migration step, it's not needed to be executed
-#def geocodeEvents(self, portal):
-    #""" geocode events location """
-    #import pdb; pdb.set_trace()
-    #portal_catalog = getToolByName(portal, 'portal_catalog')
-    #portal_calendar = getToolByName(portal, 'portal_calendar')
-    #types = portal_calendar.getCalendarTypes()
-
-    #events = portal_catalog(meta_type=types)
-    #for brain in events:
-        #obj = brain.getObject()
-        #decider = getUtility(IGeoPositionDecider, context=obj)
-        #decider.run(obj)
-
-
-

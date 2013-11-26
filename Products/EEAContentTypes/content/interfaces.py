@@ -18,35 +18,6 @@ class IQuickEvent(Interface):
     """ Quick event
     """
 
-class IGeoPositionDecider(Interface):
-    """ Geo position decider
-    """
-
-    def matchLocation(obj):
-        """ Match location """
-
-    def provideInterfaces(obj):
-        """ Provide interfaces """
-
-    def run(obj):
-        """ Run """
-
-class IGeoPositioned(Interface):
-    """ Geo positioned """
-
-class IGeoPosition(Interface):
-    """ Geographic coordinates. """
-
-    longitude = Attribute("Geographic longitude")
-
-    latitude = Attribute("Geographic latitude")
-
-    country_code = Attribute("Country code")
-
-    def getCoordinates():
-        """ Return longitude and latitude. """
-
-
 class IFlashAnimation(Interface):
     """ Flash animation
     """

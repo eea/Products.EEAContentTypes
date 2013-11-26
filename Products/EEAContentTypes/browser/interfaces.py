@@ -243,29 +243,6 @@ class IAutoRelated(Interface):
             publication group.
         """
 
-class IGeoConverter(Interface):
-    """ Geo converter
-    """
-
-    def geoConvert():
-        """ Geo convert
-        """
-
-class IGeoMapData(Interface):
-    """ Geo map data
-    """
-
-class IGeoMapView(Interface):
-    """ Geo map view
-    """
-
-class IGeoPositionView(Interface):
-    """ Geo position view
-    """
-
-class IGoogleEarthView(Interface):
-    """ Google earth view
-    """
 
 class IURL(Interface):
     """ URL
