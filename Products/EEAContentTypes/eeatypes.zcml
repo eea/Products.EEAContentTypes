@@ -21,6 +21,7 @@
             DataFileLink
             SOER Key Fact
             SOER Message
+            GIS Application
          -->
     <class class="Products.ATContentTypes.content.folder.ATFolder">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
@@ -145,8 +146,7 @@
     </class>
 
     <!-- Infographic -->
-    <class class="eea.soercontent.content.infographic.Infographic"
-           zcml:condition="installed eea.soercontent">
+    <class class="Products.EEAContentTypes.content.infographic.Infographic">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
