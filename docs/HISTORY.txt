@@ -9,6 +9,8 @@ Changelog
   [ghicaale refs #9155]
 * Change: cleanup old geo implementation
   [ghicaale refs #9155]
+* Cleanup: removed unused interface
+  [ghicaale refs #17588]
 
 7.9 - (2013-11-21)
 ------------------
