@@ -1,24 +1,32 @@
 """ Definition of the Infographic content type
 """
+from AccessControl import ClassSecurityInfo
+from Products.Archetypes.ArchetypeTool import registerType
 
 from zope.interface import implements
 from Products.Archetypes import atapi
-from Products.EEAContentTypes.config import EEAMessageFactory as _
-from Products.ATContentTypes.content import folder
-from Products.ATContentTypes.content import document
+from Products.ATContentTypes.content import image
+from Products.EEAContentTypes.config import EEAMessageFactory as _, PROJECTNAME
+
+from plone.app.blob import field
 from Products.EEAContentTypes.content.interfaces import IInfographic
 
 
 SCHEMA = atapi.Schema((
-    atapi.ImageField(
+
+    field.ImageField(
         name="image",
         schemata="default",
         sizes=None,
-        widget=atapi.ImageWidget(
-            label=_("Thumbnail"),
-            description=_("Image for thumbnail")),
-        i18n_domain='eea',
+        required=True,
+        primary=True,
+        widget=field.ImageWidget(
+            label=_("Infographic"),
+            description=_("Infographic image"),
+            i18n_domain='eea',
+        )
     ),
+
     atapi.StringField(
         name='imageCopyright',
         schemata="default",
@@ -61,7 +69,8 @@ SCHEMA = atapi.Schema((
 ))
 
 
-class Infographic(folder.ATFolder, document.ATDocumentBase):
+
+class Infographic(image.ATImage):
     """ Infographic """
 
     implements(IInfographic)
@@ -70,8 +79,16 @@ class Infographic(folder.ATFolder, document.ATDocumentBase):
     portal_type = "Infographic"
     archetypes_name = "Infographic"
 
+    _at_rename_after_creation = True
+
+    security = ClassSecurityInfo()
+
     schema = (
-        folder.ATFolderSchema.copy() +
-        document.ATDocumentSchema.copy() +
+        image.ATImageSchema.copy() +
         SCHEMA.copy()
     )
+    schema["title"].required = True
+    schema["relatedItems"].required_for_published = True
+
+
+registerType(Infographic, PROJECTNAME)
