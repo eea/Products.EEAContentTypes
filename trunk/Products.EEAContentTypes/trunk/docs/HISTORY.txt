@@ -3,6 +3,8 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Feature: added Infographic ContentTypes to Products.EEAContentTypes
+  [ichimdav refs #17505]
 * Change: removed the dependecy to eea.locationwidget
   [ghicaale refs #9155]
 * Change: cleanup old geo implementation
