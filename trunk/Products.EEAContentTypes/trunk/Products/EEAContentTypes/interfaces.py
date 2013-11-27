@@ -48,7 +48,7 @@ class IRelations(Interface):
            samePortalType argument should be true if the related objects should
            be of the same portal type as context. getBrains argument should be
            true if one only wants the brains back instead of the whole objects.
-           This is mainly for performance. 
+           This is mainly for performance.
         """
 
     def byPublicationGroup(samePortalType=True, getBrains=False):
@@ -58,10 +58,12 @@ class IRelations(Interface):
     def references():
         """" Gets both forward and backward references. """
 
+
 class IRequiredFields(Interface):
     """ Marker interface for Content-Types that should have required metadata
         like: subject, location, themes
     """
+
 
 class IEEAPossibleContent(Interface):
     """ Marker interface for posibil EEA Content-Types needed since some
@@ -69,11 +71,7 @@ class IEEAPossibleContent(Interface):
         inherit the meta_type from the product that they are derrived from
     """
 
+
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
-    """
-
-
-class ITemporalCoverageAdapter(Interface):
-    """ Marker interface for objects that will return temporalCoverage values
     """
