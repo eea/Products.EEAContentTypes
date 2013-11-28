@@ -1,6 +1,7 @@
 """ Interfaces
 """
 from zope.interface import Interface, Attribute
+from .adapters.interfaces import ITemporalCoverageAdapter
 
 class IEEAPloneSite(Interface):
     """A marker interface for the EEA Plone site
@@ -75,3 +76,7 @@ class IEEAPossibleContent(Interface):
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
     """
+
+__all__ = [
+    ITemporalCoverageAdapter.__name__
+]

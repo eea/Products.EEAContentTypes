@@ -3,6 +3,9 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Change: moved the ITemporalCoverageAdapter from eea.dataservice within
+  Products.EEAContentTypes
+  [ichimdav refs #17588]
 * Feature: added Infographic ContentTypes to Products.EEAContentTypes
   [ichimdav refs #17505]
 * Change: removed the dependecy to eea.locationwidget
