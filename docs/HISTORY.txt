@@ -3,6 +3,9 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Feature: display the readiness portlet on top of the portlet manager in order
+  to preserve consistency with the behavior of the indicators contenttypes
+  [ichimdav refs #17505]
 
 8.0 - (2013-11-28)
 ------------------
