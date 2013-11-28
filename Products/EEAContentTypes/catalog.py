@@ -2,7 +2,7 @@
 """
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
-from eea.dataservice.interfaces import ITemporalCoverageAdapter
+from .interfaces import ITemporalCoverageAdapter
 from Products.EEAContentTypes.interfaces import IEEAContent
 from Products.ATContentTypes.interfaces.event import IATEvent
 
