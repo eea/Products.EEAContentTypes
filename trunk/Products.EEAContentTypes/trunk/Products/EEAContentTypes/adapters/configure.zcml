@@ -12,4 +12,8 @@
             for="Products.ATContentTypes.interfaces.event.IATEvent"
             factory=".temporal.EventsTemporalCoverageAdapter"/>
 
+     <adapter factory="eea.indicators.browser.manager.IndicatorsPortletManagerRenderer"
+           for="Products.EEAContentTypes.content.interfaces.IInfographic zope.publisher.interfaces.browser.IBrowserRequest plone.app.layout.globals.interfaces.IViewView plone.portlets.interfaces.IPortletManager"
+           provides="plone.portlets.interfaces.IPortletManagerRenderer" />
+
 </configure>
