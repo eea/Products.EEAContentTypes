@@ -1,0 +1,135 @@
+<metal:portlet define-macro="portlet">
+
+	<script type="text/javascript" 
+	        src="http://api.maps.yahoo.com/ajaxymap?v=3.7&amp;appid=c5h5YSHV34ExDn1gtsTGwh6JK5TtSSqZrzJ1UHxhFQGZgkKNBDXKlGnguYCpWjdvT3TaYnz.3xE-"></script>
+
+	<metal:css define-slot="css_slot" />
+
+	<div class="map-portlet">
+		<dl>
+			<metal:header define-slot="header_slot" />
+			<dd class="portletItem">
+				<div id="ymap" style="width: 99%; height:150px;">
+					<metal:widget define-slot="widget_slot" />
+				</div>
+			</dd>
+			<metal:footer define-slot="footer_slot" />
+		</dl>
+	</div>
+
+	<metal:geodata define-slot="geo_data_slot" />
+
+	<metal:mapsettings define-slot="map_settings_slot">
+		<script type="text/javascript">
+			<!--
+			function setMapControls(map) {
+				//map.addTypeControl();
+				//map.addPanControl();
+				//map.addZoomLong();
+				map.addZoomShort();
+			}
+			// -->
+		</script>
+	</metal:mapsettings>
+
+<script type="text/javascript">
+	<!--
+	var map = null;
+	var map_html = document.getElementById("ymap");
+
+	function handlerYahooMap() {
+		var mapCenterLoc = "Wien, Austria"
+		var mapCenterZoom = 17; //16: Europe level; 17: World level
+		map = new YMap(map_html, YAHOO_MAP_REG);
+		map.drawZoomAndCenter(mapCenterLoc, mapCenterZoom);
+
+		// Set map controls
+		setMapControls(map);
+
+		var zp = new YCoordPoint(100,100);
+		zp.translate('left','bottom');
+		var cOverlay = new YCustomOverlay(zp);
+		showSelectedLocations();
+		YEvent.Capture(map,EventsList.endMapDraw, clearMapInfo);
+	}
+
+	function trim(str) {
+		var ret;
+		if(typeof(str) != "string") str = str + "";
+		return str.replace(/(^\s+)|(\s+$)/gi, "");
+	}
+
+	function createMarker(map, lat, lng, id) {
+		var geo_loc = new YGeoPoint(lat, lng);
+		var geo_image = new YImage();
+		geo_image.src = 'http://www-eea.eaudeweb.ro/portal_url/event_icon.gif';
+		geo_image.size = new YSize(16,16);
+
+		var marker = new YMarker(geo_loc, geo_image)
+		marker.setSmartWindowColor("grey");
+		map.addOverlay(marker);
+
+		return marker.id
+	}
+
+	function showSelectedLocations() {
+		var mapMarker = null;
+		// clear map
+		map.removeMarkersAll();
+
+		// put markers on map
+		var arrMarkers = trim(geo_data).split('###');
+		var num_records = 0;
+		for (var i = 0; i < arrMarkers.length; i++) {
+			var b = trim(arrMarkers[i]);
+			if (b != '') {
+				var m = b.split('|');
+				lat = parseFloat(m[0]);
+				lng = parseFloat(m[1]);
+				mapid = createMarker(map, lat, lng, i);
+				num_records++;}
+		var markersIDs = map.getMarkerIDs();
+
+		// Markers count
+		var count_markers = document.getElementById("ymap-count");
+		if (count_markers) {count_markers.innerHTML = markersIDs.length}
+	}}
+
+	function clearMapInfo() {
+		// Hide map info
+		imgs = map_html.getElementsByTagName('img');
+		for (var k=0;k<imgs.length;k++) {
+			// Yahoo logo on FF
+			if (imgs[k].src == 'http://us.i1.yimg.com/us.yimg.com/i/us/map/aj/yahoo.png')
+				{imgs[k].style.height = '9px';
+				 imgs[k].style.width = '40px';}
+			// Yahoo logo on IE
+			if (imgs[k].src == 'http://us.i1.yimg.com/us.yimg.com/i/us/map/aj/cpx.gif' && (k+1 == imgs.length))
+				{imgs[k].style.height = '9px';
+				 imgs[k].style.width = '40px';}
+		}
+
+		divs = map_html.getElementsByTagName('div');
+		for (var m=0;m<divs.length;m++) {
+			//Yahoo info
+			if (divs[m].innerHTML.indexOf('Yahoo') != -1)
+				{divs[m].style.bottom = '-4px';
+				 divs[m].style.fontSize = '6pt';}
+
+			//TeleAtlas info
+			if (divs[m].innerHTML.indexOf('TeleAtlas') != -1)
+				{divs[m].style.bottom = '5px';
+				 divs[m].style.fontSize = '6pt';}
+
+			//Scale control
+			if (divs[m].align == 'left' && !divs[m].id.indexOf('ymarkeryid')) {divs[m].style.display = 'none';}
+		}
+	}
+
+	var geo_onload=window.onload;
+	if (typeof(geo_onload)=='function')
+		window.onload=function(){geo_onload();handlerYahooMap()};
+	else window.onload=function(){handlerYahooMap()};
+	// -->
+</script>
+</metal:portlet>
