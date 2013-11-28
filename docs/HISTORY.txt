@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.0-dev - (unreleased)
-----------------------
+8.0 - (2013-11-28)
+------------------
 * Change: moved the ITemporalCoverageAdapter from eea.dataservice within
   Products.EEAContentTypes
   [ichimdav refs #17588]
