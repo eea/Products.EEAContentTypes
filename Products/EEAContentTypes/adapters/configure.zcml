@@ -1,0 +1,15 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="eea">
+<!-- #16719; Temporal Coverage Adapter -->
+    <adapter
+             for="Products.Archetypes.interfaces.IBaseContent"
+             factory=".temporal.DefaultTemporalCoverageAdapter"/>
+
+    <adapter
+            for="Products.ATContentTypes.interfaces.event.IATEvent"
+            factory=".temporal.EventsTemporalCoverageAdapter"/>
+
+</configure>
