@@ -206,6 +206,11 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
+    <!-- SOER2015 contenttypes -->
+    <class class="eea.soercontent.content.schema.SoerContent" zcml:condition="installed eea.soercontent">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
 
 
 

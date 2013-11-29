@@ -3,6 +3,8 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
+* Feature: SOER2015 base content now provides IEEAContent interface
+  [ichimdav refs #17610]
 
 8.1 - (2013-11-29)
 ------------------
