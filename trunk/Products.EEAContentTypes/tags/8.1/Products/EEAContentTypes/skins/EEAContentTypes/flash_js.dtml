@@ -1,0 +1,71 @@
+<script type="text/javascript">
+   // <![CDATA[
+
+   // START OF JS FOR IFRAME HANDLING
+   // from Jon Maidens (atkins)
+   // new component in the WISE maps which uses an iframe to embed content 
+   // in the map from an external source (Microsoft reporting services in this case). 
+   // The iframe implementation needs some javascript methods and a div in the surrounding html.
+
+            $(window).load(function() {
+              $('#content-core').append("<div id='divFrame' style='position:absolute;background-color:#FFFFFF;border:0px;visibility:visible;'>")
+            });
+
+            function loadIFrame(url){
+                  $("#divFrame").html("<iframe id='htmlFlashIFrame' src='" + url + "'frameborder='0'></iframe>");
+            }
+            
+            function moveIFrame(x,y,w,h) {
+               var position = $('#content-core').position();
+               var top =  y + position.top;            
+               var left = x + position.left;
+               var frameRef=$("#divFrame");
+                frameRef.css({"top": top+"px", "left": left+"px"});
+                var iFrameRef= $("#htmlFlashIFrame"); 
+                  iFrameRef.width(w);
+                  iFrameRef.height(h);
+            }
+            
+            function hideIFrame(){
+                $("#divFrame").hide();
+            }
+                  
+            function showIFrame(){
+                $("#divFrame").show();
+            }
+
+   // END OF JS FOR IFRAME HANDLING
+
+   // START OF DYNAMIC SWFObject code
+   <dtml-call "REQUEST.set('queryStart',0)">
+   <dtml-if remoteUrl>
+   //parse remoteUrl for optional flash variables
+      <dtml-call "REQUEST.set('queryStart',remoteUrl.find('?'))">
+   </dtml-if>   
+   var so = new SWFObject("<dtml-if remoteUrl><dtml-if "queryStart>0"><dtml-var "remoteUrl[:queryStart]"><dtml-else>&dtml-remoteUrl;</dtml-if><dtml-else>&dtml-absolute_url;/getFile</dtml-if>", "sotester", "100%", "100%", "7", "<dtml-if bgcolor>&dtml-bgcolor;<dtml-else>ffffff</dtml-if>");
+   so.addParam("scale", "<dtml-if swf_scale>&dtml-swf_scale;<dtml-else>noscale</dtml-if>");
+   so.addParam("wmode", "<dtml-if swf_wmode>&dtml-swf_wmode;<dtml-else>opaque</dtml-if>");
+   so.addParam("allowfullscreen", "true");
+   so.addParam("allowScriptAccess", "always");
+   so.addVariable("sessionid", getQueryParamValue("sessionid"));
+   <dtml-if remoteUrl>
+   //parse remoteUrl for optional flash variables
+   <dtml-if "queryStart>0">
+   <dtml-call "REQUEST.set('urlvars',remoteUrl[queryStart+1:].split('&'))">
+   //URLVARS: <dtml-var urlvars>
+   <dtml-in urlvars><dtml-let qvar=sequence-item sepidx="qvar.find('=')" qvarkey="qvar[:sepidx]" qvarvalue="qvar[sepidx+1:]">so.addVariable("<dtml-var qvarkey>", "<dtml-var qvarvalue>");</dtml-let>
+   </dtml-in>
+   </dtml-if>
+   </dtml-if>
+   so.write("container-&dtml-getId;");
+   newHeight = resizeDiv();
+   map = document.getElementById("container-&dtml-getId;")
+
+   if(map != null) {   
+       map.style.height=newHeight + 'px';
+       map.style.width='100%';
+   }
+   // END OF DYNAMIC SWFObject code							
+   // ]]>
+   
+</script>
