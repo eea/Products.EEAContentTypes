@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.1-dev - (unreleased)
-----------------------
+8.1 - (2013-11-29)
+------------------
 * Change: removed unused and redundant fields in infographic.
   [demarant refs #17505]
 * Feature: display the readiness portlet on top of the portlet manager in order
