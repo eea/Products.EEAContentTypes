@@ -27,34 +27,6 @@ SCHEMA = atapi.Schema((
         )
     ),
 
-    atapi.StringField(
-        name='imageCopyright',
-        schemata="default",
-        widget=atapi.StringWidget(
-            label=_("Image Copyright"),
-            description=_("Enter the copyright information for this image."),
-            i18n_domain='eea',
-        )
-    ),
-
-    atapi.TextField(
-        name='license',
-        schemata="creators",
-        allowable_content_types=('text/plain',),
-        widget=atapi.TextAreaWidget(
-            label=_(u'License'),
-            description=_(u'License information')
-        )
-    ),
-    atapi.TextField(
-        name='publisher',
-        schemata="creators",
-        allowable_content_types=('text/plain',),
-        widget=atapi.TextAreaWidget(
-            label=_(u'Publisher'),
-            description=_(u'Publisher information')
-        )
-    ),
 ))
 
 
