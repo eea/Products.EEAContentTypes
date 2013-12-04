@@ -7,6 +7,8 @@ Changelog
   [ichimdav refs #17610]
 * Change: removed : from "Temporal coverage:" heading
   [alecghica]
+* Change: removed : from "Geographical coverage:" heading
+  [alecghica]
 
 8.1 - (2013-11-29)
 ------------------
