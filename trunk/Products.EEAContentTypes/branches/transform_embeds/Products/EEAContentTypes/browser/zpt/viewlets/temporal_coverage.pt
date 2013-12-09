@@ -1,0 +1,13 @@
+<!-- Temporal coverage -->
+<tal:block metal:define-macro="temp-coverage"
+        tal:condition="view/available">
+    <tal:render tal:define="value context/@@formatTempCoverage" tal:condition="value">
+            <div class="temporal-coverage">
+                <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
+                <h3 class="temporal-coverage-title" i18n:translate="">
+                    Temporal coverage
+                </h3>
+                <p class="temporal-coverage-content" tal:content="value" id="tempCoverage"></p>
+            </div>
+    </tal:render>
+</tal:block>
