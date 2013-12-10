@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/main_template/macros/master"
+    i18n:domain="eea">
+
+    <head>    
+      <metal:js fill-slot="javascript_head_slot"
+                tal:define="flash nocall:here">
+            <tal:flashjs replace="structure here/flash_js_inline_popup" /> 
+      </metal:js>
+    </head>    
+    <body>
+        <metal:header fill-slot="header">
+            <h1 class="documentFirstHeading" tal:content="here/Title">
+                Flash animation
+            </h1>
+        </metal:header>
+        
+        <metal:fill fill-slot="main">
+            
+            <metal:main define-macro="main" >
+                 <p i18n:translate="">A new window has been opened with the flash application. <br/>
+                    If you don't see the window please check your browser preferences to allow popup windows. You'll then need to reload this page.</p>
+            </metal:main>
+        </metal:fill>
+        
+    </body>
+</html>
+
