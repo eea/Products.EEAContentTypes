@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3-dev - (unreleased)
-----------------------
+8.3 - (2013-12-10)
+------------------
 * Bug fix: fixed ReST markup of HISTORY.txt
   [ghicaale refs #17716]
 
