@@ -1,0 +1,45 @@
+Transition guards
+=================
+  
+Transitions are protected by roles and an expression. The expression runs a
+transition logic adapter that returns True or False depending on context,
+content type and in some cases content in the content type. These adapters
+are looked up automatically we will here show you how the existing once work
+and how you can create new.
+
+First some content
+
+  >>> folder = self.portal.folder
+  >>> self.setRoles(['Editor'])
+  >>> docId = folder.invokeFactory('Document', id='doc1')
+  >>> doc = folder[docId]
+  
+The adapaters are named adapters where the name is the transition, if no 
+adapter is found for a specific transition True is returned. All adapters 
+implement `ITransitionLogicalGuard`
+
+REMEMBER: The these guards are only called if you have the correct role for the
+transitions.
+
+  >>> from zope.component import queryMultiAdapter
+  >>> from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
+  >>> guard = queryMultiAdapter((doc,doc.REQUEST), ITransitionLogicalGuard, name='publish')
+  >>> guard is None
+  True
+
+Documents need to be content reviewed before web qa.
+
+  >>> guard = queryMultiAdapter((doc, doc.REQUEST), name='transitionSubmit')
+  >>> guard()
+  False
+
+Links don't need any web qa reviewing.
+
+  >>> docId = folder.invokeFactory('Link', id='l1')
+  >>> l1 = folder[docId]
+  >>> guard = queryMultiAdapter((l1,l1.REQUEST), name=u'transitionSubmit')
+  >>> guard()
+  False
+
+
+
