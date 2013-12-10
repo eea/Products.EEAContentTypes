@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.2-dev - (unreleased)
-----------------------
+8.2 - (2013-12-10)
+------------------
 * Feature: SOER2015 base content now provides IEEAContent interface
   [ichimdav refs #17610]
 * Change: removed : from "Temporal coverage:" heading
