@@ -8,4 +8,8 @@
 ##bind subpath=traverse_subpath
 ##parameters=id=''
 ##
-return context.content_edit_impl(state, id)
+
+
+returning = context.content_edit_impl(state, id)
+messages = context.restrictedTraverse("@@session_messages")()
+return returning

@@ -360,6 +360,14 @@
         directory="crop/crop_resources"
         />
 
+    <browser:page
+        for="*"
+        class=".app.SessionMessages"
+        name="session_messages"
+        permission="cmf.ModifyPortalContent"
+        attribute="get_messages" />
+
+
     <!-- image ratio check subscribers-->
     <subscriber for="
         Products.EEAContentTypes.content.interfaces.IExternalHighlight

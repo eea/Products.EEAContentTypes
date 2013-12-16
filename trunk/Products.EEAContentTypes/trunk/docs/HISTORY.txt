@@ -3,6 +3,8 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* clear session messages after schemata_edit popup submission
+  [simiamih refs #16797]
 
 8.3 - (2013-12-10)
 ------------------
