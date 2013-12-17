@@ -4,7 +4,7 @@
     <div class="geographical-coverage">
         <metal:related use-macro="here/dataset_view/macros/geotags-listing">
             <tal:geotags-title metal:fill-slot="geotags-listing-title">
-                <h3 i18n:translate="">Geographical coverage</h3>
+                <h3 i18n:translate="" class="notoc">Geographical coverage</h3>
             </tal:geotags-title>
         </metal:related>
 
