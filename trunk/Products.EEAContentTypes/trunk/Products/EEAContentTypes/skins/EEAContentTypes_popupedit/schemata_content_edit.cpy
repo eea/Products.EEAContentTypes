@@ -11,5 +11,5 @@
 
 
 returning = context.content_edit_impl(state, id)
-messages = context.restrictedTraverse("@@session_messages")()
+context.REQUEST.RESPONSE.expireCookie('statusmessages', path='/')
 return returning
