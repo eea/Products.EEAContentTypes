@@ -1,6 +1,5 @@
 from Products.Five import BrowserView
 from RestrictedPython.Utilities import same_type
-from Products.statusmessages.interfaces import IStatusMessage
 
 
 class UnicodeTestIn(BrowserView):
@@ -45,9 +44,3 @@ class UnicodeTestIn(BrowserView):
         # if one occurs, that means the site charset must be changed !
         return value.encode(site_charset)
 
-class SessionMessages(BrowserView):
-    """ Manually return and expire session information messages """
-
-    def get_messages(self):
-        """ call show method without using the messages """
-        return IStatusMessage(self.request).show()

@@ -6,7 +6,7 @@ Changelog
 * Change: added notoc classes for Geographical and Temporal Coverage viewlet 
   headers as they shouldn't appear within the document table of contents
   [ichimdav fixes #17636]
-* clear session messages after schemata_edit popup submission
+* Change: clear session messages after schemata_edit popup submission
   [simiamih refs #16797]
 
 8.3 - (2013-12-10)
