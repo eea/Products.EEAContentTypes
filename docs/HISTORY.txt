@@ -3,6 +3,12 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Change: removed the Data and EEAFigure from the list of portal_types that
+  did not use the temporalCoverage schemaextender
+  [ichimdav refs #17611]
+* Change: make use of the macros from eea.forms when displaying the temporal
+  and geographical coverage viewlets
+  [ichimdav refs #17611]
 * Change: added notoc classes for Geographical and Temporal Coverage viewlet 
   headers as they shouldn't appear within the document table of contents
   [ichimdav fixes #17636]
