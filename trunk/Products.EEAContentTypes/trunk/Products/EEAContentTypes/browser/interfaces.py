@@ -290,8 +290,7 @@ class IEEAContentTypesSettings(Interface):
         description=_(u"Disables the Temporal Coverage Schema Extender for the "
                       "following content-types"),
         required=False,
-        default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
-                 'Link'),
+        default=('Assessment', 'IndicatorFactSheet', 'Link'),
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
