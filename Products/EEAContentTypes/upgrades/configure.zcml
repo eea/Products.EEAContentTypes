@@ -3,6 +3,18 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="8.0"
+    destination="8.5"
+    profile="Products.EEAContentTypes:default">
+
+      <genericsetup:upgradeStep
+              title="Update IEEAContentRegistryRequiredFields and IEEAContentTypesSettings registry settings"
+              handler=".evolve85.evolve"
+              />
+
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="7.9"
     destination="8.0"
     profile="Products.EEAContentTypes:default">

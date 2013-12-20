@@ -342,12 +342,8 @@ class IEEAContentRegistryRequiredFields(Interface):
         description=_(u"Requires the temporalCoverage field for the "
                       "following content-types"),
         required=False,
-        default=('Infographic',),
+        default=('Infographic', 'Data', 'EEAFigure'),
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
-
-
-
-
 

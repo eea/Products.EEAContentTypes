@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types
+  [voineali refs #17611]
 * Change: removed the Data and EEAFigure from the list of portal_types that
   did not use the temporalCoverage schemaextender
   [ichimdav refs #17611]
