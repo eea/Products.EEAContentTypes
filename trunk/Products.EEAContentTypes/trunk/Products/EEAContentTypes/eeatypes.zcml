@@ -129,12 +129,6 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
-    <!-- Glossary -->
-    <class class="eea.soercontent.content.glossary.Glossary"
-           zcml:condition="installed eea.soercontent">
-        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
-    </class>
-
     <!-- Highlight -->
     <class class="Products.EEAContentTypes.content.Highlight.Highlight">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
