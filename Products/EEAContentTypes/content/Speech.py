@@ -39,18 +39,6 @@ class Speech(Highlight, BaseContent):
     schema = Speech_schema
     content_icon = 'speech_icon.gif'
 
-    security.declarePublic('getPublishDate')
-    def getPublishDate(self):
-        """ Publish date
-        """
-        return self.getEffectiveDate()
-
-    security.declarePublic('setPublishDate')
-    def setPublishDate(self, value, **kw):
-        """ Set publish date
-        """
-        self.setEffectiveDate(value)
-
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):

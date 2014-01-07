@@ -265,33 +265,6 @@ schema = public.Schema((
         languageIndependent=True
     ),
 
-    public.DateTimeField(
-        name='publishDate',
-        widget=public.CalendarWidget(
-            label="Publish Date",
-            label_msgid="label_effective_date",
-            description_msgid="help_effective_date",
-            i18n_domain="plone",
-            description=("Date when the content should become available on "
-                         "the public site."),
-        ),
-        languageIndependent=True
-    ),
-
-    public.DateTimeField(
-        name='expiryDate',
-        index="True",
-        widget=public.CalendarWidget(
-            label="Expiration Date",
-            description=("Date when the content should become iunavailable on "
-                         "the public site."),
-            label_msgid='EEAContentTypes_label_expiryDate',
-            description_msgid='EEAContentTypes_help_expiryDate',
-            i18n_domain='EEAContentTypes',
-        ),
-        languageIndependent=True
-    ),
-
     ManagementPlanField(
         name='management_plan',
         languageIndependent=True,
@@ -348,18 +321,6 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
 
         return DisplayList(levels)
 
-    security.declarePublic('getPublishDate')
-    def getPublishDate(self):
-        """ Effective date getter
-        """
-        return self.getEffectiveDate()
-
-    security.declarePublic('setPublishDate')
-    def setPublishDate(self, value, **kw):
-        """ Effective date setter
-        """
-        self.setEffectiveDate(value)
-
     security.declarePublic('getTeaser')
     def getTeaser(self):
         """ Teaser getter
@@ -377,18 +338,6 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
         """ Media getter
         """
         return self.getImage() or self._getMedia()
-
-    security.declarePublic('getExpiryDate')
-    def getExpiryDate(self):
-        """ Expiration date getter
-        """
-        return self.getExpirationDate()
-
-    security.declarePublic('setExpiryDate')
-    def setExpiryDate(self, value, **kw):
-        """ Expiration date setter
-        """
-        self.setExpirationDate(value)
 
     security.declareProtected(View, 'tag')
     def tag(self, **kwargs):

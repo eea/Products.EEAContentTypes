@@ -55,7 +55,7 @@ Article_schema["visibilityLevel"].widget.visible = True
 class Article(Highlight):
     """
     Articles are very similar to Highlights: folderish news-alike
-    pages which contains information abous specific subjects and can be
+    pages which contains information about specific subjects and can be
     displayed on frontpage of a website and sent as notification as any other
     news-alike content type.
     """

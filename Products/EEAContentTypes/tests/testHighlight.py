@@ -47,24 +47,6 @@ class testHighlight(EEAContentTypeTestCase):
             noOfLow=self.noOfLow)
 
     # from class ExternalHighlight:
-    def test_getPublishDate(self):
-        """ Get publication date
-        """
-        high = self.folder.high1
-        now = DateTime()
-        high.setEffectiveDate(now)
-        self.failIf(high.getPublishDate() != now)
-
-    # from class ExternalHighlight:
-    def test_setPublishDate(self):
-        """ Set publication date
-        """
-        high = self.folder.high1
-        now = DateTime()
-        high.setPublishDate(now)
-        self.failIf(high.getEffectiveDate() != now)
-
-    # from class ExternalHighlight:
     def test_getTeaser(self):
         """ Get teaser
         """
@@ -110,25 +92,6 @@ class testHighlight(EEAContentTypeTestCase):
         answer = [ 'Image', 'Image' ]
         message = '%s != %s' % (result, answer)
         self.failIf( result != answer, message )
-
-    # from class ExternalHighlight:
-    def test_getExpiryDate(self):
-        """ Get expiry date
-        """
-        high = self.folder.high1
-        now = DateTime()
-        high.setExpirationDate(now)
-        self.failIf(high.getExpiryDate() != now)
-
-    # from class ExternalHighlight:
-    def test_setExpiryDate(self):
-        """ Set expiry date
-        """
-        high = self.folder.high1
-        now = DateTime()
-        high.setExpiryDate(now)
-        result = high.getExpirationDate()
-        self.failIf( result != now, result)
 
 
 def test_suite():
