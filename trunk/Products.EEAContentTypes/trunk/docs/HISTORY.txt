@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Change: removed publishDate and expiryDate fields along with their
+  corresponding code
+  [ichimdav refs #17611]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Content Types
   [voineali refs #17611]

@@ -45,18 +45,6 @@ class PressRelease(Highlight, BaseContent):
 
     # Methods
 
-    security.declarePublic('getPublishDate')
-    def getPublishDate(self):
-        """ Publish date
-        """
-        return self.getEffectiveDate()
-
-    security.declarePublic('setPublishDate')
-    def setPublishDate(self, value, **kw):
-        """ Publish date setter
-        """
-        self.setEffectiveDate(value)
-
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
     def setThemes(self, value, **kw):
