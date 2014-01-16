@@ -3,8 +3,8 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
-    source="8.0"
-    destination="8.5"
+    source="*"
+    destination="8.4"
     profile="Products.EEAContentTypes:default">
 
       <genericsetup:upgradeStep
