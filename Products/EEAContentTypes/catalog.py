@@ -45,6 +45,7 @@ def GetTemporalCoverageForIEEAContent(obj):
     return ITemporalCoverageAdapter(obj).value()
 
 
+
 @indexer(IEEAPossibleContent)
 def GetTemporalCoverageForIEEAPossibleContent(obj):
     """ temporalCoverage indexer for IEEAPossibleContent types

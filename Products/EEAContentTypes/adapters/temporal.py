@@ -7,15 +7,8 @@ from .interfaces import ITemporalCoverageAdapter
 def _get_field_value(obj, name):
     """ utility function to return value of field name
     """
-    try:
-        data = obj.getField(name)
-        if data:
-            return data.getAccessor(obj)()
-        raise AttributeError
-    except (TypeError, ValueError):
-        # when using this method within an indexer event the catalog expects
-        # AttributeErrors when a value can't be found
-        raise AttributeError
+    data = obj.getField(name)
+    return data.getAccessor(obj)() if data else ()
 
 
 class DefaultTemporalCoverageAdapter(object):
@@ -47,12 +40,12 @@ class EventsTemporalCoverageAdapter(object):
         """
         obj = self.context
         # construct the index value from the start and end date
-        start_date = obj.getField('startDate').getAccessor(obj)() or []
+        start_date = obj.getField('startDate').getAccessor(obj)() or None
         start_year = []
         end_year = []
         if start_date:
             start_year.append(start_date.year())
-        end_date = obj.getField('endDate').getAccessor(obj)() or []
+        end_date = obj.getField('endDate').getAccessor(obj)() or None
         if end_date:
             end_year.append(end_date.year())
         if start_year or end_year:
@@ -61,5 +54,5 @@ class EventsTemporalCoverageAdapter(object):
             if coverage:
                 return tuple(coverage)
         else:
-            raise AttributeError
+            return ()
 

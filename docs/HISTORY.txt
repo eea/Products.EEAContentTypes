@@ -3,6 +3,10 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Change: no longer trigger AttributeError when attempting to retrieve
+  the temporalCoverage data which was something that was needed only for
+  indexing
+  [ichimdav refs #16719]
 * Change: removed publishDate and expiryDate fields along with their
   corresponding code
   [ichimdav refs #17611]
