@@ -6,6 +6,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.CMFCore.permissions import View
+from eea.forms.content import eeaBaseSchema
 
 schema = Schema((
 
@@ -54,7 +55,7 @@ schema = Schema((
 
 CallForInterest_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
     getattr(ATDocument, 'schema', Schema(())).copy() + \
-    schema.copy()
+    eeaBaseSchema.copy() + schema.copy()
 
 class CallForInterest(ATFolder, ATDocument):
     """ Call for interest

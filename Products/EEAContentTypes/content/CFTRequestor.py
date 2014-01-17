@@ -14,6 +14,7 @@ from zope.event import notify
 from zope.interface import implements
 from zope.lifecycleevent import ObjectModifiedEvent
 import transaction
+from eea.forms.content import eeaBaseSchema
 
 
 schema = Schema((
@@ -136,7 +137,7 @@ schema = Schema((
 )
 
 CFTRequestor_schema = getattr(ATCTContent, 'schema', Schema(())).copy() + \
-    schema.copy()
+    eeaBaseSchema.copy() + schema.copy()
 
 CFTRequestor_schema['description'].schemata = 'metadata'
 CFTRequestor_schema['title'].widget.label = 'Name'
