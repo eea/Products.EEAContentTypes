@@ -19,7 +19,7 @@ from Products.EEAContentTypes.content import Link
 from Products.EEAContentTypes.content import PressRelease
 from Products.EEAContentTypes.content import Promotion
 from Products.EEAContentTypes.content import Speech
-from Products.EEAContentTypes.content import ThemeTaggable
+from eea.themecentre.content import ThemeTaggable
 
 
 # monkey patch, replaces reference field of certain content types to
