@@ -61,8 +61,7 @@ schema = Schema((
 )
 
 CloudVideo_schema = (getattr(ATFile, 'schema', Schema(())).copy() +
-                    eeaBaseSchema.copy() +
-                    schema.copy())
+                    eeaBaseSchema.copy() + schema.copy())
 
 # hide file field from CloudVideo
 CloudVideo_schema['file'].required = False
