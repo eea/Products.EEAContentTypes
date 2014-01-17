@@ -48,6 +48,7 @@ Article_schema['text'].required = True
 Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 Article_schema.moveField('eeaManagementPlan', before='quotationText')
+Article_schema.moveField('temporalCoverage', after='relatedItems')
 
 #visibility level is "deprecated/hidden" by default
 # used on feature article

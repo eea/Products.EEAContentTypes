@@ -37,6 +37,8 @@ Highlight_schema['text'].required = True
 validators = Highlight_schema['text'].validators
 validators.appendRequired(ExistsKeyFactsValidator('existsKeyFacts'))
 Highlight_schema.moveField('image', before='imageCaption')
+Highlight_schema.moveField('subject', before='relatedItems')
+Highlight_schema.moveField('themes', after='language')
 
 
 class Highlight(ExternalHighlight, ATNewsItem):
