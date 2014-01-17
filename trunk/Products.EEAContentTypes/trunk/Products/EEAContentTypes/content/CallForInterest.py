@@ -57,6 +57,9 @@ CallForInterest_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
     getattr(ATDocument, 'schema', Schema(())).copy() + \
     eeaBaseSchema.copy() + schema.copy()
 
+CallForInterest_schema.moveField('relatedItems', before='location')
+
+
 class CallForInterest(ATFolder, ATDocument):
     """ Call for interest
     """

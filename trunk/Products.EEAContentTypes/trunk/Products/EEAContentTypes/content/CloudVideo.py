@@ -63,6 +63,8 @@ schema = Schema((
 CloudVideo_schema = (getattr(ATFile, 'schema', Schema(())).copy() +
                     eeaBaseSchema.copy() + schema.copy())
 
+CloudVideo_schema.moveField('eeaManagementPlan', after='text')
+
 # hide file field from CloudVideo
 CloudVideo_schema['file'].required = False
 CloudVideo_schema['file'].widget.visible = {"edit": "invisible", "view":
