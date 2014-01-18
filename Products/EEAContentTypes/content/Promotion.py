@@ -7,8 +7,7 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
-from eea.forms.content import eeaBaseSchema
-from eea.themecentre.content.ThemeTaggable import ThemeTaggable
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
 from Products.LinguaPlone.public import AnnotationStorage
 from Products.LinguaPlone.public import ImageWidget
@@ -62,7 +61,8 @@ schema = Schema((
 )
 
 Promotion_schema = getattr(ATNewsItem, 'schema', Schema(())).copy() + \
-                   eeaBaseSchema.copy() + schema.copy()
+    getattr(ThemeTaggable, 'schema', Schema(())).copy() + \
+    schema.copy()
 
 Promotion_schema['allowDiscussion'].schemata = 'metadata'
 Promotion_schema['relatedItems'].schemata = 'metadata'

@@ -7,14 +7,15 @@ from Products.ATContentTypes.content.file import ATFile
 from Products.validation import V_REQUIRED
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IFlashAnimation
-from eea.themecentre.content.ThemeTaggable import ThemeTaggable
+from Products.EEAContentTypes.content.ThemeTaggable import (
+    ThemeTaggable,
+    ThemeTaggable_schema,
+)
 from Products.Archetypes.utils import contentDispositionHeader
 from Products.Archetypes.atapi import (
     Schema, IntegerField, IntegerWidget, FileWidget,
     StringField, StringWidget, registerType, AnnotationStorage
 )
-from eea.forms.content import eeaBaseSchema
-
 
 class FlashFileField(BlobField):
     """ Flash File Field"""
@@ -91,7 +92,8 @@ schema = Schema((
 )
 
 FlashFile_schema = (getattr(ATFile, 'schema', Schema(())).copy() +
-                    eeaBaseSchema.copy() + schema.copy())
+                    ThemeTaggable_schema.copy() +
+                    schema.copy())
 
 class FlashFile(ATFile, ThemeTaggable):
     """ Flash File content-type

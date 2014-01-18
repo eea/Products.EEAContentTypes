@@ -12,7 +12,6 @@ from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
 from Products.validation import V_REQUIRED
 from zope.interface import implements
-from eea.forms.content import eeaBaseSchema
 
 
 schema = Schema((
@@ -55,8 +54,7 @@ schema = Schema((
                       
     ))
 
-GIS_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema.copy() + \
-             eeaBaseSchema.copy()
+GIS_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 
 #Schema overwrites
 

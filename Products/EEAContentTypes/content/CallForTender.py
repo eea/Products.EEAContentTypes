@@ -33,8 +33,6 @@ CallForTender_schema = BaseFolderSchema.copy() + \
     getattr(CallForInterest, 'schema', Schema(())).copy() + \
     schema.copy()
 
-CallForTender_schema.moveField('relatedItems', before='location')
-
 
 class CallForTender(CallForInterest, BaseFolder):
     """ Call for tenders
