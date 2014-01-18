@@ -10,7 +10,6 @@ from Products.EEAContentTypes.config import EEAMessageFactory as _, PROJECTNAME
 
 from plone.app.blob import field
 from Products.EEAContentTypes.content.interfaces import IInfographic
-from eea.forms.content import eeaBaseSchema
 
 
 SCHEMA = atapi.Schema((
@@ -47,7 +46,7 @@ class Infographic(image.ATImage):
 
     schema = (
         image.ATImageSchema.copy() +
-        SCHEMA.copy() + eeaBaseSchema.copy()
+        SCHEMA.copy()
     )
     schema["title"].required = True
     schema["relatedItems"].required_for_published = True
