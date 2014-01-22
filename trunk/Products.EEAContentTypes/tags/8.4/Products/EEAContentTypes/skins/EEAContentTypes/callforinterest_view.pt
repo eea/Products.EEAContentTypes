@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+    <metal:body define-macro="body">
+           <tal:block define="text python:here.CookedBody(stx_level=2);
+                                   len_text python:len(text.strip());">
+               <div class="stx"
+                    tal:condition="len_text"
+                    tal:omit-tag="python:here.text_format != 'structured-text'">
+                   <div tal:replace="structure text" />
+                </div>
+          </tal:block>
+    </metal:body>
+
+</div>
+
+</body>
+</html>
+

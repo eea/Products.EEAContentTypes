@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<rss version="2.0"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  tal:define="feed view/feed;
+              dummy python:request.response.setHeader('Content-Type', 'text/xml');
+              ">
+  <channel>
+    <title tal:content="feed/title" />
+    <link tal:content="feed/link" />
+    <description tal:content="feed/description" />
+    <atom:link rel="self" type="application/rss+xml"
+      tal:attributes="href string:${feed/link}/${view/getViewName}"
+      />
+    <language tal:content="feed/language" />
+    <copyright tal:content="feed/rights" />
+    <generator>Plone</generator>
+    <image>
+      <title tal:content="feed/title" />
+      <url tal:content="string:${context/portal_url}/eea-print-logo.gif" />
+      <link tal:content="feed/link" />
+    </image>
+    <item tal:repeat="item feed/items">
+      <title tal:content="item/title" />
+      <link tal:content="string:${item/link}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic" />
+      <guid tal:content="string:${item/guid|nothing}?utm_source=EEASubscriptions&amp;utm_medium=RSSFeeds&amp;utm_campaign=Generic" />
+      <description tal:content="python:view.getItemDescription(item)" />
+      <pubDate tal:content="python:view.dateFormatItem(item)" />
+      <dc:creator tal:content="item/author" />
+      <tal:repeat repeat="tag python:item.context.Subject()">
+        <category tal:content="tag">tag</category>
+      </tal:repeat>
+      <enclosure
+        tal:define="enclosure item/has_enclosure"
+        tal:condition="enclosure"
+        tal:attributes="url item/file_url;
+                        length item/file_length;
+                        type item/file_type;" />
+    </item>
+  </channel>
+</rss>
