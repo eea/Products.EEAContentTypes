@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.4-dev - (unreleased)
-----------------------
+8.4 - (2014-01-22)
+------------------
 * Change: no longer trigger AttributeError when attempting to retrieve
   the temporalCoverage data which was something that was needed only for
   indexing
