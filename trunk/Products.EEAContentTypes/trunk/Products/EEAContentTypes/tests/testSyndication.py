@@ -97,6 +97,7 @@ class TestSyndication(EEAContentTypeTestCase):
         """ Folder thumb
         """
         # simulate publications which are folders
+        import ipdb; ipdb.set_trace()  # XXX BREAKPOINT
         self.folder.invokeFactory(
             'Image', id='img1', image=image, title='Simple Image')
         view = self.folder.restrictedTraverse('@@RSS2')
@@ -111,6 +112,7 @@ class TestSyndication(EEAContentTypeTestCase):
         highlight.setImage(image)
         view = highlight.restrictedTraverse('@@RSS2')
         entry = self.getFeedItem(self.folder, highlight)
+        import ipdb; ipdb.set_trace()  # XXX BREAKPOINT
         self.failUnless('img' in view.getItemDescription(entry))
 
 

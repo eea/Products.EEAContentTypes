@@ -20,7 +20,7 @@ ADD_CONTENT_PERMISSIONS = {
     'QuickEvent': 'EEA: Add QuickEvent',
 }
 
-setDefaultRoles('Add CallForTender', ('Manager','Editor'))
+setDefaultRoles('Add CallForTender', ('Manager', 'Editor'))
 setDefaultRoles('Add CFTRequestor', ('Manager'))
 
 product_globals = globals()

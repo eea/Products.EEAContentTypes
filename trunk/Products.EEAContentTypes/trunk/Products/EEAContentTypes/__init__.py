@@ -48,19 +48,26 @@ def setupSchemas():
         PressRelease,
         Highlight,
         CallForInterest,
+        NegotiatedProcedure,
+        CallForProposal,
         CallForTender,
         CFTRequestor,
         Event
     )
     # (schema, moveDiscussion, disableRelated, moveThemeTag)
-    types = ( (Promotion.Promotion_schema, True, False, True),
+    types = ((Promotion.Promotion_schema, True, False, True),
               (PressRelease.PressRelease_schema, True, False, True),
               (Highlight.Highlight_schema, False, False, True),
               (event.ATEvent.schema, True, True, False),
               (Event.QuickEvent.schema, True, True, False),
               (CallForInterest.CallForInterest_schema, True, True, False),
+              (NegotiatedProcedure.NegotiatedProcedure_schema, True, True,
+               False),
+              (CallForProposal.CallForProposal_schema, True, True,
+               False),
               (CallForTender.CallForTender_schema, True, True, False),
               (CFTRequestor.CFTRequestor_schema, True, True, False),)
+
     for schema, moveDiscussion, disableRelated, moveThemeTag in types:
         finalizeSchema(schema, moveDiscussion=moveDiscussion,
                        disableRelated=disableRelated, moveThemeTag=moveThemeTag)
