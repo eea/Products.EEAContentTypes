@@ -6,7 +6,6 @@ from App.Common import package_home
 from DateTime import DateTime
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from Products.CMFPlone.browser.syndication.adapters import IFeed
 from Products.CMFPlone.browser.syndication.adapters import IFeedItem
 from Products.CMFPlone.browser.syndication.adapters import BaseItem
 import os
@@ -39,6 +38,7 @@ location = '{"type": "FeatureCollection", "features": [{"geometry": '\
         'd_address": "37197 Hattorf am Harz, Germany", "types": ["locality", "'\
         'political"]}, "center": [51.651370900000003, 10.235499699999991]}}]}'
 location = '37197 Hattorf am Harz, Germany'
+
 
 class TestSyndication(EEAContentTypeTestCase):
     """ Test-cases for syndication. """
@@ -97,7 +97,6 @@ class TestSyndication(EEAContentTypeTestCase):
         """ Folder thumb
         """
         # simulate publications which are folders
-        import ipdb; ipdb.set_trace()  # XXX BREAKPOINT
         self.folder.invokeFactory(
             'Image', id='img1', image=image, title='Simple Image')
         view = self.folder.restrictedTraverse('@@RSS2')
@@ -112,7 +111,6 @@ class TestSyndication(EEAContentTypeTestCase):
         highlight.setImage(image)
         view = highlight.restrictedTraverse('@@RSS2')
         entry = self.getFeedItem(self.folder, highlight)
-        import ipdb; ipdb.set_trace()  # XXX BREAKPOINT
         self.failUnless('img' in view.getItemDescription(entry))
 
 
@@ -120,4 +118,4 @@ def test_suite():
     """ Suite
     """
     import unittest
-    return  unittest.TestSuite(unittest.makeSuite(TestSyndication))
+    return unittest.TestSuite(unittest.makeSuite(TestSyndication))
