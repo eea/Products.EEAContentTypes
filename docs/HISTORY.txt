@@ -3,6 +3,9 @@ Changelog
 
 8.5-dev - (unreleased)
 ----------------------
+* Feature: Added new content types "Negotiated procedure" and "Call for
+  proposal" 
+  [mironovi refs #17865]
 
 8.4 - (2014-01-22)
 ------------------

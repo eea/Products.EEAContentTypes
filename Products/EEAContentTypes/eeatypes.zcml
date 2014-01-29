@@ -53,6 +53,16 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
+    <!-- NegotiatedProcedure -->
+    <class class="Products.EEAContentTypes.content.NegotiatedProcedure.NegotiatedProcedure">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CallForProposal -->
+    <class class="Products.EEAContentTypes.content.CallForProposal.CallForProposal">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
     <!-- CallForTender -->
     <class class="Products.EEAContentTypes.content.CallForTender.CallForTender">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />

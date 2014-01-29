@@ -7,6 +7,8 @@ from Products.EEAContentTypes.content import validators
 from Products.EEAContentTypes.content import Article
 from Products.EEAContentTypes.content import CFTRequestor
 from Products.EEAContentTypes.content import CallForInterest
+from Products.EEAContentTypes.content import NegotiatedProcedure
+from Products.EEAContentTypes.content import CallForProposal
 from Products.EEAContentTypes.content import CallForTender
 from Products.EEAContentTypes.content import infographic
 from Products.EEAContentTypes.content import Event
@@ -55,6 +57,8 @@ __all__ = [
     Article.__name__,
     CFTRequestor.__name__,
     CallForInterest.__name__,
+    NegotiatedProcedure.__name__,
+    CallForProposal.__name__,
     CallForTender.__name__,
     Event.__name__,
     ExternalHighlight.__name__,
