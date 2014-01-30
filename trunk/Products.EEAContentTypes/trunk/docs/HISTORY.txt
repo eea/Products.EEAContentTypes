@@ -3,6 +3,9 @@ Changelog
 
 8.5-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types
+  [mironovi refs #17865]
 * Feature: Added new content types "Negotiated procedure" and "Call for
   proposal" 
   [mironovi refs #17865]
