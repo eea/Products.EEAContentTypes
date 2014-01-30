@@ -48,8 +48,6 @@ def setupSchemas():
         PressRelease,
         Highlight,
         CallForInterest,
-        NegotiatedProcedure,
-        CallForProposal,
         CallForTender,
         CFTRequestor,
         Event
@@ -61,10 +59,8 @@ def setupSchemas():
               (event.ATEvent.schema, True, True, False),
               (Event.QuickEvent.schema, True, True, False),
               (CallForInterest.CallForInterest_schema, True, True, False),
-              (NegotiatedProcedure.NegotiatedProcedure_schema, True, True,
-               False),
-              (CallForProposal.CallForProposal_schema, True, True,
-               False),
+              (CallForInterest.CallForInterest_schema, True, True, False),
+              (CallForInterest.CallForInterest_schema, True, True, False),
               (CallForTender.CallForTender_schema, True, True, False),
               (CFTRequestor.CFTRequestor_schema, True, True, False),)
 

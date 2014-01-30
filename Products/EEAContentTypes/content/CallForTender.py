@@ -17,7 +17,7 @@ schema = Schema((
             label='Award notice',
             label_msgid='EEAContentTypes_award_notice',
             i18n_domain='EEAContentTypes',
-            helper_js = ("callfortender_widget.js",)
+            helper_js=("callfortender_widget.js",)
         ),
         allowed_types="('Document','File')",
         multiValued=0,
@@ -47,7 +47,6 @@ class CallForTender(CallForInterest, BaseFolder):
             CallForInterest, 'allowed_content_types', []))
     filter_content_types = 1
     global_allow = 1
-    #content_icon = 'CallForTender.gif'
     immediate_view = 'base_view'
     default_view = 'base_view'
     suppl_views = ()
@@ -59,7 +58,6 @@ class CallForTender(CallForInterest, BaseFolder):
     schema = CallForTender_schema
 
     zope.interface.implements(ICallForTender)
-
 
     def getNextDoc(self):
         """ Next doc
@@ -83,6 +81,7 @@ class CallForTender(CallForInterest, BaseFolder):
         return result
 
     security.declarePublic("getAwardNotice")
+
     def getAwardNotice(self):
         """Returns award notice UID"""
         award = self.getAwardNoticeObject()

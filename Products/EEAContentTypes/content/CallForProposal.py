@@ -1,122 +1,22 @@
 """ CallForProposal """
-from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import (
-    Schema, StringField, StringWidget,
-    DateTimeField, CalendarWidget, registerType)
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.ATContentTypes.content.document import ATDocument
+from Products.Archetypes.atapi import registerType
 from Products.EEAContentTypes.config import PROJECTNAME
-from Products.CMFCore.permissions import View
-
-schema = Schema((
-
-    StringField(
-        name='callForId',
-        widget=StringWidget(
-            label='Call for id',
-            label_msgid='EEAContentTypes_label_callForId',
-            i18n_domain='EEAContentTypes',
-        ),
-        required=1
-    ),
-
-    DateTimeField(
-        name='closeDate',
-        widget=CalendarWidget(
-            label='Close date',
-            label_msgid='EEAContentTypes_label_closeDate',
-            i18n_domain='EEAContentTypes',
-        ),
-        required=1
-    ),
-
-    DateTimeField(
-        name='openDate',
-        widget=CalendarWidget(
-            label='Open date',
-            label_msgid='EEAContentTypes_label_openDate',
-            i18n_domain='EEAContentTypes',
-        ),
-        required=1
-    ),
-
-    DateTimeField(
-        name='applicationDate',
-        widget=CalendarWidget(
-            label='Application date',
-            label_msgid='EEAContentTypes_label_applicationDate',
-            i18n_domain='EEAContentTypes',
-        ),
-        required=1
-    ),
-
-),
-)
-
-CallForProposal_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
-    getattr(ATDocument, 'schema', Schema(())).copy() + \
-    schema.copy()
+from Products.EEAContentTypes.content.CallForInterest import CallForInterest
+from Products.EEAContentTypes.content.CallForInterest \
+    import CallForInterest_schema
 
 
-class CallForProposal(ATFolder, ATDocument):
+class CallForProposal(CallForInterest):
     """Call for proposal
     """
-    security = ClassSecurityInfo()
-
     # This name appears in the 'add' box
     archetype_name = 'CallForProposal'
 
     meta_type = 'CallForProposal'
     portal_type = 'CallForProposal'
-    allowed_content_types = ['File', 'Document'] + \
-        list(getattr(ATFolder, 'allowed_content_types', [])) + \
-        list(getattr(ATDocument, 'allowed_content_types', []))
-    filter_content_types = 0
-    global_allow = 1
-    immediate_view = 'base_view'
-    default_view = 'base_view'
-    suppl_views = ()
     typeDescription = "CallForProposal"
     typeDescMsgId = 'description_edit_negotiatedprocedure'
+    schema = CallForInterest_schema
 
-    _at_rename_after_creation = True
-
-    schema = CallForProposal_schema
-
-    security.declareProtected(View, 'getText')
-
-    def getText(self):
-        """ Text
-        """
-        return self.getField('text').get(self)
-
-    security.declareProtected(View, 'CookedBody')
-
-    def CookedBody(self, stx_level='ignored'):
-        """ Body
-        """
-        return self.getText()
-
-    def setOpenDate(self, value):
-        """ Open date setter
-        """
-        self.setEffectiveDate(value)
-
-    def setCloseDate(self, value):
-        """ Closed date setter
-        """
-        self.setExpirationDate(value)
-
-    def setEffectiveDate(self, value):
-        """ Effective date setter
-        """
-        self.getField('effectiveDate').set(self, value)
-        return self.getField('openDate').set(self, value)
-
-    def setExpirationDate(self, value):
-        """ Expiration date setter
-        """
-        self.getField('expirationDate').set(self, value)
-        return self.getField('closeDate').set(self, value)
 
 registerType(CallForProposal, PROJECTNAME)

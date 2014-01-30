@@ -1,7 +1,8 @@
 """ CallForInterest """
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import (Schema, StringField, StringWidget,
-       DateTimeField, CalendarWidget, registerType)
+from Products.Archetypes.atapi import (
+    Schema, StringField, StringWidget,
+    DateTimeField, CalendarWidget, registerType)
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
 from Products.EEAContentTypes.config import PROJECTNAME
@@ -56,6 +57,7 @@ CallForInterest_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
     getattr(ATDocument, 'schema', Schema(())).copy() + \
     schema.copy()
 
+
 class CallForInterest(ATFolder, ATDocument):
     """ Call for interest
     """
@@ -67,11 +69,10 @@ class CallForInterest(ATFolder, ATDocument):
     meta_type = 'CallForInterest'
     portal_type = 'CallForInterest'
     allowed_content_types = ['File', 'Document'] + \
-            list(getattr(ATFolder, 'allowed_content_types', [])) + \
-            list(getattr(ATDocument, 'allowed_content_types', []))
+        list(getattr(ATFolder, 'allowed_content_types', [])) + \
+        list(getattr(ATDocument, 'allowed_content_types', []))
     filter_content_types = 0
     global_allow = 1
-    #content_icon = 'CallForInterest.gif'
     immediate_view = 'base_view'
     default_view = 'base_view'
     suppl_views = ()
@@ -83,12 +84,14 @@ class CallForInterest(ATFolder, ATDocument):
     schema = CallForInterest_schema
 
     security.declareProtected(View, 'getText')
+
     def getText(self):
         """ Text
         """
         return self.getField('text').get(self)
 
     security.declareProtected(View, 'CookedBody')
+
     def CookedBody(self, stx_level='ignored'):
         """ Body
         """
