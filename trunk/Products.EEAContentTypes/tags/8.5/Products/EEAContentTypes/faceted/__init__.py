@@ -1,0 +1,2 @@
+""" Faceted navigation plugins
+"""

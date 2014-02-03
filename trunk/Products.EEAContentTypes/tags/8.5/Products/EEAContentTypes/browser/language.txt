@@ -1,0 +1,60 @@
+We prepare languages, we will have english as default and swedish and
+polish as available languages for translation.
+
+  >>> from Products.CMFCore.utils import getToolByName
+  >>> lt = getToolByName(portal, 'portal_languages')
+  >>> lt.manage_setLanguageSettings('en', ['en','sv','pl'])
+
+Let's create some content
+
+  >>> id = folder.invokeFactory('Document', id='doc1')
+  >>> doc = folder[id]
+  >>> trans = doc.addTranslation('sv')
+  >>> doc_sv = doc.getTranslation('sv')
+  >>> trans = doc.addTranslation('pl')
+  >>> doc_pl = doc.getTranslation('pl')
+  >>> for lang, tran in doc.getTranslations().items():
+  ...    tran[0].reindexObject()
+
+Language bar should link to translations 
+
+  >>> [t['change_url'] for t in doc.languageSelectorData()]
+  ['.../doc1', '.../doc1-pl', '.../doc1-sv']
+
+For canonical and translations that are default pages we want to have url to the parent.
+This way we will not expose multiple URLs to same content.
+
+  >>> folder.setDefaultPage(id)
+  >>> [t['change_url'] for t in doc.languageSelectorData()]
+  ['http://nohost/plone/Members/test_user_1_', '.../doc1-pl', '.../doc1-sv']
+
+Let's translate the folder and verify translation links if we set the polish (pl)
+as default page.
+
+  >>> import transaction
+  >>> foo = transaction.savepoint()
+  >>> trans = folder.addTranslation('pl')
+  >>> trans = folder.addTranslation('sv')
+  >>> for lang, tran in folder.getTranslations().items():
+  ...    tran[0].reindexObject()
+
+Translations are still not default pages so we should get direct links to them 
+if we go directly to a page.
+
+  >>> [t['change_url'] for t in doc.languageSelectorData()]
+  ['http://nohost/plone/Members/test_user_1_', '.../doc1-pl', '.../doc1-sv']
+
+If we go to the folders url we should always have the folders url even if the
+translations are not default pages.
+
+  >>> [t['change_url'] for t in folder.languageSelectorData()]
+  ['.../test_user_1_', '.../test_user_1_-pl', '.../test_user_1_-sv']
+
+If we make all translations default pages in their folders then all urls should
+point to the parent.
+
+  >>> from Acquisition import aq_parent
+  >>> folder.getTranslation('sv').setDefaultPage('doc1-sv')
+  >>> folder.getTranslation('pl').setDefaultPage('doc1-pl')
+  >>> [t['change_url'] for t in doc.languageSelectorData()]
+  ['.../test_user_1_', '.../test_user_1_-pl', '.../test_user_1_-sv']

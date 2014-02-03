@@ -1,0 +1,29 @@
+<metal:autorelated define-macro="auto"
+    tal:condition="context/@@plone_context_state/is_view_template">
+<tal:auto
+    tal:define="themes context/@@auto_related/sameTypeByTheme"
+    tal:condition="themes"
+    i18n:domain="eea">
+    <dl id="auto-related" class="portlet">
+        <dt class="portletHeader" i18n:translate="">Latest addition</dt>
+        <dd class="portletItem">
+
+    <tal:bytheme repeat="theme themes">
+    <dl>
+        <dt tal:content="theme/name">theme</dt>
+        <tal:block repeat="info python: theme['items']">
+            <tal:media define="media info" condition="info/is_video">
+              <metal:embedded use-macro="here/document_relateditems/macros/embedded-media" />
+            </tal:media>
+            <dd class="portletItem" tal:condition="not: info/is_video">
+                 <a href="" tal:attributes="href info/url"
+                        tal:content="info/title">page title</a>
+            </dd>
+        </tal:block>
+    </dl>
+    </tal:bytheme>
+    </dd>
+    <div class="visualClear"></div>
+    </dl>
+</tal:auto>
+</metal:autorelated>
