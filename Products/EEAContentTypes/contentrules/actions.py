@@ -57,8 +57,9 @@ class EnableDisableDiscussionActionExecutor(object):
         action = self.element.action
         obj = self.event.object
 
-        choice = {'enabled':1, 'disabled':0}.get(action)
-        if not choice:
+        choice = {'enabled': 1, 'disabled': 0}.get(action)
+
+        if choice is None:
             return False
 
         if choice is not None:
