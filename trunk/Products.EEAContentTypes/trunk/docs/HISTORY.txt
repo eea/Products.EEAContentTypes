@@ -3,6 +3,8 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+Bug fix: fixed content rule for enabling/disabling discussions
+  [olimpiurob refs #18453]
 
 8.5 - (2014-02-03)
 ------------------
