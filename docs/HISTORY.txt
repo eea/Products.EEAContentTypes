@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.6-dev - (unreleased)
-----------------------
+8.6 - (2014-02-13)
+------------------
 Upgrade step: Remove CFTRequestor CT
   [olimpiurob refs #18443]
 Bug fix: fixed content rule for enabling/disabling discussions
