@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+   
+<body>
+
+<div metal:fill-slot="main">
+    <tal:head metal:define-macro="header">
+    <h1 i18n:translate="">Request for <tal:span tal:content="here/getCallForId" i18n:name="callforid"></tal:span></h1>
+       <p class="documentDescription" i18n:translate="">Please provide the following contact information</p>
+    </tal:head>
+</div>
+
+
+</body>
+</html>
+
