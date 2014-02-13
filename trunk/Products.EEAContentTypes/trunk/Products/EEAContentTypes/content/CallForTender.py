@@ -42,9 +42,8 @@ class CallForTender(CallForInterest, BaseFolder):
 
     meta_type = 'CallForTender'
     portal_type = 'CallForTender'
-    allowed_content_types = [
-        'CFTRequestor', 'CFT Requestor', 'File', 'Document'] + list(getattr(
-            CallForInterest, 'allowed_content_types', []))
+    allowed_content_types = ['File', 'Document'] + list(getattr(
+        CallForInterest, 'allowed_content_types', []))
     filter_content_types = 1
     global_allow = 1
     immediate_view = 'base_view'

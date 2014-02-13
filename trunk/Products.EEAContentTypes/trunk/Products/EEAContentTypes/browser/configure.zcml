@@ -68,14 +68,6 @@
         />
 
     <browser:page
-        for="Products.EEAContentTypes.content.CFTRequestor.ICFTRequestor"
-        name="isValid"
-        class=".validate.CFTRequestorValidator"
-        permission="zope.Public"
-        attribute="validate"
-        />
-
-    <browser:page
         for="*"
         name="invalidate_cache"
         permission="zope.Public"

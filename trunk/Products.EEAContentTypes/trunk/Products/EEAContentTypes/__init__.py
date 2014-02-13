@@ -49,7 +49,6 @@ def setupSchemas():
         Highlight,
         CallForInterest,
         CallForTender,
-        CFTRequestor,
         Event
     )
     # (schema, moveDiscussion, disableRelated, moveThemeTag)
@@ -61,8 +60,7 @@ def setupSchemas():
               (CallForInterest.CallForInterest_schema, True, True, False),
               (CallForInterest.CallForInterest_schema, True, True, False),
               (CallForInterest.CallForInterest_schema, True, True, False),
-              (CallForTender.CallForTender_schema, True, True, False),
-              (CFTRequestor.CFTRequestor_schema, True, True, False),)
+              (CallForTender.CallForTender_schema, True, True, False),)
 
     for schema, moveDiscussion, disableRelated, moveThemeTag in types:
         finalizeSchema(schema, moveDiscussion=moveDiscussion,

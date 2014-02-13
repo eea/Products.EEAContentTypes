@@ -10,16 +10,3 @@ class NotValid(BrowserView):
         """ Validate
         """
         return False
-
-class CFTRequestorValidator(BrowserView):
-    """ CFT Validator
-    """
-    def validate(self):
-        """ Validate
-        """
-        context = self.context
-        errors = {}
-        context.Schema().validate(context, None, errors, 1, 1)
-        if errors:
-            return False
-        return True

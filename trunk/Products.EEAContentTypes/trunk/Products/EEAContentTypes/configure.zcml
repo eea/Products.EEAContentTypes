@@ -30,10 +30,6 @@
 
     <interface interface=".interfaces.IEEAPloneSite" />
 
-    <subscriber for=".content.CFTRequestor.ICFTRequestor
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler=".content.CFTRequestor.submit_requestor"   />
-
     <subscriber for="Products.ATContentTypes.content.topic.ATTopic
                      Products.LinguaPlone.events.ObjectTranslatedEvent"
                 handler=".smartfolder.smartFolderAdded"   />
