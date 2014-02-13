@@ -6,38 +6,7 @@ from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 
 
 class testCallForTenders(EEAContentTypeTestCase):
-    """Test-cases for class(es) CallForTender, CFTRequestor."""
-
-    def test_CFTRequestor(self):
-        """ Test CFTRequestor
-        """
-        self.setRoles('Manager')
-        root = self.folder
-        workflowTool = root.portal_workflow
-
-
-        today = DateTime()
-        cid = root.invokeFactory(type_name='CallForTender', id="cft",
-                                title='Call for tender',
-                                openDate=today,
-                                closeDate=today,
-                                applicationDate=today )
-        cft = getattr(root, cid)
-        workflowTool.doActionFor(cft, "open")
-
-        # Anonymous visitor
-        self.logout()
-
-        # create some customers
-        cid = cft.invokeFactory(type_name='CFTRequestor', id="cust1")
-        customer = getattr(cft, cid)
-        customer.update(title='name', firstname='firstname',
-                        lastname ='lastname',
-                        email= 'email@ff.ff')
-
-        workflowTool.doActionFor(customer, "submit")
-        actions = workflowTool.getTransitionsFor(customer)
-        self.failUnless(len(actions) == 0, actions)
+    """Test-cases for class(es) CallForTender"""
 
 
     def testCFIDates(self):
