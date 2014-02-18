@@ -3,12 +3,16 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types. Document and File re-added as
+  addable CT to CallForTender CT
+  [olimpiurob refs #18516]
 
 8.6 - (2014-02-13)
 ------------------
-Upgrade step: Remove CFTRequestor CT
+* Upgrade step: Remove CFTRequestor CT
   [olimpiurob refs #18443]
-Bug fix: fixed content rule for enabling/disabling discussions
+* Bug fix: fixed content rule for enabling/disabling discussions
   [olimpiurob refs #18453]
 
 8.5 - (2014-02-03)
