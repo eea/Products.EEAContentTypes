@@ -3,6 +3,9 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Added IGeoPositioned dummy interface needed due to old pickled object versions
+  implementing it
+  [olimpiurob refs #18351]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Content Types. Document and File re-added as
   addable CT to CallForTender CT
