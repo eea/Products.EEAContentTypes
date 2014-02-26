@@ -66,6 +66,6 @@ class IInfographic(IEEAContent):
 
 
 class IGeoPositioned(Interface):
-    """ Dummy interface added due to #18351.
-        We have old pickled object versions implementing this
+    """ Dummy interface added due to #18351. We have old pickled object
+        versions implementing this, and as such, do not remove this interface
     """
