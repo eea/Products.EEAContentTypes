@@ -63,3 +63,9 @@ class IGISMapApplication(Interface):
 class IInfographic(IEEAContent):
     """ Infographic
     """
+
+
+class IGeoPositioned(Interface):
+    """ Dummy interface added due to #18351.
+        We have old pickled object versions implementing this
+    """
