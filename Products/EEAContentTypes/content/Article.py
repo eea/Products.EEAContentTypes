@@ -25,7 +25,7 @@ schema = Schema((
         index="KeywordIndex:brains",
         widget=InAndOutWidget(
             label=_(u'Publication groups'),
-         description=_(u'Fill in publication groups'),
+            description=_(u'Fill in publication groups'),
             i18n_domain='eea',
             ),
         ),
