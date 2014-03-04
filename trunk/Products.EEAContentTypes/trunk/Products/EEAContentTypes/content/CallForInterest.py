@@ -13,8 +13,9 @@ schema = Schema((
     StringField(
         name='callForId',
         widget=StringWidget(
-            label='Call for id',
+            label='Reference ID',
             label_msgid='EEAContentTypes_label_callForId',
+            description=_(u'E.g: EEA/NSV/14/004'),
             i18n_domain='EEAContentTypes',
         ),
         required=1

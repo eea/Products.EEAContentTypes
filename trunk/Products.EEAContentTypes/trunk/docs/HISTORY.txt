@@ -3,13 +3,8 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
-* Added IGeoPositioned dummy interface needed due to old pickled object versions
-  implementing it
-  [olimpiurob refs #18351]
-* Upgrade step: Within "Plone > Site setup > Add-ons" click on
-  upgrade button available for EEA Content Types. Document and File re-added as
-  addable CT to CallForTender CT
-  [olimpiurob refs #18516]
+* Change: label changed from "Call for ID" to "Reference ID"
+  [ghicaale refs #17865]
 
 8.6 - (2014-02-13)
 ------------------
@@ -24,7 +19,7 @@ Changelog
   upgrade button available for EEA Content Types
   [mironovi refs #17865]
 * Feature: Added new content types "Negotiated procedure" and "Call for
-  proposal" 
+  proposal"
   [mironovi refs #17865]
 
 8.4 - (2014-01-22)
