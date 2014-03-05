@@ -7,6 +7,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.CMFCore.permissions import View
+from Products.CMFPlone import PloneMessageFactory as _
 
 schema = Schema((
 
