@@ -3,6 +3,9 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Change: hide location field for AssessmentPart since it is
+  computed from the locations of it's related items
+  [ichimdav refs #18602]
 * Change: label changed from "Call for ID" to "Reference ID"
   [ghicaale refs #17865]
 
