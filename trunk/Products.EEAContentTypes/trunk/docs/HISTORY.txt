@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.7-dev - (unreleased)
-----------------------
+8.7 - (2014-03-10)
+------------------
 * Change: hide location field for AssessmentPart since it is
   computed from the locations of it's related items
   [ichimdav refs #18602]
