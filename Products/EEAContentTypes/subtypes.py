@@ -158,6 +158,7 @@ class LocationSchemaExtender(object):
                              ' to select a location'
             self.multiple_location[0].widget.description_msgid = (
                             'EEAContentTypes_help_location_event')
+            return self.multiple_location
         # likewise Organisation had the previous location widget on default
         elif getattr(self.context, 'portal_type', None) == 'Organisation':
             self.multiple_location[0].schemata = 'default'
@@ -170,12 +171,14 @@ class LocationSchemaExtender(object):
                              ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
+            return self.multiple_location
         # #9423 remove location schema extender for Data
         elif self.context.portal_type in ('Data',):
             return ()
         elif self.context.portal_type in ('Assessment', 'AssessmentPart'):
             self.multiple_location[0].widget.visible = {'view':'invisible',
                                                         'edit':'invisible'}
+            return self.multiple_location
         else:
             self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geotag / Location"
@@ -183,7 +186,7 @@ class LocationSchemaExtender(object):
                              'Geotags: geographical location '
                              'related to this content. Click Edit button '
                              'to select a location')
-        return self.multiple_location
+            return self.multiple_location
 
 
 class ThemesSchemaExtender(object):
