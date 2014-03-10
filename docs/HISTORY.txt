@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.8-dev - (unreleased)
-----------------------
+8.8 - (2014-03-10)
+------------------
 * Change: readded return statements for geotags subtyper, for some
   reason having just one return removed the widget for some content types
   [ichimdav]
