@@ -1,0 +1,357 @@
+%EEA default workflow
+====================
+
+EEA default workflow is a big generic workflow which solves several usescase at
+EEA. Instead of several workflows we have one to avoid need to change state/
+transition configuration in several places.
+
+The workflow is implemented by the document "EEA Web Content Types and web
+publishing QA steps, Antonio De Marinis (Web manager/IDS) ver. 20 Jun. 07"(1)
+
+We use local roles with groups to assign permissions to users on different
+parts of the website. The workflow scripts use the local roles to find out who
+should get an action email.
+
+Roles
+-----
+In the CMS we have defined following roles:
+
+ * ContentManager
+   Can add and edit content but an Editor may need to copy edit it.
+ * Editor
+   Adds and copy edits content.
+ * Reviewer
+   Does the content review after copy editing.
+ * ProofReader
+   Proof reading and verify that it follows eea typing standards.
+ * WebReviewer
+   Reviews the content agains web standards and eea web guidelines.
+ * Manager
+   Can bypass all restrictions and do everything.
+
+Default state
+-------------
+The eea default workflow has two initial states depending on the role and
+each transition is guarded by at least one role and mostly also a script.
+Manager role can bypass all transitions as default.
+
+Lets create a document(page) in a normal folder as a content manage(CM).
+
+
+  >>> self.setRoles(['ContentManager'])
+  >>> fldId = self.portal.folder.invokeFactory('Folder', id='folder-new')
+  >>> folder = self.portal.folder[fldId]
+  >>> docId = folder.invokeFactory('Document', id='doc1')
+  >>> doc = folder[docId]
+
+Lets verify we have the correct workflow for our document.
+
+  >>> wf = self.portal.portal_workflow
+  >>> wf.getWorkflowsFor(doc)[0].title
+   'EEA default workflow'
+
+Since we are a CM we should be in state "draft".
+  >>> wf.getInfoFor(doc,'review_state', None)
+   'draft'
+
+These are the transitions we care about not any others incase the content types
+have two workflows like with valentine.linguaflow
+
+  >>> ourTransitions = ['Make private', 'Back for revision', 'Submit for content review',
+  ...                    'Submit for Web QA','Submit for copy editing']
+
+A ContentManager(CM) should in default only be able to send the content for
+copy editing so lets send it.
+
+  >>> [a['name'] for a in wf.getTransitionsFor(doc)
+  ...            if a['name'] in ourTransitions]
+  ['Make private', 'Submit for copy editing']
+  >>> wf.doActionFor(doc, 'submitCopyEdit')
+  >>> wf.getInfoFor(doc,'review_state', None)
+  'new'
+
+In this state a CM can make the item private. Editor can
+do the same thing but also send it for content review.
+
+  >>> [a['name'] for a in wf.getTransitionsFor(doc)
+  ...            if a['name'] in ourTransitions]
+  ['Make private']
+  >>> self.setRoles(['Editor'])
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(doc)
+  ...            if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for content review']
+
+And if an Editor or Manager creates a new document it should automatically start in
+state 'new'.
+
+  >>> docId = folder.invokeFactory('Document', id='doc2')
+  >>> doc2 = folder[docId]
+  >>> wf.getInfoFor(doc2,'review_state', None)
+  'new'
+  >>> self.setRoles(['Manager'])
+  >>> docId = folder.invokeFactory('Document', id='doc3')
+  >>> doc3 = folder[docId]
+  >>> wf.getInfoFor(doc3,'review_state', None)
+  'new'
+
+We can verify that we went automatically from draft to new.
+
+  >>> [ h['review_state'] for h in wf.getInfoFor(doc2,'review_history', None) ]
+  ['draft', 'new']
+  >>> [ h['review_state'] for h in wf.getInfoFor(doc3,'review_history', None) ]
+  ['draft', 'new']
+
+Transitions
+-----------
+Transitions between the states are protected with roles and an expression. The
+expression is to verify if this content type in this context needs the
+transition in question. Combined with the automatic transition we can simulate
+worfklows where some states are omitted.
+
+ 1. Submit for copy edit
+    Role: ContentManager
+    Destination state: new
+
+ 2. Submit for content review
+    Role: Editor
+    Destination state: content pending
+
+ 3. Submit for proof reading
+    Role: Reviewer
+    Destination state: proof reading
+
+ 4. Submit for web qu
+    Role: ProofReader
+    Destination state: webqa_pending
+
+ 5. Publish
+    Role: WebReviewer
+    Destination state: published
+
+ 5. Reject
+    Role: WebReviewer or Reviewer
+    Destination state: new
+
+ 6. Retract
+    Role: Manager
+    Destination state: retracted
+
+ 7. Enable
+    Role: Manager
+    Destination state: new
+
+ 8. Make public draft
+    Role: WebReviewer
+    Destination: visible
+
+Content types and their states
+------------------------------
+
+We have now verified basic default state for a document for two roles and the
+almighty Manager :) From document (1) we can group content types in following
+groups:
+
+ 1. Fully workflowed - need to stop on most of the states
+    Highlight, Press release, (Sub-site) News, Theme, Topic page/Sub theme
+
+ 2. Semi workflowed - some states are done outside the CMS
+    Multimedia files, Speech, Glossary term, Job vacancy, Promotion, CFT, CFI
+
+ 3. the rest... - different state depending on location and content
+    Page, File
+
+
+Press Release
++++++++++++++
+
+Use eea simple workflow now.
+
+Page
+++++
+
+Pages can be ...
+
+Link, Promotion, Event
+++++++++++++++++++++++
+
+Links use plone_workflow.
+
+Promotion
++++++++++
+
+  >>> self.setRoles(['Editor'])
+  >>> docId = folder.invokeFactory('Promotion', id='p1')
+  >>> p1 = folder[docId]
+  >>> wf.getInfoFor(p1,'review_state', None)
+  'new'
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(p1)
+  ...              if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for Web QA']
+  >>> wf.doActionFor(p1, 'submit')
+  >>> [a['name'] for a in wf.getTransitionsFor(p1)
+  ...              if a['name'] in ourTransitions]
+  ['Back for revision']
+
+Event
++++++
+
+  >>> docId = folder.invokeFactory('Event', id='e1')
+  >>> e1 = folder[docId]
+  >>> wf.getInfoFor(e1,'review_state', None)
+  'new'
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(e1)
+  ...              if a['name'] in ourTransitions])
+  ['Back for revision', 'Make private', 'Submit for content review']
+  >>> wf.doActionFor(e1, 'submitContentReview')
+  >>> self.setRoles(['Reviewer'])
+  >>> sorted([a['name'] for a in wf.getTransitionsFor(e1)
+  ...              if a['name'] in ourTransitions])
+  ['Back for revision', 'Submit for Web QA']
+
+
+Workflow email script
+_____________________
+
+On each transition emails are collected for relevant roles in the new state. The
+emails are groupd in action and confirmation emails. Where the action email
+contains a link to edit the content object and confirmation is just a note
+about what has happend with the object.
+
+First we create some groups with members and then set different local roles for
+the groups.
+
+  >>> grps = self.portal.folder.acl_users.source_groups
+  >>> mt = self.portal.portal_membership
+  >>> members = [  'Folder1Reviewer','Folder2Reviewer', 'Folder1ProofReader', 'Folder2ProofReader']
+  >>> for username in members:
+  ...     mt.addMember(username, 'secret', ['CommonEditor',], [])
+  ...     member = mt.getMemberById(username)
+  ...     email = '%s@eea.eu' % username
+  ...     member.setMemberProperties({'fullname': username, 'email': email})
+  ...     grpid = 'group_%s' % username
+  ...     foo = grps.addGroup(grpid)
+  ...     foo = grps.addPrincipalToGroup(username, grpid)
+  >>> foo = grps.addPrincipalToGroup(mt.getAuthenticatedMember().getId(), 'group_Folder1Reviewer')
+  >>> self.setRoles(['Editor'])
+  >>> docId = folder.invokeFactory('Document', id='doc4')
+  >>> doc = folder[docId]
+  >>> wf.doActionFor(doc, 'submitContentReview')
+
+Now we have a document in state content_pending and let check to whom  emails
+will be sent to:
+
+  >>> from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
+  >>> self.setRoles(['Manager'])
+  >>> from zope.component import getAdapter
+  >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')
+  >>> emails.action
+  []
+  >>> emails.confirmation
+  ['test@tester.com']
+
+We only got the owners email. That is because we didn't specify any local or
+global roles for groups or users. Lets assign the role Reviewer to the group
+Folder1Reviewer on the folder where our document is.
+
+  >>> folder.manage_setLocalRoles( 'group_Folder1Reviewer', ('Reviewer','Manager',))
+  >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')
+
+  Notifications are disabled in this case. See #1149, r11072
+
+  >>> emails.action
+  []
+
+  >>> emails.confirmation
+  ['Folder1Reviewer@eea.eu', 'test@tester.com']
+
+  >>> emails.sender
+  'test tester.com <test@tester.com>'
+
+
+Let see if multiple acquried roles works. The role acquisition should stop on
+the first parent that contains the role.
+
+  >>> sub1 = folder.invokeFactory('Folder', id='sub1')
+  >>> sub1 = folder[sub1]
+  >>> sub2 = sub1.invokeFactory('Folder', id='sub2')
+  >>> sub2 = sub1[sub2]
+
+  >>> docId = sub2.invokeFactory('Document', id='doc5')
+  >>> doc = sub2[docId]
+  >>> wf.doActionFor(doc, 'submitContentReview')
+
+We should have the same email since we didn't override any roles on sub folder.
+
+  >>> emails = getAdapter(doc, IWorkflowEmails, u'content_pending')
+  >>> emails.action
+  []
+  >>> emails.confirmation
+  ['Folder1Reviewer@eea.eu', 'test@tester.com']
+  >>> emails.sender
+  'test tester.com <test@tester.com>'
+
+Now we override Reviewer role with other group:
+
+  >>> sub1.manage_setLocalRoles( 'group_Folder2Reviewer', ('Reviewer',))
+  >>> emails2 = getAdapter(doc, IWorkflowEmails, u'content_pending')
+  >>> emails2.action
+  []
+  >>> emails2.confirmation
+  ['Folder2Reviewer@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  >>> emails2.sender
+  'test tester.com <test@tester.com>'
+
+And one more time on sub2
+
+  >>> sub2.manage_setLocalRoles( 'group_Folder2ProofReader', ('Reviewer',))
+  >>> emails2 = getAdapter(doc, IWorkflowEmails, u'content_pending')
+  >>> emails2.action
+  []
+  >>> emails2.confirmation
+  ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  >>> emails2.sender
+  'test tester.com <test@tester.com>'
+
+
+  >>> gt = self.portal.portal_groups
+  >>> gt.setRolesForGroup('group_Folder2Reviewer', roles=['Reviewer',])
+  >>> emails2 = getAdapter(doc, IWorkflowEmails, u'published')
+  >>> emails2.action
+  []
+  >>> emails2.confirmation
+  ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
+  >>> emails2.sender
+  'test tester.com <test@tester.com>'
+
+
+
+Workflow email helpers during transition
+========================================
+
+These helpers allow people to see which emails will be sent to whom before they
+execute the transition.
+
+Lets create a doc as ContentManager:
+
+  >>> from zope.component import getMultiAdapter
+  >>> from pprint import pprint
+
+  >>> self.setRoles(['ContentManager'])
+  >>> docId = self.portal.folder.invokeFactory('Document', id='docManager')
+  >>> doc = self.portal.folder[docId]
+  >>> wf.getInfoFor(doc, 'review_state')
+  'draft'
+
+We need to filter out our actions from other workflows:
+
+  >>> def workflowEmails(wEmails):
+  ...    ourActions = ['submitCopyEdit', 'reject', 'submit', 'submitProofReading', 'quickPublish']
+  ...    for k in wEmails.keys():
+  ...        if k not in ourActions:
+  ...           del wEmails[k]
+  ...    pprint(wEmails)
+
+  >>> helper = getMultiAdapter((doc, doc.REQUEST), name='workflowEmails')
+  >>> workflowEmails(helper())
+  {'submitCopyEdit': {'action': '',
+                  'confirmation': "'test@tester.com', 'Folder2Reviewer@eea.eu'"}}
