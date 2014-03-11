@@ -176,8 +176,6 @@ class LocationSchemaExtender(object):
         elif self.context.portal_type in ('Data',):
             return ()
         elif self.context.portal_type in ('Assessment', 'AssessmentPart'):
-            self.multiple_location[0].widget.visible = {'view':'invisible',
-                                                        'edit':'invisible'}
             return self.multiple_location
         else:
             self.multiple_location[0].schemata = 'categorization'
