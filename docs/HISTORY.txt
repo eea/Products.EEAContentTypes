@@ -3,6 +3,9 @@ Changelog
 
 8.9-dev - (unreleased)
 ----------------------
+* Change: removed special handling of AssessmentPart and Assessment when
+  using the location schema extender
+  [ichimdav refs #18921]
 
 8.8 - (2014-03-10)
 ------------------
