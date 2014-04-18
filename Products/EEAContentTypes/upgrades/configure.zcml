@@ -2,6 +2,20 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+  <!-- 8.7 => 8.9 -->
+  <genericsetup:upgradeSteps
+    source="8.7"
+    destination="8.9"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+      title="Import changes: content rules"
+      import_steps="contentrules"
+      />
+
+  </genericsetup:upgradeSteps>
+
+
   <genericsetup:upgradeSteps
     source="8.6"
     destination="8.7"
@@ -18,7 +32,7 @@
     source="8.5"
     destination="8.6"
     profile="Products.EEAContentTypes:default">
-      
+
       <genericsetup:upgradeDepends
               title="Import upgrade steps for 8.6 profile"
               import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_8.6"
