@@ -3,6 +3,9 @@ Changelog
 
 8.9-dev - (unreleased)
 ----------------------
+* Change: staff page no longer inserts the emails through script tags
+  and document.write which broke the page when jQuery re-evaluated them
+  [ichimdav refs #19369]
 * Upgrade step: (optional) Review and enable Comments content-rules
   within Site Setup > Content Rules
   [voineali refs #19216]
