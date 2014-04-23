@@ -62,9 +62,7 @@ def prepareStaffNumber(data):
 
 
 emailjs = """
-<script type="text/javascript">
-   document.write(create_contact_info_local('%s','%s','%s'));
-</script>
+   <a href="#" class="hiddenStructure protectEmail">%s,%s,%s</a>
 <noscript>
    <em>Email Protected.<br />
    Please enable JavaScript.</em>
