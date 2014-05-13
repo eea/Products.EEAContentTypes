@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.9-dev - (unreleased)
-----------------------
+8.9 - (2014-05-13)
+------------------
 * Change: staff page no longer inserts the emails through script tags
   and document.write which broke the page when jQuery re-evaluated them
   [ichimdav refs #19369]
