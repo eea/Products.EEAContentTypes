@@ -3,6 +3,8 @@ Changelog
 
 9.0-dev - (unreleased)
 ----------------------
+* Feature: updating temporal coverage widget
+  [batradav #7973]
 
 8.9 - (2014-05-13)
 ------------------

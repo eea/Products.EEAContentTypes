@@ -1,5 +1,6 @@
 """ Subtypes
 """
+from AccessControl import ClassSecurityInfo
 from Products.Archetypes.Widget import MultiSelectionWidget
 
 from Products.Archetypes.interfaces import IBaseContent
@@ -27,6 +28,8 @@ from eea.relations.interfaces import IAutoRelations
 from eea.relations.component import getForwardRelationWith
 from eea.relations.component import getBackwardRelationWith
 
+from eea.forms.browser.app.temporal_coverage import grouped_coverage
+
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('Products.EEAContentTypes')
 
@@ -46,6 +49,35 @@ class ExtensionStringField(ExtensionField, StringField):
 
 class ExtensionLinesField(ExtensionField, LinesField):
     """ derivative of linesfield for extending schemas """
+
+    security = ClassSecurityInfo()
+
+    security.declarePrivate('set')
+    def set(self, instance, value, **kwargs):
+        """ Expands year range input into a list of all elements
+        """
+        expanded_range = []
+
+        for elem in value:
+            if "-" in elem:
+                start, end = elem.split("-")
+                expanded_range.extend(range(int(start), int(end) + 1))
+            else:
+                expanded_range.append(int(elem))
+
+        save_value = [str(x) for x in set(expanded_range)]
+
+        superclass = super(ExtensionLinesField, self)
+        superclass.set(instance, save_value, **kwargs)
+
+
+class TemporalMultiSelectionWidget(MultiSelectionWidget):
+    """ derivative of MultiSelectionWidget in order to
+        add a new formatting function
+    """
+
+    def formatted_value(self, value):
+        return "\n".join(grouped_coverage(value))
 
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
@@ -228,8 +260,7 @@ class TemporalCoverageSchemaExtender(object):
             schemata='categorization',
             required=False,
             multiValued=1,
-            vocabulary_factory=u"Temporal coverage",
-            widget=MultiSelectionWidget(
+            widget=TemporalMultiSelectionWidget(
                 macro="temporal_widget",
                 helper_js=("temporal_widget.js",),
                 size=15,
