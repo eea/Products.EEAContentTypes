@@ -1,0 +1,114 @@
+Normalizer
+==========
+Converter from unicode to safe ASCII URL id.
+Accepts:
+  - max_length to cut it to a maximum number of chars. Default 255
+  - max_words to cut it to a maximum number of words. Default 5
+  - orphans to avoid cutting last x words. Default 1
+
+   >>> from Products.EEAContentTypes.normalizer import eeaurlnormalizer as normalizer
+
+Common EEA languages
+
+   >>> normalizer.normalize("Bathing water quality improving in the EU")
+   'bathing-water-quality-improving-in'
+
+   >>> text = "Качеството на водите за къпане в ЕС се подобрява"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'kachiestvoto-na-voditie-za-kpanie'
+
+   >>> text = "Zlepšování jakosti vod ke koupání v EU"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'zlepsovani-jakosti-vod-ke-koupani'
+
+   >>> normalizer.normalize("Badevandskvaliteten forbedres i EU")
+   'badevandskvaliteten-forbedres-i-eu'
+
+   >>> text = "Bessere Qualität der Badegewässer in der EU"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'bessere-qualitat-der-badegewasser-in'
+
+   >>> text = "Η ποιότητα των υδάτων κολύμβησης βελτιώνεται στην ΕΕ"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'e-poioteta-ton-udaton-kolumbeses'
+
+   >>> text = "La calidad de las aguas de baño mejora en la UE"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'la-calidad-de-las-aguas'
+
+   >>> text = "Uimavesien laatu yhä parempi EU:ssa"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'uimavesien-laatu-yha-parempi-eu-ssa'
+
+   >>> text = "Amélioration de la qualité des eaux de baignade dans l'UE"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'amelioration-de-la-qualite-des'
+
+   >>> text = "Javul az Európai Unió fürdővizeinek minősége"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'javul-az-europai-unio-furdovizeinek-minosege'
+
+   >>> text = "Migliora la qualità delle acque di balneazione nell'UE"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'migliora-la-qualita-delle-acque'
+
+   >>> text = "Europos Sąjungos maudyklų vandens kokybė gerėja"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'europos-sajungos-maudyklu-vandens-kokybe-gereja'
+
+   >>> text = "Peldūdeņu kvalitāte ES uzlabojas"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'peldudenu-kvalitate-es-uzlabojas'
+
+   >>> text = "Il-kwalità tal-ilma għall-għawm fl-UE qed titjieb"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'il-kwalita-tal-ilma-ghall'
+
+   >>> normalizer.normalize("Kwaliteit zwemwater EU wordt beter")
+   'kwaliteit-zwemwater-eu-wordt-beter'
+
+   >>> text = "Jakość wody w kąpieliskach UE coraz lepsza"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'jakosc-wody-w-kapieliskach-ue'
+
+   >>> text = "Qualidade das águas balneares melhora na UE"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'qualidade-das-aguas-balneares-melhora'
+
+   >>> text = "Calitatea apei pentru scăldat se îmbunătățește în UE"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'calitatea-apei-pentru-scaldat-se'
+
+   >>> text = "Zvýšenie kvality vody na kúpanie na území EÚ"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'zvysenie-kvality-vody-na-kupanie'
+
+   >>> text = "Kakovost kopalnih voda v EU se izboljšuje"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'kakovost-kopalnih-voda-v-eu'
+
+   >>> text = "Förbättrad badvattenkvalitet i EU"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'forbattrad-badvattenkvalitet-i-eu'
+
+Files
+
+   >>> text = "Uimavesien laatu yhä parempi EU:ssa.png"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'uimavesien-laatu-yha-parempi-eu-ssa.png'
+
+   >>> text = "Europos Sąjungos maudyklų vandens kokybė gerėja.html"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'europos-sajungos-maudyklu-vandens-kokybe-gereja.html'
+
+Only 4 chars extensions are accepted
+
+   >>> text = "Calitatea apei pentru scăldat se îmbunătățește în UE.desktop"
+   >>> normalizer.normalize(text.decode('utf-8'))
+   'calitatea-apei-pentru-scaldat-se'
+
+Max 5 words
+
+   >>> text = "a very very very very very very long text"
+   >>> len(normalizer.normalize(text.decode('utf-8')).split('-'))
+   5
