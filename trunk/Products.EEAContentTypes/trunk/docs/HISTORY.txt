@@ -3,6 +3,8 @@ Changelog
 
 9.1-dev - (unreleased)
 ----------------------
+* Bug fix: fixing temporal coverage save for -1 value
+  [batradav #7973]
 
 9.0 - (2014-06-10)
 ------------------
