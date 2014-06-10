@@ -59,7 +59,7 @@ class ExtensionLinesField(ExtensionField, LinesField):
         expanded_range = []
 
         for elem in value:
-            if "-" in elem:
+            if "-" in elem and elem != "-1":
                 start, end = elem.split("-")
                 expanded_range.extend(range(int(start), int(end) + 1))
             else:
