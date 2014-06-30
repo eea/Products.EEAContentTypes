@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.2-dev - (unreleased)
+----------------------
+
 9.1 - (2014-06-30)
 ------------------
 * Bug fix: fixing temporal coverage save for -1 value
