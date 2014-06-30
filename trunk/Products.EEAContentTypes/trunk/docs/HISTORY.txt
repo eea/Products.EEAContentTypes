@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.1-dev - (unreleased)
-----------------------
+9.1 - (2014-06-30)
+------------------
 * Bug fix: fixing temporal coverage save for -1 value
   [batradav #7973]
 
