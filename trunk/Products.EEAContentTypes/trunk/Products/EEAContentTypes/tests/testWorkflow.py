@@ -202,9 +202,16 @@ class TestWorkflowModified(EEAContentTypeTestCase):
             if date == after[index]:
                 errors.add(did)
 
+        print "\n TESTED Objects: \n"
+        for obj in modified_objects:
+            print obj.portal_type
+        print "\n SKIPPED Objects: \n"
+        objects_set = set(objects)
+        modified_objects_set = set(modified_objects)
+        for obj in objects_set.difference(modified_objects_set):
+            print obj.portal_type
         # Fail if errors
         self.failIf(errors, errors)
-
 
     def test_bulk_publish(self):
         """ Test bulk state changed to published
