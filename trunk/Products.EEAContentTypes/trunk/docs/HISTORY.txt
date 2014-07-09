@@ -3,6 +3,9 @@ Changelog
 
 9.2-dev - (unreleased)
 ----------------------
+* Feature: added unit test which asserts that the effective
+  date is set to contenttypes that can be published
+  [ichimdav refs #18601]
 
 9.1 - (2014-06-30)
 ------------------
