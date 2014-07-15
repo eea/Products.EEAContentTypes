@@ -177,19 +177,28 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         # Sleep for a second
         time.sleep(1)
         modified_objects = []
+        skipped_objects = set()
+        one_workflow_or_none_objects = set()
         for doc in objects:
             review_state = self.workflow.getInfoFor(doc, 'review_state', None)
-            if not review_state:
+            # one_state_workflow has the published state as the default and
+            # only review state
+            if not review_state or review_state == 'published':
+                one_workflow_or_none_objects.add(doc)
                 continue
             current_effective_date = doc.effective()
             doc.content_status_modify(
                 workflow_action='publish', comment='Published by test')
+            # used by data_workflow
+            doc.content_status_modify(
+                workflow_action='quickPublish', comment='Published by test')
 
             if self.workflow.getInfoFor(doc, 'review_state', None) == \
                     'published':
                 before.append(current_effective_date)
                 modified_objects.append(doc)
-
+            else:
+                skipped_objects.add(doc)
         # After state change modification dates
         after = [doc.effective() for doc in modified_objects]
 
@@ -205,13 +214,21 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         print "\n TESTED Objects: \n"
         for obj in modified_objects:
             print obj.portal_type
-        print "\n SKIPPED Objects: \n"
-        objects_set = set(objects)
-        modified_objects_set = set(modified_objects)
-        for obj in objects_set.difference(modified_objects_set):
+
+        print "\n SKIPPED ONE STATE AND NO WORKFLOW Objects: \n"
+        for obj in one_workflow_or_none_objects:
             print obj.portal_type
+
+        print "\n SKIPPED Objects: \n"
+        for obj in skipped_objects:
+            workflow = self.workflow.getWorkflowsFor(obj)
+            workflow_title = workflow[0].title if workflow else "NO"
+            print "%s --> %s workflow" % (obj.portal_type, workflow_title)
+
         # Fail if errors
         self.failIf(errors, errors)
+
+
 
     def test_bulk_publish(self):
         """ Test bulk state changed to published
