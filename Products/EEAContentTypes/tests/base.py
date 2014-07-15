@@ -40,6 +40,10 @@ def setup_eeacontenttypes():
     #import eea.indicators
     #zcml.load_config("configure.zcml", eea.indicators)
     ztc.installPackage('eea.relations')
+    ztc.installPackage('eea.dataservice')
+    ztc.installPackage('eea.indicators')
+    ztc.installPackage('eea.soer')
+
     fiveconfigure.debug_mode = False
 
 
