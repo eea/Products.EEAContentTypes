@@ -228,7 +228,12 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         # Fail if errors
         self.failIf(errors, errors)
 
-
+        modified_objects_len = len(modified_objects)
+        skipped_objects_len = len(skipped_objects)
+        ratio = skipped_objects_len * 100 / modified_objects_len
+        print "CURRENT SKIP RATIO %d" % ratio
+        if ratio > 25:
+            self.fail("More than 25% of the content types are skipped")
 
     def test_bulk_publish(self):
         """ Test bulk state changed to published
