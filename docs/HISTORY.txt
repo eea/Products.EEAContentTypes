@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.3-dev - (unreleased)
-----------------------
+9.3 - (2014-07-16)
+------------------
 * Feature: set base_view as default view for NegotiatedProcedure and
   CallForProposal content types.
   [ghicaale refs #17865]
