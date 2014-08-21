@@ -3,6 +3,8 @@ Changelog
 
 9.4-dev - (unreleased)
 ----------------------
+* Change: Remove deprecated cache subscriber
+  [voineali refs #20678]
 
 9.3 - (2014-07-16)
 ------------------

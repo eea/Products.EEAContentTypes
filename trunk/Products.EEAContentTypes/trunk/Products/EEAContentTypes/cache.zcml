@@ -57,6 +57,4 @@
       handler=".cache.invalidateParentsImageScales"
       />
 
-  <subscriber handler="eea.cache.event.invalidateCache"/>
-
 </configure>
