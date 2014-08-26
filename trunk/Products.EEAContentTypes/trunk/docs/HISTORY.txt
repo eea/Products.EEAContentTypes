@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Change: Remove deprecated cache subscriber
   [voineali refs #20678]
+* Bug fix: fixed tests to fit new delete permissions
+  [ghicaale refs #20666]
 
 9.3 - (2014-07-16)
 ------------------
