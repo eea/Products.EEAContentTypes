@@ -55,6 +55,7 @@ PROFILES = [
     'Products.EEAContentTypes:default',
     'Products.EEAContentTypes.tests:testfixture',
     'eea.relations:default',
+    'Products.EEAPloneAdmin:delete-permission',
 ]
 
 OPTIONAL_DEPENDENCIES = {
