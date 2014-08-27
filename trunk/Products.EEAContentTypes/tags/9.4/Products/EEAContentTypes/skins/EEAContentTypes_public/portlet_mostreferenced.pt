@@ -1,0 +1,70 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+
+<!-- Most popular data and maps -->
+<div metal:define-macro="datamap"
+     i18n:domain="eea"
+     tal:omit-tag=""
+     tal:define="portal_type python:['Data', 'EEAFigure'];
+                 count python:15">
+  <metal:portlet use-macro="here/portlet_mostreferenced/macros/portlet">
+    <metal:portletTitle fill-slot="portletTitle">
+      <dt class="portletHeader" i18n:translate="">Most popular data and maps</dt>
+    </metal:portletTitle>
+  </metal:portlet>
+</div>
+
+<!-- Most popular datasets -->
+<div metal:define-macro="dataset"
+     i18n:domain="eea"
+     tal:omit-tag=""
+     tal:define="portal_type python:['Data',];
+                 count python:5">
+  <metal:portlet use-macro="here/portlet_mostreferenced/macros/portlet">
+    <metal:portletTitle fill-slot="portletTitle">
+      <dt class="portletHeader" i18n:translate="">Most popular datasets</dt>
+    </metal:portletTitle>
+  </metal:portlet>
+</div>
+
+<!-- Main macro -->
+<div metal:define-macro="portlet"
+     i18n:domain="eea"
+     tal:omit-tag=""
+     tal:define="view nocall:context/@@mostReferenced;
+                 portal_type python:None;
+                 interface python:None;
+                 count python:10;
+                 results python:view(count, portal_type, interface)">
+
+<dl class="portlet portlet-rss">
+
+  <metal:portletTitle define-slot="portletTitle">
+    <dt class="portletHeader" i18n:translate="">Portlet title</dt>
+  </metal:portletTitle>
+
+  <dt class="portletItem" tal:repeat="object results">
+    <span tal:attributes="class item_type_class"
+              tal:define="item_type           object/portal_type;
+                          item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
+                          item_description    object/Description;
+                          item_wf_state       object/review_state|python: wtool.getInfoFor(object, 'review_state', '');
+                          item_wf_state_class python:'state-' + normalizeString(item_wf_state)">
+
+      <a href="#" tal:attributes="href  object/absolute_url;
+                                  title string:$item_type: $item_description;
+                                  class string:$item_wf_state_class visualIconPadding">
+        <span tal:replace="object/Title">
+          Item Title
+        </span>
+      </a>
+    </span>
+  </dt>
+  <dd class="portletFooter"></dd>
+</dl>
+
+</div>
+</body>
+</html>
