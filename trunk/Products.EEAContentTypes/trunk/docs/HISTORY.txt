@@ -7,6 +7,8 @@ Changelog
   [voineali refs #20678]
 * Bug fix: fixed tests to fit new delete permissions
   [ghicaale refs #20666]
+* Bug fix: fix the temporal widget when form validation is triggered
+  [ghicaale refs #20833]
 
 9.3 - (2014-07-16)
 ------------------

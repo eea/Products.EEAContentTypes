@@ -77,7 +77,12 @@ class TemporalMultiSelectionWidget(MultiSelectionWidget):
     """
 
     def formatted_value(self, value):
-        return "\n".join(grouped_coverage(value))
+        """ Format value from temporal widget
+        """
+        try:
+            return "\n".join(grouped_coverage(value))
+        except ValueError:
+            return "\n".join(value)
 
 
 class ExtensionGeotagsSinglefield(ExtensionField, field.GeotagsStringField):
