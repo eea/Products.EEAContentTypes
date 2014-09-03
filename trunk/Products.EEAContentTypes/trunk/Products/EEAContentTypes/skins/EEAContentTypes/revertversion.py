@@ -13,6 +13,15 @@ from Products.CMFEditions.interfaces.IModifier import FileTooLargeToVersionError
 RESPONSE = context.REQUEST.RESPONSE
 putils = container.plone_utils
 pr = container.portal_repository
+
+if pr.supportsPolicy(context, 'version_on_revert'):
+    try:
+        commit_msg = context.translate(_(u'Before reverting to revision ${version}',
+                                       mapping={'version': version_id}))
+        pr.save(obj=context, comment=commit_msg)
+    except FileTooLargeToVersionError:
+        pass
+
 pr.revert(context, version_id)
 
 obj_type_view_url = context.getTypeInfo().getActionInfo('object/view')['url']
