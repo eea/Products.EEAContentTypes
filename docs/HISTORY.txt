@@ -3,6 +3,10 @@ Changelog
 
 9.5-dev - (unreleased)
 ----------------------
+* Bug fix: Patched revertversion.py script to save current state of the object
+  before reverting it to an older version in order to easily recover this state
+  later if needed
+  [voineali refs #20934]
 
 9.4 - (2014-08-27)
 ------------------
