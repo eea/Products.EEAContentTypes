@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.6-dev - (unreleased)
+----------------------
+
 9.5 - (2014-09-15)
 ------------------
 * Bug fix: Patched revertversion.py script to save current state of the object
