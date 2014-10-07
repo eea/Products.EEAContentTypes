@@ -3,6 +3,8 @@ Changelog
 
 9.6-dev - (unreleased)
 ----------------------
+* Feature: disabled adding form for "Quick Events" by anonymous
+  [ghicaa refs #21123]
 
 9.5 - (2014-09-15)
 ------------------
