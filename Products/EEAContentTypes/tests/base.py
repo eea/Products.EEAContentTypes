@@ -33,6 +33,8 @@ def setup_eeacontenttypes():
     fiveconfigure.debug_mode = True
 
     import Products.EEAContentTypes
+    import collective.deletepermission
+    zcml.load_config("configure.zcml", collective.deletepermission)
     zcml.load_config("dependencies.zcml", Products.EEAContentTypes)
     zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
     zcml.load_config("overrides.zcml", Products.EEAContentTypes)
