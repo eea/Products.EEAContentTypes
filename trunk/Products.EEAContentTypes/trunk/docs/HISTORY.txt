@@ -3,6 +3,9 @@ Changelog
 
 9.6-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed ValueError: The permission *Delete portal content* is invalid
+  within tests.
+  [voineali refs #21234]
 * Feature: disabled adding form for "Quick Events" by anonymous
   [ghicaa refs #21123]
 
