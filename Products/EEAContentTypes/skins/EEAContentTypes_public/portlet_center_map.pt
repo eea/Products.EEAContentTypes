@@ -14,7 +14,7 @@ jQuery(document).ready(function(){
         localmap.drawZoomAndCenter('Copenhagen', 7);
         clearTimeout(handler);
       }
-     }, 
+     },
      100);
 })
 
