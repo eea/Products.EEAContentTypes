@@ -265,8 +265,8 @@ class IEEAContentTypesSettings(Interface):
     """ portal_registry EEAContentTypes settings
     """
     hideGeographicalCoverageFor = schema.Tuple(
-        title=_(u"Hide Geographical Coverage Viewlet"),
-        description=_(u"Hide the Geographical Coverage Viewlet for the "
+        title=_(u"Hide Geographic Coverage Viewlet"),
+        description=_(u"Hide the Geographic Coverage Viewlet for the "
                       "following content-types"),
         required=False,
         default=('EEAFigure', 'Data', 'Assessment', 'IndicatorFactSheet',
