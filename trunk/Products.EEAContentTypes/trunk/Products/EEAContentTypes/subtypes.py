@@ -169,7 +169,7 @@ class LocationSchemaExtender(object):
             required=False,
             languageIndependent=True,
             widget=widget.GeotagsWidget(
-                label='Geotag / Location',
+                label='Geographic coverage',
                 description=('Geotags: geographical location '
                              'related to this content. Click Edit button '
                              'to select a location')
@@ -207,12 +207,12 @@ class LocationSchemaExtender(object):
                              ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
-        # #9423 remove location schema extender for Data
         elif self.context.portal_type in ('Data',):
+            # remove location schema extender for Data, see #9423
             return ()
         else:
             self.multiple_location[0].schemata = 'categorization'
-            self.multiple_location[0].widget.label = "Geotag / Location"
+            self.multiple_location[0].widget.label = "Geographic coverage"
             self.multiple_location[0].widget.description = (
                              'Geotags: geographical location '
                              'related to this content. Click Edit button '
