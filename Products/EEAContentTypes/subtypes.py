@@ -214,9 +214,8 @@ class LocationSchemaExtender(object):
             self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geographic coverage"
             self.multiple_location[0].widget.description = (
-                             'Geotags: geographical location '
-                             'related to this content. Click Edit button '
-                             'to select a location')
+                'Geographic coverage describes the locations/places covered'
+                ' by the content item.')
         return self.multiple_location
 
 
