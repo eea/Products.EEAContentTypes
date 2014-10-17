@@ -3,7 +3,7 @@ Changelog
 
 9.7-dev - (unreleased)
 ----------------------
-* Change: changed the title for the eea.goetag field
+* Change: updated eea.geotags field labels
   [ghicaale refs #21458]
 
 9.6 - (2014-10-15)
