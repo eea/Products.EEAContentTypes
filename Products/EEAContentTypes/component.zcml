@@ -38,6 +38,9 @@
         for="Products.Archetypes.interfaces.IBaseContent"
         factory=".subtypes.ThemesSchemaExtender"/>
 
+    <adapter name="eea.countriesinvolvedfield"
+        for="Products.EEAContentTypes.interfaces.IEEAContent"
+        factory=".subtypes.CountriesInvolvedSchemaExtender"/>
 
     <!-- adapter name="eea.temporalcoveragefield"
              for="Products.Archetypes.interfaces.IBaseContent"

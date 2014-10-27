@@ -222,6 +222,35 @@ class LocationSchemaExtender(object):
         return self.multiple_location
 
 
+class CountriesInvolvedSchemaExtender(object):
+    """ Countries Involved schema extender
+    """
+    implements(ISchemaExtender)
+
+    countries_involved = (
+        ExtensionGeotagsMultifield(
+            name='countriesInvolved',
+            schemata='categorization',
+            required=False,
+            languageIndependent=True,
+            widget=widget.GeotagsWidget(
+                label='Countries involved',
+                description=('Countries and country groups. '
+                             'Click Edit button '
+                             'to select a country')
+            )
+        ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Fields
+        """
+        return self.countries_involved
+
+
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
