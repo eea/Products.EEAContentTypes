@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+  <body>
+
+    <div metal:fill-slot="main">                                                    
+      <metal:enquirySteps define-macro="steps">
+        <h1 i18n:translate="">Submit an environmental event</h1>
+        <div class="lightBGC" style="padding: 3pt 3pt 1pt 3pt;">
+          <p i18n:translate="">Use this form to submit an environmental event. We will then check if the submitted event is relevant for publishing.</p>
+          <p><strong i18n:translate="">We do not publish events that are purely commercial and with no references to the environment.</strong></p></div>
+        <dl class="wizard"  tal:define="defaultClass python:'';
+          currentClass python:'currentStep'">
+          <dt tal:attributes="class python:test(currentStep == 1, currentClass, defaultClass)">1</dt>
+          <dd i18n:translate="">Submit event</dd>
+          <dt tal:attributes="class python:test(currentStep == 2, currentClass, defaultClass)">2</dt>
+          <dd i18n:translate="">Confirm and send</dd>
+        </dl>
+        <div class="visualClear"></div>
+      </metal:enquirySteps>
+
+      <metal:enquiryFooter define-macro="footer">
+        <p i18n:translate="">If you experience problems please
+          <tal:block i18n:name="link">    
+              <a href="http://www.eea.europa.eu/contact-info" 
+                 title="Contact EEA Web Team"
+                 i18n:attributes="title"
+                 i18n:translate="">Contact EEA Web Team</a>
+          </tal:block>.
+        </p>
+      </metal:enquiryFooter>
+    </div>
+
+  </body>
+</html>
