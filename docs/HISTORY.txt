@@ -3,6 +3,9 @@ Changelog
 
 9.7-dev - (unreleased)
 ----------------------
+* Bugfix: return out of the imageMinSize validator when it receives a
+  DELETE_IMAGE value which occours when deleting an image
+  [ichimdav refs #21637]
 * Change: updated eea.geotags field labels
   [ghicaale refs #21458]
 
