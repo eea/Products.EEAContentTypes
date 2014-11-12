@@ -69,6 +69,10 @@ class ImageMinSize:
 
     def __call__(self, value, instance, *args, **kwargs):
         """ check to see if the image is at least 1024px """
+        # do not run the validator if attempting to delete
+        # the image
+        if value == "DELETE_IMAGE":
+            return 1
         try:
             image = PIL.Image.open(value)
         except AttributeError:
