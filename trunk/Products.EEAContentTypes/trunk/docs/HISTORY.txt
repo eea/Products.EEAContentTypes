@@ -3,6 +3,9 @@ Changelog
 
 9.7-dev - (unreleased)
 ----------------------
+* Feature: Also invalidate parents image scales on eea.cache
+  custom invalidation events
+  [voineali refs refs #21852, #21850, #21851]
 * Bugfix: return out of the imageMinSize validator when it receives a
   DELETE_IMAGE value which occours when deleting an image
   [ichimdav refs #21637]
