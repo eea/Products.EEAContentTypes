@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.8-dev - (unreleased)
+----------------------
+
 9.7 - (2014-11-20)
 ------------------
 * Feature: Also invalidate parents image scales on eea.cache
