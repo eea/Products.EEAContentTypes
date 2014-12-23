@@ -3,6 +3,9 @@ Changelog
 
 9.8-dev - (unreleased)
 ----------------------
+* Change: removed map view location calls now that acgis
+  map is no longer available within eea.geotags
+  [ichimdav]
 
 9.7 - (2014-11-20)
 ------------------
