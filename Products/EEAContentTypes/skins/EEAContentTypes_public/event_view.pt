@@ -14,12 +14,6 @@
         templateId template/getId;
         toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
 
-        <tal:hideMap define="hideMap python:False;">
-           <metal:field use-macro="python:context.widget('location', mode='view')">
-                <metal:location fill-slot="location-listing"></metal:location>
-            </metal:field>
-        </tal:hideMap>
-
         <div class="eventDetails vcard">
           <table class="vertical listing">
 
@@ -106,11 +100,9 @@
               <tr tal:condition="context/location">
                 <th i18n:translate="">Where</th>
                 <td class="location">
-                <tal:hideMap tal:define="events python:True">
                     <metal:field use-macro="python:context.widget('location', mode='view')">
                         <metal:geo fill-slot="geotags"></metal:geo>
                     </metal:field>
-                </tal:hideMap>
                 </td>
               </tr>
               <tr tal:define="contact_email context/contact_email;
