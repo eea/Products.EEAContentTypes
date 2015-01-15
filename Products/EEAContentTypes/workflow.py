@@ -304,22 +304,25 @@ class WorkflowEmails(object):
         """ Sender
         """
         portal = self.context.portal_url.getPortalObject()
-        mt = getToolByName(self.context, 'portal_membership')
-        member = mt.getAuthenticatedMember()
+        # 21893 disable check for user email and name, send
+        # workflow emails instead by using the generic email and name
+        # defined within portal root properties
+        # mt = getToolByName(self.context, 'portal_membership')
+        # member = mt.getAuthenticatedMember()
         name = portal.email_from_name
         email = portal.email_from_address
-        if member is not None:
-            memberEmail = member.getProperty('email', None)
-            memberName = member.getProperty('fullname',
-                                            '') or memberEmail.replace('@', ' ')
-            if memberEmail and memberName:
-                email = memberEmail
-                name = memberName
+        # if member is not None:
+        #     memberEmail = member.getProperty('email', None)
+        #     memberName = member.getProperty('fullname',
+        #                                     '') or memberEmail.replace('@', ' ')
+        #     if memberEmail and memberName:
+        #         email = memberEmail
+        #         name = memberName
 
         return "%s <%s>" % (name, email)
 
 
-#TODO: We need to make the Roles in each workflow adpater to take it dynamically
+# TODO: We need to make the Roles in each workflow adapter to take it dynamically
 # from the actual workflow object roles guard. This way we skip hardcoded values
 # and we can reuse the workflow sendemail logic for all workflows.
 class WorkflowActionReviewer(WorkflowEmails):
