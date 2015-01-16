@@ -1,5 +1,5 @@
 %EEA default workflow
-====================
+=====================
 
 EEA default workflow is a big generic workflow which solves several usescase at
 EEA. Instead of several workflows we have one to avoid need to change state/
@@ -265,7 +265,7 @@ Folder1Reviewer on the folder where our document is.
   ['Folder1Reviewer@eea.eu', 'test@tester.com']
 
   >>> emails.sender
-  'test tester.com <test@tester.com>'
+  'EEA web admin <testing@testing.eea>'
 
 
 Let see if multiple acquried roles works. The role acquisition should stop on
@@ -288,7 +288,7 @@ We should have the same email since we didn't override any roles on sub folder.
   >>> emails.confirmation
   ['Folder1Reviewer@eea.eu', 'test@tester.com']
   >>> emails.sender
-  'test tester.com <test@tester.com>'
+  'EEA web admin <testing@testing.eea>'
 
 Now we override Reviewer role with other group:
 
@@ -299,7 +299,7 @@ Now we override Reviewer role with other group:
   >>> emails2.confirmation
   ['Folder2Reviewer@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
   >>> emails2.sender
-  'test tester.com <test@tester.com>'
+  'EEA web admin <testing@testing.eea>'
 
 And one more time on sub2
 
@@ -310,7 +310,7 @@ And one more time on sub2
   >>> emails2.confirmation
   ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
   >>> emails2.sender
-  'test tester.com <test@tester.com>'
+  'EEA web admin <testing@testing.eea>'
 
 
   >>> gt = self.portal.portal_groups
@@ -321,7 +321,7 @@ And one more time on sub2
   >>> emails2.confirmation
   ['Folder2ProofReader@eea.eu', 'test@tester.com', 'Folder1Reviewer@eea.eu']
   >>> emails2.sender
-  'test tester.com <test@tester.com>'
+  'EEA web admin <testing@testing.eea>'
 
 
 
