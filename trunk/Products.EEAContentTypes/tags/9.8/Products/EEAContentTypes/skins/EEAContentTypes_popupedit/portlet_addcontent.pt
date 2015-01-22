@@ -1,0 +1,50 @@
+<html i18n:domain="eea">
+<head>
+    <script type="text/javascript" tal:condition="exists:here/jquery.js" tal:attributes="src string:${portal_url}/jquery.js"></script>
+    <script type="text/javascript" tal:condition="exists:here/++resource++plone.app.jquery.js" tal:attributes="src string:${portal_url}/++resource++plone.app.jquery.js"></script>
+    <script tal:attributes="src string:${context/portal_url}/++resource++jquery-ui.min.js" ></script>
+    <link type="text/css" rel="stylesheet" href="" 
+        tal:attributes="src string:${context/portal_url}/++resource++jquery-ui-themes/sunburst/jquery-ui-1.8.9.custom.css" />
+    <link type="text/css" rel="stylesheet" 
+    href="" tal:attributes="src string:${context/portal_url}/++resource++jquery-ui-themes/sunburst-patch.css" />
+</head>
+<body>
+<metal:macro define-macro="portlet" 
+    tal:define="location context/getCt_default_location | python:{'absolute_url':'/www/SITE/data-and-maps/data/external'};
+                ct_type context/getCt_type | string:ExternalDataSpec; ">
+
+    <style>
+    .widgets-list {display:none}
+    .faceted-widget .legend {
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.6;
+        padding: 5px 10px;
+        text-shadow: 1px 1px 1px #555555;
+        background-color: #777C1F;
+        background-image: -moz-linear-gradient(center top , #B1C748, #777C1F);
+        margin-bottom:1em;
+    }
+    #content-creation-portlet {
+        padding:0 !important;
+    }
+    </style>
+
+    <div class="faceted-widget" i18n:domain="eea" id="content-creation-portlet" style="padding-bottom:0 !important">
+        <div id="dialog_edit_target"></div>
+            <div class="legend" i18n:translate="">Create new</div>
+          <dl><dt>
+            <a href="" class="new_content_creator"
+               tal:attributes="href string:${location/absolute_url}/schemata_createObject?type_name=${ct_type}&amp;use_schemata_edit=true">
+               <img src="" tal:attributes="src string:${context/portal_url}/add.png" /> 
+               <tal:block i18n:translate="">Create <span tal:replace="context/Title" /></tal:block></a>
+        </dt>
+        <dd i18n:translate="">Press the link to create a new content item in its default location</dd></dl>
+    </div>
+    <script tal:attributes="src string:${context/portal_url}/eea.contentcreation.js" ></script>
+    <script tal:attributes="src string:${context/portal_url}/selectautocomplete_widget.js" ></script>
+
+</metal:macro>
+</body>
+</html>
