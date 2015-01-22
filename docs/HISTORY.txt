@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.9-dev - (unreleased)
+----------------------
+
 9.8 - (2015-01-22)
 ------------------
 * Change: sender information for WorkflowEmails is now using the
