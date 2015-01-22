@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.8-dev - (unreleased)
-----------------------
+9.8 - (2015-01-22)
+------------------
 * Change: sender information for WorkflowEmails is now using the
   default username and email address added on the portal root properties
   [ichimdav refs #21893]
