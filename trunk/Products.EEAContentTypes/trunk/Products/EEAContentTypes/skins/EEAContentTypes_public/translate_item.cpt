@@ -61,6 +61,7 @@
                                 edit_template python:'%s_edit' % portal_type;
                                 edit_macros python:path('here/%s/macros|here/edit_macros/macros' % edit_template);
                                 other python:here.getCanonical();
+                                trans python:here;
                                 visible_ids visible_ids|here/visibleIdsEnabled|nothing">
 
         <h1 tal:content="here/title_or_id"
@@ -149,23 +150,23 @@
                         <td style="width:50%; vertical-align:top">
 
                             <tal:notLangIndependent condition="not: field/languageIndependent">
-                                <metal:fieldMacro use-macro="python:here.widget(field.getName(), mode='edit')">
+                                <metal:fieldMacro use-macro="python:trans.widget(field.getName(), mode='edit')">
                                     Translatable widget
                                 </metal:fieldMacro>
                             </tal:notLangIndependent>
 
                             <tal:langIndependent condition="field/languageIndependent">
 
-                                <label tal:content="python:field.widget.Label(here)">
+                                <label tal:content="python:field.widget.Label(trans)">
                                     Field
                                 </label> (Language independent)
 
                                 <div class="discreet"
-                                     tal:content="python:field.widget.Description(here)">
+                                     tal:content="python:field.widget.Description(trans)">
                                     Description
                                 </div>
 
-                                <metal:fieldMacro use-macro="python:here.widget(field.getName(), mode='view')">
+                                <metal:fieldMacro use-macro="python:trans.widget(field.getName(), mode='view')">
                                     Language-independent widget (not editable)
                                 </metal:fieldMacro>
 

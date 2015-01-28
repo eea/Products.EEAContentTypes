@@ -3,6 +3,9 @@ Changelog
 
 9.9-dev - (unreleased)
 ----------------------
+* Bug fix: fixed the edit translation page in order to get the form values
+  from the translation and from the canonical object.
+  [ghicaale refs #22709]
 
 9.8 - (2015-01-22)
 ------------------
