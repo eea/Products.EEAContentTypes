@@ -80,13 +80,6 @@ class Promotion(object):
         return len(self.themes) > 0
 
     @property
-    def display_globally(self):
-        """ Display everywhere
-        """
-        # XXX: not implemented for external promotions
-        pass
-
-    @property
     def display_in_spotlight(self):
         """ Display in spotlight
         """

@@ -3,9 +3,11 @@ Changelog
 
 10.0.dev0 - (unreleased)
 ------------------------
+* Cleanup: Removed "Global promotions" portlet references
+  [voineali refs #23725]
 * Change: Switched to curl in the jenkins build install script
   [olimpiurob refs #22402]
-* Change: Changed fetch url for jenkins build install script to the install 
+* Change: Changed fetch url for jenkins build install script to the install
   script from the main EEA CPB repository
   [olimpiurob refs #22402]
 
