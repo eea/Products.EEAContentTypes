@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.0.dev0 - (unreleased)
-------------------------
+10.0 - (2015-03-17)
+-------------------
 * Cleanup: Removed "Global promotions" portlet references
   [voineali refs #23725]
 * Change: Switched to curl in the jenkins build install script
