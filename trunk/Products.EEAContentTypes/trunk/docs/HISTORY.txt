@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.1.dev0 - (unreleased)
+------------------------
+
 10.0 - (2015-03-17)
 -------------------
 * Cleanup: Removed "Global promotions" portlet references
