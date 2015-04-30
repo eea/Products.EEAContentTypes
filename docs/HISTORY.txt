@@ -3,6 +3,8 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: pass info instead of region to close_dialog when we have an indicator
+  [ichimdav #24322]
 
 10.0 - (2015-03-17)
 -------------------
