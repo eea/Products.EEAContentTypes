@@ -3,6 +3,7 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: ignore errors from old flash objects, which are now deprecated.
 * Bug fix: pass info instead of region to close_dialog when we have an indicator
   [ichimdav #24322]
 
