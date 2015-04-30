@@ -6,7 +6,7 @@
 
     <metal:main fill-slot="content-core">
       <tal:main-macro metal:define-macro="main"
-        tal:define="flash here/relatedFlash">
+        tal:define="flash here/relatedFlash" tal:on-error="string:Our apologies, an error occurred.">
 
         <div tal:condition="flash" style="padding-left: 50%; margin: 1em;"
           tal:define="bgcolor flash/bgcolor|nothing">
