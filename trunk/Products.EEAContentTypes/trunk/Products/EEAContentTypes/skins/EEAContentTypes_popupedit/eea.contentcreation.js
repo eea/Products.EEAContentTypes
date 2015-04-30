@@ -189,7 +189,7 @@ function close_dialog(info) {
        }
    } else {                                                                                                                                                          
        // compatibility with eea.indicators                                                                                                                          
-       reload_region($("#"+region));                                                                                                                                 
+       reload_region($("#"+info));
        jq("#dialog-inner").dialog("close");                                                                                                                          
    }                                                                                                                                                                 
 }
