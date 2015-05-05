@@ -16,9 +16,9 @@
             </h1>
         </metal:header>
         
-        <metal:fill fill-slot="main">
+        <metal:fill fill-slot="content-core">
             
-            <metal:main define-macro="main" >
+            <metal:main define-macro="content-core" >
                  <p i18n:translate="">A new window has been opened with the flash application. <br/>
                     If you don't see the window please check your browser preferences to allow popup windows. You'll then need to reload this page.</p>
             </metal:main>

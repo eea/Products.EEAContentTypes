@@ -12,9 +12,9 @@
             </h1>
         </metal:header>
         
-        <metal:fill fill-slot="main">
+        <metal:fill fill-slot="content-core">
             
-            <metal:main define-macro="main"
+            <metal:main define-macro="content-core"
                    tal:define="flash nocall:here">
 		             <div id="" class="flashmovie" 
                 tal:attributes="id string:container-${here/getId};"
