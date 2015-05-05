@@ -3,6 +3,9 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Change: flahfile templates now fill content-core instead of main. This change
+  was needed in order to display the archive message
+  [ichimdav refs #25013]
 
 10.1 - (2015-05-05)
 -------------------

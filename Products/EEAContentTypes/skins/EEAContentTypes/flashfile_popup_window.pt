@@ -8,7 +8,7 @@
               tal:attributes="src string:${portal/absolute_url}/swfobject.js"></script>
     </head>    
     <body bgcolor="" tal:attributes="bgcolor here/getBgcolor" style="padding: 0; margin: 0">
-            <metal:main define-macro="main"
+            <metal:main define-macro="content-core"
                    tal:define="flash nocall:here">
 		             <div id="" class="flashmovie" 
                 tal:attributes="id string:container-${here/getId};"

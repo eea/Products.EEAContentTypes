@@ -11,7 +11,7 @@
     </head>
     <body>
         <metal:fill fill-slot="content-core">
-            <metal:main define-macro="main">
+            <metal:main define-macro="content-core">
                   <div id="" class="flashmovie"
                        tal:attributes="id string:container-${here/getId};"
                        i18n:translate="">
