@@ -3,6 +3,9 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Change: fixed testsyndication date test to check for utcdatetime since there
+  was a difference between utc and gmt timezones after having jenkins with docker
+  [ichimdav]
 * Change: flahfile templates now fill content-core instead of main. This change
   was needed in order to display the archive message
   [ichimdav refs #25013]

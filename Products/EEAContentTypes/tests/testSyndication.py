@@ -90,8 +90,8 @@ class TestSyndication(EEAContentTypeTestCase):
 
         entry = self.getFeedItem(self.folder, self.folder.event)
         sd = self.folder.event.start().asdatetime().replace(microsecond=0)
-        start_date = DateTime(sd)
-        self.assertEquals(entry.published, start_date)
+        start_date = DateTime(sd).utcdatetime()
+        self.assertEquals(entry.published.utcdatetime(), start_date)
 
     def testFolderThumb(self):
         """ Folder thumb
