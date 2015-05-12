@@ -85,8 +85,8 @@ class TestSyndication(EEAContentTypeTestCase):
         """
         entry = self.getFeedItem(self.folder, self.folder.doc)
         ed = self.effective_date.asdatetime().replace(microsecond=0)
-        effective_date = DateTime(ed)
-        self.assertEquals(entry.published, effective_date)
+        effective_date = DateTime(ed).utcdatetime()
+        self.assertEquals(entry.published.utcdatetime(), effective_date)
 
         entry = self.getFeedItem(self.folder, self.folder.event)
         sd = self.folder.event.start().asdatetime().replace(microsecond=0)
