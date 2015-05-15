@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.2.dev0 - (unreleased)
-------------------------
+10.2 - (2015-05-15)
+-------------------
 * Change: fixed testsyndication date test to check for utcdatetime since there
   was a difference between utc and gmt timezones after having jenkins with docker
   [ichimdav]
