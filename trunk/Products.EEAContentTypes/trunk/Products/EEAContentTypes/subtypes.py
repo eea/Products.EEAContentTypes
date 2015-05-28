@@ -186,6 +186,7 @@ class LocationSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
+
         # quickevents has all information on the default editing form
         if getattr(self.context, 'portal_type', None) == 'QuickEvent':
             self.multiple_location[0].schemata = 'default'
@@ -210,7 +211,7 @@ class LocationSchemaExtender(object):
                              ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
                                                     "dataservice_help_address"
-        elif self.context.portal_type in ('Data',):
+        elif self.context.portal_type in ('Data', "Assessment", "AssessmentPart"):
             # remove location schema extender for Data, see #9423
             return ()
         else:
