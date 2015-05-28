@@ -3,6 +3,10 @@ Changelog
 
 10.3.dev0 - (unreleased)
 ------------------------
+* Change: location field is no longer added on AssessmentPart and Assessment.
+  This is needed in order to have the locations of Assessment comming from a
+  ComputedField
+  [ichimdav refs #22232]
 
 10.2 - (2015-05-15)
 -------------------
