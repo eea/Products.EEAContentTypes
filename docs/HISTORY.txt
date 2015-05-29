@@ -3,6 +3,9 @@ Changelog
 
 10.3.dev0 - (unreleased)
 ------------------------
+* Bug fix: EEAContentTypes related bottom_media now correctly reference the
+  IVideo interface of eea.mediacentre
+  [ichimdav refs #25835]
 * Change: location field is no longer added on AssessmentPart and Assessment.
   This is needed in order to have the locations of Assessment comming from a
   ComputedField

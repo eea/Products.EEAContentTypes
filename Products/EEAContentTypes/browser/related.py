@@ -433,7 +433,7 @@ class DocumentRelated(BrowserView):
                      'text': item.Title(),
                      'date': item.ModificationDate(),
                      'popup_icon': portal.absolute_url() + popup }
-            if queryAdapter(item, IVideo):
+            if queryAdapter(item, MIVideo):
                 link['has_media_player'] = True
             else:
 
