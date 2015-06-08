@@ -3,6 +3,8 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Cleanup: removed the portlet_email_queue.pt, as we don't use Munin and Newsletter tool anymore
+  [ghicaale refs #24861]
 
 10.3 - (2015-06-02)
 -------------------
