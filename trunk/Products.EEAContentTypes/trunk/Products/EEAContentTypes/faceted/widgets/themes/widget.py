@@ -1,9 +1,11 @@
 """ Version widget
 """
 from zope.component import queryAdapter
-from eea.themecentre.interfaces import IThemeTagging
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+
+from eea.themecentre.interfaces import IThemeTagging
 from eea.facetednavigation.widgets.widget import Widget as AbstractWidget
+
 
 class Widget(AbstractWidget):
     """ Current themes

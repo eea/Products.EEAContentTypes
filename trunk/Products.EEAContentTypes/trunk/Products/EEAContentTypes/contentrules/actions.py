@@ -1,14 +1,15 @@
 """ EEAContentTypes actions for plone.app.contentrules
 """
 
+from zope import schema
+import logging
+
 from OFS.SimpleItem import SimpleItem
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
-from zope import schema
-from zope.component import adapts #, getUtility
+from zope.component import adapts  # , getUtility
 from zope.formlib import form
 from zope.interface import implements, Interface
-import logging
 
 logger = logging.getLogger("Producs.EEAContentTypes.actions")
 
@@ -17,9 +18,10 @@ class IEnableDisableDiscussionAction(Interface):
     """ Enable/Disable Discussion settings schema
     """
     action = schema.Choice(title=u"How discussions are changed",
-                  description=u"Should the discussions be disabled or enabled?",
-                  values=['enabled', 'disabled'],
-                  required=True)
+                           description=u"Should the discussions be disabled"
+                                       u"or enabled?",
+                           values=['enabled', 'disabled'],
+                           required=True)
 
 
 class EnableDisableDiscussionAction(SimpleItem):
@@ -28,16 +30,15 @@ class EnableDisableDiscussionAction(SimpleItem):
     implements(IEnableDisableDiscussionAction, IRuleElementData)
 
     element = 'Products.EEAContentTypes.actions.enable_disable_discussion'
-    action = None #default value
+    action = None  # default value
 
     def summary(self):
         """ Summary
         """
         if self.action:
-            return "Discussions will be %s"  % self.action
+            return "Discussions will be %s" % self.action
         else:
             return "Not configured"
-
 
 
 class EnableDisableDiscussionActionExecutor(object):
@@ -52,8 +53,8 @@ class EnableDisableDiscussionActionExecutor(object):
         self.event = event
 
     def __call__(self):
-        #container = self.context
-        #event = self.event
+        # container = self.context
+        # event = self.event
         action = self.element.action
         obj = self.event.object
 
@@ -64,8 +65,8 @@ class EnableDisableDiscussionActionExecutor(object):
 
         if choice is not None:
             obj.allowDiscussion(choice)
-            logger.info("Discussions for %s set to %s", obj.absolute_url(), 
-                                                   action)
+            logger.info("Discussions for %s set to %s", obj.absolute_url(),
+                        action)
         else:
             logger.info("Products.EEAContentTypes.actions.EnableDisable"
                         "Discussion action is not properly configured")
@@ -96,4 +97,3 @@ class EnableDisableDiscussionEditForm(EditForm):
     label = u"Edit Enable/Disable Discussion Action"
     description = u"A Enable/Disable Discussion action."
     form_name = u"Configure element"
-
