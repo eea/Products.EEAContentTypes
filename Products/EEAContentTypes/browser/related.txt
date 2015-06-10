@@ -104,7 +104,6 @@ of related:
   
   >>> h1 = setThemeAndPublish('h1', publish=False)
   >>> wf.doActionFor(h1, 'submitContentReview')
-  >>> wf.doActionFor(h1, 'submitProofReading')
   >>> wf.doActionFor(h1, 'submit')
   >>> wf.doActionFor(h1, 'publish')            
 
