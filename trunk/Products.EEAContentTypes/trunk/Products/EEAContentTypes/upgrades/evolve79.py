@@ -1,3 +1,5 @@
+""" Evolve 79 profile
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.utils.vocabs import createSimpleVocabs
 from zope.component.hooks import getSite

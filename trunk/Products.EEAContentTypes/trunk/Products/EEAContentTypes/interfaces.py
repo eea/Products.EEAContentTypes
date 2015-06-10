@@ -25,7 +25,7 @@ class ILocalRoleEmails(Interface):
 class IRelations(Interface):
     """ An adapter that retrieves relations from any plone object. """
 
-    def all(samePortalType=False, contraints=None):
+    def all(samePortalType=False, constraints=None):
         """ Gets all objects that are, in any way, related to this object. """
 
     def backReferences(self, portal_type=None, relatedTo=None):
@@ -46,7 +46,8 @@ class IRelations(Interface):
         the back references should search for
         """
 
-    def byTheme(samePortalType=False, portal_type=None, getBrains=False, constraints=False, considerDeprecated=False):
+    def byTheme(samePortalType=False, portal_type=None, getBrains=False,
+                constraints=False, considerDeprecated=False):
         """ Gets all objects that have the same theme tag is the adapted object.
            samePortalType argument should be true if the related objects should
            be of the same portal type as context. getBrains argument should be
@@ -54,7 +55,8 @@ class IRelations(Interface):
            This is mainly for performance.
         """
 
-    def byPublicationGroup(self, samePortalType=True, getBrains=False, constraints=False):
+    def byPublicationGroup(self, samePortalType=True, getBrains=False,
+                           constraints=False):
         """ Get all objects that are the same type and same publication group.
         """
 

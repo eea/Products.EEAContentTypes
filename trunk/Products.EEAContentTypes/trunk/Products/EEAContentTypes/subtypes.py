@@ -16,7 +16,8 @@ from zope.component import adapts
 from zope.interface import Interface, implements
 from zope.i18nmessageid import MessageFactory
 
-from Products.EEAContentTypes.browser.interfaces import IEEAContentRegistryRequiredFields
+from Products.EEAContentTypes.browser.interfaces import \
+    IEEAContentRegistryRequiredFields
 from Products.EEAContentTypes.utils import \
     excluded_temporal_coverage_schemaextender_tuple
 from eea.geotags import field
@@ -115,7 +116,8 @@ class RelationsSchemaExtender(object):
                                 keepReferencesOnCopy=True,
                                 widget=EEAReferenceBrowserWidget(
                                     label='Related items',
-                                    description='Specify relations to other content within Plone.'
+                                    description='Specify relations to other '
+                                                'content within Plone.'
                                 )
                                 ),
     )
@@ -170,12 +172,13 @@ class LocationSchemaExtender(object):
             languageIndependent=True,
             widget=widget.GeotagsWidget(
                 label='Geographic coverage',
-                description=('Type in here the exact geographic names/places '
-                             'that are covered by the data. Add Countries names only '
-                             'if the data displayed is really about the entire country.'
-                             ' Example of locations/places are lakes, rivers, cities, '
-                             'marine areas, glaciers, bioregions like alpine '
-                             'region etc.')
+                description=(
+                    'Type in here the exact geographic names/places '
+                    'that are covered by the data. Add Countries names only '
+                    'if the data displayed is really about the entire country.'
+                    ' Example of locations/places are lakes, rivers, cities, '
+                    'marine areas, glaciers, bioregions like alpine '
+                    'region etc.')
             )
         ),
     )
@@ -206,13 +209,15 @@ class LocationSchemaExtender(object):
             self.multiple_location[0].widget.label_msgid = \
                 "dataservice_label_address"
             self.multiple_location[0].widget.description = (
-                'Geographical location ' \
-                'related to this Organisation. Click Edit button' \
+                'Geographical location '
+                'related to this Organisation. Click Edit button'
                 ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
                 "dataservice_help_address"
-        elif self.context.portal_type in ('Data', "Assessment", "AssessmentPart"):
+        elif self.context.portal_type in ('Data', "Assessment",
+                                          "AssessmentPart"):
             # remove location schema extender for Data, see #9423
+            # remove also for Assessment see 22232
             return ()
         else:
             self.multiple_location[0].schemata = 'categorization'

@@ -10,7 +10,7 @@ from Products.PlacelessTranslationService.Negotiator import (
 )
 
 
-class PrefsForPTS:
+class PrefsForPTS(object):
     """ Prefs for PTS
     """
 

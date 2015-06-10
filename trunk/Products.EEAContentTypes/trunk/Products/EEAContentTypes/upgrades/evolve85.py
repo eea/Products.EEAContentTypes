@@ -1,3 +1,5 @@
+""" Evolve 85 profile
+"""
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 
@@ -14,5 +16,5 @@ def evolve(context):
     required_fields.temporalCoverage = ('Infographic', 'Data', 'EEAFigure')
     types_settings = registry.forInterface(IEEAContentTypesSettings,
                                            check=False)
-    types_settings.noTemporalCoverageSubtyperFor = ('Assessment',
-                                                    'IndicatorFactSheet', 'Link')
+    types_settings.noTemporalCoverageSubtyperFor = (
+        'Assessment', 'IndicatorFactSheet', 'Link')
