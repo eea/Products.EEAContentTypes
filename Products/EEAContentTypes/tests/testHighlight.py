@@ -2,17 +2,16 @@
 """
 
 from App.Common import package_home
-from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from eea.design.browser.frontpage import Frontpage
 import os
 
-
 image = open(os.path.join(
     package_home(product_globals), 'tests', 'image.png'), 'rb')
 image = image.read()
+
 
 class testHighlight(EEAContentTypeTestCase):
     """Test-cases for class(es) ExternalHighlight, Highlight."""
@@ -20,16 +19,15 @@ class testHighlight(EEAContentTypeTestCase):
     def afterSetUp(self):
         """ Set up
         """
-        highlight = {'type': 'Highlight', 'id' : 'high%s', 'text' : 'data%s',
-                     'title' : 'Foo%s',
-                     'teaser' : 'teaser%s'}
+        highlight = {'type': 'Highlight', 'id': 'high%s', 'text': 'data%s',
+                     'title': 'Foo%s',
+                     'teaser': 'teaser%s'}
         for i in range(15):
             name = highlight['id'] % i
             text = highlight['text'] % i
             title = highlight['title'] % i
             self.folder.invokeFactory('Highlight', id=name, text=text,
                                       title=title)
-
 
         self.folder.invokeFactory('Image', id='image1',
                                   image=image, title='Image title')
@@ -54,13 +52,13 @@ class testHighlight(EEAContentTypeTestCase):
         answer = 'Description1'
         high.setDescription(answer)
         result = high.getTeaser()
-        self.failIf( answer != result )
+        self.failIf(answer != result)
 
         answer = 'teaser1'
         high.setTeaser(answer)
         result = high.getTeaser()
         message = '%s != %s' % (result, answer)
-        self.failIf( answer != result, message )
+        self.failIf(answer != result, message)
 
     # from class ExternalHighlight:
     def test_getNewsTitle(self):
@@ -69,37 +67,15 @@ class testHighlight(EEAContentTypeTestCase):
         high = self.folder.high1
         answer = 'Foo1'
         result = high.getNewsTitle()
-        self.failIf( answer != result )
+        self.failIf(answer != result)
 
-    # from class ExternalHighlight:
-    def test_getMedia(self):
-        """ Get media
-        """
-        answer = [ 'high1', 'high2' ]
-        for hid in answer:
-            high = getattr(self.folder, hid)
-            high.setVisibilityLevel('top')
-            self.workflow.doActionFor(high, 'publish')
-            mediaUID = self.folder.image1.UID()
-            high.setMedia(mediaUID)
-            high.reindexObject()
-        self.folder.high3.setVisibilityLevel('bottom')
-        # upload an image for high1
-        self.folder.high1.setImage(image)
-
-        view = Frontpage(self.portal, self.app.REQUEST)
-        result = [ high['media']['portal_type'] for high in view.getHigh() ]
-        answer = [ 'Image', 'Image' ]
-        message = '%s != %s' % (result, answer)
-        self.failIf( result != answer, message )
 
 
 def test_suite():
     """ Suite
     """
     from unittest import TestSuite, makeSuite
+
     suite = TestSuite()
     suite.addTest(makeSuite(testHighlight))
     return suite
-
-
