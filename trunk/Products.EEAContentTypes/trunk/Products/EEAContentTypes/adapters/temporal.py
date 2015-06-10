@@ -1,6 +1,7 @@
 """ Adapters
 """
 from zope.interface import implements
+
 from .interfaces import ITemporalCoverageAdapter
 
 
@@ -55,4 +56,3 @@ class EventsTemporalCoverageAdapter(object):
                 return tuple(coverage)
         else:
             return ()
-

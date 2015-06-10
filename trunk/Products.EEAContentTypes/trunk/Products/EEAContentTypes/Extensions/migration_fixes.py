@@ -1,11 +1,18 @@
 """ Fixes
 """
-from Products.CMFPlone.utils import getToolByName
 import cPickle
-import transaction
 import logging
 
+from Products.CMFPlone.utils import getToolByName
+import transaction
+
 logger = logging.getLogger("Migration fix")
+
+
+def getCMFObjectsSubsetIds(objs, cmf_meta_types):
+    """Get the ids of only cmf objects (used for moveObjectsByDelta)
+    """
+    return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
 
 def write_folder_order(self):
     """ Write folder order
@@ -14,10 +21,7 @@ def write_folder_order(self):
 
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
-    def getCMFObjectsSubsetIds(objs):
-        """Get the ids of only cmf objects (used for moveObjectsByDelta)
-        """
-        return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
+
 
     images = catalog.searchResults(portal_type="Image")
     files = catalog.searchResults(portal_type="File")
@@ -32,11 +36,11 @@ def write_folder_order(self):
 
     result = {}
     for path in parents:
-        logger.info("Recording %s" % path)
+        logger.info("Recording %s", path)
         folder = self.restrictedTraverse(path)
         objs = folder.getFolderContents(full_objects=True)
-        #objs = [o for o in folder.objectValues() if hasattr(o, 'meta_type')]
-        ids = getCMFObjectsSubsetIds(objs)
+        # objs = [o for o in folder.objectValues() if hasattr(o, 'meta_type')]
+        ids = getCMFObjectsSubsetIds(objs, cmf_meta_types)
         result[path] = ids
 
     cPickle.dump(result, out)
@@ -44,51 +48,47 @@ def write_folder_order(self):
 
     return "Done export"
 
+
 def read_folder_order(self):
     """ Folder order
     """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
-    def getCMFObjectsSubsetIds(objs):
-        """Get the ids of only cmf objects (used for moveObjectsByDelta)
-        """
-        return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
-
 
     source = open("/tmp/out.pickle")
     result = cPickle.load(source)
 
     toavoid = [
-    '/www/SITE/soer/unpublished-content',
-    '/www/SITE/soer/published-future',
-    '/www/SITE/cop15/cop15-events',
+        '/www/SITE/soer/unpublished-content',
+        '/www/SITE/soer/published-future',
+        '/www/SITE/cop15/cop15-events',
     ]
 
     for path, oids in result.items():
-        logger.info("Doing path: %s" % path)
+        logger.info("Doing path: %s", path)
 
         if path in toavoid:
-            logger.info("Avoiding path: %s" % path)
+            logger.info("Avoiding path: %s", path)
             continue
 
         try:
             parent = self.unrestrictedTraverse(path, default=None)
             if parent == None:
-                logger.info("Could not get path: %s" % path)
+                logger.info("Could not get path: %s", path)
                 continue
 
         except Exception:
-            logger.info("Could not get path: %s" % path)
+            logger.info("Could not get path: %s", path)
             continue
 
         objs = parent.getFolderContents(full_objects=True)
-        if oids == getCMFObjectsSubsetIds(objs):
-            logger.info("Skipping %s because of the same order" % path)
+        if oids == getCMFObjectsSubsetIds(objs, cmf_meta_types):
+            logger.info("Skipping %s because of the same order", path)
             continue
 
         for position, oid in enumerate(oids):
             parent.moveObject(oid, position)
-            logger.info("%s: Moving %s to position %s" % (path, oid, position))
+            logger.info("%s: Moving %s to position %s", path, oid, position)
             obj = parent[oid]
             try:
                 obj.reindexObject()
@@ -107,41 +107,29 @@ def read_folder_order(self):
 
     return "Done import"
 
+
 def get_order(self):
     """ Order
     """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
-    def getCMFObjectsSubsetIds(objs):
-        """Get the ids of only cmf objects (used for moveObjectsByDelta)
-        """
-        return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
 
     objs = [o for o in self.objectValues() if hasattr(o, 'meta_type')]
-    return getCMFObjectsSubsetIds(objs)
+    return getCMFObjectsSubsetIds(objs, cmf_meta_types)
+
 
 def get_order_contents(self):
     """ Order contents
     """
     ttool = getToolByName(self, 'portal_types')
     cmf_meta_types = ttool.listContentTypes(by_metatype=1)
-    def getCMFObjectsSubsetIds(objs):
-        """Get the ids of only cmf objects (used for moveObjectsByDelta)
-        """
-        return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
 
     objs = self.getFolderContents(full_objects=True)
-    return getCMFObjectsSubsetIds(objs)
+    return getCMFObjectsSubsetIds(objs, cmf_meta_types)
+
 
 def set_folder_order(self):
     """Fixes just a folder"""
-
-    ttool = getToolByName(self, 'portal_types')
-    cmf_meta_types = ttool.listContentTypes(by_metatype=1)
-    def getCMFObjectsSubsetIds(objs):
-        """Get the ids of only cmf objects (used for moveObjectsByDelta)
-        """
-        return [obj.id for obj in objs if obj.meta_type in cmf_meta_types]
 
     source = open("/tmp/out.pickle")
     result = cPickle.load(source)
@@ -152,13 +140,14 @@ def set_folder_order(self):
 
     for position, oid in enumerate(oids):
         parent.moveObject(oid, position)
-        logger.info("%s: Moving %s to position %s" % (path, oid, position))
+        logger.info("%s: Moving %s to position %s", path, oid, position)
         obj = parent[oid]
         obj.reindexObject()
 
     parent.reindexObject()
 
     return "Reorder done"
+
 
 _UIDS = """
 D66A344D-43D5-4FBB-9B6A-B4F5114D8141
@@ -536,6 +525,7 @@ D13380BB-D037-4926-BBDB-8AD86150D383
 8d62e22562eab38d283a5832c37ef320
 """
 
+
 def fix_categories_maps(self):
     """ Recategorize some maps as graphs
     """
@@ -554,6 +544,7 @@ def fix_categories_maps(self):
     logging.info("Done changing figure types")
     return "Done"
 
+
 def update_publications_subobjects(self):
     """ Update publications subobjects
     """
@@ -565,7 +556,7 @@ def update_publications_subobjects(self):
     count = 0
     logger.info('Start updating subobjects for all Publications')
     for brain in brains:
-        logger.info('Updating %s' % brain.getURL())
+        logger.info('Updating %s', brain.getURL())
         obj = brain.getObject()
         obj.setConstrainTypesMode(0)
         count += 1
