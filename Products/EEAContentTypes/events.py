@@ -2,6 +2,7 @@
 """
 from DateTime import DateTime
 
+
 def handle_content_state_changed(obj, event):
     """ Set effective to now if effected is not set and object is published
     """
@@ -11,4 +12,3 @@ def handle_content_state_changed(obj, event):
         if not effective:
             now = DateTime()
             object.setEffectiveDate(now)
-

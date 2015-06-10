@@ -1,12 +1,13 @@
 """ Catalog
 """
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
+from Products.ATContentTypes.interfaces.event import IATEvent
+from plone.indexer.decorator import indexer
+
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from .interfaces import ITemporalCoverageAdapter
 from Products.EEAContentTypes.interfaces import IEEAContent
-from Products.ATContentTypes.interfaces.event import IATEvent
 
-from plone.indexer.decorator import indexer
 
 @indexer(IBaseContent)
 def CountReferences(obj):
@@ -20,6 +21,7 @@ def CountReferences(obj):
     except (TypeError, ValueError):
         # The catalog expects AttributeErrors when a value can't be found
         raise AttributeError
+
 
 @indexer(IBaseObject)
 def Subject(obj):
@@ -45,7 +47,6 @@ def GetTemporalCoverageForIEEAContent(obj):
     return ITemporalCoverageAdapter(obj).value()
 
 
-
 @indexer(IEEAPossibleContent)
 def GetTemporalCoverageForIEEAPossibleContent(obj):
     """ temporalCoverage indexer for IEEAPossibleContent types
@@ -62,4 +63,3 @@ def GetTemporalCoverageForIATEvent(obj):
     if "portal_factory" in obj.absolute_url():
         raise AttributeError
     return ITemporalCoverageAdapter(obj).value()
-

@@ -5,6 +5,7 @@ from Products.CMFCore.permissions import setDefaultRoles
 from Globals import DevelopmentMode
 
 from zope.i18nmessageid.message import MessageFactory
+
 EEAMessageFactory = MessageFactory('eea')
 
 DEBUG = DevelopmentMode
@@ -26,12 +27,12 @@ product_globals = globals()
 ADD_CONTENT_PERMISSIONS['QuickEvent'] = 'EEA: Add QuickEvent'
 setDefaultRoles('EEA: Add QuickEvent', ('Manager'))
 
-DEFAULT_PAGE_TYPES = ( 'FlashFile', 'Highlight' )
-JAVASCRIPTS = [ {'id' : 'swfobject.js'},
-                {'id' : 'resize.js' },
-                {'id' : 'hideemail.js' } ]
+DEFAULT_PAGE_TYPES = ('FlashFile', 'Highlight')
+JAVASCRIPTS = [{'id': 'swfobject.js'},
+               {'id': 'resize.js'},
+               {'id': 'hideemail.js'}]
 
-DEPENDENCIES = [ 'ATVocabularyManager', ]
+DEPENDENCIES = ['ATVocabularyManager', ]
 
 # URL normalizer
 MAX_URL_WORDS = 5

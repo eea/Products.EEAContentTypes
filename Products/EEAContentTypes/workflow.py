@@ -1,11 +1,13 @@
 """ Workflow
 """
 from Products.CMFCore.utils import getToolByName
+from zope.component import adapts, queryAdapter
+from zope.interface import implements, Interface
+
 from Products.EEAContentTypes.interfaces import ILocalRoleEmails
 from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
 from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
-from zope.component import adapts, queryAdapter
-from zope.interface import implements, Interface
+
 
 class TransitionLogicalGuard(object):
     """ get right transition logic adapter for the context and transition """
@@ -16,8 +18,9 @@ class TransitionLogicalGuard(object):
 
     def __call__(self):
         state_change = self.context
-        guard = queryAdapter(state_change.object,
-                ITransitionLogicalGuard, name=state_change.transition.getId())
+        guard = queryAdapter(
+            state_change.object, ITransitionLogicalGuard,
+            name=state_change.transition.getId())
         if guard is not None:
             return guard.available
         return True
@@ -28,8 +31,8 @@ class SubmitForWebQAGuard(object):
 
     implements(ITransitionLogicalGuard)
 
-    notNeededFor = [ 'Link' ]
-    needContentReview = [ 'Event', 'Document', 'News Item', 'Highlight' ]
+    notNeededFor = ['Link']
+    needContentReview = ['Event', 'Document', 'News Item', 'Highlight']
 
     def __init__(self, context, request):
         self.context = context
@@ -41,8 +44,8 @@ class SubmitForWebQAGuard(object):
         if portal_type not in self.notNeededFor:
             if portal_type in self.needContentReview:
                 wf = getToolByName(context, 'portal_workflow')
-                history = [ h['action'] for
-                            h in (wf.getInfoFor(context,
+                history = [h['action'] for
+                           h in (wf.getInfoFor(context,
                                                'review_history', None) or [])]
                 return 'submitContentReview' in history
             return True
@@ -54,8 +57,8 @@ class SubmitForMultimediaEdit(object):
 
     implements(ITransitionLogicalGuard)
 
-    canBeUsedFor = [ 'Highlight', 'PressRelease', 'Document', 'News Item',
-                     'HelpCenterFAQ', 'Speech', 'Topic']
+    canBeUsedFor = ['Highlight', 'PressRelease', 'Document', 'News Item',
+                    'HelpCenterFAQ', 'Speech', 'Topic']
 
     def __init__(self, context, request):
         self.context = context
@@ -64,8 +67,8 @@ class SubmitForMultimediaEdit(object):
     def __call__(self):
         context = self.context
         wf = getToolByName(context, 'portal_workflow')
-        history = [ h['action'] for
-                    h in wf.getInfoFor(context, 'review_history', None) ]
+        history = [h['action'] for
+                   h in wf.getInfoFor(context, 'review_history', None)]
         return (self.context.portal_type
                 in self.canBeUsedFor and 'submitMultimediaEdit' not in history)
 
@@ -75,8 +78,8 @@ class SubmitForContentReview(object):
 
     implements(ITransitionLogicalGuard)
 
-    canBeUsedFor = [ 'Highlight', 'Document', 'News Item', 'HelpCenterFAQ',
-                     'Topic', 'Event', 'Link']
+    canBeUsedFor = ['Highlight', 'Document', 'News Item', 'HelpCenterFAQ',
+                    'Topic', 'Event', 'Link']
 
     def __init__(self, context, request):
         self.context = context
@@ -91,7 +94,7 @@ class SubmitForProofReading(object):
 
     implements(ITransitionLogicalGuard)
 
-    canBeUsedFor = [ 'Highlight', 'Document', 'HelpCenterFAQ' ]
+    canBeUsedFor = ['Highlight', 'Document', 'HelpCenterFAQ']
 
     def __init__(self, context, request):
         self.context = context
@@ -106,7 +109,7 @@ class QuickPublish(object):
 
     implements(ITransitionLogicalGuard)
 
-    canBeUsedFor = [ 'Link' ]
+    canBeUsedFor = ['Link']
 
     def __init__(self, context, request):
         self.context = context
@@ -250,16 +253,16 @@ class LocalRoleEmails(object):
         retlist = []
         takenRoles = self.takenRoles
         for member in members_tool.searchForMembers():
-            roles = [ role for role in member.getRoles()
-                           if role not in takenRoles ]
+            roles = [role for role in member.getRoles()
+                     if role not in takenRoles]
             if roles:
                 retlist.append((member.getUserName(), roles,
                                 'user', member.getUserId()))
 
         for grpId in groups_tool.getGroupIds():
             group = groups_tool.getGroupById(grpId)
-            roles = [ role2 for role2 in group.getRoles()
-                           if role2 not in takenRoles ]
+            roles = [role2 for role2 in group.getRoles()
+                     if role2 not in takenRoles]
             if roles:
                 retlist.append((group.getGroupName(), roles,
                                 'group', group.getGroupName()))
@@ -292,7 +295,7 @@ class WorkflowEmails(object):
         confirmationRoles = [
             role for role in ('ContentManager', 'Editor',
                               'Reviewer', 'WebReviewer', 'Owner', 'Manager')
-            if role != actionRole ]
+            if role != actionRole]
         for role in confirmationRoles:
             emails = local.emails.get(role, [])
             for email in emails:
@@ -314,7 +317,7 @@ class WorkflowEmails(object):
         # if member is not None:
         #     memberEmail = member.getProperty('email', None)
         #     memberName = member.getProperty('fullname',
-        #                                     '') or memberEmail.replace('@', ' ')
+        #                 '') or memberEmail.replace('@', ' ')
         #     if memberEmail and memberName:
         #         email = memberEmail
         #         name = memberName
@@ -322,12 +325,14 @@ class WorkflowEmails(object):
         return "%s <%s>" % (name, email)
 
 
-# TODO: We need to make the Roles in each workflow adapter to take it dynamically
-# from the actual workflow object roles guard. This way we skip hardcoded values
-# and we can reuse the workflow sendemail logic for all workflows.
+# TODO: We need to make the Roles in each workflow adapter to take it
+# dynamically from the actual workflow object roles guard. This way we skip
+# hardcoded values and we can reuse the workflow sendemail logic for all
+# workflows.
 class WorkflowActionReviewer(WorkflowEmails):
     """ Action reviewer
     """
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('Reviewer')
@@ -336,6 +341,7 @@ class WorkflowActionReviewer(WorkflowEmails):
 class WorkflowActionProofReader(WorkflowEmails):
     """ Proof reader
     """
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('ProofReader')
@@ -344,6 +350,7 @@ class WorkflowActionProofReader(WorkflowEmails):
 class WorkflowActionWebReviewer(WorkflowEmails):
     """ Web reviewer
     """
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('WebReviewer')
@@ -367,6 +374,7 @@ class WorkflowActionContentManager(WorkflowEmails):
 
 class WorkflowConfirmation(WorkflowEmails):
     """ This will send a workflow confirmation email to all roles"""
+
     def __init__(self, context):
         WorkflowEmails.__init__(self, context)
         self._getEmails('')

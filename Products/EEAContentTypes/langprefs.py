@@ -4,13 +4,16 @@ members. Therefore we register a lang prefs method that has higher
 priority than the one found in LanguageTool.
 """
 from AccessControl import getSecurityManager
+
 from Products.PlacelessTranslationService.Negotiator import (
     registerLangPrefsMethod,
 )
 
+
 class PrefsForPTS:
     """ Prefs for PTS
     """
+
     def __init__(self, context):
         pass
 
@@ -21,6 +24,7 @@ class PrefsForPTS:
         if user.has_role('Authenticated'):
             return ['en', 'en']
         return None
+
 
 registerLangPrefsMethod({
     'klass': PrefsForPTS,
