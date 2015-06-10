@@ -2,16 +2,19 @@
 """
 import logging
 from StringIO import StringIO
+
 from Products.Archetypes.Field import Image as ZODBImage
 from OFS.Image import File as ZODBFile
 from Products.Five.browser import BrowserView
 
 logger = logging.getLogger('EEAContentTypes.migrate')
 
+
 class Migrate(BrowserView):
     """ Migrate Highlight image field from OFS.Image
         to plone.app.blob BlobField
     """
+
     def __init__(self, context, request):
         super(Migrate, self).__init__(context, request)
         self._status = False
@@ -87,9 +90,11 @@ class Migrate(BrowserView):
         self._status = self.migrate_scales(field) and self._status
         return "Migration complete. Check the Zope log for more details."
 
+
 class FlashFileMigrate(Migrate):
     """ Custom migration script for Flash File
     """
+
     def __init__(self, context, request):
         super(FlashFileMigrate, self).__init__(context, request)
         self._field = 'file'

@@ -1,16 +1,20 @@
 """ Migrate EEA Content-types view controller
 """
 import logging
+
 import transaction
 from zope.component import queryMultiAdapter
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
+
 logger = logging.getLogger('EEAContentTypes.migrate')
+
 
 class Migrate(BrowserView):
     """ Run migration for all content-types
     """
+
     def _redirect(self, msg='', to='@@migrate-eea2blobs'):
         """ Return or redirect
         """
