@@ -2,8 +2,9 @@
 """
 from zope.component import queryAdapter
 from Products.CMFCore.utils import getToolByName
-from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
 from Products.Five import BrowserView
+
+from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
 
 
 class TransitionEmails(BrowserView):
@@ -28,6 +29,6 @@ class TransitionEmails(BrowserView):
                     result[t.getId()] = 'old way (see workflow properties)'
                 else:
                     result[t.getId()] = {
-                        'action' : str(emails.action)[1:-1],
-                        'confirmation' : str(emails.confirmation)[1:-1] }
+                        'action': str(emails.action)[1:-1],
+                        'confirmation': str(emails.confirmation)[1:-1]}
         return result

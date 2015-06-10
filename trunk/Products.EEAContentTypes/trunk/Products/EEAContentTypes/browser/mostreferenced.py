@@ -13,7 +13,7 @@ class MostReferenced(BrowserView):
         cat = getToolByName(self.context, 'portal_catalog')
         query = {'sort_on': 'countReferences',
                  'sort_order': 'reverse',
-                 'review_state':'published'}
+                 'review_state': 'published'}
 
         if portal_type:
             query['portal_type'] = portal_type

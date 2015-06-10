@@ -1,7 +1,8 @@
 """ Interfaces
 """
-from zope.interface import Interface
 from zope import schema
+
+from zope.interface import Interface
 from zope.schema import TextLine
 
 from Products.EEAContentTypes.config import EEAMessageFactory as _
@@ -18,6 +19,7 @@ class IRSSShare(Interface):
         Default include list is all and exclude none.
         The old highlights.rdf. """
 
+
 class ICFTRegistration(Interface):
     """ CFT Registration
     """
@@ -31,6 +33,7 @@ class ICFTRegistration(Interface):
 
     def getAwardNotice():
         """ Return true if there has been published a award notice. """
+
 
 class IOrganisation(Interface):
     """ Organisation
@@ -69,6 +72,7 @@ class IOrganisation(Interface):
               'job_title' : '',
               'programme' : '' } """
 
+
 class IRelatedThemes(Interface):
     """ Related themes
     """
@@ -76,6 +80,7 @@ class IRelatedThemes(Interface):
     def getRelatedThemes():
         """ Fetch themes for the current object and return a dict with
             theme name, id, url to theme. """
+
 
 class IFrontPageHighlights(Interface):
     """ Front page highlights
@@ -90,6 +95,7 @@ class IFrontPageHighlights(Interface):
             haven't expired. Sort by publish date and return the number
             that is configured in portal_properties.frontpage_properties.
         """
+
     def getMediumArticles():
         """ Return the published articles with visibility `middle` and that
             haven't expired. Sort by publish date and return the number
@@ -102,12 +108,14 @@ class IFrontPageHighlights(Interface):
             that is configured in portal_properties.frontpage_properties.
         """
 
+
 class IPromotionCategory(Interface):
     """ Promotion category
     """
 
     def getPromotions():
         """ Return published promotions in this group. """
+
 
 class IQuickEvent(Interface):
     """ Quick event
@@ -122,6 +130,7 @@ class IQuickEvent(Interface):
     def step2():
         """ Handle confirmation or correction of event. """
 
+
 class ILanguages(Interface):
     """ Languages
     """
@@ -132,39 +141,41 @@ class ILanguages(Interface):
     def getTranslatedSitesLanguages():
         """ Return languages for translated sites.  """
 
+
 class IEmployee(Interface):
     """ employee information for rdf synchronization from intranet. """
 
-    first_name = TextLine( title=u'First name',
-                           description=u'',
-                           required = True )
-    last_name = TextLine( title=u'Last name',
-                           description=u'',
-                           required=True )
-    personnelNb = TextLine( title=u'Personnel number',
-                            description=u'',
-                            required=True)
-    email = TextLine( title=u'Email',
-                      description=u'',
-                      required=True)
-    employment_start = TextLine( title=u'Employment start',
-                                 description=u'',
-                                 required=True)
-    employment_end = TextLine( title=u'Employment end',
-                               description=u'',
-                               required=True)
-    job_title = TextLine( title=u'Job title',
+    first_name = TextLine(title=u'First name',
                           description=u'',
                           required=True)
-    organisation_code = TextLine( title=u'Organisation code',
-                                  description=u'',
-                                  required=True)
-    organisation_name = TextLine( title=u'Organisation name',
-                                  description=u'',
-                                  required=True)
-    manager = TextLine( title=u'manager',
-                        description=u'',
-                        required=True)
+    last_name = TextLine(title=u'Last name',
+                         description=u'',
+                         required=True)
+    personnelNb = TextLine(title=u'Personnel number',
+                           description=u'',
+                           required=True)
+    email = TextLine(title=u'Email',
+                     description=u'',
+                     required=True)
+    employment_start = TextLine(title=u'Employment start',
+                                description=u'',
+                                required=True)
+    employment_end = TextLine(title=u'Employment end',
+                              description=u'',
+                              required=True)
+    job_title = TextLine(title=u'Job title',
+                         description=u'',
+                         required=True)
+    organisation_code = TextLine(title=u'Organisation code',
+                                 description=u'',
+                                 required=True)
+    organisation_name = TextLine(title=u'Organisation name',
+                                 description=u'',
+                                 required=True)
+    manager = TextLine(title=u'manager',
+                       description=u'',
+                       required=True)
+
 
 class IDocumentRelated(Interface):
     """ Document related
@@ -201,6 +212,7 @@ class IDocumentRelated(Interface):
     def top_media():
         """ Top media
         """
+
 
 class IAutoRelated(Interface):
     """ Auto related
@@ -281,12 +293,14 @@ class IEEAContentTypesSettings(Interface):
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
 
+
 required_for_ctypes = ('Article', 'Highlight', 'PressRelease', 'Speech',
-                 'DiversityReport', 'Data', 'EEAFigure', 'Report',
-                 'PolicyDocumentReference', 'FlashFile', 'Infographic',
-                 'EcoTip', 'Document', 'SOERKeyFact', 'SOERMessage',
-                 'GIS Application', 'EyewitnessStory',
-                 'CloudVideo')
+                       'DiversityReport', 'Data', 'EEAFigure', 'Report',
+                       'PolicyDocumentReference', 'FlashFile', 'Infographic',
+                       'EcoTip', 'Document', 'SOERKeyFact', 'SOERMessage',
+                       'GIS Application', 'EyewitnessStory',
+                       'CloudVideo')
+
 
 class IEEAContentRegistryRequiredFields(Interface):
     """ Interface that will be used for requiring different fields for certain
@@ -332,4 +346,3 @@ class IEEAContentRegistryRequiredFields(Interface):
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
-

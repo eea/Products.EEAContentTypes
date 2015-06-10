@@ -1,3 +1,5 @@
+""" App module
+"""
 from Products.Five import BrowserView
 from RestrictedPython.Utilities import same_type
 
@@ -25,7 +27,7 @@ class UnicodeTestIn(BrowserView):
 
         # Recursively deal with sequences
         tuplevalue = same_type(value, ())
-        if (tuplevalue or same_type(value, [])):
+        if tuplevalue or same_type(value, []):
             encoded = [self.unicodeEncode(v) for v in value]
             if tuplevalue:
                 encoded = tuple(encoded)
@@ -43,4 +45,3 @@ class UnicodeTestIn(BrowserView):
         # don't try to catch unicode error here
         # if one occurs, that means the site charset must be changed !
         return value.encode(site_charset)
-

@@ -2,6 +2,7 @@
 """
 from Products.Five import BrowserView
 
+
 class CFTRegistration(BrowserView):
     """ CFT
     """
@@ -14,7 +15,7 @@ class CFTRegistration(BrowserView):
         """ Canceled
         """
         if (self.request.get('portal_status_message') ==
-            'Add New Item operation was cancelled.'):
+                'Add New Item operation was cancelled.'):
             return True
         return False
 
@@ -24,6 +25,6 @@ class CFTRegistration(BrowserView):
         context = self.context
         awardNotice = context.getAwardNoticeObject()
         if awardNotice is not None and awardNotice != context:
-            return { 'url' : awardNotice.absolute_url(),
-                     'title' : awardNotice.Title() }
+            return {'url': awardNotice.absolute_url(),
+                    'title': awardNotice.Title()}
         return None

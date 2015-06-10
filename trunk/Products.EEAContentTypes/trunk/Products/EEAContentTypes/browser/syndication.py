@@ -1,9 +1,11 @@
 """ Syndication
 """
 import time
-from email.Utils import formatdate
+
 from zope.component import queryMultiAdapter
 from Products.CMFPlone.browser.syndication.views import FeedView
+
+from email.Utils import formatdate
 
 
 class SKOS(object):
@@ -48,7 +50,15 @@ class SKOS(object):
 
 
 class EEAFeedView(FeedView):
+    """ EEAFeedView
+    """
     def getItemDescription(self, item):
+        """ getItemDescription
+        :param item: Object to get feed info
+        :type item: object
+        :return: Description
+        :rtype: str
+        """
         img = queryMultiAdapter((item.context, item.context.REQUEST),
                                 name=u'imgview')
         if img is not None and img.display('mini'):
@@ -62,9 +72,19 @@ class EEAFeedView(FeedView):
         return result
 
     def dateFormatItem(self, item):
+        """
+        :param item: object
+        :type item: object
+        :return: date formatted
+        :rtype: str
+        """
         date = item.published or item.modified
         date = date.asdatetime()
         return formatdate(time.mktime(date.timetuple()))
 
     def getViewName(self):
+        """
+        :return: View name
+        :rtype: str
+        """
         return self.__name__

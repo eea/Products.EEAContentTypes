@@ -1,8 +1,8 @@
 """ Adapters
 """
 from Products.CMFCore.utils import getToolByName
-from eea.workflow.readiness import ObjectReadiness
 
+from eea.workflow.readiness import ObjectReadiness
 
 infographic_required_for_publishing = ("Data", "EEAFigure",
                                        "ExternalDataSpec", "Report",
@@ -23,14 +23,14 @@ def has_one_of(has, in_list):
             return True
     return False
 
+
 class InfographicWorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
 
     checks = {'published': (
         (lambda o: not has_one_of(infographic_required_for_publishing,
-                                   o.getRelatedItems()),
+                                  o.getRelatedItems()),
          "The Infographic needs to point within the Related Items field to "
          "at least one published %s" % (
              ", ".join(infographic_required_for_publishing))),
     )}
-

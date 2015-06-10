@@ -1,9 +1,12 @@
 """ Review
 """
 from AccessControl import getSecurityManager
-from Products.CMFCore.utils import getToolByName
 import logging
+
+from Products.CMFCore.utils import getToolByName
+
 logger = logging.getLogger('Products.EEAContentTypes.browser.review')
+
 
 class ReviewList(object):
     """ Browser view to get all pending objects. """
@@ -26,7 +29,7 @@ class ReviewList(object):
         catalog = getToolByName(self, 'portal_catalog')
 
         list_ptypes = types_tool.listContentTypes()
-        types_by_wf = {} # wf:[list,of,types]
+        types_by_wf = {}  # wf:[list,of,types]
         for t in list_ptypes:
             for wf in wftool.getChainFor(t):
                 types_by_wf[wf] = types_by_wf.get(wf, []) + [t]
@@ -45,7 +48,7 @@ class ReviewList(object):
 
             wf = wftool.getWorkflowById(wid)
             if hasattr(wf, 'worklists'):
-                #wlists = []
+                # wlists = []
                 for worklist in wf.worklists._objects:
                     wlist_def = wf.worklists._mapping[worklist['id']]
                     # Make the var_matches a dict instead of PersistentMapping
@@ -58,8 +61,8 @@ class ReviewList(object):
                         try:
                             o = result.getObject()
                             if o \
-                            and wid in wftool.getChainFor(o) \
-                            and wlist_def.getGuard().check(sm, wf, o):
+                                    and wid in wftool.getChainFor(o) \
+                                    and wlist_def.getGuard().check(sm, wf, o):
                                 absurl = o.absolute_url()
                             if absurl:
                                 objects_by_path[absurl] = (o.modified(), o)
@@ -68,4 +71,4 @@ class ReviewList(object):
 
         results = objects_by_path.values()
         results.sort()
-        return tuple([ obj[1] for obj in results ])
+        return tuple([obj[1] for obj in results])

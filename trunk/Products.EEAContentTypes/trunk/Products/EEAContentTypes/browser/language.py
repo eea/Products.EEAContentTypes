@@ -2,12 +2,15 @@
 """
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.PloneLanguageTool.interfaces import ITranslatable
-from Products.EEAContentTypes.browser.interfaces import ILanguages
 from plone.memoize.ram import cache
 import zope.interface
+
+from Products.EEAContentTypes.browser.interfaces import ILanguages
+
 
 def cacheKey(method, self):
     """ Cache key
@@ -35,6 +38,7 @@ class Languages(BrowserView):
         """ Site languages
         """
         languages = self.getTranslationLanguages()
+
         def _cmp(a, b):
             """ Compare
             """
@@ -57,10 +61,11 @@ class Languages(BrowserView):
             if b[0] == 'is':
                 cmp_two = 'Is'
             return cmp(cmp_one, cmp_two)
+
         languages.sort(_cmp)
         exclude = ['ar', 'ru', 'sr', 'ga']
-        return [ lang for lang in languages
-                      if lang[0] not in exclude ]
+        return [lang for lang in languages
+                if lang[0] not in exclude]
 
     @cache(cacheKey)
     def getLocalSites(self):
@@ -78,9 +83,9 @@ class Languages(BrowserView):
                 localSite = site.getTranslation(langcode)
                 if localSite is not None:
                     url = localSite.absolute_url()
-                    sites.append({ 'lang' : lang[1],
-                            'langcode' : langcode,
-                            'url' : url })
+                    sites.append({'lang': lang[1],
+                                  'langcode': langcode,
+                                  'url': url})
 
         return sites
 
@@ -97,7 +102,7 @@ class LanguageSelectorData(BrowserView):
         results = []
         putils = getToolByName(self.context, 'plone_utils')
 
-        translations = {} # lang:[object, wfstate]
+        translations = {}  # lang:[object, wfstate]
         if ITranslatable.providedBy(context):
             translations = context.getTranslations()
 
@@ -118,7 +123,7 @@ class LanguageSelectorData(BrowserView):
         else:
             current_language = langtool.getPreferredLanguage()
 
-        #catalog = context.portal_catalog
+        # catalog = context.portal_catalog
 
         site_languages.sort()
         for code, name in site_languages:
@@ -130,7 +135,7 @@ class LanguageSelectorData(BrowserView):
                                     default=u'Switch language to ${language}',
                                     mapping={'language': name},
                                     domain='linguaplone')
-            
+
             lingua_state = None
             if available:
                 translation = translations[code][0]
@@ -138,32 +143,30 @@ class LanguageSelectorData(BrowserView):
                 if putils.isDefaultPage(translation):
                     translation = aq_parent(aq_inner(translation))
 
-
                 url = translation.absolute_url()
                 if translation.portal_type in ('ATFile', 'File'):
                     url += '/view'
 
                 wf = context.portal_workflow
                 lingua_state = wf.getInfoFor(translation, 'review_state',
-                                                        None, 'linguaflow')
+                                             None, 'linguaflow')
 
 
             elif context.Language() == '':
                 url = context.absolute_url()
                 alt += context.translate(
-                                    msgid='label_content_is_language_neutral',
-                                    default=u' (Content is language neutral)',
-                                    domain='linguaplone')
+                    msgid='label_content_is_language_neutral',
+                    default=u' (Content is language neutral)',
+                    domain='linguaplone')
             else:
                 url = context.absolute_url() + '/not_available_lang'
                 alt += context.translate(
-                                msgid='label_content_translation_not_available',
-                                default=u' (Content translation not available)',
-                                domain='linguaplone')
+                    msgid='label_content_translation_not_available',
+                    default=u' (Content translation not available)',
+                    domain='linguaplone')
 
-            results.append({'Language':code, 'Title':name, 'current':current,
+            results.append({'Language': code, 'Title': name, 'current': current,
                             'flag': langtool.getFlagForLanguageCode(code),
-                            'available':available, 'change_url':url, 'alt':alt,
-                            'invalid': lingua_state == 'invalid'})
+                            'available': available, 'change_url': url,
+                            'alt': alt, 'invalid': lingua_state == 'invalid'})
         return results
-

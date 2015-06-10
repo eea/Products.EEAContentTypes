@@ -1,8 +1,17 @@
 """ Related
 """
+import logging
+
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.interfaces import IRelations
 from Products.Five.browser import BrowserView
+from zope.schema.interfaces import IVocabularyFactory
+from zope.component import (
+    queryAdapter, getUtility,
+    getMultiAdapter, queryMultiAdapter
+)
+from zope.interface import implements
+
+from Products.EEAContentTypes.interfaces import IRelations
 from eea.mediacentre.interfaces import IMediaType
 from eea.themecentre.interfaces import IThemeMoreLink
 from eea.themecentre.interfaces import IThemeTagging
@@ -11,19 +20,12 @@ from Products.EEAContentTypes.browser.interfaces import (
     IDocumentRelated, IAutoRelated
 )
 from eea.mediacentre.interfaces import IVideo as MIVideo, IMediaPlayer
-from zope.schema.interfaces import IVocabularyFactory
-from zope.component import (
-    queryAdapter, getUtility,
-    getMultiAdapter, queryMultiAdapter
-)
-from zope.interface import implements
-
-import logging
 
 logger = logging.getLogger('EEAContentTypes.browser.related')
 
 TOP_VIDEOS = 3
 MEDIA_ORDER = ['video']
+
 
 def getObjectInfo(item, request):
     """ Object info
@@ -38,45 +40,46 @@ def getObjectInfo(item, request):
     url = state.view_url()
     mimetype = item.get_content_type()
     imgview = queryMultiAdapter((item, request), name='imgview')
-    info = { 'title': item.Title(),
-             'uid': item.UID(),
-             'description': item.Description(),
-             'url': url,
-             'absolute_url': item.absolute_url(),
-             'has_img': imgview != None and imgview.display() == True,
-             'is_video': MIVideo.providedBy(item),
-             'item_type': item.portal_type,
-             'item_mimetype':mimetype,
-             'item_type_class': item_type_class,
-             'item_wf_state': item_wf_state,
-             'item_wf_state_class': item_wf_state_class }
+    info = {'title': item.Title(),
+            'uid': item.UID(),
+            'description': item.Description(),
+            'url': url,
+            'absolute_url': item.absolute_url(),
+            'has_img': imgview != None and imgview.display() == True,
+            'is_video': MIVideo.providedBy(item),
+            'item_type': item.portal_type,
+            'item_mimetype': mimetype,
+            'item_type_class': item_type_class,
+            'item_wf_state': item_wf_state,
+            'item_wf_state_class': item_wf_state_class}
 
     return info
+
 
 def getBrainInfo(brain, plone_utils, typesUsingViewUrl=None):
     """ Brain info
     """
     url = brain.getURL()
-    info = { 'title': brain.Title,
-             'brain':brain,
-             'uid': brain.UID,
-             'description': brain.Description,
-             'absolute_url': url,
-             'url': url,
-             'is_video':
-             "eea.mediacentre.interfaces.IVideo" in brain.object_provides,
-             'item_type': brain.portal_type,
-             'item_type_class': plone_utils.normalizeString(brain.portal_type),
-             'item_wf_state': brain.review_state,
-             'item_wf_state_class':
-             'state-' + plone_utils.normalizeString(brain.review_state)
+    info = {'title': brain.Title,
+            'brain': brain,
+            'uid': brain.UID,
+            'description': brain.Description,
+            'absolute_url': url,
+            'url': url,
+            'is_video':
+                "eea.mediacentre.interfaces.IVideo" in brain.object_provides,
+            'item_type': brain.portal_type,
+            'item_type_class': plone_utils.normalizeString(brain.portal_type),
+            'item_wf_state': brain.review_state,
+            'item_wf_state_class':
+                'state-' + plone_utils.normalizeString(brain.review_state)
 
-             #these infos are missing when compared to full info
-             #'url': brain.getURL() + "/view",
-             #'item_mimetype':mimetype,
-             #'has_img': imgview != None and imgview.display() == True,
+            # these infos are missing when compared to full info
+            # 'url': brain.getURL() + "/view",
+            # 'item_mimetype':mimetype,
+            # 'has_img': imgview != None and imgview.display() == True,
 
-             }
+            }
 
     # 13771 set /view to info dict without waking up object with
     # annotatedBrainInfo by checking directly on brain if item_type is in the
@@ -136,13 +139,13 @@ def filterDuplicates(items):
         uids[i['uid']] = i
     return uids.values()
 
-    #uids = []
-    #ret = []
-    #for i in items:
-        #if i['uid'] not in uids:
-            #uids.append(i['uid'])
-            #ret.append(i)
-    #return ret
+    # uids = []
+    # ret = []
+    # for i in items:
+    # if i['uid'] not in uids:
+    # uids.append(i['uid'])
+    # ret.append(i)
+    # return ret
 
 
 def others(context, brains):
@@ -150,7 +153,7 @@ def others(context, brains):
     """
     plone_utils = getToolByName(context, 'plone_utils')
     cid = context.getId()
-    return [getBrainInfo(b, plone_utils) for b in brains if (b.getId != cid)]
+    return [getBrainInfo(b, plone_utils) for b in brains if b.getId != cid]
 
 
 class AutoRelated(object):
@@ -223,13 +226,13 @@ class AutoRelated(object):
                 try:
                     themeTitle = themesVocab.getTerm(themename).title
                 except LookupError:
-                    logger.error('unable to retrieve theme name %s from %s' %
-                                    (themename, self.context.absolute_url()))
+                    logger.error('unable to retrieve theme name %s from %s',
+                                 themename, self.context.absolute_url())
                     continue
                 themes.append({'name': _(
-                        str(themeTitle)),
-                        'items': theme,
-                        'more_link': url})
+                    str(themeTitle)),
+                    'items': theme,
+                    'more_link': url})
 
         for dicts in themes:
             # 9272 reverse sort of latest addition
@@ -248,19 +251,20 @@ class AutoRelated(object):
         if constraints:
             defaultConstraints.update(constraints)
 
-        result = IRelations(self.context).byTheme(portal_type,
-                                      getBrains=True,
-                                      considerDeprecated=True,
-                                      constraints=defaultConstraints)
+        result = IRelations(self.context).byTheme(
+            portal_type=portal_type,
+            getBrains=True,
+            considerDeprecated=True,
+            constraints=defaultConstraints)
 
         contextThemes = self._contextThemes()
         related = []
         plone_utils = getToolByName(self.context, 'plone_utils')
         portal_properties = getToolByName(self.context, 'portal_properties',
-                                                                        None)
+                                          None)
         site_properties = getattr(portal_properties, 'site_properties', None)
         typesUsingViewUrl = site_properties.getProperty(
-                                            'typesUseViewActionInListings', ())
+            'typesUseViewActionInListings', ())
 
         for item in result:
             # #13771 commented this check introduced in changeset 12733 since
@@ -269,7 +273,7 @@ class AutoRelated(object):
 
             # skip articles from auto related by theme since they are related
             # by publication group
-            #if item.portal_type == 'Article':
+            # if item.portal_type == 'Article':
             #    continue
 
 
@@ -278,8 +282,8 @@ class AutoRelated(object):
             # path for instance in videos there are multiple 'video-file' ids
             if item.getPath() != self.context.absolute_url(1):
                 commonThemesIds = [theme for theme in item.getThemes
-                                    if theme in contextThemes]
-                #info = getObjectInfo(item.getObject(), self.request)
+                                   if theme in contextThemes]
+                # info = getObjectInfo(item.getObject(), self.request)
                 # pass typesUsingViewUrl to getBrainInfo so we no longer have
                 # to wake up objects for getting the urlview
                 info = getBrainInfo(item, plone_utils, typesUsingViewUrl)
@@ -323,19 +327,20 @@ class AutoRelated(object):
         if constraints:
             defaultConstraints.update(constraints)
 
-        result = IRelations(self.context).getItems(portal_type,
-                                                  getBrains=True,
-                                                  considerDeprecated=True,
-                                                  constraints=defaultConstraints
-                                                  )
+        result = IRelations(self.context).getItems(
+            portal_type,
+            getBrains=True,
+            considerDeprecated=True,
+            constraints=defaultConstraints
+        )
         related = others(self.context, result)
 
-        #for item in related:
-            ##obj = item.getObject()
-            #if item.getId != cid:
-                ##info = getObjectInfo(obj, self.request)
-                #info = getBrainInfo(item, self.request)
-                #related.append(info)
+        # for item in related:
+        ##obj = item.getObject()
+        # if item.getId != cid:
+        ##info = getObjectInfo(obj, self.request)
+        # info = getBrainInfo(item, self.request)
+        # related.append(info)
 
         return related
 
@@ -352,13 +357,13 @@ class AutoRelated(object):
 
         related = others(self.context, result)
         annotateThemeInfos(related, self.request)
-        #Note: enable if you notice errors about missing keys
+        # Note: enable if you notice errors about missing keys
 
-        #for item in result:
-            #obj = item.getObject()
-            #if item.getId != self.context.getId():
-                #info = getObjectInfo(obj, self.request)
-                #related.append(info)
+        # for item in result:
+        # obj = item.getObject()
+        # if item.getId != self.context.getId():
+        # info = getObjectInfo(obj, self.request)
+        # related.append(info)
 
         return related
 
@@ -384,7 +389,7 @@ class DocumentRelated(BrowserView):
     def __init__(self, context, request):
         super(DocumentRelated, self).__init__(context, request)
 
-        #self.context = utils.context(self)
+        # self.context = utils.context(self)
         self.plone_utils = getToolByName(context, 'plone_utils')
         self.normalize = self.plone_utils.normalizeString
 
@@ -429,10 +434,10 @@ class DocumentRelated(BrowserView):
             url = item.absolute_url()
             if item.portal_type in self.use_view:
                 url += '/view'
-            link = { 'url': url,
-                     'text': item.Title(),
-                     'date': item.ModificationDate(),
-                     'popup_icon': portal.absolute_url() + popup }
+            link = {'url': url,
+                    'text': item.Title(),
+                    'date': item.ModificationDate(),
+                    'popup_icon': portal.absolute_url() + popup}
             if queryAdapter(item, MIVideo):
                 link['has_media_player'] = True
             else:
@@ -440,7 +445,7 @@ class DocumentRelated(BrowserView):
                 link['has_media_player'] = False
             if item.portal_type == 'FlashFile':
                 link['popup-url'] = item.absolute_url() + \
-                        '/flashfile_popup_window'
+                                    '/flashfile_popup_window'
             else:
                 link['popup-url'] = item.absolute_url() + '/popup-play.html'
 
@@ -456,11 +461,11 @@ class DocumentRelated(BrowserView):
         media_list = []
         for category in MEDIA_ORDER:
             if category in categories:
-                media_list.append({ 'title': category.capitalize() + 's',
-                                    'links': media[category] })
+                media_list.append({'title': category.capitalize() + 's',
+                                   'links': media[category]})
         for category in [cat for cat in categories if cat not in MEDIA_ORDER]:
-            media_list.append({ 'title': category.capitalize() + 's',
-                                'links': media[category] })
+            media_list.append({'title': category.capitalize() + 's',
+                               'links': media[category]})
         return media_list
 
     def mediacount(self):
@@ -472,7 +477,7 @@ class DocumentRelated(BrowserView):
         """ Multimedia
         """
         # TODO: delete? Where's this used?
-        #multimedia = []
+        # multimedia = []
         for item in self.related_media_with_player:
             mimetype = item.get_content_type()
             player_html = queryAdapter(item, name=mimetype,
@@ -488,8 +493,8 @@ class DocumentRelated(BrowserView):
         """
         pages = []
         for item in self.related_pages:
-            pages.append({ 'title': item.Title(),
-                           'url': item.absolute_url() })
+            pages.append({'title': item.Title(),
+                          'url': item.absolute_url()})
         return pages
 
     def other(self):
@@ -505,19 +510,19 @@ class DocumentRelated(BrowserView):
             urlview = getMultiAdapter((item, self.request), name="url")
             imgview = queryMultiAdapter((item, self.request), name="imgview")
             url = urlview.listing_url()
-            
-            other.append({ 'title': item.Title(),
-                           'description': item.Description(),
-                           'url': url,
-                           'absolute_url': item.absolute_url(),
-                           'item_type': item.portal_type,
-                           'item_type_class': item_type_class,
-                           'item_wf_state': item_wf_state,
-                           'item_wf_state_class': item_wf_state_class,
-                           'is_video': MIVideo.providedBy(item),
-                           'has_img': (imgview != None and
-                                       imgview.display() == True )
-                           })
+
+            other.append({'title': item.Title(),
+                          'description': item.Description(),
+                          'url': url,
+                          'absolute_url': item.absolute_url(),
+                          'item_type': item.portal_type,
+                          'item_type_class': item_type_class,
+                          'item_wf_state': item_wf_state,
+                          'item_wf_state_class': item_wf_state_class,
+                          'is_video': MIVideo.providedBy(item),
+                          'has_img': (imgview != None and
+                                      imgview.display() == True)
+                          })
         return other
 
     def top_count(self):
