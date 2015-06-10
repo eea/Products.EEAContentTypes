@@ -2,9 +2,10 @@
 """
 
 from doctest import DocFileSuite
-from zope.component.testing import setUp, tearDown
 import doctest
 import unittest
+
+from zope.component.testing import setUp, tearDown
 
 
 def test_suite():
@@ -19,4 +20,4 @@ def test_suite():
                      setUp=setUp,
                      tearDown=tearDown,
                      optionflags=flags),
-        ))
+    ))

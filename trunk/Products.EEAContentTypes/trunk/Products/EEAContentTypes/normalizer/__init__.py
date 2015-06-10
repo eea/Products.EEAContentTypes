@@ -1,6 +1,7 @@
 """ Custom URL normalizer
 """
 import logging
+
 from zope.interface import implements
 from plone.i18n.normalizer import MAX_URL_LENGTH, FILENAME_REGEX
 from plone.i18n.normalizer import urlnormalizer
@@ -9,6 +10,7 @@ from plone.i18n.normalizer.interfaces import IURLNormalizer
 from Products.EEAContentTypes.config import MAX_URL_WORDS, URL_ORPHANS
 
 logger = logging.getLogger("Products.EEAContentTypes")
+
 
 class EEAURLNormalizer(object):
     """ Customize default URL normalizer
@@ -33,7 +35,7 @@ class EEAURLNormalizer(object):
         m = FILENAME_REGEX.match(text)
         if m is not None:
             text = m.groups()[0]
-            ext  = m.groups()[1]
+            ext = m.groups()[1]
         else:
             ext = ''
 
@@ -46,5 +48,6 @@ class EEAURLNormalizer(object):
         if ext:
             new_text = '.'.join((new_text, ext))
         return new_text
+
 
 eeaurlnormalizer = EEAURLNormalizer()
