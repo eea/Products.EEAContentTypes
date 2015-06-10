@@ -3,5 +3,5 @@
 from Products.EEAContentTypes.browser import organisation
 
 __all__ = [
-    organisation
+    organisation.__name__
 ]

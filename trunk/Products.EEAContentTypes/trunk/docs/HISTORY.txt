@@ -3,6 +3,8 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Change: pylint fixes cleanup needed after upgrading to latest version or pylint
+  [ichimdav refs #22596]
 * Change: adjusted related.txt tests after the update done to
   eea_default_workflow now that we don't have the same states and transitions
   anymore
