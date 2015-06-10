@@ -2,28 +2,28 @@
 """
 from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import ITransform
-from eea.soer.transform import UID_PATTERN
 from zope.interface import implements
 
+from eea.soer.transform import UID_PATTERN
 
-class TranslationResolveUid:
+
+class TranslationResolveUid(object):
     """ Resolves uid in resolveuid/UID links and tries to get the translation.
     """
 
     implements(ITransform)
 
     __name__ = "translation_resolveuid"
-    inputs   = ('text/html',)
+    inputs = ('text/html',)
     output = "text/html"
 
     def __init__(self, name=None):
         self.config_metadata = {
-            'inputs' : ('list', 'Inputs',
-                        'Input(s) MIME type. Change with care.'),
-            }
+            'inputs': ('list', 'Inputs',
+                       'Input(s) MIME type. Change with care.'),
+        }
         if name:
             self.__name__ = name
-
 
     def name(self):
         """ Name
@@ -55,8 +55,6 @@ class TranslationResolveUid:
 
         return target
 
-
-
     def convert(self, orig, data, **kwargs):
         """ Convert
         """
@@ -71,17 +69,17 @@ class TranslationResolveUid:
                 uid = match.group('uid')
                 target = self.resolveuid(context, rc, uid)
                 if target is not None:
-                    #is_empty = False
+                    # is_empty = False
 
-                    #WIP: this code is commented, is_empty is no longer used
-                    #if (hasattr(target, 'isCanonical') and
-                        #not target.isCanonical()):
-                        #cat = getToolByName(context, 'portal_catalog')
-                        #rid = cat.getrid('/'.join(target.getPhysicalPath()))
-                        #metadata = cat.getMetadataForRID(rid)
-                        #if metadata and metadata.get('is_empty', False):
-                            #return (tag + target.absolute_url_path() +
-                                    #'/not_available_lang')
+                    # WIP: this code is commented, is_empty is no longer used
+                    # if (hasattr(target, 'isCanonical') and
+                    # not target.isCanonical()):
+                    # cat = getToolByName(context, 'portal_catalog')
+                    # rid = cat.getrid('/'.join(target.getPhysicalPath()))
+                    # metadata = cat.getMetadataForRID(rid)
+                    # if metadata and metadata.get('is_empty', False):
+                    # return (tag + target.absolute_url_path() +
+                    # '/not_available_lang')
                     try:
                         url = target.getRemoteUrl()
                     except AttributeError:
@@ -95,6 +93,7 @@ class TranslationResolveUid:
 
             data.setData(html)
         return data
+
 
 def register():
     """ Register
