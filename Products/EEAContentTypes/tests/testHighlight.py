@@ -3,10 +3,10 @@
 
 from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
+import os
+
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-from eea.design.browser.frontpage import Frontpage
-import os
 
 image = open(os.path.join(
     package_home(product_globals), 'tests', 'image.png'), 'rb')
@@ -68,7 +68,6 @@ class testHighlight(EEAContentTypeTestCase):
         answer = 'Foo1'
         result = high.getNewsTitle()
         self.failIf(answer != result)
-
 
 
 def test_suite():

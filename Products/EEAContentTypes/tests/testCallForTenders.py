@@ -2,12 +2,12 @@
 """
 
 from DateTime import DateTime
+
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 
 
 class testCallForTenders(EEAContentTypeTestCase):
     """Test-cases for class(es) CallForTender"""
-
 
     def testCFIDates(self):
         """ Test CFI Dates
@@ -17,10 +17,10 @@ class testCallForTenders(EEAContentTypeTestCase):
         today = DateTime()
         _zone = DateTime().timezone()
         cid = root.invokeFactory(type_name='CallForInterest', id="cfi",
-                                title='Call for interest',
-                                openDate=today,
-                                closeDate=today,
-                                applicationDate=today )
+                                 title='Call for interest',
+                                 openDate=today,
+                                 closeDate=today,
+                                 applicationDate=today)
         cfi = getattr(root, cid)
         self.failIf(today.toZone(_zone).ISO() != cfi.EffectiveDate())
         self.failIf(today != cfi.getEffectiveDate())
@@ -60,6 +60,7 @@ def test_suite():
     """ Tests suite
     """
     from unittest import TestSuite, makeSuite
+
     suite = TestSuite()
     suite.addTest(makeSuite(testCallForTenders))
     return suite
