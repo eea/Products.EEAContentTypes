@@ -1,5 +1,6 @@
 """ NegotiatedProcedure """
 from Products.Archetypes.atapi import registerType
+
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.CallForInterest import CallForInterest
 from Products.EEAContentTypes.content.CallForInterest \

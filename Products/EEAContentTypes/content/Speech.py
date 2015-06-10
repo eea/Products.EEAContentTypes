@@ -1,10 +1,12 @@
 """ Speech """
 from AccessControl import ClassSecurityInfo
+
 from Products.Archetypes.atapi import (Schema, BaseSchema, BaseContent,
-        registerType)
+                                       registerType)
+from Products.CMFCore.permissions import ModifyPortalContent
+
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.config import PROJECTNAME
-from Products.CMFCore.permissions import ModifyPortalContent
 from eea.themecentre.interfaces import IThemeTagging
 
 schema = Schema((
@@ -13,8 +15,9 @@ schema = Schema((
 )
 
 Speech_schema = BaseSchema.copy() + \
-    getattr(Highlight, 'schema', Schema(())).copy() + \
-    schema.copy()
+                getattr(Highlight, 'schema', Schema(())).copy() + \
+                schema.copy()
+
 
 class Speech(Highlight, BaseContent):
     """ Speech
@@ -41,9 +44,10 @@ class Speech(Highlight, BaseContent):
 
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
+
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
+        # value = filter(None, value)
         value = [val for val in value if val]
         tagging = IThemeTagging(self)
         tagging.tags = value

@@ -1,13 +1,15 @@
 """ CallForInterest """
 from AccessControl import ClassSecurityInfo
+
 from Products.Archetypes.atapi import (
     Schema, StringField, StringWidget,
     DateTimeField, CalendarWidget, registerType)
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.document import ATDocument
-from Products.EEAContentTypes.config import PROJECTNAME
 from Products.CMFCore.permissions import View
 from Products.CMFPlone import PloneMessageFactory as _
+
+from Products.EEAContentTypes.config import PROJECTNAME
 
 schema = Schema((
 
@@ -56,8 +58,8 @@ schema = Schema((
 )
 
 CallForInterest_schema = getattr(ATFolder, 'schema', Schema(())).copy() + \
-    getattr(ATDocument, 'schema', Schema(())).copy() + \
-    schema.copy()
+                         getattr(ATDocument, 'schema', Schema(())).copy() + \
+                         schema.copy()
 
 
 class CallForInterest(ATFolder, ATDocument):
@@ -70,7 +72,8 @@ class CallForInterest(ATFolder, ATDocument):
 
     meta_type = 'CallForInterest'
     portal_type = 'CallForInterest'
-    allowed_content_types = ['File', 'Document'] + \
+    allowed_content_types = \
+        ['File', 'Document'] + \
         list(getattr(ATFolder, 'allowed_content_types', [])) + \
         list(getattr(ATDocument, 'allowed_content_types', []))
     filter_content_types = 0
@@ -120,5 +123,6 @@ class CallForInterest(ATFolder, ATDocument):
         """
         self.getField('expirationDate').set(self, value)
         return self.getField('closeDate').set(self, value)
+
 
 registerType(CallForInterest, PROJECTNAME)

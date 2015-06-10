@@ -1,29 +1,28 @@
 """ Validators """
 import difflib
+from lxml import html
+from cStringIO import StringIO
+from Acquisition import aq_base
+
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
-from Products.EEAContentTypes.config import EEAMessageFactory as _
-
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
-from lxml import html
 from zope.interface import implements
 import PIL
-from cStringIO import StringIO
 from OFS.Image import Pdata
-from Acquisition import aq_base
 import re
 from Products.Archetypes.interfaces import ISchema
-
-
 from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
+
+from Products.EEAContentTypes.config import EEAMessageFactory as _
 
 KEY = 'eea.mediacentre.multimedia'
 
 
-class ManagementPlanCodeValidator:
+class ManagementPlanCodeValidator(object):
     """ Validator
     """
     implements(IValidator)
@@ -47,16 +46,17 @@ class ManagementPlanCodeValidator:
                 try:
                     int(dig)
                 except ValueError:
-                    return (errmsg)
+                    return errmsg
             return 1
         else:
-            return (errmsg)
+            return errmsg
+
 
 validation.register(
     ManagementPlanCodeValidator('management_plan_code_validator'))
 
 
-class ImageMinSize:
+class ImageMinSize(object):
     """ Image minimum size validator
     """
     implements(IValidator)
@@ -76,7 +76,7 @@ class ImageMinSize:
         try:
             image = PIL.Image.open(value)
         except AttributeError:
-            # OFS Image 
+            # OFS Image
             data = getattr(aq_base(value), 'data')
             if isinstance(data, Pdata):
                 data = str(data)
@@ -85,6 +85,7 @@ class ImageMinSize:
         if image.size[0] < 1024:
             return "Image needs to be at least 1024px in width"
         return 1
+
 
 validation.register(ImageMinSize('imageMinSize'))
 
@@ -107,14 +108,14 @@ def video_cloud_validator(value, instance=None):
             cloud_url = {'cloud_url': PersistentDict()}
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
-        if ('youtu' and 'playlist' in value):
-            # transform youtube playlist link 
+        if 'youtu' and 'playlist' in value:
+            # transform youtube playlist link
             res = youtube_id.findall(value)[1]
             vid_id = 'videoseries&' + 'list=' + res
             value = 'http://www.youtube.com/playlist?list=' + res
             mapping['cloud_url']['youtube'] = vid_id
 
-        elif ('youtu' in value):
+        elif 'youtu' in value:
             # check youtube links with youtu since they might be
             # used with youtu.be our youtube.com links
             res = youtube_id.findall(value)
@@ -125,13 +126,13 @@ def video_cloud_validator(value, instance=None):
             value = youtube_url + vid_id
             mapping['cloud_url']['youtube'] = vid_id
 
-        elif ('vimeo' in value):
+        elif 'vimeo' in value:
             vimeo = re.compile(r'[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
             cloud = mapping['cloud_url']
             # remove youtube entry if found since youtube macro
-            # is before vimeo             
+            # is before vimeo
             if cloud.get('youtube'):
                 cloud.pop('youtube')
             cloud['vimeo'] = vid_id
@@ -141,7 +142,7 @@ def video_cloud_validator(value, instance=None):
     mutator(value)
 
 
-class VideoCloudUrlValidator:
+class VideoCloudUrlValidator(object):
     """ Image minimum size validator
     """
     implements(IValidator)
@@ -159,10 +160,11 @@ class VideoCloudUrlValidator:
         if res:
             return res
 
+
 validation.register(VideoCloudUrlValidator('videoCloudUrlValidator'))
 
 
-class ImageCaptionRequiredIfImageValidator:
+class ImageCaptionRequiredIfImageValidator(object):
     """ Image caption validator
     """
     implements(IValidator)
@@ -179,10 +181,11 @@ class ImageCaptionRequiredIfImageValidator:
             return "Image caption is required for your image."
         return 1
 
+
 validation.register(ImageCaptionRequiredIfImageValidator('ifImageRequired'))
 
 
-class ExistsKeyFactsValidator:
+class ExistsKeyFactsValidator(object):
     """ Check if markup with keyFacts class has been added and if so add a new
     key fact within a 'key-facts' directory of the given contenttype
     """
@@ -213,7 +216,7 @@ class ExistsKeyFactsValidator:
             'subject': tags,
             'themes': themes
         }
-        )
+                                 )
         existing_facts.append(soer_keyfact)
 
     def createKeyFacts(self, existing_facts, existing_facts_len,
@@ -296,7 +299,7 @@ class ExistsKeyFactsValidator:
             instance_review_state = wftool.getInfoFor(instance, 'review_state')
             folder_review_state = wftool.getInfoFor(folder, 'review_state')
             if instance_review_state != folder_review_state and \
-                    folder_review_state != 'published':
+                            folder_review_state != 'published':
                 try:
                     workflow = wftool.getWorkflowsFor(folder)[0]
                     transitions = workflow.transitions
@@ -353,7 +356,8 @@ class ExistsKeyFactsValidator:
             status = IStatusMessage(instance.REQUEST)
             if new_facts_len:
                 msg = u"Key facts have been extracted and stored from this " \
-                    u"page. You may 'manage key facts' through the contents tab"
+                      u"page. You may 'manage key facts' through the " \
+                      u"contents tab"
                 status.add(_(msg))
             if existing_facts_updated:
                 msg = u"%d SOER KeyFact have been updated in the " \
@@ -362,10 +366,11 @@ class ExistsKeyFactsValidator:
                 status.add(_(msg))
         return 1
 
+
 validation.register(ExistsKeyFactsValidator('existsKeyFacts'))
 
 
-class MaxValuesValidator:
+class MaxValuesValidator(object):
     """ Max values validator
     """
     implements(IValidator)
@@ -383,5 +388,6 @@ class MaxValuesValidator:
         if maxValues is not None and len(values) > maxValues:
             return "To many words, please enter max %s words." % maxValues
         return 1
+
 
 validation.register(MaxValuesValidator('maxWords'))

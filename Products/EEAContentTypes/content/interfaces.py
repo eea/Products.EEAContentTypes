@@ -1,6 +1,7 @@
 """ Interfaces
 """
 from zope.interface import Interface, Attribute
+
 from Products.ATContentTypes.interface.news import IATNewsItem
 from Products.ATContentTypes.interface.folder import IATFolder
 from Products.EEAContentTypes.interfaces import IEEAContent

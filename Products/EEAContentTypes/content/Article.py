@@ -1,20 +1,22 @@
 """ Article """
 from AccessControl import ClassSecurityInfo
+
 from Products.ATContentTypes.content.newsitem import ATNewsItem
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFPlone import PloneMessageFactory as _
-from Products.EEAContentTypes.config import PROJECTNAME
-from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
-from Products.EEAContentTypes.content.ExternalHighlight import schema as \
-     ExtHighlightSchema
-from Products.EEAContentTypes.content.Highlight import Highlight
-from Products.EEAContentTypes.content.interfaces import IArticle
-from eea.themecentre.interfaces import IThemeTagging
 from zope.interface import implements
 from Products.LinguaPlone.public import (
     Schema, LinesField, InAndOutWidget, registerType)
+
+from Products.EEAContentTypes.config import PROJECTNAME
+from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
+from Products.EEAContentTypes.content.ExternalHighlight import schema as \
+    ExtHighlightSchema
+from Products.EEAContentTypes.content.Highlight import Highlight
+from Products.EEAContentTypes.content.interfaces import IArticle
+from eea.themecentre.interfaces import IThemeTagging
 
 schema = Schema((
     LinesField(
@@ -27,13 +29,13 @@ schema = Schema((
             label=_(u'Publication groups'),
             description=_(u'Fill in publication groups'),
             i18n_domain='eea',
-            ),
         ),
+    ),
 ),
 )
 
 Article_schema = getattr(Highlight, 'schema', Schema(())).copy() + \
-                  schema.copy()
+                 schema.copy()
 
 fields2Move2DefaultSchemata = ['management_plan', 'image', 'imageLink',
                                'imageCaption', 'imageNote']
@@ -48,9 +50,10 @@ Article_schema['text'].required = True
 Article_schema.moveField('image', before='imageCaption')
 Article_schema.moveField('themes', before='image')
 
-#visibility level is "deprecated/hidden" by default
+# visibility level is "deprecated/hidden" by default
 # used on feature article
 Article_schema["visibilityLevel"].widget.visible = True
+
 
 class Article(Highlight):
     """
@@ -71,7 +74,7 @@ class Article(Highlight):
     portal_type = 'Article'
     allowed_content_types = [] + list(getattr(
         ExternalHighlight, 'allowed_content_types', [])) + list(
-            getattr(ATNewsItem, 'allowed_content_types', []))
+        getattr(ATNewsItem, 'allowed_content_types', []))
     filter_content_types = 1
     global_allow = 1
     immediate_view = 'base_view'
@@ -87,11 +90,13 @@ class Article(Highlight):
 
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
+
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
+        # value = filter(None, value)
         value = [val for val in value if val]
         tagging = IThemeTagging(self)
         tagging.tags = value
+
 
 registerType(Article, PROJECTNAME)

@@ -2,9 +2,9 @@
 
 from datetime import datetime
 import logging
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
+
 from plone.app.blob.config import blobScalesAttr
 from plone.app.blob.field import BlobField
 from plone.app.blob.interfaces import IBlobImageField
@@ -14,17 +14,16 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import View
 from Products.validation import V_REQUIRED
 from zope.interface import implements
-
-from eea.forms.fields.ManagementPlanField import ManagementPlanField
-from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
-from eea.themecentre.interfaces import IThemeTagging
 from Products.Archetypes.Field import Image as ZODBImage
 from Products.Archetypes.Field import ImageField
 from Products.Archetypes import DisplayList
 from Products.Archetypes.utils import shasattr
-from eea.themecentre.content.ThemeTaggable import ThemeTaggable
 from Products.LinguaPlone import public
 
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.themecentre.interfaces import IThemeTagging
+from eea.themecentre.content.ThemeTaggable import ThemeTaggable
 
 logger = logging.getLogger('Products.EEAContentTypes.content.ExternalHighlight')
 
@@ -33,8 +32,8 @@ class ImageBlobField(BlobField, ImageFieldMixin):
     """ derivative of blobfield for extending schemas """
     implements(IBlobImageField)
 
-    #BBB Backward compatible content_class property.
-    #XXX This should be removed in Products.EEAContentTypes > 2.25
+    # BBB Backward compatible content_class property.
+    # XXX This should be removed in Products.EEAContentTypes > 2.25
     _properties = BlobField._properties.copy()
     _properties.update({
         'content_class': ZODBImage
@@ -58,14 +57,14 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         for size in sizes.keys():
             self.getScale(instance, size)
 
-    #BBB Backward compatible.
-    #XXX This should be removed in Products.EEAContentTypes > 2.25
+    # BBB Backward compatible.
+    # XXX This should be removed in Products.EEAContentTypes > 2.25
     def get(self, instance, **kwargs):
         """ Getter
         """
         value = super(ImageBlobField, self).get(instance, **kwargs)
-        if (shasattr(value, '__of__', acquire=True)
-            and not kwargs.get('unwrapped', False)):
+        if (shasattr(value, '__of__', acquire=True) and
+                not kwargs.get('unwrapped', False)):
             return value.__of__(instance)
         return value
 
@@ -83,51 +82,52 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         if not size:
             return None
 
-        #BBB Backward compatible.
-        #XXX This should be removed in Products.EEAContentTypes > 2.25
+        # BBB Backward compatible.
+        # XXX This should be removed in Products.EEAContentTypes > 2.25
         if isinstance(img, ZODBImage):
             return ImageField.getScale(self, instance, scale, **kwargs)
 
         return super(ImageBlobField,
                      self).getScale(instance, scale, **kwargs)
 
+enable_exception = zconf.swallowImageResizeExceptions.enable
 
 schema = public.Schema((
 
     ImageBlobField('image',
-        required=False,
-        storage=public.AnnotationStorage(migrate=True),
-        languageIndependent=True,
-        swallowResizeExceptions=zconf.swallowImageResizeExceptions.enable,
-        pil_quality=zconf.pil_config.quality,
-        pil_resize_algo=zconf.pil_config.resize_algo,
-        max_size=(1280,1024),
-        sizes={'xlarge': (633, 356),
-               'wide' : (325, 183 ),
-               'large'   : (768, 768),
-               'preview' : (400, 400),
-               'mini'    : (180,135),
-               'thumb'   : (128, 128),
-               'tile'    :  (64, 64),
-               'icon'    :  (32, 32),
-               'listing' :  (16, 16),
-               },
-        validators=(
-            ('isNonEmptyFile', V_REQUIRED),
-            ('imageMinSize', V_REQUIRED),
-            ('checkFileMaxSize', V_REQUIRED),
-        ),
-        widget=public.ImageWidget(
-            description=(
-                "Will be shown in the news listing, and in the news "
-                "item itself. Image will be scaled to a sensible size "
-                "and image width should be of minimum 1024px"),
-            description_msgid="help_news_image",
-            label="Image",
-            label_msgid="label_news_image",
-            i18n_domain="plone",
-            show_content_type=False)
-        ),
+                   required=False,
+                   storage=public.AnnotationStorage(migrate=True),
+                   languageIndependent=True,
+                   swallowResizeExceptions=enable_exception,
+                   pil_quality=zconf.pil_config.quality,
+                   pil_resize_algo=zconf.pil_config.resize_algo,
+                   max_size=(1280, 1024),
+                   sizes={'xlarge': (633, 356),
+                          'wide': (325, 183),
+                          'large': (768, 768),
+                          'preview': (400, 400),
+                          'mini': (180, 135),
+                          'thumb': (128, 128),
+                          'tile': (64, 64),
+                          'icon': (32, 32),
+                          'listing': (16, 16),
+                          },
+                   validators=(
+                       ('isNonEmptyFile', V_REQUIRED),
+                       ('imageMinSize', V_REQUIRED),
+                       ('checkFileMaxSize', V_REQUIRED),
+                   ),
+                   widget=public.ImageWidget(
+                       description=(
+                           "Will be shown in the news listing, and in the news "
+                           "item itself. Image will be scaled to a sensible"
+                           " size and image width should be of minimum 1024px"),
+                       description_msgid="help_news_image",
+                       label="Image",
+                       label_msgid="label_news_image",
+                       i18n_domain="plone",
+                       show_content_type=False)
+                   ),
 
     public.StringField(
         name='imageLink',
@@ -258,7 +258,7 @@ schema = public.Schema((
             label="Visibility Level",
             label_msgid='EEAContentTypes_label_visibilityLevel',
             i18n_domain='EEAContentTypes',
-            visible=False, #disabled/deprecated by default for most content
+            visible=False,  # disabled/deprecated by default for most content
         ),
         enforceVocabulary=1,
         vocabulary="getVisibilityLevels",
@@ -271,9 +271,9 @@ schema = public.Schema((
         required_for_published=True,
         required=True,
         default=(datetime.now().year, ''),
-        validators = ('management_plan_code_validator',),
-        vocabulary_factory = u"Temporal coverage",
-        widget = ManagementPlanWidget(
+        validators=('management_plan_code_validator',),
+        vocabulary_factory=u"Temporal coverage",
+        widget=ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
             description=("EEA Management plan code. Internal EEA project "
@@ -284,14 +284,16 @@ schema = public.Schema((
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
         )
-        ),
+    ),
 
 ),
 )
 
-ExternalHighlight_schema = getattr(ATFolder, 'schema', public.Schema(())
-    ).copy() + getattr(ThemeTaggable, 'schema', public.Schema(())
-    ).copy() + schema.copy()
+ExternalHighlight_schema = getattr(ATFolder, 'schema',
+                                   public.Schema(())).copy() + \
+                           getattr(ThemeTaggable,
+                                   'schema', public.Schema(())).copy() + \
+                           schema.copy()
 
 
 class ExternalHighlight(ATFolder, ThemeTaggable):
@@ -312,6 +314,7 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
     # Methods
 
     security.declarePublic('getVisibilityLevels')
+
     def getVisibilityLevels(self):
         """ Visibility levels
         """
@@ -322,43 +325,49 @@ class ExternalHighlight(ATFolder, ThemeTaggable):
         return DisplayList(levels)
 
     security.declarePublic('getTeaser')
+
     def getTeaser(self):
         """ Teaser getter
         """
         return self._getTeaser() or self.Description()
 
     security.declarePublic('getNewsTitle')
+
     def getNewsTitle(self):
         """ News title getter
         """
-        return  self._getNewsTitle() or self.Title()
+        return self._getNewsTitle() or self.Title()
 
     security.declarePublic('getMedia')
+
     def getMedia(self):
         """ Media getter
         """
         return self.getImage() or self._getMedia()
 
     security.declareProtected(View, 'tag')
+
     def tag(self, **kwargs):
         """Generate image tag using the api of the ImageField
         """
         return self.getField('image').tag(self, **kwargs)
 
     security.declareProtected(View, 'tag')
+
     def getScale(self, scale):
         """Generate image tag using the api of the ImageField
         """
         return self.getField('image').getScale(self, scale)
 
     security.declarePublic('getThemeVocabs')
+
     def getThemeVocabs(self):
         """ Theme vocabularies getter
         """
         pass
 
-    #TODO: on plone4 migration, we should use a traverser instead of this
-    #also, valentine.imagescale is pluggable and could be used instead of this
+    # TODO: on plone4 migration, we should use a traverser instead of this
+    # also, valentine.imagescale is pluggable and could be used instead of this
     def __bobo_traverse__(self, REQUEST, name):
         """Transparent access to image scales
         """

@@ -1,12 +1,13 @@
 """ PressRelease """
 from AccessControl import ClassSecurityInfo
+
+from Products.LinguaPlone.public import (
+    Schema, BaseSchema, BaseContent, registerType)
+from Products.CMFCore.permissions import ModifyPortalContent
+
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.quotation import quotation_schema
-from Products.LinguaPlone.public import (
-    Schema, BaseSchema, BaseContent, registerType)
-
-from Products.CMFCore.permissions import ModifyPortalContent
 from eea.themecentre.interfaces import IThemeTagging
 
 schema = Schema((
@@ -15,9 +16,9 @@ schema = Schema((
 )
 
 PressRelease_schema = BaseSchema.copy() + \
-    getattr(Highlight, 'schema', Schema(())).copy() + \
-    quotation_schema.copy() + \
-    schema.copy()
+                      getattr(Highlight, 'schema', Schema(())).copy() + \
+                      quotation_schema.copy() + \
+                      schema.copy()
 
 
 class PressRelease(Highlight, BaseContent):
@@ -47,9 +48,10 @@ class PressRelease(Highlight, BaseContent):
 
     # LinguaPlone doesn't check base classes for mutators
     security.declareProtected(ModifyPortalContent, 'setThemes')
+
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        #value = filter(None, value)
+        # value = filter(None, value)
         value = [val for val in value if val]
         tagging = IThemeTagging(self)
         tagging.tags = value
