@@ -3,7 +3,15 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
-* Cleanup: removed the portlet_email_queue.pt, as we don't use Munin and Newsletter tool anymore
+* Change: adjusted related.txt tests after the update done to
+  eea_default_workflow now that we don't have the same states and transitions
+  anymore
+  [ichimdav refs #22596]
+* Cleanup: removed visibilityLevel from Highlight as the feature was deprecated
+  for a long time already, being hidden from the user
+  [ichimdav refs #25986]
+* Cleanup: removed the portlet_email_queue.pt, as we don't use Munin and 
+  Newsletter tool anymore
   [ghicaale refs #24861]
 
 10.3 - (2015-06-02)
