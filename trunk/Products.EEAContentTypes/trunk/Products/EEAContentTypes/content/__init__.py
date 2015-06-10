@@ -31,6 +31,7 @@ from Products.EEAContentTypes.content.orderablereffield import (
 )
 
 from Products.Archetypes.ClassGen import generateMethods
+
 for otype, schema in types_and_schema:
     schema.addField(field)
     schema.moveField('relatedItems', pos='bottom')
@@ -38,6 +39,7 @@ for otype, schema in types_and_schema:
 
 # monkey patch, by default file is not translatable, fix this
 from Products.ATContentTypes.content import file as atfile
+
 atfile.ATFileSchema['file'].languageIndependent = False
 
 # #4898 Set Content-Disposition: attachment for PDF files
@@ -48,25 +50,26 @@ if 'application/pdf' in inlineMimetypes:
     atfile.ATFile.inlineMimetypes = tuple(inlineMimetypes)
 
 from Products.ATContentTypes.content import image
+
 image.ATImageSchema['rights'].languageIndependent = True
 
 __all__ = [
-    ThemeTaggable.__name__,
-    Speech.__name__,
-    Article.__name__,
-    CallForInterest.__name__,
-    NegotiatedProcedure.__name__,
-    CallForProposal.__name__,
-    CallForTender.__name__,
-    Event.__name__,
-    ExternalHighlight.__name__,
-    FlashFile.__name__,
-    CloudVideo.__name__,
-    GISApplication.__name__,
-    Highlight.__name__,
-    Link.__name__,
-    PressRelease.__name__,
-    Promotion.__name__,
-    validators.__name__,
-    infographic.__name__
+    ThemeTaggable,
+    Speech,
+    Article,
+    CallForInterest,
+    NegotiatedProcedure,
+    CallForProposal,
+    CallForTender,
+    Event,
+    ExternalHighlight,
+    FlashFile,
+    CloudVideo,
+    GISApplication,
+    Highlight,
+    Link,
+    PressRelease,
+    Promotion,
+    validators,
+    infographic
 ]

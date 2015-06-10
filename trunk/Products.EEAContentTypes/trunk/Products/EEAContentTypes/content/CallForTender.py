@@ -1,14 +1,15 @@
 """ CallForTender """
 from AccessControl import ClassSecurityInfo
+
 from Products.Archetypes.atapi import (
     Schema, ReferenceField, ReferenceWidget, BaseFolderSchema, BaseFolder,
     registerType
 )
+import zope.interface
+
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.CallForInterest import CallForInterest
 from Products.EEAContentTypes.content.interfaces import ICallForTender
-import zope.interface
-
 
 schema = Schema((
     ReferenceField(
@@ -28,10 +29,9 @@ schema = Schema((
 ),
 )
 
-
 CallForTender_schema = BaseFolderSchema.copy() + \
-    getattr(CallForInterest, 'schema', Schema(())).copy() + \
-    schema.copy()
+                       getattr(CallForInterest, 'schema', Schema(())).copy() + \
+                       schema.copy()
 
 
 class CallForTender(CallForInterest, BaseFolder):
@@ -66,17 +66,17 @@ class CallForTender(CallForInterest, BaseFolder):
     def getPossibleAwardNotice(self, *args, **kw):
         """ Award notice
         """
-        result = [ ( self.UID(), 'none yet') ]
+        result = [(self.UID(), 'none yet')]
         docs = self.portal_catalog(
-            path = {
-                'query' : '/'.join(self.getPhysicalPath()),
-                'depth' : 1 },
-            portal_type = ['Document','File'],
-            review_state = 'published'
+            path={
+                'query': '/'.join(self.getPhysicalPath()),
+                'depth': 1},
+            portal_type=['Document', 'File'],
+            review_state='published'
         )
         for brain in docs:
             obj = brain.getObject()
-            result.append( (obj.UID(), obj.getId()))
+            result.append((obj.UID(), obj.getId()))
         return result
 
     security.declarePublic("getAwardNotice")
@@ -93,5 +93,6 @@ class CallForTender(CallForInterest, BaseFolder):
         """
         field = self.schema[field]
         field.set(self, values)
+
 
 registerType(CallForTender, PROJECTNAME)
