@@ -1,14 +1,16 @@
 """ Upgrade to version 6.6
 """
 import logging
-import os
 import csv
+
+import os
 import transaction
 from zope.component import getUtility
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
 from Products.CMFCore.utils import getToolByName
 
 logger = logging.getLogger("Products.EEAContentTypes.upgrades")
+
 
 def cleanup_viewlets(context):
     """ Remove deprecated viewlets #9552
@@ -33,6 +35,7 @@ def cleanup_viewlets(context):
             logger.info("Cleanup 'eea.related_multimedia' viewlet "
                         "from order: %s -- %s -- %s", skin, manager, hidden)
             storage.setOrder(manager, skin, order)
+
 
 def update_tags(context):
     """ Update existing tags based on #14383
@@ -97,7 +100,7 @@ def update_tags(context):
     ### Re-index content types with custom logic for indexing keywords
     count = 1
     brains = ctool.unrestrictedSearchResults(portal_type=
-                ['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet'])
+                                             ['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet'])
     total_count = len(brains)
     for brain in brains:
         obj = brain.getObject()

@@ -15,4 +15,4 @@ def evolve(context):
     types_settings = registry.forInterface(IEEAContentTypesSettings,
                                            check=False)
     types_settings.noTemporalCoverageSubtyperFor = ('Assessment',
-                                                   'IndicatorFactSheet', 'Link')
+                                                    'IndicatorFactSheet', 'Link')
