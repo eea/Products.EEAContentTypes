@@ -2,6 +2,7 @@
 """
 from windmill.authoring import WindmillTestClient
 
+
 def test_recordingSuite0():
     """ Tests
     """
