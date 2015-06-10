@@ -4,8 +4,9 @@ from time import time
 
 from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
-from Products.EEAContentTypes.browser.interfaces import IEEAContentTypesSettings
 from zope.component import getUtility
+
+from Products.EEAContentTypes.browser.interfaces import IEEAContentTypesSettings
 
 
 @ram.cache(lambda *args: time() // (60 * 60))

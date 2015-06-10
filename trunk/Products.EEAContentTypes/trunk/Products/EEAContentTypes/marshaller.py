@@ -2,14 +2,15 @@
 """
 
 from Products.Archetypes.interfaces import IField
-from eea.rdfmarshaller.archetypes.fields import ATField2Surf
-from eea.rdfmarshaller.interfaces import ISurfResourceModifier
-from eea.rdfmarshaller.interfaces import ISurfSession
-from eea.versions.interfaces import IVersionEnhanced, IGetVersions
 from zope.component import adapts
 from zope.interface import implements, Interface
 import rdflib
 import surf
+
+from eea.rdfmarshaller.archetypes.fields import ATField2Surf
+from eea.rdfmarshaller.interfaces import ISurfResourceModifier
+from eea.rdfmarshaller.interfaces import ISurfSession
+from eea.versions.interfaces import IVersionEnhanced, IGetVersions
 
 
 class VersioningModifier(object):
@@ -30,12 +31,12 @@ class VersioningModifier(object):
         newer = api.later_versions()
         older = api.earlier_versions()
         resource.dcterms_isReplacedBy = [rdflib.URIRef(i['url']) for
-                                                        i in newer]
+                                         i in newer]
         resource.dcterms_replaces = [rdflib.URIRef(a['url']) for a in older]
 
         resource.save()
 
-        
+
 class MediaField2Surf(ATField2Surf):
     """A mediafield to surf adapter for the "media" field
     """
@@ -48,7 +49,7 @@ class MediaField2Surf(ATField2Surf):
         if not len(f):
             return None
 
-        return [rdflib.URIRef(f.absolute_url()+"/image_xlarge")]
+        return [rdflib.URIRef(f.absolute_url() + "/image_xlarge")]
 
 
 class Provenances2Surf(ATField2Surf):
@@ -62,7 +63,7 @@ class Provenances2Surf(ATField2Surf):
     def __init__(self, *args, **kwargs):
         super(Provenances2Surf, self).__init__(*args, **kwargs)
         surf.ns.register(prov="http://www.w3.org/ns/prov#")
-        surf.ns.register(prv = "http://purl.org/net/provenance/ns#")
+        surf.ns.register(prv="http://purl.org/net/provenance/ns#")
         store = self.session.get_default_store()
         store.reader.graph.bind('prov', surf.ns.PROV, override=True)
         store.reader.graph.bind('prv', surf.ns.PRV, override=True)
@@ -74,12 +75,12 @@ class Provenances2Surf(ATField2Surf):
 
         Desired output:
 
-<prov:wasDerivedFrom> 
-  <prv:DataItem> 
-    <dcterms:title>Title of dataset</dcterms:title> 
-    <foaf:isPrimaryTopicOf rdf:resource="http://organisation/urltodataset"/> 
-    <prov:wasAttributedTo rdf:respurce="uri of owner"/> 
-  </prv:DataItem> 
+<prov:wasDerivedFrom>
+  <prv:DataItem>
+    <dcterms:title>Title of dataset</dcterms:title>
+    <foaf:isPrimaryTopicOf rdf:resource="http://organisation/urltodataset"/>
+    <prov:wasAttributedTo rdf:respurce="uri of owner"/>
+  </prv:DataItem>
 </prov:wasDerivedFrom>
 
         """
@@ -87,9 +88,9 @@ class Provenances2Surf(ATField2Surf):
 
         output = []
 
-        for i, prov in enumerate(self.field.getAccessor(self.context)()):
-            #prov is {'owner': u'http://www.eea.europa.eu', 
-            #         'link': u'http://www.eea.europa.eu/...', 
+        for _i, prov in enumerate(self.field.getAccessor(self.context)()):
+            # prov is {'owner': u'http://www.eea.europa.eu',
+            #         'link': u'http://www.eea.europa.eu/...',
             #         'title': u'Corine Land Cover 2000 - 2006 changes'}
 
             d = DataItem(rdflib.BNode())

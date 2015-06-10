@@ -1,15 +1,16 @@
 """ Relations
 """
-from eea.themecentre.interfaces import IThemeTagging
+from AccessControl import Unauthorized
+
 from zope.component import adapts, queryAdapter
 from zope.interface import implements, Interface
-
-from AccessControl import Unauthorized
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.interfaces import IRelations
 
+from eea.themecentre.interfaces import IThemeTagging
+from Products.EEAContentTypes.interfaces import IRelations
 from eea.mediacentre.interfaces import IVideo
+
 
 class Relations(object):
     """ Relations
@@ -30,7 +31,7 @@ class Relations(object):
 
         result = forwards
 
-        #filter the results to only return unique results
+        # filter the results to only return unique results
         uids = [ref.UID() for ref in result]
         result += [back for back in backs if back.UID() not in uids]
         uids = [ref2.UID() for ref2 in result]
@@ -86,14 +87,14 @@ class Relations(object):
         return result
 
     def getItems(self, portal_type=None, getBrains=False,
-                considerDeprecated=True, constraints=None, theme=None):
+                 considerDeprecated=True, constraints=None, theme=None):
         """ Items
         """
         catalog = getToolByName(self.context, 'portal_catalog')
 
-        query = { 'sort_on': 'effective',
-                  'sort_order': 'reverse',
-                  'effectiveRange': DateTime()}
+        query = {'sort_on': 'effective',
+                 'sort_order': 'reverse',
+                 'effectiveRange': DateTime()}
         if getattr(self.context, 'getLanguage', None):
             query['Language'] = self.context.getLanguage()
 
@@ -122,14 +123,14 @@ class Relations(object):
                 portal_type = ['Highlight', 'PressRelease']
 
             elif (portal_type == 'File' and
-                  IVideo.providedBy(self.context)):
+                      IVideo.providedBy(self.context)):
                 query['object_provides'] = 'eea.mediacentre.interfaces.IVideo'
 
             query['portal_type'] = portal_type
 
         res = []
-        # split getThemes query only if we have the queryThemesSeparately flag 
-        # enabled 
+        # split getThemes query only if we have the queryThemesSeparately flag
+        # enabled
         if theme and queryThemesSeparately:
             for item in contextThemes:
                 query['getThemes'] = item
@@ -165,10 +166,10 @@ class Relations(object):
 
         catalog = getToolByName(context, 'portal_catalog')
 
-        query = { 'sort_on': 'effective',
-                  'sort_order': 'reverse',
-                  'Language': context.getLanguage(),
-                  'effectiveRange': DateTime() }
+        query = {'sort_on': 'effective',
+                 'sort_order': 'reverse',
+                 'Language': context.getLanguage(),
+                 'effectiveRange': DateTime()}
 
         if constraints:
             query.update(constraints)
@@ -190,7 +191,6 @@ class Relations(object):
         else:
             return [brain.getObject() for
                     brain in brains if brain.getPath() != contextPath]
-
 
     def _checkPermissions(self, references):
         """ Check permissions

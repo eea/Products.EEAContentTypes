@@ -3,15 +3,18 @@
 
 # TODO: this module needs heavy modification to adapt to plone.app.caching, for
 # plone4 migration
-from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from eea.cache.event import InvalidateCacheEvent
-from zope.component import queryMultiAdapter
-from zope.event import notify
 import logging
 import md5
 
-#import memcache
+from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from zope.component import queryMultiAdapter
+from zope.event import notify
+
+from eea.cache.event import InvalidateCacheEvent
+
+
+# import memcache
 
 logger = logging.getLogger('Products.EEAContentTypes.cache')
 
@@ -23,8 +26,8 @@ def cacheKeyPromotions(method, self):
     return (self.portal_url, request.get('LANGUAGE', 'en'))
 
 
-def cacheKeyHighlights(method,
-        self, portaltypes=('Highlight', 'PressRelease'), scale='thumb'):
+def cacheKeyHighlights(method, self, portaltypes=('Highlight', 'PressRelease'),
+                       scale='thumb'):
     """ Cache key for Highlights content-type
     """
     request = self.request
@@ -48,7 +51,7 @@ def invalidatePromotionsCache(obj, event):
     if portal_factory and not portal_factory.isTemporary(obj):
         portal_url = getToolByName(obj, 'portal_url')()
         source = ("eea.design.browser.frontpage.getPromotions:('%s', '%s')"
-                  ) % (portal_url, obj.REQUEST.get('LANGUAGE','en'))
+                  ) % (portal_url, obj.REQUEST.get('LANGUAGE', 'en'))
         key = md5.new(source).hexdigest()
         notify(InvalidateCacheEvent(key=key, raw=True))
 
@@ -59,6 +62,7 @@ def invalidateNavigationCache(obj, event):
     portal_factory = getToolByName(obj, 'portal_factory', None)
     if portal_factory and not portal_factory.isTemporary(obj):
         notify(InvalidateCacheEvent(raw=True, dependencies=['navigation']))
+
 
 #
 # Varnish

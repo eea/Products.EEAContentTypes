@@ -1,7 +1,9 @@
 """ Interfaces
 """
 from zope.interface import Interface, Attribute
+
 from .adapters.interfaces import ITemporalCoverageAdapter
+
 
 class IEEAPloneSite(Interface):
     """A marker interface for the EEA Plone site
@@ -23,10 +25,10 @@ class ILocalRoleEmails(Interface):
 class IRelations(Interface):
     """ An adapter that retrieves relations from any plone object. """
 
-    def all(samePortalType=False):
+    def all(samePortalType=False, contraints=None):
         """ Gets all objects that are, in any way, related to this object. """
 
-    def backReferences():
+    def backReferences(self, portal_type=None, relatedTo=None):
         """ Gets all objects that have references to this object. """
 
     def backReferencesWithSameType(self):
@@ -34,17 +36,17 @@ class IRelations(Interface):
         and are the same portal_type.
         """
 
-    def forwardReferences():
+    def forwardReferences(self, portal_type=None):
         """ Gets all objects that this object has references to. """
 
-    def autoContextReferences(portal_type=False):
+    def autoContextReferences(self, portal_type=False):
         """ Gets all objects that are referenced from this objects
         back references.
         Can take portal_type parameter to designate the type of objects that
         the back references should search for
         """
 
-    def byTheme(samePortalType=False, getBrains=False, constraints=False):
+    def byTheme(samePortalType=False, portal_type=None, getBrains=False, constraints=False, considerDeprecated=False):
         """ Gets all objects that have the same theme tag is the adapted object.
            samePortalType argument should be true if the related objects should
            be of the same portal type as context. getBrains argument should be
@@ -52,11 +54,11 @@ class IRelations(Interface):
            This is mainly for performance.
         """
 
-    def byPublicationGroup(samePortalType=True, getBrains=False):
+    def byPublicationGroup(self, samePortalType=True, getBrains=False, constraints=False):
         """ Get all objects that are the same type and same publication group.
         """
 
-    def references():
+    def references(self):
         """" Gets both forward and backward references. """
 
 
@@ -76,6 +78,7 @@ class IEEAPossibleContent(Interface):
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
     """
+
 
 __all__ = [
     ITemporalCoverageAdapter.__name__

@@ -1,14 +1,16 @@
 """ Setup handlers
 """
 
+import logging
+
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.interfaces import IEEAPloneSite
-from Products.EEAContentTypes.vocabulary import vocabs
 from Products.contentmigration.archetypes import InplaceATItemMigrator
 from zope.interface import alsoProvides
-import logging
+
+from Products.EEAContentTypes.interfaces import IEEAPloneSite
+from Products.EEAContentTypes.vocabulary import vocabs
 
 logger = logging.getLogger("Products.EEAContentTypes")
 
@@ -28,6 +30,7 @@ def setupGeographicalProperties(self, portal):
         if getattr(p, 'google_key', None) is None:
             p._setProperty('google_key', '', 'string')
 
+
 def setupTemplateServiceProperties(self, portal):
     """ sets up the default propertysheet for template service invalidate cache
     """
@@ -46,8 +49,10 @@ def setupTemplateServiceProperties(self, portal):
     p = getattr(prop_tool, 'template_service', None)
     if p is not None:
         if getattr(p, 'invalidate_cache', None) is None:
-            p._setProperty('invalidate_cache', [
-        'http://webservices.eea.europa.eu/templates_client/invalidate_cache'],
+            p._setProperty(
+                'invalidate_cache', [
+                    'http://webservices.eea.europa.eu/templates_client/'
+                    'invalidate_cache'],
                 'lines')
 
 
@@ -88,12 +93,12 @@ def setupATVocabularies(self, portal):
         if shasattr(atvm, vkey):
             continue
 
-        logger.info("adding vocabulary %s" % vkey)
+        logger.info("adding vocabulary %s", vkey)
 
         try:
             atvm.invokeFactory('SimpleVocabulary', vkey)
         except Exception:
-            logger.info("Error adding vocabulary %s" % vkey)
+            logger.info("Error adding vocabulary %s", vkey)
 
         vocab = atvm[vkey]
         for (ikey, value) in vocabs[vkey]:
@@ -136,19 +141,19 @@ def setupGeocoding(context):
     if context.readDataFile('eeacontenttypes_various.txt') is None:
         return
     portal = context.getSite()
-    #TODO: plone4 this needs to be adapted for plone.app.caching
-    #updateCacheFu(portal, portal)
+    # TODO: plone4 this needs to be adapted for plone.app.caching
+    # updateCacheFu(portal, portal)
 
     # This updates were already ran, we don't need them anymore
-    #TODO: this gimmick should be removed and replaced by something proper
+    # TODO: this gimmick should be removed and replaced by something proper
     already_ran = False
     if not already_ran:
         add_eeaInternalIps(portal, portal)
         print "not proper"
-        #geocodeEvents(portal, portal)
+        # geocodeEvents(portal, portal)
 
 
-#TODO: plone4, shouldn't this be moved to a GS file?
+# TODO: plone4, shouldn't this be moved to a GS file?
 def setupCustomRoles(self, portal):
     """ Setup custom roles
     """
@@ -170,8 +175,8 @@ def setupVarious(context):
 
     portal = context.getSite()
     setupATVocabularies(portal, portal)
-    #configureWorkflow(portal)
-    #setupCatalog(portal)
+    # configureWorkflow(portal)
+    # setupCatalog(portal)
     setupGeographicalProperties(portal, portal)
     setupTemplateServiceProperties(portal, portal)
     setupEEAStaffProperties(portal, portal)
@@ -182,8 +187,8 @@ def setupVarious(context):
 class InplaceGisMigrator(InplaceATItemMigrator):
     """Migrator for TTW Type to disk based GIS Application
     """
-    dst_meta_type="GISMapApplication"
-    dst_portal_type="GIS Application"
+    dst_meta_type = "GISMapApplication"
+    dst_portal_type = "GIS Application"
 
 
 def upgrade_gisapplication(site):
@@ -193,7 +198,7 @@ def upgrade_gisapplication(site):
     logger.info("Started migration of ATLink based GIS Application")
     catalog = getToolByName(site, 'portal_catalog')
     brains = catalog.searchResults(meta_type="ATLink",
-            portal_type="GIS Application")
+                                   portal_type="GIS Application")
 
     for brain in brains:
         obj = brain.getObject()
@@ -213,6 +218,7 @@ def migrate_gisapplication(context):
     site = context.getSite()
     upgrade_gisapplication(site)
 
+
 def upgrade_plonesite_interface(context):
     """Make the Plone site implement the IEEAPloneSite interface
     """
@@ -223,20 +229,23 @@ def upgrade_plonesite_interface(context):
     alsoProvides(site, IEEAPloneSite)
     logger.info("Added IEEPloneSite to interfaces provided by Plone root")
 
+
 def unregisterTransform(site, name):
     """ Remove portal transform
     """
     transforms = getToolByName(site, 'portal_transforms')
     try:
         transforms.unregisterTransform(name)
-        logger.info("Removed %s transform" % name)
+        logger.info("Removed %s transform", name)
     except AttributeError:
-        logger.info("Could not remove %s transform" % name)
+        logger.info("Could not remove %s transform", name)
+
 
 def unregister_email_transform(site):
     """ Remove protect_email transform
     """
     unregisterTransform(site, 'protect_email')
+
 
 def fix_html_eea_chain_transform(site):
     """ Remove from html_eea_chain transform chain absolete
@@ -246,6 +255,6 @@ def fix_html_eea_chain_transform(site):
     transforms = getToolByName(site, 'portal_transforms')
     html_eea_chain = getattr(transforms, 'html_eea_chain')
     html_eea_chain.manage_delObjects(['html-to-captioned',
-                                       'captioned-to-html',
-                                       'protect_email'])
+                                      'captioned-to-html',
+                                      'protect_email'])
     logger.info("Fixed html_eea_chain transform chain")
