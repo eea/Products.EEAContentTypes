@@ -3,14 +3,16 @@
 import hmac
 import time
 from hashlib import sha1 as sha
-
 from Acquisition import aq_base
+
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from Products.MailHost.interfaces import IMailHost
 from plone.keyring.interfaces import IKeyManager
 from plone.protect.authenticator import _getUserName
 from zope.component import getUtility, getSiteManager
+
+from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+
 
 class TestWorkflow(EEAContentTypeTestCase):
     """ Test-cases for class(es) workflow. """
@@ -126,6 +128,9 @@ class TestWorkflowModified(EEAContentTypeTestCase):
             elif 'Criterion' in ptype:
                 continue
             elif 'Cache' in ptype:
+                continue
+            elif 'EEAFigureFile' in ptype:
+                # This ctype depends on parent. Skip it
                 continue
             elif ptype == 'Assessment':
                 # This ctype depends on parent. Skip it
@@ -279,11 +284,13 @@ class TestWorkflowModified(EEAContentTypeTestCase):
         # Fail if errors
         self.failIf(errors, errors)
 
+
 def test_suite():
     """ Suite
     """
     import unittest
-    return  unittest.TestSuite(
+
+    return unittest.TestSuite(
         tests=(
             unittest.makeSuite(TestWorkflow),
             unittest.makeSuite(TestWorkflowModified),

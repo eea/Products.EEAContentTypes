@@ -1,8 +1,10 @@
 """ Test multilinguality
 """
 from Products.Five import zcml
+
 import Products.EEAContentTypes
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+
 
 class TestMultilingual(EEAContentTypeTestCase):
     """Test cases for LinguaPlone and multilingual features."""
@@ -33,6 +35,7 @@ def test_suite():
     """ Suite
     """
     from unittest import TestSuite, makeSuite
+
     suite = makeSuite(TestMultilingual)
 
     from Products.PloneTestCase import layer
@@ -42,4 +45,4 @@ def test_suite():
         if not hasattr(suite, 'layer'):
             suite.layer = layer.PloneSite
 
-    return  TestSuite(suite)
+    return TestSuite(suite)

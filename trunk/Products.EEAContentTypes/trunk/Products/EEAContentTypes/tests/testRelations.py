@@ -1,9 +1,11 @@
 """ Tests for Relations
 """
+from zope.component.hooks import setSite
+
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from Products.EEAContentTypes.interfaces import IRelations
 from eea.themecentre.interfaces import IThemeTagging
-from zope.component.hooks import setSite
+
 
 class TestRelations(EEAContentTypeTestCase):
     """ Test-cases for class(es) relations. """
@@ -59,9 +61,8 @@ class TestRelations(EEAContentTypeTestCase):
         self.folder.pub.reindexObject()
 
         # make all themes public (non deprecated)
-        #for theme in self.portal.portal_vocabularies.themes.objectValues():
-            #self.portal.portal_workflow.doActionFor(theme, 'publish')
-
+        # for theme in self.portal.portal_vocabularies.themes.objectValues():
+        # self.portal.portal_workflow.doActionFor(theme, 'publish')
 
     def testAnonymous(self):
         """ Anonymous
@@ -94,7 +95,7 @@ class TestRelations(EEAContentTypeTestCase):
 
         constraint = {'review_state': 'published'}
         related = IRelations(self.folder.unpub_air).byTheme(
-                constraints=constraint)
+            constraints=constraint)
         ids = sorted(obj.getId() for obj in related)
         # all public objects that the user has permission to view should be
         # found
@@ -160,12 +161,14 @@ class TestRelations(EEAContentTypeTestCase):
         self.assertEquals(ids, ['art2_pub', 'art3', 'rel_not_same_type'])
 
         related = IRelations(self.folder.art2_pub).byPublicationGroup(
-            constraints = {'review_state': 'published'})
+            constraints={'review_state': 'published'})
         ids = sorted(obj.getId() for obj in related)
         self.assertEquals(ids, ['art1_pub'])
+
 
 def test_suite():
     """ Suite
     """
     import unittest
-    return  unittest.TestSuite(unittest.makeSuite(TestRelations))
+
+    return unittest.TestSuite(unittest.makeSuite(TestRelations))

@@ -2,6 +2,7 @@
 """
 
 from DateTime import DateTime
+
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 
 
@@ -95,6 +96,7 @@ def test_suite():
     """ Tests suite
     """
     from unittest import TestSuite, makeSuite
+
     suite = TestSuite()
     suite.addTest(makeSuite(testCallForInterest))
     return suite

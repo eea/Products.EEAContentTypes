@@ -1,12 +1,15 @@
 """ URLs tests
 """
-from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from zope.component import getMultiAdapter
+
+from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
+
 
 def link(obj):
     """ Link
     """
     return getMultiAdapter((obj, obj.REQUEST), name="url").listing_url()
+
 
 def blink(brain):
     """ @@url
@@ -14,6 +17,7 @@ def blink(brain):
     obj = brain.getObject()
     return getMultiAdapter((obj, obj.REQUEST),
                            name="url").listing_url(brain=brain)
+
 
 class TestLinks(EEAContentTypeTestCase):
     """ Test-cases for class(es) relations. """
@@ -82,8 +86,10 @@ class TestLinks(EEAContentTypeTestCase):
         self.assertEquals(blink(brains[3]),
                           'http://eea.europa.eu')
 
+
 def test_suite():
     """ Suite
     """
     import unittest
-    return  unittest.TestSuite(unittest.makeSuite(TestLinks))
+
+    return unittest.TestSuite(unittest.makeSuite(TestLinks))

@@ -10,37 +10,37 @@ from Testing.testbrowser import Browser
 from plone.protect.authenticator import AuthenticatorView
 from re import match
 
-
 PRODUCTS = [
-        'ATVocabularyManager',
-        'EEAContentTypes',
-        ##'valentine.linguaflow', 'eea.depiction', 'LinguaPlone',
-        'EEAPloneAdmin'
+    'ATVocabularyManager',
+    'EEAContentTypes',
+    ##'valentine.linguaflow', 'eea.depiction', 'LinguaPlone',
+    'EEAPloneAdmin'
 ]
 
 for product in PRODUCTS:
     ztc.installProduct(product)
 
-#ztc.installPackage('eea.reports')
+# ztc.installPackage('eea.reports')
 
 @onsetup
 def setup_eeacontenttypes():
     """ Set up
     """
 
-    #installs fixture profile
+    # installs fixture profile
 
     fiveconfigure.debug_mode = True
 
     import Products.EEAContentTypes
     import collective.deletepermission
+
     zcml.load_config("configure.zcml", collective.deletepermission)
     zcml.load_config("dependencies.zcml", Products.EEAContentTypes)
     zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
     zcml.load_config("overrides.zcml", Products.EEAContentTypes)
 
-    #import eea.indicators
-    #zcml.load_config("configure.zcml", eea.indicators)
+    # import eea.indicators
+    # zcml.load_config("configure.zcml", eea.indicators)
     ztc.installPackage('eea.relations')
     ztc.installPackage('eea.dataservice')
     ztc.installPackage('eea.indicators')
@@ -61,15 +61,15 @@ PROFILES = [
 ]
 
 OPTIONAL_DEPENDENCIES = {
-        #key - packagename: value - gs profile name,
-        'eea.soer':'eea.soer:default',
-        'eea.dataservice':'eea.dataservice:default',
-        'eea.reports':'eea.reports:default',
-        'eea.indicators':'eea.indicators:default',
-        'Products.RedirectionTool':'Products.RedirectionTool:default',
-        'Products.EEAPloneAdmin':'Products.EEAPloneAdmin:default',
-        'valentine.linguaflow':'valentine.linguaflow:default',
-    }
+    # key - packagename: value - gs profile name,
+    'eea.soer': 'eea.soer:default',
+    'eea.dataservice': 'eea.dataservice:default',
+    'eea.reports': 'eea.reports:default',
+    'eea.indicators': 'eea.indicators:default',
+    'Products.RedirectionTool': 'Products.RedirectionTool:default',
+    'Products.EEAPloneAdmin': 'Products.EEAPloneAdmin:default',
+    'valentine.linguaflow': 'valentine.linguaflow:default',
+}
 
 for pkg, gs in OPTIONAL_DEPENDENCIES.items():
     try:

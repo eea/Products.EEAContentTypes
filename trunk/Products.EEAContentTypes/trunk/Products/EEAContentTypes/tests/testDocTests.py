@@ -2,13 +2,18 @@
 """ Doctests
 """
 
-from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.tests import base
-from zope.component.hooks import setSite
 import doctest
-import unittest, os
+import unittest
 
-#from Products.CMFSquidTool.utils import stopThreads
+from Products.CMFCore.utils import getToolByName
+from zope.component.hooks import setSite
+import os
+
+from Products.EEAContentTypes.tests import base
+
+
+
+# from Products.CMFSquidTool.utils import stopThreads
 from eea.mediacentre.interfaces import IVideo
 from zope.interface import alsoProvides
 
@@ -25,6 +30,7 @@ def createObject(parent, portal_type, oid):
 class TestCase(base.EEAContentTypeFunctionalTestCase):
     """ Test case
     """
+
     def afterSetUp(self):
         """ Set up
         """
@@ -59,6 +65,7 @@ class TestCase(base.EEAContentTypeFunctionalTestCase):
 class DummyResponse(object):
     """ Fake RESPONSE
     """
+
     def redirect(self, url):
         """ Redirect
         """
@@ -68,11 +75,13 @@ class DummyResponse(object):
 class PromotionTestCase(base.EEAContentTypeFunctionalTestCase):
     """ Test case for Promotion
     """
+
     def afterSetUp(self):
         """  Set up
         """
         from zope.publisher.browser import TestRequest
         from eea.design.browser.frontpage import Frontpage
+
         portal = self.portal
         wf = portal.portal_workflow
 
@@ -119,29 +128,34 @@ class PromotionTestCase(base.EEAContentTypeFunctionalTestCase):
         self.frontpage = frontpage
         self.request = request
 
+
 def test_suite():
     """ Suite """
     from Testing.ZopeTestCase import FunctionalDocFileSuite
 
     return unittest.TestSuite((
         FunctionalDocFileSuite('related.txt',
-                    package='Products.EEAContentTypes.browser',
-                    test_class=TestCase,
-                    optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-                    ),
+                               package='Products.EEAContentTypes.browser',
+                               test_class=TestCase,
+                               optionflags=doctest.NORMALIZE_WHITESPACE |
+                                           doctest.ELLIPSIS,
+                               ),
         FunctionalDocFileSuite('promotion.txt',
-                    package='Products.EEAContentTypes',
-                    test_class=PromotionTestCase,
-                    optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-                    ),
+                               package='Products.EEAContentTypes',
+                               test_class=PromotionTestCase,
+                               optionflags=doctest.NORMALIZE_WHITESPACE |
+                                           doctest.ELLIPSIS,
+                               ),
         FunctionalDocFileSuite('transitions.txt',
-                    test_class=TestCase,
-                    package='Products.EEAContentTypes',
-                    optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-                    ),
+                               test_class=TestCase,
+                               package='Products.EEAContentTypes',
+                               optionflags=doctest.NORMALIZE_WHITESPACE |
+                                           doctest.ELLIPSIS,
+                               ),
         FunctionalDocFileSuite('language.txt',
-                    test_class=base.EEAContentTypeFunctionalTestCase,
-                    package='Products.EEAContentTypes.browser',
-                    optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-                    ),
-        ))
+                               test_class=base.EEAContentTypeFunctionalTestCase,
+                               package='Products.EEAContentTypes.browser',
+                               optionflags=doctest.NORMALIZE_WHITESPACE |
+                                           doctest.ELLIPSIS,
+                               ),
+    ))
