@@ -1,38 +1,37 @@
 """ Subtypes
 """
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.Widget import MultiSelectionWidget
+from datetime import datetime
 
+from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
-from Products.EEAContentTypes.browser.interfaces import IEEAContentRegistryRequiredFields
-from Products.EEAContentTypes.utils import \
-    excluded_temporal_coverage_schemaextender_tuple
 from Products.LinguaPlone.public import InAndOutWidget
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import LinesField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
+from zope.component import adapts
+from zope.interface import Interface, implements
+from zope.i18nmessageid import MessageFactory
+
+from Products.EEAContentTypes.browser.interfaces import IEEAContentRegistryRequiredFields
+from Products.EEAContentTypes.utils import \
+    excluded_temporal_coverage_schemaextender_tuple
 from eea.geotags import field
 from eea.geotags import widget
 from eea.themecentre.content.ThemeTaggable import ThemesField
-from zope.component import adapts
-from zope.interface import Interface, implements
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
-from datetime import datetime
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.relations.interfaces import IAutoRelations
 from eea.relations.component import getForwardRelationWith
 from eea.relations.component import getBackwardRelationWith
-
 from eea.forms.browser.app.temporal_coverage import grouped_coverage
 
-from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('Products.EEAContentTypes')
-
 
 import logging
 
@@ -53,6 +52,7 @@ class ExtensionLinesField(ExtensionField, LinesField):
     security = ClassSecurityInfo()
 
     security.declarePrivate('set')
+
     def set(self, instance, value, **kwargs):
         """ Expands year range input into a list of all elements
         """
@@ -107,17 +107,17 @@ class RelationsSchemaExtender(object):
     implements(ISchemaExtender)
 
     fields = (
-     ExtensionRelationsField('relatedItems',
-        schemata='categorization',
-        relationship = 'relatesTo',
-        multiValued = True,
-        languageIndependent=True,
-        keepReferencesOnCopy=True,
-        widget=EEAReferenceBrowserWidget(
-            label='Related items',
-            description='Specify relations to other content within Plone.'
-        )
-      ),
+        ExtensionRelationsField('relatedItems',
+                                schemata='categorization',
+                                relationship='relatesTo',
+                                multiValued=True,
+                                languageIndependent=True,
+                                keepReferencesOnCopy=True,
+                                widget=EEAReferenceBrowserWidget(
+                                    label='Related items',
+                                    description='Specify relations to other content within Plone.'
+                                )
+                                ),
     )
 
     def __init__(self, context):
@@ -129,8 +129,8 @@ class RelationsSchemaExtender(object):
         # List of content types where relatedItems field
         # is override in specific schemata
         if self.context.portal_type in (
-            "DavizVisualization", "Specification", "Assessment",
-            "AssessmentPart", "QuickEvent", "Report", "IndicatorFactSheet"):
+                "DavizVisualization", "Specification", "Assessment",
+                "AssessmentPart", "QuickEvent", "Report", "IndicatorFactSheet"):
             return []
 
         # Due to #4705 base_view shows related widget which should be
@@ -158,9 +158,9 @@ class LocationSchemaExtender(object):
                 description=('Geotags: multiple geographical locations '
                              'related to this content. Click Edit button '
                              'to select a location')
-                )
-            ),
-        )
+            )
+        ),
+    )
 
     single_location = (
         ExtensionGeotagsSinglefield(
@@ -171,14 +171,14 @@ class LocationSchemaExtender(object):
             widget=widget.GeotagsWidget(
                 label='Geographic coverage',
                 description=('Type in here the exact geographic names/places '
-                    'that are covered by the data. Add Countries names only '
-                    'if the data displayed is really about the entire country.'
-                    ' Example of locations/places are lakes, rivers, cities, '
-                    'marine areas, glaciers, bioregions like alpine '
-                    'region etc.')
-                )
-            ),
-        )
+                             'that are covered by the data. Add Countries names only '
+                             'if the data displayed is really about the entire country.'
+                             ' Example of locations/places are lakes, rivers, cities, '
+                             'marine areas, glaciers, bioregions like alpine '
+                             'region etc.')
+            )
+        ),
+    )
 
     def __init__(self, context):
         self.context = context
@@ -192,25 +192,25 @@ class LocationSchemaExtender(object):
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = 'Event Location'
             self.multiple_location[0].widget.label_msgid = \
-                                                    "label_event_location"
+                "label_event_location"
             self.multiple_location[0].widget.description = \
-                             'Geographical location ' \
-                             'related to this Event. Click Edit button' \
-                             ' to select a location'
+                'Geographical location ' \
+                'related to this Event. Click Edit button' \
+                ' to select a location'
             self.multiple_location[0].widget.description_msgid = (
-                            'EEAContentTypes_help_location_event')
+                'EEAContentTypes_help_location_event')
         # likewise Organisation had the previous location widget on default
         elif getattr(self.context, 'portal_type', None) == 'Organisation':
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = "Organisation Address"
             self.multiple_location[0].widget.label_msgid = \
-                                                    "dataservice_label_address"
+                "dataservice_label_address"
             self.multiple_location[0].widget.description = (
-                             'Geographical location ' \
-                             'related to this Organisation. Click Edit button' \
-                             ' to select a location')
+                'Geographical location ' \
+                'related to this Organisation. Click Edit button' \
+                ' to select a location')
             self.multiple_location[0].widget.description_msgid = \
-                                                    "dataservice_help_address"
+                "dataservice_help_address"
         elif self.context.portal_type in ('Data', "Assessment", "AssessmentPart"):
             # remove location schema extender for Data, see #9423
             return ()
@@ -238,7 +238,7 @@ class ThemesSchemaExtender(object):
                 maxValues=3,
                 label="Themes",
                 description="Choose max 3 themes",
-                ),
+            ),
             languageIndependent=True,
             vocabulary_factory=u"Allowed themes for edit",
         ),
@@ -333,8 +333,10 @@ class ManagementPlanFieldExtender(object):
         """
         return self.fields
 
+
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+
 
 class RequiredSchemaModifier(object):
     """ Modify schema
@@ -361,7 +363,7 @@ class RequiredSchemaModifier(object):
         records = registry.records
         reg_name = IEEAContentRegistryRequiredFields.__identifier__
         # required way to get the values that start with the name of the
-        #interface as seen in the doctests of plone.registry
+        # interface as seen in the doctests of plone.registry
         values = records.values(reg_name + ".", reg_name + "0")
         for value in values:
             name = value.field.title
@@ -423,28 +425,32 @@ class GeotagMixinEdit(object):
         mutator = xfield.getMutator(self.context)
         mutator(value)
 
+
 class IGeotagSingleEdit(Interface):
     """ Interface for editing single location
     """
     geotag = widget.location.GeotagSingleField(
-            title = u"Geotag",
-            description=(u"Geotag: a single geographical location for "
-                         "this content.")
-            )
+        title=u"Geotag",
+        description=(u"Geotag: a single geographical location for "
+                     "this content.")
+    )
+
 
 class GeotagSingleEdit(GeotagMixinEdit):
     """ Single edit
     """
     implements(IGeotagSingleEdit)
 
+
 class IGeotagMultiEdit(Interface):
     """ Interface for editing multiple locations
     """
     geotag = widget.location.GeotagMultiField(
-            title = u"Geotags",
-            description=(u"Geotags: multiple geographical locations related to"
-                         " this content.")
-            )
+        title=u"Geotags",
+        description=(u"Geotags: multiple geographical locations related to"
+                     " this content.")
+    )
+
 
 class GeotagMultiEdit(GeotagMixinEdit):
     """ Multi Edit
@@ -485,7 +491,7 @@ class GetCanonicalRelations(object):
             #    accessor = field.getAccessor(self.context)
             #    rel_forwards = accessor()
             rel_forwards = canonical.getRefs(kwargs.get('relation',
-                                                          'relatesTo'))
+                                                        'relatesTo'))
             if rel_forwards:
                 # Get translations of forward relations, if
                 # translations don't exist, return canonical
@@ -505,7 +511,7 @@ class GetCanonicalRelations(object):
                         if not forward:
                             continue
                         name = forward.getField('forward_label').getAccessor(
-                        forward)()
+                            forward)()
                         contentTypes[portalType] = name
                         tabs[name] = []
                     name = contentTypes[portalType]

@@ -3,17 +3,18 @@
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.criteria.base import ATBaseCriterion
 
+
 def smartFolderAdded(obj, evt):
     """ Added
     """
-    #portal = getToolByName(obj, 'portal_url').getPortalObject()
+    # portal = getToolByName(obj, 'portal_url').getPortalObject()
     portal_types = getToolByName(obj, 'portal_types')
 
 
     # get the translated object by taking the first part of the url
     canonical = obj.getCanonical()
     obj = evt.target
-    #copyids = []
+    # copyids = []
 
     for o in canonical.objectValues():
 
