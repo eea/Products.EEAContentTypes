@@ -4,6 +4,7 @@ import logging
 
 logger = logging.getLogger('EEAContentTypes.subscribers')
 
+
 def lowercaseKeywords(obj, evt):
     """ Store all keywords lowercase and remove duplicates
     """
