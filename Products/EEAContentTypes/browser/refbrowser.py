@@ -1,8 +1,10 @@
 """ Ref browser
 """
+from Acquisition import aq_parent, aq_inner
+
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-from Acquisition import aq_parent, aq_inner
+
 
 class ReferenceBrowserView(object):
     """ Provides data for referencebrowser_popup.pt """
@@ -25,8 +27,8 @@ class ReferenceBrowserView(object):
         obj = self.context
 
         while obj.portal_type != 'Plone Site':
-            item = { 'Title': obj.Title(),
-                     'absolute_url': obj.absolute_url() }
+            item = {'Title': obj.Title(),
+                    'absolute_url': obj.absolute_url()}
             breadcrumbs.insert(0, item)
             obj = aq_parent(aq_inner(obj))
 
@@ -43,9 +45,11 @@ class ReferenceBrowserView(object):
             contents = self.context.listFolderContents()
         return contents
 
+
 class ReferenceBrowserWidgetSupport(BrowserView):
     """ Support for ATReferenceBrowserWidget
     """
+
     def brain(self, uid):
         """ Get catalog brain by given uid
         """

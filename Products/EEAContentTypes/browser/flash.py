@@ -2,9 +2,11 @@
 """
 from Products.Five import BrowserView
 
+
 class RelatedFlash(BrowserView):
     """ Related Flash
     """
+
     def relatedFlash(self):
         """ Flash
         """
@@ -20,4 +22,4 @@ class RelatedFlash(BrowserView):
         """
         flash = self.relatedFlash()
         width = flash.getWidth()
-        return 'width: %spx; margin-left: -%spx;' % ( width, int(width/2))
+        return 'width: %spx; margin-left: -%spx;' % (width, int(width / 2))

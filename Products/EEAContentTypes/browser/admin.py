@@ -3,6 +3,7 @@
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import getToolByName
 
+
 class BaseReorder(object):
     """Abstract class for reordering resources"""
 

@@ -1,15 +1,17 @@
 """ Cache
 """
+from Acquisition import aq_parent, aq_inner
+
 from zope.event import notify
 from plone.app.caching.utils import isPurged
 from z3c.caching.purge import Purge
-
-from Acquisition import aq_parent, aq_inner
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.statusmessages.interfaces import IStatusMessage
+
 from Products.EEAContentTypes.config import EEAMessageFactory as _
+
 
 def purge(obj):
     """ Purge object
@@ -17,14 +19,16 @@ def purge(obj):
     if isPurged(obj):
         notify(Purge(obj))
 
+
 class InvalidateCache(BrowserView):
     """ Invalidate cache
     """
+
     def __init__(self, context, request):
         super(InvalidateCache, self).__init__(context, request)
         self.parent = context
         if utils.isDefaultPage(context, request):
-            self.parent  = aq_parent(aq_inner(context))
+            self.parent = aq_parent(aq_inner(context))
 
     def _redirect(self, msg='', mtype=u'info'):
         """ Return with status message
@@ -38,11 +42,11 @@ class InvalidateCache(BrowserView):
         """ Current user can invalidate cache
         """
         # Don't allow invalidation with direct link
-        referer =  self.request.get('HTTP_REFERER', '')
+        referer = self.request.get('HTTP_REFERER', '')
         if referer.endswith('/'):
             referer = referer[:-1]
         if (self.context.absolute_url() != referer and
-            self.parent.absolute_url() != referer):
+                    self.parent.absolute_url() != referer):
             return False
 
         # Authenticated editors can invalidate cache from everywhere
@@ -73,7 +77,7 @@ class InvalidateCache(BrowserView):
             self.request.response.setStatus(401, msg)
             return self._redirect(msg, u'error')
 
-        recursive = self.request.get('recursive_invalidation' , False)
+        recursive = self.request.get('recursive_invalidation', False)
         if recursive:
             path = '/'.join(self.context.getPhysicalPath())
             cat = getToolByName(self.context, 'portal_catalog')

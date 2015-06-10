@@ -1,11 +1,13 @@
 """ Smart folder views
 """
 from Acquisition import aq_base, aq_parent, aq_inner
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
-from eea.themecentre.utils import localized_time
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from zope.component import getMultiAdapter
+
+from eea.themecentre.utils import localized_time
 
 DATE_FIELDS = ('start', 'end', 'EffectiveDate', 'effective', 'expires')
 
@@ -13,6 +15,7 @@ DATE_FIELDS = ('start', 'end', 'EffectiveDate', 'effective', 'expires')
 class SmartFolderPortlets(object):
     """ Smart folder portlets
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -23,7 +26,7 @@ class SmartFolderPortlets(object):
         portal = portal_url.getPortalObject()
         obj = self.context
         while not (INavigationRoot.providedBy(obj) and
-                   aq_base(obj) is not aq_base(portal)):
+                           aq_base(obj) is not aq_base(portal)):
             obj = utils.parent(obj)
 
         return self.portlets(obj)
@@ -56,12 +59,12 @@ class SmartFolderPortlets(object):
         manually_added_portlets = getattr(context,
                                           'manually_added_portlets', [])
         catalog = getToolByName(context, 'portal_catalog')
-        query = { 'portal_type': 'Topic',
-                  'review_state' : 'published',
-                  'path': '/'.join(context.getPhysicalPath()) }
+        query = {'portal_type': 'Topic',
+                 'review_state': 'published',
+                 'path': '/'.join(context.getPhysicalPath())}
         brains = catalog.searchResults(query)
         return [brain.getObject() for brain in brains
-                if brain.getId not in manually_added_portlets ]
+                if brain.getId not in manually_added_portlets]
 
     def _parent_or_topic(self, topic):
         """ Parent or topic
@@ -86,13 +89,13 @@ class SmartFolderPortlets(object):
         if topic_query:
             topic_query['sort_limit'] = 3
             topic_brains = catalog.searchResults(topic_query)
-            extra_fields = [ field for field in topic.getCustomViewFields()
-                                   if field != 'Title' ]
+            extra_fields = [field for field in topic.getCustomViewFields()
+                            if field != 'Title']
 
             for tb in topic_brains:
-                item = { 'url': tb.getURL(),
-                         'title': tb.Title,
-                         'detail': self._detail(extra_fields, tb) }
+                item = {'url': tb.getURL(),
+                        'title': tb.Title,
+                        'detail': self._detail(extra_fields, tb)}
                 entries.append(item)
         return entries
 
@@ -147,16 +150,18 @@ class SmartFolderPortlets(object):
         """
         return topic.getId()
 
+
 class LatestHighlightsSmartFolderPortlet(SmartFolderPortlets):
     """ Latest highlights smart folder portlet
     """
+
     def _find_topics(self, context):
         """ Find topics
         """
         catalog = getToolByName(context, 'portal_catalog')
-        query = { 'portal_type': 'Topic',
-                  'path': '/www/SITE/highlights/archive',
-                  'Language': 'en' }
+        query = {'portal_type': 'Topic',
+                 'path': '/www/SITE/highlights/archive',
+                 'Language': 'en'}
         brains = catalog.searchResults(query)
         return [brain.getObject() for brain in brains]
 
@@ -172,9 +177,9 @@ class LatestHighlightsSmartFolderPortlet(SmartFolderPortlets):
         extra_fields = topic.getCustomViewFields()
         for tb in topic_brains:
             if currentLang not in tb.getTranslationLanguages:
-                item = { 'url': tb.getURL(),
-                         'title': tb.Title,
-                         'detail': self._detail(extra_fields, tb) }
+                item = {'url': tb.getURL(),
+                        'title': tb.Title,
+                        'detail': self._detail(extra_fields, tb)}
                 entries.append(item)
                 if len(entries) == 5:
                     break

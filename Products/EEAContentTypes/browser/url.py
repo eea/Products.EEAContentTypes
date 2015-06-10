@@ -2,7 +2,9 @@
 """
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
+
 from Products.EEAContentTypes.browser.interfaces import IURL
+
 
 class URL(object):
     """ This adapter is frequently used in templates to get the url of an
@@ -20,7 +22,7 @@ class URL(object):
     def listing_url(self, brain=None):
         """ Listing
         """
-        #mship = getToolByName(self.context, 'portal_membership')
+        # mship = getToolByName(self.context, 'portal_membership')
 
         if brain is None:
             portal_type = self.context.portal_type
