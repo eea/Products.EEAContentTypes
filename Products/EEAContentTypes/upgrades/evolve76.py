@@ -1,6 +1,7 @@
 """ evolve script
 """
 import logging
+
 from Products.CMFCore.WorkflowCore import WorkflowException
 
 logger = logging.getLogger('Products.EEAContentTypes.migration')
@@ -26,7 +27,7 @@ def evolve(context):
         parent = obj.aq_parent
         # check if parent isn't published and is of type Folder
         if wftool.getInfoFor(parent, 'review_state') != "published" and \
-                parent.portal_type == "Folder":
+                        parent.portal_type == "Folder":
             try:
                 wftool.doActionFor(parent, 'publish')
             except WorkflowException:
