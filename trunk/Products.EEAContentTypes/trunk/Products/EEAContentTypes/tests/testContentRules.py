@@ -19,7 +19,7 @@ class DummyEvent(object):
     implements(IObjectEvent)
 
     def __init__(self, obj):
-        self.obj = obj
+        self.object = obj
 
 
 class TestEnableDisableDiscussionRule(ContentRulesTestCase):
