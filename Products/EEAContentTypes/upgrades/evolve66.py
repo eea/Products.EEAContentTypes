@@ -99,8 +99,8 @@ def update_tags(context):
 
     ### Re-index content types with custom logic for indexing keywords
     count = 1
-    brains = ctool.unrestrictedSearchResults(portal_type=
-                                             ['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet'])
+    brains = ctool.unrestrictedSearchResults(
+        portal_type=['ExternalDataSpec', 'Assessment', 'IndicatorFactSheet'])
     total_count = len(brains)
     for brain in brains:
         obj = brain.getObject()
