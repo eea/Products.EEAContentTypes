@@ -3,6 +3,9 @@ Changelog
 
 10.5.dev0 - (unreleased)
 ------------------------
+* Bug fix: crop action now correctly displays and crops the selected image field
+  rather than just the field named image
+  [ichimdav refs #26741]
 
 10.4 - (2015-07-06)
 -------------------

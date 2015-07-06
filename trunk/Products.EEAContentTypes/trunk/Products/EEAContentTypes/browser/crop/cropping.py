@@ -48,11 +48,10 @@ class CropImageView(BrowserView):
     def field(self):
         """ Image field getter
         """
-        field = "get" + self.field_name.capitalize()
-        image = getattr(self.context, field, '')
+        image = self.context.getField(self.field_name)
         if image:
-            img = image()
-            img_size = img.getSize()
+            img = image.getAccessor(self.context)()
+            img_size = image.getSize(self.context)
             if img_size != tuple:
                 data = getattr(aq_base(img), 'data')
                 if isinstance(data, Pdata):
