@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.4.dev0 - (unreleased)
-------------------------
+10.4 - (2015-07-06)
+-------------------
 * Change: pylint fixes cleanup needed after upgrading to latest version or pylint
   [ichimdav refs #22596]
 * Change: adjusted related.txt tests after the update done to
