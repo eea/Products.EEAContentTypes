@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/main_template/macros/master"
+    i18n:domain="eea">
+        
+    <body>
+        <metal:header fill-slot="header">
+            <h1 class="documentFirstHeading" tal:content="here/Title">
+                Flash animation
+            </h1>
+        </metal:header>
+        
+        <metal:fill fill-slot="main">
+            
+            <metal:main define-macro="main">
+                
+                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" 
+                        width="1024" height="768" id="EEA2" align="middle"
+                    tal:attributes="width here/width;
+                    height here/height;">
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="movie" value=""
+                           tal:attributes="value python:here.absolute_url() +'/at_download/file';" />
+                    <param name="loop" value="false" />
+                    <param name="quality" value="high" />
+                    <param name="salign" value="t" />
+                    <param name="bgcolor" value="#ffffff"
+                        tal:attributes="value here/bgcolor|application/bgcolor|string:#ffffff" />
+                    <embed src="" loop="false" quality="high"  salign="t" 
+                           bgcolor="#ffffff" 
+                           width="1024" height="768" name="EEA2" align="middle" 
+                           allowScriptAccess="sameDomain" 
+                           type="application/x-shockwave-flash" 
+                           pluginspage="http://www.macromedia.com/go/getflashplayer" 
+                        tal:attributes="src python:here.absolute_url() +'/at_download/file';
+                                        width here/width;
+                                        height here/height;
+                                        bgcolor here/bgcolor|string:#ffffff;"
+                        />
+                </object>
+                
+        
+            </metal:main>
+        </metal:fill>
+       
+    </body>
+</html>
+
