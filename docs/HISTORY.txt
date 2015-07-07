@@ -3,6 +3,9 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: assign absurl within related.py in order to avoid a referenced before
+  assignment error
+  [ichimdav refs #26197]
 
 10.5 - (2015-07-06)
 -------------------
