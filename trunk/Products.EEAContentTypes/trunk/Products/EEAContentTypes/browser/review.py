@@ -60,8 +60,8 @@ class ReviewList(object):
                     for result in catalog.searchResults(**catalog_vars):
                         try:
                             o = result.getObject()
-                            if o \
-                                    and wid in wftool.getChainFor(o) \
+                            absurl = None
+                            if o and wid in wftool.getChainFor(o) \
                                     and wlist_def.getGuard().check(sm, wf, o):
                                 absurl = o.absolute_url()
                             if absurl:
