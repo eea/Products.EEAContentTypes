@@ -3,6 +3,8 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: Fix document_view to work also with Dexterity content-types
+  [voineali refs #26848]
 * Bug fix: assign absurl within related.py in order to avoid a referenced before
   assignment error
   [ichimdav refs #26197]
@@ -24,7 +26,7 @@ Changelog
 * Cleanup: removed visibilityLevel from Highlight as the feature was deprecated
   for a long time already, being hidden from the user
   [ichimdav refs #25986]
-* Cleanup: removed the portlet_email_queue.pt, as we don't use Munin and 
+* Cleanup: removed the portlet_email_queue.pt, as we don't use Munin and
   Newsletter tool anymore
   [ghicaale refs #24861]
 
