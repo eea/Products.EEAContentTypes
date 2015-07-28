@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.6.dev0 - (unreleased)
-------------------------
+10.6 - (2015-07-28)
+-------------------
 * Bug fix: Fix document_view to work also with Dexterity content-types
   [voineali refs #26848]
 * Bug fix: assign absurl within related.py in order to avoid a referenced before
