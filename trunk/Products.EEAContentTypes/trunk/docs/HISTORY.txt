@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.7.dev0 - (unreleased)
+------------------------
+
 10.6 - (2015-07-28)
 -------------------
 * Bug fix: Fix document_view to work also with Dexterity content-types
