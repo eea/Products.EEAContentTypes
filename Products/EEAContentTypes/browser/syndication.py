@@ -5,7 +5,7 @@ import time
 from zope.component import queryMultiAdapter
 from Products.CMFPlone.browser.syndication.views import FeedView
 
-from email.Utils import formatdate
+from rfc822 import formatdate
 
 
 class SKOS(object):
