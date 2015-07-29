@@ -133,6 +133,11 @@
         allowed_interface=".interfaces.ICFTRegistration"
         />
     <!-- RSS2 alias for portal_syndication in Plone 4.3 -->
+
+    <class class="Products.ATContentTypes.content.folder.ATBTreeFolder">
+        <implements interface="Products.CMFPlone.interfaces.syndication.ISyndicatable" />
+    </class>
+
     <browser:page
       for="Products.CMFPlone.interfaces.syndication.ISyndicatable"
       class=".syndication.EEAFeedView"
