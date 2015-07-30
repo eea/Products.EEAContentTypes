@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.7.dev0 - (unreleased)
-------------------------
+10.7 - (2015-07-30)
+-------------------
 * Bug fix: Fix datetime converting from rfc2822 to rfc822 for RSS2
   Bug fix: add ISyndicatable to ATBTreeFolder objects
   [lucas refs #27528]
