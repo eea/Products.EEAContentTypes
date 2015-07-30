@@ -1,0 +1,105 @@
+<tal:block tal:define="foo python:request.set('disable_plone.leftcolumn', 1); 
+                       bar python:request.set('disable_plone.rightcolumn', 1);"/> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/main_template/macros/master"
+    i18n:domain="eea.notranslation">
+ <head tal:define="portal python:here.portal_url.getPortalObject();">
+
+      <title tal:content="template/title">The title</title>
+      <metal:js fill-slot="javascript_head_slot">
+        <script type="text/javascript" src=""
+                tal:attributes="src string:${portal_url}/resize.js"></script>
+       </metal:js>
+
+<metal:css fill-slot="css_slot">
+<style type="text/css">
+div.archived
+  {
+  #width:400px;
+  #height:180px;
+  margin-bottom:1em;
+  background-color:#ffffff;
+  border:1px solid black;
+  /* for IE */
+  filter:alpha(opacity=60);
+  /* CSS3 standard */
+  opacity:0.6;
+  #position:relative;
+  #top:-200px;
+  }
+div.archived p
+  {
+  margin:30px 40px;
+  font-weight:bold;
+  font-size: 150%;
+  color:#000000;
+  }
+</style>
+</metal:css>
+
+  </head>
+  <body>
+
+    <metal:fill fill-slot="content-core">
+             <div class="archived" tal:condition="python:getattr(context, 'archivedcontent', None)">
+              <p i18n:translate="">Note: this webpage has been archived.</p>
+             </div>
+
+            <metal:main define-macro="main">
+             
+              <tal:gis define="uid here/getArcGisUID|nothing;
+                               arcgis_url here/arcgis_url|nothing;
+                               gis_url python:arcgis_url+'&embed=true' if 'appid' in arcgis_url
+                                              else 'http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid)">
+                 <tal:block condition="python:uid or arcgis_url">
+                 <iframe  width="1000" height="600"
+                      frameborder="0" scrolling="no"
+                      marginheight="0" marginwidth="0"
+                      tal:attributes="src gis_url"
+                      src="">
+                 </iframe>
+                 <br />
+                 <tal:comment replace="nothing">
+                     gis_url[:-11] string is cut in order to remove
+                     embed=true when viewing fullscreen map
+                 </tal:comment>
+                 <p><a class="standardButton" href=""
+                       tal:attributes="href python:gis_url[:-11]"
+                       target="_blank"
+                       i18n:translate="">Full screen mode</a></p>
+                 </tal:block>
+
+             <tal:block condition="not:arcgis_url">
+               <div id="" class="flashmovie"
+                tal:attributes="id string:container-${here/getId};"
+                i18n:translate=""> 
+                    This page requires Flashplayer, please download it for free from 
+                    <a href="http://www.macromedia.com/go/getflashplayer" 
+                       title="get flashplayer"
+                       i18n:attributes="title"
+                       i18n:name="flashplayer-link"
+                       tal:content="string:http://www.macromedia.com/go/getflashplayer"></a> </div>
+
+               <tal:flashjs replace="structure here/flash_js" />
+               <h2 i18n:translate="">Full screen</h2>
+               <p i18n:translate="">
+                   If the map application above does not provide an integrated full screen feature (usually in the upper right corner), 
+                   then you can try with the following
+                   <tal:block i18n:name="full-screen-mode"> 
+                       <a href="#" tal:attributes="href here/gis_view_remote_url" 
+                          title="full screen mode"
+                          i18n:attributes="title"
+                          i18n:translate="">full screen mode</a>
+                   </tal:block>
+               </p> 
+              </tal:block>  
+                 
+              </tal:gis>
+            </metal:main>
+    </metal:fill>
+
+    <metal:columntwo fill-slot="column_two_slot" />
+
+  </body>
+</html>
