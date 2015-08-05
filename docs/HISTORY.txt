@@ -3,6 +3,9 @@ Changelog
 
 10.8.dev0 - (unreleased)
 ------------------------
+* Change: cleaned organisation template of inline styles, they were already
+  in organisations.css found within eea.design
+  [ichimdav refs #27840]
 
 10.7 - (2015-07-30)
 -------------------
