@@ -3,6 +3,10 @@ Changelog
 
 10.8.dev0 - (unreleased)
 ------------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types
+  add a relation from External Data to Data Visualization
+  [lucas refs #27622]
 * Change: cleaned organisation template of inline styles, they were already
   in organisations.css found within eea.design
   [ichimdav refs #27840]
