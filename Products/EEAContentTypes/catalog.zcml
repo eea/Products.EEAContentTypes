@@ -8,5 +8,6 @@
     <adapter factory=".catalog.GetTemporalCoverageForIEEAContent" name="getTemporalCoverage" />
     <adapter factory=".catalog.GetTemporalCoverageForIEEAPossibleContent" name="getTemporalCoverage" />
     <adapter factory=".catalog.GetTemporalCoverageForIATEvent" name="getTemporalCoverage" />
+    <adapter factory=".catalog.getDataOwnerForDaviz" name="getDataOwner" />
 
 </configure>

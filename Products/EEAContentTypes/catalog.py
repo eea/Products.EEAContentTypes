@@ -7,6 +7,7 @@ from plone.indexer.decorator import indexer
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from .interfaces import ITemporalCoverageAdapter
 from Products.EEAContentTypes.interfaces import IEEAContent
+from eea.daviz.content.interfaces import IDavizVisualization
 
 
 @indexer(IBaseContent)
@@ -63,3 +64,23 @@ def GetTemporalCoverageForIATEvent(obj):
     if "portal_factory" in obj.absolute_url():
         raise AttributeError
     return ITemporalCoverageAdapter(obj).value()
+
+
+@indexer(IDavizVisualization)
+def getDataOwnerForDaviz(obj):
+    """ indexer for dataOwner get info from provenances field
+    """
+    data_owners = []
+
+    try:
+        field = obj.getField('provenances')
+        provenances = field.getAccessor(obj)()
+        for provenance in provenances:
+            owner = provenance.get('owner', '')
+            if owner not in data_owners:
+                data_owners.append(owner)
+
+        return data_owners
+    except (TypeError, ValueError):
+        # The catalog expects AttributeErrors when a value can't be found
+        raise AttributeError

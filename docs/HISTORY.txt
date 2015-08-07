@@ -6,6 +6,8 @@ Changelog
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Content Types
   add a relation from External Data to Data Visualization
+* Add indexer method 'getDataOwner' for IDavizVisualization;
+  Bulk reindex is needed for DavizVisualization content type on getDataOwner index
   [lucas refs #27622]
 * Change: cleaned organisation template of inline styles, they were already
   in organisations.css found within eea.design
