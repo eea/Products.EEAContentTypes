@@ -44,6 +44,7 @@ setup(name=NAME,
           'eea.promotion',
           'eea.vocab',
           'eea.depiction',
+          'eea.daviz',
           'Products.EEAPloneAdmin',
           'Products.NavigationManager',
 
