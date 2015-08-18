@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.8.dev0 - (unreleased)
-------------------------
+10.8 - (2015-08-18)
+-------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Content Types
   add a relation from External Data to Data Visualization
