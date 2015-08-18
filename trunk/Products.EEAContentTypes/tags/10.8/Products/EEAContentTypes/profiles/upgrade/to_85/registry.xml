@@ -1,0 +1,14 @@
+<registry>
+  <record field="contentTypeRulesetMapping" interface="plone.app.caching.interfaces.IPloneCacheSettings" name="plone.app.caching.interfaces.IPloneCacheSettings.contentTypeRulesetMapping">
+    <value purge="false">
+      <element key="NegotiatedProcedure">plone.content.itemView</element>
+      <element key="CallForProposal">plone.content.itemView</element>
+    </value>
+  </record>
+  <record field="purgedContentTypes" interface="plone.app.caching.interfaces.IPloneCacheSettings" name="plone.app.caching.interfaces.IPloneCacheSettings.purgedContentTypes">
+    <value purge="false">
+      <element>NegotiatedProcedure</element>
+      <element>CallForProposal</element>
+    </value>
+  </record>
+</registry>

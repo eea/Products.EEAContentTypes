@@ -1,0 +1,221 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
+           i18n_domain="eea">
+
+    <adapter name="eea.temporalcoveragefield"
+             for="Products.EEAContentTypes.interfaces.IEEAContent"
+             factory=".subtypes.TemporalCoverageSchemaExtender"/>
+
+    <adapter name="eea.possibletemporalcoveragefield"
+             for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+             factory=".subtypes.TemporalCoverageSchemaExtender"/>
+
+
+    <!-- #16719 Add IEEAPossibleContent interface for default contenttypes that
+         our products only inherits from.
+         At the time of this ticket they are the following:
+            EEAVacancy
+            EcoTip
+            EPubFile
+            EyewitnessStory
+            DataFileLink
+            SOER Key Fact
+            SOER Message
+            GIS Application
+         -->
+    <class class="Products.ATContentTypes.content.folder.ATFolder">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+    <class class="Products.ATContentTypes.content.document.ATDocument">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+    <class class="Products.ATContentTypes.content.link.ATLink">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAPossibleContent" />
+    </class>
+
+
+    <!-- #16719 Implement a specific interface for all of our Content types -->
+
+    <!-- Animation -->
+    <class class="Products.EEAContentTypes.content.FlashFile.FlashFile">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Article -->
+    <class class="Products.EEAContentTypes.content.Article.Article">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CallForInterest -->
+    <class class="Products.EEAContentTypes.content.CallForInterest.CallForInterest">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- NegotiatedProcedure -->
+    <class class="Products.EEAContentTypes.content.NegotiatedProcedure.NegotiatedProcedure">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CallForProposal -->
+    <class class="Products.EEAContentTypes.content.CallForProposal.CallForProposal">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CallForTender -->
+    <class class="Products.EEAContentTypes.content.CallForTender.CallForTender">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CloudVideo -->
+    <class class="Products.EEAContentTypes.content.CloudVideo.CloudVideo">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- CommonalityReport -->
+    <class class="eea.soer.content.CommonalityReport.CommonalityReport">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- DiversityReport -->
+    <class class="eea.soer.content.DiversityReport.DiversityReport">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Data -->
+    <class class="eea.dataservice.content.Data.Data">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- DataFile -->
+    <class class="eea.dataservice.content.DataFile.DataFile">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- DataTable -->
+    <class class="eea.dataservice.content.DataTable.DataTable">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- DavizVisualization -->
+    <class class="eea.daviz.content.visualization.DavizVisualization" zcml:condition="installed eea.daviz">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- EEAFigure -->
+    <class class="eea.dataservice.content.EEAFigure.EEAFigure">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- EEAFigureFile -->
+    <class class="eea.dataservice.content.EEAFigureFile.EEAFigureFile">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- EnquiryFolder -->
+    <class class="Products.EEAEnquiry.content.EnquiryFolder.EnquiryFolder"
+            zcml:condition="installed Products.EEAEnquiry">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- ExternalDataSpec -->
+    <class class="eea.indicators.content.ExternalDataSpec.ExternalDataSpec">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- Fiche -->
+    <class class="eea.soercontent.content.fiche.Fiche"
+            zcml:condition="installed eea.soercontent">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Gis Application -->
+    <class class="Products.EEAContentTypes.content.GISApplication.GISMapApplication">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Highlight -->
+    <class class="Products.EEAContentTypes.content.Highlight.Highlight">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Indicator Specification -->
+    <class class="eea.indicators.content.Specification.Specification">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Infographic -->
+    <class class="Products.EEAContentTypes.content.infographic.Infographic">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- FlexibilityReport -->
+    <class class="eea.soer.content.FlexibilityReport.FlexibilityReport">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Organisation -->
+    <class class="eea.dataservice.content.Organisation.Organisation">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!--Policy Document -->
+    <class class="eea.indicators.content.PolicyDocumentReference.PolicyDocumentReference">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- PressRelease -->
+    <class class="Products.EEAContentTypes.content.PressRelease.PressRelease">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Promotion -->
+    <class class="Products.EEAContentTypes.content.Promotion.Promotion">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+    <!-- SOER Country -->
+    <class class="eea.soer.content.SOERCountry.SOERCountry">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- SOER Report -->
+    <class class="eea.soer.content.SOERReport.SOERReport">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+
+    <!-- Sparql -->
+    <class class="eea.sparql.content.sparql.Sparql"
+           zcml:condition="installed eea.sparql">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- SparqlBookmarksFolder -->
+    <class class="eea.sparql.content.sparql.SparqlBookmarksFolder"
+           zcml:condition="installed eea.sparql">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- Speech -->
+    <class class="Products.EEAContentTypes.content.Speech.Speech">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+    <!-- SOER2015 contenttypes -->
+    <class class="eea.soercontent.content.schema.SoerContent" zcml:condition="installed eea.soercontent">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
+
+
+
+</configure>

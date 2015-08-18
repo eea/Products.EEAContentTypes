@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+   
+<body>
+
+<div metal:fill-slot="main">
+    <metal:header define-macro="header"
+                  tal:define="currentStep python:2">
+         <metal:stepWizard use-macro="here/quickevent_macros/macros/steps" />
+    </metal:header>
+
+   <metal:body define-macro="body" 
+               tal:define="view here/@@quickEventStep2;
+	                   foo view/step2;">
+
+<tal:step2 condition="not: view/canView" >
+<form tal:attributes="action python:context.absolute_url() + '/' + template_id"
+      method="post"
+      id="enquiry_login_form">
+
+    <fieldset>
+        <legend i18n:translate="">Confirm your event</legend>
+        
+       <metal:eventview use-macro="here/event_view/macros/content-core" />
+      <div class="formControls">
+
+            <input class="context"
+                   type="submit"
+                   name="correct"
+                   value="Go back and correct"
+                   i18n:attributes="value"
+                   />
+
+            <input class="context"
+                   type="submit"
+                   name="confirm"
+                   value="Confirm and send"
+                   i18n:attributes="value"
+                   />
+
+        </div>
+
+    </fieldset>
+</form>
+</tal:step2>
+      <tal:published condition="view/canView">
+         <metal:eventview use-macro="here/event_view/macros/content-core" />
+      </tal:published>
+    </metal:body>
+
+    <metal:footer define-macro="footer">                                        
+        <metal:footer use-macro="here/quickevent_macros/macros/footer" />
+    </metal:footer>                                                             
+
+<metal:footer define-macro="folderlisting"></metal:footer>
+</div>
+
+
+</body>
+</html>
+
