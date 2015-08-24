@@ -374,6 +374,5 @@ class WorkflowConfirmation(WorkflowEmails):
     """ This will send a workflow confirmation email to all roles"""
 
     def __init__(self, context):
-        import pdb; pdb.set_trace()
         WorkflowEmails.__init__(self, context)
         self._getEmails('')
