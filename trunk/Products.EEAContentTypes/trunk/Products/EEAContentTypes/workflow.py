@@ -7,6 +7,7 @@ from zope.interface import implements, Interface
 from Products.EEAContentTypes.interfaces import ILocalRoleEmails
 from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
 from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
+from eea.cache import cache
 
 
 class TransitionLogicalGuard(object):
@@ -170,7 +171,8 @@ class LocalRoleEmails(object):
                             roleEmails = self.emails.get(role, [])
                             if email not in roleEmails:
                                 roleEmails.append(email)
-                            self.emails[role] = roleEmails
+                            if not self.emails.get(role):
+                                self.emails[role] = roleEmails
             else:
                 grp = gtool.getGroupById(uid)
                 members = grp.getGroupMembers()
@@ -180,7 +182,8 @@ class LocalRoleEmails(object):
                         email = m.getProperty('email')
                         if email not in roleEmails:
                             roleEmails.append(email)
-                    self.emails[role] = roleEmails
+                        if not self.emails.get(role):
+                            self.emails[role] = roleEmails
 
     def getInheritedLocalRoles(self, here):
         """Returns a tuple with the acquired local roles."""
@@ -244,6 +247,7 @@ class LocalRoleEmails(object):
         self.takenRoles = takenRoles
         return tuple(result)
 
+    @cache(lambda *args: "getGlobalRoles", lifetime=86400)
     def getGlobalRoles(self):
         """ Global roles
         """
@@ -299,7 +303,8 @@ class WorkflowEmails(object):
         for role in confirmationRoles:
             emails = local.emails.get(role, [])
             for email in emails:
-                if email not in self.action and email not in self.confirmation:
+                if email and email not in self.action and email \
+                        not in self.confirmation:
                     self.confirmation.append(email)
 
     @property

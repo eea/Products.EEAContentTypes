@@ -3,6 +3,10 @@ Changelog
 
 10.9.dev0 - (unreleased)
 ------------------------
+* Change: cached getGlobalRoles with the help of eea.cache decorator
+  This avoids making an expensive users search often which took
+  several minutes to complete and ended with an ldap warning
+  [ichimdav refs #28232]
 
 10.8 - (2015-08-18)
 -------------------
