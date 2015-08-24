@@ -253,15 +253,8 @@ class LocalRoleEmails(object):
         """
         context = self.context
         groups_tool = getToolByName(context, 'portal_groups')
-        members_tool = getToolByName(context, 'portal_membership')
         retlist = []
         takenRoles = self.takenRoles
-        for member in members_tool.searchForMembers():
-            roles = [role for role in member.getRoles()
-                     if role not in takenRoles]
-            if roles:
-                retlist.append((member.getUserName(), roles,
-                                'user', member.getUserId()))
 
         for grpId in groups_tool.getGroupIds():
             group = groups_tool.getGroupById(grpId)
@@ -381,5 +374,6 @@ class WorkflowConfirmation(WorkflowEmails):
     """ This will send a workflow confirmation email to all roles"""
 
     def __init__(self, context):
+        import pdb; pdb.set_trace()
         WorkflowEmails.__init__(self, context)
         self._getEmails('')
