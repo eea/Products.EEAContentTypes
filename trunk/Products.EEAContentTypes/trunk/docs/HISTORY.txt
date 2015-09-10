@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.0.dev0 - (unreleased)
+------------------------
+
 10.9 - (2015-09-10)
 -------------------
 * Change: cached getGlobalRoles with the help of eea.cache decorator
