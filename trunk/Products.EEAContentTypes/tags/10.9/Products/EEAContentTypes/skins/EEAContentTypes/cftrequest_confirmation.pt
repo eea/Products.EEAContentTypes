@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+   
+<body>
+
+<div metal:fill-slot="main">
+   <h1 i18n:translate="">Thank you for your request</h1>
+
+   <p i18n:translate="">You should shortly receive an email with further information.</p>
+</div>
+
+</body>
+</html>
+

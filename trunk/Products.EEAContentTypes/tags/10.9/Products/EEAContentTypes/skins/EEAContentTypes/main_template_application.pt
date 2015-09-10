@@ -1,0 +1,26 @@
+<metal:page define-macro="master">
+  <metal:realmain use-macro="container/www.eea.eu.int/main_template/macros/master">
+    <metal:customheader fill-slot="header"
+      tal:define="application python:test(here.is_folderish(), here, here.getParentNode())">
+      <metal:header metal:define-slot="header" tal:content="nothing">
+     
+      </metal:header>
+      <ul tal:repeat="item application/getFolderContents">
+        <li><a href="" title=""
+          tal:attributes="href item/getURL;
+          title item/Title;"
+          tal:content="item/Title">Länk</a>
+        </li>
+      </ul>
+    </metal:customheader>
+           
+    <metal:bodytext fill-slot="main">
+      <metal:slot metal:define-slot="main" tal:content="nothing">
+        
+      </metal:slot>       
+    </metal:bodytext>
+    <metal:columnone fill-slot="column_one_slot" />
+    <metal:columnone fill-slot="column_two_slot" />
+    
+  </metal:realmain>
+</metal:page>

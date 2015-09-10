@@ -1,0 +1,41 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+    <include package="plone.contentrules" file="meta.zcml" />
+    <include package="plone.app.contentrules" />
+
+
+    <!-- The Enable/Disable Discussion action -->
+
+    <adapter factory=".actions.EnableDisableDiscussionActionExecutor" />
+
+    <browser:page
+        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+        name="Products.EEAContentTypes.actions.EnableDisableDiscussion"
+        class=".actions.EnableDisableDiscussionAddForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <browser:page
+        for=".actions.IEnableDisableDiscussionAction"
+        name="edit"
+        class=".actions.EnableDisableDiscussionEditForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleAction
+        name="Products.EEAContentTypes.actions.enable_disable_discussion"
+        title="Enable/disable discussions"
+        description="Enable and disable discussions"
+        for="*"
+        event="*"
+        addview="Products.EEAContentTypes.actions.EnableDisableDiscussion"
+        editview="edit"
+        schema=".actions.IEnableDisableDiscussionAction"
+        factory=".actions.EnableDisableDiscussionAction"
+        />
+
+
+</configure>
