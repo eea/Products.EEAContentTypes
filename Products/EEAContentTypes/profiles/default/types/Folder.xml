@@ -12,7 +12,6 @@
  <property name="global_allow">True</property>
  <property name="filter_content_types">False</property>
  <property name="allowed_content_types">
-  <element value="HelpCenterFAQFolder"/>
   <element value="Highlight"/>
   <element value="Promotion"/>
   <element value="QuickEvent"/>
