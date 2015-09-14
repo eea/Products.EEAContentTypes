@@ -67,7 +67,7 @@ class EEAFeedView(FeedView):
             # images, highlights, press releases etc have an 'image'
             # field - if so then we show a resized version of the image
             image = img.display('mini')
-            if not isinstance(image, 'str'):
+            if not isinstance(image, str):
                 result = '<p><img src="%s" /></p><p>%s</p>' % \
                          (img('mini').absolute_url(),
                           item.context.Description())
