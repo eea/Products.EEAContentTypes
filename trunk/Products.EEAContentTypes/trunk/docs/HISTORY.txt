@@ -3,6 +3,8 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
+* Cleanup: Removed HelpCenter references
+  [voineali refs #27692]
 
 10.9 - (2015-09-10)
 -------------------
