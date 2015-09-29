@@ -62,6 +62,7 @@ setup(name=NAME,
           'eea.indicators',
           'eea.soer',
           'valentine.linguaflow',
+          'eventlet',
 
           #obsolete
           #'Products.CMFSquidTool',

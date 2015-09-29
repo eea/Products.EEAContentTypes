@@ -3,6 +3,9 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
+* Bug fix: use evnetlet to prevent hanging out connection
+  [lucas refs #29063]
+
 * Cleanup: Removed HelpCenter references
   [voineali refs #27692]
 
