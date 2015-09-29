@@ -3,7 +3,7 @@
 import logging
 import sys
 import tempfile
-from eventlet import urllib2
+from eventlet.green import urllib2
 
 from App.Common import package_home
 from DateTime import DateTime
