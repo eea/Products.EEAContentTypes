@@ -30,7 +30,9 @@ class GeographicalCoverageViewlet(common.ViewletBase):
         plone = getMultiAdapter((self.context, self.request),
                                 name=u'plone_context_state')
         return plone.is_view_template() and \
-               _available(self, excluded_geographical_coverage_content_types)
+               _available(self,
+                          excluded_geographical_coverage_content_types) and \
+                getattr(self.context, 'location', False)
 
 
 class TemporalCoverageViewlet(common.ViewletBase):
