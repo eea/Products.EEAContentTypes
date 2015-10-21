@@ -3,6 +3,9 @@ Changelog
 
 11.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: display Geographic coverage only if there are locations set on
+  context
+  [ichimdav refs #29151]
 
 11.0 - (2015-10-05)
 -------------------
