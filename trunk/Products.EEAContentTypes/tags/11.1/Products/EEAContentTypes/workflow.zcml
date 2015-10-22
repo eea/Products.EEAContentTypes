@@ -1,0 +1,55 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="eea">
+
+    <adapter factory=".workflow.LocalRoleEmails" />
+    <adapter factory=".workflow.WorkflowActionEditor"
+        name="content_pending" />
+    <adapter factory=".workflow.WorkflowActionProofReader"
+        name="proof_reading" />
+    <adapter factory=".workflow.WorkflowActionWebReviewer"
+        name="webqa_pending" />
+    <adapter factory=".workflow.WorkflowActionEditor"
+        name="new" />
+    <adapter factory=".workflow.WorkflowActionContentManager"
+        name="draft" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+        name="published" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+        name="visible" />
+    <adapter factory=".workflow.WorkflowConfirmation"
+        name="published_eionet" />
+
+    <browser:view
+        for="*"
+        class=".workflow.SubmitForWebQAGuard"
+        name="transitionSubmit"
+        permission="zope2.Public" />
+
+    <browser:view
+        for="*"
+        class=".workflow.SubmitForMultimediaEdit"
+        name="transitionSubmitMultimediaEdit"
+        permission="zope2.Public" />
+
+    <browser:view
+        for="*"
+        class=".workflow.SubmitForContentReview"
+        name="transitionSubmitContentReview"
+        permission="zope2.Public" />
+
+    <browser:view
+        for="*"
+        class=".workflow.SubmitForProofReading"
+        name="transitionSubmitProofReading"
+        permission="zope2.Public" />
+
+    <browser:view
+        for="*"
+        class=".workflow.QuickPublish"
+        name="transitionQuickPublish"
+        permission="zope2.Public" />
+
+</configure>
+
