@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.2.dev0 - (unreleased)
+------------------------
+
 11.1 - (2015-10-22)
 -------------------
 * Bug fix: display Geographic coverage only if there are locations set on
