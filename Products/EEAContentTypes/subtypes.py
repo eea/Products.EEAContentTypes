@@ -219,6 +219,8 @@ class LocationSchemaExtender(object):
             # remove location schema extender for Data, see #9423
             # remove also for Assessment see 22232
             return ()
+        elif getattr(self.context, 'portal_type', None) == 'DavizVisualization':
+            self.multiple_location[0].required_for_published=True
         else:
             self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geographic coverage"
@@ -297,7 +299,8 @@ class TemporalCoverageSchemaExtender(object):
         portal_type = getattr(self.context, 'portal_type', False)
         excluded_types = excluded_temporal_coverage_schemaextender_tuple() or \
                          []
-
+        if portal_type in ['DavizVisualization']:
+            self.fields[0].required_for_published=True
         if portal_type in excluded_types:
             # No schema extender for these content types as they already have
             # the temporalCoverage field though normal schema
