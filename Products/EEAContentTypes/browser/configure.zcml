@@ -374,5 +374,12 @@
         name="unicode_test_in"
         permission="zope.Public"
     />
+    
+    <browser:page
+        for="*"
+        class=".migrate.MigrateDataProvenances"
+        name="migrate_relateddataprovenances"
+        permission="cmf.ModifyPortalContent"
+    />
 
 </configure>
