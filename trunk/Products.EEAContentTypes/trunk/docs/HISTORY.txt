@@ -3,6 +3,8 @@ Changelog
 
 11.2.dev0 - (unreleased)
 ------------------------
+* Feature: add script to migrate related dataprovenances
+  [lucas refs #30065]
 * Feature: temporalCoverage and location is now required_for_published by Daviz
   [ichimdav refs #30066]
 
