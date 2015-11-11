@@ -3,6 +3,8 @@ Changelog
 
 11.2.dev0 - (unreleased)
 ------------------------
+* Feature: temporalCoverage and location is now required_for_published by Daviz
+  [ichimdav refs #30066]
 
 11.1 - (2015-10-22)
 -------------------
