@@ -3,8 +3,9 @@ Changelog
 
 11.2.dev0 - (unreleased)
 ------------------------
-* Upgrade step: added script to migrate related dataprovenances
-  manual upgrade step: the migration script named "migrate_relateddataprovenances" can be loaded from plonesite
+* Feature: added script to migrate related dataprovenances
+  [lucas refs #30065]
+* Upgrade step: the following method should be run "/www/@@migrate_relateddataprovenances"
   [lucas refs #30065]
 * Feature: temporalCoverage and location is now required_for_published by Daviz
   [ichimdav refs #30066]
