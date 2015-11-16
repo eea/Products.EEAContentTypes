@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.2.dev0 - (unreleased)
-------------------------
+11.2 - (2015-11-16)
+-------------------
 * Feature: added script to migrate related dataprovenances
   [lucas refs #30065]
 * Upgrade step: the following method should be run "/www/@@migrate_relateddataprovenances"
