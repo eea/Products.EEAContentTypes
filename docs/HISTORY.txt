@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.3.dev0 - (unreleased)
+------------------------
+
 11.2 - (2015-11-16)
 -------------------
 * Feature: added script to migrate related dataprovenances
