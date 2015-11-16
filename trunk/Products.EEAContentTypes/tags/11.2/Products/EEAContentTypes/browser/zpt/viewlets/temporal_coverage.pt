@@ -1,0 +1,8 @@
+<!-- Temporal coverage -->
+<tal:block metal:define-macro="temp-coverage"
+        tal:condition="view/available">
+
+
+    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage">Temporal Coverage widget view</tal:temporalCoverage>
+
+</tal:block>
