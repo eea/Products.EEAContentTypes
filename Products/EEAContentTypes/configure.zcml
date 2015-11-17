@@ -9,6 +9,7 @@
     <include file="patches.zcml" />
 
     <include package=".contentrules" />
+    <include package=".actions" />
     <include package=".adapters" />
     <include package=".browser" />
     <include package=".content" />

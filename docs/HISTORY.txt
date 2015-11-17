@@ -3,6 +3,9 @@ Changelog
 
 11.3.dev0 - (unreleased)
 ------------------------
+* Feature: added content rule and action to purge the Varnish cache of
+  translations and canonical, when published
+  [danielm refs #30506]
 
 11.2 - (2015-11-16)
 -------------------

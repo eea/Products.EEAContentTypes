@@ -116,4 +116,19 @@
    </action>
   </actions>
  </rule>
+ <rule name="rule-purge-varnish-cache" title="Purge Varnish cache of translations" cascading="False"
+    description="On publish, all translations and canonical will be purged from Varnish."
+    enabled="True" event="Products.CMFCore.interfaces.IActionSucceededEvent" stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>published</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.purge_varnish_cache"/>
+  </actions>
+ </rule>
+ <assignment name="rule-purge-varnish-cache" bubbles="True" enabled="True" location=""/>
 </contentrules>
