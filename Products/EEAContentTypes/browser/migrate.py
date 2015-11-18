@@ -3,6 +3,8 @@
 import logging
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
+from plone.protect.interfaces import IDisableCSRFProtection
+from zope.interface import alsoProvides
 
 logger = logging.getLogger('Products.EEAContentTypes.browser.migrate')
 
@@ -10,6 +12,11 @@ logger = logging.getLogger('Products.EEAContentTypes.browser.migrate')
 class MigrateDataProvenances(BrowserView):
     """migrate ds_resolveuid into reference items
     """
+    
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        alsoProvides(self.request, IDisableCSRFProtection)
 
     def __call__(self):
         """ call

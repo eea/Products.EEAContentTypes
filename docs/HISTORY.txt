@@ -6,6 +6,8 @@ Changelog
 * Feature: added content rule and action to purge the Varnish cache of
   translations and canonical, when published
   [danielm refs #30506]
+* Bug fix: added csrf protection to migrate related dataprovenances script
+  [lucas refs #30065]
 
 11.2 - (2015-11-16)
 -------------------
