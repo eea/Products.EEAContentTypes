@@ -61,7 +61,7 @@ class IRelations(Interface):
         """
 
     def references(self):
-        """" Gets both forward and backward references. """
+        """ Gets both forward and backward references. """
 
 
 class IRequiredFields(Interface):

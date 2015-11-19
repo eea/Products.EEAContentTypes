@@ -3,6 +3,8 @@ Changelog
 
 11.3.dev0 - (unreleased)
 ------------------------
+* Change: Removed csrf workaround in migrate script
+  [szabozo0 refs #30858]
 * Feature: added content rule and action to purge the Varnish cache of
   translations and canonical, when published
   [danielm refs #30506]
