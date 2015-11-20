@@ -190,6 +190,11 @@ class LocationSchemaExtender(object):
         """ Fields
         """
 
+        request = getattr(self.context, 'REQUEST', None)
+        if request:
+            if self.context.absolute_url() != request.URL0:
+                return self.multiple_location
+
         # quickevents has all information on the default editing form
         if getattr(self.context, 'portal_type', None) == 'QuickEvent':
             self.multiple_location[0].schemata = 'default'
@@ -296,9 +301,14 @@ class TemporalCoverageSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
+
+        request = getattr(self.context, 'REQUEST', None)
+        if request:
+            if self.context.absolute_url() != request.URL0:
+                return self.fields
         portal_type = getattr(self.context, 'portal_type', False)
         excluded_types = excluded_temporal_coverage_schemaextender_tuple() or \
-                         []
+            []
         if portal_type in ['DavizVisualization']:
             self.fields[0].required_for_published = True
         if portal_type in excluded_types:
