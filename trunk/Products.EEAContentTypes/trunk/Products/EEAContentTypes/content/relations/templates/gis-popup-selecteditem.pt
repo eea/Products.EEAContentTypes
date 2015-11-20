@@ -1,0 +1,95 @@
+<div class="tileItem visualIEFloatFix vevent" tal:define="
+  item python:view.context;
+  item_title_or_id item/pretty_title_or_id;
+  item_absolute_url item/absolute_url;
+  breadcrumbs item/@@breadcrumbs_view;
+  breadcrumbs python:breadcrumbs.breadcrumbs();
+  wftool python:view.context.portal_workflow;
+  state python:wftool.getInfoFor(item, 'review_state', 'visible');
+  ">
+  <input type="checkbox" checked="checked" style="display: none"
+    tal:condition="python:view.mode == 'edit'"
+    tal:attributes="
+    name python:view.field + '-input';
+    value python:item.UID()" />
+  <a class="tileImage" target="_blank"
+    tal:define="display item/@@imgview/display|nothing;"
+    tal:condition="display"
+    tal:attributes="href item_absolute_url;
+    title item_title_or_id;
+    alt item_title_or_id;
+    class string:tileImage">
+    <img tal:attributes="src string:${item_absolute_url}/image_thumb;
+      title item_title_or_id;
+      alt item_title_or_id" />
+  </a>
+
+  <div class="tileHeadline"
+    metal:define-macro="listitem">
+
+    <a target="_blank"
+      tal:attributes="class string:state-$state; href item_absolute_url; "
+      tal:content="item_title_or_id"
+      >
+      Item Title
+    </a>
+  </div>
+  <div class="tileBreadcrumbs">
+    <tal:rep repeat="b breadcrumbs">
+      <tal:cont content="b/Title" />
+      <tal:cond condition="not: repeat/b/end">
+        &raquo;
+      </tal:cond>
+    </tal:rep>
+  </div>
+
+  <tal:cond tal:condition="python:view.mode=='view'">
+    <style>
+      .embed-title {
+          padding:2px;
+          display:block;
+          float:none;
+          margin-right:2px;
+          text-transform: capitalize;
+      }
+    </style>
+    <div class="gismap_embed_container"
+      tal:define="objcontext python:view.kwargs['context'];
+                  gismap_uid item/UID;
+                  get_gismap_embed nocall:objcontext/@@get_gismap_embed;
+                  embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
+      <div class="embed-titles" style="overflow:hidden">
+        <div style="width:400px">
+          <strong class="label">Embed type:</strong>
+          <input type="button" class="popup_btn" value="Please wait..." style="float:right"/>
+        </div>
+        <div class="embed-type">
+          <span class="embed-title" tal:condition="embed_type"><tal:block tal:replace="embed_type" /></span>
+          <span class="embed-title" tal:condition="python:embed_type is None" style="color:red">No embed selected!</span>
+        </div>
+      </div>
+      <span class="metadata" style="display:none">
+        <span class="metadata-gismap-uid" tal:content="gismap_uid" />
+        <span class="metadata-url" tal:content="string:${objcontext/absolute_url}/@@set_gismap_embed" />
+        <span class="metadata-embed-type" tal:content="embed_type" />
+      </span>
+    </div>
+    <script type="text/javascript">
+    <!--
+      $('.gismap_embed_container .popup_btn').each(function(){
+        var btn = $(this);
+        if (btn.hasClass('initialized')) { return null; };
+        btn.addClass('initialized');
+        btn.val("Choose embed");
+        btn.click(function(evt){
+          new GISMapEmbedSelection(this);
+          evt.stopPropagation();
+          return false;
+        });
+      });
+    // -->
+    </script>
+  </tal:cond>
+
+  <div class="visualClear"></div>
+</div>
