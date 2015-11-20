@@ -1,5 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <genericsetup:registerProfile
@@ -114,5 +115,15 @@
             directory="profiles/upgrade/to_108"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
+
+    <configure zcml:condition="installed eea.relations">
+      <genericsetup:registerProfile
+          name="relations"
+          title="EEA Content Types:eea.relations integration"
+          directory="profiles/relations"
+          description="Extension profile for EEA Content Types - eea.relations integration."
+          provides="Products.GenericSetup.interfaces.EXTENSION"
+          />
+    </configure>
 
 </configure>

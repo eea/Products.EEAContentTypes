@@ -2,6 +2,20 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+  <!-- 10.9 => 11.3 -->
+  <genericsetup:upgradeSteps
+    source="10.9"
+    destination="11.3"
+    profile="Products.EEAContentTypes:default">
+
+    <genericsetup:upgradeDepends
+      title="Import changes: javascript"
+      import_profile="Products.EEAContentTypes:relations"
+      import_steps="jsregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 10.8 => 10.9 -->
   <genericsetup:upgradeSteps
     source="10.8"

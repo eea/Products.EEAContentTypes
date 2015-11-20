@@ -11,9 +11,11 @@ from Products.Archetypes.atapi import ImageWidget
 from Products.Archetypes.atapi import Schema, registerType
 from Products.validation import V_REQUIRED
 from zope.interface import implements
+from zope.event import notify
 
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
+from Products.EEAContentTypes.events import GISMapApplicationWillBeRemovedEvent
 
 schema = Schema((
     StringField(name="arcgis_url",
@@ -84,6 +86,7 @@ class GISMapApplication(ATLink):
     allow_discussion = 0
     immediate_view = 'gis_view'
     default_view = 'gis_view'
+    suppl_views = ('gis_inline',)
     typeDescription = "GIS Map Application"
     typeDescMsgId = 'description_edit_gismapapplication'
 
@@ -104,5 +107,23 @@ class GISMapApplication(ATLink):
 
         return uid
 
+    def manage_beforeDelete(self, item, container):
+        """Override manage_beforeDelete to be able to catch the
+        proper backreferences. We could not use ObjectWillBeRemovedEvent
+        because there's an override in Archetypes.Referenceble
+        that will remove all relations and we need them
+        """
+
+        #only trigger event once, at the end, when dealing
+        #with plone.app.linkintegrity
+        if self.REQUEST.getURL().endswith('delete_confirmation'):
+            #delete has been confirmed
+            if self.REQUEST.form.get('_authenticator') and \
+                not self.REQUEST.form.get('form.submitted'):
+                notify(GISMapApplicationWillBeRemovedEvent(self))
+        else:
+            notify(GISMapApplicationWillBeRemovedEvent(self))
+
+        super(GISMapApplication, self).manage_beforeDelete(item, container)
 
 registerType(GISMapApplication, PROJECTNAME)

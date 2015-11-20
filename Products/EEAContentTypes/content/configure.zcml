@@ -5,6 +5,8 @@
 
   <include file="imagescales.zcml" />
 
+  <include package=".relations" zcml:condition="installed eea.relations" />
+
   <browser:page
     for=".interfaces.IExternalPromotion"
     name="frontpage_category"

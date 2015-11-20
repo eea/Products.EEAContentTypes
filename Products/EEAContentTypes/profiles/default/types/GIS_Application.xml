@@ -17,6 +17,7 @@
  <property name="view_methods">
   <element value="link_view"/>
   <element value="gis_view"/>
+  <element value="gis_inline"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>

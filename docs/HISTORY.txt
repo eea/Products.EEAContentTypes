@@ -3,6 +3,12 @@ Changelog
 
 11.3.dev0 - (unreleased)
 ------------------------
+* Feature: Allow embedding of GIS application as indicator figure
+  Upgrade step: In portal_relations add the following relation:
+  Indicator Assessment Part -> Interactive map
+  Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Content Types
+  [chiridra refs #30426]
 * Change: Removed csrf workaround in migrate script
   [szabozo0 refs #30858]
 * Feature: added content rule and action to purge the Varnish cache of
