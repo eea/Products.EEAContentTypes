@@ -51,7 +51,8 @@ class PurgeVarnishCacheActionExecutor(object):
             translations = obj.getTranslations()
             if len(translations) > 1:
                 for trans, state in translations.values():
-                    logging.info("*** PURGING CACHE: %s" % trans.absolute_url())
+                    logging.info("*** PURGING VARNISH CACHE: %s" %
+                                                trans.absolute_url())
                     notify(Purge(trans))
 
 class PurgeVarnishCacheView(BrowserView):

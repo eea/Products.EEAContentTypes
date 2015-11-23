@@ -23,7 +23,7 @@
     profile="Products.EEAContentTypes:default">
 
     <genericsetup:upgradeDepends
-      title="Import changes: content rules"
+      title="Import changes: add content rule to invalidate cache for translations"
       import_profile="Products.EEAContentTypes:default"
       import_steps="contentrules"
       />
