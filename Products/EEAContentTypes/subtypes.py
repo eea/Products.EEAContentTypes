@@ -191,24 +191,12 @@ class LocationSchemaExtender(object):
         """
 
         request = getattr(self.context, 'REQUEST', None)
-        if request:
+        if request and not isinstance(request, str):
             if self.context.absolute_url() != request.URL0:
                 return self.multiple_location
 
-        # quickevents has all information on the default editing form
-        if getattr(self.context, 'portal_type', None) == 'QuickEvent':
-            self.multiple_location[0].schemata = 'default'
-            self.multiple_location[0].widget.label = 'Event Location'
-            self.multiple_location[0].widget.label_msgid = \
-                "label_event_location"
-            self.multiple_location[0].widget.description = \
-                'Geographical location ' \
-                'related to this Event. Click Edit button' \
-                ' to select a location'
-            self.multiple_location[0].widget.description_msgid = (
-                'EEAContentTypes_help_location_event')
         # likewise Organisation had the previous location widget on default
-        elif getattr(self.context, 'portal_type', None) == 'Organisation':
+        if getattr(self.context, 'portal_type', None) == 'Organisation':
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = "Organisation Address"
             self.multiple_location[0].widget.label_msgid = \
@@ -303,7 +291,7 @@ class TemporalCoverageSchemaExtender(object):
         """
 
         request = getattr(self.context, 'REQUEST', None)
-        if request:
+        if request and not isinstance(request, str):
             if self.context.absolute_url() != request.URL0:
                 return self.fields
         portal_type = getattr(self.context, 'portal_type', False)
