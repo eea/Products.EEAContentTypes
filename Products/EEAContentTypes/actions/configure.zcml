@@ -22,8 +22,8 @@
 
     <plone:ruleAction
         name="Products.EEAContentTypes.actions.purge_varnish_cache"
-        title="Purge Varnish cache"
-        description="Purge Varnish cache of translations"
+        title="Purge Varnish cache of translations"
+        description="Purge Varnish cache of canonical and all the translations."
         for="*"
         event="*"
         addview="add_purge_varnish_cache"
