@@ -212,8 +212,6 @@ class LocationSchemaExtender(object):
             # remove location schema extender for Data, see #9423
             # remove also for Assessment see 22232
             return ()
-        elif getattr(self.context, 'portal_type', None) == 'DavizVisualization':
-            self.multiple_location[0].required_for_published = True
         else:
             self.multiple_location[0].schemata = 'categorization'
             self.multiple_location[0].widget.label = "Geographic coverage"
@@ -289,16 +287,9 @@ class TemporalCoverageSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
-
-        request = getattr(self.context, 'REQUEST', None)
-        if request and not isinstance(request, str):
-            if self.context.absolute_url() != request.URL0:
-                return self.fields
         portal_type = getattr(self.context, 'portal_type', False)
         excluded_types = excluded_temporal_coverage_schemaextender_tuple() or \
             []
-        if portal_type in ['DavizVisualization']:
-            self.fields[0].required_for_published = True
         if portal_type in excluded_types:
             # No schema extender for these content types as they already have
             # the temporalCoverage field though normal schema
@@ -355,6 +346,7 @@ class RequiredSchemaModifier(object):
     def fiddle(self, schema):
         """ Fields
         """
+
         getCanonical = getattr(self.context, 'getCanonical', None)
         if getCanonical:
             try:
@@ -379,6 +371,26 @@ class RequiredSchemaModifier(object):
                     xfield = schema[name].copy()
                     xfield.required = True
                     schema[name] = xfield
+
+
+class DavizRequirementsSchemaModifier(object):
+    """ Modify schema
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        """ Fields
+        """
+        # 30066 temporalCoverage and location are required_for_published
+        fields = ['temporalCoverage', 'location']
+        for field in fields:
+            if field in schema:
+                xfield = schema[field].copy()
+                xfield.required_for_published = True
+                schema[field] = xfield
 
 
 class KeywordsSchemaModifier(object):
