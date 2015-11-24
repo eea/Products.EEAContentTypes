@@ -4,7 +4,6 @@ import logging
 from zope.interface import implements, Interface
 from OFS.SimpleItem import SimpleItem
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
-from Products.Five.browser import BrowserView
 from zope.formlib import form
 from plone.app.contentrules.browser.formhelper import AddForm
 from zope.component import adapts
@@ -54,13 +53,6 @@ class PurgeVarnishCacheActionExecutor(object):
                     logging.info("*** PURGING VARNISH CACHE: %s" %
                                                 trans.absolute_url())
                     notify(Purge(trans))
-
-class PurgeVarnishCacheView(BrowserView):
-    """ Purge Varnish cache View
-    """
-    def __call__(self, url, **kwargs):
-        context = self.context
-        options = {}
 
 class PurgeVarnishCacheAddForm(AddForm):
     """ Purge Varnish cache action addform
