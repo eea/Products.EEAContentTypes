@@ -7,13 +7,6 @@
     <adapter factory=".purge_varnish_cache.PurgeVarnishCacheActionExecutor" />
 
     <browser:page
-        name="view_purge_varnish_cache"
-        for="*"
-        class=".purge_varnish_cache.PurgeVarnishCacheView"
-        permission="cmf.ModifyPortalContent"
-      />
-
-    <browser:page
         name="add_purge_varnish_cache"
         for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
         class=".purge_varnish_cache.PurgeVarnishCacheAddForm"
