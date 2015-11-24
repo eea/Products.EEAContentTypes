@@ -64,6 +64,11 @@
         factory=".subtypes.KeywordsSchemaModifier" />
 
     <!-- Required fields adapter -->
+    <adapter name="eea.davizpublishrequirements"
+        for="eea.daviz.content.interfaces.IDavizVisualization"
+        factory=".subtypes.DavizRequirementsSchemaModifier" />
+
+    <!-- Required fields adapter -->
     <adapter name="eea.requiredfields"
         for="Products.EEAContentTypes.interfaces.IEEAContent"
         factory=".subtypes.RequiredSchemaModifier" />
