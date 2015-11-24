@@ -1,1 +1,8 @@
-<metal:block use-macro="context/gis_view/macros/main">
+<tal:block tal:define="is_inline python:1">
+    <tal:comment replace="nothing">
+        we set is_line flag to be able to aling right
+        the button "Full screen mode" when the interactive
+        map is displayed inside an indicator
+    </tal:comment>
+    <metal:block use-macro="context/gis_view/macros/main">
+</tal:block>
