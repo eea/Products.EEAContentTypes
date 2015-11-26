@@ -86,7 +86,7 @@ class GISMapApplication(ATLink):
     allow_discussion = 0
     immediate_view = 'gis_view'
     default_view = 'gis_view'
-    suppl_views = ('gis_inline',)
+    suppl_views = ('gis_inline', 'gis_data_sources',)
     typeDescription = "GIS Map Application"
     typeDescMsgId = 'description_edit_gismapapplication'
 
@@ -106,6 +106,35 @@ class GISMapApplication(ATLink):
             uid = self.arcgis_url[idx + 8:]
 
         return uid
+
+    def get_data_sources(self):
+        """Extract relations  to types: "Data" or "ExternalDataSpec"
+        (aka name is "Based on data" or "Based on external data")
+        and format them a disctionary:
+        <data source title/link> provided by <organisation name>
+        """
+        r = []
+        relation_view = self.unrestrictedTraverse(
+            '@@eea.relations.macro', None)
+        if relation_view is not None:
+            for relation in relation_view.forward():
+                name = relation[0]
+                #check the name is the desired one
+                if name in ['Based on data', 'Based on external data']:
+                    for item in relation[1]:
+                        #process by portal_type
+                        if item.portal_type == 'Data':
+                            r.append({'url': '%s/' % item.absolute_url(),
+                              'title': item.title,
+                              'organisation': [(x, x) for x in item.dataOwner]
+                            })
+                        elif item.portal_tpye == 'ExternalDataSpec':
+                            r.append({'url': '%s/' % item.absolute_url(),
+                              'title': item.title,
+                              'organisation': [(item.provider_name,
+                                                item.provider_url)]
+                            })
+        return r
 
     def manage_beforeDelete(self, item, container):
         """Override manage_beforeDelete to be able to catch the
