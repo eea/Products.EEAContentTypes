@@ -4,6 +4,9 @@ Changelog
 11.3.dev0 - (unreleased)
 ------------------------
 * Feature: Allow embedding of GIS application as indicator figure
+  Show data sources for embeded maps.
+  [chiridra refs #30426]
+* Feature: Allow embedding of GIS application as indicator figure
   Fixed layout and PDF export issues
   [chiridra refs #30426]
 * Feature: Allow embedding of GIS application as indicator figure
