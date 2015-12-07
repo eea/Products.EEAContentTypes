@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="eea">
+<head>
+</head>
+<body>
+
+<metal:main fill-slot="main"
+     tal:define="context_state context/@@plone_context_state;
+                 fields view/imageFields">
+  <link rel="stylesheet" tal:attributes="href string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.css" />
+ <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.min.js"></script>
+ <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/cropping.js"></script>
+  <p class="documentDescription" tal:condition="not: fields" i18n:translate="">
+    No images found.
+  </p>
+  <div tal:repeat="field fields" tal:condition="fields">
+      <h1 class="documentFirstHeading" i18n:translate="">Edit croppable images</h1>
+      <p class="documentDescription" i18n:translate="">For each image field in your content you can
+        select below the image you want to crop.
+      </p>
+
+      <div id="cropping-original-image">
+          <h3 i18n:translate="">Original image</h3>
+          <img src="" tal:attributes="src string:${context/absolute_url}/${field}_preview" />
+      </div>
+
+      <div class="cropScale">
+          <div class="formControls">
+              <a class="selImageToCropBtn standardButton"
+                 tal:attributes="href string:${context/absolute_url}/cropimage?field=${field}"
+                 i18n:translate="">Correct the image ratio</a>
+          </div>
+      </div>
+  </div>
+
+</metal:main>
+</body>
+</html>
