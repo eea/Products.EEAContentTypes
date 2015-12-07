@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.4.dev0 - (unreleased)
+------------------------
+
 11.3 - (2015-12-07)
 -------------------
 * Feature: Allow embedding of GIS application as indicator figure
