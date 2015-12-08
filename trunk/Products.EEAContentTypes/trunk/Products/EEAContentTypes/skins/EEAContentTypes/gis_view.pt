@@ -65,6 +65,7 @@ div.archived p
                      gis_url[:-11] string is cut in order to remove
                      embed=true when viewing fullscreen map
                  </tal:comment>
+                 <tal:block tal:condition="is_inline" tal:replace="structure context/gis_data_sources" />
                  <p><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
                        <span class="eea-icon eea-icon-eye"></span>
                        <span i18n:translate="">Explore map interactively</span>
