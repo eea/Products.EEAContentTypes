@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+    <!-- Purge Varnish Cache action -->
+    <adapter factory=".purge_varnish_cache.PurgeVarnishCacheActionExecutor" />
+
+    <browser:page
+        name="add_purge_varnish_cache"
+        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+        class=".purge_varnish_cache.PurgeVarnishCacheAddForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleAction
+        name="Products.EEAContentTypes.actions.purge_varnish_cache"
+        title="Purge Varnish cache of translations"
+        description="Purge Varnish cache of canonical and all the translations."
+        for="*"
+        event="*"
+        addview="add_purge_varnish_cache"
+        schema=".purge_varnish_cache.IPurgeVarnishCacheAction"
+        factory=".purge_varnish_cache.PurgeVarnishCacheAction"
+        />
+
+</configure>
