@@ -13,6 +13,8 @@ from Products.validation import V_REQUIRED
 from zope.interface import implements
 from zope.event import notify
 
+from Products.CMFCore.utils import getToolByName
+
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
 from Products.EEAContentTypes.events import GISMapApplicationWillBeRemovedEvent
@@ -107,33 +109,43 @@ class GISMapApplication(ATLink):
 
         return uid
 
+    def getOrganisationName(self, url):
+        """ Return the organisation name based on its URL """
+        r = u''
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : 'Organisation',
+            'getUrl': url})
+        if brains:
+            r = brains[0].getObject().title
+        return r
+
     def get_data_sources(self):
         """Extract relations  to types: "Data" or "ExternalDataSpec"
-        (aka name is "Based on data" or "Based on external data")
         and format them a disctionary:
-        <data source title/link> provided by <organisation name>
+        <data source title/link> provided by
+        <organisation name> [and <organisation name>]
         """
         r = []
-        relation_view = self.unrestrictedTraverse(
-            '@@eea.relations.macro', None)
-        if relation_view is not None:
-            for relation in relation_view.forward():
-                name = relation[0]
-                #check the name is the desired one
-                if name in ['Based on data', 'Based on external data']:
-                    for item in relation[1]:
-                        #process by portal_type
-                        if item.portal_type == 'Data':
-                            r.append({'url': '%s/' % item.absolute_url(),
-                              'title': item.title,
-                              'organisation': [(x, x) for x in item.dataOwner]
-                            })
-                        elif item.portal_tpye == 'ExternalDataSpec':
-                            r.append({'url': '%s/' % item.absolute_url(),
-                              'title': item.title,
-                              'organisation': [(item.provider_name,
-                                                item.provider_url)]
-                            })
+        for item in self.getRelatedItems():
+            if item.portal_type == 'Data':
+                organisations = []
+                for url in item.dataOwner:
+                    organisation = self.getOrganisationName(url)
+                    if organisation:
+                        organisations.append(organisation)
+                r.append({'url': '%s/' % item.absolute_url(),
+                  'title': item.title,
+                  'organisations': organisations
+                })
+            elif item.portal_type == 'ExternalDataSpec':
+                if item.provider_name:
+                    organisation = item.provider_name
+                else:
+                    organisation = self.getOrganisationName(item.provider_url)
+                r.append({'url': '%s/' % item.absolute_url(),
+                  'title': item.title,
+                  'organisations': [organisation]
+                })
         return r
 
     def manage_beforeDelete(self, item, container):

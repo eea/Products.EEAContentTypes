@@ -4,9 +4,10 @@
         <tal:block tal:repeat="data_source data_sources">
             <li>
                 <a tal:attributes="href data_source/url" tal:content="data_source/title">Data Title</a>
-                <tal:block tal:condition="data_source/organisation">
-                    <tal:block i18n:translate="">provided by</tal:block>
-                    <tal:block tal:repeat="item data_source/organisation"><strong tal:content="python:test(item[0], item[0], item[1])">Organisation</strong><tal:block tal:condition="python:not path('repeat/item/end')">, </tal:block></tal:block>
+                <tal:block i18n:translate="">provided by</tal:block>
+                <tal:block tal:repeat="organisation data_source/organisations">
+                    <strong tal:content="organisation">Data owner</strong>
+                    <tal:block tal:condition="python:not path('repeat/organisation/end')"> and </tal:block>
                 </tal:block>
             </li>
         </tal:block>
