@@ -1,0 +1,22 @@
+<div metal:define-macro="portlet" tal:omit-tag="">
+
+<script type="text/javascript">
+<!--
+jQuery(document).ready(function(){
+  var handler = setInterval(function() {
+      var localmap = null;
+      if (typeof map !== 'undefined') {
+          localmap = map;
+      }
+
+      if(localmap) {
+        localmap.setMapType(YAHOO_MAP_SAT);
+        clearTimeout(handler);
+      }
+     },
+     100);
+})
+//-->
+</script>
+
+</div>

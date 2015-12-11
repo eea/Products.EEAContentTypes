@@ -1,0 +1,23 @@
+Info on how to setup captcha for EEA
+=================================================
+Author: Alexandru Ghica <alec.ghica@eaudeweb.ro>
+
+1) General setup and use
+-------------------------------------------------
+Don't forget to make snapshots in order to avoid any miss changes.
+
+  a) svn up
+  b) under ZMI: ../portal_quickinstaller -> install 'PloneCaptcha'
+  c) create yourself an account at 'http://captchas.net/registration'
+  d) setup the portal captcha settings from ZMI: ../portal_captcha
+  e) under 'properties' view update 'EEA WWW' configuration
+  f) from 'EEA WWW' profile import 'Skins import' ( Products.EEAPloneAdmin.exportimport.setuphandlers.setupSkins )
+  g) if you dont want the captcha to appear on your devel customise ../portal_skins/eeadesign2006_public/validate_request.vpy with your IP
+
+As default on login form captcha will not appear for EEA IPs and either for authenticated users (e.g. on /contact-info).
+As capthca alphabet is recomanded not to use letters: i, j, l and o and the number 0.
+
+2) Plone3 migration
+-------------------------------------------------
+For Plone3 migration we should use:
+  - http://plone.org/products/collective.captcha

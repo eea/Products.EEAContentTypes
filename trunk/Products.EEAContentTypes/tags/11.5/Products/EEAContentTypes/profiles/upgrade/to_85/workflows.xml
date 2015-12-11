@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool">
+    <bindings>
+        <type type_id="NegotiatedProcedure">
+            <bound-workflow workflow_id="CallForTender"/>
+        </type>
+        <type type_id="CallForProposal">
+            <bound-workflow workflow_id="CallForTender"/>
+        </type>
+    </bindings>
+</object>
