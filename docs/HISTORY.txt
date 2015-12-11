@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.5.dev0 - (unreleased)
-------------------------
+11.5 - (2015-12-11)
+-------------------
 * Bugfix: fixed location field access for Assessments which gets
   the compound field and not the regular schema extender
   [ichimdav refs #31438]
