@@ -190,12 +190,7 @@ class LocationSchemaExtender(object):
         """ Fields
         """
 
-        request = getattr(self.context, 'REQUEST', None)
-        if request and not isinstance(request, str):
-            if self.context.absolute_url() != request.URL0:
-                return self.multiple_location
-
-        # likewise Organisation had the previous location widget on default
+        # Organisation has the previous location widget on default
         if getattr(self.context, 'portal_type', None) == 'Organisation':
             self.multiple_location[0].schemata = 'default'
             self.multiple_location[0].widget.label = "Organisation Address"
