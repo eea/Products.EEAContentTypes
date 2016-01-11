@@ -146,6 +146,14 @@
       template="rss.xml.pt"
       />
 
+    <browser:page
+        for="*"
+        class=".syndication.RSSUtils"
+        name="rss_utils"
+        permission="zope2.View"
+        allowed_attributes="rss2_is_enabled"
+    />
+
     <!-- Related flash -->
     <browser:page
         for="*"
