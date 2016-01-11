@@ -3,6 +3,9 @@ Changelog
 
 11.6.dev0 - (unreleased)
 ------------------------
+* Change: added RSSUtils class with util code we can use for our
+  rss options. Right now we have a check if RSS2 can be enabled
+  [ichimdav refs #67796]
 
 11.5 - (2015-12-11)
 -------------------

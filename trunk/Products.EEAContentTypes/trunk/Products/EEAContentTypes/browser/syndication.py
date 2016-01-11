@@ -4,6 +4,7 @@ import time
 
 from zope.component import queryMultiAdapter
 from Products.CMFPlone.browser.syndication.views import FeedView
+from Products.CMFPlone.interfaces.syndication import IFeedSettings
 
 from rfc822 import formatdate
 
@@ -91,3 +92,24 @@ class EEAFeedView(FeedView):
         :rtype: str
         """
         return self.__name__
+
+
+class RSSUtils(object):
+    """ RSSUtils #67796
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def rss2_is_enabled(self):
+        """
+        :return: Return boolean value if rss2 type is in feed_types
+        :rtype: bool
+        """
+        try:
+            settings = IFeedSettings(self.context)
+        except TypeError:
+            return False
+        if settings.enabled:
+            current_feeds = list(settings.feed_types)
+            return u'RSS2' in current_feeds
