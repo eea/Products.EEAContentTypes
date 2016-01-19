@@ -1,0 +1,13 @@
+<dl metal:define-macro="pages" id="related-pages" class="portlet"
+    tal:define="pages context/@@document_related/pages|nothing"
+    tal:condition="context/@@plone_context_state/is_view_template">
+
+    <tal:cond tal:condition="pages">
+        <dt class="portletHeader" i18n:translate="">Related pages</dt>
+        <dd class="portletItem" tal:repeat="page pages">
+             <a href="" tal:attributes="href page/url"
+                        tal:content="page/title" />
+        </dd>
+    </tal:cond>
+    <div class="visualClear"></div>
+</dl>
