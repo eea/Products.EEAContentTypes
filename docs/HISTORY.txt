@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.7.dev0 - (unreleased)
+------------------------
+
 11.6 - (2016-01-19)
 -------------------
 * Change: added RSSUtils class with util code we can use for our
