@@ -5,6 +5,14 @@
 
     <include package=".normalizer" file="overrides.zcml" />
 
+    <browser:page
+        for="Products.CMFPlone.interfaces.syndication.ISyndicatable"
+        class=".browser.syndication.EEAFeedView"
+        name="rss.xml"
+        permission="zope2.View"
+        template="browser/rss.xml.pt"
+    />
+
     <!-- Get Canonical object relations -->
     <adapter for="eea.relations.content.interfaces.IBaseObject"
         provides="eea.relations.interfaces.IAutoRelations"
