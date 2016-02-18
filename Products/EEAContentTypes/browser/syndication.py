@@ -112,4 +112,4 @@ class RSSUtils(object):
             return False
         if settings.enabled:
             current_feeds = list(settings.feed_types)
-            return u'RSS2' in current_feeds
+            return u'rss.xml' in current_feeds
