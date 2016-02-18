@@ -3,6 +3,8 @@ Changelog
 
 11.7.dev0 - (unreleased)
 ------------------------
+* Change: modified RSS2 enabled check from RSS2 to rss.xml
+  [ichimdav refs #68153]
 
 11.6 - (2016-01-19)
 -------------------
