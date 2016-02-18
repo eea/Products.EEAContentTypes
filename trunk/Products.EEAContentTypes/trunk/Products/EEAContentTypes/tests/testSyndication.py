@@ -101,7 +101,7 @@ class TestSyndication(EEAContentTypeTestCase):
         # simulate publications which are folders
         self.folder.invokeFactory(
             'Image', id='img1', image=image, title='Simple Image')
-        view = self.folder.restrictedTraverse('@@RSS2')
+        view = self.folder.restrictedTraverse('@@rss.xml')
         entry = self.getFeedItem(self.folder, self.folder)
         self.failUnless('img' in view.getItemDescription(entry))
 
@@ -111,7 +111,7 @@ class TestSyndication(EEAContentTypeTestCase):
         highlight = self.folder[self.folder.invokeFactory(
             'Highlight', id='h1', title='Highlight')]
         highlight.setImage(image)
-        view = highlight.restrictedTraverse('@@RSS2')
+        view = highlight.restrictedTraverse('@@rss.xml')
         entry = self.getFeedItem(self.folder, highlight)
         self.failUnless('img' in view.getItemDescription(entry))
 
