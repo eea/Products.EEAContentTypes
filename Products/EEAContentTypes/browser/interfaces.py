@@ -293,6 +293,16 @@ class IEEAContentTypesSettings(Interface):
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
 
+    fullwidthFor = schema.Tuple(
+        title=_(u"Fullwidth ContentTypes"),
+        description=_(u"Enable body fullwidth class for the "
+                      "following content-types"),
+        required=False,
+        default=('GIS Application',),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
+
 
 required_for_ctypes = ('Article', 'Highlight', 'PressRelease', 'Speech',
                        'DiversityReport', 'Data', 'EEAFigure', 'Report',

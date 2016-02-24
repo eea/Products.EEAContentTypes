@@ -116,6 +116,14 @@
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
 
+    <genericsetup:registerProfile
+        name="eeacontenttypes_upgrade_11.7"
+        title="Upgrade profile for EEAContentTypes 11.7"
+        description="This profile contains configuration changes from 11.3 to 11.7"
+        directory="profiles/upgrade/to_117"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
     <configure zcml:condition="installed eea.relations">
       <genericsetup:registerProfile
           name="relations"
