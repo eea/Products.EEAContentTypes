@@ -2,6 +2,18 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+    <!-- 11.3 => 11.7 -->
+    <genericsetup:upgradeSteps
+        source="11.3"
+        destination="11.7"
+        profile="Products.EEAContentTypes:default">
+
+        <genericsetup:upgradeDepends
+            title="Add fullwidthFor config for IEEAContentTypesSettings 68250"
+            import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_11.7"
+        />
+    </genericsetup:upgradeSteps>
+
   <!-- 10.9 => 11.3 -->
   <genericsetup:upgradeSteps
     source="10.9"
