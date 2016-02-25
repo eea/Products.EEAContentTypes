@@ -3,6 +3,18 @@ Changelog
 
 11.7.dev0 - (unreleased)
 ------------------------
+* Task: [ODP CKAN] EEA Portal sends messages about datasets to the RabbitMQ
+  - Pre-upgrade step: add under under each backend to secret.cfg the credentials
+  for RabbitMQ service as bellow (ask Dragos or Antonio for the correct
+  production values):
+  [rabbitmq]
+  host = localhost
+  port = 5672
+  username = guest
+  password = guest
+  - work for RabbitMQ message action
+  - work for datasets specifici content rules
+  [chiridra refs #68139]
 * Change: modified RSS2 enabled check from RSS2 to rss.xml
   [ichimdav refs #68153]
 

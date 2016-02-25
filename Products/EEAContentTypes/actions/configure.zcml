@@ -24,4 +24,33 @@
         factory=".purge_varnish_cache.PurgeVarnishCacheAction"
         />
 
+    <!-- RabbitMQ message action -->
+    <adapter factory=".rabbitmq_message.RabbitMQMessageActionExecutor" />
+
+     <browser:page
+       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+       name="Products.EEAContentTypes.actions.rabbitmq_message"
+       class=".rabbitmq_message.RabbitMQMessageAddForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <browser:page
+       for="Products.EEAContentTypes.actions.rabbitmq_message.IRabbitMQMessageAction"
+       name="edit"
+       class=".rabbitmq_message.RabbitMQMessageEditForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <plone:ruleAction
+         name="Products.EEAContentTypes.actions.rabbitmq_message"
+         title="Send a message to RabbitMQ service"
+         description="Send a message to RabbitMQ service on the triggering object."
+         for="*"
+         event="*"
+         addview="Products.EEAContentTypes.actions.rabbitmq_message"
+         editview="edit"
+         schema=".rabbitmq_message.IRabbitMQMessageAction"
+         factory=".rabbitmq_message.RabbitMQMessageAction"
+         />
+
 </configure>
