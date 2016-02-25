@@ -19,16 +19,26 @@ from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.stringinterp.interfaces import IStringInterpolator
 
+from Products.EEAContentTypes.actions.rabbitmq import RabbitMQConnector
+
 #load rabbitmq configuration from conf and import connector
 config = getConfiguration()
-configuration = config.product_config.get('rabbitmq', dict())
-rabbit_config = {
-    'rabbit_host': configuration.get('host', ''),
-    'rabbit_port': int(configuration.get('port', '')),
-    'rabbit_username': configuration.get('username', ''),
-    'rabbit_password': configuration.get('password', '')
-}
-from Products.EEAContentTypes.actions.rabbitmq import RabbitMQConnector
+if not hasattr(config, 'product_config'):
+    # this happens during unit tests, we load a dummy rabbit config dict
+    rabbit_config = {
+        'rabbit_host': '',
+        'rabbit_port': '',
+        'rabbit_username': '',
+        'rabbit_password': ''
+    }
+else:
+    configuration = config.product_config.get('rabbitmq', dict())
+    rabbit_config = {
+        'rabbit_host': configuration.get('host', ''),
+        'rabbit_port': int(configuration.get('port', '')),
+        'rabbit_username': configuration.get('username', ''),
+        'rabbit_password': configuration.get('password', '')
+    }
 
 
 logger = logging.getLogger("Products.EEAContentTypes")
