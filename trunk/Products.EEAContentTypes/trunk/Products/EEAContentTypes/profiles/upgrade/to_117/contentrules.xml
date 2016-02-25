@@ -2,7 +2,7 @@
 <contentrules>
  <rule name="rule-49"
     title="Send message to RAbbitMQ Service on create object"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
     stop-after="False">
   <conditions>
@@ -31,7 +31,7 @@
  </rule>
  <rule name="rule-50"
     title="Send message to RAbbitMQ Service on modified object"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="zope.lifecycleevent.interfaces.IObjectModifiedEvent"
     stop-after="False">
   <conditions>
@@ -60,7 +60,7 @@
  </rule>
  <rule name="rule-51"
     title="Send message to RAbbitMQ Service on workflow state change"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="Products.CMFCore.interfaces.IActionSucceededEvent"
     stop-after="False">
   <conditions>
@@ -89,7 +89,7 @@
  </rule>
  <rule name="rule-52"
     title="Send message to RAbbitMQ Service  on object delete"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="zope.lifecycleevent.interfaces.IObjectRemovedEvent"
     stop-after="False">
   <conditions>
@@ -108,7 +108,7 @@
  </rule>
  <rule name="rule-53"
     title="Send message to RAbbitMQ Service on moved or renamed object"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="eea.rdfmarshaller.actions.interfaces.IObjectMovedOrRenamedEvent"
     stop-after="False">
   <conditions>
@@ -131,7 +131,7 @@
  </rule>
  <rule name="rule-54"
     title="Send message to RAbbitMQ Service  on copy and paste object"
-    cascading="False" description="" enabled="True"
+    cascading="False" description="" enabled="False"
     event="zope.lifecycleevent.interfaces.IObjectCopiedEvent"
     stop-after="False">
   <conditions>
@@ -148,10 +148,10 @@
    </action>
   </actions>
  </rule>
- <assignment name="rule-49" bubbles="True" enabled="True" location=""/>
- <assignment name="rule-50" bubbles="True" enabled="True" location=""/>
- <assignment name="rule-51" bubbles="True" enabled="True" location=""/>
- <assignment name="rule-52" bubbles="True" enabled="True" location=""/>
- <assignment name="rule-53" bubbles="True" enabled="True" location=""/>
- <assignment name="rule-54" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-49" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-50" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-51" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-52" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-53" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-54" bubbles="True" enabled="False" location=""/>
 </contentrules>
