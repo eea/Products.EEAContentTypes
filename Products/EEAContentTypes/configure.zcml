@@ -12,6 +12,7 @@
     <include package=".actions" />
     <include package=".adapters" />
     <include package=".browser" />
+    <include package=".controlpanels" />
     <include package=".content" />
     <include package=".faceted" />
     <include package=".migrate" />
