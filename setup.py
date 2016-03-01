@@ -49,6 +49,7 @@ setup(name=NAME,
           'Products.NavigationManager',
 
           'rdflib',
+          'pika',
           'collective.monkeypatcher',
           'eea.reports',
           'eea.relations',
