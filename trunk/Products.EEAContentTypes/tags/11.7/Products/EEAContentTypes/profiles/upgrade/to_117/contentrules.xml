@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<contentrules>
+ <rule name="rule-49"
+    title="Send message to RAbbitMQ Service on create object"
+    cascading="False" description="" enabled="False"
+    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property
+       name="tales_expression">python: "/sandbox" not in here.REQUEST.URL</property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>visible</element>
+     <element>published</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">create|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-50"
+    title="Send message to RAbbitMQ Service on modified object"
+    cascading="False" description="" enabled="False"
+    event="zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property
+       name="tales_expression">python: "/sandbox" not in here.REQUEST.URL</property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>visible</element>
+     <element>published</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">update|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-51"
+    title="Send message to RAbbitMQ Service on workflow state change"
+    cascading="False" description="" enabled="False"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property
+       name="tales_expression">python: "/sandbox" not in here.REQUEST.URL</property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>visible</element>
+     <element>published</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">update|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-52"
+    title="Send message to RAbbitMQ Service  on object delete"
+    cascading="False" description="" enabled="False"
+    event="zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">delete|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-53"
+    title="Send message to RAbbitMQ Service on moved or renamed object"
+    cascading="False" description="" enabled="False"
+    event="eea.rdfmarshaller.actions.interfaces.IObjectMovedOrRenamedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property
+       name="tales_expression">python: "/sandbox" not in here.REQUEST.URL</property>
+   </condition>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">create|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-54"
+    title="Send message to RAbbitMQ Service  on copy and paste object"
+    cascading="False" description="" enabled="False"
+    event="zope.lifecycleevent.interfaces.IObjectCopiedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Data</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.rabbitmq_message">
+    <property name="body">create|${absolute_url}|${id}</property>
+    <property name="queue_name">odp_queue</property>
+   </action>
+  </actions>
+ </rule>
+ <assignment name="rule-49" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-50" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-51" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-52" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-53" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-54" bubbles="True" enabled="False" location=""/>
+</contentrules>

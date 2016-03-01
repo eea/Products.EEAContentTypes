@@ -1,0 +1,56 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+    <!-- Purge Varnish Cache action -->
+    <adapter factory=".purge_varnish_cache.PurgeVarnishCacheActionExecutor" />
+
+    <browser:page
+        name="add_purge_varnish_cache"
+        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+        class=".purge_varnish_cache.PurgeVarnishCacheAddForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleAction
+        name="Products.EEAContentTypes.actions.purge_varnish_cache"
+        title="Purge Varnish cache of translations"
+        description="Purge Varnish cache of canonical and all the translations."
+        for="*"
+        event="*"
+        addview="add_purge_varnish_cache"
+        schema=".purge_varnish_cache.IPurgeVarnishCacheAction"
+        factory=".purge_varnish_cache.PurgeVarnishCacheAction"
+        />
+
+    <!-- RabbitMQ message action -->
+    <adapter factory=".rabbitmq_message.RabbitMQMessageActionExecutor" />
+
+     <browser:page
+       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+       name="Products.EEAContentTypes.actions.rabbitmq_message"
+       class=".rabbitmq_message.RabbitMQMessageAddForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <browser:page
+       for="Products.EEAContentTypes.actions.rabbitmq_message.IRabbitMQMessageAction"
+       name="edit"
+       class=".rabbitmq_message.RabbitMQMessageEditForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <plone:ruleAction
+         name="Products.EEAContentTypes.actions.rabbitmq_message"
+         title="Send a message to RabbitMQ service"
+         description="Send a message to RabbitMQ service on the triggering object."
+         for="*"
+         event="*"
+         addview="Products.EEAContentTypes.actions.rabbitmq_message"
+         editview="edit"
+         schema=".rabbitmq_message.IRabbitMQMessageAction"
+         factory=".rabbitmq_message.RabbitMQMessageAction"
+         />
+
+</configure>

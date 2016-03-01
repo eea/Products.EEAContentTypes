@@ -1,0 +1,33 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           i18n_domain="eea">
+
+  <browser:page for="Products.EEAContentTypes.content.interfaces.IGISMapApplication"
+                name="eeareferencebrowser-popup-selecteditem.html"
+                template="templates/gis-popup-selecteditem.pt"
+                class="eea.relations.browser.app.popup.PopupSelectedItem"
+                permission="zope2.View"
+                allowed_attributes="mode" />
+
+  <browser:page for="*"
+                name="get_gismap_embed"
+                class=".gisapplication.GetGISMapEmbed"
+                permission="zope2.View"
+                />
+
+  <browser:page for="*"
+                name="set_gismap_embed"
+                class=".gisapplication.SetGISMapEmbed"
+                permission="cmf.ModifyPortalContent"
+                />
+
+  <browser:resource
+                name="gismap_relations.js" 
+                file="gismap_relations.js" />
+
+  <subscriber for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
+    Products.EEAContentTypes.events.IGISMapApplicationWillBeRemovedEvent"
+    handler=".gisapplication.handle_gismap_delete" />
+
+</configure>
