@@ -83,7 +83,7 @@ class StatusEffectiveDate(BrowserView):
         effective()
 
         start = self.request.get('start_from_script', None)
-        if not start:
+        if start:
             return
 
         return self.index()
