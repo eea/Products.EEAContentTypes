@@ -26,7 +26,7 @@
                     <input type="hidden" name="start_from_portal" value="T"/>
                     <input type="submit" value="Fix all now"/>
                 </form>
-                
+
                 <table class="listing">
                     <thead>
                         <tr>
@@ -40,14 +40,14 @@
                             <td><span tal:content="item/type"/></td>
                         </tr>
                     </tbody>
-                </table>    
-                
+                </table>
+
             </div>
 
             <div tal:condition="not:results" class="portalMessage thumbsUpMessage">
                 All right! There are no affected objects.
             </div>
-            
+
         </div>
     </body>
 </html>
