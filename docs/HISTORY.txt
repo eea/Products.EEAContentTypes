@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.7.dev0 - (unreleased)
-------------------------
+11.7 - (2016-03-01)
+-------------------
 * Task: [ODP CKAN] EEA Portal sends messages about datasets to the RabbitMQ
   - Pre-upgrade step: add under under each backend to secret.cfg the credentials
   for RabbitMQ service as bellow (ask Dragos or Antonio for the correct
