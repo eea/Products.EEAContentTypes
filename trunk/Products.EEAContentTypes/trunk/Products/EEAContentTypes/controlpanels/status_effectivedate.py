@@ -24,7 +24,7 @@ class StatusEffectiveDate(BrowserView):
     """
 
     implements(IStatusEffectiveDate)
-    template = ViewPageTemplateFile("status_effectivedate.pt")
+    index = ViewPageTemplateFile("status_effectivedate.pt")
 
     def __init__(self, context, request):
         super(StatusEffectiveDate, self).__init__(context, request)
@@ -61,7 +61,7 @@ class StatusEffectiveDate(BrowserView):
         return brains
 
     def __call__(self):
-        return self.template()
+        return self.index()
 
     def getEffectiveDateStatus(self):
         """ Returns the view's main output; getter for
@@ -82,7 +82,8 @@ class StatusEffectiveDate(BrowserView):
         effective = FixEffectiveDateForPublishedObjects(self.context, self.request)
         effective()
 
-        if self.request.get('start_from_portal', None):
-            return self.index()
+        start = self.request.get('start_from_script', None)
+        if not start:
+            return
 
-        return
+        return self.index()
