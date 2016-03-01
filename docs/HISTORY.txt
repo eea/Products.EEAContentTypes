@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.8.dev0 - (unreleased)
+------------------------
+
 11.7 - (2016-03-01)
 -------------------
 * Task: [ODP CKAN] EEA Portal sends messages about datasets to the RabbitMQ
