@@ -148,10 +148,10 @@
    </action>
   </actions>
  </rule>
- <assignment name="rule-49" bubbles="True" enabled="False" location=""/>
- <assignment name="rule-50" bubbles="True" enabled="False" location=""/>
- <assignment name="rule-51" bubbles="True" enabled="False" location=""/>
- <assignment name="rule-52" bubbles="True" enabled="False" location=""/>
- <assignment name="rule-53" bubbles="True" enabled="False" location=""/>
- <assignment name="rule-54" bubbles="True" enabled="False" location=""/>
+ <assignment name="rule-49" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-50" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-51" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-52" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-53" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-54" bubbles="True" enabled="True" location=""/>
 </contentrules>
