@@ -7,13 +7,19 @@
       i18n:domain="plone">
     <body>
         <div metal:fill-slot="prefs_configlet_main"
-             tal:define="results view/getEffectiveDateStatus">
+             tal:define="results view/getEffectiveDateStatus;
+                         isAnon context/@@plone_portal_state/anonymous;">
             <h1 class="documentFirstHeading">Published objects without Effective Date</h1>
             <p class="discreet">Details about published objects without effective date.</p>
-
+                
             <div tal:condition="results">
                 <div class="portalMessage warningMessage">
                      <span tal:content="python:len(results)"></span> objects are affected.
+                </div>
+
+                <div class="portalMessage warningMessage" tal:condition="not: isAnon">
+                    If you are authenticated you may see affected objects which are inside a protected container.<br>
+                    Open this URL as anonymous to be sure there are no affected public objects.
                 </div>
 
                 <div class="portalMessage attentionMessage">

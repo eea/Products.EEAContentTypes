@@ -3,7 +3,9 @@ Changelog
 
 11.8.dev0 - (unreleased)
 ------------------------
-
+* Feature: Add a portal message into effectivedtate-status-controlpanel
+  [lucas refs #68699]
+  
 11.7 - (2016-03-01)
 -------------------
 * Feature: [ODP CKAN] EEA Portal sends messages about datasets to the RabbitMQ
