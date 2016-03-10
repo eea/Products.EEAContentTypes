@@ -32,13 +32,13 @@ class RabbitMQConnector(object):
             self.__rabbit_channel = self.__rabbit_connection.channel()
         except Exception, err:
             logger.error(
-                'CONNECTING to RabbitMQ at %s:%s FAILED with error: %s',
+                'Connecting to RabbitMQ at %s:%s FAILED with error: %s',
                 self.__rabbit_host,
                 self.__rabbit_port,
                 err)
         else:
             logger.info(
-                'CONNECTING to RabbitMQ at %s:%s OK',
+                'Connecting to RabbitMQ at %s:%s OK',
                 self.__rabbit_host,
                 self.__rabbit_port)
 
@@ -51,13 +51,13 @@ class RabbitMQConnector(object):
             self.__rabbit_channel = None
         except Exception, err:
             logger.error(
-                'DISCONNECTING from RabbitMQ at %s:%s FAILED with error: %s',
+                'Disconnecting from RabbitMQ at %s:%s FAILED with error: %s',
                 self.__rabbit_host,
                 self.__rabbit_port,
                 err)
         else:
             logger.info(
-                'DISCONNECTING from RabbitMQ at %s:%s OK',
+                'Disconnecting from RabbitMQ at %s:%s OK',
                 self.__rabbit_host,
                 self.__rabbit_port)
 
@@ -77,10 +77,6 @@ class RabbitMQConnector(object):
         """
         status = self.get_queue_status(queue_name)
         is_empty = status.method.message_count == 0
-        logger.info(
-            'QUEUE %s is empty = %s',
-            queue_name,
-            is_empty)
         return is_empty
 
     def declare_queue(self, queue_name):
@@ -90,9 +86,6 @@ class RabbitMQConnector(object):
             durable=True,
             exclusive=False,
             auto_delete=False)
-        logger.info(
-            'DECLARE QUEUE \'%s\'',
-            queue_name)
 
     def start_consuming(self, queue_name, callback):
         """ Start consuming message from the queue.
@@ -101,9 +94,6 @@ class RabbitMQConnector(object):
         self.declare_queue(queue_name)
         self.__rabbit_channel.basic_consume(callback,
             queue=queue_name)
-        logger.info(
-            'WAITING for messages \'%s\'. To exit press CTRL+C',
-            queue_name)
         self.__rabbit_channel.start_consuming()
 
     def get_message(self, queue_name):
@@ -122,7 +112,3 @@ class RabbitMQConnector(object):
             properties=pika.BasicProperties(
                 delivery_mode=2, # make message persistent
             ))
-        logger.info(
-            'SENT \'%s\' in \'%s\'',
-            body,
-            queue_name)

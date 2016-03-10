@@ -101,13 +101,22 @@ class RabbitMQMessageActionExecutor(object):
             #send message to the RabbitMQ service
             rabbit = RabbitMQConnector(**rabbit_config)
             rabbit.open_connection()
-            rabbit.declare_queue(queue_name)
-            rabbit.send_message(queue_name, body)
+            try:
+                rabbit.declare_queue(queue_name)
+                rabbit.send_message(queue_name, body)
+            except Exception, err:
+                logger.error(
+                    'Sending \'%s\' in \'%s\' FAILED with error: %s',
+                    body,
+                    queue_name,
+                    err)
+            else:
+                logger.info(
+                    'Sending \'%s\' in \'%s\' OK',
+                    body,
+                    queue_name)
             rabbit.close_connection()
-            logger.info(
-                'SENT \'%s\' in \'%s\'',
-                body,
-                queue_name)
+
 
 class RabbitMQMessageAddForm(AddForm):
     """ An add form for the action
