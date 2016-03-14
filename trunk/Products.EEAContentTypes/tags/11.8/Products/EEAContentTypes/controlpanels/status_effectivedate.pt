@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/prefs_main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+        <div metal:fill-slot="prefs_configlet_main"
+             tal:define="results view/getEffectiveDateStatus;
+                         isAnon context/@@plone_portal_state/anonymous;">
+            <h1 class="documentFirstHeading">Published objects without Effective Date</h1>
+            <p class="discreet">Details about published objects without effective date.</p>
+                
+            <div tal:condition="results">
+                <div class="portalMessage warningMessage">
+                     <span tal:content="python:len(results)"></span> objects are affected.
+                </div>
+
+                <div class="portalMessage warningMessage" tal:condition="not: isAnon">
+                    If you are authenticated you may see affected objects which are inside a protected container.<br>
+                    Open this URL as anonymous to be sure there are no affected public objects.
+                </div>
+
+                <div class="portalMessage attentionMessage">
+                    Fixing effective date may take a long time and can end up in a timeout.<br/>
+                    To avoid that, it is recommended to use a service instance to bypass Apache.
+                </div>
+
+                <form method="POST" enctype="multipart/form-data"
+                    tal:attributes="action string:${here/absolute_url}/@@effectivedate-status-controlpanel/startFixEffectiveDate">
+                    <input type="hidden" name="start_from_script" value="T"/>
+                    <input type="submit" value="Fix all now"/>
+                </form>
+
+                <table class="listing">
+                    <thead>
+                        <tr>
+                            <th style="width: 100%;">Object Name</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr tal:repeat="item results">
+                            <td><a tal:attributes="href item/url" tal:content="item/title"></a></td>
+                            <td><span tal:content="item/type"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div tal:condition="not:results" class="portalMessage thumbsUpMessage">
+                All right! There are no affected objects.
+            </div>
+
+        </div>
+    </body>
+</html>
