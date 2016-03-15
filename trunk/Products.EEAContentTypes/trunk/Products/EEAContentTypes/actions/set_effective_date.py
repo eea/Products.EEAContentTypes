@@ -1,5 +1,6 @@
-""" Set effective date Action - sets the effective/publishing date of object,
-    if is missing
+""" Set effective date Action:
+    - sets the effective/publishing date of object, if is missing
+    - adds an entry in object's workflow history (optional)
 """
 from zope.interface import implements, Interface
 from zope.component import adapts
@@ -22,8 +23,7 @@ class ISetEffectiveDateAction(Interface):
     hist_entry = schema.Choice(
         title=_(u"Add an entry in workflow history"),
         description=_(
-            u"An entry will be added in the object's workflow history " +
-            u"if effective date is set by action."
+            u"An entry will be added in the object's workflow history."
         ),
         values=["Yes", "No"],
         required=True,
@@ -49,7 +49,10 @@ class SetEffectiveDateAction(SimpleItem):
     implements(ISetEffectiveDateAction, IRuleElementData)
 
     element = 'Products.EEAContentTypes.actions.set_effective_date'
-    summary = _(u'Set effective/publishing date if missing')
+    summary = _(
+        u"Set effective/publishing date if missing; " +
+        u"add an entry in object's workflow history (optional)"
+    )
 
     hist_entry = ''
     entry_action = ''
@@ -85,16 +88,22 @@ class SetEffectiveDateActionExecutor(object):
                 obj.reindexObject(
                     idxs=['effective', 'effectiveRange', 'modification_date']
                 )
-
-                if hist_entry == 'Yes' and entry_action:
-                    self.addWfHistEntry(
-                        obj,
-                        action=entry_action,
-                        comment=entry_comment
-                    )
             except Exception, e:
                 logger.error(
                     'Got exception \'%s\' while setting effective date' +
+                    ' for \'%s\'', e, '/'.join(obj.getPhysicalPath())
+                )
+
+        if hist_entry == 'Yes' and entry_action:
+            try:
+                self.addWfHistEntry(
+                    obj,
+                    action=entry_action,
+                    comment=entry_comment
+                )
+            except Exception, e:
+                logger.error(
+                    'Got exception \'%s\' while adding workflow history entry' +
                     ' for \'%s\'', e, '/'.join(obj.getPhysicalPath())
                 )
 
@@ -128,7 +137,10 @@ class SetEffectiveDateAddForm(AddForm):
     """An add form for the action
     """
     label = _(u"Add Set effective/publishing date action")
-    description = _(u"Set effective/publishing date if missing")
+    description = _(
+        u"Set effective/publishing date if missing; " +
+        u"add an entry in object's workflow history"
+    )
     form_name = _(u"Configure action")
     form_fields = form.FormFields(ISetEffectiveDateAction)
 
@@ -143,6 +155,9 @@ class SetEffectiveDateEditForm(EditForm):
     """An edit form for the action
     """
     label = _(u"Edit Set effective/publishing date action")
-    description = _(u"Set effective/publishing date if missing")
+    description = _(
+        u"Set effective/publishing date if missing; " +
+        u"add an entry in object's workflow history"
+    )
     form_name = _(u"Configure action")
     form_fields = form.FormFields(ISetEffectiveDateAction)

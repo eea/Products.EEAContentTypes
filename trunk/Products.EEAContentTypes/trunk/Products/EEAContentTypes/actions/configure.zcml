@@ -73,7 +73,7 @@
     <plone:ruleAction
       name="Products.EEAContentTypes.actions.set_effective_date"
       title="Set effective/publishing date"
-      description="Set effective/publishing date if missing"
+      description="Set effective/publishing date if missing; add entry in workflow history (optional)"
       for="*"
       event="zope.component.interfaces.IObjectEvent"
       addview="Products.EEAContentTypes.actions.set_effective_date"

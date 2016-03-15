@@ -9,7 +9,8 @@
         profile="Products.EEAContentTypes:default">
 
         <genericsetup:upgradeDepends
-            title="Add content rule to set effective date on new content with initial state published"
+            title="Add content rule to set effective date and history entry
+                on new content with initial state published"
             import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_11.9"
         />
     </genericsetup:upgradeSteps>

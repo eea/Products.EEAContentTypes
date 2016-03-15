@@ -133,9 +133,9 @@
  <assignment name="rule-purge-varnish-cache" bubbles="True" enabled="True" location=""/>
  <rule name="rule-44"
     title="Set effective/publishing date on new content with initial state &quot;published&quot;"
-    cascading="False" description="" enabled="True"
-    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
-    stop-after="False">
+    description="On new content with initial state &quot;published&quot;, the effective/publishing date will be set
+    if is missing; also a &quot;Publish&quot; entry will be added in object's workflow history."
+    cascading="False" enabled="True" event="zope.lifecycleevent.interfaces.IObjectAddedEvent" stop-after="False">
   <conditions>
    <condition type="plone.conditions.WorkflowState">
     <property name="wf_states">
