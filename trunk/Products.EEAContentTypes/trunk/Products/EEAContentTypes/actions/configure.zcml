@@ -53,4 +53,33 @@
          factory=".rabbitmq_message.RabbitMQMessageAction"
          />
 
+    <!-- Set effective/publishing date action -->
+    <adapter factory=".set_effective_date.SetEffectiveDateActionExecutor" />
+
+    <browser:page
+      name="Products.EEAContentTypes.actions.set_effective_date"
+      for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+      class=".set_effective_date.SetEffectiveDateAddForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <browser:page
+      name="edit"
+      for="Products.EEAContentTypes.actions.set_effective_date.ISetEffectiveDateAction"
+      class=".set_effective_date.SetEffectiveDateEditForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleAction
+      name="Products.EEAContentTypes.actions.set_effective_date"
+      title="Set effective/publishing date"
+      description="Set effective/publishing date if missing"
+      for="*"
+      event="zope.component.interfaces.IObjectEvent"
+      addview="Products.EEAContentTypes.actions.set_effective_date"
+      editview="edit"
+      schema=".set_effective_date.ISetEffectiveDateAction"
+      factory=".set_effective_date.SetEffectiveDateAction"
+      />
+
 </configure>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<contentrules>
+ <rule name="rule-55"
+    title="Set effective/publishing date on new content with initial state &quot;published&quot;"
+    cascading="False" description="" enabled="True"
+    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>published</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="Products.EEAContentTypes.actions.set_effective_date">
+    <property name="hist_entry">Yes</property>
+    <property name="entry_action">Publish</property>
+    <property name="entry_comment"/>
+   </action>
+  </actions>
+ </rule>
+ <assignment name="rule-55" bubbles="True" enabled="True" location=""/>
+</contentrules>

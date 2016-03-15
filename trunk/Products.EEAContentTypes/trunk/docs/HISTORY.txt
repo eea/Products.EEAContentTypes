@@ -3,6 +3,11 @@ Changelog
 
 11.9.dev0 - (unreleased)
 ------------------------
+* Upgrade step: added content rule and action to set effective date on
+  new content with initial state published
+  Within "Plone > Site Setup > Add-ons" click on upgrade button available for
+  EEA Content Types
+  [danielm refs #68706]
 
 11.8 - (2016-03-14)
 -------------------

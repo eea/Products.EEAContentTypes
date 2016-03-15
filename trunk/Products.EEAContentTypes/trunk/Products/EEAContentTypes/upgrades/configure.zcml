@@ -2,6 +2,18 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+    <!-- 11.7 => 11.9 -->
+    <genericsetup:upgradeSteps
+        source="11.7"
+        destination="11.9"
+        profile="Products.EEAContentTypes:default">
+
+        <genericsetup:upgradeDepends
+            title="Add content rule to set effective date on new content with initial state published"
+            import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_11.9"
+        />
+    </genericsetup:upgradeSteps>
+
     <!-- 11.3 => 11.7 -->
     <genericsetup:upgradeSteps
         source="11.3"

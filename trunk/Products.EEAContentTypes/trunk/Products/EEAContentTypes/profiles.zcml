@@ -134,4 +134,12 @@
           />
     </configure>
 
+    <genericsetup:registerProfile
+        name="eeacontenttypes_upgrade_11.9"
+        title="Upgrade profile for EEAContentTypes 11.9"
+        description="This profile contains configuration changes from 11.7 to 11.9"
+        directory="profiles/upgrade/to_119"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
