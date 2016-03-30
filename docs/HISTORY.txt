@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.0.dev0 - (unreleased)
+------------------------
+
 11.9 - (2016-03-30)
 -------------------
 * Upgrade step: added content rule and action to set effective date and
