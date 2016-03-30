@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.9.dev0 - (unreleased)
-------------------------
+11.9 - (2016-03-30)
+-------------------
 * Upgrade step: added content rule and action to set effective date and
   workflow entry on new content with initial state 'published'
   Within "Plone > Site Setup > Add-ons" click on upgrade button available for
