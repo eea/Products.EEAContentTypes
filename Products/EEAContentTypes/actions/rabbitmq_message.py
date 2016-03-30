@@ -33,9 +33,13 @@ if not hasattr(config, 'product_config'):
     }
 else:
     configuration = config.product_config.get('rabbitmq', dict())
+    try:
+        port = int(configuration.get('port', ''))
+    except Exception:
+        port = ''
     rabbit_config = {
         'rabbit_host': configuration.get('host', ''),
-        'rabbit_port': int(configuration.get('port', '')),
+        'rabbit_port': port,
         'rabbit_username': configuration.get('username', ''),
         'rabbit_password': configuration.get('password', '')
     }
