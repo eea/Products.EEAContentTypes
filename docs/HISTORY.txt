@@ -3,6 +3,13 @@ Changelog
 
 12.0.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed script to fix and detect missing EffectiveDate
+  [alecghica refs #68990]
+* Upgrade step: the following actions should be done:
+    - run the script to fix EffectiveDate/PublishingDate
+    - run an upgrade script to re-index all translations
+    - run the script to fix EffectiveDate/PublishingDate
+    - [alecghica refs #68990]
 
 11.9 - (2016-03-30)
 -------------------
@@ -14,7 +21,7 @@ Changelog
 
 11.8 - (2016-03-14)
 -------------------
-* Task: [ODP CKAN] Review all services and workflow
+* Feature: [ODP CKAN] Review all services and workflow
   - Fixed case when RabbitMQ service is not responding
   - Cleanup logging
   [chiridra refs #68140]
@@ -38,7 +45,7 @@ Changelog
   [chiridra refs #68139]
 * Change: modified RSS2 enabled check from RSS2 to rss.xml
   [ichimdav refs #68153]
-* Bug: Fix Missing EffectiveDate for published objects
+* Bug fix: Fix Missing EffectiveDate for published objects
   [lucas refs #68699]
 * Upgrade step: added "Published Objects without Effective Date" controlpanel
   [lucas refs #68699]

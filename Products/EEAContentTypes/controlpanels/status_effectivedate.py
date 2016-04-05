@@ -35,28 +35,34 @@ class StatusEffectiveDate(BrowserView):
         """ Search objs without effective date
         """
 
+        log = logging.getLogger("EffectiveData status:")
         catalog = getToolByName(self.context, 'portal_catalog')
+        search_date = DateTime('1001/01/01 00:00:00')
+        search_no_effective_date = {
+            'query': search_date,
+            'range': 'max'
+        }
         no_effective_date = DateTime('1000/01/01 00:00:00')
         query = {
             'review_state': "published",
             'Language': "all",
-            'effective': no_effective_date,
+            'effective': search_no_effective_date,
             'show_inactive': True
         }
 
         if filters:
             query.update(filters)
 
-        self.logger.info("*** Catalog search start")
+        log.info("Catalog search start")
         brains = catalog.searchResults(**query)
-        self.logger.info("*** Catalog search ended")
+        log.info("Catalog search ended")
 
         if brains:
-            self.logger.warning(
-                "*** Found %s affected objects" % len(brains)
+            log.warning(
+                "Found %s affected objects" % len(brains)
             )
         else:
-            self.logger.info("*** Objects already DONE")
+            log.info("Objects already DONE")
 
         return brains
 
@@ -70,6 +76,7 @@ class StatusEffectiveDate(BrowserView):
 
         return [{
             'url': b.getURL(),
+            'id': b.getId,
             'title': b.Title,
             'type': b.portal_type,
         } for b in self.search()]

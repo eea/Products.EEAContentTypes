@@ -42,7 +42,7 @@
                     </thead>
                     <tbody>
                         <tr tal:repeat="item results">
-                            <td><a tal:attributes="href item/url" tal:content="item/title"></a></td>
+                            <td><a tal:attributes="href item/url" tal:content="python: item.get('title', '').strip() or item['id']"></a></td>
                             <td><span tal:content="item/type"/></td>
                         </tr>
                     </tbody>
