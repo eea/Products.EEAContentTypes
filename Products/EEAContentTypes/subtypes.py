@@ -368,6 +368,22 @@ class RequiredSchemaModifier(object):
                     schema[name] = xfield
 
 
+class LanguageIndependentModifier(object):
+    """ Modify schema to remove languageIndependent flag
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        field = 'effectiveDate'
+        if field in schema:
+            xfield = schema[field].copy()
+            xfield.languageIndependent = False
+            schema[field] = xfield
+
+
 class DavizRequirementsSchemaModifier(object):
     """ Modify schema
     """
