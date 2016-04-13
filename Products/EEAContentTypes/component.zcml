@@ -74,8 +74,18 @@
         factory=".subtypes.RequiredSchemaModifier" />
 
     <adapter name="eea.requiredfields4possiblecontenttypes"
-             for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
-             factory=".subtypes.RequiredSchemaModifier" />
+        for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+        factory=".subtypes.RequiredSchemaModifier" />
+
+    <!-- #71102 LanguageIndependent fields adapter -->
+    <adapter name="eea.languageindependentfields"
+        for="Products.EEAContentTypes.interfaces.IEEAContent"
+        factory=".subtypes.LanguageIndependentModifier" />
+
+    <adapter name="eea.languageindependentfields4possiblecontenttypes"
+        for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+        factory=".subtypes.LanguageIndependentModifier" />
+
 
     <!-- Publication -->
     <adapter name="eea.requiredfields4publication"
