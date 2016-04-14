@@ -12,7 +12,7 @@ def handle_content_state_changed(obj, event):
     """
     _marker = object()
     if event.workflow.getInfoFor(obj, 'review_state', _marker) == 'published':
-        effective = event.object.effective()
+        effective = event.object.effective_date
         if not effective:
             now = DateTime()
             obj.setEffectiveDate(now)
