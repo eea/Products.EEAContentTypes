@@ -6,6 +6,7 @@ from zope.component.interfaces import ObjectEvent
 from zope.interface import Attribute
 from zope.interface import implements
 
+
 def handle_content_state_changed(obj, event):
     """ Set effective to now if effected is not set and object is published
     """
@@ -14,7 +15,8 @@ def handle_content_state_changed(obj, event):
         effective = event.object.effective()
         if not effective:
             now = DateTime()
-            object.setEffectiveDate(now)
+            obj.setEffectiveDate(now)
+
 
 class IGISMapApplicationWillBeRemovedEvent(IObjectEvent):
     """An interactive map will be removed."""
