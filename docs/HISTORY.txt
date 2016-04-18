@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.0.dev0 - (unreleased)
-------------------------
+12.0 - (2016-04-18)
+-------------------
 * Bug fix: fixed handle_content_state_changed event subscriber
   to set effectiveDate correctly on the object
   [ichimdav refs #71102]
