@@ -5,8 +5,8 @@
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:atom="http://www.w3.org/2005/Atom"
   tal:define="feed view/feed;
-              dummy python:request.response.setHeader('Content-Type', 'text/xml');
-              ">
+              dummy python:request.response.setHeader('Content-Type', 'text/xml');"
+  i18n:domain="eea.notranslation">
   <channel>
     <title tal:content="feed/title" />
     <link tal:content="feed/link" />

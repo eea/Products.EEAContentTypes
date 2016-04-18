@@ -7,7 +7,7 @@
                 <tal:block i18n:translate="">provided by</tal:block>
                 <tal:block tal:repeat="organisation data_source/organisations">
                     <strong tal:content="organisation">Data owner</strong>
-                    <tal:block tal:condition="python:not path('repeat/organisation/end')"> and </tal:block>
+                    <tal:block tal:condition="python:not path('repeat/organisation/end')"> <span tal:omit-tag="" i18n:translate="">and</span> </tal:block>
                 </tal:block>
             </li>
         </tal:block>

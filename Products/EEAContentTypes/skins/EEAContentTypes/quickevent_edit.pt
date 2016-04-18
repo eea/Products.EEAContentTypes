@@ -31,7 +31,7 @@
         <script>
           jQuery(window).load(function(){
             $("#quickevent-base-edit").append(
-              $("<input>").attr({
+              $("<input />").attr({
                 'type':'hidden','name':'mehuman', 'value':'true'
                 })
               );

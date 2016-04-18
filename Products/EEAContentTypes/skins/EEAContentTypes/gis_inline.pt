@@ -4,5 +4,5 @@
         the button "Full screen mode" when the interactive
         map is displayed inside an indicator
     </tal:comment>
-    <metal:block use-macro="context/gis_view/macros/main">
+    <metal:block use-macro="context/gis_view/macros/main" />
 </tal:block>

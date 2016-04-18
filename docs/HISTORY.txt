@@ -3,6 +3,9 @@ Changelog
 
 12.1.dev0 - (unreleased)
 ------------------------
+* Update eea.translations with the latest translation strings -
+  fixed errors in templates
+  [chiridra refs #69753]
 
 12.0 - (2016-04-18)
 -------------------

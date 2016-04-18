@@ -60,8 +60,8 @@
                   embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
       <div class="embed-titles" style="overflow:hidden">
         <div style="width:400px">
-          <strong class="label">Embed type:</strong>
-          <input type="button" class="popup_btn" value="Please wait..." style="float:right"/>
+          <strong class="label" i18n:translate="">Embed type:</strong>
+          <input type="button" class="popup_btn" value="Please wait..." style="float:right" i18n:attributes="value" />
         </div>
         <div class="embed-type">
           <span class="embed-title" tal:condition="embed_type"><tal:block tal:replace="embed_type" /></span>

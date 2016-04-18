@@ -6,7 +6,8 @@
   xmlns="http://purl.org/rss/1.0/"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  xmlns:metal="http://xml.zope.org/namespaces/metal">
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  i18n:domain="eea.notranslation">
 
 <metal:block 
     define-macro="master" 

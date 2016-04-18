@@ -3,6 +3,6 @@
         tal:condition="view/available">
 
 
-    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage">Temporal Coverage widget view</tal:temporalCoverage>
+    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage" i18n:translate="">Temporal Coverage widget view</tal:temporalCoverage>
 
 </tal:block>
