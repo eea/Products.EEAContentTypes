@@ -6,6 +6,10 @@ Changelog
 * Update eea.translations with the latest translation strings -
   fixed errors in templates
   [chiridra refs #69753]
+* Change: changed control panel entry name
+  [alecghica refs #70987]
+* Upgrade step: re-import control panel profile
+  [alecghica refs #70987]
 
 12.0 - (2016-04-18)
 -------------------
