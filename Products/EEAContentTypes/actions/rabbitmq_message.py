@@ -19,7 +19,7 @@ from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.stringinterp.interfaces import IStringInterpolator
 
-from Products.EEAContentTypes.actions.rabbitmq import RabbitMQConnector
+from eea.rabbitmq.client import RabbitMQConnector
 
 #load rabbitmq configuration from conf and import connector
 config = getConfiguration()
