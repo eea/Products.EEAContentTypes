@@ -65,6 +65,7 @@ setup(name=NAME,
           'valentine.linguaflow',
           'eventlet',
 
+          'eea.rabbitmq.client'
           #obsolete
           #'Products.CMFSquidTool',
 
