@@ -31,7 +31,7 @@ class ISetEffectiveDateAction(Interface):
         )
 
     entry_action = schema.TextLine(
-        title=_(u'History entry action (required if "Yes" is selected)'),
+        title=_(u'History entry action (required if \'Yes\' is selected)'),
         description=_(u'Workflow action short description'),
         required=False,
         default=_(u"Publish")
