@@ -3,6 +3,10 @@ Changelog
 
 12.1.dev0 - (unreleased)
 ------------------------
+* Change: Register the languageindependentfields for the generic 
+  base object in order to get all of the objects instead of just
+  the possible and eeacontent types
+  [ichim-david refs #71102]
 * Update eea.translations with the latest translation strings -
   fixed errors in templates
   [chiridra refs #69753]
