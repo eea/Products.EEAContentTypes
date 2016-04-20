@@ -79,13 +79,8 @@
 
     <!-- #71102 LanguageIndependent fields adapter -->
     <adapter name="eea.languageindependentfields"
-        for="Products.EEAContentTypes.interfaces.IEEAContent"
+        for="Products.Archetypes.interfaces.base.IBaseObject"
         factory=".subtypes.LanguageIndependentModifier" />
-
-    <adapter name="eea.languageindependentfields4possiblecontenttypes"
-        for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
-        factory=".subtypes.LanguageIndependentModifier" />
-
 
     <!-- Publication -->
     <adapter name="eea.requiredfields4publication"
