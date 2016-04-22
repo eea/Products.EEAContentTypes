@@ -66,6 +66,15 @@ div.archived p
                      embed=true when viewing fullscreen map
                  </tal:comment>
                  <tal:block tal:condition="is_inline">
+                     <div class="googlechart-notes">
+                         <div class="googlecharts-note">
+                             <p class="callout" tal:define="description context/Description">
+                                 <strong>Note: </strong><br>
+                                 <span tal:content="description"></span>
+                                 <span tal:condition="python:not description">N/A</span>
+                             </p>
+                         </div>
+                     </div>
                      <tal:data tal:replace="structure context/gis_data_sources" />
                  </tal:block>
                  <div><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
