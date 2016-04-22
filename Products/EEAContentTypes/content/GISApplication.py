@@ -6,8 +6,8 @@ from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import AnnotationStorage
 from Products.Archetypes.atapi import ImageField
-from Products.Archetypes.atapi import StringField
-from Products.Archetypes.atapi import ImageWidget
+from Products.Archetypes.atapi import StringField, TextField
+from Products.Archetypes.atapi import ImageWidget, RichWidget
 from Products.Archetypes.atapi import Schema, registerType
 from Products.validation import V_REQUIRED
 from zope.interface import implements
@@ -56,6 +56,24 @@ schema = Schema((
                    label='Preview image',
                    show_content_type=False, )
                ),
+
+    TextField(
+        name='body',
+        allowable_content_types=('text/plain', 'text/structured',
+                                 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="More information",
+            description=("Description of methodology "
+                         "and calculations behind this."),
+            label_msgid='EEAContentTypes_label_body',
+            i18n_domain='eea',
+            ),
+        default_content_type="text/html",
+        searchable=True,
+        default_output_type="text/x-html-safe",
+        required_for_published=False,
+        required=False,
+        ),
 
 ))
 

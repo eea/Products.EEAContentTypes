@@ -22,6 +22,10 @@ Changelog
     - [chiridra refs #70431]
 * Bug fix: fixed typo in log message
   [alecghica refs #70987]
+* Feature: html body field for daviz and gis application
+    - added new field "body"
+    - modified the view template
+  [chiridra refs #70146]
   
 12.0 - (2016-04-18)
 -------------------

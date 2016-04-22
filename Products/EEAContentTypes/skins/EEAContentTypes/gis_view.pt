@@ -88,6 +88,11 @@ div.archived p
                      <div class="visualClear"><!-- --></div></div>
                  </tal:block>
 
+                 <div class="more-information-body" tal:condition="context/body">
+                     <h3 i18n:translate="" class="notoc">More information</h3>
+                     <tal:block tal:replace="structure context/body" />
+                 </div>
+
              <tal:block condition="not:arcgis_url">
                <div id="" class="flashmovie"
                 tal:attributes="id string:container-${here/getId};"
