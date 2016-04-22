@@ -66,7 +66,7 @@ div.archived p
                      embed=true when viewing fullscreen map
                  </tal:comment>
                  <tal:block tal:condition="is_inline">
-                     <div class="googlechart-notes">
+                     <div class="googlechart-notes gis-notes">
                          <div class="googlecharts-note">
                              <p class="callout" tal:define="description context/Description">
                                  <strong>Note: </strong><br>
