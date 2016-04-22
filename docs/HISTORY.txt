@@ -3,6 +3,8 @@ Changelog
 
 12.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed gis_view call when argis field is empty
+  [ichimdav refs #70523]
 * Change: Register the languageindependentfields for the generic 
   base object in order to get all of the objects instead of just
   the possible and eeacontent types
