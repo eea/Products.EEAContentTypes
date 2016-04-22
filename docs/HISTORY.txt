@@ -16,9 +16,12 @@ Changelog
   [alecghica refs #70987]
 * Upgrade step: re-import control panel profile
   [alecghica refs #70987]
-* AttributeError: @@g_earth
-  deleted /EEAContentTypes/skins/EEAContentTypes/google_earth.pt
-  [chiridra refs #70431]
+* Bug fix: related to AttributeError: @@g_earth
+    - fixed AttributeError: @@g_earth
+    - deleted /EEAContentTypes/skins/EEAContentTypes/google_earth.pt
+    - [chiridra refs #70431]
+* Bug fix: fixed typo in log message
+  [alecghica refs #70987]
   
 12.0 - (2016-04-18)
 -------------------

@@ -35,7 +35,7 @@ class StatusEffectiveDate(BrowserView):
         """ Search objs without effective date
         """
 
-        log = logging.getLogger("EffectiveData status:")
+        log = logging.getLogger("EffectiveDate status:")
         catalog = getToolByName(self.context, 'portal_catalog')
         search_date = DateTime('1001/01/01 00:00:00')
         search_no_effective_date = {
