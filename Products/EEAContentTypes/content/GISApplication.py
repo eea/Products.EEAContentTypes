@@ -59,8 +59,7 @@ schema = Schema((
 
     TextField(
         name='body',
-        allowable_content_types=('text/plain', 'text/structured',
-                                 'text/html', 'application/msword',),
+        allowable_content_types=('text/html',),
         widget=RichWidget(
             label="More information",
             description=("Description of methodology "
