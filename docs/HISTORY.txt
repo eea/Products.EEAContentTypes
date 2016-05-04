@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.2.dev0 - (unreleased)
+------------------------
+
 12.1 - (2016-05-04)
 -------------------
 * Bug fix: fixed gis_view call when argis field is empty
