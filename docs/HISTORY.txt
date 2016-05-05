@@ -3,6 +3,8 @@ Changelog
 
 12.2.dev0 - (unreleased)
 ------------------------
+* Upgrade step: re-import control panel profile
+  [alecghica refs #70987]
 
 12.1 - (2016-05-04)
 -------------------

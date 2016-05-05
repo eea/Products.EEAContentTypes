@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_controlpanel">
   <configlet
-    title="Monitor: published objects without Publishing Date"
+    title="Monitor: missing Publishing Date"
     action_id="Products.EEAContentTypes"
     icon_expr="string:$portal_url/maintenance_icon.png"
     appId="Products.EEAContentTypes"
