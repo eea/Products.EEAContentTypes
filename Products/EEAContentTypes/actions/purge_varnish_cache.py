@@ -1,26 +1,29 @@
 """ purge Varnish cache of translations
 """
 import logging
+
 from zope.interface import implements, Interface
+
 from OFS.SimpleItem import SimpleItem
-from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
-from zope.formlib import form
 from plone.app.contentrules.browser.formhelper import AddForm
+from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
+from z3c.caching.purge import Purge
 from zope.component import adapts
 from zope.event import notify
-from z3c.caching.purge import Purge
-
-hasLinguaPloneInstalled = True
+from zope.formlib import form
 try:
     from Products.LinguaPlone.interfaces import ITranslatable
+    hasLinguaPloneInstalled = True
 except ImportError:
     hasLinguaPloneInstalled = False
 
 logger = logging.getLogger("Products.EEAContentTypes")
 
+
 class IPurgeVarnishCacheAction(Interface):
     """ Purge Varnish cache action settings schema
     """
+
 
 class PurgeVarnishCacheAction(SimpleItem):
     """ Purge Varnish cache action settings
@@ -29,6 +32,7 @@ class PurgeVarnishCacheAction(SimpleItem):
 
     element = 'Products.EEAContentTypes.actions.purge_varnish_cache'
     summary = u'Purge Varnish cache of translations'
+
 
 class PurgeVarnishCacheActionExecutor(object):
     """ Purge Varnish cache action executor
@@ -42,17 +46,16 @@ class PurgeVarnishCacheActionExecutor(object):
         self.event = event
 
     def __call__(self):
-        event = self.event
         obj = self.event.object
 
         if hasLinguaPloneInstalled and ITranslatable.providedBy(obj):
-            canonical = obj.getCanonical()
             translations = obj.getTranslations()
             if len(translations) > 1:
-                for trans, state in translations.values():
-                    logging.info("*** PURGING VARNISH CACHE: %s" %
-                                                trans.absolute_url())
+                for trans, _state in translations.values():
+                    logging.info("*** PURGING VARNISH CACHE: %s",
+                                 trans.absolute_url())
                     notify(Purge(trans))
+
 
 class PurgeVarnishCacheAddForm(AddForm):
     """ Purge Varnish cache action addform

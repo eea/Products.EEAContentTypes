@@ -23,7 +23,6 @@ from Products.EEAContentTypes.content.ThemeTaggable import (
 class FlashFileField(BlobField):
     """ Flash File Field"""
     # BBB Backward compatible index_html.
-    # XXX this should be removed from Products.EEAContentTypes > 2.25
     def index_html(self, instance, REQUEST=None, RESPONSE=None,
                    disposition='inline', **kwargs):
         """ Field public view """

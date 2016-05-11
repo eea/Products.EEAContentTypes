@@ -1,10 +1,11 @@
 """ App module
 """
 import logging
-from Products.Five.browser import BrowserView
+
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+
 #from plone.protect.interfaces import IDisableCSRFProtection
-from zope.interface import alsoProvides
 
 logger = logging.getLogger('Products.EEAContentTypes.browser.migrate')
 
@@ -23,12 +24,13 @@ class MigrateDataProvenances(BrowserView):
         """
         ctool = getToolByName(self.context, 'portal_catalog')
         brains = ctool(portal_type="DavizVisualization")
+        link = ''
 
         for brain in brains:
             obj = brain.getObject()
             field = obj.getField('provenances', None)
             if not field:
-               continue
+                continue
             provenances = field.getAccessor(obj)()
 
             TOMIGRATE = False
@@ -39,9 +41,8 @@ class MigrateDataProvenances(BrowserView):
                     TOMIGRATE = True
 
             if TOMIGRATE:
-                logger.info("process migrate %s linked by %s" % (
-                    link, obj.absolute_url())
-                )
+                logger.info("process migrate %s linked by %s",
+                            link, obj.absolute_url())
                 field.set(obj, provenances)
 
         return "Success!"

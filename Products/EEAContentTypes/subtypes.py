@@ -1,40 +1,43 @@
 """ Subtypes
 """
+import logging
+
 from AccessControl import ClassSecurityInfo
 from datetime import datetime
 
+from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface, implements
+
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
-from Products.LinguaPlone.public import InAndOutWidget
-from Products.LinguaPlone.public import StringField
-from Products.LinguaPlone.public import LinesField
-from archetypes.schemaextender.field import ExtensionField
-from archetypes.schemaextender.interfaces import ISchemaExtender
-from archetypes.schemaextender.interfaces import ISchemaModifier
-from zope.component import adapts
-from zope.interface import Interface, implements
-from zope.i18nmessageid import MessageFactory
-
 from Products.EEAContentTypes.browser.interfaces import \
     IEEAContentRegistryRequiredFields
 from Products.EEAContentTypes.utils import \
     excluded_temporal_coverage_schemaextender_tuple
-from eea.geotags import field
-from eea.geotags import widget
-from eea.themecentre.content.ThemeTaggable import ThemesField
+from Products.LinguaPlone.public import InAndOutWidget
+from Products.LinguaPlone.public import LinesField
+from Products.LinguaPlone.public import StringField
+from archetypes.schemaextender.field import ExtensionField
+from archetypes.schemaextender.interfaces import ISchemaExtender
+from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.relations.interfaces import IAutoRelations
-from eea.relations.component import getForwardRelationWith
-from eea.relations.component import getBackwardRelationWith
 from eea.forms.browser.app.temporal_coverage import grouped_coverage
+from eea.geotags import field
+from eea.geotags import widget
+from eea.relations.component import getBackwardRelationWith
+from eea.relations.component import getForwardRelationWith
+from eea.relations.field import EEAReferenceField
+from eea.relations.interfaces import IAutoRelations
+from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.themecentre.content.ThemeTaggable import ThemesField
+from zope.component import adapts
 
 _ = MessageFactory('Products.EEAContentTypes')
 
-import logging
 
 logger = logging.getLogger('EEAContentTypes')
 
@@ -326,8 +329,6 @@ class ManagementPlanFieldExtender(object):
         return self.fields
 
 
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 
 
 class RequiredSchemaModifier(object):
@@ -377,11 +378,13 @@ class LanguageIndependentModifier(object):
         self.context = context
 
     def fiddle(self, schema):
-        field = 'effectiveDate'
-        if field in schema:
-            xfield = schema[field].copy()
+        """ Fields
+        """
+        lfield = 'effectiveDate'
+        if lfield in schema:
+            xfield = schema[lfield].copy()
             xfield.languageIndependent = False
-            schema[field] = xfield
+            schema[lfield] = xfield
 
 
 class DavizRequirementsSchemaModifier(object):
@@ -397,11 +400,11 @@ class DavizRequirementsSchemaModifier(object):
         """
         # 30066 temporalCoverage and location are required_for_published
         fields = ['temporalCoverage', 'location']
-        for field in fields:
-            if field in schema:
-                xfield = schema[field].copy()
+        for dfield in fields:
+            if dfield in schema:
+                xfield = schema[dfield].copy()
                 xfield.required_for_published = True
-                schema[field] = xfield
+                schema[dfield] = xfield
 
 
 class KeywordsSchemaModifier(object):

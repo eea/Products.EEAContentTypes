@@ -2,24 +2,24 @@
 """
 import logging
 
+from zope.interface import implements
+
 from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.browser.interfaces import (
+    IDocumentRelated, IAutoRelated
+)
+from Products.EEAContentTypes.interfaces import IRelations
 from Products.Five.browser import BrowserView
-from zope.schema.interfaces import IVocabularyFactory
+from eea.mediacentre.interfaces import IMediaType
+from eea.mediacentre.interfaces import IVideo as MIVideo, IMediaPlayer
+from eea.themecentre.interfaces import IThemeMoreLink
+from eea.themecentre.interfaces import IThemeTagging
+from eea.translations import _
 from zope.component import (
     queryAdapter, getUtility,
     getMultiAdapter, queryMultiAdapter
 )
-from zope.interface import implements
-
-from Products.EEAContentTypes.interfaces import IRelations
-from eea.mediacentre.interfaces import IMediaType
-from eea.themecentre.interfaces import IThemeMoreLink
-from eea.themecentre.interfaces import IThemeTagging
-from eea.translations import _
-from Products.EEAContentTypes.browser.interfaces import (
-    IDocumentRelated, IAutoRelated
-)
-from eea.mediacentre.interfaces import IVideo as MIVideo, IMediaPlayer
+from zope.schema.interfaces import IVocabularyFactory
 
 logger = logging.getLogger('EEAContentTypes.browser.related')
 
@@ -45,7 +45,7 @@ def getObjectInfo(item, request):
             'description': item.Description(),
             'url': url,
             'absolute_url': item.absolute_url(),
-            'has_img': imgview != None and imgview.display() == True,
+            'has_img': imgview != None and imgview.display() is True,
             'is_video': MIVideo.providedBy(item),
             'item_type': item.portal_type,
             'item_mimetype': mimetype,
@@ -109,7 +109,8 @@ def annotateBrainInfo(info, request, urlOnly=None):
         url = state.view_url()
         if not urlOnly:
             imgview = queryMultiAdapter((obj, request), name="imgview")
-            info['has_img'] = (imgview != None and imgview.display() == True)
+            info['has_img'] = (imgview is not None and imgview.display()
+                               is True)
             info['item_mimetype'] = obj.get_content_type()
         info['url'] = url
 
@@ -434,20 +435,15 @@ class DocumentRelated(BrowserView):
             url = item.absolute_url()
             if item.portal_type in self.use_view:
                 url += '/view'
-            link = {'url': url,
-                    'text': item.Title(),
+            link = {'url': url, 'text': item.Title(),
                     'date': item.ModificationDate(),
-                    'popup_icon': portal.absolute_url() + popup}
-            if queryAdapter(item, MIVideo):
-                link['has_media_player'] = True
-            else:
-
-                link['has_media_player'] = False
-            if item.portal_type == 'FlashFile':
-                link['popup-url'] = item.absolute_url() + \
-                                    '/flashfile_popup_window'
-            else:
-                link['popup-url'] = item.absolute_url() + '/popup-play.html'
+                    'popup_icon': portal.absolute_url() + popup,
+                    'has_media_player': True if queryAdapter(item, MIVideo)
+                        else False,
+                    'popup-url': item.absolute_url() +
+                         '/flashfile_popup_window' if item.portal_type ==
+                         'FlashFile' else item.absolute_url() +
+                                          '/popup-play.html'}
 
             category = IMediaType(item).types[0]
             if not media.has_key(category):
@@ -520,8 +516,8 @@ class DocumentRelated(BrowserView):
                           'item_wf_state': item_wf_state,
                           'item_wf_state_class': item_wf_state_class,
                           'is_video': MIVideo.providedBy(item),
-                          'has_img': (imgview != None and
-                                      imgview.display() == True)
+                          'has_img': (imgview is not None and
+                                      imgview.display() is True)
                           })
         return other
 

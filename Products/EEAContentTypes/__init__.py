@@ -9,10 +9,20 @@ from Products.ATContentTypes.content.schemata import marshall_register
 from Products.Archetypes import listTypes
 from Products.Archetypes.atapi import process_types
 from Products.CMFCore import utils as cmfutils
-
 from Products.EEAContentTypes.config import ADD_CONTENT_PERMISSIONS
 from Products.EEAContentTypes.config import DEFAULT_ADD_CONTENT_PERMISSION
 from Products.EEAContentTypes.config import PROJECTNAME
+# imports packages and types for registration
+from Products.EEAContentTypes import content
+from Products.EEAContentTypes.content import (
+    Promotion,
+    PressRelease,
+    Highlight,
+    CallForInterest,
+    CallForTender,
+    Event
+)
+
 
 logger = logging.getLogger('Products.EEAContentTypes')
 
@@ -46,14 +56,6 @@ def finalizeSchema(schema, disableRelated=False, moveDiscussion=True,
 def setupSchemas():
     """ Setup schema
     """
-    from Products.EEAContentTypes.content import (
-        Promotion,
-        PressRelease,
-        Highlight,
-        CallForInterest,
-        CallForTender,
-        Event
-    )
     # (schema, moveDiscussion, disableRelated, moveThemeTag)
     types = ((Promotion.Promotion_schema, True, False, True),
              (PressRelease.PressRelease_schema, True, False, True),
@@ -77,10 +79,6 @@ def initialize(context):
     """ Zope 2
     """
 
-    # imports packages and types for registration
-    from Products.EEAContentTypes import content
-
-    content.__name__
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(
@@ -106,3 +104,7 @@ def initialize(context):
                               permission=ADD_CONTENT_PERMISSIONS[klassname])
 
     setupSchemas()
+
+__all__ = [
+    content.__name__
+]

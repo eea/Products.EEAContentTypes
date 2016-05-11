@@ -1,20 +1,22 @@
 """ Control panel
 """
 import logging
-from DateTime import DateTime
-from Products.Five import BrowserView
+
 from zope.interface import Interface, implements
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.EEAPloneAdmin.browser.migrate import \
     FixEffectiveDateForPublishedObjects
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class IStatusEffectiveDate(Interface):
     """ Effective Date Status Interface
     """
 
-    def startFixEffectiveDate():
+    def startFixEffectiveDate(self):
         """ Fix affected objects
         """
 
@@ -31,7 +33,7 @@ class StatusEffectiveDate(BrowserView):
         self.logger = logging.getLogger(
             "EffectiveFix")
 
-    def search(self, filters={}):
+    def search(self, filters=None):
         """ Search objs without effective date
         """
 
@@ -42,7 +44,6 @@ class StatusEffectiveDate(BrowserView):
             'query': search_date,
             'range': 'max'
         }
-        no_effective_date = DateTime('1000/01/01 00:00:00')
         query = {
             'review_state': "published",
             'Language': "all",
@@ -59,7 +60,7 @@ class StatusEffectiveDate(BrowserView):
 
         if brains:
             log.warning(
-                "Found %s affected objects" % len(brains)
+                "Found %s affected objects", len(brains)
             )
         else:
             log.info("Objects already DONE")
@@ -86,7 +87,8 @@ class StatusEffectiveDate(BrowserView):
         """
 
         # call FixEffectiveDateForPublishedObjects to fix affected objects
-        effective = FixEffectiveDateForPublishedObjects(self.context, self.request)
+        effective = FixEffectiveDateForPublishedObjects(self.context,
+                                                        self.request)
         effective()
 
         start = self.request.get('start_from_script', None)

@@ -5,21 +5,20 @@
 """
 
 import logging
-from zope.formlib import form
-from zope.interface import implements, Interface
 from zope import schema
-from zope.component import adapts
-from App.config import getConfiguration
 
+from zope.interface import implements, Interface
+
+from App.config import getConfiguration
 from OFS.SimpleItem import SimpleItem
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
+from eea.rabbitmq.client import RabbitMQConnector
 from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
+from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from plone.stringinterp.interfaces import IStringInterpolator
-
-from eea.rabbitmq.client import RabbitMQConnector
+from zope.component import adapts
+from zope.formlib import form
 
 #load rabbitmq configuration from conf and import connector
 config = getConfiguration()
@@ -36,7 +35,7 @@ else:
     try:
         port = int(configuration.get('port', ''))
     except Exception:
-        port = ''
+        port = 80
     rabbit_config = {
         'rabbit_host': configuration.get('host', ''),
         'rabbit_port': port,

@@ -1,12 +1,11 @@
 """ Syndication
 """
 import time
+from rfc822 import formatdate
 
-from zope.component import queryMultiAdapter
 from Products.CMFPlone.browser.syndication.views import FeedView
 from Products.CMFPlone.interfaces.syndication import IFeedSettings
-
-from rfc822 import formatdate
+from zope.component import queryMultiAdapter
 
 
 class SKOS(object):
@@ -63,7 +62,6 @@ class EEAFeedView(FeedView):
         img = queryMultiAdapter((item.context, item.context.REQUEST),
                                 name=u'imgview')
         result = item.context.Description()
-        
         if img is not None and img.display('mini'):
             # images, highlights, press releases etc have an 'image'
             # field - if so then we show a resized version of the image
@@ -72,7 +70,6 @@ class EEAFeedView(FeedView):
                 result = '<p><img src="%s" /></p><p>%s</p>' % \
                          (img('mini').absolute_url(),
                           item.context.Description())
-        
         return result
 
     def dateFormatItem(self, item):

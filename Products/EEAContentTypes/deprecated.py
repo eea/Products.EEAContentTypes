@@ -2,11 +2,13 @@
 Deprecated functionality that will be removed in a later release of this
 package
 """
-from zope.component import queryAdapter
+import warnings
 
 from p4a.subtyper.engine import Subtyper as BaseSubtyper, DescriptorWithName
 from p4a.subtyper.interfaces import IPortalTypedPossibleDescriptors
 from p4a.subtyper.interfaces import IPossibleDescriptors
+
+from zope.component import queryAdapter
 
 
 class Subtyper(BaseSubtyper):
@@ -36,7 +38,6 @@ class Subtyper(BaseSubtyper):
         return (DescriptorWithName(n, c) for n, c in possible.possible)
 
 
-import warnings
 
 warnings.warn("p4a.subtyper is deprecated. "
               "Please use marker interfaces instead",

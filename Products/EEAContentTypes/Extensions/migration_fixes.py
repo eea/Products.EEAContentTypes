@@ -3,8 +3,8 @@
 import cPickle
 import logging
 
-from Products.CMFPlone.utils import getToolByName
 import transaction
+from Products.CMFPlone.utils import getToolByName
 
 logger = logging.getLogger("Migration fix")
 
@@ -73,7 +73,7 @@ def read_folder_order(self):
 
         try:
             parent = self.unrestrictedTraverse(path, default=None)
-            if parent == None:
+            if parent is None:
                 logger.info("Could not get path: %s", path)
                 continue
 

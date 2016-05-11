@@ -1,4 +1,5 @@
 """ Content init module """
+from Products.Archetypes.ClassGen import generateMethods
 
 # Validators
 from Products.EEAContentTypes.content import validators
@@ -29,16 +30,17 @@ from Products.EEAContentTypes.content.orderablereffield import field
 from Products.EEAContentTypes.content.orderablereffield import (
     types_and_schema,
 )
+# monkey patch, by default file is not translatable, fix this
+from Products.ATContentTypes.content import file as atfile
 
-from Products.Archetypes.ClassGen import generateMethods
+from Products.ATContentTypes.content import image
+
 
 for otype, schema in types_and_schema:
     schema.addField(field)
     schema.moveField('relatedItems', pos='bottom')
     generateMethods(otype, [field])
 
-# monkey patch, by default file is not translatable, fix this
-from Products.ATContentTypes.content import file as atfile
 
 atfile.ATFileSchema['file'].languageIndependent = False
 
@@ -49,7 +51,6 @@ if 'application/pdf' in inlineMimetypes:
     inlineMimetypes.remove('application/pdf')
     atfile.ATFile.inlineMimetypes = tuple(inlineMimetypes)
 
-from Products.ATContentTypes.content import image
 
 image.ATImageSchema['rights'].languageIndependent = True
 
