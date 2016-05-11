@@ -198,7 +198,7 @@ class Relations(object):
         result = []
         mtool = getToolByName(self.context, 'portal_membership')
 
-        for i in range(len(references)):
+        for i, _item in enumerate(references):
             try:
                 obj = references[i]
             except Unauthorized:
@@ -218,7 +218,7 @@ class Relations(object):
         except Exception:
             return result
 
-        for i in range(len(references)):
+        for i, _item in enumerate(references):
             try:
                 obj = references[i]
             except Unauthorized:
