@@ -1,6 +1,7 @@
 /**
  * SWFObject v1.4.2: Flash Player detection and embed - http://blog.deconcept.com/swfobject/
  *
+ * jslint:disable
  * SWFObject is (c) 2006 Geoff Stearns and is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  *

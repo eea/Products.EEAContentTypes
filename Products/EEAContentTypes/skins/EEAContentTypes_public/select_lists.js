@@ -1,4 +1,5 @@
 /*
+* jslint:disable
 * A lame library to manipulate HTML SELECT elements through Javascript
 *
 * (C) 1997-2004, Andreas Jung
@@ -249,17 +250,17 @@ function LowerCaseSortGerman(v1, v2) {
 
    if (typeof a == "string") {
      a = a.toLowerCase();
-     a = a.replace(/ä/g,"ae");
-     a = a.replace(/ö/g,"oe");
-     a = a.replace(/ü/g,"ue");
-     a = a.replace(/ß/g,"ss");
+     a = a.replace(/ï¿½/g,"ae");
+     a = a.replace(/ï¿½/g,"oe");
+     a = a.replace(/ï¿½/g,"ue");
+     a = a.replace(/ï¿½/g,"ss");
      
      if (typeof b == "string") {
        b = b.toLowerCase();
-       b = b.replace(/ä/g,"ae");
-       b = b.replace(/ö/g,"oe");
-       b = b.replace(/ü/g,"ue");
-       b = b.replace(/ß/g,"ss");
+       b = b.replace(/ï¿½/g,"ae");
+       b = b.replace(/ï¿½/g,"oe");
+       b = b.replace(/ï¿½/g,"ue");
+       b = b.replace(/ï¿½/g,"ss");
        return a < b ? -1 : (a > b ? 1 : 0);
      }
      else { return 0; }
