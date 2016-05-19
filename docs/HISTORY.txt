@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.2.dev0 - (unreleased)
-------------------------
+12.2 - (2016-05-19)
+-------------------
 * Bug fix: Fix pylint warnings
   [ichim-david refs #71940]
 * Upgrade step: re-import control panel profile
