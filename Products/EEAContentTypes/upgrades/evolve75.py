@@ -3,7 +3,7 @@
 
 import logging
 
-from eea.versions.versions import _random_id
+from eea.versions.utils import _random_id
 
 logger = logging.getLogger('Products.EEAContentTypes.migration')
 
