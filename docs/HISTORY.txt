@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.3.dev0 - (unreleased)
-------------------------
+12.3 - (2016-05-27)
+-------------------
 * Change: change import path of _random_id of eea.versions, refactoring
   needed in order to avoid circular imports
   [ichimdav refs #72521]
