@@ -5,6 +5,7 @@ from cStringIO import StringIO
 
 from OFS.Image import Pdata
 import PIL.Image
+from Products.statusmessages.interfaces import IStatusMessage
 from zope.event import notify
 from zope.interface import providedBy
 from zope.lifecycleevent import ObjectModifiedEvent
@@ -43,6 +44,7 @@ class CropImageView(BrowserView):
 
     def __init__(self, context, request):
         super(CropImageView, self).__init__(context, request)
+        self.request = request
         self.field_name = request.get('field')
 
     def field(self):
@@ -108,7 +110,15 @@ class CropImageView(BrowserView):
         img_format = image.format
         image = image.crop(box)
         image_file = StringIO()
-        image.save(image_file, img_format, quality=60)
+        try:
+            image.save(image_file, img_format, quality=60)
+        except KeyError:
+            msg = "Cannot crop '%s' field because a '%s' should not" \
+                  " be used as an image" % (self.field_name, img_format)
+            IStatusMessage(self.request).addStatusMessage(msg,
+                type='error')
+            return
+
         image_file.seek(0)
         file_data = image_file.getvalue()
         field.set(self.context, file_data)

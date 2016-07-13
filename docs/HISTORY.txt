@@ -3,6 +3,9 @@ Changelog
 
 12.4.dev0 - (unreleased)
 ------------------------
+* Bug fix: warn the user when attempting to crop and the cropping
+  fails since PIL cannot write that image type such as a PSD
+  [ichim-david refs #73997]
 
 12.3 - (2016-05-27)
 -------------------
