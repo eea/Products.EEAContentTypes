@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.5.dev0 - (unreleased)
+------------------------
+
 12.4 - (2016-07-19)
 -------------------
 * Bug fix: warn the user when attempting to crop and the cropping
