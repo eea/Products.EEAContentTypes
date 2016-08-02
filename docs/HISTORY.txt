@@ -3,6 +3,8 @@ Changelog
 
 12.5.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed tests
+  [alecghica refs #74285]
 
 12.4 - (2016-07-19)
 -------------------
