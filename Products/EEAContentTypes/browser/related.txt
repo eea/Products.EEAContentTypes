@@ -111,7 +111,7 @@ of related:
   >>> relations = [ obj['title'] for obj in auto.sameType() ]
   >>> relations.sort()
   >>> relations
-  ['pr1', 'h1']
+  ['h1', 'pr1']
 
 And for the highlight we should get the press release as auto related.
 
