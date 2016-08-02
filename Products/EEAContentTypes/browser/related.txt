@@ -110,6 +110,7 @@ of related:
   >>> auto = AutoRelated(pr, self.portal.REQUEST)
   >>> relations = [ obj['title'] for obj in auto.sameType() ]
   >>> relations.sort()
+  >>> relations
   ['pr1', 'h1']
 
 And for the highlight we should get the press release as auto related.
@@ -117,4 +118,5 @@ And for the highlight we should get the press release as auto related.
   >>> auto = AutoRelated(h1, self.portal.REQUEST)
   >>> relations = [ obj['title'] for obj in auto.sameType() ]
   >>> relations.sort()
+  >>> relations
   ['pr1', 'pr2']
