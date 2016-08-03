@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.5.dev0 - (unreleased)
-------------------------
+12.5 - (2016-08-03)
+-------------------
 * Bug fix: fixed tests
   [alecghica refs #74285]
 
