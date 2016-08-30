@@ -3,6 +3,12 @@ Changelog
 
 12.6.dev0 - (unreleased)
 ------------------------
+* Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
+  button available for EEA Content Types
+  [voineali refs #70758]
+* Feature: Added Content-rules to auto-publish related items of Publications
+  and Indicators
+  [voineali refs #70758]
 
 12.5 - (2016-08-03)
 -------------------
@@ -32,7 +38,7 @@ Changelog
 -------------------
 * Bug fix: fixed gis_view call when argis field is empty
   [ichimdav refs #70523]
-* Change: Register the languageindependentfields for the generic 
+* Change: Register the languageindependentfields for the generic
   base object in order to get all of the objects instead of just
   the possible and eeacontent types
   [ichim-david refs #71102]

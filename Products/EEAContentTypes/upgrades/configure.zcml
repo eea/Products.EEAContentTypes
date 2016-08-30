@@ -2,6 +2,19 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+      <!-- 11.9 => 12.6 -->
+    <genericsetup:upgradeSteps
+        source="11.9"
+        destination="12.6"
+        profile="Products.EEAContentTypes:default">
+
+        <genericsetup:upgradeDepends
+            title="Add content rules to also publish related items for Publications and Indicators"
+            import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_12.6"
+        />
+
+    </genericsetup:upgradeSteps>
+
     <!-- 11.7 => 11.9 -->
     <genericsetup:upgradeSteps
         source="11.7"

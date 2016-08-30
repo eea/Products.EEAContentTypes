@@ -142,4 +142,12 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="eeacontenttypes_upgrade_12.6"
+        title="Upgrade profile for EEAContentTypes 12.6"
+        description="This profile contains configuration changes from 11.9 to 12.6"
+        directory="profiles/upgrade/to_126"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
