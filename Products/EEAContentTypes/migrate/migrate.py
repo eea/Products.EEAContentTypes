@@ -68,8 +68,11 @@ class Migrate(BrowserView):
     def content_types(self):
         """ Return EEA Content-Types to migrate
         """
-        return ("Article", "Highlight", "PressRelease",
-                "Promotion", "Speech", 'FlashFile')
+        img_properties = self.context.portal_properties.imaging_properties
+        types = img_properties.getProperty('migrate_these_types') or (
+            "Article", "Highlight", "PressRelease", "Promotion", "Speech",
+            'FlashFile')
+        return types
 
     def __call__(self, **kwargs):
         if self.request:

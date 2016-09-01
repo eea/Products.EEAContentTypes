@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+    <object name="imaging_properties" meta_type="Plone Property Sheet">
+        <property name="title">Image handling properties</property>
+        <property name="migrate_these_types" type="lines">
+            <element value="Article"/>
+            <element value="Highlight"/>
+            <element value="PressRelease"/>
+            <element value="Promotion"/>
+            <element value="Speech"/>
+            <element value="FlashFile"/>
+            <element value="Fiche"/>
+        </property>
+    </object>
+</object>
