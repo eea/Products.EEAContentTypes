@@ -14,7 +14,7 @@
   <fieldset>
     <legend i18n:translate="">Portal types</legend>
     <ul>
-      <li tal:repeat="ptype python:template.content_types">
+      <li tal:repeat="ptype python:view.content_types">
         <input type="checkbox" checked="checked" name="types:list"
           tal:attributes="value ptype; id string:type-$ptype" />
         <label tal:attributes="for string:type-$ptype"
