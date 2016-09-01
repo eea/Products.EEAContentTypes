@@ -1,6 +1,7 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="Products.EEAContentTypes">
 
   <class class="Products.EEAContentTypes.content.Highlight.Highlight">
@@ -21,6 +22,11 @@
 
   <class class="Products.EEAContentTypes.content.Speech.Speech">
     <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+  <class class="eea.soercontent.content.fiche.Fiche"
+      zcml:condition="installed eea.soercontent">
+      <implements interface=".interfaces.IContentToMigrate" />
   </class>
 
   <browser:page
