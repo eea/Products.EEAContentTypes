@@ -24,6 +24,11 @@
     <implements interface=".interfaces.IContentToMigrate" />
   </class>
 
+  <class class="Products.EEAContentTypes.content.GISApplication.GISMapApplication">
+      <implements interface=".interfaces.IContentToMigrate" />
+  </class>
+
+
   <class class="eea.soercontent.content.fiche.Fiche"
       zcml:condition="installed eea.soercontent">
       <implements interface=".interfaces.IContentToMigrate" />

@@ -5,7 +5,7 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import AnnotationStorage
-from Products.Archetypes.atapi import ImageField
+from plone.app.blob.field import ImageField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import ImageWidget, RichWidget
 from Products.Archetypes.atapi import Schema, registerType
