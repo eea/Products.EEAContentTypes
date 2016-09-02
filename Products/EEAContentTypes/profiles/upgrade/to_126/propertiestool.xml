@@ -11,6 +11,7 @@
             <element value="FlashFile"/>
             <element value="Fiche"/>
             <element value="GISApplication"/>
+            <element value="PDFTheme"/>
         </property>
     </object>
 </object>

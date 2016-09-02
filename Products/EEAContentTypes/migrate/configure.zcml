@@ -28,6 +28,10 @@
       <implements interface=".interfaces.IContentToMigrate" />
   </class>
 
+  <class class="eea.pdf.content.theme.PDFTheme"
+      zcml:condition="installed eea.pdf">
+      <implements interface=".interfaces.IContentToMigrate" />
+  </class>
 
   <class class="eea.soercontent.content.fiche.Fiche"
       zcml:condition="installed eea.soercontent">
