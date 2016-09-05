@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.6.dev0 - (unreleased)
-------------------------
+12.6 - (2016-09-05)
+-------------------
 * Bug fix: fixed call of @@migrate-eea2blobs as the BrowserView failed
   to find content_types when called from template instead of view
   [ichim-david refs #75045]
