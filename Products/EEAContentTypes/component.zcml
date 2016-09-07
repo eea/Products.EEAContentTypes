@@ -87,5 +87,9 @@
         for="eea.reports.interfaces.IReportContainerEnhanced"
         factory=".subtypes.RequiredSchemaModifier" />
 
+    <!--? Image field override -->
+    <adapter name="eea.blobimage"
+        for="Products.ATContentTypes.interfaces.IATNewsItem"
+        factory=".subtypes.ImageSchemaExtender"/>
 
 </configure>

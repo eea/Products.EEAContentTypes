@@ -10,8 +10,9 @@
             <element value="Speech"/>
             <element value="FlashFile"/>
             <element value="Fiche"/>
-            <element value="GISApplication"/>
+            <element value="GIS Application"/>
             <element value="PDFTheme"/>
+            <element value="News Item"/>
         </property>
     </object>
 </object>

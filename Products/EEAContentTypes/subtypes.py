@@ -5,6 +5,7 @@ import logging
 from AccessControl import ClassSecurityInfo
 from datetime import datetime
 
+from plone.app.blob.field import ImageField
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface, implements
 
@@ -18,6 +19,7 @@ from Products.EEAContentTypes.browser.interfaces import \
 from Products.EEAContentTypes.utils import \
     excluded_temporal_coverage_schemaextender_tuple
 from Products.LinguaPlone.public import InAndOutWidget
+from Products.LinguaPlone.public import ImageWidget
 from Products.LinguaPlone.public import LinesField
 from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
@@ -48,6 +50,10 @@ class ExtensionRelationsField(ExtensionField, EEAReferenceField):
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
+
+
+class ExtensionImageField(ExtensionField, ImageField):
+    """ derivative of imagefield for extending schemas """
 
 
 class ExtensionLinesField(ExtensionField, LinesField):
@@ -367,6 +373,32 @@ class RequiredSchemaModifier(object):
                     xfield = schema[name].copy()
                     xfield.required = True
                     schema[name] = xfield
+
+
+class ImageSchemaExtender(object):
+    """ Extends image field
+    """
+    implements(ISchemaExtender)
+
+    fields = (
+        ExtensionImageField(name="image",
+                            schemata="default",
+                            sizes=None,
+                            widget=ImageWidget(
+                                label=_("Image"),
+                                description=_("Image used for cover, "
+                                              "thumbnail and listings")),
+                            i18n_domain='eea',
+                            ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Returns image field
+        """
+        return self.fields
 
 
 class LanguageIndependentModifier(object):

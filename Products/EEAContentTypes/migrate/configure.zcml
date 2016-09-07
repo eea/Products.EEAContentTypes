@@ -24,6 +24,10 @@
     <implements interface=".interfaces.IContentToMigrate" />
   </class>
 
+    <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
+        <implements interface=".interfaces.IContentToMigrate" />
+    </class>
+
   <class class="Products.EEAContentTypes.content.GISApplication.GISMapApplication">
       <implements interface=".interfaces.IContentToMigrate" />
   </class>
