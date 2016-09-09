@@ -5,6 +5,7 @@ import logging
 from AccessControl import ClassSecurityInfo
 from datetime import datetime
 
+from plone.app.blob.field import ImageField
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface, implements
 
@@ -19,6 +20,7 @@ from Products.EEAContentTypes.browser.interfaces import \
 from Products.EEAContentTypes.utils import \
     excluded_temporal_coverage_schemaextender_tuple
 from Products.LinguaPlone.public import InAndOutWidget
+from Products.LinguaPlone.public import ImageWidget
 from Products.LinguaPlone.public import LinesField
 from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
@@ -49,6 +51,10 @@ class ExtensionRelationsField(ExtensionField, EEAReferenceField):
 
 class ExtensionStringField(ExtensionField, StringField):
     """ derivative of stringfield for extending schemas """
+
+
+class ExtensionImageField(ExtensionField, ImageField):
+    """ derivative of imagefield for extending schemas """
 
 
 class ExtensionLinesField(ExtensionField, LinesField):
