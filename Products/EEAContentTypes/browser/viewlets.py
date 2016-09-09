@@ -53,7 +53,7 @@ class TemporalCoverageViewlet(common.ViewletBase):
 class ExcludeTOCViewlet(common.ViewletBase):
     """ ExcludeCoverage field Viewlet
     """
-    render = ViewPageTemplateFile('zpt/viewlets/tocExclude_coverage.pt')
+    render = ViewPageTemplateFile('zpt/viewlets/tocexclude_coverage.pt')
 
     @property
     def available(self):
