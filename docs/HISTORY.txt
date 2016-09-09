@@ -3,7 +3,7 @@ Changelog
 
 12.7.dev0 - (unreleased)
 ------------------------
-* Bug fix: exclude specific headers from Table of Contents
+* Feature: exclude specific headers from Table of Contents
   [catalin refs #74583]
 
 12.6 - (2016-09-05)
