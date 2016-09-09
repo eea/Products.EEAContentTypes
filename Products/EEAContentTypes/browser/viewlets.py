@@ -59,7 +59,6 @@ class ExcludeTOCViewlet(common.ViewletBase):
     def available(self):
         """ Condition for rendering of this viewlets
         """
-        # import pdb; pdb.set_trace()
         if not getattr(self.context, 'tableContents', False):
             return False
         return getattr(self.context, 'tocExclude', False)
@@ -68,7 +67,6 @@ class ExcludeTOCViewlet(common.ViewletBase):
     def exclude(self):
      """ Get excluded toc
      """
-     # import pdb; pdb.set_trace()
      field = getattr(self.context, 'getField', lambda name: None)("tocExclude")
      if not field:
          return ""
