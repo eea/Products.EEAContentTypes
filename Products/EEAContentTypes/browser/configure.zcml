@@ -41,6 +41,15 @@
             permission="zope.Public"
             />
 
+    <browser:viewlet
+            name="eea.tocExclude"
+            for="*"
+            manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+            layer="eea.design.browser.interfaces.IEEACommonLayer"
+            class=".viewlets.ExcludeTOCViewlet"
+            permission="zope.Public"
+            />
+
 
     <!-- Browser Pages -->
     <browser:page

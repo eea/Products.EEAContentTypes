@@ -1,0 +1,4 @@
+<!-- Exclude coverage -->
+
+    <div tal:condition="view/available" tal:attributes="data-exclude view/exclude" class="exclude-toc" id="exclude-toc">
+    </div>

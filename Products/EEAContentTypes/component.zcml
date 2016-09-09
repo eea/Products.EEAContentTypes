@@ -92,4 +92,9 @@
         for="Products.ATContentTypes.interfaces.IATNewsItem"
         factory=".subtypes.ImageSchemaExtender"/>
 
+    <!-- #74583 Exclude items from Table of Contents -->
+    <adapter name="eea.tocExclude"
+        for="Products.Archetypes.interfaces.IBaseContent"
+        factory=".subtypes.ExcludeTOCSchemaExtender" />
+
 </configure>

@@ -14,6 +14,7 @@ from plone.registry.interfaces import IRegistry
 from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
+from Products.Archetypes.atapi import StringField, StringWidget
 from Products.EEAContentTypes.browser.interfaces import \
     IEEAContentRegistryRequiredFields
 from Products.EEAContentTypes.utils import \
@@ -629,3 +630,34 @@ class GetCanonicalRelations(object):
                 return tabs.items()
             else:
                 return []
+
+
+class ExtensionStringField(ExtensionField, StringField):
+    """ derivative of themesfield for extending schemas """
+
+
+class ExcludeTOCSchemaExtender(object):
+    """ Extends schema with exclude field
+    """
+    implements(ISchemaExtender)
+
+    fields = (
+        ExtensionStringField(
+            name='tocExclude',
+            schemata='settings',
+            required=False,
+            widget=StringWidget(
+                label="Exclude from Table of Contents",
+                description="Type id of what do you want to exclude.",
+            ),
+            languageIndependent=True,
+        ),
+    )
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        """ Fields
+        """
+        return self.fields
