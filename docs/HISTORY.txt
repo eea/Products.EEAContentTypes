@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.7.dev0 - (unreleased)
-------------------------
+12.7 - (2016-09-13)
+-------------------
 * Feature: exclude specific headers from Table of Contents
   [catalin refs #74583]
 
