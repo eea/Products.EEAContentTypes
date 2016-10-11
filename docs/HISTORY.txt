@@ -3,6 +3,9 @@ Changelog
 
 12.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: removed image override from IATNews as it overrided
+  each content type that inherits from News
+  [ichim-david refs #75045]
 
 12.7 - (2016-09-13)
 -------------------
