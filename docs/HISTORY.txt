@@ -3,6 +3,9 @@ Changelog
 
 12.9.dev0 - (unreleased)
 ------------------------
+* Bug fix: safely invalidatePromotionCache in case we have no
+  request such as in the case of an async operation
+  [ichim-david refs #75296]
 
 12.8 - (2016-10-14)
 -------------------

@@ -49,9 +49,11 @@ def invalidatePromotionsCache(obj, event):
     """
     portal_factory = getToolByName(obj, 'portal_factory', None)
     if portal_factory and not portal_factory.isTemporary(obj):
+        request = getattr(obj, 'REQUEST', {})
+        language = request.get('LANGUAGE', 'en')
         portal_url = getToolByName(obj, 'portal_url')()
         source = ("eea.design.browser.frontpage.getPromotions:('%s', '%s')"
-                  ) % (portal_url, obj.REQUEST.get('LANGUAGE', 'en'))
+                  ) % (portal_url, language)
         key = md5.new(source).hexdigest()
         notify(InvalidateCacheEvent(key=key, raw=True))
 
