@@ -45,7 +45,8 @@ class TranslationResolveUid(object):
         target = reference_catalog.lookupObject(uid)
         if target is not None:
             if hasattr(target, 'getTranslation'):
-                lang = context.REQUEST.get('LANGUAGE', None)
+                request = getattr(context, 'REQUEST', {})
+                lang = request.get('LANGUAGE', None)
                 if lang is not None:
                     target = target.getTranslation(lang) or target
             return target
