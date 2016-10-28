@@ -171,13 +171,13 @@ class GISMapApplication(ATLink):
         because there's an override in Archetypes.Referenceble
         that will remove all relations and we need them
         """
-
-        #only trigger event once, at the end, when dealing
-        #with plone.app.linkintegrity
-        if self.REQUEST.getURL().endswith('delete_confirmation'):
-            #delete has been confirmed
+        # only trigger event once, at the end, when dealing
+        # with plone.app.linkintegrity
+        request = getattr(self, 'REQUEST', None)
+        if request and request.getURL().endswith('delete_confirmation'):
+            # delete has been confirmed
             if self.REQUEST.form.get('_authenticator') and \
-                not self.REQUEST.form.get('form.submitted'):
+                    not self.REQUEST.form.get('form.submitted'):
                 notify(GISMapApplicationWillBeRemovedEvent(self))
         else:
             notify(GISMapApplicationWillBeRemovedEvent(self))

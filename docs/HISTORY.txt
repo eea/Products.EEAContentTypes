@@ -1,8 +1,17 @@
 Changelog
 =========
 
-12.8.dev0 - (unreleased)
+12.9.dev0 - (unreleased)
 ------------------------
+* Bug fix: safely invalidatePromotionCache in case we have no
+  request such as in the case of an async operation
+  [ichim-david refs #75296]
+
+12.8 - (2016-10-14)
+-------------------
+* Bug fix: removed image override from IATNews as it overrided
+  each content type that inherits from News
+  [ichim-david refs #75045]
 
 12.7 - (2016-09-13)
 -------------------
