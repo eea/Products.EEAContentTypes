@@ -50,8 +50,9 @@ div.archived p
              
               <tal:gis define="uid here/getArcGisUID|nothing;
                                arcgis_url here/arcgis_url|nothing;
-                               gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url
-                                              else 'http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid);
+                               gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url and not 'embed' in arcgis_url
+                                              else ('http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid) if 'webmap' in arcgis_url
+                                                    else arcgis_url);
                                is_inline is_inline|python:0">
                  <tal:block condition="python:uid or arcgis_url">
                  <iframe  width="1000" height="600" style="width:100%;height:600px;"
