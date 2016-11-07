@@ -1,9 +1,9 @@
 Changelog
 =========
 
-13.0.dev0 - (unreleased)
-------------------------
-* Feature: update GIS Application view template to handle more cases of
+13.0 - (2016-11-07)
+-------------------
+* Feature: updated GIS Application view template to handle more cases of
   embeded maps
   [alecghica refs #72689]
 
