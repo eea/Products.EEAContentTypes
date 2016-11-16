@@ -139,6 +139,11 @@
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
     </class>
 
+    <!-- Dashboard (Tableau) -->
+    <class class="Products.EEAContentTypes.content.Dashboard.Dashboard">
+        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+    </class>
+
     <!-- Highlight -->
     <class class="Products.EEAContentTypes.content.Highlight.Highlight">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />

@@ -112,8 +112,8 @@ class GISMapApplication(ATLink):
     _at_rename_after_creation = True
 
     def getArcGisUID(self):
-        """extract and return arcgis id from the arcgis url if exists otherwise
-           return None.
+        """ Extract and return arcgis id from the arcgis url if exists otherwise
+            return None.
         """
         idx = 0
         uid = None
@@ -127,7 +127,8 @@ class GISMapApplication(ATLink):
         return uid
 
     def getOrganisationName(self, url):
-        """ Return the organisation name based on its URL """
+        """ Return the organisation name based on its URL
+        """
         r = u''
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
@@ -137,10 +138,10 @@ class GISMapApplication(ATLink):
         return r
 
     def get_data_sources(self):
-        """Extract relations  to types: "Data" or "ExternalDataSpec"
-        and format them a disctionary:
-        <data source title/link> provided by
-        <organisation name> [and <organisation name>]
+        """ Extract relations  to types: "Data" or "ExternalDataSpec"
+            and format them a disctionary:
+            <data source title/link> provided by
+            <organisation name> [and <organisation name>]
         """
         r = []
         for item in self.getRelatedItems():
@@ -166,10 +167,10 @@ class GISMapApplication(ATLink):
         return r
 
     def manage_beforeDelete(self, item, container):
-        """Override manage_beforeDelete to be able to catch the
-        proper backreferences. We could not use ObjectWillBeRemovedEvent
-        because there's an override in Archetypes.Referenceble
-        that will remove all relations and we need them
+        """ Override manage_beforeDelete to be able to catch the
+            proper backreferences. We could not use ObjectWillBeRemovedEvent
+            because there's an override in Archetypes.Referenceble
+            that will remove all relations and we need them
         """
         # only trigger event once, at the end, when dealing
         # with plone.app.linkintegrity

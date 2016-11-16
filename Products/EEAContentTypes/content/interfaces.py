@@ -61,6 +61,11 @@ class IGISMapApplication(Interface):
     """
 
 
+class IInteractiveDashboard(Interface):
+    """ Marker interface for Dashboards
+    """
+
+
 class IInfographic(IEEAContent):
     """ Infographic
     """

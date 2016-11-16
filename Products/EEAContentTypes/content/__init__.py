@@ -1,4 +1,5 @@
-""" Content init module """
+""" Content init module
+"""
 from Products.Archetypes.ClassGen import generateMethods
 
 # Validators
@@ -16,6 +17,7 @@ from Products.EEAContentTypes.content import ExternalHighlight
 from Products.EEAContentTypes.content import FlashFile
 from Products.EEAContentTypes.content import CloudVideo
 from Products.EEAContentTypes.content import GISApplication
+from Products.EEAContentTypes.content import Dashboard
 from Products.EEAContentTypes.content import Highlight
 from Products.EEAContentTypes.content import Link
 from Products.EEAContentTypes.content import PressRelease
@@ -67,6 +69,7 @@ __all__ = [
     FlashFile.__name__,
     CloudVideo.__name__,
     GISApplication.__name__,
+    Dashboard.__name__,
     Highlight.__name__,
     Link.__name__,
     PressRelease.__name__,

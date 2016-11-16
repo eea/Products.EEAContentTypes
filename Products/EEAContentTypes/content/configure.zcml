@@ -21,10 +21,11 @@
     <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveMap" />
   </class>
 
-  <!-- If eea.daviz installed we treat daviz.presentation as interactive data -->
-  <class
-    zcml:condition="installed eea.daviz"
-    class="eea.daviz.content.visualization.DavizVisualization">
+  <class class=".Dashboard.Dashboard">
+    <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveData" />
+  </class>
+
+  <class class="eea.daviz.content.visualization.DavizVisualization">
     <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveData" />
   </class>
 

@@ -3,6 +3,8 @@ Changelog
 
 13.1.dev0 - (unreleased)
 ------------------------
+* Feature: new content type called Dashboard (Tableau) was created
+  [alecghica refs #72857]
 
 13.0 - (2016-11-07)
 -------------------
