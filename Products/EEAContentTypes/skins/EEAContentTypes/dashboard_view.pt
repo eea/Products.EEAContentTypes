@@ -48,7 +48,11 @@ div.archived p
 
             <metal:main define-macro="main">
 
-DASHBOARD VIEW
+
+<b>Embeded Tableau</b>
+<div>
+    <tal:embed content="structure context/embed" />
+</div>
 
             </metal:main>
     </metal:fill>

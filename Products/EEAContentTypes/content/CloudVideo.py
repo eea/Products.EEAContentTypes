@@ -33,8 +33,7 @@ schema = Schema((
                    label_msgid='EEAContentTypes_label_image',
                    description_msgid='EEAContentTypes_help_image',
                    i18n_domain='eea',
-                   show_content_type=False
-               )
+                   show_content_type=False)
                ),
     TextField('cloudUrl',
               languageIndependent=True,
@@ -50,8 +49,7 @@ schema = Schema((
                               ' external sites eg. Vimeo or Youtube',
                   description_msgid="EEAContentTypes_help_quotationtext",
                   label="Cloud Url",
-                  label_msgid="EEAContentTypes_label_cloud_url"
-              )
+                  label_msgid="EEAContentTypes_label_cloud_url")
               ),
     TextField(
         name='text',

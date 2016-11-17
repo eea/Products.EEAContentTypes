@@ -2,14 +2,12 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
-  <genericsetup:upgradeSteps
-        source="12.6"
-        destination="12.7"
-        profile="Products.EEAContentTypes:default">
-      <genericsetup:upgradeDepends
-          title="Register Dashboard conten type"
-          import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_12.7"
-      />
+  <genericsetup:upgradeSteps source="12.6"
+                             destination="12.7"
+                             profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeDepends
+        title="Register Dashboard conten type"
+        import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_12.7" />
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
