@@ -1,7 +1,6 @@
 """ Interfaces
 """
 from zope.interface import Interface, Attribute
-
 from .adapters.interfaces import ITemporalCoverageAdapter
 
 

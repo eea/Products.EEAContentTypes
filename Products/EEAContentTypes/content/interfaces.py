@@ -62,7 +62,7 @@ class IGISMapApplication(Interface):
 
 
 class IInteractiveDashboard(Interface):
-    """ Marker interface for Dashboards
+    """ Marker interface for Dashboards (Tableau)
     """
 
 
