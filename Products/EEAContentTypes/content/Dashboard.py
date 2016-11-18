@@ -25,14 +25,31 @@ schema = Schema((
             label_msgid='EEAContentTypes_label_embed',
             i18n_domain='eea',),
         ),
+
+    TextField(
+        name='body',
+        searchable=True,
+        required_for_published=False,
+        required=False,
+        allowable_content_types=('text/html',),
+        default_content_type="text/html",
+        default_output_type="text/x-html-safe",
+        widget=RichWidget(
+            label="More information",
+            description=("Description of methodology "
+                         "and calculations behind this."),
+            label_msgid='EEAContentTypes_label_body',
+            i18n_domain='eea',
+            ),
+        ),
 ))
 
 DASHBOARD_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 DASHBOARD_schema['description'].required = True
 DASHBOARD_schema['remoteUrl'].required = False
-DASHBOARD_schema['remoteUrl'].widget.label = 'Remote url'
-DASHBOARD_schema['remoteUrl'].widget.description = \
-    'Remote url description'
+DASHBOARD_schema['remoteUrl'].widget.visible = {
+    "edit": "invisible", "view": "invisible"}
+DASHBOARD_schema['subject'].required = True
 
 
 class Dashboard(ATLink):

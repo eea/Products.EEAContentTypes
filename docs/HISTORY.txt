@@ -3,6 +3,8 @@ Changelog
 
 13.1.dev0 - (unreleased)
 ------------------------
+* Upgrade step: add Dashboard under /www/@@eea-miniheader-controlpanel
+  [alecghica refs #72857]
 * Feature: new content type called Dashboard (Tableau) was created
   [alecghica refs #72857]
 

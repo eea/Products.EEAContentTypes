@@ -69,6 +69,11 @@
         factory=".subtypes.DavizRequirementsSchemaModifier" />
 
     <!-- Required fields adapter -->
+    <adapter name="eea.dashboardrequirements"
+        for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard"
+        factory=".subtypes.DashboardRequirementsSchemaModifier" />
+
+    <!-- Required fields adapter -->
     <adapter name="eea.requiredfields"
         for="Products.EEAContentTypes.interfaces.IEEAContent"
         factory=".subtypes.RequiredSchemaModifier" />

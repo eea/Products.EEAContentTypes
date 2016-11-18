@@ -12,52 +12,21 @@
                 tal:attributes="src string:${portal_url}/resize.js"></script>
        </metal:js>
 
-<metal:css fill-slot="css_slot">
-<style type="text/css">
-div.archived
-  {
-  #width:400px;
-  #height:180px;
-  margin-bottom:1em;
-  background-color:#ffffff;
-  border:1px solid black;
-  /* for IE */
-  filter:alpha(opacity=60);
-  /* CSS3 standard */
-  opacity:0.6;
-  #position:relative;
-  #top:-200px;
-  }
-div.archived p
-  {
-  margin:30px 40px;
-  font-weight:bold;
-  font-size: 150%;
-  color:#000000;
-  }
-</style>
-</metal:css>
 
   </head>
   <body>
-
     <metal:fill fill-slot="content-core">
-             <div class="archived" tal:condition="python:getattr(context, 'archivedcontent', None)">
-              <p i18n:translate="">Note: this webpage has been archived.</p>
+        <metal:main define-macro="main">
+
+            <tal:embed content="structure context/embed" />
+            
+             <div class="more-information-body" tal:define="body context/getBody" tal:condition="body">
+                 <h3 i18n:translate="" class="notoc">More information</h3>
+                 <tal:block tal:replace="structure body" />
              </div>
 
-            <metal:main define-macro="main">
-
-
-<b>Embeded Tableau</b>
-<div>
-    <tal:embed content="structure context/embed" />
-</div>
-
-            </metal:main>
+        </metal:main>
     </metal:fill>
-
     <metal:columntwo fill-slot="column_two_slot" />
-
   </body>
 </html>

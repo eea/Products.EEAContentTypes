@@ -260,7 +260,7 @@ class ThemesSchemaExtender(object):
 
 
 class TemporalCoverageSchemaExtender(object):
-    """ Extends schema with themes field
+    """ Extends schema with temporalCoverage field
     """
     implements(ISchemaExtender)
 
@@ -303,7 +303,7 @@ class TemporalCoverageSchemaExtender(object):
 
 
 class ManagementPlanFieldExtender(object):
-    """ Extends schema with themes field
+    """ Extends schema with eeaManagementPlan field
     """
     implements(ISchemaExtender)
 
@@ -334,8 +334,6 @@ class ManagementPlanFieldExtender(object):
         """ Fields
         """
         return self.fields
-
-
 
 
 class RequiredSchemaModifier(object):
@@ -437,6 +435,27 @@ class DavizRequirementsSchemaModifier(object):
             if dfield in schema:
                 xfield = schema[dfield].copy()
                 xfield.required_for_published = True
+                schema[dfield] = xfield
+
+
+class DashboardRequirementsSchemaModifier(object):
+    """ Modify schema for Dashboard content type
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        """ Fields
+        """
+        # #72857 temporalCoverage, themed and location are required
+        fields = ['temporalCoverage', 'location', 'themes']
+        for dfield in fields:
+            if dfield in schema:
+                xfield = schema[dfield].copy()
+                xfield.required_for_published = True
+                xfield.required = True
                 schema[dfield] = xfield
 
 
