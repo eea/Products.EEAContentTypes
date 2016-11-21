@@ -3,6 +3,8 @@ Changelog
 
 13.2.dev0 - (unreleased)
 ------------------------
+* Feature: Dashboard (Tableau) is using full width view now
+  [alecghica refs #72857]
 
 13.1 - (2016-11-21)
 -------------------

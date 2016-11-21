@@ -6,7 +6,7 @@
                              destination="12.7"
                              profile="Products.EEAContentTypes:default">
     <genericsetup:upgradeDepends
-        title="Register Dashboard conten type"
+        title="Register Dashboard content type"
         import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_12.7" />
   </genericsetup:upgradeSteps>
 

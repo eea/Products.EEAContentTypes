@@ -1,0 +1,7 @@
+<registry>
+    <record name="Products.EEAContentTypes.browser.interfaces.IEEAContentTypesSettings.fullwidthFor" interface="Products.EEAContentTypes.browser.interfaces.IEEAContentTypesSettings" field="fullwidthFor">
+        <value purge="false">
+            <element>Dashboard</element>
+        </value>
+    </record>
+</registry>
