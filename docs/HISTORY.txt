@@ -1,6 +1,9 @@
 Changelog
 =========
 
+13.2.dev0 - (unreleased)
+------------------------
+
 13.1 - (2016-11-21)
 -------------------
 * Upgrade step: add Dashboard under /www/@@eea-miniheader-controlpanel
