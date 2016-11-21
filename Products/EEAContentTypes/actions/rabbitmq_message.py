@@ -3,7 +3,7 @@
     - routing based on the queue name
     - the queue is 'durable' (the messages aren't lost)
 """
-
+import os
 import logging
 from zope import schema
 
@@ -20,15 +20,21 @@ from plone.stringinterp.interfaces import IStringInterpolator
 from zope.component import adapts
 from zope.formlib import form
 
-#load rabbitmq configuration from conf and import connector
 config = getConfiguration()
 if not hasattr(config, 'product_config'):
-    # this happens during unit tests, we load a dummy rabbit config dict
+    host = os.environ.get('RABBITMQ_HOST', '')
+    try:
+        port = int(os.environ.get('RABBITMQ_PORT', ''))
+    except Exception:
+        port = 5672 if host else ''
+    username = os.environ.get('RABBITMQ_USER', '')
+    password = os.environ.get('RABBITMQ_PASS', '')
+
     rabbit_config = {
-        'rabbit_host': '',
-        'rabbit_port': '',
-        'rabbit_username': '',
-        'rabbit_password': ''
+        'rabbit_host': host,
+        'rabbit_port': port,
+        'rabbit_username': username,
+        'rabbit_password': password
     }
 else:
     configuration = config.product_config.get('rabbitmq', dict())

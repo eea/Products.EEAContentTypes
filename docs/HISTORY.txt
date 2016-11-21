@@ -3,6 +3,8 @@ Changelog
 
 13.3.dev0 - (unreleased)
 ------------------------
+* Feature: Allow configuration of RabbitMQ via environment variables
+  [voineali refs #78653]
 
 13.2 - (2016-11-21)
 -------------------
