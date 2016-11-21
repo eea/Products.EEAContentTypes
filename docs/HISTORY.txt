@@ -1,6 +1,9 @@
 Changelog
 =========
 
+13.4.dev0 - (unreleased)
+------------------------
+
 13.3 - (2016-11-21)
 -------------------
 * Feature: Allow configuration of RabbitMQ via environment variables
