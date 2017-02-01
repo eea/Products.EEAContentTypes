@@ -26,6 +26,8 @@ from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
+from plone.app.blob.subtypes.blob import SchemaExtender as BlobSchemaExtender
+from plone.app.blob.subtypes.file import SchemaExtender as FileSchemaExtender
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
 from eea.forms.browser.app.temporal_coverage import grouped_coverage
@@ -679,4 +681,36 @@ class ExcludeTOCSchemaExtender(object):
     def getFields(self):
         """ Fields
         """
+        return self.fields
+
+
+class EEABlobSchemaExtender(BlobSchemaExtender):
+    """ Custom Blob Schema Extender
+    """
+    def getFields(self):
+        """ Schema Fields """
+        request = getattr(self.context, 'REQUEST', None)
+        url = getattr(request, 'ACTUAL_URL', '')
+        if '/rdf' in url:
+            self.fields[0].searchable = True
+        elif '/@@rdf' in url:
+            self.fields[0].searchable = True
+        else:
+            self.fields[0].searchable = False
+        return self.fields
+
+
+class EEAFileSchemaExtender(FileSchemaExtender):
+    """ Custom File Schema Extender
+    """
+    def getFields(self):
+        """ Schema Fields """
+        request = getattr(self.context, 'REQUEST', None)
+        url = getattr(request, 'ACTUAL_URL', '')
+        if '/rdf' in url:
+            self.fields[0].searchable = True
+        elif '/@@rdf' in url:
+            self.fields[0].searchable = True
+        else:
+            self.fields[0].searchable = False
         return self.fields

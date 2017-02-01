@@ -3,6 +3,10 @@ Changelog
 
 13.4.dev0 - (unreleased)
 ------------------------
+* Change: Do NOT index File content within ZCatalog SearchableText
+  in order to speed-up upload and reduce DB size. Still keep
+  SearchableText within RDF export.
+  [voineali refs #79726]
 
 13.3 - (2016-11-21)
 -------------------
