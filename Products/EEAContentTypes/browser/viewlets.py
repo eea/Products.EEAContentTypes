@@ -65,12 +65,15 @@ class ExcludeTOCViewlet(common.ViewletBase):
 
     @property
     def exclude(self):
-     """ Get excluded toc
-     """
-     field = getattr(self.context, 'getField', lambda name: None)("tocExclude")
-     if not field:
-         return ""
-     accessor = getattr(field, 'getAccessor',  lambda name: None)(self.context)
-     if not accessor:
-         return ""
-     return accessor()
+        """ Get excluded toc
+        """
+        field = getattr(self.context, 'getField',
+                        lambda name: None)("tocExclude")
+        if not field:
+            return ""
+        accessor = getattr(field, 'getAccessor',
+                           lambda name: None)(self.context)
+
+        if not accessor:
+            return ""
+        return accessor()

@@ -653,10 +653,6 @@ class GetCanonicalRelations(object):
                 return []
 
 
-class ExtensionStringField(ExtensionField, StringField):
-    """ derivative of themesfield for extending schemas """
-
-
 class ExcludeTOCSchemaExtender(object):
     """ Extends schema with exclude field
     """

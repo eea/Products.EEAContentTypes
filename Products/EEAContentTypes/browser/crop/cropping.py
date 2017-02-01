@@ -113,8 +113,10 @@ class CropImageView(BrowserView):
         try:
             image.save(image_file, img_format, quality=60)
         except KeyError:
-            msg = "Cannot crop image because of wrong image format ('%s') used." \
-                  "Please make sure to use jpg,png,gif or tiff" % img_format
+            msg = (
+                "Cannot crop image because of wrong image format ('%s') used. "
+                "Please make sure to use jpg,png,gif or tiff" % img_format
+            )
             IStatusMessage(self.request).addStatusMessage(msg,
                 type='error')
             return
