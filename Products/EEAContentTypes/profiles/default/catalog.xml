@@ -16,7 +16,6 @@
  </index>
  <column value="getImageCopyright"/>
  <column value="getImageSource"/>
- <column value="getImageNote"/>
  <column value="getNewsTitle"/>
  <column value="getQuotationSource"/>
  <column value="getQuotationText"/>

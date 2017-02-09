@@ -3,6 +3,8 @@ Changelog
 
 13.4.dev0 - (unreleased)
 ------------------------
+* Cleanup: Remove `getImageNote` index from portal_catalog
+  [voineali refs #80119]
 * Change: Do NOT index File content within ZCatalog SearchableText
   in order to speed-up upload and reduce DB size. Still keep
   SearchableText within RDF export.
