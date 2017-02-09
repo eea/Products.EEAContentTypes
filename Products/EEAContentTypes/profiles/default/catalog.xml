@@ -15,7 +15,6 @@
   <indexed_attr value="countReferences"/>
  </index>
  <column value="getImageCopyright"/>
- <column value="getImageSource"/>
  <column value="getNewsTitle"/>
  <column value="getQuotationSource"/>
  <column value="getQuotationText"/>
