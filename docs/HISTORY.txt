@@ -3,11 +3,13 @@ Changelog
 
 13.4.dev0 - (unreleased)
 ------------------------
-* Cleanup: Remove `getNewsTitle` index from portal_catalog
+* Cleanup: Remove `getTeaser` index and metadata from portal_catalog
   [voineali refs #80119]
-* Cleanup: Remove `getImageSource` index from portal_catalog
+* Cleanup: Remove `getNewsTitle` index and metadata from portal_catalog
   [voineali refs #80119]
-* Cleanup: Remove `getImageNote` index from portal_catalog
+* Cleanup: Remove `getImageSource` index and metadata from portal_catalog
+  [voineali refs #80119]
+* Cleanup: Remove `getImageNote` index and metadata from portal_catalog
   [voineali refs #80119]
 * Change: Do NOT index File content within ZCatalog SearchableText
   in order to speed-up upload and reduce DB size. Still keep
