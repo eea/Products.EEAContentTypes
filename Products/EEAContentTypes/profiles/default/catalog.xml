@@ -7,7 +7,6 @@
   <indexed_attr value="countReferences"/>
  </index>
  <column value="getImageCopyright"/>
- <column value="getQuotationText"/>
  <column value="getUrl"/>
  <column value="getVisibilityLevel"/>
 </object>
