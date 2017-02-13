@@ -3,6 +3,8 @@ Changelog
 
 13.4.dev0 - (unreleased)
 ------------------------
+* Cleanup: Remove `getNewsTitle` index from portal_catalog
+  [voineali refs #80119]
 * Cleanup: Remove `getImageSource` index from portal_catalog
   [voineali refs #80119]
 * Cleanup: Remove `getImageNote` index from portal_catalog
