@@ -3,6 +3,8 @@ Changelog
 
 13.4.dev0 - (unreleased)
 ------------------------
+* Cleanup: Remove `getQuotationSource` index and metadata from portal_catalog
+  [voineali refs #80119]
 * Cleanup: Remove `getTeaser` index and metadata from portal_catalog
   [voineali refs #80119]
 * Cleanup: Remove `getNewsTitle` index and metadata from portal_catalog
