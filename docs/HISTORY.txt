@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.4.dev0 - (unreleased)
-------------------------
+13.4 - (2017-02-14)
+-------------------
 * Cleanup: Remove `getQuotationText` index and metadata from portal_catalog
   [voineali refs #80119]
 * Cleanup: Remove `getQuotationSource` index and metadata from portal_catalog
