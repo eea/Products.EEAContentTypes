@@ -3,6 +3,8 @@ Changelog
 
 13.5.dev0 - (unreleased)
 ------------------------
+* Change: Remove email and job title from staff list
+  [demarant refs #82338]
 
 13.4 - (2017-02-14)
 -------------------

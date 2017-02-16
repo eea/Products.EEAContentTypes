@@ -52,10 +52,6 @@
                         >First name</tal:title>&nbsp;</th>
                     <th>&nbsp;<tal:title i18n:translate=""
                         >Last name</tal:title>&nbsp;</th>
-                    <th class="nosort">&nbsp;<tal:title i18n:translate=""
-                        >Contact</tal:title>&nbsp;</th>
-                    <th>&nbsp;<tal:title i18n:translate=""
-                        >Job title</tal:title>&nbsp;</th>
                     <th>&nbsp;<tal:title i18n:translate=""
                         >Programme</tal:title>&nbsp;</th>
                   </tr>
@@ -71,8 +67,6 @@
 
                       <td tal:content="item/first_name"></td>
                       <td tal:content="item/last_name"></td>
-                      <td><tal:emailjs replace="structure item/email" /></td>
-                      <td tal:content="item/job_title"></td>
                       <td tal:content="item/programme"></td>
 
                     </tr>
