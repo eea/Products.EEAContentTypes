@@ -5,6 +5,8 @@ Changelog
 ------------------------
 * Change: use https for vacancies application form
   [demarant refs #82949]
+* Bug fix: Get resources over https
+  [avoinea refs #82562]
 
 13.5 - (2017-02-21)
 -------------------

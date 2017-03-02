@@ -1,7 +1,7 @@
 <metal:portlet define-macro="portlet">
 
 	<script type="text/javascript" 
-	        src="http://api.maps.yahoo.com/ajaxymap?v=3.7&amp;appid=c5h5YSHV34ExDn1gtsTGwh6JK5TtSSqZrzJ1UHxhFQGZgkKNBDXKlGnguYCpWjdvT3TaYnz.3xE-"></script>
+	        src="https://api.maps.yahoo.com/ajaxymap?v=3.7&amp;appid=c5h5YSHV34ExDn1gtsTGwh6JK5TtSSqZrzJ1UHxhFQGZgkKNBDXKlGnguYCpWjdvT3TaYnz.3xE-"></script>
 
 	<metal:css define-slot="css_slot" />
 
@@ -62,7 +62,7 @@
 	function createMarker(map, lat, lng, id) {
 		var geo_loc = new YGeoPoint(lat, lng);
 		var geo_image = new YImage();
-		geo_image.src = 'http://www-eea.eaudeweb.ro/portal_url/event_icon.gif';
+		geo_image.src = 'https://www-eea.eaudeweb.ro/portal_url/event_icon.gif';
 		geo_image.size = new YSize(16,16);
 
 		var marker = new YMarker(geo_loc, geo_image)
@@ -100,11 +100,11 @@
 		imgs = map_html.getElementsByTagName('img');
 		for (var k=0;k<imgs.length;k++) {
 			// Yahoo logo on FF
-			if (imgs[k].src == 'http://us.i1.yimg.com/us.yimg.com/i/us/map/aj/yahoo.png')
+			if (imgs[k].src == 'https://us.i1.yimg.com/us.yimg.com/i/us/map/aj/yahoo.png')
 				{imgs[k].style.height = '9px';
 				 imgs[k].style.width = '40px';}
 			// Yahoo logo on IE
-			if (imgs[k].src == 'http://us.i1.yimg.com/us.yimg.com/i/us/map/aj/cpx.gif' && (k+1 == imgs.length))
+			if (imgs[k].src == 'https://us.i1.yimg.com/us.yimg.com/i/us/map/aj/cpx.gif' && (k+1 == imgs.length))
 				{imgs[k].style.height = '9px';
 				 imgs[k].style.width = '40px';}
 		}
