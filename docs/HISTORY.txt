@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.6.dev0 - (unreleased)
-------------------------
+13.6 - (2017-03-02)
+-------------------
 * Change: use https for vacancies application form
   [demarant refs #82949]
 * Bug fix: Get resources over https
