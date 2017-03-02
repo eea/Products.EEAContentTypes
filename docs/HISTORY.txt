@@ -3,6 +3,8 @@ Changelog
 
 13.6.dev0 - (unreleased)
 ------------------------
+* Change: use https for vacancies application form
+  [demarant refs #82949]
 
 13.5 - (2017-02-21)
 -------------------
