@@ -303,6 +303,16 @@ class IEEAContentTypesSettings(Interface):
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
     )
 
+    scrollAnalyticsFor = schema.Tuple(
+        title=_(u"Scroll Analytics"),
+        description=_(u"Enable scroll analytics class for the "
+                      "following content-types"),
+        required=False,
+        default=('Article', 'Fiche', 'Highlight', 'Assessment'),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
+    )
+
 
 required_for_ctypes = ('Article', 'Highlight', 'PressRelease', 'Speech',
                        'DiversityReport', 'Data', 'EEAFigure', 'Report',

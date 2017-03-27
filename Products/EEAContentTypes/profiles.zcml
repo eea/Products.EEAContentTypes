@@ -157,4 +157,13 @@
         directory="profiles/upgrade/to_127"
         provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_13.7"
+    title="Upgrade profile for EEAContentTypes 13.7"
+    description="This profile contains configuration changes from 12.7 to 13.7"
+    directory="profiles/upgrade/to_137"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+
 </configure>

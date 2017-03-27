@@ -1,0 +1,25 @@
+<registry>
+  <record name="Products.EEAContentTypes.browser.interfaces.IEEAContentTypesSettings.scrollAnalyticsFor" interface="Products.EEAContentTypes.browser.interfaces.IEEAContentTypesSettings" field="scrollAnalyticsFor">
+    <field type="plone.registry.field.Tuple">
+      <default>
+        <element>Article</element>
+        <element>Briefings</element>
+        <element>Highlight</element>
+        <element>Assessment</element>
+      </default>
+      <description xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="eea" ns0:translate="">Enable body scrollAnalytics class for the following content-types</description>
+      <required>False</required>
+      <title xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="eea" ns0:translate="">Scroll Analytics content types</title>
+      <value_type type="plone.registry.field.Choice">
+        <vocabulary>plone.app.vocabularies.ReallyUserFriendlyTypes</vocabulary>
+      </value_type>
+    </field>
+    <value>
+      <element>Article</element>
+      <element>Briefings</element>
+      <element>Highlight</element>
+      <element>Assessment</element>
+    </value>
+  </record>
+</registry>
+
