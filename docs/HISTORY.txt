@@ -1,6 +1,9 @@
 Changelog
 =========
 
+13.8.dev0 - (unreleased)
+------------------------
+
 13.7 - (2017-04-24)
 -------------------
 * Change: updated package information
