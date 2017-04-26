@@ -3,7 +3,7 @@
     <field type="plone.registry.field.Tuple">
       <default>
         <element>Article</element>
-        <element>Briefings</element>
+        <element>Briefing</element>
         <element>Highlight</element>
         <element>Assessment</element>
       </default>
@@ -16,7 +16,7 @@
     </field>
     <value>
       <element>Article</element>
-      <element>Briefings</element>
+      <element>Briefing</element>
       <element>Highlight</element>
       <element>Assessment</element>
     </value>
