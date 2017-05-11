@@ -3,6 +3,16 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+          source="13.7"
+          destination="13.7"
+          profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeDepends
+            title="Add scrollAnalyticsFor functionality from eea.jquery 83507"
+            import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_13.8"
+    />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="12.7"
     destination="13.7"
     profile="Products.EEAContentTypes:default">

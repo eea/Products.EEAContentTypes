@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+
+    <javascript id="textStatistics.js"
+                expression="" remove="True"/>
+    <javascript id="visibly.js"
+                expression="" remove="True"/>
+
+    <javascript id="++resource++eea.jquery.screenanalytics.js"
+                expression="" insert-before="design.js" />
+
+    <javascript id="++resource++jquery.textstatistics.js"
+                expression="" insert-before="++resource++eea.jquery.screenanalytics.js" />
+
+    <javascript id="++resource++jquery.visibly.js"
+                expression="" insert-before="++resource++jquery.textstatistics.js" />
+</object>
