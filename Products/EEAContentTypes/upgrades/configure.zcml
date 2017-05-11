@@ -4,7 +4,7 @@
 
   <genericsetup:upgradeSteps
           source="13.7"
-          destination="13.7"
+          destination="13.8"
           profile="Products.EEAContentTypes:default">
     <genericsetup:upgradeDepends
             title="Add scrollAnalyticsFor functionality from eea.jquery 83507"
