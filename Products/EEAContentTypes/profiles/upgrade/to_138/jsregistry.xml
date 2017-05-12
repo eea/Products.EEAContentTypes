@@ -6,12 +6,7 @@
     <javascript id="visibly.js"
                 expression="" remove="True"/>
 
-    <javascript id="++resource++eea.jquery.screenanalytics.js"
+    <javascript id="++resource++eea.jquery.screentimeanalytics.js"
                 expression="" insert-before="design.js" />
 
-    <javascript id="++resource++jquery.textstatistics.js"
-                expression="" insert-before="++resource++eea.jquery.screenanalytics.js" />
-
-    <javascript id="++resource++jquery.visibly.js"
-                expression="" insert-before="++resource++jquery.textstatistics.js" />
 </object>
