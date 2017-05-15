@@ -1,7 +1,7 @@
 """ Review
 """
-from AccessControl import getSecurityManager
 import logging
+from AccessControl import getSecurityManager
 
 from Products.CMFCore.utils import getToolByName
 

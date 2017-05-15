@@ -7,10 +7,9 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
 from Products.contentmigration.archetypes import InplaceATItemMigrator
-from zope.interface import alsoProvides
-
 from Products.EEAContentTypes.interfaces import IEEAPloneSite
 from Products.EEAContentTypes.vocabulary import vocabs
+from zope.interface import alsoProvides
 
 logger = logging.getLogger("Products.EEAContentTypes")
 

@@ -2,15 +2,12 @@
 """
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.PloneLanguageTool.interfaces import ITranslatable
+from Products.EEAContentTypes.browser.interfaces import ILanguages
 from plone.memoize.ram import cache
 import zope.interface
-
-from Products.EEAContentTypes.browser.interfaces import ILanguages
-
 
 def cacheKey(method, self):
     """ Cache key

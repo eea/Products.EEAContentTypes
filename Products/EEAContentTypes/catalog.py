@@ -2,12 +2,11 @@
 """
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.ATContentTypes.interfaces.event import IATEvent
-from plone.indexer.decorator import indexer
-
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
-from .interfaces import ITemporalCoverageAdapter
 from Products.EEAContentTypes.interfaces import IEEAContent
+from plone.indexer.decorator import indexer
 from eea.daviz.content.interfaces import IDavizVisualization
+from .interfaces import ITemporalCoverageAdapter
 
 
 @indexer(IBaseContent)

@@ -5,19 +5,17 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import AnnotationStorage
-from plone.app.blob.field import ImageField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import ImageWidget, RichWidget
 from Products.Archetypes.atapi import Schema, registerType
 from Products.validation import V_REQUIRED
-from zope.interface import implements
-from zope.event import notify
-
 from Products.CMFCore.utils import getToolByName
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IGISMapApplication
 from Products.EEAContentTypes.events import GISMapApplicationWillBeRemovedEvent
+from plone.app.blob.field import ImageField
+from zope.interface import implements
+from zope.event import notify
 
 schema = Schema((
     StringField(name="arcgis_url",

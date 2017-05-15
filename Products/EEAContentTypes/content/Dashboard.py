@@ -4,9 +4,9 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes.atapi import TextField, RichWidget, TextAreaWidget
 from Products.Archetypes.atapi import Schema, registerType
-from zope.interface import implements
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IInteractiveDashboard
+from zope.interface import implements
 
 
 schema = Schema((

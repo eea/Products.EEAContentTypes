@@ -1,7 +1,7 @@
 """ Tests for Organisation
 """
-from App.Common import package_home
 import os
+from App.Common import package_home
 
 from Products.EEAContentTypes.browser.organisation import Organisation
 from Products.EEAContentTypes.config import product_globals

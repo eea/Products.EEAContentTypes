@@ -12,13 +12,12 @@ from Products.LinguaPlone.public import Schema
 from Products.LinguaPlone.public import StringField
 from Products.LinguaPlone.public import StringWidget, registerType
 from Products.validation import V_REQUIRED
-from zope.component import adapts
-from zope.interface import implements
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ImageBlobField
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IExternalPromotion
+from zope.component import adapts
+from zope.interface import implements
 from eea.promotion.interfaces import IFrontpageSectionIndex
 
 enable_exception = zconf.swallowImageResizeExceptions.enable

@@ -2,17 +2,17 @@
     - sets the effective/publishing date of object, if is missing
     - adds an entry in object's workflow history (optional)
 """
+from logging import getLogger
 from zope.interface import implements, Interface
 from zope.component import adapts
+from zope.formlib import form
+from zope import schema
 from OFS.SimpleItem import SimpleItem
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
-from zope.formlib import form
-from zope import schema
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
-from logging import getLogger
 
 logger = getLogger("Products.EEAContentTypes")
 

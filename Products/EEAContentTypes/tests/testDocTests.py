@@ -4,18 +4,13 @@
 
 import doctest
 import unittest
-
-from Products.CMFCore.utils import getToolByName
-from zope.component.hooks import setSite
 import os
-
+from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.tests import base
-
-
-
+from zope.component.hooks import setSite
+from zope.interface import alsoProvides
 # from Products.CMFSquidTool.utils import stopThreads
 from eea.mediacentre.interfaces import IVideo
-from zope.interface import alsoProvides
 
 
 def createObject(parent, portal_type, oid):

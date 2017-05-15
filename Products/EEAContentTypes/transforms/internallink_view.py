@@ -1,9 +1,9 @@
 """ Internal links
 """
+import re
 from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import ITransform
 from zope.interface import implements
-import re
 
 TAG_RE = re.compile(
     r'''(<a\s*[^>]*class\s*=\s*"[^>]*internal-link[^"]*"[^>]*>.*?</a>)''')

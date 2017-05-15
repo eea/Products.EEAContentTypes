@@ -1,9 +1,8 @@
 """ Tests for Highlight
 """
-
+import os
 from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
-import os
 
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase

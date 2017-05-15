@@ -1,12 +1,11 @@
 """ Workflow
 """
 from Products.CMFCore.utils import getToolByName
-from zope.component import adapts, queryAdapter
-from zope.interface import implements, Interface
-
 from Products.EEAContentTypes.interfaces import ILocalRoleEmails
 from Products.EEAContentTypes.interfaces import ITransitionLogicalGuard
 from Products.EEAPloneAdmin.interfaces import IWorkflowEmails
+from zope.component import adapts, queryAdapter
+from zope.interface import implements, Interface
 from eea.cache import cache
 
 

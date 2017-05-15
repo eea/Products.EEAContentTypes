@@ -1,5 +1,6 @@
 """ Base TestCase for EEAContentTypes"""
 
+from re import match
 from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
@@ -8,7 +9,6 @@ from Products.PloneTestCase.setup import default_user, default_password
 from Testing import ZopeTestCase as ztc
 from Testing.testbrowser import Browser
 from plone.protect.authenticator import AuthenticatorView
-from re import match
 
 PRODUCTS = [
     'ATVocabularyManager',

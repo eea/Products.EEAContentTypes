@@ -3,7 +3,11 @@
 import logging
 
 from zope.interface import implements
-
+from zope.component import (
+    queryAdapter, getUtility,
+    getMultiAdapter, queryMultiAdapter
+)
+from zope.schema.interfaces import IVocabularyFactory
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.browser.interfaces import (
     IDocumentRelated, IAutoRelated
@@ -15,11 +19,6 @@ from eea.mediacentre.interfaces import IVideo as MIVideo, IMediaPlayer
 from eea.themecentre.interfaces import IThemeMoreLink
 from eea.themecentre.interfaces import IThemeTagging
 from eea.translations import _
-from zope.component import (
-    queryAdapter, getUtility,
-    getMultiAdapter, queryMultiAdapter
-)
-from zope.schema.interfaces import IVocabularyFactory
 
 logger = logging.getLogger('EEAContentTypes.browser.related')
 

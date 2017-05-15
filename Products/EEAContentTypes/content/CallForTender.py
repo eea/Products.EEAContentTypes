@@ -5,11 +5,10 @@ from Products.Archetypes.atapi import (
     Schema, ReferenceField, ReferenceWidget, BaseFolderSchema, BaseFolder,
     registerType
 )
-import zope.interface
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.CallForInterest import CallForInterest
 from Products.EEAContentTypes.content.interfaces import ICallForTender
+import zope.interface
 
 schema = Schema((
     ReferenceField(

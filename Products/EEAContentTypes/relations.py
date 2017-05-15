@@ -6,9 +6,8 @@ from zope.component import adapts, queryAdapter
 from zope.interface import implements, Interface
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-
-from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.interfaces import IRelations
+from eea.themecentre.interfaces import IThemeTagging
 from eea.mediacentre.interfaces import IVideo
 
 

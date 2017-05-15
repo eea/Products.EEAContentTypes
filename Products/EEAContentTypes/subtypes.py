@@ -2,15 +2,17 @@
 """
 import logging
 
-from AccessControl import ClassSecurityInfo
 from datetime import datetime
-
+from AccessControl import ClassSecurityInfo
+from plone.registry.interfaces import IRegistry
 from plone.app.blob.field import ImageField
+from plone.app.blob.subtypes.blob import SchemaExtender as BlobSchemaExtender
+from plone.app.blob.subtypes.file import SchemaExtender as FileSchemaExtender
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface, implements
-
+from zope.component import adapts
 from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
+
 from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
@@ -26,8 +28,7 @@ from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
-from plone.app.blob.subtypes.blob import SchemaExtender as BlobSchemaExtender
-from plone.app.blob.subtypes.file import SchemaExtender as FileSchemaExtender
+
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
 from eea.forms.browser.app.temporal_coverage import grouped_coverage
@@ -39,7 +40,7 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.interfaces import IAutoRelations
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.themecentre.content.ThemeTaggable import ThemesField
-from zope.component import adapts
+
 
 _ = MessageFactory('Products.EEAContentTypes')
 

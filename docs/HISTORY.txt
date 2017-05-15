@@ -3,6 +3,8 @@ Changelog
 
 13.8.dev0 - (unreleased)
 ------------------------
+* Change: fixed PyLint warnings and errors
+  [eduard-fironda refs #84949]
 
 13.7 - (2017-04-24)
 -------------------

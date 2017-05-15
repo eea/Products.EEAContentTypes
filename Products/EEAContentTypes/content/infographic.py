@@ -1,15 +1,13 @@
 """ Definition of the Infographic content type
 """
 from AccessControl import ClassSecurityInfo
-
 from Products.Archetypes.ArchetypeTool import registerType
-from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import image
-from plone.app.blob import field
-
 from Products.EEAContentTypes.config import EEAMessageFactory as _, PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IInfographic
+from zope.interface import implements
+from plone.app.blob import field
 
 SCHEMA = atapi.Schema((
 

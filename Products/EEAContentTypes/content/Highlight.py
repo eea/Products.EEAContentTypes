@@ -6,8 +6,6 @@ from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.LinguaPlone.public import Schema, registerType
-from zope.interface import implements
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
@@ -15,6 +13,7 @@ from Products.EEAContentTypes.content.ExternalHighlight import schema as \
 from Products.EEAContentTypes.content.interfaces import IExternalHighlight
 from Products.EEAContentTypes.content.quotation import quotation_schema
 from Products.EEAContentTypes.content.validators import ExistsKeyFactsValidator
+from zope.interface import implements
 from eea.themecentre.interfaces import IThemeTagging
 
 schema = Schema((), )

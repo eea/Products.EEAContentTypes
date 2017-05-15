@@ -1,7 +1,8 @@
 """ Validators """
 import difflib
-from lxml import html
 from cStringIO import StringIO
+import re
+from lxml import html
 from Acquisition import aq_base
 
 from Products.CMFCore.WorkflowCore import WorkflowException
@@ -9,15 +10,15 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
+from Products.Archetypes.interfaces import ISchema
+from Products.EEAContentTypes.config import EEAMessageFactory as _
 from zope.interface import implements
+from zope.annotation.interfaces import IAnnotations
 import PIL
 from OFS.Image import Pdata
-import re
-from Products.Archetypes.interfaces import ISchema
-from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
 
-from Products.EEAContentTypes.config import EEAMessageFactory as _
+
 
 KEY = 'eea.mediacentre.multimedia'
 

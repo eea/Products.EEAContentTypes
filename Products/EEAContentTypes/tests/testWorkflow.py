@@ -7,12 +7,10 @@ from Acquisition import aq_base
 
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.MailHost.interfaces import IMailHost
+from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 from plone.keyring.interfaces import IKeyManager
 from plone.protect.authenticator import _getUserName
 from zope.component import getUtility, getSiteManager
-
-from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
-
 
 class TestWorkflow(EEAContentTypeTestCase):
     """ Test-cases for class(es) workflow. """

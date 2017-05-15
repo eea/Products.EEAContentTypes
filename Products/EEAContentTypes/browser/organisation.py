@@ -3,10 +3,12 @@
 import logging
 import sys
 import tempfile
+import os
 from eventlet.green import urllib2
 
 from App.Common import package_home
 from DateTime import DateTime
+from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
 from Products.CMFCore.exceptions import ResourceLockedError
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
@@ -14,10 +16,8 @@ from rdflib.Graph import ConjunctiveGraph
 from rdflib.Namespace import Namespace
 from rdflib.StringInputSource import StringInputSource
 from zope.schema import getFieldNames
-import os
 import zope.interface
 
-from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
 
 logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
 

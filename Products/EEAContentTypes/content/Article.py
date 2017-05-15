@@ -6,16 +6,15 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Schema import getNames
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFPlone import PloneMessageFactory as _
-from zope.interface import implements
 from Products.LinguaPlone.public import (
     Schema, LinesField, InAndOutWidget, registerType)
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ExternalHighlight import ExternalHighlight
 from Products.EEAContentTypes.content.ExternalHighlight import schema as \
     ExtHighlightSchema
 from Products.EEAContentTypes.content.Highlight import Highlight
 from Products.EEAContentTypes.content.interfaces import IArticle
+from zope.interface import implements
 from eea.themecentre.interfaces import IThemeTagging
 
 schema = Schema((

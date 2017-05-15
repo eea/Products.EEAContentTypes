@@ -1,16 +1,15 @@
 """ Cropping Browser views which allows you to crop images
 """
-from Acquisition import aq_base
 from cStringIO import StringIO
-
+from Acquisition import aq_base
 from OFS.Image import Pdata
 import PIL.Image
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.Five import BrowserView
+from Products.Archetypes.interfaces import IImageField
 from zope.event import notify
 from zope.interface import providedBy
 from zope.lifecycleevent import ObjectModifiedEvent
-from Products.Five import BrowserView
-from Products.Archetypes.interfaces import IImageField
 from plone.app.blob.interfaces import IBlobImageField
 from plone.app.imaging.traverse import DefaultImageScaleHandler
 

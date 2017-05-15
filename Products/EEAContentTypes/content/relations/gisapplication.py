@@ -1,11 +1,10 @@
 """Integration with GISMapApplication
 """
-
+import logging
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from persistent.mapping import PersistentMapping
 from zope.annotation.interfaces import IAnnotations
-import logging
 
 logger = logging.getLogger("eea.indicators")
 

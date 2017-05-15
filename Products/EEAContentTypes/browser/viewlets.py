@@ -1,13 +1,11 @@
 """ Custom viewlets
 """
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getMultiAdapter
-from plone.app.layout.viewlets import common
-
 from Products.EEAContentTypes.utils import \
     excluded_geographical_coverage_content_types, \
     excluded_temporal_coverage_content_types
-
+from zope.component import getMultiAdapter
+from plone.app.layout.viewlets import common
 
 def _available(self, method):
     """ Helper method

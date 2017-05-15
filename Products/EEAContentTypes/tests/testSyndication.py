@@ -1,11 +1,11 @@
 """ Syndication tests
 """
+import os
 from zope.component import queryMultiAdapter
 from App.Common import package_home
 from DateTime import DateTime
 from Products.CMFPlone.browser.syndication.adapters import IFeedItem
 from Products.CMFPlone.browser.syndication.adapters import BaseItem
-import os
 
 from Products.EEAContentTypes.config import product_globals
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase

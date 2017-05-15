@@ -1,15 +1,14 @@
 """ EEAContentTypes actions for plone.app.contentrules
 """
 
-from zope import schema
 import logging
-
-from OFS.SimpleItem import SimpleItem
-from plone.app.contentrules.browser.formhelper import AddForm, EditForm
-from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
+from zope import schema
 from zope.component import adapts  # , getUtility
 from zope.formlib import form
 from zope.interface import implements, Interface
+from OFS.SimpleItem import SimpleItem
+from plone.app.contentrules.browser.formhelper import AddForm, EditForm
+from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
 logger = logging.getLogger("Producs.EEAContentTypes.actions")
 

@@ -8,12 +8,11 @@ from Products.ATContentTypes.content.event import ATEvent
 from Products.Archetypes.ExtensibleMetadata import ExtensibleMetadata
 from Products.Archetypes.atapi import Schema, registerType
 from Products.CMFCore.permissions import ModifyPortalContent
-from zExceptions import NotFound
-import zope.interface
-
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.interfaces import IQuickEvent
+from zExceptions import NotFound
+import zope.interface
 from eea.themecentre.interfaces import IThemeTagging
 
 QuickEvent_schema = getattr(ATEvent, 'schema', Schema(())).copy() + \

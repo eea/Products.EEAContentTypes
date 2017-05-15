@@ -46,4 +46,3 @@ class MigrateDataProvenances(BrowserView):
                 field.set(obj, provenances)
 
         return "Success!"
-

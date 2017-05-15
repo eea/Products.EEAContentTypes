@@ -4,12 +4,11 @@ from zope.interface import implements
 from zope.component import adapts, getMultiAdapter
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IVocabularyFactory
-
+from Products.NavigationManager.interfaces import INavigationSectionPosition
+from Products.EEAContentTypes.content.interfaces import IExternalPromotion
 from Products.NavigationManager.sections.adapters import NavigationSections
 from eea.promotion.interfaces import IPromotion
 from eea.themecentre.interfaces import IThemeTagging
-from Products.NavigationManager.interfaces import INavigationSectionPosition
-from Products.EEAContentTypes.content.interfaces import IExternalPromotion
 
 
 class ThemepageSectionsVocabulary(object):

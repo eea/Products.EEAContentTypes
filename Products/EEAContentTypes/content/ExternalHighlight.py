@@ -13,12 +13,12 @@ from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import View
 from Products.validation import V_REQUIRED
-from zope.interface import implements
 from Products.Archetypes.Field import Image as ZODBImage
 from Products.Archetypes.Field import ImageField
 from Products.Archetypes import DisplayList
 from Products.Archetypes.utils import shasattr
 from Products.LinguaPlone import public
+from zope.interface import implements
 
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget

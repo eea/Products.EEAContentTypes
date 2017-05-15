@@ -2,10 +2,9 @@
 """
 import logging
 from StringIO import StringIO
-
+from Products.Five.browser import BrowserView
 from Products.Archetypes.Field import Image as ZODBImage
 from OFS.Image import File as ZODBFile
-from Products.Five.browser import BrowserView
 
 logger = logging.getLogger('EEAContentTypes.migrate')
 

@@ -6,9 +6,9 @@
 import os
 import logging
 from zope import schema
-
 from zope.interface import implements, Interface
-
+from zope.component import adapts
+from zope.formlib import form
 from App.config import getConfiguration
 from OFS.SimpleItem import SimpleItem
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -17,8 +17,6 @@ from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from plone.stringinterp.interfaces import IStringInterpolator
-from zope.component import adapts
-from zope.formlib import form
 
 config = getConfiguration()
 if not hasattr(config, 'product_config'):

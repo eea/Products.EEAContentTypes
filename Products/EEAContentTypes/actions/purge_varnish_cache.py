@@ -1,13 +1,11 @@
 """ purge Varnish cache of translations
 """
 import logging
-
-from zope.interface import implements, Interface
-
 from OFS.SimpleItem import SimpleItem
 from plone.app.contentrules.browser.formhelper import AddForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from z3c.caching.purge import Purge
+from zope.interface import implements, Interface
 from zope.component import adapts
 from zope.event import notify
 from zope.formlib import form

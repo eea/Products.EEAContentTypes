@@ -1,6 +1,6 @@
 """ FlashFile """
-from AccessControl import ClassSecurityInfo
 from datetime import datetime
+from AccessControl import ClassSecurityInfo
 
 from plone.app.blob.field import ImageField
 from zope.interface import implements
