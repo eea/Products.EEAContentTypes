@@ -21,5 +21,12 @@ class RelatedFlash(BrowserView):
         """ Flash style
         """
         flash = self.relatedFlash()
-        width = flash.getWidth()
+        if not flash:
+            return ''
+
+        try:
+            width = int(flash.getWidth())
+        except Exception:
+            return ''
+
         return 'width: %spx; margin-left: -%spx;' % (width, int(width / 2))
