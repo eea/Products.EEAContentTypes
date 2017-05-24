@@ -3,6 +3,8 @@ Changelog
 
 14.0.dev0 - (unreleased)
 ------------------------
+* Upgrade step: Cleanup portal_skins > custom > document_macros
+  [avoinea]
 * Bug fix: Fix document_view KeyError: text
   [avoinea]
 
