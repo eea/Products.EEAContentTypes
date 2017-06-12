@@ -3,7 +3,7 @@
 import logging
 import pytz
 
-from datetime import datetime
+import datetime
 from zope.interface import Interface, implements
 from zope.component import queryUtility
 
@@ -130,7 +130,7 @@ def fix_effective_date(context):
 
     async = queryUtility(IAsyncService)
     if async is not None:
-        delay = datetime.timedelta(hours=24)
+        delay = datetime.timedelta(days=1)
         queue = async.getQueues()['']
         async.queueJobInQueueWithDelay(
             None, datetime.datetime.now(pytz.UTC) + delay,
