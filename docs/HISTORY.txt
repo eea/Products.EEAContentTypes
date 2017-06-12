@@ -3,7 +3,7 @@ Changelog
 
 14.1.dev0 - (unreleased)
 ------------------------
-* Upgrade step: Call /www/scheduleFixEffectiveDate and check zc.async job
+* Upgrade step: Call /www/@@effectivedate-status-controlpanel/scheduleFixEffectiveDate and check zc.async job
   scheduled to run daily via Site Setup >  Async Manager
   [avoinea refs #85379]
 * Change: Move startFixEffectiveDate cron to zc.async
