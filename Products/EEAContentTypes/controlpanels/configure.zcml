@@ -7,7 +7,7 @@
         name="effectivedate-status-controlpanel"
         for="zope.interface.Interface"
         class=".status_effectivedate.StatusEffectiveDate"
-        permission="zope.Public"
+        permission="cmf.ManagePortal"
         allowed_interface=".status_effectivedate.IStatusEffectiveDate"
         />
 

@@ -3,8 +3,13 @@ Changelog
 
 14.1.dev0 - (unreleased)
 ------------------------
+* Upgrade step: Call /www/scheduleFixEffectiveDate and check zc.async job
+  scheduled to run daily via Site Setup >  Async Manager
+  [avoinea refs #85379]
+* Change: Move startFixEffectiveDate cron to zc.async
+  [avoinea refs #85379]
 * Change: Removed Products.EEAEnquiry related code
-[zoleesan refs #82473]
+  [zoleesan refs #82473]
 
 14.0 - (2017-05-29)
 -------------------
