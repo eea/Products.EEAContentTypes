@@ -13,8 +13,9 @@ from plone.protect.authenticator import AuthenticatorView
 PRODUCTS = [
     'ATVocabularyManager',
     'EEAContentTypes',
-    ##'valentine.linguaflow', 'eea.depiction', 'LinguaPlone',
-    'EEAPloneAdmin'
+    ##'valentine.linguaflow', 'LinguaPlone',
+    'EEAPloneAdmin',
+    'eea.depiction'
 ]
 
 for product in PRODUCTS:
@@ -33,11 +34,13 @@ def setup_eeacontenttypes():
 
     import Products.EEAContentTypes
     import collective.deletepermission
+    import eea.depiction
 
     zcml.load_config("configure.zcml", collective.deletepermission)
     zcml.load_config("dependencies.zcml", Products.EEAContentTypes)
     zcml.load_config("testing.zcml", Products.EEAContentTypes.tests)
     zcml.load_config("overrides.zcml", Products.EEAContentTypes)
+    zcml.load_config('configure.zcml', eea.depiction)
 
     # import eea.indicators
     # zcml.load_config("configure.zcml", eea.indicators)
@@ -45,6 +48,8 @@ def setup_eeacontenttypes():
     ztc.installPackage('eea.dataservice')
     ztc.installPackage('eea.indicators')
     ztc.installPackage('eea.soer')
+    ztc.installPackage('eea.depiction')
+
 
     fiveconfigure.debug_mode = False
 
