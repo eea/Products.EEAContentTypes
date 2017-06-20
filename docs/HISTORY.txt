@@ -10,6 +10,8 @@ Changelog
   [avoinea refs #85379]
 * Change: Removed Products.EEAEnquiry related code
   [zoleesan refs #82473]
+* Bug fix: fixed failing tests due to depiction changes
+  [zoltan_andras refs #81209]
 
 14.0 - (2017-05-29)
 -------------------
