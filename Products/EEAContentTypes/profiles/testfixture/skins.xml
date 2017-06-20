@@ -29,8 +29,6 @@
   <layer name="eeadesign2006_public"/>
   <layer name="eeadesign2006_green"/>
   <layer name="eeadesign2006_public_cmsandwww"/>
-  <layer name="EEAEnquiry_public"/>
-  <layer name="EEAEnquiry"/>
   <layer name="richtopic"/>
   <layer name="LinguaPlone"/>
   <layer name="LanguageTool"/>

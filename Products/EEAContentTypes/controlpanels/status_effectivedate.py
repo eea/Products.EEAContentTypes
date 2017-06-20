@@ -1,8 +1,11 @@
 """ Control panel
 """
 import logging
+import pytz
 
+import datetime
 from zope.interface import Interface, implements
+from zope.component import queryUtility
 
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
@@ -11,6 +14,8 @@ from Products.EEAPloneAdmin.browser.migrate import \
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+from Products.EEAContentTypes.async import IAsyncService
+
 
 class IStatusEffectiveDate(Interface):
     """ Effective Date Status Interface
@@ -18,6 +23,10 @@ class IStatusEffectiveDate(Interface):
 
     def startFixEffectiveDate(self):
         """ Fix affected objects
+        """
+
+    def scheduleFixEffectiveDate(self):
+        """ Schedule fix to zc.async queue
         """
 
 
@@ -96,3 +105,36 @@ class StatusEffectiveDate(BrowserView):
             return
 
         return self.index()
+
+    def scheduleFixEffectiveDate(self):
+        """ Schedule fix to zc.async
+        """
+        async = queryUtility(IAsyncService)
+        if async is not None:
+            queue = async.getQueues()['']
+            async.queueJobInQueue(
+                queue, ('ctypes',),
+                fix_effective_date,
+                self.context
+            )
+        else:
+            fix_effective_date(self.context)
+        return "OK"
+
+
+def fix_effective_date(context):
+    """ Fix EffectiveDate asynchronously
+    """
+    fix = FixEffectiveDateForPublishedObjects(context, {})
+    fix()
+
+    async = queryUtility(IAsyncService)
+    if async is not None:
+        delay = datetime.timedelta(days=1)
+        queue = async.getQueues()['']
+        async.queueJobInQueueWithDelay(
+            None, datetime.datetime.now(pytz.UTC) + delay,
+            queue, ('ctypes',),
+            fix_effective_date,
+            context
+        )

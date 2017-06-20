@@ -115,13 +115,6 @@
     </class>
 
 
-    <!-- EnquiryFolder -->
-    <class class="Products.EEAEnquiry.content.EnquiryFolder.EnquiryFolder"
-            zcml:condition="installed Products.EEAEnquiry">
-        <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
-    </class>
-
-
     <!-- ExternalDataSpec -->
     <class class="eea.indicators.content.ExternalDataSpec.ExternalDataSpec">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
