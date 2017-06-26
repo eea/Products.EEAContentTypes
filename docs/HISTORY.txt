@@ -1,8 +1,8 @@
 Changelog
 =========
 
-14.1.dev0 - (unreleased)
-------------------------
+14.1 - (2017-06-26)
+-------------------
 * Upgrade step: Call /www/@@effectivedate-status-controlpanel/scheduleFixEffectiveDate and check zc.async job
   scheduled to run daily via Site Setup >  Async Manager
   [avoinea refs #85379]
