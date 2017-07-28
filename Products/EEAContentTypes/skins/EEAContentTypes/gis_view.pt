@@ -39,7 +39,7 @@ div.archived p
 </metal:css>
 
   </head>
-  <body>
+  <body style="overflow:hidden">
 
     <metal:fill fill-slot="content-core">
              <div class="archived" tal:condition="python:getattr(context, 'archivedcontent', None)">
@@ -48,16 +48,15 @@ div.archived p
 
             <metal:main define-macro="main">
              
-              <tal:gis define="uid here/getArcGisUID|nothing;
-                               arcgis_url here/arcgis_url|nothing;
+              <tal:gis define="uid here/getArcGisUID|python:'';
+                               arcgis_url here/arcgis_url|python:'';
                                gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url and not 'embed' in arcgis_url
                                               else ('http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid) if 'webmap' in arcgis_url
                                                     else arcgis_url);
                                is_inline is_inline|python:0">
                  <tal:block condition="python:uid or arcgis_url">
-                 <iframe  width="1000" height="600" style="width:100%;height:600px;"
-                      frameborder="0" scrolling="no"
-                      marginheight="0" marginwidth="0"
+                 <iframe
+                 style="width:100%;height:600px;margin:0;border:0"
                       tal:attributes="src gis_url"
                       src="">
                  </iframe>

@@ -7,6 +7,19 @@
             <tal:geotags-title metal:fill-slot="geotags-listing-title">
                 <h3 i18n:translate="" class="notoc">Geographic coverage</h3>
             </tal:geotags-title>
+            <tal:geotags-body metal:fill-slot="geotags-listing-body">
+                <div class="geotags">
+                    <tal:tags tal:repeat="tag python:sorted(geoitems)">
+                      <span>
+                        <a class="link-category" rel="tag"
+                            tal:define="title python:tag;
+                                        description python:geoitems[tag]"
+                            tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
+                        <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
+                      </span>
+                    </tal:tags>
+                </div>
+            </tal:geotags-body>
         </metal:related>
 
         <metal:related use-macro="here/geotags_macros/macros/geotags-map" />
