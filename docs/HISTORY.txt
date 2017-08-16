@@ -1,8 +1,8 @@
 Changelog
 =========
 
-14.2.dev0 - (unreleased)
-------------------------
+14.2 - (2017-08-16)
+-------------------
 * Bug fix W3C compliance modifications
   [valipod refs #86295]
 * Upgrade step: Remove customized views at **ZMI > portal_skins/custom:
