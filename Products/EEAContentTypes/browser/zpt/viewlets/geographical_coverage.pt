@@ -12,8 +12,8 @@
                     <tal:tags tal:repeat="tag python:sorted(geoitems)">
                       <span>
                         <a class="link-category" rel="tag"
-                            tal:define="title python:tag;
-                                        description python:geoitems[tag]"
+                            tal:define="title python:tag.encode('utf8');
+                                        description python:geoitems[tag].encode('utf8')"
                             tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
                         <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
                       </span>

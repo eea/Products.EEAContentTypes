@@ -3,10 +3,12 @@ Changelog
 
 14.3.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed geotags display when non ASCII were present
+  [ghicaale refs #85765]
 
 14.2 - (2017-08-16)
 -------------------
-* Bug fix W3C compliance modifications
+* Bug fix: W3C compliance modifications
   [valipod refs #86295]
 * Upgrade step: Remove customized views at **ZMI > portal_skins/custom:
   gis_view
