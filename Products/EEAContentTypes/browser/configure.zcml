@@ -384,6 +384,11 @@
         Products.EEAContentTypes.content.interfaces.IGISMapApplication
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
+    
+    <subscriber for="
+        eea.soercontent.content.interfaces.IFiche
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".event.imageRatioCheck" />
 
     <browser:page
         class=".app.UnicodeTestIn"
