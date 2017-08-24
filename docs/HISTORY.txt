@@ -3,6 +3,8 @@ Changelog
 
 14.4.dev0 - (unreleased)
 ------------------------
+* Feature: check image ratio for Fiche/Briefing content type
+  [demarant]
 
 14.3 - (2017-08-22)
 -------------------
