@@ -97,9 +97,13 @@ class CountryRegionSection(ATLink):
 
     security.declareProtected(ModifyPortalContent, 'setRemoteUrl')
     def setRemoteUrl(self, value, **kwargs):
-        import pdb; pdb.set_trace()
         if value:
             self.getField('remoteUrl').set(self, value, **kwargs)
+
+    def getRemoteUrl(self):
+        value = self.Schema()['remoteUrl'].get(self)
+        if not value: value = ''  # ensure we have a string
+        return value
 
 
 registerType(CountryRegionSection, PROJECTNAME)
