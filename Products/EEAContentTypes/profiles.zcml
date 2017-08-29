@@ -15,7 +15,7 @@
     name="eeacontenttypes_geocoding"
     title="EEAContentTypes: geocoding" description=""
     handler="Products.EEAContentTypes.setuphandlers.setupGeocoding"
-    />
+  />
 
   <genericsetup:importStep
     name="eeacontenttypes_various"
@@ -35,142 +35,147 @@
     name="eeacontenttypes_migrate_gis"
     title="EEAContentTypes: Migrate GIS Application content" description=""
     handler="Products.EEAContentTypes.setuphandlers.migrate_gisapplication"
-    />
+  />
 
   <genericsetup:importStep
     name="eeacontenttypes_upgrade_plonesite_interface"
     title="EEAContentTypes: apply IEEAPloneSite to Plone root" description=""
     handler="Products.EEAContentTypes.setuphandlers.upgrade_plonesite_interface"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_4.17"
+    title="Upgrade profile for EEAContentTypes 4.17"
+    description="This profile contains configuration changes from 4.16 to 4.17"
+    directory="profiles/upgrade-4.17"
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_4.19"
+    title="Upgrade profile for EEAContentTypes 4.19"
+    description="This profile contains configuration changes from 4.18 to 4.19"
+    directory="profiles/upgrade/to_419"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_6.80"
+    title="Upgrade profile for EEAContentTypes 6.80"
+    description="This profile contains configuration changes from 6.6 to 6.8"
+    directory="profiles/upgrade/to_680"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_7.90"
+    title="Upgrade profile for EEAContentTypes 7.90"
+    description="This profile contains configuration changes from 6.8 to 7.9"
+    directory="profiles/upgrade/to_790"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_8.00"
+    title="Upgrade profile for EEAContentTypes 8.00"
+    description="This profile contains configuration changes from 7.9 to 8.0"
+    directory="profiles/upgrade/to_800"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_8.5"
+    title="Upgrade profile for EEAContentTypes 8.5"
+    description="This profile contains configuration changes from 8.4 to 8.5"
+    directory="profiles/upgrade/to_85"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_8.6"
+    title="Upgrade profile for EEAContentTypes 8.6"
+    description="This profile contains configuration changes from 8.5 to 8.6"
+    directory="profiles/upgrade/to_86"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_8.7"
+    title="Upgrade profile for EEAContentTypes 8.7"
+    description="This profile contains configuration changes from 8.6 to 8.7"
+    directory="profiles/upgrade/to_87"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_10.8"
+    title="Upgrade profile for EEAContentTypes 10.8"
+    description="This profile contains configuration changes from 10.7 to 10.8"
+    directory="profiles/upgrade/to_108"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_11.7"
+    title="Upgrade profile for EEAContentTypes 11.7"
+    description="This profile contains configuration changes from 11.3 to 11.7"
+    directory="profiles/upgrade/to_117"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+
+  <configure zcml:condition="installed eea.relations">
+    <genericsetup:registerProfile
+      name="relations"
+      title="EEA Content Types:eea.relations integration"
+      directory="profiles/relations"
+      description="Extension profile for EEA Content Types - eea.relations integration."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
     />
+  </configure>
 
   <genericsetup:registerProfile
-      name="eeacontenttypes_upgrade_4.17"
-      title="Upgrade profile for EEAContentTypes 4.17"
-      description="This profile contains configuration changes from 4.16 to 4.17"
-      directory="profiles/upgrade-4.17"
-      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    name="eeacontenttypes_upgrade_11.9"
+    title="Upgrade profile for EEAContentTypes 11.9"
+    description="This profile contains configuration changes from 11.7 to 11.9"
+    directory="profiles/upgrade/to_119"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
 
   <genericsetup:registerProfile
-      name="eeacontenttypes_upgrade_4.19"
-      title="Upgrade profile for EEAContentTypes 4.19"
-      description="This profile contains configuration changes from 4.18 to 4.19"
-      directory="profiles/upgrade/to_419"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-   />
+    name="eeacontenttypes_upgrade_12.6"
+    title="Upgrade profile for EEAContentTypes 12.6"
+    description="This profile contains configuration changes from 11.9 to 12.6"
+    directory="profiles/upgrade/to_126"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
 
   <genericsetup:registerProfile
-      name="eeacontenttypes_upgrade_6.80"
-      title="Upgrade profile for EEAContentTypes 6.80"
-      description="This profile contains configuration changes from 6.6 to 6.8"
-      directory="profiles/upgrade/to_680"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-   />
+    name="eeacontenttypes_upgrade_12.7"
+    title="Upgrade profile for EEAContentTypes 12.7"
+    description="This profile contains configuration changes from 12.6 to 12.7"
+    directory="profiles/upgrade/to_127"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_7.90"
-            title="Upgrade profile for EEAContentTypes 7.90"
-            description="This profile contains configuration changes from 6.8 to 7.9"
-            directory="profiles/upgrade/to_790"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_13.7"
+    title="Upgrade profile for EEAContentTypes 13.7"
+    description="This profile contains configuration changes from 12.7 to 13.7"
+    directory="profiles/upgrade/to_137"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_8.00"
-            title="Upgrade profile for EEAContentTypes 8.00"
-            description="This profile contains configuration changes from 7.9 to 8.0"
-            directory="profiles/upgrade/to_800"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_13.8"
+    title="Upgrade profile for EEAContentTypes 13.8"
+    description="This profile contains configuration changes from 13.7 to 13.8"
+    directory="profiles/upgrade/to_138"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_8.5"
-            title="Upgrade profile for EEAContentTypes 8.5"
-            description="This profile contains configuration changes from 8.4 to 8.5"
-            directory="profiles/upgrade/to_85"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
-
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_8.6"
-            title="Upgrade profile for EEAContentTypes 8.6"
-            description="This profile contains configuration changes from 8.5 to 8.6"
-            directory="profiles/upgrade/to_86"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
-
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_8.7"
-            title="Upgrade profile for EEAContentTypes 8.7"
-            description="This profile contains configuration changes from 8.6 to 8.7"
-            directory="profiles/upgrade/to_87"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
-
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_10.8"
-            title="Upgrade profile for EEAContentTypes 10.8"
-            description="This profile contains configuration changes from 10.7 to 10.8"
-            directory="profiles/upgrade/to_108"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
-
-    <genericsetup:registerProfile
-        name="eeacontenttypes_upgrade_11.7"
-        title="Upgrade profile for EEAContentTypes 11.7"
-        description="This profile contains configuration changes from 11.3 to 11.7"
-        directory="profiles/upgrade/to_117"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-    />
-
-    <configure zcml:condition="installed eea.relations">
-      <genericsetup:registerProfile
-          name="relations"
-          title="EEA Content Types:eea.relations integration"
-          directory="profiles/relations"
-          description="Extension profile for EEA Content Types - eea.relations integration."
-          provides="Products.GenericSetup.interfaces.EXTENSION"
-          />
-    </configure>
-
-    <genericsetup:registerProfile
-        name="eeacontenttypes_upgrade_11.9"
-        title="Upgrade profile for EEAContentTypes 11.9"
-        description="This profile contains configuration changes from 11.7 to 11.9"
-        directory="profiles/upgrade/to_119"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <genericsetup:registerProfile
-        name="eeacontenttypes_upgrade_12.6"
-        title="Upgrade profile for EEAContentTypes 12.6"
-        description="This profile contains configuration changes from 11.9 to 12.6"
-        directory="profiles/upgrade/to_126"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-        
-    <genericsetup:registerProfile
-        name="eeacontenttypes_upgrade_12.7"
-        title="Upgrade profile for EEAContentTypes 12.7"
-        description="This profile contains configuration changes from 12.6 to 12.7"
-        directory="profiles/upgrade/to_127"
-        provides="Products.GenericSetup.interfaces.EXTENSION" />
-
-
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_13.7"
-            title="Upgrade profile for EEAContentTypes 13.7"
-            description="This profile contains configuration changes from 12.7 to 13.7"
-            directory="profiles/upgrade/to_137"
-            provides="Products.GenericSetup.interfaces.EXTENSION" />
-
-
-    <genericsetup:registerProfile
-            name="eeacontenttypes_upgrade_13.8"
-            title="Upgrade profile for EEAContentTypes 13.8"
-            description="This profile contains configuration changes from 13.7 to 13.8"
-            directory="profiles/upgrade/to_138"
-            provides="Products.GenericSetup.interfaces.EXTENSION" />
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_14.5"
+    title="Upgrade profile for EEAContentTypes 14.5"
+    description="This profile contains configuration changes from 13.8 to 14.5"
+    directory="profiles/upgrade/to_145"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
 
 </configure>

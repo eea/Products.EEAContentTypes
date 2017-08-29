@@ -18,6 +18,11 @@ class IQuickEvent(Interface):
     """
 
 
+class ICountryRegionSection(Interface):
+    """ CountryRegionSection content type
+    """
+
+
 class IFlashAnimation(Interface):
     """ Flash animation
     """

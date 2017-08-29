@@ -1,4 +1,4 @@
-""" GisApplication Content type
+""" Dashboard Content type
 """
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink
