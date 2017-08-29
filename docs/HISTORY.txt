@@ -1,6 +1,9 @@
 Changelog
 =========
 
+14.5.dev0 - (unreleased)
+------------------------
+
 14.4 - (2017-08-29)
 -------------------
 * Feature: check image ratio for Fiche/Briefing content type
