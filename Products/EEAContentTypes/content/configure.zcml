@@ -16,6 +16,7 @@
 
   <interface interface=".interfaces.IInteractiveMap" />
   <interface interface=".interfaces.IInteractiveData" />
+  <interface interface=".interfaces.ICountryProfile" />
 
   <class class=".GISApplication.GISMapApplication">
     <implements interface="Products.EEAContentTypes.content.interfaces.IInteractiveMap" />

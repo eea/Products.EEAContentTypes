@@ -23,6 +23,11 @@ class ICountryRegionSection(Interface):
     """
 
 
+class ICountryProfile(Interface):
+    """ CountryProfile marker interface
+    """
+
+
 class IFlashAnimation(Interface):
     """ Flash animation
     """

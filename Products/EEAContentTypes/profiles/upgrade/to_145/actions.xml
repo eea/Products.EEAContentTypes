@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n" name="portal_actions">
+  <object name="object_buttons">
+    <object name="enable_country_profile" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Enable Country Profile</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@addCountryProfileInterface</property>
+      <property name="available_expr">python:context.portal_type == 'File' and 'Products.EEAContentTypes.content.interfaces.ICountryProfile' not in object.restrictedTraverse('@@get_interfaces')()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+  </object>
+</object>

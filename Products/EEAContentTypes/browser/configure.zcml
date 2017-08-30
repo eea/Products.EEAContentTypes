@@ -266,6 +266,13 @@
         permission="zope.Public"
         />
 
+    <browser:page
+      for="*"
+      name="addCountryProfileInterface"
+      class=".views.AddCountryProfileInterface"
+      permission="cmf.ModifyPortalContent"
+    />
+
     <!-- skos syndication -->
     <browser:page
         for="Products.ATContentTypes.content.topic.ATTopic"
@@ -330,6 +337,20 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        class=".app.UnicodeTestIn"
+        for="*"
+        name="unicode_test_in"
+        permission="zope.Public"
+    />
+
+    <browser:page
+        for="*"
+        class=".migrate.MigrateDataProvenances"
+        name="migrate_relateddataprovenances"
+        permission="cmf.ModifyPortalContent"
+    />
+
     <!-- most referenced -->
     <browser:page
         for="*"
@@ -390,18 +411,5 @@
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
 
-    <browser:page
-        class=".app.UnicodeTestIn"
-        for="*"
-        name="unicode_test_in"
-        permission="zope.Public"
-    />
-    
-    <browser:page
-        for="*"
-        class=".migrate.MigrateDataProvenances"
-        name="migrate_relateddataprovenances"
-        permission="cmf.ModifyPortalContent"
-    />
 
 </configure>
