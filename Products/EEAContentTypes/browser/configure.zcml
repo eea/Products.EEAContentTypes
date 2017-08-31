@@ -269,7 +269,7 @@
     <browser:page
       for="*"
       name="addCountryProfileInterface"
-      class=".views.AddCountryProfileInterface"
+      class=".actions.AddCountryProfileInterface"
       permission="cmf.ModifyPortalContent"
     />
 
