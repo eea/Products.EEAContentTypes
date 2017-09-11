@@ -273,6 +273,13 @@
       permission="cmf.ModifyPortalContent"
     />
 
+    <browser:page
+      for="*"
+      name="viewCountryRegionsJSON"
+      class=".views.ViewCountryRegionsJSON"
+      permission="cmf.ModifyPortalContent"
+    />
+
     <!-- skos syndication -->
     <browser:page
         for="Products.ATContentTypes.content.topic.ATTopic"
