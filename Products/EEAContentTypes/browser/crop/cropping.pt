@@ -20,21 +20,22 @@
     <p class="documentDescription" i18n:translate="">For each image field in your content you can
         select below the image you want to crop.
     </p>
-  <div tal:repeat="field fields" tal:condition="fields">
+    <div tal:repeat="field fields" tal:condition="fields">
+        <tal:defines tal:define="field_name field/getName;">
+            <div id="cropping-original-image">
+                <h3 tal:content="field/widget/label"></h3>
+                <img src="" tal:attributes="src string:${context/absolute_url}/${field_name}_preview" />
+            </div>
 
-      <div id="cropping-original-image">
-          <h3 tal:content="python:field.title()"></h3>
-          <img src="" tal:attributes="src string:${context/absolute_url}/${field}_preview" />
-      </div>
-
-      <div class="cropScale">
-          <div class="formControls">
-              <a class="selImageToCropBtn standardButton"
-                 tal:attributes="href string:${context/absolute_url}/cropimage?field=${field}"
-                 i18n:translate="">Correct the image ratio</a>
-          </div>
-      </div>
-  </div>
+            <div class="cropScale">
+                <div class="formControls">
+                    <a class="selImageToCropBtn standardButton"
+                             tal:attributes="href string:${context/absolute_url}/cropimage?field=${field_name}"
+                             i18n:translate="">Correct the image ratio</a>
+                </div>
+            </div>
+        </tal:defines>
+    </div>
 
 </metal:main>
 </body>

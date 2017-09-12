@@ -10,18 +10,25 @@ jQuery(document).ready(function () {
                 var cropImage = jQuery("#croppableImage"),
                     imageRecrop = jQuery('#image-recrop'),
                     Math = window.Math,
-                    field, yratio, xratio, crop_size, jcrop, cropbox, minX, minY;
+                    field, yratio, xratio, crop_size, jcrop, cropbox, minX, minY,
+                    ptype, aspect_ratio = 16 / 9;
                 if (cropImage.length) {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
                     xratio = window.parseFloat(cropImage.attr('data-previewratiox'));
                     minX = Math.round(1024 / xratio);
                     minY = Math.round(576 / yratio);
+                    ptype = cropImage.attr('data-ptype');
+                    if (ptype === 'CountryRegionSection') {
+                        minX = 0;
+                        minY = 0;
+                        aspect_ratio = 0;
+                    }
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
                     cropbox = null;
                     jcrop.setOptions({                                      
-                        aspectRatio: 16 / 9,
+                        aspectRatio: aspect_ratio,
                         allowSelect: true,
                         allowResize: true,
                         allowMove: true,

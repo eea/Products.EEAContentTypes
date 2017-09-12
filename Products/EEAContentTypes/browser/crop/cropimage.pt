@@ -12,6 +12,7 @@
         <img src="" id="croppableImage"
                 tal:attributes="src string:${context/absolute_url}/${field/name}_large;
                 data-field field/name;
+                data-ptype context/portal_type;
                 data-previewratiox python: view.scaleToLargeRatios()[0];
                 data-previewratioy python: view.scaleToLargeRatios()[1]"/>
 

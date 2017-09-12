@@ -69,7 +69,7 @@ CountryRegion_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 CountryRegion_schema['remoteUrl'].searchable = False
 CountryRegion_schema['remoteUrl'].required = False
 CountryRegion_schema['remoteUrl'].widget.visible = {
-    "edit": "invisible", "view": "invisible"}
+    "edit": "invisible", "view": "visible"}
 CountryRegion_schema['subject'].required = True
 
 

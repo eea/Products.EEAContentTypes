@@ -12,5 +12,16 @@
       <property name="visible">True</property>
     </object>
 
+    <object name="crop_image" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Crop Image</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@crop</property>
+      <property name="available_expr">python:object.portal_type in context.portal_url.getPortalObject().portal_atct.image_types or object.portal_type in ['CountryRegionSection']</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+
   </object>
 </object>

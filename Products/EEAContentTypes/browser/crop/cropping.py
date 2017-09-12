@@ -34,7 +34,7 @@ class CroppableImagesView(BrowserView):
     def imageFields(self):
         """ Returns image Fields found in the context
         """
-        return [img_field.getName() for img_field in self.image_fields]
+        return [img_field for img_field in self.image_fields]
 
 
 class CropImageView(BrowserView):
