@@ -67,7 +67,9 @@ schema = Schema((
 
 CountryRegion_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 CountryRegion_schema['remoteUrl'].searchable = False
-CountryRegion_schema['remoteUrl'].widget.maxlength = '9999',
+CountryRegion_schema['remoteUrl'].required = False
+CountryRegion_schema['remoteUrl'].widget.visible = {
+    "edit": "invisible", "view": "invisible"}
 CountryRegion_schema['subject'].required = True
 
 
@@ -95,15 +97,9 @@ class CountryRegionSection(ATLink):
 
     _at_rename_after_creation = True
 
-    security.declareProtected(ModifyPortalContent, 'setRemoteUrl')
-    def setRemoteUrl(self, value, **kwargs):
-        if value:
-            self.getField('remoteUrl').set(self, value, **kwargs)
-
     def getRemoteUrl(self):
-        value = self.Schema()['remoteUrl'].get(self)
-        if not value: value = ''  # ensure we have a string
-        return value
+        app_url = 'http://car.apps.eea.europa.eu/'
+        return app_url + self.id
 
 
 registerType(CountryRegionSection, PROJECTNAME)
