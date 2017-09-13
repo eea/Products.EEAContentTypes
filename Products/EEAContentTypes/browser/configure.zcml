@@ -277,7 +277,7 @@
       for="*"
       name="viewCountryRegionsJSON"
       class=".views.ViewCountryRegionsJSON"
-      permission="cmf.ModifyPortalContent"
+      permission="zope.Public"
     />
 
     <!-- skos syndication -->

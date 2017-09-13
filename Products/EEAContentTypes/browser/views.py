@@ -74,6 +74,7 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                     'flag_url': url + '/flag_mini',
                     'body': obj.getBody(),
                     'title': title,
+                    'type': obj.type,
                     'external_links': list(obj.getExternalLinks()),
                     'languages': lang_codes.get(title, ['en'])
                 }

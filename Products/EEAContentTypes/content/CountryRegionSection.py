@@ -2,11 +2,10 @@
 """
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink
-from Products.Archetypes import public
-from Products.Archetypes.Widget import ImageWidget
+from Products.Archetypes import public, DisplayList
+from Products.Archetypes.Widget import ImageWidget, SelectionWidget
 from Products.Archetypes.atapi import Schema, registerType, LinesField, \
-    LinesWidget, TextField, RichWidget
-from Products.CMFCore.permissions import ModifyPortalContent
+    LinesWidget, TextField, RichWidget, StringField
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import ICountryRegionSection
 from plone.app.blob.field import ImageField
@@ -63,6 +62,18 @@ schema = Schema((
             label_msgid='EEAContentTypes_label_external_links',
             i18n_domain='eea',),
     ),
+    StringField(
+        name='type',
+        required=True,
+        widget=SelectionWidget(
+            label="Item Type",
+            format='select',
+            description="Choose the types of object this portal type represents",
+            label_msgid='EEAContentTypes_label_type',
+            i18n_domain='eea'
+        ),
+        vocabulary="getSectionType",
+    )
 ))
 
 CountryRegion_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
@@ -100,6 +111,14 @@ class CountryRegionSection(ATLink):
     def getRemoteUrl(self):
         app_url = 'http://car.apps.eea.europa.eu/'
         return app_url + self.id
+
+    security.declarePublic('getVisibilityLevels')
+    def getSectionType(self):
+        """ Visibility levels
+        """
+        types = (('country', 'Coutry'),
+                  ('region', 'Region'))
+        return DisplayList(types)
 
 
 registerType(CountryRegionSection, PROJECTNAME)
