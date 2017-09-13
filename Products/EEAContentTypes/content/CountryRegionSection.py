@@ -68,6 +68,7 @@ schema = Schema((
         widget=SelectionWidget(
             label="Item Type",
             format='select',
+            default=['country'],
             description="Choose the types of object this portal type represents",
             label_msgid='EEAContentTypes_label_type',
             i18n_domain='eea'

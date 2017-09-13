@@ -67,6 +67,9 @@ class ViewCountryRegionsJSON(FiveBrowserView):
             obj = brain.getObject()
             url = obj.absolute_url()
             title = obj.title
+            ctype = obj.getType()
+            if type(ctype) is not unicode:
+                ctype = u"country"
             data['items'].append({
                 obj.id: {
                     'url': obj.getRemoteUrl(),
@@ -74,7 +77,7 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                     'flag_url': url + '/flag_mini',
                     'body': obj.getBody(),
                     'title': title,
-                    'type': obj.type,
+                    'type': ctype,
                     'external_links': list(obj.getExternalLinks()),
                     'languages': lang_codes.get(title, ['en'])
                 }
