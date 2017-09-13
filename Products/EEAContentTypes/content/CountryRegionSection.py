@@ -117,7 +117,7 @@ class CountryRegionSection(ATLink):
     def getSectionType(self):
         """ Visibility levels
         """
-        types = (('country', 'Coutry'),
+        types = (('country', 'Country'),
                   ('region', 'Region'))
         return DisplayList(types)
 

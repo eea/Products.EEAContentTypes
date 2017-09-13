@@ -60,7 +60,7 @@ class ViewCountryRegionsJSON(FiveBrowserView):
     def __call__(self, *args, **kwargs):
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat(portal_type="CountryRegionSection")
-        data = {"items": []}
+        data = {}
         lang_codes = get_language_codes()
 
         for brain in brains:
@@ -68,10 +68,9 @@ class ViewCountryRegionsJSON(FiveBrowserView):
             url = obj.absolute_url()
             title = obj.title
             ctype = obj.getType()
-            if type(ctype) is not unicode:
+            if type(ctype) is not str:
                 ctype = u"country"
-            data['items'].append({
-                obj.id: {
+            data[obj.id] = {
                     'url': obj.getRemoteUrl(),
                     'bg_url': url + '/image_panoramic',
                     'flag_url': url + '/flag_mini',
@@ -81,6 +80,6 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                     'external_links': list(obj.getExternalLinks()),
                     'languages': lang_codes.get(title, ['en'])
                 }
-            })
+            
         self.request.response.setHeader("Content-type", "application/json")
         return json.dumps(data)
