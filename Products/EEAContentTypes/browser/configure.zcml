@@ -409,6 +409,11 @@
         handler=".event.imageRatioCheck" />
 
     <subscriber for="
+        Products.EEAContentTypes.content.interfaces.ICountryRegionSection
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".event.imageRatioCheck" />
+
+    <subscriber for="
         Products.EEAContentTypes.content.interfaces.IGISMapApplication
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />

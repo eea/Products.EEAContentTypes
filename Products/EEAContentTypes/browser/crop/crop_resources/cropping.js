@@ -20,9 +20,8 @@ jQuery(document).ready(function () {
                     minY = Math.round(576 / yratio);
                     ptype = cropImage.attr('data-ptype');
                     if (ptype === 'CountryRegionSection') {
-                        minX = 0;
-                        minY = 0;
-                        aspect_ratio = 0;
+                        minX = 1920;
+                        minY = 1080;
                     }
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
