@@ -76,7 +76,6 @@ CountryRegion_schema['remoteUrl'].searchable = False
 CountryRegion_schema['remoteUrl'].required = False
 CountryRegion_schema['remoteUrl'].widget.visible = {
     "edit": "invisible", "view": "visible"}
-CountryRegion_schema['subject'].required = True
 
 
 class CountryRegionSection(ATLink):
