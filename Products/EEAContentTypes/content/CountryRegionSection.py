@@ -3,7 +3,7 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink
 from Products.Archetypes import public, DisplayList
-from Products.Archetypes.Widget import ImageWidget, SelectionWidget
+from Products.Archetypes.Widget import SelectionWidget, ImageWidget
 from Products.Archetypes.atapi import Schema, registerType, LinesField, \
     LinesWidget, TextField, RichWidget, StringField
 from Products.EEAContentTypes.config import PROJECTNAME
@@ -41,24 +41,13 @@ schema = Schema((
                    show_content_type=False)
                ),
 
-    # ImageField('flag',
-    #            required=True,
-    #            storage=public.AnnotationStorage(migrate=True),
-    #            languageIndependent=True,
-    #            widget=ImageWidget(
-    #                label='Flag image',
-    #                label_msgid='EEAContentTypes_label_flag',
-    #                description_msgid='EEAContentTypes_flag_image',
-    #                i18n_domain='eea',
-    #                show_content_type=False)
-    #            ),
     LinesField(
         name='externalLinks',
         languageIndependent=True,
         required=False,
         widget=LinesWidget(
             label="External links",
-            description="External links "),
+            description="External links, add one per line as: Title|url",
             label_msgid='EEAContentTypes_label_external_links',
             i18n_domain='eea',),
     ),
@@ -110,8 +99,12 @@ class CountryRegionSection(ATLink):
     _at_rename_after_creation = True
 
     def getRemoteUrl(self):
-        app_url = 'http://car.apps.eea.europa.eu/'
-        return app_url + self.id
+        """ remote url
+        """
+        sprops = self.portal_properties.site_properties
+        fallback = 'http://eea.europa.eu/countries-and-regions/'
+        app_url = sprops.getProperty('car_app_url', fallback)
+        return app_url + '/' +self.id
 
     security.declarePublic('getVisibilityLevels')
     def getSectionType(self):
