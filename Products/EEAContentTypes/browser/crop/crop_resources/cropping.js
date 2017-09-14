@@ -16,12 +16,14 @@ jQuery(document).ready(function () {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
                     xratio = window.parseFloat(cropImage.attr('data-previewratiox'));
-                    minX = Math.round(1024 / xratio);
-                    minY = Math.round(576 / yratio);
                     ptype = cropImage.attr('data-ptype');
                     if (ptype === 'CountryRegionSection') {
-                        minX = 1920;
-                        minY = 1080;
+                        minX = Math.round(1920 / xratio);
+                        minY = Math.round(1080 / yratio);
+                    }
+                    else {
+                        minX = Math.round(1024 / xratio);
+                        minY = Math.round(576 / yratio);
                     }
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
