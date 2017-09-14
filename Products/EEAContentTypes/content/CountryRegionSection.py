@@ -23,8 +23,8 @@ schema = Schema((
         default_content_type="text/html",
         default_output_type="text/x-html-safe",
         widget=RichWidget(
-            label="Intro text",
-            description="Intro text used for the country/region description",
+            label="Body Text",
+            description="Body text used for the country/region intro page",
             label_msgid='EEAContentTypes_label_body',
             i18n_domain='eea',
         ),
@@ -41,24 +41,24 @@ schema = Schema((
                    show_content_type=False)
                ),
 
-    ImageField('flag',
-               required=True,
-               storage=public.AnnotationStorage(migrate=True),
-               languageIndependent=True,
-               widget=ImageWidget(
-                   label='Flag image',
-                   label_msgid='EEAContentTypes_label_flag',
-                   description_msgid='EEAContentTypes_flag_image',
-                   i18n_domain='eea',
-                   show_content_type=False)
-               ),
+    # ImageField('flag',
+    #            required=True,
+    #            storage=public.AnnotationStorage(migrate=True),
+    #            languageIndependent=True,
+    #            widget=ImageWidget(
+    #                label='Flag image',
+    #                label_msgid='EEAContentTypes_label_flag',
+    #                description_msgid='EEAContentTypes_flag_image',
+    #                i18n_domain='eea',
+    #                show_content_type=False)
+    #            ),
     LinesField(
         name='externalLinks',
         languageIndependent=True,
         required=False,
         widget=LinesWidget(
             label="External links",
-            description=("External links for current country/region."),
+            description="External links "),
             label_msgid='EEAContentTypes_label_external_links',
             i18n_domain='eea',),
     ),
