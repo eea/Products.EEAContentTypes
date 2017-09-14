@@ -10,6 +10,7 @@ from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import ICountryRegionSection
 from plone.app.blob.field import ImageField
 from zope.interface import implements
+from Products.validation import V_REQUIRED
 
 
 schema = Schema((
@@ -34,11 +35,15 @@ schema = Schema((
                storage=public.AnnotationStorage(migrate=True),
                languageIndependent=True,
                widget=ImageWidget(
-                   label='Background image',
+                   label='Background image, use image with minimum width of '
+                         '1920px',
                    label_msgid='EEAContentTypes_label_image',
                    description_msgid='EEAContentTypes_help_image',
                    i18n_domain='eea',
-                   show_content_type=False)
+                   show_content_type=False),
+               validators=(
+                   ('imageMinSize', V_REQUIRED),
+               )
                ),
 
     LinesField(

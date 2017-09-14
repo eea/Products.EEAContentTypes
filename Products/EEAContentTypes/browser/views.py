@@ -73,7 +73,6 @@ class ViewCountryRegionsJSON(FiveBrowserView):
             data[obj.id] = {
                     'url': obj.getRemoteUrl(),
                     'bg_url': url + '/image_panoramic',
-                    'flag_url': url + '/flag_mini',
                     'body': obj.getBody(),
                     'title': title,
                     'type': ctype,

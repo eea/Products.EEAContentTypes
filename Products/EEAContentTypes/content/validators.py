@@ -83,8 +83,16 @@ class ImageMinSize(object):
                 data = str(data)
             img_stream = StringIO(data)
             image = PIL.Image.open(img_stream)
-        if image.size[0] < 1024:
-            return "Image needs to be at least 1024px in width"
+        pprops = getToolByName(instance, 'portal_properties')
+        width = 1024
+        if pprops:
+            iprops = pprops.imaging_properties
+            width_val = iprops.getProperty('min_width_validator', [])
+            for val in width_val:
+                if instance.portal_type in val:
+                    width = int(val.split('|')[1])
+        if image.size[0] < width:
+            return "Image needs to be at least %spx in width" % width
         return 1
 
 
