@@ -102,9 +102,9 @@ class CountryRegionSection(ATLink):
         """ remote url
         """
         sprops = self.portal_properties.site_properties
-        fallback = 'http://eea.europa.eu/countries-and-regions/'
+        fallback = 'https://eea.europa.eu/countries-and-regions/'
         app_url = sprops.getProperty('car_app_url', fallback)
-        return app_url + '/' +self.id
+        return app_url + self.id
 
     security.declarePublic('getVisibilityLevels')
     def getSectionType(self):
