@@ -24,7 +24,6 @@ from Products.EEAContentTypes.utils import \
 from Products.LinguaPlone.public import InAndOutWidget
 from Products.LinguaPlone.public import ImageWidget
 from Products.LinguaPlone.public import LinesField
-from Products.LinguaPlone.public import StringField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
