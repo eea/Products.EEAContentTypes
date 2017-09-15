@@ -3,6 +3,8 @@ Changelog
 
 14.5.dev0 - (unreleased)
 ------------------------
+* Feature: Added placeholder 'expired' watermark to let users know the item is expired
+  [petchesi-iulian refs #87529]
 * Feature: Added ImageField for dashboard content type. For expired
   dashboard/gis application objects their respective iframe/script(s) will be
   replaced by the static image from the 'preview image' field

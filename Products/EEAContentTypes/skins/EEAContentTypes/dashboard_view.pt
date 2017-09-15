@@ -13,6 +13,13 @@
        </metal:js>
 
 
+      <metal:css fill-slot="css_slot">
+        <style tal:condition="python: here.isExpired() == 1">
+            #content {
+                background: url(/www/expired.png);
+            }
+        </style>
+      </metal:css>
   </head>
   <body>
     <metal:fill fill-slot="content-core">
