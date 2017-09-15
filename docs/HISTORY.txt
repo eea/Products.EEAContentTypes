@@ -1,8 +1,8 @@
 Changelog
 =========
 
-14.5.dev0 - (unreleased)
-------------------------
+14.5 - (2017-09-15)
+-------------------
 * Feature: Added placeholder 'expired' watermark to let users know the item is expired
   [petchesi-iulian refs #87529]
 * Feature: Added ImageField for dashboard content type. For expired
