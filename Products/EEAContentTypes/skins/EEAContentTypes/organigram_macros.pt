@@ -13,8 +13,8 @@
 			<dd class="jobTitle" tal:content="unit/job_title">Job title</dd>
 			<dd class="managerName">
 				<a href="" title="" class="noPrint"
-					tal:attributes="href string:staff-list?searchterm=${unit/last_name} ${unit/first_name}#${unit/empid};
-										 title string:${unit/last_name} ${unit/first_name}"
+					tal:attributes="href string:staff-list?searchterm=${unit/last_name}#${unit/empid};
+										 title string:Find ${unit/last_name} ${unit/first_name} in staff list"
 					tal:content="string:${unit/last_name}, ${unit/first_name}">last_name, first_name</a></dd>
 		</tal:manager>
 			<dd class="org_staff_number" style="padding:2px">
@@ -36,8 +36,8 @@
 			<dd class="jobTitle" tal:content="unit/job_title">Job title</dd>
 			<dd class="managerName">
 				<a href="" title="" class="noPrint"
-					tal:attributes="href string:staff-list?searchterm=${unit/last_name} ${unit/first_name}#${unit/empid};
-										 title string:${unit/last_name} ${unit/first_name}"
+					tal:attributes="href string:staff-list?searchterm=${unit/last_name}#${unit/empid};
+										 title string:Find ${unit/last_name} ${unit/first_name} in staff list"
 					tal:content="string:${unit/last_name}, ${unit/first_name}">last_name, first_name</a></dd>
 		</tal:manager>
 			<dd class="org_staff_number" style="padding:2px">
@@ -61,14 +61,14 @@
 			<dd style="margin-top: 20px; font-size: 11px; font-weight: bold;" i18n:translate="">Executive Director</dd>
 			<dd style="font-size: 11px; font-weight: bold;" class="managerName">
 				<a href="" title="" class="noPrint"
-					tal:attributes="href string:staff-list?searchterm=${director/last_name} ${director/first_name}#${director/empid};
-										 title string:${director/last_name} ${director/first_name}"
+					tal:attributes="href string:staff-list?searchterm=${director/last_name}#${director/empid};
+										 title string:Find ${director/last_name} ${director/first_name} in staff list"
 					tal:content="string:${director/last_name}, ${director/first_name}">last_name, first_name</a></dd>
 			<dd i18n:translate="" tal:condition="deputy_director|nothing">Deputy Director</dd>
 			<dd tal:condition="deputy_director|nothing">
 				<a href="" title="" class="noPrint"
-					tal:attributes="href string:staff-list?searchterm=${deputy_director/last_name} ${deputy_director/first_name}#${deputy_director/empid};
-										 title string:${deputy_director/last_name} ${deputy_director/first_name}"
+					tal:attributes="href string:staff-list?searchterm=${deputy_director/last_name}#${deputy_director/empid};
+										 title string:Find ${deputy_director/last_name} ${deputy_director/first_name} in staff list"
 					tal:content="string:${deputy_director/last_name}, ${deputy_director/first_name}">last_name, first_name</a>
 			</dd>
 			<dd class="org_staff_number" style="padding:2px">
@@ -81,5 +81,3 @@
 	</metal:orgDirector>
 </body>
 </html>
-
-
