@@ -36,8 +36,8 @@ jQuery(document).ready(function () {
                         minSize: [minX, minY],
                         onSelect: function (coords) {
                                 cropbox = coords;
-                                var cropbox_x = window.parseInt(cropbox.w * xratio),
-                                    cropbox_y = window.parseInt(cropbox.h * yratio),
+                                var cropbox_x = Math.ceil(cropbox.w * xratio),
+                                    cropbox_y = Math.ceil(cropbox.h * yratio),
                                     crop_text = cropbox_x + "x" + cropbox_y + "px";
                                 crop_size.html(crop_text);
                                 if (crop_size.text() !== '0x0px') {
