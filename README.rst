@@ -1,10 +1,8 @@
 =================
 EEA Content Types
 =================
-.. image:: http://ci.eionet.europa.eu/job/Products.EEAContentTypes-www/badge/icon
-  :target: http://ci.eionet.europa.eu/job/Products.EEAContentTypes-www/lastBuild
-.. image:: http://ci.eionet.europa.eu/job/Products.EEAContentTypes-plone4/badge/icon
-  :target: http://ci.eionet.europa.eu/job/Products.EEAContentTypes-plone4/lastBuild
+.. image:: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/master/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/master/display/redirect
 
 Contents
 ========
