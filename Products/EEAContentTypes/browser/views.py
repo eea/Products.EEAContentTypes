@@ -75,6 +75,7 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                 ctype = u"country"
             data[obj.id] = {
                     'url': obj.getRemoteUrl(),
+                    'obj_id': obj.id,
                     'bg_url': url + '/image_panoramic',
                     'body': obj.getBody(),
                     'title': title,
