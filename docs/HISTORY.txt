@@ -9,7 +9,7 @@ Changelog
   [petchesi-iulian refs #87529]
 * Bug fix: Fix links with unescaped characters to staff list for IE
   [demarant refs #88210]
-  * Feature: Added CountryRegionSection portal type
+* Feature: Added CountryRegionSection portal type
   [ichim-david refs #88123]
 * Feature: the imageMinSize can now have a property within
   site_properties/min_width_validator as a lines field
