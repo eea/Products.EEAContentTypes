@@ -41,12 +41,14 @@ def get_language_codes():
         'Sweden': ['Swedish'],
         'Switzerland': ['German', 'French', 'Italian'],
         'Netherlands': ['Dutch'],
+        'The Netherlands': ['Dutch'],
         'Turkey': ['Turkish'],
         'United Kingdom': ['English'],
         'Bosnia and Herzegovina': ['Croatian'],
         'Kosovo': ['Croatian', 'Turkish'],
         'Kosovo*': ['Croatian', 'Turkish'],
         'Macedonia': ['Croatian', 'Turkish'],
+        'The Former Yugoslav Republic of Macedonia': ['Croatian', 'Turkish'],
         'Montenegro': ['Croatian']
     }
 
@@ -78,7 +80,7 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                     'title': title,
                     'type': ctype,
                     'external_links': list(obj.getExternalLinks()),
-                    'languages': lang_codes.get(title, ['en'])
+                    'languages': lang_codes.get(title, ['English'])
                 }
             
         self.request.response.setHeader("Content-type", "application/json")
