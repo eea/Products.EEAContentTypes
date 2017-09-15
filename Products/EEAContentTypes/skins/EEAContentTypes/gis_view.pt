@@ -53,39 +53,45 @@ div.archived p
                                gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url and not 'embed' in arcgis_url
                                               else ('http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid) if 'webmap' in arcgis_url
                                                     else arcgis_url);
-                               is_inline is_inline|python:0">
+                               is_inline is_inline|python:0;
+                               is_expired here/isExpired;
+                               image here/getImage">
                  <tal:block condition="python:uid or arcgis_url">
-                 <iframe
-                 style="width:100%;height:600px;margin:0;border:0"
-                      tal:attributes="src gis_url"
-                      src="">
-                 </iframe>
-                 <br />
-                 <tal:comment replace="nothing">
-                     gis_url[:-11] string is cut in order to remove
-                     embed=true when viewing fullscreen map
-                 </tal:comment>
-                 <tal:block tal:condition="is_inline">
-                     <div class="googlechart-notes gis-notes">
-                         <div class="googlecharts-note">
-                             <p class="callout" tal:define="description context/Description">
-                                 <strong>Note: </strong><br>
-                                 <span tal:content="description"></span>
-                                 <span tal:condition="python:not description">N/A</span>
-                             </p>
+                     <iframe
+                     style="width:100%;height:600px;margin:0;border:0"
+                          tal:attributes="src gis_url" tal:condition="python: is_expired != 1"
+                          src="">
+                     </iframe>
+
+                     <img src="" style="width:100%;height:600px;margin:0;border:0"
+                      tal:attributes="src python: image.absolute_url() + '/image_large'" />
+
+                     <br />
+                     <tal:comment replace="nothing">
+                         gis_url[:-11] string is cut in order to remove
+                         embed=true when viewing fullscreen map
+                     </tal:comment>
+                     <tal:block tal:condition="is_inline">
+                         <div class="googlechart-notes gis-notes">
+                             <div class="googlecharts-note">
+                                 <p class="callout" tal:define="description context/Description">
+                                     <strong>Note: </strong><br>
+                                     <span tal:content="description"></span>
+                                     <span tal:condition="python:not description">N/A</span>
+                                 </p>
+                             </div>
                          </div>
-                     </div>
-                     <tal:data tal:replace="structure context/gis_data_sources" />
-                 </tal:block>
-                 <div><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
-                       <span class="eea-icon eea-icon-eye"></span>
-                       <span i18n:translate="">Explore map interactively</span>
-                     </a>
-                     <a class="" href=""
-                       tal:attributes="class python:test(is_inline, 'standardButton googlechart-inline-resize', 'standardButton'); href python:gis_url[:-11]"
-                       target="_blank"
-                       i18n:translate="">Full screen mode</a>
-                     <div class="visualClear"><!-- --></div></div>
+                         <tal:data tal:replace="structure context/gis_data_sources" />
+                     </tal:block>
+                     <div><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
+                           <span class="eea-icon eea-icon-eye"></span>
+                           <span i18n:translate="">Explore map interactively</span>
+                         </a>
+                         <a class="" href="" tal:condition="python: is_expired != 1"
+                           tal:attributes="class python:test(is_inline, 'standardButton googlechart-inline-resize', 'standardButton'); href python:gis_url[:-11]"
+                           target="_blank"
+                           i18n:translate="">Full screen mode</a>
+                         <div class="visualClear"><!-- --></div></div>
                  </tal:block>
 
                  <div class="more-information-body" tal:define="body context/getBody" tal:condition="body">

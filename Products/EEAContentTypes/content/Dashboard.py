@@ -1,11 +1,15 @@
 """ Dashboard Content type
 """
 from AccessControl import ClassSecurityInfo
+from plone.app.blob.field import ImageField
+from Products.Archetypes.atapi import (AnnotationStorage, ImageWidget,
+                                       RichWidget, Schema, TextAreaWidget,
+                                       TextField, registerType)
+from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.link import ATLink
-from Products.Archetypes.atapi import TextField, RichWidget, TextAreaWidget
-from Products.Archetypes.atapi import Schema, registerType
 from Products.EEAContentTypes.config import PROJECTNAME
 from Products.EEAContentTypes.content.interfaces import IInteractiveDashboard
+from Products.validation import V_REQUIRED
 from zope.interface import implements
 
 
@@ -25,6 +29,32 @@ schema = Schema((
             label_msgid='EEAContentTypes_label_embed',
             i18n_domain='eea',),
         ),
+
+    ImageField('image',
+               required=True,
+               languageIndependent=True,
+               storage=AnnotationStorage(migrate=True),
+               swallowResizeExceptions= \
+                   zconf.swallowImageResizeExceptions.enable,
+               pil_quality=zconf.pil_config.quality,
+               pil_resize_algo=zconf.pil_config.resize_algo,
+               max_size=zconf.ATImage.max_image_dimension,
+               sizes={'large': (768, 768),
+                      'preview': (400, 400),
+                      'mini': (200, 200),
+                      'thumb': (128, 128),
+                      'tile': (64, 64),
+                      'icon': (32, 32),
+                      'listing': (16, 16),
+                      },
+               validators=(('isNonEmptyFile', V_REQUIRED),
+                           ('imageMinSize', V_REQUIRED)),
+               widget=ImageWidget(
+                   description='High-res preview image'
+                               ' (at least 1024px width)',
+                   label='Preview image',
+                   show_content_type=False, )
+               ),
 
     TextField(
         name='body',
