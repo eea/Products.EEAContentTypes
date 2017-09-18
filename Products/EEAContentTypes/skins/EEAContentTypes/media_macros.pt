@@ -1,16 +1,16 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       i18n:domain="eea">
-      
+
 <body>
 
-<metal:img define-macro="image" 
+<metal:img define-macro="image"
            tal:define="figure_scale figure_scale|string:mini;">
                 <a href="" title="" class="noPrint"
                    tal:attributes="href figure_link|nothing;
                    title figure_title;"
                    tal:condition="figure_link|nothing">
-                  <span tal:replace="structure python:figure_obj.getScale(figure_scale).tag()"> </span> 
+                  <span tal:replace="structure python:figure_obj.getScale(figure_scale).tag()"> </span>
                  </a>
                 <tal:noLink tal:condition="not: figure_link|nothing">
                     <span tal:replace="structure python:figure_obj.getScale(figure_scale).tag()"> </span>
@@ -18,7 +18,7 @@
 </metal:img>
 
 
-<metal:img define-macro="image-wide" 
+<metal:img define-macro="image-wide"
            tal:define="figure_scale figure_scale|string:large;
                        imageSrc python:figure_obj.getScale(figure_scale).absolute_url();">
                 <a href="" title="" class="noPrint"
@@ -74,14 +74,14 @@
                <metal:img use-macro="here/media_macros/macros/image" />
             </div>
             <p class="figure-title">
-                 <span class="figure-nr" 
-                       tal:content="python:'Fig. '+figure_nr+': '" 
+                 <span class="figure-nr"
+                       tal:content="python:'Fig. '+figure_nr+': '"
                        tal:condition="figure_nr|nothing" >Fig. number: </span><tal:title content="figure_title">Image title</tal:title>
             </p>
-            <p class="figure-note" 
+            <p class="figure-note"
                tal:content="figure_note"
                tal:condition="figure_note|nothing">
-                Additional figure note	  
+                Additional figure note
             </p>
             <p class="figure-source-copyright"
                tal:condition="figure_source_copyright|nothing">
@@ -109,21 +109,21 @@
                <metal:img use-macro="here/media_macros/macros/image-wide" />
             </div>
             <p>
-               <span class="figure-nr" 
-                       tal:content="python:'Fig. '+figure_nr+': '" 
+               <span class="figure-nr"
+                       tal:content="python:'Fig. '+figure_nr+': '"
                        tal:condition="figure_nr|nothing" >Fig. number: </span>
-               <span class="figure-title" 
+               <span class="figure-title"
                      tal:content="figure_title">Image title</span>
                <span class="figure-source-copyright"
-                     tal:condition="figure_source_copyright|nothing"> 
-                &nbsp;Image &copy; <tal:copyright tal:content="figure_source_copyright"></tal:copyright>
+                     tal:condition="figure_source_copyright|nothing" i18n:translate="">
+                &nbsp;Image &copy; <tal:copyright tal:content="figure_source_copyright" i18n:name="copyright"></tal:copyright>
                 </span>
             </p>
 
-            <p class="figure-note" 
+            <p class="figure-note"
                tal:content="figure_note"
                tal:condition="figure_note|nothing">
-                Additional figure note	  
+                Additional figure note
             </p>
 
         </div>
@@ -145,8 +145,8 @@
                <metal:img use-macro="here/media_macros/macros/image" />
             </div>
             <p class="figure-title">
-                 <span class="figure-nr" 
-                       tal:content="python:'Fig. '+figure_nr+': '" 
+                 <span class="figure-nr"
+                       tal:content="python:'Fig. '+figure_nr+': '"
                        tal:condition="figure_nr|nothing" >Fig. number: </span><tal:title content="figure_title">Image title</tal:title>
             </p>
         </div>

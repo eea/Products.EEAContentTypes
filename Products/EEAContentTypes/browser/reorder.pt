@@ -102,7 +102,7 @@
                     tal:content="subentry">
                     plone.js
                   </a>
-                  <span tal:condition="not:resourceExists">(resource not found or not accessible)</span>
+                  <span tal:condition="not:resourceExists" i18n:translate="">(resource not found or not accessible)</span>
                 </li>
               </tal:scripts>
             </ul>
@@ -136,7 +136,7 @@
                     tal:content="subentry">
                     plone.css
                   </a>
-                  <span tal:condition="not:resourceExists">(resource not found or not accessible)</span>
+                  <span tal:condition="not:resourceExists" i18n:translate="">(resource not found or not accessible)</span>
                 </li>
               </tal:stylesheets>
             </ul>

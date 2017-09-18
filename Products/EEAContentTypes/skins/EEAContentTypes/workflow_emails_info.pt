@@ -1,6 +1,8 @@
 <div tal:define="wEmails context/@@workflowEmails|nothing; id request/id;">
  <tal:emails define="emails wEmails/?id|nothing;" condition="wEmails">
-     Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />
-     Confirmation emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />
+     <tal:block i18n:translate="">Action emails:</tal:block>
+     <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />
+     <tal:block i18n:translate="">Confirmation emails:</tal:block>
+     <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />
  </tal:emails>
 </div>

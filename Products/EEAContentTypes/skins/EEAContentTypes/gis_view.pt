@@ -54,7 +54,7 @@ div.archived p
              </div>
 
             <metal:main define-macro="main">
-             
+
               <tal:gis define="uid here/getArcGisUID|python:'';
                                arcgis_url here/arcgis_url|python:'';
                                gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url and not 'embed' in arcgis_url
@@ -82,9 +82,9 @@ div.archived p
                          <div class="googlechart-notes gis-notes">
                              <div class="googlecharts-note">
                                  <p class="callout" tal:define="description context/Description">
-                                     <strong>Note: </strong><br>
+                                     <strong i18n:translate="">Note: </strong><br>
                                      <span tal:content="description"></span>
-                                     <span tal:condition="python:not description">N/A</span>
+                                     <span tal:condition="python:not description" i18n:translate="">N/A</span>
                                  </p>
                              </div>
                          </div>
@@ -109,9 +109,9 @@ div.archived p
              <tal:block condition="not:arcgis_url">
                <div id="" class="flashmovie"
                 tal:attributes="id string:container-${here/getId};"
-                i18n:translate=""> 
-                    This page requires Flashplayer, please download it for free from 
-                    <a href="http://www.macromedia.com/go/getflashplayer" 
+                i18n:translate="">
+                    This page requires Flashplayer, please download it for free from
+                    <a href="http://www.macromedia.com/go/getflashplayer"
                        title="get flashplayer"
                        i18n:attributes="title"
                        i18n:name="flashplayer-link"
@@ -120,17 +120,17 @@ div.archived p
                <tal:flashjs replace="structure here/flash_js" />
                <h2 i18n:translate="">Full screen</h2>
                <p i18n:translate="">
-                   If the map application above does not provide an integrated full screen feature (usually in the upper right corner), 
+                   If the map application above does not provide an integrated full screen feature (usually in the upper right corner),
                    then you can try with the following
-                   <tal:block i18n:name="full-screen-mode"> 
-                       <a href="#" tal:attributes="href here/gis_view_remote_url" 
+                   <tal:block i18n:name="full-screen-mode">
+                       <a href="#" tal:attributes="href here/gis_view_remote_url"
                           title="full screen mode"
                           i18n:attributes="title"
                           i18n:translate="">full screen mode</a>
                    </tal:block>
-               </p> 
-              </tal:block>  
-                 
+               </p>
+              </tal:block>
+
               </tal:gis>
             </metal:main>
     </metal:fill>

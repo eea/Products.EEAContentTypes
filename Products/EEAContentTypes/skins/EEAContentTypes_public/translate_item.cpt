@@ -74,9 +74,9 @@
               tal:attributes="action python:here.absolute_url()+'/'+template.id">
 
             <p class="hiddenStructure"
-               tal:define="langs here/getUntranslatedLanguages">
+               tal:define="langs here/getUntranslatedLanguages" i18n:translate="">
                 Translating from
-                <span>
+                <span i18n:name="from">
                     <select name="lp_translating_from"
                             tal:define="lp_translating_from request/lp_translating_from | here/getCanonicalLanguage">
                         <option selected="selected"
@@ -91,7 +91,7 @@
                     </select>
                 </span>
                 to
-                <span>
+                <span i18n:name="to">
                     <select name="lp_translating_to"
                             tal:define="lp_translating_to request/lp_translating_to | here/getLanguage">
                         <option selected="selected"
@@ -159,10 +159,11 @@
 
                                 <label tal:content="python:field.widget.Label(trans)">
                                     Field
-                                </label> (Language independent)
+                                </label>
+                                <tal:lang i18n:translate="">(Language independent)</tal:lang>
 
                                 <div class="discreet"
-                                     tal:content="python:field.widget.Description(trans)">
+                                     tal:content="python:field.widget.Description(trans)" i18n:translate="">
                                     Description
                                 </div>
 

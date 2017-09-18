@@ -16,7 +16,7 @@
       />
     <language tal:content="feed/language" />
     <copyright tal:content="feed/rights" />
-    <generator>Plone</generator>
+    <generator i18n:translate="">Plone</generator>
     <image>
       <title tal:content="feed/title" />
       <url tal:content="string:${context/portal_url}/eea-print-logo.gif" />

@@ -65,7 +65,7 @@
         </div>
         <div class="embed-type">
           <span class="embed-title" tal:condition="embed_type"><tal:block tal:replace="embed_type" /></span>
-          <span class="embed-title" tal:condition="python:embed_type is None" style="color:red">No embed selected!</span>
+          <span class="embed-title" tal:condition="python:embed_type is None" style="color:red" i18n:translate="">No embed selected!</span>
         </div>
       </div>
       <span class="metadata" style="display:none">

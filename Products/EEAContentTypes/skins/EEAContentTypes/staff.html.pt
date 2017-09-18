@@ -13,7 +13,7 @@
     <div metal:fill-slot="main">
       <metal:main-macro define-macro="main">
 
-        <h1 i18n:translate="EEA Staff list"  class="documentFirstHeading"> 
+        <h1 i18n:translate="EEA Staff list"  class="documentFirstHeading">
           EEA Staff list
         </h1>
         <p>
@@ -26,9 +26,9 @@
           orgs_data python:here.portal_properties.eeastaff_properties.organisations;
           orgs_info here/@@eeaorglist;
           org_name python:orgs_info['orgs_names'].get(org_id, org_id)">
-          <p tal:condition="org_id">Members of <strong tal:content="org_name" />.</p>
-          <p tal:condition="not:org_id">You can sort the table by clicking on the column or filtering by the programme name:</p>
-          <div><a href="staff.html" title="EEA Staff list" i18n:attributes="title" tal:condition="org_id">All staff</a><strong tal:condition="not:org_id">All staff</strong><tal:Orgs repeat="org orgs_data">&nbsp;|&nbsp;<a tal:condition="python:org!=org_id" tal:attributes="href string:staff.html?orgid=${org}; title python:'Members of ' + orgs_info['orgs_names'].get(org, org)" tal:content="org"/><strong tal:condition="python:org==org_id" tal:content="org"/></tal:Orgs></div>
+          <p tal:condition="org_id" i18n:translate="">Members of <strong tal:content="org_name" i18n:name="org_id"/>.</p>
+          <p tal:condition="not:org_id" i18n:translate="">You can sort the table by clicking on the column or filtering by the programme name:</p>
+          <div><a href="staff.html" title="EEA Staff list" i18n:attributes="title" tal:condition="org_id" i18n:translate="">All staff</a><strong tal:condition="not:org_id" i18n:translate="">All staff</strong><tal:Orgs repeat="org orgs_data">&nbsp;|&nbsp;<a tal:condition="python:org!=org_id" tal:attributes="href string:staff.html?orgid=${org}; title python:'Members of ' + orgs_info['orgs_names'].get(org, org)" tal:content="org"/><strong tal:condition="python:org==org_id" tal:content="org"/></tal:Orgs></div>
         </tal:block>
 
         <metal:listingmacro define-macro="listing">
