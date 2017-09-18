@@ -1,6 +1,9 @@
 Changelog
 =========
 
+14.7.dev0 - (unreleased)
+------------------------
+
 14.6 - (2017-09-18)
 -------------------
 * Bug fix: Removed hard dependency on eea.soercontent
