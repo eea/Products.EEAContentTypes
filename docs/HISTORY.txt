@@ -3,6 +3,8 @@ Changelog
 
 14.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: Removed hard dependency on eea.soercontent
+  [avoinea]
 
 14.5 - (2017-09-15)
 -------------------

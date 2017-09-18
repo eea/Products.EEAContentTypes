@@ -1,6 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="Products.EEAContentTypes">
 
     <include file="component.zcml" />
@@ -417,11 +418,13 @@
         Products.EEAContentTypes.content.interfaces.IGISMapApplication
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".event.imageRatioCheck" />
-    
-    <subscriber for="
-        eea.soercontent.content.interfaces.IFiche
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".event.imageRatioCheck" />
+
+    <configure zcml:condition="installed eea.soercontent">
+        <subscriber for="
+            eea.soercontent.content.interfaces.IFiche
+            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+            handler=".event.imageRatioCheck" />
+    </configure>
 
 
 </configure>
