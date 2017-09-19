@@ -3,6 +3,10 @@ Changelog
 
 14.7.dev0 - (unreleased)
 ------------------------
+* Feature: added car_view to redirect on ES app when anonymous
+  [alecghica refs #88174]
+* Upgrade step: under /www/portal_types/CountryRegionSection/manage_propertiesForm set "Default view method" to car_view
+  [alecghica refs #88174]
 
 14.6 - (2017-09-18)
 -------------------
