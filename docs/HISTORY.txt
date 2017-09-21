@@ -3,6 +3,9 @@ Changelog
 
 14.7.dev0 - (unreleased)
 ------------------------
+* Change: added description to the list of data exported to JSON for
+  CountryRegionSection portal_type
+  [ichim-david refs #87699]
 * Change: Update to work with eea.rdfmarshaller 10.1 and rdflib 4.2.2
   [avoinea refs #88194]
 * Feature: added car_view to redirect on ES app when anonymous
