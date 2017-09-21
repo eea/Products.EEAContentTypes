@@ -12,9 +12,9 @@ from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
 from Products.CMFCore.exceptions import ResourceLockedError
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
-from rdflib.Graph import ConjunctiveGraph
-from rdflib.Namespace import Namespace
-from rdflib.StringInputSource import StringInputSource
+from rdflib.graph import ConjunctiveGraph
+from rdflib.namespace import Namespace
+from rdflib.parser import StringInputSource
 from zope.schema import getFieldNames
 import zope.interface
 

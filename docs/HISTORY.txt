@@ -3,6 +3,8 @@ Changelog
 
 14.7.dev0 - (unreleased)
 ------------------------
+* Change: Update to work with eea.rdfmarshaller 10.1 and rdflib 4.2.2
+  [avoinea refs #88194]
 
 14.6 - (2017-09-18)
 -------------------
