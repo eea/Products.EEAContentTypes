@@ -1,8 +1,8 @@
 Changelog
 =========
 
-14.7.dev0 - (unreleased)
-------------------------
+14.7 - (2017-09-22)
+-------------------
 * Change: added description to the list of data exported to JSON for
   CountryRegionSection portal_type
   [ichim-david refs #87699]
