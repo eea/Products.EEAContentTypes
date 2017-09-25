@@ -23,7 +23,7 @@ def get_language_codes():
         "Greece": [["Greek", "el"]],
         "Hungary": [["Hungarian", "hu"]],
         "Iceland": [["Icelandic", "is"]],
-        "Ireland": [["English", "en"]],
+        "Ireland": [["English", ""]],
         "Italy": [["Italian", "it"]],
         "Latvia": [["Latvian", "lv"]],
         "Liechtenstein": [["German", "de"]],
@@ -34,7 +34,7 @@ def get_language_codes():
         "Poland": [["Polish", "pl"]],
         "Portugal": [["Portuguese", "pt"]],
         "Romania": [["Romanian", "ro"]],
-        "Serbia": [["English", "en"]],  # we do not have rs language
+        "Serbia": [["English", ""]],  # we do not have rs language
         "Slovakia": [["Slovak", "sk"]],
         "Slovenia": [["Slovenian", "sl"]],
         "Spain": [["Spanish", "es"]],
@@ -43,7 +43,7 @@ def get_language_codes():
         "Netherlands": [["Dutch", "nl"]],
         "The Netherlands": [["Dutch", "nl"]],
         "Turkey": [["Turkish", "tr"]],
-        "United Kingdom": [["English", "en"]],
+        "United Kingdom": [["English", ""]],
         "Bosnia and Herzegovina": [["Croatian", "hr"]],
         "Kosovo": [["Croatian", "hr"], ["Turkish", "tr"]],
         "Kosovo*": [["Croatian", "hr"], ["Turkish", "tr"]],
@@ -78,11 +78,11 @@ class ViewCountryRegionsJSON(FiveBrowserView):
                     "obj_id": obj.id,
                     "bg_url": url + "/image_panoramic",
                     "body": obj.getBody(),
-                    "description": obj.getDescription(),
+                    "description": obj.description,
                     "title": title,
                     "type": ctype,
                     "external_links": list(obj.getExternalLinks()),
-                    "languages": lang_codes.get(title, ["English"])}
+                    "languages": lang_codes.get(title, ["English", ""])}
             
         self.request.response.setHeader("Content-type", "application/json")
         return json.dumps(data)

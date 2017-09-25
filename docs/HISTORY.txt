@@ -3,6 +3,9 @@ Changelog
 
 14.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed description addition and english fallback for CountryRegionSection
+  json output
+  [ichim-david refs #87699]
 
 14.7 - (2017-09-22)
 -------------------
