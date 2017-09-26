@@ -18,8 +18,8 @@ schema = Schema((
     TextField(
         name='body',
         searchable=True,
-        required_for_published=True,
-        required=True,
+        required_for_published=False,
+        required=False,
         allowable_content_types=('text/html',),
         default_content_type="text/html",
         default_output_type="text/x-html-safe",
