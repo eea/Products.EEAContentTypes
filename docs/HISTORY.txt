@@ -1,8 +1,8 @@
 Changelog
 =========
 
-14.8.dev0 - (unreleased)
-------------------------
+14.8 - (2017-09-26)
+-------------------
 * Change: body field is no longer required for CountryRegionSection
   [ichim-david refs #87699]
 * Bug fix: fixed description addition and english fallback for CountryRegionSection
