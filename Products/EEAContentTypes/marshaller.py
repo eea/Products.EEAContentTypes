@@ -64,7 +64,10 @@ class Provenances2Surf(ATField2Surf):
         super(Provenances2Surf, self).__init__(*args, **kwargs)
         surf.ns.register(prov="http://www.w3.org/ns/prov#")
         surf.ns.register(prv="http://purl.org/net/provenance/ns#")
-        store = self.session.get_default_store()
+        try:
+            store = self.session.default_store
+        except AttributeError:
+            store = self.session.get_default_store()
         store.reader.graph.bind('prov', surf.ns.PROV, override=True)
         store.reader.graph.bind('prv', surf.ns.PRV, override=True)
         store.reader.graph.bind('foaf', surf.ns.FOAF, override=True)

@@ -3,6 +3,8 @@ Changelog
 
 14.9.dev0 - (unreleased)
 ------------------------
+* Bug fix: 'Session' object has no attribute 'get_default_store'
+  [avoinea refs #88536]
 
 14.8 - (2017-09-26)
 -------------------
