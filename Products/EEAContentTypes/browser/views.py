@@ -9,6 +9,7 @@ def get_language_codes():
     """ get languages for each country we support
     """
     return {
+        "Albania": [["Albanian", "sq"]],
         "Austria": [["German", "de"]],
         "Belgium": [["Dutch", "nl"], ["French", "fr"], ["German", "de"]],
         "Bulgaria": [["Bulgarian", "bg"]],
@@ -17,24 +18,24 @@ def get_language_codes():
         "Czech Republic": [["Czech", "cs"]],
         "Denmark": [["Danish", "da"]],
         "Estonia": [["Estonian", "et"]],
-        "Finland": [["Finnish", "fi"]],
+        "Finland": [["Finnish", "fi"],["Swedish", "sv"]],
         "France": [["French", "fr"]],
         "Germany": [["German", "de"]],
         "Greece": [["Greek", "el"]],
         "Hungary": [["Hungarian", "hu"]],
         "Iceland": [["Icelandic", "is"]],
-        "Ireland": [["English", ""]],
+        "Ireland": [["English", ""], ["Irish", "ga"]],
         "Italy": [["Italian", "it"]],
         "Latvia": [["Latvian", "lv"]],
         "Liechtenstein": [["German", "de"]],
         "Lithuania": [["Lithuanian", "lt"]],
         "Luxembourg": [["German", "de"], ["French", "fr"]],
-        "Malta": [["Maltese", "mt"]],
+        "Malta": [["Maltese", "mt"],["English", ""]],
         "Norway": [["Norwegian", "no"]],
         "Poland": [["Polish", "pl"]],
         "Portugal": [["Portuguese", "pt"]],
         "Romania": [["Romanian", "ro"]],
-        "Serbia": [["English", ""]],  # we do not have rs language
+        "Serbia": [["Serbian", "sr"]], 
         "Slovakia": [["Slovak", "sk"]],
         "Slovenia": [["Slovenian", "sl"]],
         "Spain": [["Spanish", "es"]],
@@ -44,13 +45,12 @@ def get_language_codes():
         "The Netherlands": [["Dutch", "nl"]],
         "Turkey": [["Turkish", "tr"]],
         "United Kingdom": [["English", ""]],
-        "Bosnia and Herzegovina": [["Croatian", "hr"]],
-        "Kosovo": [["Croatian", "hr"], ["Turkish", "tr"]],
-        "Kosovo*": [["Croatian", "hr"], ["Turkish", "tr"]],
-        "Macedonia": [["Croatian", "hr"], ["Turkish", "tr"]],
-        "The Former Yugoslav Republic of Macedonia": [["Croatian", "hr"],
-                                                      ["Turkish", "tr"]],
-        "Montenegro": [["Croatian", "hr"]]
+        "Bosnia and Herzegovina": [["Bosnian", "bs"], ["Croatian", "hr"], ["Serbian", "sr"]],
+        "Kosovo": [["Albanian", "sq"], ["Serbian", "sr"]],
+        "Kosovo*": [["Albanian", "sq"], ["Serbian", "sr"]],
+        "Macedonia": [["Macedonian", "mk"]],
+        "The former Yugoslav Republic of Macedonia": [["Macedonian", "mk"]],
+        "Montenegro": [["Croatian", "hr"], ["Serbian", "sr"]]
     }
 
 

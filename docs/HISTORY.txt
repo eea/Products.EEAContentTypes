@@ -3,6 +3,9 @@ Changelog
 
 15.0.dev0 - (unreleased)
 ------------------------
+* Bug fix: Some languages mapping for countries
+  were wrong and some countries were also missing.
+  [demarant refs #87699]
 
 14.9 - (2017-09-27)
 -------------------
