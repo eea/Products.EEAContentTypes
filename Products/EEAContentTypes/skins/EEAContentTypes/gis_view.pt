@@ -71,6 +71,7 @@ div.archived p
                      </iframe>
 
                      <img src="" style="width:100%;height:600px;margin:0;border:0"
+                      tal:condition="python: is_expired == 1"
                       tal:attributes="src python: image.absolute_url() + '/image_large'" />
 
                      <br />

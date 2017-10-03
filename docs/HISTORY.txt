@@ -3,6 +3,9 @@ Changelog
 
 15.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: Added condition to prevent the preview image from being shown
+  if the item is not expired/archived
+  [petchesi-iulian refs #88721]
 
 15.0 - (2017-09-29)
 -------------------
