@@ -3,6 +3,8 @@ Changelog
 
 15.1.dev0 - (unreleased)
 ------------------------
+* Feature: Trigger ObjectModifiedEvent when Mark as Country Profile is accessed
+  [szabozo0 refs #88688]
 * Bug fix: Added condition to prevent the preview image from being shown
   if the item is not expired/archived
   [petchesi-iulian refs #88721]
