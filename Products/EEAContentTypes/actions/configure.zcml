@@ -82,4 +82,34 @@
       factory=".set_effective_date.SetEffectiveDateAction"
       />
 
+    <!-- Ping external service -->
+    <adapter factory=".ping_external_service.PingExternalServiceActionExecutor" />
+
+    <browser:page
+        name="Products.EEAContentTypes.actions.ping_external_service"
+        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+        class=".ping_external_service.PingExternalServiceAddForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <browser:page
+        name="edit"
+        for="Products.EEAContentTypes.actions.ping_external_service.IPingExternalServiceAction"
+        class=".ping_external_service.PingExternalServiceEditForm"
+        permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleAction
+        name="Products.EEAContentTypes.actions.ping_external_service"
+        title="Ping External Service"
+        description="Ping External Service (ex. invalidate external configurations for CaR app)"
+        for="*"
+        event="*"
+        addview="Products.EEAContentTypes.actions.ping_external_service"
+        editview="edit"
+        schema=".ping_external_service.IPingExternalServiceAction"
+        factory=".ping_external_service.IPingExternalServiceAction"
+        />
+
+
 </configure>
