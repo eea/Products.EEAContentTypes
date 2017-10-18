@@ -101,8 +101,8 @@
 
     <plone:ruleAction
         name="Products.EEAContentTypes.actions.ping_external_service"
-        title="Ping External Service"
-        description="Ping External Service (ex. invalidate external configurations for CaR app)"
+        title="Ping external service"
+        description="Ping external service (ex. invalidate external configurations for CaR app)"
         for="*"
         event="*"
         addview="Products.EEAContentTypes.actions.ping_external_service"

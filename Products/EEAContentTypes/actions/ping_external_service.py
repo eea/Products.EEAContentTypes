@@ -1,3 +1,5 @@
+""" Ping external service action
+"""
 import logging
 
 from eventlet.green import urllib2
@@ -73,8 +75,8 @@ class PingExternalServiceAddForm(AddForm):
     """ Ping action addform
     """
     form_fields = form.FormFields(IPingExternalServiceAction)
-    label = u"Add Ping External Service Action"
-    description = u"A ping External Service action."
+    label = u"Add Ping external service action"
+    description = u"A Ping external service action."
     form_name = u"Configure element"
 
     def create(self, data):
@@ -89,6 +91,6 @@ class PingExternalServiceEditForm(EditForm):
     """ Ping action editform
     """
     form_fields = form.FormFields(IPingExternalServiceAction)
-    label = u"Edit Ping External Service Action"
-    description = u"A ping External Service action."
+    label = u"Edit Ping external service action"
+    description = u"A Ping external service action."
     form_name = u"Configure element"
