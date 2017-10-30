@@ -3,6 +3,10 @@ Changelog
 
 15.1.dev0 - (unreleased)
 ------------------------
+* Upgrade step: In Site Setup -> Content Rules add a rule for:
+  Object Modified event with condition set on Content type: Countries and Regions
+  with Ping External Service action, and set the target to:
+  https://www.eea.europa.eu/countries-and-regions/tools/update_external_configs
 * Feature: Added Ping External Service action
   [szabozo0 refs #88688]
 * Feature: Trigger ObjectModifiedEvent when Mark as Country Profile is accessed
