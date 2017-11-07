@@ -1,8 +1,8 @@
 Changelog
 =========
 
-15.1.dev0 - (unreleased)
-------------------------
+15.1 - (2017-11-07)
+-------------------
 * Upgrade step: In Site Setup -> Content Rules add a rule for:
     - Object Modified event 
     - condition set on Content type: Countries and Regions
