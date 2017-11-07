@@ -1,6 +1,9 @@
 Changelog
 =========
 
+15.2.dev0 - (unreleased)
+------------------------
+
 15.1 - (2017-11-07)
 -------------------
 * Upgrade step: In Site Setup -> Content Rules add a rule for:
