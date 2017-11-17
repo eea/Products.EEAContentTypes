@@ -95,10 +95,6 @@ div.archived p
                            <span class="eea-icon eea-icon-eye"></span>
                            <span i18n:translate="">Explore map interactively</span>
                          </a>
-                         <a class="" href="" tal:condition="python: is_expired != 1"
-                           tal:attributes="class python:test(is_inline, 'standardButton googlechart-inline-resize', 'standardButton'); href python:gis_url[:-11]"
-                           target="_blank"
-                           i18n:translate="">Full screen mode</a>
                          <div class="visualClear"><!-- --></div></div>
                  </tal:block>
 

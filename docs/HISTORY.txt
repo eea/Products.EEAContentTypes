@@ -3,6 +3,8 @@ Changelog
 
 15.2.dev0 - (unreleased)
 ------------------------
+* Change: remove full screen mode shortcut from gis_view
+  [demarant refs #90057]
 
 15.1 - (2017-11-07)
 -------------------
