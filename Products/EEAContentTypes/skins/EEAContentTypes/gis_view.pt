@@ -36,13 +36,6 @@ div.archived p
   color:#000000;
   }
 </style>
-
-<style tal:condition="python: here.isExpired() == 1">
-#content {
-    background: url(/www/expired.png);
-}
-</style>
-
 </metal:css>
 
   </head>
