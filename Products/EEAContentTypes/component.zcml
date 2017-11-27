@@ -27,74 +27,89 @@
 
     <adapter name="eea.locationfield"
         for="Products.Archetypes.interfaces.IBaseContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.LocationSchemaExtender"/>
 
     <!-- #4705 It should be for IBaseContent once generic relation works #4908 -->
     <adapter name="eea.relationsfield"
         for="eea.relations.interfaces.IBaseObject"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.RelationsSchemaExtender" />
 
     <adapter name="eea.themesfield"
         for="Products.Archetypes.interfaces.IBaseContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.ThemesSchemaExtender"/>
 
 
     <!-- adapter name="eea.temporalcoveragefield"
              for="Products.Archetypes.interfaces.IBaseContent"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender"
              factory=".subtypes.TemporalCoverageSchemaExtender"/ -->
 
     <!-- #14719 added ManagementPlanField for the following -->
     <adapter name="eea.managementplanfield4InteractiveData"
              for="Products.EEAContentTypes.content.interfaces.IInteractiveData"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender"
              factory=".subtypes.ManagementPlanFieldExtender"/>
 
     <adapter name="eea.managementplanfield4InteractiveMap"
              for="Products.EEAContentTypes.content.interfaces.IInteractiveMap"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender"
              factory=".subtypes.ManagementPlanFieldExtender"/>
 
     <!-- #14900 added ManagementPlanField for SOER Content -->
     <adapter zcml:condition="installed eea.soercontent"
         name="eea.managementplanfield4SoerContent"
         for="eea.soercontent.interfaces.ISoerContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.ManagementPlanFieldExtender"/>
 
     <!-- Keyword postback fix http://dev.plone.org/ticket/12334 -->
     <adapter name="eea.keywordsfield"
         for="Products.Archetypes.interfaces.IExtensibleMetadata"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.KeywordsSchemaModifier" />
 
     <!-- Required fields adapter -->
     <adapter name="eea.davizpublishrequirements"
         for="eea.daviz.content.interfaces.IDavizVisualization"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.DavizRequirementsSchemaModifier" />
 
     <!-- Required fields adapter -->
     <adapter name="eea.dashboardrequirements"
         for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.DashboardRequirementsSchemaModifier" />
 
     <!-- Required fields adapter -->
     <adapter name="eea.requiredfields"
         for="Products.EEAContentTypes.interfaces.IEEAContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.RequiredSchemaModifier" />
 
     <adapter name="eea.requiredfields4possiblecontenttypes"
         for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.RequiredSchemaModifier" />
 
     <!-- #71102 LanguageIndependent fields adapter -->
     <adapter name="eea.languageindependentfields"
         for="Products.Archetypes.interfaces.base.IBaseObject"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.LanguageIndependentModifier" />
 
     <!-- Publication -->
     <adapter name="eea.requiredfields4publication"
         for="eea.reports.interfaces.IReportContainerEnhanced"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
         factory=".subtypes.RequiredSchemaModifier" />
 
     <!-- #74583 Exclude items from Table of Contents -->
     <adapter name="eea.tocExclude"
         for="Products.Archetypes.interfaces.IBaseContent"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.ExcludeTOCSchemaExtender" />
 
 </configure>
