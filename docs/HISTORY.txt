@@ -1,8 +1,8 @@
 Changelog
 =========
 
-15.3 - (2017-11-27)
--------------------
+15.3.dev0 - (unreleased)
+------------------------
 * Bug fix: Register Schema Extender/Modifier on `IEEACommonLayer` browser layer
   [avoinea refs #89955]
 
