@@ -4,10 +4,12 @@
 
     <adapter name="eea.temporalcoveragefield"
              for="Products.EEAContentTypes.interfaces.IEEAContent"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender"
              factory=".subtypes.TemporalCoverageSchemaExtender"/>
 
     <adapter name="eea.possibletemporalcoveragefield"
              for="Products.EEAContentTypes.interfaces.IEEAPossibleContent"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender"
              factory=".subtypes.TemporalCoverageSchemaExtender"/>
 
 
