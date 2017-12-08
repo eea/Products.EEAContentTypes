@@ -136,7 +136,7 @@
                     Versions
                   </span>
 
-                  <span tal:condition="not: faq/Versions | nothing" i18n:name="faq">
+                  <span tal:condition="not: faq/Versions | nothing">
                       <span i18n:translate="">
                       Any version.
                       </span>
