@@ -12,13 +12,8 @@ class Widget(AbstractWidget):
     """
     widget_type = 'eeathemetags'
     widget_label = 'EEA theme tags'
-    view_js = '++resource++Products.EEAContentTypes.faceted.themes.view.js'
-    edit_js = '++resource++Products.EEAContentTypes.faceted.themes.edit.js'
-    view_css = '++resource++Products.EEAContentTypes.faceted.themes.view.css'
-    edit_css = '++resource++Products.EEAContentTypes.faceted.themes.edit.css'
 
     index = ViewPageTemplateFile('widget.pt')
-    edit_schema = AbstractWidget.edit_schema
 
     @property
     def themes(self):

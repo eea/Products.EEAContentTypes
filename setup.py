@@ -44,7 +44,7 @@ setup(name=NAME,
           'Products.RedirectionTool',
 
           'eea.rdfmarshaller',
-          'eea.facetednavigation',
+          'eea.facetednavigation > 10.0',
           'eea.forms',
           'eea.mediacentre',
           'eea.themecentre',

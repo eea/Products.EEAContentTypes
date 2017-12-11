@@ -1,8 +1,12 @@
 =================
 EEA Content Types
 =================
+.. image:: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/develop/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/develop/display/redirect
+  :alt: Develop
 .. image:: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/master/badge/icon
   :target: http://ci.eionet.europa.eu/job/eea/job/Products.EEAContentTypes/job/master/display/redirect
+  :alt: Master
 
 Contents
 ========

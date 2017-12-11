@@ -3,6 +3,12 @@ Changelog
 
 15.3.dev0 - (unreleased)
 ------------------------
+* Change: Replace eeacms/zptlint with eeacms/plone-test:4 zptlint
+  [avoinea refs #90415]
+* Change: Update to work with eea.facetednavigation 10.0+
+  [avoinea refs #89955]
+* Bug fix: Register Schema Extender/Modifier on `IEEACommonLayer` browser layer
+  [avoinea refs #89955]
 
 15.2 - (2017-11-20)
 -------------------
@@ -12,7 +18,7 @@ Changelog
 15.1 - (2017-11-07)
 -------------------
 * Upgrade step: In Site Setup -> Content Rules add a rule for:
-    - Object Modified event 
+    - Object Modified event
     - condition set on Content type: Countries and Regions
     - Action: Ping External Service action
     - Action target set to: https://www.eea.europa.eu/countries-and-regions/tools/update_external_configs

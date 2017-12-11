@@ -27,6 +27,7 @@ from Products.LinguaPlone.public import LinesField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import ISchemaModifier
+from archetypes.schemaextender.interfaces import IBrowserLayerAwareExtender
 
 from eea.dataservice.content.schema import ManagementPlanField
 from eea.dataservice.content.schema import ManagementPlanWidget
@@ -39,6 +40,7 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.interfaces import IAutoRelations
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.themecentre.content.ThemeTaggable import ThemesField
+from eea.design.browser.interfaces import IEEACommonLayer
 
 
 _ = MessageFactory('Products.EEAContentTypes')
@@ -117,7 +119,8 @@ class ExtensionManagementField(ExtensionField, ManagementPlanField):
 class RelationsSchemaExtender(object):
     """ Extends relations filed
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionRelationsField('relatedItems',
@@ -159,7 +162,8 @@ class LocationSchemaExtender(object):
     """ Extends base schema with extra fields.
         To be used for base content class.
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     multiple_location = (
         ExtensionGeotagsMultifield(
@@ -231,7 +235,8 @@ class LocationSchemaExtender(object):
 class ThemesSchemaExtender(object):
     """ Extends schema with themes field
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionThemesField(
@@ -264,7 +269,8 @@ class ThemesSchemaExtender(object):
 class TemporalCoverageSchemaExtender(object):
     """ Extends schema with temporalCoverage field
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionLinesField(
@@ -307,7 +313,8 @@ class TemporalCoverageSchemaExtender(object):
 class ManagementPlanFieldExtender(object):
     """ Extends schema with eeaManagementPlan field
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionManagementField(
@@ -341,7 +348,8 @@ class ManagementPlanFieldExtender(object):
 class RequiredSchemaModifier(object):
     """ Modify schema
     """
-    implements(ISchemaModifier)
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     def __init__(self, context):
         self.context = context
@@ -379,7 +387,8 @@ class RequiredSchemaModifier(object):
 class ImageSchemaExtender(object):
     """ Extends image field
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionImageField(name="image",
@@ -405,7 +414,8 @@ class ImageSchemaExtender(object):
 class LanguageIndependentModifier(object):
     """ Modify schema to remove languageIndependent flag
     """
-    implements(ISchemaModifier)
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     def __init__(self, context):
         self.context = context
@@ -423,7 +433,8 @@ class LanguageIndependentModifier(object):
 class DavizRequirementsSchemaModifier(object):
     """ Modify schema
     """
-    implements(ISchemaModifier)
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     def __init__(self, context):
         self.context = context
@@ -443,7 +454,8 @@ class DavizRequirementsSchemaModifier(object):
 class DashboardRequirementsSchemaModifier(object):
     """ Modify schema for Dashboard content type
     """
-    implements(ISchemaModifier)
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     def __init__(self, context):
         self.context = context
@@ -464,7 +476,8 @@ class DashboardRequirementsSchemaModifier(object):
 class KeywordsSchemaModifier(object):
     """ Fix keywords postback bug http://dev.plone.org/ticket/12334
     """
-    implements(ISchemaModifier)
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     def __init__(self, context):
         self.context = context
@@ -656,7 +669,8 @@ class GetCanonicalRelations(object):
 class ExcludeTOCSchemaExtender(object):
     """ Extends schema with exclude field
     """
-    implements(ISchemaExtender)
+    implements(ISchemaExtender, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
 
     fields = (
         ExtensionStringField(
