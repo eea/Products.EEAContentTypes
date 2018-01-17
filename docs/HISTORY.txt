@@ -1,8 +1,13 @@
 Changelog
 =========
 
-15.3.dev0 - (unreleased)
-------------------------
+15.4 - (2018-01-17)
+-------------------
+* Bug fix: Fix RabbitMQ settings via environment variables
+  [avoinea refs #91519]
+
+15.3 - (2017-12-12)
+-------------------
 * Change: Replace eeacms/zptlint with eeacms/plone-test:4 zptlint
   [avoinea refs #90415]
 * Change: Update to work with eea.facetednavigation 10.0+
