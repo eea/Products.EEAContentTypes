@@ -19,7 +19,7 @@ from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from plone.stringinterp.interfaces import IStringInterpolator
 
 config = getConfiguration()
-if not hasattr(config, 'product_config'):
+if not getattr(config, 'product_config', {}):
     host = os.environ.get('RABBITMQ_HOST', '')
     try:
         port = int(os.environ.get('RABBITMQ_PORT', ''))

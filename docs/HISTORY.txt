@@ -1,8 +1,10 @@
 Changelog
 =========
 
-15.4.dev0 - (unreleased)
-------------------------
+15.4 - (2018-01-17)
+-------------------
+* Bug fix: Fix RabbitMQ settings via environment variables
+  [avoinea refs #91519]
 
 15.3 - (2017-12-12)
 -------------------
