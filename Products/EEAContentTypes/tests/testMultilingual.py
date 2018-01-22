@@ -1,13 +1,13 @@
 """ Test multilinguality
 """
 from Products.Five import zcml
-
 import Products.EEAContentTypes
 from Products.EEAContentTypes.tests.base import EEAContentTypeTestCase
 
 
 class TestMultilingual(EEAContentTypeTestCase):
-    """Test cases for LinguaPlone and multilingual features."""
+    """ Test cases for LinguaPlone and multilingual features.
+    """
 
     def afterSetUp(self):
         """ Set up

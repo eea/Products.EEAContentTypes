@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.5 - (2018-01-22)
+-------------------
+* Bug fix: fixed translation links when the container has a default page
+  [alecghica refs #87367]
+
 15.4 - (2018-01-17)
 -------------------
 * Bug fix: Fix RabbitMQ settings via environment variables
