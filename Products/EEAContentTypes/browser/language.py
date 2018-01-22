@@ -92,7 +92,7 @@ class LanguageSelectorData(BrowserView):
         so we can test it
     """
     
-    def has_translations(self, context):
+    def has_published_translations(self, context):
         """ check if context has published translations
         """
         published = {}
@@ -111,6 +111,10 @@ class LanguageSelectorData(BrowserView):
         context = self.context
         results = []
         putils = getToolByName(self.context, 'plone_utils')
+        ptool = getToolByName(self.context, 'portal_properties')
+        site_properties = getattr(ptool, 'site_properties', None)
+        typesUsingViewUrl = site_properties.getProperty(
+            'typesUseViewActionInListings', ())
 
         translations = {}  # lang:[object, wfstate]
 
@@ -121,10 +125,11 @@ class LanguageSelectorData(BrowserView):
         # even if the default page has none.
         if len(translations) == 1 and putils.isDefaultPage(context):
             my_container = aq_parent(aq_inner(context))
-            translations = my_container.getTranslations()
+            if ITranslatable.providedBy(my_container):
+                translations = my_container.getTranslations()
 
         if context.portal_membership.isAnonymousUser():
-            translations = self.has_translations(context)
+            translations = self.has_published_translations(context)
             if not translations:
                 return results
 
@@ -154,11 +159,12 @@ class LanguageSelectorData(BrowserView):
                     # Check if parent container has translation and
                     # in this case redirect to it.
                     my_container = aq_parent(aq_inner(translation))
-                    if my_container.getTranslations().has_key(code):
-                        translation = aq_parent(aq_inner(translation))
+                    if ITranslatable.providedBy(my_container):
+                        if my_container.getTranslations().has_key(code):
+                            translation = my_container
 
                 url = translation.absolute_url()
-                if translation.portal_type in ('ATFile', 'File'):
+                if translation.portal_type in typesUsingViewUrl:
                     url += '/view'
 
                 wf = context.portal_workflow
