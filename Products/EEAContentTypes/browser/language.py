@@ -91,6 +91,19 @@ class LanguageSelectorData(BrowserView):
     """ VIEWified languageSelectorData.py from LinguaPlone/skins/
         so we can test it
     """
+    
+    def has_translations(self, context):
+        """ check if context has published translations
+        """
+        published = {}
+        translations = context.getTranslations()
+        for k, v in translations.items():
+            if v[1] == 'published':
+                published[k] = v
+        if len(published) > 1:
+            return published
+        else:
+            return False
 
     def data(self):
         """ Data
@@ -100,17 +113,19 @@ class LanguageSelectorData(BrowserView):
         putils = getToolByName(self.context, 'plone_utils')
 
         translations = {}  # lang:[object, wfstate]
+
         if ITranslatable.providedBy(context):
             translations = context.getTranslations()
 
+        # Check if parent container has translations
+        # even if the default page has none.
+        if len(translations) == 1 and putils.isDefaultPage(context):
+            my_container = aq_parent(aq_inner(context))
+            translations = my_container.getTranslations()
+
         if context.portal_membership.isAnonymousUser():
-            published = {}
-            for k, v in translations.items():
-                if v[1] == 'published':
-                    published[k] = v
-            if len(published) > 1:
-                translations = published
-            else:
+            translations = self.has_translations(context)
+            if not translations:
                 return results
 
         langtool = context.portal_languages
@@ -119,8 +134,6 @@ class LanguageSelectorData(BrowserView):
             current_language = context.getLanguage()
         else:
             current_language = langtool.getPreferredLanguage()
-
-        # catalog = context.portal_catalog
 
         site_languages.sort()
         for code, name in site_languages:
@@ -138,7 +151,11 @@ class LanguageSelectorData(BrowserView):
                 translation = translations[code][0]
 
                 if putils.isDefaultPage(translation):
-                    translation = aq_parent(aq_inner(translation))
+                    # Check if parent container has translation and
+                    # in this case redirect to it.
+                    my_container = aq_parent(aq_inner(translation))
+                    if my_container.getTranslations().has_key(code):
+                        translation = aq_parent(aq_inner(translation))
 
                 url = translation.absolute_url()
                 if translation.portal_type in ('ATFile', 'File'):
@@ -147,7 +164,6 @@ class LanguageSelectorData(BrowserView):
                 wf = context.portal_workflow
                 lingua_state = wf.getInfoFor(translation, 'review_state',
                                              None, 'linguaflow')
-
 
             elif context.Language() == '':
                 url = context.absolute_url()
