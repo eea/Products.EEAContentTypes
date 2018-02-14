@@ -6,9 +6,10 @@
    // new component in the WISE maps which uses an iframe to embed content 
    // in the map from an external source (Microsoft reporting services in this case). 
    // The iframe implementation needs some javascript methods and a div in the surrounding html.
-
-            $(window).load(function() {
-              $('#content-core').append("<div id='divFrame' style='position:absolute;background-color:#FFFFFF;border:0px;visibility:visible;'>")
+            jQuery(function($){
+                $(window).load(function() {
+                    $('#content-core').append("<div id='divFrame' style='position:absolute;background-color:#FFFFFF;border:0px;visibility:visible;'>")
+                });
             });
 
             function loadIFrame(url){
