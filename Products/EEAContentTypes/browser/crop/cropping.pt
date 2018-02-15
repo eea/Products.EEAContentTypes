@@ -3,15 +3,20 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="eea">
 <head>
+
+    <div metal:fill-slot="style_slot" tal:omit-tag="">
+        <link rel="stylesheet" tal:attributes="href string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.css" />
+    </div>
+    <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+        <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.min.js"></script>
+        <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/cropping.js"></script>
+    </div>
 </head>
 <body>
 
 <metal:main fill-slot="main"
      tal:define="context_state context/@@plone_context_state;
                  fields view/imageFields">
-  <link rel="stylesheet" tal:attributes="href string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.css" />
- <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.min.js"></script>
- <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/cropping.js"></script>
   <p class="documentDescription" tal:condition="not: fields" i18n:translate="">
     No images found.
   </p>
