@@ -6,7 +6,6 @@
 import logging
 import md5
 
-from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from zope.component import queryMultiAdapter
 from zope.event import notify
