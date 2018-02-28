@@ -1,7 +1,7 @@
 Changelog
 =========
 
-15.6 - (unreleased)
+15.6 - (2018-03-01)
 -------------------
 * Bug fix: Invalidate parents Varnish cache instead of Catalog reindexing them on Image change
   [avoinea refs #92869]
