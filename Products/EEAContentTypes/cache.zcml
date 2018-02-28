@@ -53,19 +53,7 @@
 
   <subscriber
       for="Products.ATContentTypes.interface.image.IATImage
-           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidateParentsImageScales"
-      />
-
-  <subscriber
-      for="Products.ATContentTypes.interface.image.IATImage
            eea.cache.interfaces.IInvalidateVarnishEvent"
-      handler=".cache.invalidateParentsImageScales"
-      />
-
-  <subscriber
-      for="Products.ATContentTypes.interface.image.IATImage
-           eea.cache.interfaces.IInvalidateEverythingEvent"
       handler=".cache.invalidateParentsImageScales"
       />
 
