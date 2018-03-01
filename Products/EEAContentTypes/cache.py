@@ -6,12 +6,12 @@
 import logging
 import md5
 
-from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from zope.component import queryMultiAdapter
 from zope.event import notify
 
-from eea.cache.event import InvalidateCacheEvent
+from eea.cache.event import InvalidateMemCacheEvent
+from eea.cache.event import InvalidateVarnishEvent
 
 
 # import memcache
@@ -40,7 +40,7 @@ def invalidateHighlightsCache(obj, event):
     """
     portal_factory = getToolByName(obj, 'portal_factory', None)
     if portal_factory and not portal_factory.isTemporary(obj):
-        notify(InvalidateCacheEvent(raw=True,
+        notify(InvalidateMemCacheEvent(raw=True,
                                     dependencies=['frontpage-highlights']))
 
 
@@ -55,7 +55,7 @@ def invalidatePromotionsCache(obj, event):
         source = ("eea.design.browser.frontpage.getPromotions:('%s', '%s')"
                   ) % (portal_url, language)
         key = md5.new(source).hexdigest()
-        notify(InvalidateCacheEvent(key=key, raw=True))
+        notify(InvalidateMemCacheEvent(key=key, raw=True))
 
 
 def invalidateNavigationCache(obj, event):
@@ -63,7 +63,7 @@ def invalidateNavigationCache(obj, event):
     """
     portal_factory = getToolByName(obj, 'portal_factory', None)
     if portal_factory and not portal_factory.isTemporary(obj):
-        notify(InvalidateCacheEvent(raw=True, dependencies=['navigation']))
+        notify(InvalidateMemCacheEvent(raw=True, dependencies=['navigation']))
 
 
 #
@@ -71,10 +71,9 @@ def invalidateNavigationCache(obj, event):
 #
 def invalidateParentsImageScales(obj, event):
     """
-    Updates modification_date for image's parents.
-    This way varnish can invalidate thumbs for image's parents.
+    Invalidate varnish thumbs for image's parents.
 
-    Ticket: #4105
+    Ticket: #92869
     """
     getParentNode = getattr(obj, 'getParentNode', None)
     if not getParentNode:
@@ -90,16 +89,11 @@ def invalidateParentsImageScales(obj, event):
     if not imgview:
         return
 
-    setModificationDate = getattr(parent, 'setModificationDate', None)
-    if not setModificationDate:
-        return
-
     try:
-        setModificationDate(DateTime())
-    except Exception, err:
-        logger.exception("Can't setModificationDate for %s.\n %s",
-                         parent.absolute_url(1), err)
+        notify(InvalidateVarnishEvent(parent))
+    except Exception as err:
+        logger.warn("Can't invalidate varnish for %s: %s",
+                    parent.absolute_url(), err)
         return
     else:
-        parent.reindexObject(idxs=['modified'])
         invalidateParentsImageScales(parent, event)

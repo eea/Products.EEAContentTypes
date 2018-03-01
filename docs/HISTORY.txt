@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.6 - (2018-03-01)
+-------------------
+* Bug fix: Invalidate parents Varnish cache instead of Catalog reindexing them on Image change
+  [avoinea refs #92869]
+
 15.5 - (2018-01-22)
 -------------------
 * Bug fix: fixed translation links when the container has a default page
