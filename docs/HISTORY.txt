@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.7 - (2018-03-14)
+-------------------
+* Change: load custom jqueryui within reorder page since it needs sortable
+  [ichim-david refs #91577]
+  
 15.6 - (2018-03-01)
 -------------------
 * Change: place js code within javascript_head_slot within templates that called
