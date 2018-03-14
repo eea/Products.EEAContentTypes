@@ -29,13 +29,15 @@
           </metal:buttons-->
         </metal:body>
         <script>
-          jQuery(window).load(function(){
-            $("#quickevent-base-edit").append(
-              $("<input />").attr({
-                'type':'hidden','name':'mehuman', 'value':'true'
-                })
-              );
-          });
+            jQuery(function($){
+              jQuery(window).load(function(){
+                $("#quickevent-base-edit").append(
+                  $("<input />").attr({
+                    'type':'hidden','name':'mehuman', 'value':'true'
+                    })
+                  );
+              });
+            });
         </script>
       </metal:body>                                                                                
 

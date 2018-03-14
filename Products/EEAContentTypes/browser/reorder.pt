@@ -7,6 +7,10 @@
   <metal:slot fill-slot="head_slot">
     <title i18n:translate="">Reorder resources</title>
   </metal:slot>
+  <metal:slot fill-slot="javascript_head_slot">
+      <script type="text/javascript" tal:attributes="src string:$portal_url/collective.js.jqueryui.custom.min.eea.js" ></script>
+      <script type="text/javascript" tal:attributes="src string:$portal_url/reorder_resources.js" ></script>
+  </metal:slot>
 
   <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)" />
 
@@ -50,7 +54,6 @@
   </style>
 
 
-    <script type="text/javascript" tal:attributes="src string:$portal_url/reorder_resources.js" ></script>
 
       <ul class="contentViews">
         <li class="selected" tal:attributes="class python: ('css' in request.URL) and 'selected' or ''">

@@ -1,6 +1,14 @@
 Changelog
 =========
 
+15.7 - (2018-03-14)
+-------------------
+* Change: load custom jqueryui within reorder page since it needs sortable
+  [ichim-david refs #91577]
+* Change: place js code within javascript_head_slot within templates that called
+  js outside of portal_javascripts or the given slot
+  [ichim-david refs #91577]
+  
 15.6 - (2018-03-01)
 -------------------
 * Bug fix: Invalidate parents Varnish cache instead of Catalog reindexing them on Image change

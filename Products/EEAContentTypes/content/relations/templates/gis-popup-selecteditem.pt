@@ -75,19 +75,19 @@
       </span>
     </div>
     <script type="text/javascript">
-    <!--
-      $('.gismap_embed_container .popup_btn').each(function(){
-        var btn = $(this);
-        if (btn.hasClass('initialized')) { return null; };
-        btn.addClass('initialized');
-        btn.val("Choose embed");
-        btn.click(function(evt){
-          new GISMapEmbedSelection(this);
-          evt.stopPropagation();
-          return false;
+        jQuery(document).ready(function($){
+            $('.gismap_embed_container .popup_btn').each(function(){
+                var btn = $(this);
+                if (btn.hasClass('initialized')) { return null; };
+                btn.addClass('initialized');
+                btn.val("Choose embed");
+                btn.click(function(evt){
+                    new GISMapEmbedSelection(this);
+                    evt.stopPropagation();
+                    return false;
+                });
+            });
         });
-      });
-    // -->
     </script>
   </tal:cond>
 
