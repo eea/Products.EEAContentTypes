@@ -9,6 +9,7 @@ from eventlet.green import urllib2
 import zope.interface
 from zope.schema import getFieldNames
 from zope.component import queryUtility
+from zope.component.hooks import getSite
 from DateTime import DateTime
 from rdflib.graph import ConjunctiveGraph
 from rdflib.namespace import Namespace
@@ -145,10 +146,10 @@ class UpdateOrganigram(BrowserView):
             async.queueJobInQueue(
                 queue, ('ctypes',),
                 update_organigram,
-                self.context
+                getSite()
             )
         else:
-            update_organigram(self.context)
+            update_organigram(getSite())
         return "OK"
 
 class RDF2Employee(object):
