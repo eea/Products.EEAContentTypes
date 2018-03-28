@@ -103,19 +103,23 @@ class UpdateOrganigram(BrowserView):
         """
         props = getToolByName(self.context, 'portal_properties', None)
         staff_props = getattr(props, 'eeastaff_properties')
-        eeastaff_fs = staff_props.getProperty('eeastaff_fs', '')
+        eeastaff_xml = staff_props.getProperty('eeastaff_xml', '')
         eeastaff_cms = staff_props.getProperty('eeastaff_cms', '')
+        eeastaff_user = staff_props.getProperty('eeastaff_user', '')
+        eeastaff_pass = staff_props.getProperty('eeastaff_pass', '')
+
 
         # get EEAStaff data
         products_path = os.path.dirname(
             os.path.dirname(package_home(globals())))
         try:
-            fs_data = open(os.path.join(
-                os.path.dirname(products_path), eeastaff_fs), 'rb')
-            fs_data = fs_data.read()
+            rdf = urllib2.urlopen(eeastaff_xml.format(
+                user=eeastaff_user, password=eeastaff_pass))
         except Exception, err:
             fs_data = ''
             logger.exception(err)
+        else:
+            fs_data = rdf.read()
 
         # upload data
         plone_ob = self.context.unrestrictedTraverse(eeastaff_cms, None)
