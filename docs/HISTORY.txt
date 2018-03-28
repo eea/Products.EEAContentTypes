@@ -8,6 +8,8 @@ Changelog
   [avoinea refs #91114]
 * Upgrade step: Set password portal_properties/eeastaff_properties
   [avoinea refs #91114]
+* Upgrade step: Schedule daily upgrade async job by calling /@@updateOrganigram
+  [avoinea refs #91114]
 * Feature: Grab staff xml from public url instead of NFS
   [avoinea refs #91114]
 
