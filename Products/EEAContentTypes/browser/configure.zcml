@@ -97,7 +97,7 @@
         for="*"
         name="updateOrganigram"
         class=".organisation.UpdateOrganigram"
-        permission="zope.Public"
+        permission="cmf.ManagePortal"
         attribute="update"
         />
 

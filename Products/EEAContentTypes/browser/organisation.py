@@ -2,21 +2,21 @@
 """
 import logging
 import sys
+import pytz
 import tempfile
-import os
+import datetime
 from eventlet.green import urllib2
-
-from App.Common import package_home
+import zope.interface
+from zope.schema import getFieldNames
+from zope.component import queryUtility
 from DateTime import DateTime
-from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
-from Products.CMFCore.exceptions import ResourceLockedError
-from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
 from rdflib.graph import ConjunctiveGraph
 from rdflib.namespace import Namespace
 from rdflib.parser import StringInputSource
-from zope.schema import getFieldNames
-import zope.interface
+from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.browser.interfaces import IOrganisation, IEmployee
+from Products.EEAContentTypes.async import IAsyncService
 
 
 logger = logging.getLogger('Products.EEAContentTypes.browser.organisation')
@@ -82,6 +82,44 @@ emailjs_dot = """
 """
 
 
+def _update_organigram(context):
+   """ Update organigram
+   """
+   props = getToolByName(context, 'portal_properties', None)
+   staff_props = getattr(props, 'eeastaff_properties')
+   eeastaff_xml = staff_props.getProperty('eeastaff_xml', '')
+   eeastaff_cms = staff_props.getProperty('eeastaff_cms', '')
+   eeastaff_user = staff_props.getProperty('eeastaff_user', '')
+   eeastaff_pass = staff_props.getProperty('eeastaff_pass', '')
+
+   # get EEAStaff data
+   fs_data = urllib2.urlopen(eeastaff_xml.format(
+       user=eeastaff_user, password=eeastaff_pass)).read()
+
+   if not fs_data.strip():
+       raise EOFError("Empty RDF file at %s" % eeastaff_xml)
+
+   # upload data
+   plone_ob = context[eeastaff_cms]
+   plone_ob.update_data(fs_data, 'text/xml', len(fs_data))
+   plone_ob.setEffectiveDate(DateTime())
+
+
+def update_organigram(context):
+    """ Update organigram asynchronously
+    """
+    _update_organigram(context)
+    async = queryUtility(IAsyncService)
+    if async is not None:
+        delay = datetime.timedelta(days=1)
+        queue = async.getQueues()['']
+        async.queueJobInQueueWithDelay(
+            None, datetime.datetime.now(pytz.UTC) + delay,
+            queue, ('ctypes',),
+            update_organigram,
+            context)
+
+
 class UpdateStaffList(BrowserView):
     """ Update staff list
     """
@@ -101,35 +139,17 @@ class UpdateOrganigram(BrowserView):
     def update(self):
         """ Update
         """
-        props = getToolByName(self.context, 'portal_properties', None)
-        staff_props = getattr(props, 'eeastaff_properties')
-        eeastaff_xml = staff_props.getProperty('eeastaff_xml', '')
-        eeastaff_cms = staff_props.getProperty('eeastaff_cms', '')
-        eeastaff_user = staff_props.getProperty('eeastaff_user', '')
-        eeastaff_pass = staff_props.getProperty('eeastaff_pass', '')
-
-
-        # get EEAStaff data
-        products_path = os.path.dirname(
-            os.path.dirname(package_home(globals())))
-        try:
-            rdf = urllib2.urlopen(eeastaff_xml.format(
-                user=eeastaff_user, password=eeastaff_pass))
-        except Exception, err:
-            fs_data = ''
-            logger.exception(err)
+        async = queryUtility(IAsyncService)
+        if async is not None:
+            queue = async.getQueues()['']
+            async.queueJobInQueue(
+                queue, ('ctypes',),
+                update_organigram,
+                self.context
+            )
         else:
-            fs_data = rdf.read()
-
-        # upload data
-        plone_ob = self.context.unrestrictedTraverse(eeastaff_cms, None)
-        if plone_ob:
-            if plone_ob.wl_isLocked():
-                raise ResourceLockedError, "File is locked via WebDAV"
-            if fs_data.strip():
-                plone_ob.update_data(fs_data, 'text/xml', len(fs_data))
-                plone_ob.setEffectiveDate(DateTime())
-
+            update_organigram(self.context)
+        return "OK"
 
 class RDF2Employee(object):
     """ RDF to employee
