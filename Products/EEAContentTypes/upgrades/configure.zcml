@@ -2,6 +2,16 @@
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            i18n_domain="eea">
 
+  <genericsetup:upgradeSteps
+    source="14.5"
+    destination="15.8"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeDepends
+      title="Upgrade eeastaff_properties"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_15.8"
+      />
+  </genericsetup:upgradeSteps>
+
   <genericsetup:upgradeSteps source="*"
     destination="14.5"
     profile="Products.EEAContentTypes:default">
@@ -191,7 +201,7 @@
                 handler=".evolve76.evolve"
       />
     </genericsetup:upgradeSteps>
-    
+
    <!-- Disabled upgrade step of updating tags for the upgrade to Plone 4.3
     <genericsetup:upgradeStep
       title="Update existing tags based on #14383"
@@ -207,7 +217,7 @@
       handler=".evolve75.evolve"
       />
   </genericsetup:upgradeSteps>
-  
+
   <genericsetup:upgradeSteps
       source="6.6"
       destination="6.8"

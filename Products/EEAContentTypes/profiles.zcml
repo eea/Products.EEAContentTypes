@@ -47,7 +47,7 @@
     name="eeacontenttypes_upgrade_4.17"
     title="Upgrade profile for EEAContentTypes 4.17"
     description="This profile contains configuration changes from 4.16 to 4.17"
-    directory="profiles/upgrade-4.17"
+    directory="profiles/upgrade/to_417"
     for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
     provides="Products.GenericSetup.interfaces.EXTENSION"
   />
@@ -176,6 +176,13 @@
     title="Upgrade profile for EEAContentTypes 14.5"
     description="This profile contains configuration changes from 13.8 to 14.5"
     directory="profiles/upgrade/to_145"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_15.8"
+    title="Upgrade profile for EEAContentTypes 15.8"
+    description="This profile contains configuration changes from 14.5 to 15.8"
+    directory="profiles/upgrade/to_158"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
 </configure>
