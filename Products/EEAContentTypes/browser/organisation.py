@@ -94,8 +94,10 @@ def _update_organigram(context):
    eeastaff_pass = staff_props.getProperty('eeastaff_pass', '')
 
    # get EEAStaff data
-   fs_data = urllib2.urlopen(eeastaff_xml.format(
-       user=eeastaff_user, password=eeastaff_pass)).read()
+   request = urllib2.Request(eeastaff_xml)
+   base64string = base64.b64encode('%s:%s' % (eeastaff_user, eeastaff_pass))
+   request.add_header("Authorization", "Basic %s" % base64string)
+   fs_data = urllib2.urlopen(request).read()
 
    if not fs_data.strip():
        raise EOFError("Empty RDF file at %s" % eeastaff_xml)
