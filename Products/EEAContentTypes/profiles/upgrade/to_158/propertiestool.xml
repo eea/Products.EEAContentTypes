@@ -3,7 +3,7 @@
  <object name="eeastaff_properties" meta_type="Plone Property Sheet">
   <property name="eeastaff_fs" type="string" remove="True" />
   <property name="eeastaff_cms" type="string">eeastaff</property>
-  <property name="eeastaff_xml" type="string">http://ftp.eea.europa.eu/EEAStaff.xml</property>
+  <property name="eeastaff_xml" type="string">http://ftp.eea.europa.eu/eeastaff/EEAStaff.xml</property>
   <property name="eeastaff_user" type="string">staffuser</property>
   <property name="eeastaff_pass" type="string">change-me</property>
  </object>
