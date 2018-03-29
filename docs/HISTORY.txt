@@ -1,6 +1,18 @@
 Changelog
 =========
 
+15.8 - (2018-03-28)
+-------------------
+* Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
+  button available for EEA Content Types
+  [avoinea refs #91114]
+* Upgrade step: Set password portal_properties/eeastaff_properties
+  [avoinea refs #91114]
+* Upgrade step: Schedule daily upgrade async job by calling /@@updateOrganigram
+  [avoinea refs #91114]
+* Feature: Grab staff xml from public url instead of NFS
+  [avoinea refs #91114]
+
 15.7 - (2018-03-14)
 -------------------
 * Change: load custom jqueryui within reorder page since it needs sortable
@@ -8,7 +20,7 @@ Changelog
 * Change: place js code within javascript_head_slot within templates that called
   js outside of portal_javascripts or the given slot
   [ichim-david refs #91577]
-  
+
 15.6 - (2018-03-01)
 -------------------
 * Bug fix: Invalidate parents Varnish cache instead of Catalog reindexing them on Image change
