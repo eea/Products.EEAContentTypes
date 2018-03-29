@@ -3,6 +3,7 @@
 import logging
 import sys
 import pytz
+import base64
 import tempfile
 import datetime
 from eventlet.green import urllib2
