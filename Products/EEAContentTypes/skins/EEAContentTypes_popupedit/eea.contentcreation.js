@@ -14,7 +14,7 @@ ContentCreationPopup.prototype.fix_form_widgets = function(el){
         var id = "p0" + Math.random().toString().replace('.', '') + jq(this).attr('id');
         jq(this).attr('id', id);
         //delete InitializedTinyMCEInstances[id];
-        var config = new TinyMCEConfig(id);
+        //var config = new TinyMCEConfig(id);
         // TODO: fix the editor sizes
         //config.widget_config.editor_height = 800;
         //config.widget_config.editor_width = 630;
@@ -22,7 +22,10 @@ ContentCreationPopup.prototype.fix_form_widgets = function(el){
         //config.widget_config.resizing = true;
         //config.widget_config.resizing_use_cookie = false;
         //delete InitializedTinyMCEInstances[id];
-        config.init();
+        //config.init();
+        if (window.initTinyMCE) {
+            window.initTinyMCE(document);
+        }
     });
 
     //set the tags widget
