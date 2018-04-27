@@ -1,6 +1,12 @@
 Changelog
 =========
 
+15.9 - (2018-04-26)
+-------------------
+* Bug fix: fixed creation of tinyMCE textareas when using the popup
+  content creation
+  [ichim-david refs #94182]
+
 15.8 - (2018-03-28)
 -------------------
 * Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
@@ -1452,7 +1458,7 @@ Changelog
 * Feature: migrated to Plone 4.0.4
   [tiberich #4277]
 
-2.29-dev - (unreleased)
+2.29 - (2018-04-26)
 -----------------------
 * Bug fix: fixed "send as notification"
   [ghicaale]
