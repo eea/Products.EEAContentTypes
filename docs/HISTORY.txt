@@ -1,6 +1,9 @@
 Changelog
 =========
 
+16.0-dev0 - (unreleased)
+---------------------
+
 15.9 - (2018-04-26)
 -------------------
 * Bug fix: fixed creation of tinyMCE textareas when using the popup
@@ -1759,4 +1762,3 @@ Changelog
 1.1 (2009-11-10)
 ----------------
 * Initial release
-
