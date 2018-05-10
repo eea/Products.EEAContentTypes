@@ -2,7 +2,9 @@ Changelog
 =========
 
 16.0-dev0 - (unreleased)
----------------------
+------------------------
+* Change: removed old invalidate cache methods.
+  [alecghica refs #95020]
 
 15.9 - (2018-04-26)
 -------------------
