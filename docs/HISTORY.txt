@@ -13,6 +13,14 @@ Changelog
     - [alecghica refs #94557]
 * Feature: added upgrade step to setup /rdfmarshaller_properties
   [alecghica refs #94557]
+* Upgrade step: setup the Linked data for the homepage
+    - go under "Site setup"
+    - click on "Manage LinkedData Homepages"
+    - select "Designate the Plone site as Homepage"
+    - click "Ok"
+    - click the "Edit" link next to "The Plone site (/www)"
+    - fill-in credentials (to be done by EEA product owner)
+    - [alecghica refs #94557]
 
 15.9 - (2018-04-26)
 -------------------
