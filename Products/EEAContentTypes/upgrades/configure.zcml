@@ -3,6 +3,16 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="15.8"
+    destination="15.9"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeDepends
+      title="Upgrade rdfmarshaller_properties"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_15.9"
+      />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="14.5"
     destination="15.8"
     profile="Products.EEAContentTypes:default">

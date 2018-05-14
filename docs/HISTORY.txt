@@ -5,6 +5,14 @@ Changelog
 ------------------------
 * Change: removed old invalidate cache methods.
   [alecghica refs #95020]
+* Upgrade step: manual steps to be done:
+    - go under /www/portal_setup/manage_fullImport
+    - select EEA RDF Marshaller
+    - select "Ignore dependency profiles."
+    - click "Import all steps"
+    - [alecghica refs #94557]
+* Feature: added upgrade step to setup /rdfmarshaller_properties
+  [alecghica refs #94557]
 
 15.9 - (2018-04-26)
 -------------------
