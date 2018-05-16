@@ -3,7 +3,8 @@ Changelog
 
 16.0-dev0 - (unreleased)
 ------------------------
-* Change: removed old documentation files
+* Change: removed old documentation files and unused "Plone property sheet"
+  called eea_internal_ips
   [alecghica refs #95020]
 * Change: removed old invalidate cache methods.
   [alecghica refs #95020]

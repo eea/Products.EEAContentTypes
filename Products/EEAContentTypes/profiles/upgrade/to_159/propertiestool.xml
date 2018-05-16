@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <object name="portal_properties">
+ <object name="eea_internal_ips" meta_type="Plone Property Sheet"
+         remove="true">
+  <property name="title" remove="true">EEA Internal IPs</property>
+  <property name="allowed_ips" type="lines" remove="true">
+  </property>
+ </object>
+
  <object name="rdfmarshaller_properties" meta_type="Plone Property Sheet">
   <property name="title">eea.rdfmarshaller  properties</property>
   <property name="blacklist" type="lines">
