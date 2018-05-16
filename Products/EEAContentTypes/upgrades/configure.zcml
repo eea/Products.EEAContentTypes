@@ -7,7 +7,7 @@
     destination="15.9"
     profile="Products.EEAContentTypes:default">
     <genericsetup:upgradeDepends
-      title="Upgrade rdfmarshaller_properties & remove eea_internal_ips"
+      title="Upgrade rdfmarshaller_properties and remove eea_internal_ips"
       import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_15.9"
       />
   </genericsetup:upgradeSteps>
