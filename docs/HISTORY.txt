@@ -3,6 +3,8 @@ Changelog
 
 16.0-dev0 - (unreleased)
 ------------------------
+* Change: removed old documentation files
+  [alecghica refs #95020]
 * Change: removed old invalidate cache methods.
   [alecghica refs #95020]
 * Upgrade step: manual steps to be done:
