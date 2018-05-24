@@ -4,13 +4,13 @@
            i18n_domain="Products.EEAContentTypes">
 
   <subscriber
-      for="zope.interface.Interface
+      for="Products.Archetypes.interfaces.base.IBaseObject
            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler=".cache.invalidateFrontpageCache"
       />
 
   <subscriber
-      for="zope.interface.Interface
+      for="Products.Archetypes.interfaces.base.IBaseObject
            Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".cache.invalidateFrontpageCache"
       />
