@@ -4,39 +4,15 @@
            i18n_domain="Products.EEAContentTypes">
 
   <subscriber
-      for="eea.promotion.interfaces.IPromoted
+      for="zope.interface.Interface
            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidatePromotionsCache"
+      handler=".cache.invalidateFrontpageCache"
       />
 
   <subscriber
-      for=".content.Promotion.Promotion
-           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidatePromotionsCache"
-      />
-
-  <subscriber
-      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
-           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidateHighlightsCache"
-      />
-
-  <subscriber
-      for=".content.Promotion.Promotion
+      for="zope.interface.Interface
            Products.CMFCore.interfaces.IActionSucceededEvent"
-      handler=".cache.invalidatePromotionsCache"
-      />
-
- <subscriber
-      for="Products.EEAContentTypes.content.interfaces.IExternalHighlight
-           Products.CMFCore.interfaces.IActionSucceededEvent"
-      handler=".cache.invalidateHighlightsCache"
-      />
-
-  <subscriber
-      for="eea.promotion.interfaces.IPromoted
-           Products.CMFCore.interfaces.IActionSucceededEvent"
-      handler=".cache.invalidatePromotionsCache"
+      handler=".cache.invalidateFrontpageCache"
       />
 
   <subscriber

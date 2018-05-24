@@ -3,6 +3,12 @@ Changelog
 
 16.0-dev0 - (unreleased)
 ------------------------
+* Feature: when a news/article/promotion or anything that can possibly be
+  added to the homepage is published (and later modified) in CMS, it will
+  invalidate the homepage
+  [alecghica refs #95020]
+* Change: removed unused cache related subscribers and logic
+  [alecghica refs #95020]
 * Change: removed old documentation files and unused "Plone property sheet"
   called eea_internal_ips
   [alecghica refs #95020]
