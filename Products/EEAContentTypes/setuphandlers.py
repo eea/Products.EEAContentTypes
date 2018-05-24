@@ -1,8 +1,6 @@
 """ Setup handlers
 """
-
 import logging
-
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
@@ -11,8 +9,8 @@ from Products.EEAContentTypes.interfaces import IEEAPloneSite
 from Products.EEAContentTypes.vocabulary import vocabs
 from zope.interface import alsoProvides
 
-logger = logging.getLogger("Products.EEAContentTypes")
 
+logger = logging.getLogger("Products.EEAContentTypes")
 
 def setupGeographicalProperties(self, portal):
     """ sets up the default propertysheet for geographical related stuff """
@@ -120,7 +118,7 @@ def setupGeocoding(context):
     """
     if context.readDataFile('eeacontenttypes_various.txt') is None:
         return
-    portal = context.getSite()
+    #portal = context.getSite()
     # TODO: plone4 this needs to be adapted for plone.app.caching
     # updateCacheFu(portal, portal)
 
