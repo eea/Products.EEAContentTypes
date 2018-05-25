@@ -49,22 +49,24 @@ def invalidateFrontpageCache(obj, event):
         # Skip special objects
         logger.exception(err)
 
-    if state =='published':
-        site = getattr(portal, 'SITE', None)
-        request = getattr(obj, 'REQUEST', {})
-        invalidate_cache = queryMultiAdapter((site, request),
-                                              name='cache.invalidate')
-        invalidate_cache()
+    if state !='published':
+        return
 
-        if IReportContainerEnhanced.providedBy(obj):
-            publications = getattr(site, 'publications', None)
-            return invalidate_cache(publications, request)
+    site = getattr(portal, 'SITE', None)
+    request = getattr(obj, 'REQUEST', {})
+    cache = queryMultiAdapter((site, request), name='cache.invalidate')
+    invalidate_cache = getattr(cache, 'invalidate_cache', lambda c: "No")
+    invalidate_cache(site)
 
-        interfaces = queryMultiAdapter((obj, request), name='get_interfaces')
-        has_any_of = getattr(interfaces, 'has_any_of', lambda i: False)
-        if has_any_of(DATASETS_INTERFACES):
-            data_and_maps = getattr(site, 'data-and-maps', None)
-            invalidate_cache(data_and_maps, request)
+    if IReportContainerEnhanced.providedBy(obj):
+        publications = getattr(site, 'publications', None)
+        return invalidate_cache(publications)
+
+    interfaces = queryMultiAdapter((obj, request), name='get_interfaces')
+    has_any_of = getattr(interfaces, 'has_any_of', lambda i: False)
+    if has_any_of(DATASETS_INTERFACES):
+        data_and_maps = getattr(site, 'data-and-maps', None)
+        return invalidate_cache(data_and_maps)
 
 def invalidateNavigationCache(obj, event):
     """ Invalidate Navigation memcache
