@@ -1,7 +1,7 @@
 Changelog
 =========
 
-16.0-dev0 - (unreleased)
+16.0 - (2018-05-25)
 ------------------------
 * Feature: when a news/article/promotion or anything that can possibly be
   added to the homepage is published (and later modified) in CMS, it will
