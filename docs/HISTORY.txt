@@ -173,8 +173,7 @@ Changelog
 -------------------
 * Bug fix: W3C compliance modifications
   [valipod refs #86295]
-* Upgrade step: Remove customized views at **ZMI > portal_skins/custom:
-  gis_view
+* Upgrade step: Remove customized views at **ZMI > portal_skins/custom: gis_view**
   [valipod refs #86295]
 
 14.1 - (2017-06-26)
@@ -343,7 +342,7 @@ Changelog
 * Feature: html body field for daviz and gis application
     - added new field "body"
     - modified the view template
-  [chiridra refs #70146]
+    - [chiridra refs #70146]
 
 12.0 - (2016-04-18)
 -------------------
