@@ -1,6 +1,36 @@
 Changelog
 =========
 
+16.0 - (2018-05-25)
+------------------------
+* Feature: when a news/article/promotion or anything that can possibly be
+  added to the homepage is published (and later modified) in CMS, it will
+  invalidate the homepage
+  [alecghica refs #95020]
+* Change: removed unused cache related subscribers and logic
+  [alecghica refs #95020]
+* Change: removed old documentation files and unused "Plone property sheet"
+  called eea_internal_ips
+  [alecghica refs #95020]
+* Change: removed old invalidate cache methods.
+  [alecghica refs #95020]
+* Upgrade step: manual steps to be done:
+    - go under /www/portal_setup/manage_fullImport
+    - select EEA RDF Marshaller
+    - select "Ignore dependency profiles."
+    - click "Import all steps"
+    - [alecghica refs #94557]
+* Feature: added upgrade step to setup /rdfmarshaller_properties
+  [alecghica refs #94557]
+* Upgrade step: setup the Linked data for the homepage
+    - go under "Site setup"
+    - click on "Manage LinkedData Homepages"
+    - select "Designate the Plone site as Homepage"
+    - click "Ok"
+    - click the "Edit" link next to "The Plone site (/www)"
+    - fill-in credentials (to be done by EEA product owner)
+    - [alecghica refs #94557]
+
 15.9 - (2018-04-26)
 -------------------
 * Bug fix: fixed creation of tinyMCE textareas when using the popup
@@ -143,8 +173,7 @@ Changelog
 -------------------
 * Bug fix: W3C compliance modifications
   [valipod refs #86295]
-* Upgrade step: Remove customized views at **ZMI > portal_skins/custom:
-  gis_view
+* Upgrade step: Remove customized views at **ZMI > portal_skins/custom: gis_view**
   [valipod refs #86295]
 
 14.1 - (2017-06-26)
@@ -313,7 +342,7 @@ Changelog
 * Feature: html body field for daviz and gis application
     - added new field "body"
     - modified the view template
-  [chiridra refs #70146]
+    - [chiridra refs #70146]
 
 12.0 - (2016-04-18)
 -------------------
@@ -1759,4 +1788,3 @@ Changelog
 1.1 (2009-11-10)
 ----------------
 * Initial release
-

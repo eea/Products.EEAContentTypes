@@ -1,8 +1,6 @@
 """ Setup handlers
 """
-
 import logging
-
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import shasattr
 from Products.CMFCore.utils import getToolByName
@@ -11,8 +9,8 @@ from Products.EEAContentTypes.interfaces import IEEAPloneSite
 from Products.EEAContentTypes.vocabulary import vocabs
 from zope.interface import alsoProvides
 
-logger = logging.getLogger("Products.EEAContentTypes")
 
+logger = logging.getLogger("Products.EEAContentTypes")
 
 def setupGeographicalProperties(self, portal):
     """ sets up the default propertysheet for geographical related stuff """
@@ -115,31 +113,12 @@ def setupCalendarTypes(portal):
                                            portal_calendar.getUseSession())
 
 
-def add_eeaInternalIps(self, portal):
-    """ IPs used by EEA and local dev """
-    prop_tool = portal.portal_properties
-    f_prop = getattr(prop_tool, 'eea_internal_ips', None)
-    if not f_prop:
-        print 'adding eea_internal_ips'
-        prop_tool.manage_addPropertySheet(
-            'eea_internal_ips', 'EEA Internal IPs')
-
-        p = getattr(prop_tool, 'eea_internal_ips', None)
-        if p is not None:
-            if getattr(p, 'allowed_ips', None) is None:
-                p._setProperty('allowed_ips', ['10.92', '10.30', \
-                                               '192.168.60', '192.168.61', \
-                                               '192.168.62', '192.168.63', \
-                                               '192.168.64', '192.168.65', \
-                                               '127.0.0.1'], 'lines')
-
-
 def setupGeocoding(context):
     """ Setup geocoding
     """
     if context.readDataFile('eeacontenttypes_various.txt') is None:
         return
-    portal = context.getSite()
+    #portal = context.getSite()
     # TODO: plone4 this needs to be adapted for plone.app.caching
     # updateCacheFu(portal, portal)
 
@@ -147,7 +126,6 @@ def setupGeocoding(context):
     # TODO: this gimmick should be removed and replaced by something proper
     already_ran = False
     if not already_ran:
-        add_eeaInternalIps(portal, portal)
         print "not proper"
         # geocodeEvents(portal, portal)
 

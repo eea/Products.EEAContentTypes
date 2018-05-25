@@ -1,62 +1,72 @@
 """ Cache
 """
-
-# TODO: this module needs heavy modification to adapt to plone.app.caching, for
-# plone4 migration
 import logging
-import md5
-
+from plone import api
+from plone.api.exc import CannotGetPortalError
+from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.utils import getToolByName
 from zope.component import queryMultiAdapter
 from zope.event import notify
-
+from eea.reports.interfaces import IReportContainerEnhanced
 from eea.cache.event import InvalidateMemCacheEvent
 from eea.cache.event import InvalidateVarnishEvent
 
 
-# import memcache
-
 logger = logging.getLogger('Products.EEAContentTypes.cache')
 
+DATASETS_INTERFACES= [
+    'Products.EEAContentTypes.content.interfaces.IInteractiveMap',
+    'Products.EEAContentTypes.content.interfaces.IInteractiveData',
+    'Products.EEAContentTypes.content.interfaces.IInfographic',
+    'eea.dataservice.interfaces.IEEAFigureGraph',
+    'eea.dataservice.interfaces.IDataset',
+    'eea.dataservice.interfaces.IEEAFigureMap',
+    'eea.indicators.content.interfaces.IIndicatorAssessment']
 
-def cacheKeyPromotions(method, self):
-    """ Cache key for Promotion content-type
+def invalidate_cache(context, request):
+    """ Invalidate cache
     """
-    request = self.request
-    return (self.portal_url, request.get('LANGUAGE', 'en'))
+    invalidate_cache = queryMultiAdapter((context, request),
+                                          name='cache.invalidate')
+    invalidate_cache()
 
-
-def cacheKeyHighlights(method, self, portaltypes=('Highlight', 'PressRelease'),
-                       scale='thumb'):
-    """ Cache key for Highlights content-type
+def invalidateFrontpageCache(obj, event):
+    """ Invalidate frontpage and main areas cache
     """
-    request = self.request
-    return (['frontpage-highlights'], method.__name__, self.portal_url,
-            portaltypes, request.get('LANGUAGE', 'en'))
+    portal = None
+    state = None
 
+    try:
+        portal = api.portal.get()
+        state = api.content.get_state(obj)
+    except CannotGetPortalError, err:
+        # This happens if you are using bin/instance debug, because debug
+        # sessions do not have a request and so the getSite() cannot
+        # know which Plone portal you want to get (as there can be
+        # multiple Plone sites).
+        logger.exception(err)
+    except WorkflowException, err:
+        # Skip special objects
+        logger.exception(err)
 
-def invalidateHighlightsCache(obj, event):
-    """ Invalidate Highlights memcache
-    """
-    portal_factory = getToolByName(obj, 'portal_factory', None)
-    if portal_factory and not portal_factory.isTemporary(obj):
-        notify(InvalidateMemCacheEvent(raw=True,
-                                    dependencies=['frontpage-highlights']))
+    if state !='published':
+        return
 
+    site = getattr(portal, 'SITE', None)
+    request = getattr(obj, 'REQUEST', {})
+    cache = queryMultiAdapter((site, request), name='cache.invalidate')
+    invalidate_cache = getattr(cache, 'invalidate_cache', lambda c: "No")
+    invalidate_cache(site)
 
-def invalidatePromotionsCache(obj, event):
-    """ Invalidate Promotion memcache
-    """
-    portal_factory = getToolByName(obj, 'portal_factory', None)
-    if portal_factory and not portal_factory.isTemporary(obj):
-        request = getattr(obj, 'REQUEST', {})
-        language = request.get('LANGUAGE', 'en')
-        portal_url = getToolByName(obj, 'portal_url')()
-        source = ("eea.design.browser.frontpage.getPromotions:('%s', '%s')"
-                  ) % (portal_url, language)
-        key = md5.new(source).hexdigest()
-        notify(InvalidateMemCacheEvent(key=key, raw=True))
+    if IReportContainerEnhanced.providedBy(obj):
+        publications = getattr(site, 'publications', None)
+        return invalidate_cache(publications)
 
+    interfaces = queryMultiAdapter((obj, request), name='get_interfaces')
+    has_any_of = getattr(interfaces, 'has_any_of', lambda i: False)
+    if has_any_of(DATASETS_INTERFACES):
+        data_and_maps = getattr(site, 'data-and-maps', None)
+        return invalidate_cache(data_and_maps)
 
 def invalidateNavigationCache(obj, event):
     """ Invalidate Navigation memcache
@@ -65,15 +75,9 @@ def invalidateNavigationCache(obj, event):
     if portal_factory and not portal_factory.isTemporary(obj):
         notify(InvalidateMemCacheEvent(raw=True, dependencies=['navigation']))
 
-
-#
-# Varnish
-#
 def invalidateParentsImageScales(obj, event):
-    """
-    Invalidate varnish thumbs for image's parents.
-
-    Ticket: #92869
+    """ Invalidate varnish thumbs for image's parents.
+        Ticket: #92869
     """
     getParentNode = getattr(obj, 'getParentNode', None)
     if not getParentNode:
