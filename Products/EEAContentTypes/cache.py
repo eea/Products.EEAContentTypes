@@ -14,8 +14,24 @@ from eea.cache.event import InvalidateVarnishEvent
 
 logger = logging.getLogger('Products.EEAContentTypes.cache')
 
+DATASETS_INTERFACES= [
+    'Products.EEAContentTypes.content.interfaces.IInteractiveMap',
+    'Products.EEAContentTypes.content.interfaces.IInteractiveData',
+    'Products.EEAContentTypes.content.interfaces.IInfographic',
+    'eea.dataservice.interfaces.IEEAFigureGraph',
+    'eea.dataservice.interfaces.IDataset',
+    'eea.dataservice.interfaces.IEEAFigureMap',
+    'eea.indicators.content.interfaces.IIndicatorAssessment']
+
+def invalidate_cache(context, request):
+    """ Invalidate cache
+    """
+    invalidate_cache = queryMultiAdapter((context, request),
+                                          name='cache.invalidate')
+    invalidate_cache()
+
 def invalidateFrontpageCache(obj, event):
-    """ Invalidate frontpage cache
+    """ Invalidate frontpage and main areas cache
     """
     portal = None
     state = None
@@ -42,25 +58,13 @@ def invalidateFrontpageCache(obj, event):
 
         if IReportContainerEnhanced.providedBy(obj):
             publications = getattr(site, 'publications', None)
-            invalidate_cache = queryMultiAdapter((publications, request),
-                                                  name='cache.invalidate')
-            invalidate_cache()
+            invalidate_cache(publications, request)
         else:
             obj_interfaces = obj.restrictedTraverse('@@get_interfaces')()
-            datasets_interfaces = [
-                'Products.EEAContentTypes.content.interfaces.IInteractiveMap',
-                'Products.EEAContentTypes.content.interfaces.IInteractiveData',
-                'Products.EEAContentTypes.content.interfaces.IInfographic',
-                'eea.dataservice.interfaces.IEEAFigureGraph',
-                'eea.dataservice.interfaces.IDataset',
-                'eea.dataservice.interfaces.IEEAFigureMap',
-                'eea.indicators.content.interfaces.IIndicatorAssessment']
-            for i in datasets_interfaces:
+            for i in DATASETS_INTERFACES:
                 if i in obj_interfaces:
                     data_and_maps = getattr(site, 'data-and-maps', None)
-                    invalidate_cache = queryMultiAdapter((data_and_maps, request),
-                                                          name='cache.invalidate')
-                    invalidate_cache()
+                    invalidate_cache(data_and_maps, request)
 
 def invalidateNavigationCache(obj, event):
     """ Invalidate Navigation memcache
