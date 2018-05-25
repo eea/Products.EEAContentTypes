@@ -58,13 +58,13 @@ def invalidateFrontpageCache(obj, event):
 
         if IReportContainerEnhanced.providedBy(obj):
             publications = getattr(site, 'publications', None)
-            invalidate_cache(publications, request)
-        else:
-            obj_interfaces = obj.restrictedTraverse('@@get_interfaces')()
-            for i in DATASETS_INTERFACES:
-                if i in obj_interfaces:
-                    data_and_maps = getattr(site, 'data-and-maps', None)
-                    invalidate_cache(data_and_maps, request)
+            return invalidate_cache(publications, request)
+
+        interfaces = queryMultiAdapter((obj, request), name='get_interfaces')
+        has_any_of = getattr(interfaces, 'has_any_of', lambda i: False)
+        if has_any_of(DATASETS_INTERFACES):
+            data_and_maps = getattr(site, 'data-and-maps', None)
+            invalidate_cache(data_and_maps, request)
 
 def invalidateNavigationCache(obj, event):
     """ Invalidate Navigation memcache

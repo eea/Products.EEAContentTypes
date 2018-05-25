@@ -62,7 +62,8 @@ setup(name=NAME,
           'eea.reports',
           'eea.relations',
 
-          'eea.cache',
+          'eea.cache > 8.1',
+          'eea.versions',
 
           #required in tests
           'eea.dataservice',
