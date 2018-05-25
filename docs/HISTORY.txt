@@ -1,6 +1,9 @@
 Changelog
 =========
 
+16.1-dev0 - (unreleased)
+---------------------
+
 16.0 - (2018-05-25)
 ------------------------
 * Feature: when a news/article/promotion or anything that can possibly be
