@@ -3,6 +3,8 @@ Changelog
 
 16.1-dev0 - (unreleased)
 ---------------------
+* Bug fix: Restrict getBRefs only to related items
+  [avoinea refs #95796]
 
 16.0 - (2018-05-25)
 ------------------------

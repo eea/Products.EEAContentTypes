@@ -91,7 +91,7 @@ def handle_gismap_delete(context, event):
         has been deleted
     """
     context_uid = context.UID()
-    refs = context.getBRefs()
+    refs = context.getBRefs('relatesTo')
 
     for o in refs:
         annot = IAnnotations(o).get(KEY, {})
