@@ -1,6 +1,9 @@
 Changelog
 =========
 
+16.2-dev0 - (unreleased)
+---------------------
+
 16.1 - (2018-05-30)
 ---------------------
 * Bug fix: Restrict getBRefs only to related items
