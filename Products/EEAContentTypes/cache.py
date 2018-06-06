@@ -5,7 +5,7 @@ from plone import api
 from plone.api.exc import CannotGetPortalError
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.utils import getToolByName
-from zope.component import queryMultiAdapter, getMultiAdapter
+from zope.component import queryMultiAdapter
 from zope.event import notify
 from eea.reports.interfaces import IReportContainerEnhanced
 from eea.cache.event import InvalidateMemCacheEvent
@@ -57,7 +57,7 @@ def invalidateCache(obj, event):
     invalidate_cache(site, request)
 
     # invalidate parent cache when context is a default view
-    state = getMultiAdapter((obj, request), name='plone_context_state')
+    state = queryMultiAdapter((obj, request), name='plone_context_state')
     if state.is_default_page():
         invalidate_cache(obj.getParentNode(), request)
 
