@@ -1,6 +1,15 @@
 Changelog
 =========
 
+16.2 - (2018-06-06)
+---------------------
+* Change: cleanup un-used code
+  [alecghica refs #95891]
+* Bug fix: fixed queryMultiAdapter calls from the invalidateCache method
+  [alecghica refs #95891]
+* Feature: invalidate parent when edit a default view
+  [alecghica refs #95891]
+
 16.1 - (2018-05-30)
 ---------------------
 * Bug fix: Restrict getBRefs only to related items

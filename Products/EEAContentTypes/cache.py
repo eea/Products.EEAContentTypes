@@ -26,12 +26,11 @@ DATASETS_INTERFACES= [
 def invalidate_cache(context, request):
     """ Invalidate cache
     """
-    invalidate_cache = queryMultiAdapter((context, request),
-                                          name='cache.invalidate')
-    invalidate_cache()
+    queryMultiAdapter((context, request), name='cache.invalidate',
+            default=lambda: False)()
 
-def invalidateFrontpageCache(obj, event):
-    """ Invalidate frontpage and main areas cache
+def invalidateCache(obj, event):
+    """ Generic cache invalidation policy
     """
     portal = None
     state = None
@@ -49,24 +48,30 @@ def invalidateFrontpageCache(obj, event):
         # Skip special objects
         logger.exception(err)
 
-    if state !='published':
+    if state != 'published':
         return
 
+    # invalidate frontpage cache
     site = getattr(portal, 'SITE', None)
     request = getattr(obj, 'REQUEST', {})
-    cache = queryMultiAdapter((site, request), name='cache.invalidate')
-    invalidate_cache = getattr(cache, 'invalidate_cache', lambda c: "No")
-    invalidate_cache(site)
+    invalidate_cache(site, request)
 
+    # invalidate parent cache when context is a default view
+    state = queryMultiAdapter((obj, request), name='plone_context_state')
+    if state.is_default_page():
+        invalidate_cache(obj.getParentNode(), request)
+
+    # invalidate publications main section
     if IReportContainerEnhanced.providedBy(obj):
         publications = getattr(site, 'publications', None)
-        return invalidate_cache(publications)
+        return invalidate_cache(publications, request)
 
+    # invalidate data and maps main section
     interfaces = queryMultiAdapter((obj, request), name='get_interfaces')
     has_any_of = getattr(interfaces, 'has_any_of', lambda i: False)
     if has_any_of(DATASETS_INTERFACES):
         data_and_maps = getattr(site, 'data-and-maps', None)
-        return invalidate_cache(data_and_maps)
+        return invalidate_cache(data_and_maps, request)
 
 def invalidateNavigationCache(obj, event):
     """ Invalidate Navigation memcache

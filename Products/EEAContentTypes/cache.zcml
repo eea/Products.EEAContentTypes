@@ -6,13 +6,13 @@
   <subscriber
       for="Products.Archetypes.interfaces.base.IBaseObject
            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-      handler=".cache.invalidateFrontpageCache"
+      handler=".cache.invalidateCache"
       />
 
   <subscriber
       for="Products.Archetypes.interfaces.base.IBaseObject
            Products.CMFCore.interfaces.IActionSucceededEvent"
-      handler=".cache.invalidateFrontpageCache"
+      handler=".cache.invalidateCache"
       />
 
   <subscriber
