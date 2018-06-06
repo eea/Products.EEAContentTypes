@@ -26,9 +26,8 @@ DATASETS_INTERFACES= [
 def invalidate_cache(context, request):
     """ Invalidate cache
     """
-    invalidate_cache = queryMultiAdapter((context, request),
-                                          name='cache.invalidate')
-    invalidate_cache()
+    queryMultiAdapter((context, request), name='cache.invalidate',
+            default=lambda: False)()
 
 def invalidateCache(obj, event):
     """ Generic cache invalidation policy
