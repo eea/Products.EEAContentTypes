@@ -1,7 +1,7 @@
 Changelog
 =========
 
-16.2-dev0 - (unreleased)
+16.2 - (2018-06-06)
 ---------------------
 * Change: cleanup un-used code
   [alecghica refs #95891]
