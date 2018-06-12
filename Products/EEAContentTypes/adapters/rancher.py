@@ -10,7 +10,7 @@ from eea.cache import cache
 
 TIMEOUT = 15
 RANCHER_METADATA = 'http://rancher-metadata/latest'
-MEMCACHE_AGE = 300
+MEMCACHE_AGE = 1800
 logger = logging.getLogger("Products.EEAContentTypes")
 
 
