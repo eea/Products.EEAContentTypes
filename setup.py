@@ -64,7 +64,6 @@ setup(name=NAME,
 
           'eea.cache > 8.1',
           'eea.versions',
-          'eea.rabbitmq.client',
 
           #required in tests
           'eea.dataservice',
@@ -73,8 +72,11 @@ setup(name=NAME,
           'eea.indicators',
           'eea.soer',
           'valentine.linguaflow',
-          'eventlet'
+          'eventlet',
 
+          'eea.rabbitmq.client'
+          #obsolete
+          #'Products.CMFSquidTool',
 
       ],
       entry_points="""
