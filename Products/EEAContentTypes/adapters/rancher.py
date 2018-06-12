@@ -54,7 +54,6 @@ class RancherStatus(object):
         state = self.get_rancher_metadata(url)
         return state
 
-    #@cache(lambda *args: "getGlobalRoles", lifetime=self.memcached_age)
     @cache(lambda *args: MEMCACHE_AGE)
     def __call__(self):
         status = None
