@@ -65,6 +65,7 @@ setup(name=NAME,
           'eea.cache > 8.1',
           'eea.versions',
           'eea.rabbitmq.client',
+          'ftw.globalstatusmessage',
 
           #required in tests
           'eea.dataservice',
