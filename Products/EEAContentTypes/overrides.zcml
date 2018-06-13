@@ -10,11 +10,11 @@
         class=".browser.syndication.EEAFeedView"
         name="rss.xml"
         permission="zope2.View"
-        template="browser/rss.xml.pt"
-    />
+        template="browser/rss.xml.pt" />
 
     <!-- Get Canonical object relations -->
-    <adapter for="eea.relations.content.interfaces.IBaseObject"
+    <adapter 
+        for="eea.relations.content.interfaces.IBaseObject"
         provides="eea.relations.interfaces.IAutoRelations"
         factory=".subtypes.GetCanonicalRelations"/>
 
@@ -38,7 +38,6 @@
         zcml:condition="installed ftw.globalstatusmessage"
         name="ftw.globalstatusmessage:automatic_enable"
         provides="ftw.globalstatusmessage.interfaces.IStatusMessageAutomaticEnable"
-        factory=".adapters.rancher.RancherStatus"
-        />
+        factory=".adapters.rancher.RancherStatus" />
 
 </configure>
