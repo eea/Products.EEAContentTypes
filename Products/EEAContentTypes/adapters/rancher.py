@@ -44,9 +44,9 @@ class RancherStatus(object):
             if stack.get('system'):
                 continue
             for service in stack.get("services", []):
-                state = service.get("state")
-                if state in ["upgrading"]:
-                    logger.info("GSM auto-enabled due %s - %s", service, state)
+                if service.get("state") in ["upgrading"]:
+                    logger.info("GSM auto-enabled due %s - %s",
+                                service.get('name'), service.get("state"))
                     return "upgrading"
         logger.info("GSM is auto-disabled due to no upgrading services")
         return ""
