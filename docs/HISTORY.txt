@@ -1,7 +1,7 @@
 Changelog
 =========
 
-16.3-dev0 - (unreleased)
+16.3 - (2018-06-14)
 ---------------------
 * Feature: added Rancher utility to verify Plone stack status
   [alecghica refs #92952]
