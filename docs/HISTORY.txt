@@ -1,6 +1,11 @@
 Changelog
 =========
 
+16.4 - (2018-06-20)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 16.3 - (2018-06-14)
 ---------------------
 * Feature: added Rancher utility to verify Plone stack status
@@ -871,7 +876,7 @@ Changelog
   This applies to DavizVisualization's @@rdf view.
   [tiberich #14824]
 * Upgrade Step: in
-  http://www.eea.europa.eu/aq_parent/portal_properties/rdfmarshaller_properties
+  https://www.eea.europa.eu/aq_parent/portal_properties/rdfmarshaller_properties
   remove the "provenances" field from the "blacklist" list.
   [tiberich #14824]
 

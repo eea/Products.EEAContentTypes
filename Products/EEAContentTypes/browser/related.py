@@ -219,7 +219,7 @@ class AutoRelated(object):
             if theme:
                 # disabled as auto relation macro from document_relateditems
                 # is no longer used on account of pour performance see ticket
-                # http://taskman.eionet.europa.eu/issues/7452
+                # https://taskman.eionet.europa.eu/issues/7452
                 # disabled as part of ticket #13771
                 # and added back as part of ticket #13994
                 url = IThemeMoreLink(self.context).url(themename)

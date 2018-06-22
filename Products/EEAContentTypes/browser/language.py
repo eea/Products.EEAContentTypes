@@ -75,7 +75,7 @@ class Languages(BrowserView):
         site = getattr(portal, 'SITE', None)
         for lang in languages:
             langcode = lang[0]
-            url = 'http://www.eea.europa.eu/%s' % langcode
+            url = 'https://www.eea.europa.eu/%s' % langcode
             if site is not None:
                 localSite = site.getTranslation(langcode)
                 if localSite is not None:
