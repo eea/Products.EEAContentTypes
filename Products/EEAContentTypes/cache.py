@@ -43,10 +43,10 @@ def invalidateCache(obj, event):
         # sessions do not have a request and so the getSite() cannot
         # know which Plone portal you want to get (as there can be
         # multiple Plone sites).
-        logger.exception(err)
-    except WorkflowException, err:
+        logger.warn(err)
+    except WorkflowException as err:
         # Skip special objects
-        logger.exception(err)
+        logger.warn(err)
 
     if state != 'published':
         return

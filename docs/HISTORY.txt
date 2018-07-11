@@ -3,6 +3,8 @@ Changelog
 
 16.5-dev0 - (unreleased)
 ---------------------
+* Change: replaced logger.exceptions with logger.warn for expected behavior
+  [avoinea refs WWW-BN (sentry issue 402)]
 
 16.4 - (2018-06-20)
 ---------------------
