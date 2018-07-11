@@ -1,6 +1,11 @@
 Changelog
 =========
 
+16.5 - (2018-07-11)
+---------------------
+* Change: replaced logger.exceptions with logger.warn for expected behavior
+  [avoinea refs WWW-BN (sentry issue 402)]
+
 16.4 - (2018-06-20)
 ---------------------
 * Change: updated URLs pointing to eea.europa.eu with https://

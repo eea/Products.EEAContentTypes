@@ -27,7 +27,7 @@ class RancherStatus(object):
             with closing(urllib2.urlopen(url, timeout=TIMEOUT)) as conn:
                 result = json.loads(conn.read())
         except Exception as err:
-            logger.exception(err)
+            logger.warn(err)
             result = []
         return result
 

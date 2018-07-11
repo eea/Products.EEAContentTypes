@@ -27,7 +27,7 @@ def configureQueue(event):
         size = int(os.environ.get(
             'EEACONTENTTYPES_ASYNC_THREADS', getMaximumThreads(queue)))
     except Exception, err:
-        logger.exception(err)
+        logger.warn(err)
         size = 1
 
     set_quota(queue, 'ctypes', size=size)
