@@ -1,6 +1,9 @@
 Changelog
 =========
 
+16.6-dev0 - (unreleased)
+---------------------
+
 16.5 - (2018-07-11)
 ---------------------
 * Change: replaced logger.exceptions with logger.warn for expected behavior
