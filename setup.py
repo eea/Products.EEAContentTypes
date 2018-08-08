@@ -62,7 +62,7 @@ setup(name=NAME,
           'eea.reports',
           'eea.relations',
 
-          'eea.cache > 8.1',
+          'eea.cache',
           'eea.versions',
           'eea.rabbitmq.client',
           'ftw.globalstatusmessage',
@@ -75,8 +75,6 @@ setup(name=NAME,
           'eea.soer',
           'valentine.linguaflow',
           'eventlet'
-
-
       ],
       entry_points="""
       # -*- Entry points: -*-

@@ -3,6 +3,8 @@ Changelog
 
 16.6-dev0 - (unreleased)
 ---------------------
+* Change: cleanup patches and overrides
+  [alecghica refs #97573]
 
 16.5 - (2018-07-11)
 ---------------------
