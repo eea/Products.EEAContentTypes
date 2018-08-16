@@ -5,7 +5,7 @@ Changelog
 ---------------------
 * Change: cleanup patches and overrides
   [alecghica refs #97573]
-* Bug fix: fixed templates display title under Document/Page
+* Bug fix: fixed templates display title for Document/Page
   [alecghica refs #97573]
 
 16.5 - (2018-07-11)
