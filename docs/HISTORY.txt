@@ -1,7 +1,7 @@
 Changelog
 =========
 
-16.6-dev0 - (unreleased)
+16.6 - (2018-08-17)
 ---------------------
 * Change: cleanup patches and overrides
   [alecghica refs #97573]
