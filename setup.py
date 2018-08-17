@@ -74,7 +74,8 @@ setup(name=NAME,
           'eea.indicators',
           'eea.soer',
           'valentine.linguaflow',
-          'eventlet'
+          'eventlet',
+          'cssselect'
       ],
       entry_points="""
       # -*- Entry points: -*-
