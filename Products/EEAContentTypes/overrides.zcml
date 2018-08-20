@@ -18,11 +18,6 @@
         provides="eea.relations.interfaces.IAutoRelations"
         factory=".subtypes.GetCanonicalRelations"/>
 
-    <!-- XXX Deprecated -->
-    <utility
-        zcml:condition="installed p4a.subtyper"
-        factory=".deprecated.Subtyper" />
-
     <adapter
         name="plone.app.blob.subtypes.blob"
         for="plone.app.blob.interfaces.IATBlobBlob"

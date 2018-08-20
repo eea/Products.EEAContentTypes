@@ -1,6 +1,13 @@
 Changelog
 =========
 
+16.6 - (2018-08-17)
+---------------------
+* Change: cleanup patches and overrides
+  [alecghica refs #97573]
+* Bug fix: fixed templates display title for Document/Page
+  [alecghica refs #97573]
+
 16.5 - (2018-07-11)
 ---------------------
 * Change: replaced logger.exceptions with logger.warn for expected behavior
