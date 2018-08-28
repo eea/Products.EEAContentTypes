@@ -1,6 +1,11 @@
 Changelog
 =========
 
+16.7 - (2018-08-27)
+---------------------
+* Change: Get base-url from body data `base-url`
+  [avoinea refs #97843]
+
 16.6 - (2018-08-17)
 ---------------------
 * Change: cleanup patches and overrides

@@ -28,7 +28,7 @@ jQuery(document).ready(function () {
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
                     cropbox = null;
-                    jcrop.setOptions({                                      
+                    jcrop.setOptions({
                         aspectRatio: aspect_ratio,
                         allowSelect: true,
                         allowResize: true,
@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
 
                     imageRecrop.click(function (e) {
                             e.preventDefault();
-                            var context_url = jQuery('base').attr('href');
+                            var context_url = jQuery('body').data('base-url') || jQuery('base').attr('href') || '';
                             if (context_url.substr(-1) !== '/') {
                                 context_url = context_url + '/';
                             }
