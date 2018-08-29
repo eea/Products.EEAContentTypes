@@ -55,14 +55,26 @@ div.archived p
                                                     else arcgis_url);
                                is_inline is_inline|python:0;
                                is_expired here/isExpired;
+                               is_https python:gis_url.startswith('https');
                                image here/getImage">
                  <tal:block condition="python:uid or arcgis_url">
                      <iframe
                      style="width:100%;height:600px;margin:0;border:0"
-                          tal:attributes="src gis_url" tal:condition="python: is_expired != 1"
+                          tal:attributes="src gis_url" tal:condition="python: is_expired != 1 and is_https"
                           src="">
                      </iframe>
 
+                     <a tal:condition="python: (is_expired != 1) and not is_https" tal:attributes="href gis_url" href="">
+                      <img src="" style="width:100%;height:600px;margin:0;border:0"
+                       tal:attributes="src python: image.absolute_url() + '/image_large'" title="Application screenshot, click to go to application" />
+                     </a>
+
+                     <p class="portalMessage informationMessage" tal:condition="python: (is_expired != 1) and not is_https">Note: this application cannot be embedded within the site since it does not run over https. 
+                     <a  tal:attributes="href gis_url" href="">
+                     Go directly to the application
+                     </a>
+
+                     </p>
                      <img src="" style="width:100%;height:600px;margin:0;border:0"
                       tal:condition="python: is_expired == 1"
                       tal:attributes="src python: image.absolute_url() + '/image_large'" />
