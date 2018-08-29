@@ -1,6 +1,9 @@
 Changelog
 =========
 
+16.9-dev0 - (unreleased)
+---------------------
+
 16.8 - (2018-08-29)
 ---------------------
 * Change: make gis application show thumbnail and link if resource is not https
