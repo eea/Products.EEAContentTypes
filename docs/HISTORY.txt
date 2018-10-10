@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.0 - (2018-10-10)
+---------------------
+* Bug fix: Fixed KeyError: 'invalidateall'
+  [avoinea refs #99303]
+
 16.9 - (2018-10-10)
 ---------------------
 * Bug fix: fixed case when Rancher stack has no services

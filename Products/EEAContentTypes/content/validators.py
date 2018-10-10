@@ -312,15 +312,16 @@ class ExistsKeyFactsValidator(object):
                 try:
                     workflow = wftool.getWorkflowsFor(folder)[0]
                     transitions = workflow.transitions
-                    available_transitions = [transitions[i['id']] for i in
-                                             wftool.getTransitionsFor(folder)]
-                    matching_transitions = [k for k in available_transitions
-                                            if k.new_state_id ==
-                                            instance_review_state]
                     # attempt to give the same review_state for the folder as
                     # it's parent's review_state
-                    for item in matching_transitions:
-                        wftool.doActionFor(folder, item.id)
+                    for transition in wftool.getTransitionsFor(folder):
+                        tid = transition.get('id')
+                        tob = transitions.get(tid)
+                        if not tob:
+                            continue
+                        if tob.new_state_id != instance_review_state:
+                            continue
+                        wftool.doActionFor(folder, tid)
                         break
                 except WorkflowException:
                     pass
