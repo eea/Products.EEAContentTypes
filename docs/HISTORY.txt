@@ -3,6 +3,8 @@ Changelog
 
 17.0-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fixed KeyError: 'invalidateall'
+  [avoinea refs #99303]
 
 16.9 - (2018-10-10)
 ---------------------
