@@ -3,6 +3,8 @@ Changelog
 
 16.9-dev0 - (unreleased)
 ---------------------
+* Bug fix: fixed case when Rancher stack has no services
+  [alecghica refs #98920]
 
 16.8 - (2018-08-29)
 ---------------------
