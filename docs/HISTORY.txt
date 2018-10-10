@@ -1,7 +1,7 @@
 Changelog
 =========
 
-16.9-dev0 - (unreleased)
+16.9 - (2018-10-10)
 ---------------------
 * Bug fix: fixed case when Rancher stack has no services
   [alecghica refs #98920]
