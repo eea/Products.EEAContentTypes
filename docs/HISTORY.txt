@@ -3,6 +3,8 @@ Changelog
 
 17.0-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fixed look of original text on translation edit page
+  [szabozo0 refs #97792]
 
 16.9 - (2018-10-10)
 ---------------------
