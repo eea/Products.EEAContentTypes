@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.1 - (2018-10-11)
+---------------------
+* Bug fix: Fixed look of original text on translation edit page
+  [szabozo0 refs #97792]
+
 17.0 - (2018-10-10)
 ---------------------
 * Bug fix: Fixed KeyError: 'invalidateall'
