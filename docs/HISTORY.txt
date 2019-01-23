@@ -3,6 +3,9 @@ Changelog
 
 17.2-dev0 - (unreleased)
 ---------------------
+* Change: modified translate_item page to behave like the normal edit page
+  thus reducing the number of commits that happen when using this page
+  [ichim-david refs #101427]
 
 17.1 - (2018-10-11)
 ---------------------
