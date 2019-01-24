@@ -6,7 +6,7 @@ from Products.PortalTransforms.interfaces import ITransform
 from zope.interface import implements
 
 TAG_RE = re.compile(
-    r'''(<a\s*[^>]*class\s*=\s*"[^>]*internal-link[^"]*"[^>]*>.*?</a>)''')
+    r'(<a\s*[^>]*class\s*=\s*"[^>]*[internal|external]-link[^"]*"[^>]*>.*?</a>)')
 HREF_RE = re.compile(r'''(<a[^>]*href\s*=\s*")([^"]*)("[^>]*>.*?</a>)''')
 
 
@@ -68,10 +68,11 @@ class InternalLinkView(object):
                 full_portal_url = context.portal_url()
                 #96175 remove portal_url from path as catalog expects an
                 # absolute url from the catalog path
+                res = []
                 if full_portal_url in path:
                     path = portal_url + path.replace(full_portal_url, "")
-                res = catalog.searchResults(path=path,
-                                            portal_type=use_view_action)
+                    res = catalog.searchResults(path=path,
+                                                portal_type=use_view_action)
 
                 if len(res):
                     orig = orig.replace(tag, begin + url + '/view' + end)
@@ -83,3 +84,5 @@ def register():
     """ Register
     """
     return InternalLinkView()
+
+
