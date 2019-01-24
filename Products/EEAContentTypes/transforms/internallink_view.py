@@ -71,8 +71,12 @@ class InternalLinkView(object):
                 res = []
                 if full_portal_url in path:
                     path = portal_url + path.replace(full_portal_url, "")
-                    res = catalog.searchResults(path=path,
-                                                portal_type=use_view_action)
+                    res = catalog.searchResults(
+                        path={
+                            'query': path,
+                            'depth': 0
+                        },
+                        portal_type=use_view_action)
 
                 if len(res):
                     orig = orig.replace(tag, begin + url + '/view' + end)
