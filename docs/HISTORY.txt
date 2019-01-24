@@ -3,6 +3,9 @@ Changelog
 
 17.2-dev0 - (unreleased)
 ---------------------
+* Bug fix: fixed InternalLinkView transform to search for links that needs /view
+  appended as links needs to have the site url removed when performing search
+  [ichim-david refs #96175]
 * Change: modified translate_item page to behave like the normal edit page
   thus reducing the number of commits that happen when using this page
   [ichim-david refs #101427]
