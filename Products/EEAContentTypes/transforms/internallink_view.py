@@ -6,12 +6,13 @@ from Products.PortalTransforms.interfaces import ITransform
 from zope.interface import implements
 
 TAG_RE = re.compile(
-    r'''(<a\s*[^>]*class\s*=\s*"[^>]*internal-link[^"]*"[^>]*>.*?</a>)''')
+    r'(<a\s*[^>]*class\s*=\s*"[^>]*[internal|external]-link[^"]*"[^>]*>.*?</a>)')
 HREF_RE = re.compile(r'''(<a[^>]*href\s*=\s*")([^"]*)("[^>]*>.*?</a>)''')
 
 
 class InternalLinkView(object):
-    """Simple transform which replaces all email addresses with a javascript."""
+    """Simple transform which appends internal links with /view for typesUseViewActionInListings
+    """
 
     implements(ITransform)
 
@@ -64,9 +65,18 @@ class InternalLinkView(object):
                 path = url
                 if not url.startswith(portal_url) and url.startswith('/'):
                     path = portal_url + url
-
-                res = catalog.searchResults(path=path,
-                                            portal_type=use_view_action)
+                full_portal_url = context.portal_url()
+                #96175 remove portal_url from path as catalog expects an
+                # absolute url from the catalog path
+                res = []
+                if full_portal_url in path:
+                    path = portal_url + path.replace(full_portal_url, "")
+                    res = catalog.searchResults(
+                        path={
+                            'query': path,
+                            'depth': 0
+                        },
+                        portal_type=use_view_action)
 
                 if len(res):
                     orig = orig.replace(tag, begin + url + '/view' + end)
@@ -78,3 +88,5 @@ def register():
     """ Register
     """
     return InternalLinkView()
+
+

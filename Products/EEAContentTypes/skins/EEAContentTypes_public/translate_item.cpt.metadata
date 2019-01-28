@@ -6,3 +6,4 @@ validators = validate_translate
 
 [actions]
 action.success = traverse_to:string:translate_edit
+action.success..cancel = redirect_to_action:string:view

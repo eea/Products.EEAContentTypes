@@ -121,7 +121,7 @@ def video_cloud_validator(value, instance=None):
             # transform youtube playlist link
             res = youtube_id.findall(value)[1]
             vid_id = 'videoseries&' + 'list=' + res
-            value = 'http://www.youtube.com/playlist?list=' + res
+            value = 'http://www.youtube-nocookie.com/playlist?list=' + res
             mapping['cloud_url']['youtube'] = vid_id
 
         elif 'youtu' in value:
