@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.3 - (2019-01-28)
+---------------------
+* Jenkins: Add sonarqube step
+  [avoinea refs #101552]
+
 17.2 - (2019-01-25)
 ---------------------
 * Bug fix: fixed InternalLinkView transform to search for links that needs /view
