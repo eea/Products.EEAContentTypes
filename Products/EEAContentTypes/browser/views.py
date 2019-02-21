@@ -49,7 +49,7 @@ def get_language_codes():
         "Kosovo": [["Albanian", "sq"], ["Serbian", "sr"]],
         "Kosovo*": [["Albanian", "sq"], ["Serbian", "sr"]],
         "Macedonia": [["Macedonian", "mk"]],
-        "The former Yugoslav Republic of Macedonia": [["Macedonian", "mk"]],
+        "North Macedonia": [["Macedonian", "mk"]],
         "Montenegro": [["Croatian", "hr"], ["Serbian", "sr"]]
     }
 

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.4 - (2019-02-21)
+---------------------
+* Feature: updated name for "North Macedonia"
+  [alecghica refs #102810]
+
 17.3 - (2019-01-28)
 ---------------------
 * Jenkins: Add sonarqube step
