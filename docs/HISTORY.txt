@@ -3,6 +3,8 @@ Changelog
 
 17.4-dev0 - (unreleased)
 ---------------------
+* Feature: updated name for "North Macedonia"
+  [alecghica refs #102810]
 
 17.3 - (2019-01-28)
 ---------------------
