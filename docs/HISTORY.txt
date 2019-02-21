@@ -1,6 +1,9 @@
 Changelog
 =========
 
+17.5-dev0 - (unreleased)
+---------------------
+
 17.4 - (2019-02-21)
 ---------------------
 * Feature: updated name for "North Macedonia"
