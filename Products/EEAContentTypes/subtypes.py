@@ -698,15 +698,11 @@ class EEABlobSchemaExtender(BlobSchemaExtender):
     """ Custom Blob Schema Extender
     """
     def getFields(self):
-        """ Schema Fields """
+        """ Schema Fields
+        """
         request = getattr(self.context, 'REQUEST', None)
         url = getattr(request, 'ACTUAL_URL', '')
-        if '/rdf' in url:
-            self.fields[0].searchable = True
-        elif '/@@rdf' in url:
-            self.fields[0].searchable = True
-        else:
-            self.fields[0].searchable = False
+        self.fields[0].searchable = False
         return self.fields
 
 
@@ -714,13 +710,9 @@ class EEAFileSchemaExtender(FileSchemaExtender):
     """ Custom File Schema Extender
     """
     def getFields(self):
-        """ Schema Fields """
+        """ Schema Fields
+        """
         request = getattr(self.context, 'REQUEST', None)
         url = getattr(request, 'ACTUAL_URL', '')
-        if '/rdf' in url:
-            self.fields[0].searchable = True
-        elif '/@@rdf' in url:
-            self.fields[0].searchable = True
-        else:
-            self.fields[0].searchable = False
+        self.fields[0].searchable = False
         return self.fields

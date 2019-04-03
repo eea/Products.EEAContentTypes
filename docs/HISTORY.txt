@@ -3,6 +3,8 @@ Changelog
 
 17.5-dev0 - (unreleased)
 ---------------------
+* Feature: the file content is no longer dump into the RDF export
+  [alecghica refs #104200]
 
 17.4 - (2019-02-21)
 ---------------------
