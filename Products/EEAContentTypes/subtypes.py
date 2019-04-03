@@ -700,8 +700,6 @@ class EEABlobSchemaExtender(BlobSchemaExtender):
     def getFields(self):
         """ Schema Fields
         """
-        request = getattr(self.context, 'REQUEST', None)
-        url = getattr(request, 'ACTUAL_URL', '')
         self.fields[0].searchable = False
         return self.fields
 
@@ -712,7 +710,5 @@ class EEAFileSchemaExtender(FileSchemaExtender):
     def getFields(self):
         """ Schema Fields
         """
-        request = getattr(self.context, 'REQUEST', None)
-        url = getattr(request, 'ACTUAL_URL', '')
         self.fields[0].searchable = False
         return self.fields
