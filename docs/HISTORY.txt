@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.5 - (2019-04-03)
+---------------------
+* Feature: the file content is no longer dump into the RDF export
+  [alecghica refs #104200]
+
 17.4 - (2019-02-21)
 ---------------------
 * Feature: updated name for "North Macedonia"
