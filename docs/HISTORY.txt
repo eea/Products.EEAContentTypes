@@ -1,7 +1,7 @@
 Changelog
 =========
 
-17.6-dev0 - (unreleased)
+17.6 - (2019-05-22)
 ---------------------
 * Bug fix: Syntax error, unrecognized expression: #https://...
   [avoinea refs #106037]
