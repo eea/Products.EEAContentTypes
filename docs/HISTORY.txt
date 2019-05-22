@@ -3,6 +3,8 @@ Changelog
 
 17.6-dev0 - (unreleased)
 ---------------------
+* Bug fix: Syntax error, unrecognized expression: #https://...
+  [avoinea refs #106037]
 
 17.5 - (2019-04-03)
 ---------------------
