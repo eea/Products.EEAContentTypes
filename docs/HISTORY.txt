@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17.6 - (2019-05-22)
+---------------------
+* Bug fix: Syntax error, unrecognized expression: #https://...
+  [avoinea refs #106037]
+
 17.5 - (2019-04-03)
 ---------------------
 * Feature: the file content is no longer dump into the RDF export

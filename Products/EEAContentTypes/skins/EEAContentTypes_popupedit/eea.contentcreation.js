@@ -44,7 +44,7 @@ ContentCreationPopup.prototype.fix_form_widgets = function(el){
   //    }
   //});
 
-    // other fixes to include: 
+    // other fixes to include:
     // geographical coverage
     // organisations widget
     // temporal coverage
@@ -104,7 +104,7 @@ ContentCreationPopup.prototype.set_creators = function(){
           'width':1000,
           'height':700
         };
-        self.dialog_edit(link, title, 
+        self.dialog_edit(link, title,
                 function(text, status, xhr){
                     self.schemata_ajaxify(jq("#dialog-inner"));   //set someid
                 },
@@ -124,9 +124,9 @@ ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, opti
       };
       var target = jq('#dialog_edit_target');
       jq("#dialog-inner").remove();     // temporary, apply real fix
-      jq(target).append("<div id='dialog-inner'>" + 
-                        "<p>Please wait, it may take several seconds for the form to appear.</p>" + 
-                        "<img src='./++resource++faceted_images/ajax-loader.gif' />" + 
+      jq(target).append("<div id='dialog-inner'>" +
+                        "<p>Please wait, it may take several seconds for the form to appear.</p>" +
+                        "<img src='./++resource++faceted_images/ajax-loader.gif' />" +
                         "</div>");
       window.onbeforeunload = null; // this disables the form unloaders
       jq("#dialog-inner").dialog({
@@ -163,24 +163,28 @@ ContentCreationPopup.prototype.dialog_edit = function(url, title, callback, opti
 
 var contentcreation_popup = new ContentCreationPopup();
 
-function close_dialog(info) {                                                                                                                                        
+function close_dialog(info) {
     var popups = [];
-    jq(".indicators_relations_widget").each(function(){ 
+    jq(".indicators_relations_widget").each(function(){
         var fieldname = $(".metadata .fieldName", this).text();
         var realfieldname = $(".metadata .realFieldName", this).text();
         var widget_dom_id = $(".metadata .widget_dom_id", this).text();
         if (!widget_dom_id) {
           return false;
         }
-        var popup = jq('#' + widget_dom_id).get(0)._widget; 
-        popups.push(popup);
+        try {
+          var popup = jq('#' + widget_dom_id).get(0)._widget;
+          popups.push(popup);
+        } catch(err) {
+          return;
+        }
     });
 
 
-   if (info.search('http://') !== -1) {                                                                                                                              
-       jq("#dialog-inner").dialog("close");                                                                                                                          
+   if (info.search('http://') !== -1 || info.search('https://') !== -1) {
+       jq("#dialog-inner").dialog("close");
        if (typeof(window.popup) !== "undefined") {
-           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});                                                                               
+           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
        } else {
         if (!popups.length) {
             alert("could not get eea.reference popup");
@@ -190,11 +194,11 @@ function close_dialog(info) {
             });
         }
        }
-   } else {                                                                                                                                                          
-       // compatibility with eea.indicators                                                                                                                          
+   } else {
+       // compatibility with eea.indicators
        reload_region($("#"+info));
-       jq("#dialog-inner").dialog("close");                                                                                                                          
-   }                                                                                                                                                                 
+       jq("#dialog-inner").dialog("close");
+   }
 }
 
 //jq("#content-creation-portlet legend").show();
