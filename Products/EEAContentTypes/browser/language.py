@@ -70,21 +70,23 @@ class Languages(BrowserView):
         """
         languages = self.getTranslatedSitesLanguages()
         sites = []
-        portal_url = getToolByName(self.context, 'portal_url')
-        portal = portal_url.getPortalObject()
-        site = getattr(portal, 'SITE', None)
+        #portal_url = getToolByName(self.context, 'portal_url')
+        #portal = portal_url.getPortalObject()
+        # site = getattr(portal, 'SITE', None)
         for lang in languages:
             langcode = lang[0]
-            url = 'https://www.eea.europa.eu/%s' % langcode
-            if site is not None:
-                localSite = site.getTranslation(langcode)
-                if localSite is not None:
-                    url = localSite.absolute_url()
-                    sites.append({'lang': lang[1],
-                                  'langcode': langcode,
-                                  'url': url})
-
-        return sites
+            langcode_in_url = langcode if langcode != 'en' else ''
+            url = 'https://www.eea.europa.eu/%s' % langcode_in_url
+            sites.append({'lang': lang[1],
+                          'langcode': langcode,
+                          'url': url})
+            # if site is not None:
+            #     localSite = site.getTranslation(langcode)
+            #     if localSite is not None:
+            #         url = localSite.absolute_url()
+            #         sites.append({'lang': lang[1],
+            #                       'langcode': langcode,
+            #                       'url': url})
 
 
 class LanguageSelectorData(BrowserView):
