@@ -192,4 +192,11 @@
     directory="profiles/upgrade/to_159"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_17.7"
+    title="Upgrade profile for EEAContentTypes 17.7"
+    description="This profile contains configuration changes from 15.9 to 17.7"
+    directory="profiles/upgrade/to_177"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
 </configure>
