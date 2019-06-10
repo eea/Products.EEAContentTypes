@@ -1,6 +1,13 @@
 Changelog
 =========
 
+17.7 - (2019-06-07)
+---------------------
+* Change: added site_properties **site_url** property set by default to the eea
+  website url, this way we can force the choose language popup to use a
+  predefined url. Modify property with different url if needed for dev sites
+  [ichim-david refs #105938]
+
 17.6 - (2019-05-22)
 ---------------------
 * Bug fix: Syntax error, unrecognized expression: #https://...

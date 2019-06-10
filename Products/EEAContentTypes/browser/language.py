@@ -66,25 +66,21 @@ class Languages(BrowserView):
 
     @cache(cacheKey)
     def getLocalSites(self):
-        """ Local sites
+        """ Local sites using site_properties site_url property or eea fallback
         """
         languages = self.getTranslatedSitesLanguages()
         sites = []
-        portal_url = getToolByName(self.context, 'portal_url')
-        portal = portal_url.getPortalObject()
-        site = getattr(portal, 'SITE', None)
+
+        pprops = getToolByName(self.context, 'portal_properties')
+        sprops = pprops.site_properties
+        site_url = sprops.getProperty('site_url', 'https://www.eea.europa.eu')
         for lang in languages:
             langcode = lang[0]
-            url = 'https://www.eea.europa.eu/%s' % langcode
-            if site is not None:
-                localSite = site.getTranslation(langcode)
-                if localSite is not None:
-                    url = localSite.absolute_url()
-                    sites.append({'lang': lang[1],
-                                  'langcode': langcode,
-                                  'url': url})
-
-        return sites
+            langcode_in_url = langcode if langcode != 'en' else ''
+            url = '%s/%s' % (site_url, langcode_in_url)
+            sites.append({'lang': lang[1],
+                          'langcode': langcode,
+                          'url': url})
 
 
 class LanguageSelectorData(BrowserView):
