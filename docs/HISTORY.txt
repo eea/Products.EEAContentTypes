@@ -1,6 +1,9 @@
 Changelog
 =========
 
+17.8-dev0 - (unreleased)
+---------------------
+
 17.7 - (2019-06-07)
 ---------------------
 * Change: added site_properties **site_url** property set by default to the eea
