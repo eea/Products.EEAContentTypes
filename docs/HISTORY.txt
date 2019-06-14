@@ -1,6 +1,12 @@
 Changelog
 =========
 
+17.8 - (2019-06-14)
+---------------------
+* Change: prefixed site_url properties with string type missing from previous
+  egg
+  [ichim-david refs #105938]
+
 17.7 - (2019-06-07)
 ---------------------
 * Change: added site_properties **site_url** property set by default to the eea
