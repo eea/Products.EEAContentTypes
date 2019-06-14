@@ -1,6 +1,9 @@
 Changelog
 =========
 
+17.9-dev0 - (unreleased)
+---------------------
+
 17.8 - (2019-06-14)
 ---------------------
 * Change: prefixed site_url properties with string type missing from previous
