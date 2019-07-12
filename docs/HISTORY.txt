@@ -3,6 +3,8 @@ Changelog
 
 17.9-dev0 - (unreleased)
 ---------------------
+* Feature: added introduction field for Dashboard and GIS Map Application
+  [ichim-david refs #107163]
 * Change: Updated vocabulary value for macedonia
   [iulianpetchesi refs #106742]
 * Change: return list of languages when calling @@translatedSites

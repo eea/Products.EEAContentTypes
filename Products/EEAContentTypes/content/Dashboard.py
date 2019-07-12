@@ -15,6 +15,21 @@ from zope.interface import implements
 
 schema = Schema((
     TextField(
+        name='introduction',
+        searchable=True,
+        required_for_published=False,
+        required=False,
+        allowable_content_types=('text/html',),
+        default_content_type="text/html",
+        default_output_type="text/x-html-safe",
+        widget=RichWidget(
+            label="Introduction",
+            description="Introduction of GIS Map Application",
+            label_msgid='EEAContentTypes_label_introduction',
+            i18n_domain='eea',
+        ),
+    ),
+    TextField(
         name='embed',
         languageIndependent=True,
         searchable=True,

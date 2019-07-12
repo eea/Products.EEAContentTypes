@@ -48,6 +48,11 @@ div.archived p
 
             <metal:main define-macro="main">
 
+            <div class="eea-introduction-field" tal:define="body context/getIntroduction" tal:condition="body">
+                <h3 i18n:translate="" class="notoc">Introduction</h3>
+                <tal:block tal:replace="structure body" />
+            </div>
+
               <tal:gis define="uid here/getArcGisUID|python:'';
                                arcgis_url here/arcgis_url|python:'';
                                gis_url python:arcgis_url+'&embed=true' if arcgis_url and 'appid' in arcgis_url and not 'embed' in arcgis_url
