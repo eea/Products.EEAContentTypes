@@ -49,7 +49,6 @@ div.archived p
             <metal:main define-macro="main">
 
             <div class="eea-introduction-field" tal:define="body context/getIntroduction" tal:condition="body">
-                <h3 i18n:translate="" class="notoc">Introduction</h3>
                 <tal:block tal:replace="structure body" />
             </div>
 
