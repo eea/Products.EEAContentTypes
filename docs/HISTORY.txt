@@ -1,6 +1,9 @@
 Changelog
 =========
 
+18.0-dev0 - (unreleased)
+---------------------
+
 17.9 - (2019-07-12)
 ---------------------
 * Feature: added introduction field for Dashboard and GIS Map Application
