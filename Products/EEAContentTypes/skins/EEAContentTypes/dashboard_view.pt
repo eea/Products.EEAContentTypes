@@ -26,6 +26,10 @@
         <metal:main define-macro="main"
                     tal:define="is_expired here/isExpired; image here/getImage">
 
+            <div class="eea-introduction-field" tal:define="body context/getIntroduction" tal:condition="body">
+                <tal:block tal:replace="structure body" />
+            </div>
+
             <tal:embed condition="python: is_expired != 1" content="structure context/embed" />
 
             <img src="" style="width:100%;height:600px;margin:0;border:0"

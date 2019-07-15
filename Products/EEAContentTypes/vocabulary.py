@@ -57,7 +57,7 @@ vocabs = {
         ('LVA', 'LATVIA'),
         ('LTU', 'LITHUANIA'),
         ('LUX', 'LUXEMBOURG'),
-        ('MKD', 'THE FORMER YUGOSLAV REPUBLIC OF MACEDONIA,'),
+        ('MKD', 'NORTH MACEDONIA,'),
         ('MLT', 'MALTA'),
         ('MEX', 'MEXICO'),
         ('MCO', 'MONACO'),

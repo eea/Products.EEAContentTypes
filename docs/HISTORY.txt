@@ -1,6 +1,15 @@
 Changelog
 =========
 
+17.9 - (2019-07-12)
+---------------------
+* Feature: added introduction field for Dashboard and GIS Map Application
+  [ichim-david refs #107163]
+* Change: Updated vocabulary value for macedonia
+  [iulianpetchesi refs #106742]
+* Change: return list of languages when calling @@translatedSites
+  [ichim-david refs #106884]
+
 17.8 - (2019-06-14)
 ---------------------
 * Change: prefixed site_url properties with string type missing from previous

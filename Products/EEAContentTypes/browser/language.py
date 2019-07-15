@@ -81,6 +81,7 @@ class Languages(BrowserView):
             sites.append({'lang': lang[1],
                           'langcode': langcode,
                           'url': url})
+        return sites
 
 
 class LanguageSelectorData(BrowserView):

@@ -18,6 +18,21 @@ from zope.interface import implements
 from zope.event import notify
 
 schema = Schema((
+    TextField(
+        name='introduction',
+        searchable=True,
+        required_for_published=False,
+        required=False,
+        allowable_content_types=('text/html',),
+        default_content_type="text/html",
+        default_output_type="text/x-html-safe",
+        widget=RichWidget(
+            label="Introduction",
+            description="Introduction of Tableau Application",
+            label_msgid='EEAContentTypes_label_introduction',
+            i18n_domain='eea',
+        ),
+    ),
     StringField(name="arcgis_url",
                 widget=StringField._properties['widget'](
                     label="ArcGIS/EyeOnEarth url",
