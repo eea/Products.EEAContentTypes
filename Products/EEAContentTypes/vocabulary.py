@@ -39,7 +39,7 @@ vocabs = {
         ('BGR', 'BULGARIA'),
         ('HRV', 'CROATIA (local name: Hrvatska)'),
         ('CYP', 'CYPRUS'),
-        ('CZE', 'CZECH REPUBLIC'),
+        ('CZE', 'CZECHIA'),
         ('DNK', 'DENMARK'),
         ('SLV', 'EL SALVADOR'),
         ('EST', 'ESTONIA'),
