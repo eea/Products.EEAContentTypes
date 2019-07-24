@@ -1,6 +1,9 @@
 Changelog
 =========
 
+18.1-dev0 - (unreleased)
+---------------------
+
 18.0 - (2019-07-19)
 ---------------------
 * Change: Updated vocabulary value for czechia
