@@ -1,6 +1,11 @@
 Changelog
 =========
 
+18.0 - (2019-07-19)
+---------------------
+* Change: Updated vocabulary value for czechia
+  [iulianpetchesi refs #106742]
+
 17.9 - (2019-07-12)
 ---------------------
 * Feature: added introduction field for Dashboard and GIS Map Application
