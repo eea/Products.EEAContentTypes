@@ -1,7 +1,7 @@
 Changelog
 =========
 
-18.1-dev0 - (unreleased)
+18.1 - (2019-07-30)
 ---------------------
 * Change: Re-added czech republic entry
   [iulianpetchesi refs #106742]
