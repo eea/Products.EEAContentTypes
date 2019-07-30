@@ -15,6 +15,7 @@ def get_language_codes():
         "Bulgaria": [["Bulgarian", "bg"]],
         "Croatia": [["Croatian", "hr"]],
         "Cyprus": [["Greek", "el"], ["Turkish", "tr"]],
+        "Czech Republic": [["Czech", "cs"]],
         "Czechia": [["Czech", "cs"]],
         "Denmark": [["Danish", "da"]],
         "Estonia": [["Estonian", "et"]],

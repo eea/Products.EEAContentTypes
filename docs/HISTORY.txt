@@ -1,6 +1,11 @@
 Changelog
 =========
 
+18.1 - (2019-07-30)
+---------------------
+* Change: Re-added czech republic entry
+  [iulianpetchesi refs #106742]
+
 18.0 - (2019-07-19)
 ---------------------
 * Change: Updated vocabulary value for czechia
