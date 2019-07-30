@@ -3,6 +3,8 @@ Changelog
 
 18.1-dev0 - (unreleased)
 ---------------------
+* Change: Re-added czech republic entry
+  [iulianpetchesi refs #106742]
 
 18.0 - (2019-07-19)
 ---------------------
