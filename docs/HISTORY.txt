@@ -3,6 +3,8 @@ Changelog
 
 18.2-dev0 - (unreleased)
 ---------------------
+* Change: merged code from custom
+  [alecghica]
 
 18.1 - (2019-07-30)
 ---------------------

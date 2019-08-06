@@ -48,8 +48,8 @@ div.archived p
 
             <metal:main define-macro="main">
 
-            <div class="eea-introduction-field" tal:define="body context/getIntroduction" tal:condition="body">
-                <tal:block tal:replace="structure body" />
+            <div class="eea-introduction-field" tal:define="body context/getIntroduction" tal:condition="body">		
+                <tal:block tal:replace="structure body" />		
             </div>
 
               <tal:gis define="uid here/getArcGisUID|python:'';
@@ -60,15 +60,16 @@ div.archived p
                                is_inline is_inline|python:0;
                                is_expired here/isExpired;
                                is_https python:gis_url.startswith('https');
+                               is_at_eea python:gis_url.find('eea.europa.eu')>0;
                                image here/getImage">
                  <tal:block condition="python:uid or arcgis_url">
                      <iframe
                      style="width:100%;height:600px;margin:0;border:0"
-                          tal:attributes="src gis_url" tal:condition="python: is_expired != 1 and is_https"
+                          tal:attributes="src gis_url" tal:condition="python: is_expired != 1 and is_https and is_at_eea"
                           src="">
                      </iframe>
 
-                     <a tal:condition="python: (is_expired != 1) and not is_https" tal:attributes="href gis_url" href="">
+                     <a tal:condition="python: (is_expired != 1) and (not is_https or not is_at_eea)" tal:attributes="href gis_url" href="">
                       <img src="" style="width:100%;height:600px;margin:0;border:0"
                        tal:attributes="src python: image.absolute_url() + '/image_large'" i18n:attributes="title" title="Application screenshot, click to go to application" />
                      </a>
