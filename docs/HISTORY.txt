@@ -2,22 +2,22 @@ Changelog
 =========
 
 18.2-dev0 - (unreleased)
----------------------
+--------------------------
 * Change: merged code from custom
   [alecghica]
 
 18.1 - (2019-07-30)
----------------------
+--------------------------
 * Change: Re-added czech republic entry
   [iulianpetchesi refs #106742]
 
 18.0 - (2019-07-19)
----------------------
+--------------------------
 * Change: Updated vocabulary value for czechia
   [iulianpetchesi refs #106742]
 
 17.9 - (2019-07-12)
----------------------
+--------------------------
 * Feature: added introduction field for Dashboard and GIS Map Application
   [ichim-david refs #107163]
 * Change: Updated vocabulary value for macedonia
@@ -26,40 +26,40 @@ Changelog
   [ichim-david refs #106884]
 
 17.8 - (2019-06-14)
----------------------
+--------------------------
 * Change: prefixed site_url properties with string type missing from previous
   egg
   [ichim-david refs #105938]
 
 17.7 - (2019-06-07)
----------------------
+--------------------------
 * Change: added site_properties **site_url** property set by default to the eea
   website url, this way we can force the choose language popup to use a
   predefined url. Modify property with different url if needed for dev sites
   [ichim-david refs #105938]
 
 17.6 - (2019-05-22)
----------------------
+--------------------------
 * Bug fix: Syntax error, unrecognized expression: #https://...
   [avoinea refs #106037]
 
 17.5 - (2019-04-03)
----------------------
+--------------------------
 * Feature: the file content is no longer dump into the RDF export
   [alecghica refs #104200]
 
 17.4 - (2019-02-21)
----------------------
+--------------------------
 * Feature: updated name for "North Macedonia"
   [alecghica refs #102810]
 
 17.3 - (2019-01-28)
----------------------
+--------------------------
 * Jenkins: Add sonarqube step
   [avoinea refs #101552]
 
 17.2 - (2019-01-25)
----------------------
+--------------------------
 * Bug fix: fixed InternalLinkView transform to search for links that needs /view
   appended as links needs to have the site url removed when performing search
   [ichim-david refs #96175]
@@ -68,54 +68,54 @@ Changelog
   [ichim-david refs #101427]
 
 17.1 - (2018-10-11)
----------------------
+--------------------------
 * Bug fix: Fixed look of original text on translation edit page
   [szabozo0 refs #97792]
 
 17.0 - (2018-10-10)
----------------------
+--------------------------
 * Bug fix: Fixed KeyError: 'invalidateall'
   [avoinea refs #99303]
 
 16.9 - (2018-10-10)
----------------------
+--------------------------
 * Bug fix: fixed case when Rancher stack has no services
   [alecghica refs #98920]
 
 16.8 - (2018-08-29)
----------------------
+--------------------------
 * Change: make gis application show thumbnail and link if resource is not https
   [demarant refs #97994]
 
 16.7 - (2018-08-27)
----------------------
+--------------------------
 * Change: Get base-url from body data `base-url`
   [avoinea refs #97843]
 
 16.6 - (2018-08-17)
----------------------
+--------------------------
 * Change: cleanup patches and overrides
   [alecghica refs #97573]
 * Bug fix: fixed templates display title for Document/Page
   [alecghica refs #97573]
 
 16.5 - (2018-07-11)
----------------------
+--------------------------
 * Change: replaced logger.exceptions with logger.warn for expected behavior
   [avoinea refs WWW-BN (sentry issue 402)]
 
 16.4 - (2018-06-20)
----------------------
+--------------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 
 16.3 - (2018-06-14)
----------------------
+--------------------------
 * Feature: added Rancher utility to verify Plone stack status
   [alecghica refs #92952]
 
 16.2 - (2018-06-06)
----------------------
+--------------------------
 * Change: cleanup un-used code
   [alecghica refs #95891]
 * Bug fix: fixed queryMultiAdapter calls from the invalidateCache method
@@ -124,7 +124,7 @@ Changelog
   [alecghica refs #95891]
 
 16.1 - (2018-05-30)
----------------------
+--------------------------
 * Bug fix: Restrict getBRefs only to related items
   [avoinea refs #95796]
 
