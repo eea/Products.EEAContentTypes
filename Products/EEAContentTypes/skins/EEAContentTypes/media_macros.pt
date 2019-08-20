@@ -25,10 +25,10 @@
                    tal:attributes="href figure_link|nothing;
                    title figure_title;"
                    tal:condition="figure_link|nothing">
-                  <img tal:attributes="src imageSrc;alt figure_title;" style="min-height: 348px; min-width: 600px; width: 100%;" />
+                  <img tal:attributes="src imageSrc;alt figure_title;" />
                  </a>
                 <tal:noLink tal:condition="not: figure_link|nothing">
-                  <img tal:attributes="src imageSrc;alt figure_title;" style="min-height: 348px; min-width: 600px; width: 100%;" />
+                  <img tal:attributes="src imageSrc;alt figure_title;" />
                 </tal:noLink>
 </metal:img>
 
