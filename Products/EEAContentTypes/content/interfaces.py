@@ -76,6 +76,11 @@ class IInteractiveDashboard(Interface):
     """
 
 
+class IStorytelling(Interface):
+    """ Marker interface for Storytelling
+    """
+
+
 class IInfographic(IEEAContent):
     """ Infographic
     """
