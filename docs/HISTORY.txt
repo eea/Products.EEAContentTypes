@@ -3,6 +3,8 @@ Changelog
 
 18.4-dev0 - (unreleased)
 ---------------------------
+* Feature: new content type added, Storytelling
+  [alecghica refs #108564]
 * Bug fix: removed inline styles from media_macros figure images avoiding thus
   absolute measurements
   [ichim-david refs #108306]

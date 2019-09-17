@@ -15,7 +15,7 @@
  <property name="allow_discussion">False</property>
  <property name="default_view">storytelling_view</property>
  <property name="view_methods">
-  <element value="dashboard_view"/>
+  <element value="storytelling_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>

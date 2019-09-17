@@ -9,8 +9,38 @@
     <metal:content-core fill-slot="content-core">
       <metal:content-core define-macro="content-core">
 
+        <tal:relatedItems tal:define="related context/getRelatedItemsRaw;
+                                      titles python:context.getStory_titles().split('\r\n') ">
+            <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
+            <h2 i18n:domain="eea" i18n:translate="">Story titles</h2>
+            <ul class="visualNoMarker">
+                <tal:related tal:repeat="item related">
+                <li>
+                    <span tal:attributes="class string:visualIcon">
+                    <h5 i18n:domain="eea" i18n:translate=""
+                        tal:content="python:titles[repeat['item'].index()]"> Story title </h5>
+                    <span class="eea-icon eea-icon-arrow-right"></span>
+                    <a href="" class=""
+                       tal:attributes="href  python:item['url'];
+                                       title python:item['title']"
+                       tal:content="python:item['title']">
+                           Related Item
+                    </a>
+                    </span>
+                </li>
+                </tal:related>
+            </ul>
+        </tal:relatedItems>
+
+        <h2 i18n:domain="eea" i18n:translate="">Body text</h2>
         <metal:field use-macro="python:context.widget('text', mode='view')">
           Body text
+        </metal:field>
+
+        <h2 i18n:domain="eea" i18n:translate="">Full story description</h2>
+        <metal:field use-macro="python:context.widget('full_story_description',
+                                                      mode='view')">
+          Full story description
         </metal:field>
 
       </metal:content-core>

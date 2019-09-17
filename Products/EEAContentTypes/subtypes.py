@@ -147,7 +147,8 @@ class RelationsSchemaExtender(object):
         # is override in specific schemata
         if self.context.portal_type in (
                 "DavizVisualization", "Specification", "Assessment",
-                "AssessmentPart", "QuickEvent", "Report", "IndicatorFactSheet"):
+                "AssessmentPart", "QuickEvent", "Report", "IndicatorFactSheet",
+                "Storytelling"):
             return []
 
         # Due to #4705 base_view shows related widget which should be
@@ -448,6 +449,27 @@ class DavizRequirementsSchemaModifier(object):
             if dfield in schema:
                 xfield = schema[dfield].copy()
                 xfield.required_for_published = True
+                schema[dfield] = xfield
+
+
+class StorytellingRequirementsSchemaModifier(object):
+    """ Modify schema for Storytelling content type
+    """
+    implements(ISchemaModifier, IBrowserLayerAwareExtender)
+    layer = IEEACommonLayer
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        """ Fields
+        """
+        fields = ['temporalCoverage', 'location', 'themes', 'relatedItems', 'subject']
+        for dfield in fields:
+            if dfield in schema:
+                xfield = schema[dfield].copy()
+                xfield.required_for_published = True
+                xfield.required = True
                 schema[dfield] = xfield
 
 
