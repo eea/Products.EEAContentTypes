@@ -16,7 +16,7 @@
                                       fewer_titles python: titles_len < related_len;">
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
           <tal:messages tal:condition="fewer_titles">
-            <div class="portalMessage errorMessage">
+            <div class="portalMessage errorMessage" tal:condition="not:isAnon">
               <p>There are fewer titles than related items.</p>
               <p>Either add more titles or remove extra related items.</p>
             </div>
