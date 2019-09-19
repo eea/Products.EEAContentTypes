@@ -10,15 +10,25 @@
       <metal:content-core define-macro="content-core">
 
         <tal:relatedItems tal:define="related context/getRelatedItemsRaw;
-                                      titles python:context.getStory_titles().split('\r\n') ">
+                                      titles python:context.getStory_titles().split('\r\n');
+                                      titles_len python: len(titles);
+                                      related_len python: len(related);
+                                      fewer_titles python: titles_len < related_len;">
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
-            <h2 i18n:domain="eea" i18n:translate="">Story titles</h2>
+          <tal:messages tal:condition="fewer_titles">
+            <div class="portalMessage errorMessage">
+              <p>There are fewer titles than related items.</p>
+              <p>Either add more titles or remove extra related items.</p>
+            </div>
+          </tal:messages>
+          <h2 i18n:domain="eea" i18n:translate="">Story titles</h2>
             <ul class="visualNoMarker">
                 <tal:related tal:repeat="item related">
                 <li>
                     <span tal:attributes="class string:visualIcon">
                     <h5 i18n:domain="eea" i18n:translate=""
-                        tal:content="python:titles[repeat['item'].index()]"> Story title </h5>
+                        tal:define="item_number python: repeat['item'].index();"
+                        tal:content="python:titles[item_number] if item_number < titles_len else ''"> Story title </h5>
                     <span class="eea-icon eea-icon-arrow-right"></span>
                     <a href="" class=""
                        tal:attributes="href  python:item['url'];
