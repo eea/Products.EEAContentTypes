@@ -17,8 +17,8 @@
             <div class="visualClear" id="clear-space-before-relatedItemBox"><!-- --></div>
           <tal:messages tal:condition="fewer_titles">
             <div class="portalMessage errorMessage" tal:condition="not:isAnon">
-              <p>There are fewer titles than related items.</p>
-              <p>Either add more titles or remove extra related items.</p>
+              <p i18n:translate="">There are fewer titles than related items.</p>
+              <p i18n:translate="">Either add more titles or remove extra related items.</p>
             </div>
           </tal:messages>
           <h2 i18n:domain="eea" i18n:translate="">Story titles</h2>
