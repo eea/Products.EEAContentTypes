@@ -11,6 +11,8 @@ Changelog
 * Bug fix: removed inline styles from media_macros figure images avoiding thus
   absolute measurements
   [ichim-david refs #108306]
+* Bug fix: Optimize imgview adapters by moving code from __init__
+  [avoinea refs #109515]
 
 18.3 - (2019-08-12)
 ---------------------------

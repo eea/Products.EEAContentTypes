@@ -16,13 +16,25 @@ class ImageView(BrowserView):
     in the an image field. If that fails, we fall back to the folder adapter
     which looks for the first image in the folder.
     """
-
     implements(IImageView)
+    _img1 = False
+    _img2 = False
 
-    def __init__(self, context, request):
-        super(ImageView, self).__init__(context, request)
-        self.img1 = atfield.ATFieldImageView(self.context, self.request)
-        self.img2 = atfolder.FolderImageView(self.context, self.request)
+    @property
+    def img1(self):
+        """ Image from Schema field: image
+        """
+        if self._img1 is False:
+            self._img1 = atfield.ATFieldImageView(self.context, self.request)
+        return self._img1
+
+    @property
+    def img2(self):
+        """ Image from folder contents
+        """
+        if self._img2 is False:
+            self._img2 = atfolder.FolderImageView(self.context, self.request)
+        return self._img2
 
     def display(self, scalename='thumb'):
         """ Display
