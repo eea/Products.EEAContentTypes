@@ -78,6 +78,12 @@
         factory=".subtypes.DavizRequirementsSchemaModifier" />
 
     <!-- Required fields adapter -->
+    <adapter name="eea.storytellingrequirements"
+        for="Products.EEAContentTypes.content.interfaces.IStorytelling"
+        provides="archetypes.schemaextender.interfaces.ISchemaModifier"
+        factory=".subtypes.StorytellingRequirementsSchemaModifier" />
+
+    <!-- Required fields adapter -->
     <adapter name="eea.dashboardrequirements"
         for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard"
         provides="archetypes.schemaextender.interfaces.ISchemaModifier"

@@ -24,6 +24,7 @@ from Products.EEAContentTypes.content import Link
 from Products.EEAContentTypes.content import PressRelease
 from Products.EEAContentTypes.content import Promotion
 from Products.EEAContentTypes.content import Speech
+from Products.EEAContentTypes.content import Storytelling
 from Products.EEAContentTypes.content import ThemeTaggable
 
 
@@ -76,6 +77,7 @@ __all__ = [
     Link.__name__,
     PressRelease.__name__,
     Promotion.__name__,
+    Storytelling.__name__,
     validators.__name__,
     infographic.__name__
 ]

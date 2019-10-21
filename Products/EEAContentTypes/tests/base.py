@@ -13,7 +13,7 @@ from plone.protect.authenticator import AuthenticatorView
 PRODUCTS = [
     'ATVocabularyManager',
     'EEAContentTypes',
-    ##'valentine.linguaflow', 'LinguaPlone',
+    'LinguaPlone',
     'EEAPloneAdmin',
     'eea.depiction'
 ]

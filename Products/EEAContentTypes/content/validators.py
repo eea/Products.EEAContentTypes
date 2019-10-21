@@ -396,8 +396,28 @@ class MaxValuesValidator(object):
         if isinstance(value, str):
             values = value.split(' ')
         if maxValues is not None and len(values) > maxValues:
-            return "To many words, please enter max %s words." % maxValues
+            return "Too many words, please enter max %s words." % maxValues
         return 1
 
 
 validation.register(MaxValuesValidator('maxWords'))
+
+
+class RelatedItemsStorytellingValidator(object):
+    """ Maximum 3 related items validator
+    """
+    implements(IValidator)
+
+    def __init__(self, name, title='RelatedItemsValidator',
+                 description='RelatedItemsValidator: maximum 3 items.'):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, instance, *args, **kwargs):
+        if len(value) > 3:
+            return 'Too many related items. Please enter maximum 3 items!'
+        return 1
+
+
+validation.register(RelatedItemsStorytellingValidator('maxRelatedItems'))

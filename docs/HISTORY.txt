@@ -1,6 +1,19 @@
 Changelog
 =========
 
+18.4 - (2019-10-02)
+---------------------------
+* Change: Added support for more image scales:
+  panoramic, print, landscape, portrait
+  [avoinea refs #109515]
+* Feature: new content type added, Storytelling
+  [alecghica refs #108564]
+* Bug fix: removed inline styles from media_macros figure images avoiding thus
+  absolute measurements
+  [ichim-david refs #108306]
+* Bug fix: Optimize imgview adapters by moving code from __init__
+  [avoinea refs #109515]
+
 18.3 - (2019-08-12)
 ---------------------------
 * Change: Fix MANIFEST.in
