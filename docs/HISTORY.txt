@@ -3,6 +3,9 @@ Changelog
 
 18.5-dev0 - (unreleased)
 ---------------------------
+* Bug fix: avoid potential async crash when running image scales generation
+  and plone_context_state isn't returned
+  [ichim-david refs #109515]
 
 18.4 - (2019-10-02)
 ---------------------------

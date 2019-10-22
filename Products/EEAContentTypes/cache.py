@@ -58,7 +58,7 @@ def invalidateCache(obj, event):
 
     # invalidate parent cache when context is a default view
     state = queryMultiAdapter((obj, request), name='plone_context_state')
-    if state.is_default_page():
+    if state and state.is_default_page():
         invalidate_cache(obj.getParentNode(), request)
 
     # invalidate publications main section
