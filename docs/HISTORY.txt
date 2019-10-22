@@ -1,7 +1,7 @@
 Changelog
 =========
 
-18.5-dev0 - (unreleased)
+18.5 - (2019-10-22)
 ---------------------------
 * Bug fix: avoid potential async crash when running image scales generation
   and plone_context_state isn't returned
