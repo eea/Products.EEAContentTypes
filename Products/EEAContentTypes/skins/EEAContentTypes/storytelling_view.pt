@@ -49,8 +49,12 @@
                     <div class="eea-card-body">
                       <div class="eea-card-image-wrapper">
                         <a href="#" class="eea-card-image-link" tal:attributes="href url">
-                          <img tal:attributes="src string:${url}/${image_scale}" alt=""
-                               tal:define="image_scale python: 'image_large'" class="skip_lazy eea-card-image eea-card-image--pull"  />
+                          <img tal:attributes="src string:${url}/${image_scale}; width thumbnail/width; height thumbnail/height" alt=""
+                               tal:define="image_scale python: 'image_large';
+                                          brain relation/brain;
+                                          obj brain/getObject;
+                                          scales obj/@@images;
+                                          thumbnail python: scales.scale('image', 'large')" class="skip_lazy eea-card-image eea-card-image--pull"  />
                         </a>
                       </div>
                       <div class="eea-card-body-text"  tal:condition="fullwidth">

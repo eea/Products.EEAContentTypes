@@ -99,8 +99,9 @@ class Storytelling(folder.ATFolder, document.ATDocumentBase, ThemeTaggable):
         for uid in raw_items:
             brain = ctool.unrestrictedSearchResults(UID=uid, show_inactive=True)
             if brain:
-                result.append({'url':brain[0].getURL(), 
-                               'title':brain[0].Title, 'uid':uid})
+                result.append({'url': brain[0].getURL(),
+                               'title': brain[0].Title, 'brain': brain[0],
+                               'uid': uid})
 
         return result
 
