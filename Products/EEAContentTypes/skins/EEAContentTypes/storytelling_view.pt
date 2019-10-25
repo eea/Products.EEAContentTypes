@@ -36,7 +36,17 @@
               <tal:items tal:repeat="relation relations" tal:condition="relations">
                 <tal:defines tal:define="
                     repeat_num python: repeat['relation'].index;">
-                  <div class="eea-card" tal:define="url relation/url; relation_with_description python: repeat_num == 2; fullwidth python: relation_with_description or num_of_relations == 1" tal:attributes="class python:'eea-card eea-card--double eea-card--landscape direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--landscape eea-card--fullwidth'">
+                  <div class="eea-card" tal:define="url relation/url;
+                      relation_with_description python: repeat_num == 2;
+                      fullwidth python: relation_with_description or num_of_relations == 1;
+                      rel_brain relation/brain;
+                      obj rel_brain/getObject;
+                      scales obj/@@images;
+                      thumbnail python: scales.scale('image', 'large');
+                      thumb_width thumbnail/width;
+                      thumb_height thumbnail/height;
+                      thumb_is_portrait python: thumb_height > thumb_width;"
+                       tal:attributes="class python:'eea-card eea-card--double eea-card--landscape direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--landscape eea-card--fullwidth'">
                     <div class="eea-card-header">
                       <div class="eea-card-title-wrapper">
                         <div class="eea-card-title">
@@ -49,12 +59,12 @@
                     <div class="eea-card-body">
                       <div class="eea-card-image-wrapper">
                         <a href="#" class="eea-card-image-link" tal:attributes="href url">
-                          <img tal:attributes="src string:${url}/${image_scale}; width thumbnail/width; height thumbnail/height" alt=""
-                               tal:define="image_scale python: 'image_large';
-                                          brain relation/brain;
-                                          obj brain/getObject;
-                                          scales obj/@@images;
-                                          thumbnail python: scales.scale('image', 'large')" class="skip_lazy eea-card-image eea-card-image--pull"  />
+                          <img tal:attributes="src string:${url}/${image_scale};
+                              width thumb_width;
+                              height thumb_height;
+                              class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
+                              " alt=""
+                               tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull'" />
                         </a>
                       </div>
                       <div class="eea-card-body-text"  tal:condition="fullwidth">
