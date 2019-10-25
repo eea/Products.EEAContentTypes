@@ -43,8 +43,8 @@
                       rel_obj rel_brain/getObject;
                       scales rel_obj/@@images;
                       thumbnail python: scales.scale('image', 'large');
-                      thumb_width thumbnail/width;
-                      thumb_height thumbnail/height;
+                      thumb_width thumbnail/width|python:543;
+                      thumb_height thumbnail/height|python:768;
                       thumb_is_portrait python: thumb_height > thumb_width;"
                        tal:attributes="class python:'eea-card eea-card--double eea-card--landscape direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--landscape eea-card--fullwidth'">
                     <div class="eea-card-header">
