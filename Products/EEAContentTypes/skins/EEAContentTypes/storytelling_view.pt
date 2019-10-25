@@ -40,8 +40,8 @@
                       relation_with_description python: repeat_num == 2;
                       fullwidth python: relation_with_description or num_of_relations == 1;
                       rel_brain relation/brain;
-                      obj rel_brain/getObject;
-                      scales obj/@@images;
+                      rel_obj rel_brain/getObject;
+                      scales rel_obj/@@images;
                       thumbnail python: scales.scale('image', 'large');
                       thumb_width thumbnail/width;
                       thumb_height thumbnail/height;
@@ -67,8 +67,9 @@
                                tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull'" />
                         </a>
                       </div>
-                      <div class="eea-card-body-text"  tal:condition="fullwidth">
-                        <p tal:replace="structure storyitem/full_story_description"></p>
+                      <div class="eea-card-body-text eea-card-link">
+                        <p tal:replace="structure storyitem/full_story_description" tal:condition="fullwidth"></p>
+                        <h2 tal:content="rel_obj/Title" tal:condition="thumb_is_portrait"></h2>
                       </div>
                     </div>
                     <div class="eea-card-footer">
