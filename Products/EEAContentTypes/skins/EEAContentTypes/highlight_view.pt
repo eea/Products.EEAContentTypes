@@ -30,9 +30,13 @@
               figure_source_copyright here/getImageCopyright;
               figure_link here/getImageLink">
 
-              <tal:figure tal:condition="figure">
-                <metal:thefigure use-macro="here/media_macros/macros/figure-plus-wide" />
-              </tal:figure>
+              <div class="fullwidth-img-container">
+                <div class="fullwidth-img-bg" tal:attributes="style python:'background-image:url(' + context.absolute_url() + '/image_panoramic' + ')'"></div>
+              </div>
+
+<!--?              <tal:figure tal:condition="figure">-->
+<!--?                <metal:thefigure use-macro="here/media_macros/macros/figure-plus-wide" />-->
+<!--?              </tal:figure>-->
 
             </div>
             <blockquote class="quote-left" tal:condition="hasQuote" >
