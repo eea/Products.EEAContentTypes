@@ -69,7 +69,7 @@
                       </div>
                       <div class="eea-card-body-text eea-card-link">
                         <p tal:replace="structure storyitem/full_story_description" tal:condition="fullwidth"></p>
-                        <h2 tal:content="rel_obj/Title" tal:condition="thumb_is_portrait"></h2>
+                        <h2 tal:content="rel_obj/Title" tal:condition="python: thumb_is_portrait and not fullwidth"></h2>
                       </div>
                     </div>
                     <div class="eea-card-footer">
