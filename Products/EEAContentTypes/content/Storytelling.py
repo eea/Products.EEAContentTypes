@@ -105,4 +105,15 @@ class Storytelling(folder.ATFolder, document.ATDocumentBase, ThemeTaggable):
 
         return result
 
+    def getRelatedImage(self, obj):
+        brains = obj.getFolderContents(contentFilter={'portal_type':'Image'})
+        if (len(brains) > 0):
+            image = brains[0].getObject()
+            return image.restrictedTraverse("@@images", False)
+
+    def isRelatedPublished(self, obj):
+        wftool = getToolByName(obj, 'portal_workflow')
+        state = wftool.getInfoFor(obj, 'review_state', None)
+        return state
+
 atapi.registerType(Storytelling, PROJECTNAME)
