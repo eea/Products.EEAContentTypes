@@ -52,7 +52,7 @@
                          tal:attributes="class python:'eea-card eea-card--double eea-card--landscape direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--landscape eea-card--fullwidth'">
                       <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous"
                             tal:condition="python: storyitem.isRelatedPublished(rel_obj) != 'published' and not isAnon" class="portalMessage warningMessage">
-                        <span>
+                        <span i18n:translate="">
                           Warning: Document is not published
                         </span>
                       </div>

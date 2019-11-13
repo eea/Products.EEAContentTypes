@@ -9,10 +9,10 @@
 
   <metal:content-description fill-slot="content-description">
       <metal:content-desc define-macro="content-description">
-          <tal:descriptionOrTeaser define="teaserDescription here/getTeaser">
+          <tal:descriptionOrTeaser define="teaserDescription here/getTeaser; description python:here.Description()">
               <div class="documentDescription"
-                       tal:condition="python:not here.Description() and teaserDescription">
-                  <tal:description tal:content="teaserDescription" ></tal:description>
+                       tal:condition="python:description or teaserDescription">
+                  <tal:description tal:content="python:teaserDescription or description" ></tal:description>
               </div>
           </tal:descriptionOrTeaser>
       </metal:content-desc>
