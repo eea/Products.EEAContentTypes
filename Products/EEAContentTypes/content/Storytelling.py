@@ -109,7 +109,16 @@ class Storytelling(folder.ATFolder, document.ATDocumentBase, ThemeTaggable):
         brains = obj.getFolderContents(contentFilter={'portal_type':'Image'})
         if (len(brains) > 0):
             image = brains[0].getObject()
-            return image.restrictedTraverse("@@images", False)
+            images = image.restrictedTraverse("@@images", False)
+            if images:
+                return images.scale("image", "large")
+            else:
+                return False
+        else:
+            if obj.portal_type == 'Assessment':
+                return {'width': 745, 'height':420}
+            else:
+                return False
 
     def isRelatedPublished(self, obj):
         wftool = getToolByName(obj, 'portal_workflow')
