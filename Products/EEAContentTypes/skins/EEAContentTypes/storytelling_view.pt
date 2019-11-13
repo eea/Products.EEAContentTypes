@@ -73,7 +73,7 @@
                                 height thumb_height;
                                 class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
                                 " alt=""
-                                 tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull'" />
+                                 tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull eea-card-image-bordered'" />
                           </a>
                         </div>
                         <div class="eea-card-body-text eea-card-link">
