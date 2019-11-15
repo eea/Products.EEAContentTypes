@@ -99,9 +99,30 @@ class Storytelling(folder.ATFolder, document.ATDocumentBase, ThemeTaggable):
         for uid in raw_items:
             brain = ctool.unrestrictedSearchResults(UID=uid, show_inactive=True)
             if brain:
-                result.append({'url':brain[0].getURL(), 
-                               'title':brain[0].Title, 'uid':uid})
+                result.append({'url': brain[0].getURL(),
+                               'title': brain[0].Title, 'brain': brain[0],
+                               'uid': uid})
 
         return result
+
+    def getRelatedImage(self, obj):
+        brains = obj.getFolderContents(contentFilter={'portal_type':'Image'})
+        if (len(brains) > 0):
+            image = brains[0].getObject()
+            images = image.restrictedTraverse("@@images", False)
+            if images:
+                return images.scale("image", "large")
+            else:
+                return False
+        else:
+            if obj.portal_type == 'Assessment':
+                return {'width': 745, 'height':420}
+            else:
+                return False
+
+    def isRelatedPublished(self, obj):
+        wftool = getToolByName(obj, 'portal_workflow')
+        state = wftool.getInfoFor(obj, 'review_state', None)
+        return state
 
 atapi.registerType(Storytelling, PROJECTNAME)
