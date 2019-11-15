@@ -75,7 +75,7 @@
                             <img tal:attributes="src string:${url}/${image_scale};
                                 width thumb_width;
                                 height thumb_height;
-                                style python: 'width:%spx!important;;height:%spx' %(landscape_width,landscape_height) if not thumb_is_portrait else '';
+                                style python: 'width:%spx;;height:%spx' %(landscape_width,landscape_height) if not thumb_is_portrait else '';
                                 class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
                                 " alt=""
                                  tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull eea-card-image-bordered'" />
