@@ -48,7 +48,11 @@
                         thumbnail python: thumbnail if thumbnail else storyitem.getRelatedImage(rel_obj) if storyitem.getRelatedImage(rel_obj) else False;
                         thumb_width thumbnail/width|python:543;
                         thumb_height thumbnail/height|python:768;
-                        thumb_is_portrait python: thumb_height > thumb_width;"
+                        thumb_is_portrait python: thumb_height > thumb_width;
+                        landscape_max_height python: 333;
+                        landscape_width python: float(thumb_width) / thumb_height * landscape_max_height if not thumb_is_portrait else thumb_width;
+                        landscape_height python: landscape_max_height if not thumb_is_portrait else thumb_height;
+"
                          tal:attributes="class python:'eea-card eea-card--double eea-card--landscape direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--landscape eea-card--fullwidth'">
                       <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous"
                             tal:condition="python: storyitem.isRelatedPublished(rel_obj) != 'published' and not isAnon" class="portalMessage warningMessage">
@@ -71,6 +75,7 @@
                             <img tal:attributes="src string:${url}/${image_scale};
                                 width thumb_width;
                                 height thumb_height;
+                                style python: 'width:%spx!important;;height:%spx' %(landscape_width,landscape_height) if not thumb_is_portrait else '';
                                 class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
                                 " alt=""
                                  tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image eea-card-image--pull eea-card-image-bordered'" />
@@ -78,7 +83,7 @@
                         </div>
                         <div class="eea-card-body-text eea-card-link">
                           <p tal:replace="structure storyitem/full_story_description" tal:condition="fullwidth"></p>
-                          <h2 tal:content="rel_obj/Title" tal:condition="python: thumb_is_portrait and not fullwidth"></h2>
+                          <p tal:content="rel_obj/Title" tal:condition="python: thumb_is_portrait and not fullwidth"></p>
                         </div>
                       </div>
                       <div class="eea-card-footer">
