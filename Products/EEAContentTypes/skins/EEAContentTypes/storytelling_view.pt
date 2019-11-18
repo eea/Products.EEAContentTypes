@@ -55,12 +55,6 @@
                         card_base_class python:'eea-card eea-card--double direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--fullwidth';"
                          tal:attributes="class python: card_base_class + ' eea-card--landscape' if not thumb_is_portrait
                                         else card_base_class + ' eea-card--landscape'">
-                      <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous"
-                            tal:condition="python: storyitem.isRelatedPublished(rel_obj) != 'published' and not isAnon" class="portalMessage warningMessage">
-                        <span i18n:translate="">
-                          Warning: Document is not published
-                        </span>
-                      </div>
                       <div class="eea-card-header">
                         <div class="eea-card-title-wrapper">
                           <div class="eea-card-title">
@@ -69,6 +63,13 @@
                             </a>
                           </div>
                         </div>
+                      </div>
+
+                      <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous"
+                           tal:condition="python: storyitem.isRelatedPublished(rel_obj) != 'published' and not isAnon" class="portalMessage warningMessage">
+                        <span i18n:translate="">
+                          Warning: Document is not published
+                        </span>
                       </div>
                       <div class="eea-card-body" tal:define="has_body_text python: fullwidth or thumb_is_portrait">
                           <a href="#" tal:define="base_class python:'eea-card-image-link eea-card-image--pull eea-card-image-bordered';" tal:attributes="href url;
