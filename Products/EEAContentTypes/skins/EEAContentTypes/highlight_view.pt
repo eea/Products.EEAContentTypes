@@ -39,10 +39,10 @@
 <!--?              </tal:figure>-->
 
             </div>
-            <blockquote class="quote-left" tal:condition="hasQuote" >
-              <p tal:content="here/getQuotationText" />
+            <div class="quote-left bg-grey" tal:condition="hasQuote" >
+              <blockquote tal:content="here/getQuotationText" class="pullquoteFull" />
               <p class="source" tal:content="here/getQuotationSource" />
-            </blockquote>
+            </div>
           </tal:descriptionOrTeaser>
         </metal:teaserFigureRelated>
         <metal:field use-macro="python:context.widget('text', mode='view')">

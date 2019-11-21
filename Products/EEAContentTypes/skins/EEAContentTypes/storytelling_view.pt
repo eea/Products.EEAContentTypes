@@ -45,7 +45,8 @@
                     <div class="eea-card" tal:define="
                         scales rel_obj/@@images;
                         thumbnail python: scales.scale('image', 'large');
-                        thumbnail python: thumbnail if thumbnail else storyitem.getRelatedImage(rel_obj) if storyitem.getRelatedImage(rel_obj) else False;
+                        thumbnail python: thumbnail if thumbnail else storyitem.getRelatedImage(rel_obj);
+                        thumbnail python: {'width': 768, 'height': 543} if rel_obj.portal_type == 'DavizVisualization' else thumbnail;
                         thumb_width thumbnail/width|python:543;
                         thumb_height thumbnail/height|python:768;
                         thumb_is_portrait python: thumb_height > thumb_width;
@@ -72,7 +73,7 @@
                         </span>
                       </div>
                       <div class="eea-card-body" tal:define="has_body_text python: fullwidth or thumb_is_portrait">
-                          <a href="#" tal:define="base_class python:'eea-card-image-link eea-card-image--pull eea-card-image-bordered';" tal:attributes="href url;
+                          <a href="#" tal:define="base_class python:'eea-card-image-link';" tal:attributes="href url;
                               class python: base_class if not has_body_text else base_class + ' eea-card-with-text'">
                             <img tal:attributes="src string:${url}/${image_scale};
                                 width thumb_width;
@@ -80,7 +81,7 @@
                                 style python: '';
                                 class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
                                 " alt=""
-                                 tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image '" />
+                                 tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image  eea-card-image-bordered '" />
                           </a>
                         <div class="eea-card-body-text eea-card-link" tal:condition="has_body_text">
                           <p tal:replace="structure storyitem/full_story_description" tal:condition="fullwidth"></p>
