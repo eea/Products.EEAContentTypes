@@ -104,7 +104,7 @@ schema = public.Schema((
                    swallowResizeExceptions=enable_exception,
                    pil_quality=zconf.pil_config.quality,
                    pil_resize_algo=zconf.pil_config.resize_algo,
-                   max_size=(2000, 2000),
+                   max_size=(7000, 7000),
                    sizes={'print': (2000, 2000),
                           'panoramic': (1920, 1080),
                           'landscape': (1370, 771),
@@ -128,7 +128,7 @@ schema = public.Schema((
                        description=(
                            "Will be shown in the news listing, and in the news "
                            "item itself. Image will be scaled to a sensible"
-                           " size and image width should be of minimum 1024px"),
+                           " size and image width should be of minimum 1920px"),
                        description_msgid="help_news_image",
                        label="Image",
                        label_msgid="label_news_image",
