@@ -14,34 +14,22 @@
                                       object_title context/@@plone_context_state/object_title;">
 
         <metal:teaserFigureRelated define-macro="teaserFigureRelated"
-        tal:define="hasQuote python: len(here.getQuotationText());
-                    figure here/getImage;
-                    figure python:test(figure and figure != ' ', here.getScale('mini'), None);">
+        tal:define="quote python: here.getQuotationText(); hasQuote python: len(quote);">
           <tal:descriptionOrTeaser define="teaserDescription here/getTeaser">
             <div class="documentDescription"
               tal:condition="python:not here.Description()">
               <tal:description tal:content="teaserDescription" ></tal:description>
             </div>
-            <div tal:omit-tag=""
-              tal:define="figure_title here/getImageCaption;
-              figure_note python:test(not here.Description() or here.Description() == here.getTeaser(),
-              here.getImageNote(), here.getTeaser());
-              figure_scale string:xlarge;
-              figure_source_copyright here/getImageCopyright;
-              figure_link here/getImageLink">
 
+          <div class="fullwidth-img-container">
+              <div class="fullwidth-img-bg" tal:attributes="style python:'background-image:url(' + here_url + '/image_panoramic' + ')'; title here/getImageCopyright;"></div>
+          </div>
 
-              <div class="fullwidth-img-container">
-                <div class="fullwidth-img-bg" tal:attributes="style python:'background-image:url(' + here_url + '/image_panoramic' + ')'"></div>
-              </div>
-<!--?              <tal:figure tal:condition="figure">-->
-<!--?                <metal:thefigure use-macro="here/media_macros/macros/figure-plus-wide" />-->
-<!--?              </tal:figure>-->
-
-            </div>
-            <div class="quote-left bg-grey" tal:condition="hasQuote" >
-              <blockquote tal:content="here/getQuotationText" class="pullquoteFull" />
-              <p class="source" tal:content="here/getQuotationSource" />
+            <div class="bg-grey" tal:condition="hasQuote">
+              <blockquote  class="pullquote-full">
+                <p  tal:content="quote" />
+                <p class="source" tal:content="here/getQuotationSource" />
+              </blockquote>
             </div>
           </tal:descriptionOrTeaser>
         </metal:teaserFigureRelated>
