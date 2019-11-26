@@ -27,9 +27,7 @@
           </tal:messages>
 
           <div class="storytelling-header">
-              <a href="#" class="storytelling-link" tal:attributes="href storyitem/absolute_url">
                 <h2 tal:content="storyitem/Title" class="dark-color"></h2>
-              </a>
               <p tal:content="storyitem/Description"></p>
             </div>
             <div class="storytelling-body">
@@ -41,7 +39,9 @@
                     relation_with_description python: repeat_num == 2;
                     fullwidth python: relation_with_description or num_of_relations == 1;
                     rel_brain relation/brain;
-                    rel_obj rel_brain/getObject | nothing;" tal:condition="rel_obj">
+                    rel_obj rel_brain/getObject | nothing;
+                    external_url rel_obj/getUrl|url;"
+                       tal:condition="rel_obj">
                     <div class="eea-card" tal:define="
                         scales rel_obj/@@images;
                         thumbnail python: scales.scale('image', 'large');
@@ -59,7 +59,7 @@
                       <div class="eea-card-header">
                         <div class="eea-card-title-wrapper">
                           <div class="eea-card-title">
-                            <a href="#" class="eea-card-link" tal:attributes="href url">
+                            <a href="#" class="eea-card-link link-plain" tal:attributes="href external_url">
                               <h2 tal:content="python: titles[repeat_num] if repeat_num < num_of_titles else ''"></h2>
                             </a>
                           </div>
@@ -73,7 +73,7 @@
                         </span>
                       </div>
                       <div class="eea-card-body" tal:define="has_body_text python: fullwidth or thumb_is_portrait">
-                          <a href="#" tal:define="base_class python:'eea-card-image-link';" tal:attributes="href url;
+                          <a href="#" tal:define="base_class python:'eea-card-image-link  link-plain';" tal:attributes="href external_url;
                               class python: base_class if not has_body_text else base_class + ' eea-card-with-text'">
                             <img tal:attributes="src string:${url}/${image_scale};
                                 width thumb_width;
@@ -89,7 +89,7 @@
                         </div>
                       </div>
                       <div class="eea-card-footer">
-                        <a href="#" tal:attributes="href url" class="moreLink">&nbsp;</a>
+                        <a href="#" tal:attributes="href external_url" class="moreLink link-plain">&nbsp;</a>
                       </div>
                     </div>
                   </tal:relation>
