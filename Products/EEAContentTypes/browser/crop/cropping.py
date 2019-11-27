@@ -12,6 +12,7 @@ from zope.interface import providedBy
 from zope.lifecycleevent import ObjectModifiedEvent
 from plone.app.blob.interfaces import IBlobImageField
 from plone.app.imaging.traverse import DefaultImageScaleHandler
+import math
 
 
 class CroppableImagesView(BrowserView):
@@ -95,8 +96,8 @@ class CropImageView(BrowserView):
         preview_ratio_x, preview_ratio_y = self.scaleToLargeRatios()
         box = (int(preview_ratio_x * float(self.request['x1'])),
                int(preview_ratio_y * float(self.request['y1'])),
-               int(preview_ratio_x * float(self.request['x2'])),
-               int(preview_ratio_y * float(self.request['y2'])),)
+               int(math.ceil(preview_ratio_x * float(self.request['x2']))),
+               int(math.ceil(preview_ratio_y * float(self.request['y2']))))
         field = self.context.getField(self.field_name)
 
         value = field.get(self.context)

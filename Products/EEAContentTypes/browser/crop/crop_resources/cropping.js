@@ -16,15 +16,9 @@ jQuery(document).ready(function () {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
                     xratio = window.parseFloat(cropImage.attr('data-previewratiox'));
-                    ptype = cropImage.attr('data-ptype');
-                    if (ptype === 'CountryRegionSection') {
-                        minX = Math.round(1920 / xratio);
-                        minY = Math.round(1080 / yratio);
-                    }
-                    else {
-                        minX = Math.round(1024 / xratio);
-                        minY = Math.round(576 / yratio);
-                    }
+                    minX = Math.round(1920 / xratio);
+                    minY = Math.round(1080 / yratio);
+
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
                     cropbox = null;
@@ -36,6 +30,14 @@ jQuery(document).ready(function () {
                         minSize: [minX, minY],
                         onSelect: function (coords) {
                                 cropbox = coords;
+                                // we need to remove 1px for width and height
+                                // otherwise 1920x1080 ends up as 1922x1082
+                                // due to aspect ratio lock
+                                cropbox.w = cropbox.w - 1
+                                cropbox.h = cropbox.h - 1
+                                cropbox.x2 = cropbox.x2 - 1
+                                cropbox.y2 = cropbox.y2 - 1
+
                                 var cropbox_x = Math.ceil(cropbox.w * xratio),
                                     cropbox_y = Math.ceil(cropbox.h * yratio),
                                     crop_text = cropbox_x + "x" + cropbox_y + "px";
