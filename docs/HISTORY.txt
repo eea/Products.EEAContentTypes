@@ -3,6 +3,9 @@ Changelog
 
 18.8-dev0 - (unreleased)
 ---------------------------
+* Bug fix: ensure that the javascript dimensions are now 16 by 9
+  and that they are then used by the python code for cropping
+  [ichim-david refs #111636]
 
 18.7 - (2019-11-26)
 ---------------------------
