@@ -1,6 +1,9 @@
 Changelog
 =========
 
+18.9-dev0 - (unreleased)
+---------------------------
+
 18.8 - (2019-11-28)
 ---------------------------
 * Change: modified wording for GisApplication and Dashboard minimum
