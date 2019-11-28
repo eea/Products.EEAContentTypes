@@ -3,6 +3,9 @@ Changelog
 
 18.8-dev0 - (unreleased)
 ---------------------------
+* Change: modified wording for GisApplication and Dashboard minimum
+  size validator to say full hd instead of 1024px
+  [ichim-david refs #111636]
 * Bug fix: ensure that the javascript dimensions are now 16 by 9
   and that they are then used by the python code for cropping
   [ichim-david refs #111636]
