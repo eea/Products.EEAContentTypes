@@ -93,10 +93,13 @@ class CropImageView(BrowserView):
         """ Crops the image
         """
         preview_ratio_x, preview_ratio_y = self.scaleToLargeRatios()
-        box = (int(preview_ratio_x * float(self.request['x1'])),
-               int(preview_ratio_y * float(self.request['y1'])),
-               int(preview_ratio_x * float(self.request['x2'])),
-               int(preview_ratio_y * float(self.request['y2'])),)
+        position_x = int(preview_ratio_x * float(self.request['x1']))
+        position_y = int(preview_ratio_y * float(self.request['y1']))
+        box = (position_x,
+               position_y,
+               position_x + int(self.request['full_width']),
+               position_y + int(self.request['full_height'])
+               )
         field = self.context.getField(self.field_name)
 
         value = field.get(self.context)

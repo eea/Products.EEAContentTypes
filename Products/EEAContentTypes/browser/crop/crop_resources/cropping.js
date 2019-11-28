@@ -11,20 +11,14 @@ jQuery(document).ready(function () {
                     imageRecrop = jQuery('#image-recrop'),
                     Math = window.Math,
                     field, yratio, xratio, crop_size, jcrop, cropbox, minX, minY,
-                    ptype, aspect_ratio = 16 / 9;
+                    aspect_ratio = 16 / 9;
                 if (cropImage.length) {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
                     xratio = window.parseFloat(cropImage.attr('data-previewratiox'));
-                    ptype = cropImage.attr('data-ptype');
-                    if (ptype === 'CountryRegionSection') {
-                        minX = Math.round(1920 / xratio);
-                        minY = Math.round(1080 / yratio);
-                    }
-                    else {
-                        minX = Math.round(1024 / xratio);
-                        minY = Math.round(576 / yratio);
-                    }
+                    minX = Math.round(1920 / xratio);
+                    minY = Math.round(1080 / yratio);
+
                     crop_size = jQuery("#crop_size");
                     jcrop = jQuery.Jcrop(cropImage);
                     cropbox = null;
@@ -36,9 +30,28 @@ jQuery(document).ready(function () {
                         minSize: [minX, minY],
                         onSelect: function (coords) {
                                 cropbox = coords;
+                                // we need to remove 1px for width and height
+                                // otherwise 1920x1080 ends up as 1922x1082
+                                // due to aspect ratio lock
+                                if (cropbox.w > 737) {
+                                    cropbox.w = cropbox.w - 1;
+                                    cropbox.x2 = cropbox.x2 - 1;
+                                }
+
+                                cropbox.h = cropbox.h - 1;
+                                cropbox.y2 = cropbox.y2 - 1;
+
                                 var cropbox_x = Math.ceil(cropbox.w * xratio),
                                     cropbox_y = Math.ceil(cropbox.h * yratio),
-                                    crop_text = cropbox_x + "x" + cropbox_y + "px";
+                                    crop_text,
+                                    sixteen_nine_y = Math.round((cropbox_x / 16) * 9);
+
+                                if (cropbox_y > sixteen_nine_y) {
+                                    cropbox_y -= 1;
+                                }
+                                cropbox.full_width = cropbox_x;
+                                cropbox.full_height = cropbox_y;
+                                crop_text = cropbox_x + "x" + cropbox_y + "px";
                                 crop_size.html(crop_text);
                                 if (crop_size.text() !== '0x0px') {
                                     imageRecrop.removeClass('hidden');
@@ -60,7 +73,9 @@ jQuery(document).ready(function () {
                                        x1: cropbox.x,
                                        y1: cropbox.y,
                                        x2: cropbox.x2,
-                                       y2: cropbox.y2
+                                       y2: cropbox.y2,
+                                       full_width: cropbox.full_width,
+                                       full_height: cropbox.full_height
                                       },
                                 success: function () {
                                     window.location.replace(context_url);

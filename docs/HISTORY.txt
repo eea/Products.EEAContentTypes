@@ -1,6 +1,15 @@
 Changelog
 =========
 
+18.8 - (2019-11-28)
+---------------------------
+* Change: modified wording for GisApplication and Dashboard minimum
+  size validator to say full hd instead of 1024px
+  [ichim-david refs #111636]
+* Bug fix: ensure that the javascript dimensions are now 16 by 9
+  and that they are then used by the python code for cropping
+  [ichim-david refs #111636]
+
 18.7 - (2019-11-26)
 ---------------------------
 * Change: modified min width of image validation to 1920 from 1024 

@@ -66,7 +66,7 @@ schema = Schema((
                            ('imageMinSize', V_REQUIRED)),
                widget=ImageWidget(
                    description='High-res preview image'
-                               ' (at least 1024px width)',
+                               ' (at least FHD 1920x1080)',
                    label='Preview image',
                    show_content_type=False, )
                ),
