@@ -11,7 +11,7 @@ jQuery(document).ready(function () {
                     imageRecrop = jQuery('#image-recrop'),
                     Math = window.Math,
                     field, yratio, xratio, crop_size, jcrop, cropbox, minX, minY,
-                    ptype, aspect_ratio = 16 / 9;
+                    aspect_ratio = 16 / 9;
                 if (cropImage.length) {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
@@ -42,9 +42,10 @@ jQuery(document).ready(function () {
                                 cropbox.y2 = cropbox.y2 - 1;
 
                                 var cropbox_x = Math.ceil(cropbox.w * xratio),
-                                    cropbox_y = Math.ceil(cropbox.h * yratio);
+                                    cropbox_y = Math.ceil(cropbox.h * yratio),
+                                    crop_text,
+                                    sixteen_nine_y = Math.round((cropbox_x / 16) * 9);
 
-                                var sixteen_nine_y = Math.round((cropbox_x / 16) * 9);
                                 if (cropbox_y > sixteen_nine_y) {
                                     cropbox_y -= 1;
                                 }
