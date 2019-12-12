@@ -103,7 +103,7 @@ div.archived p
                      </tal:block>
                      <div><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
                            <span class="eea-icon eea-icon-eye"></span>
-                           <span i18n:translate="">Explore map interactively</span>
+                           <span i18n:translate="">More info</span>
                          </a>
                          <div class="visualClear"><!-- --></div></div>
                  </tal:block>
