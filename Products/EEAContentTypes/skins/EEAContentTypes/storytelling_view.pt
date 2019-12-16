@@ -30,7 +30,7 @@
                 <h2 tal:content="storyitem/Title" class="dark-color"></h2>
               <p tal:content="storyitem/Description"></p>
             </div>
-            <div class="storytelling-body">
+            <div class="storytelling-body" tal:define="types_with_view here/portal_properties/site_properties/typesUseViewActionInListings;">
               <tal:items tal:repeat="relation relations" tal:condition="relations">
                 <tal:defines tal:define="
                     repeat_num python: repeat['relation'].index;">
@@ -43,16 +43,18 @@
                     external_url rel_obj/getUrl|url;"
                        tal:condition="rel_obj">
                     <div class="eea-card" tal:define="
+                        ptype python:rel_obj.portal_type;
                         scales rel_obj/@@images;
                         thumbnail python: scales.scale('image', 'large');
                         thumbnail python: thumbnail if thumbnail else storyitem.getRelatedImage(rel_obj);
-                        thumbnail python: {'width': 768, 'height': 543} if rel_obj.portal_type == 'DavizVisualization' else thumbnail;
+                        thumbnail python: {'width': 768, 'height': 543} if ptype == 'DavizVisualization' else thumbnail;
                         thumb_width thumbnail/width|python:543;
                         thumb_height thumbnail/height|python:768;
                         thumb_is_portrait python: thumb_height > thumb_width;
                         landscape_max_height python: 333;
                         landscape_width python: float(thumb_width) / thumb_height * landscape_max_height if not thumb_is_portrait else thumb_width;
                         landscape_height python: landscape_max_height if not thumb_is_portrait else thumb_height;
+                        external_url python: external_url + '/view' if ptype in types_with_view else external_url;
                         card_base_class python:'eea-card eea-card--double direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--fullwidth';"
                          tal:attributes="class python: card_base_class + ' eea-card--landscape' if not thumb_is_portrait
                                         else card_base_class + ' eea-card--landscape'">
