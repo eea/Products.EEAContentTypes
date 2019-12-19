@@ -78,8 +78,8 @@
                           <a href="#" tal:define="base_class python:'eea-card-image-link  link-plain';" tal:attributes="href external_url;
                               class python: base_class if not has_body_text else base_class + ' eea-card-with-text'">
                             <img tal:attributes="src string:${url}/${image_scale};
-                                width thumb_width;
-                                height thumb_height;
+                                width python:250;
+                                height python:350;
                                 style python: '';
                                 class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
                                 " alt=""
