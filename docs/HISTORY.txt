@@ -3,6 +3,9 @@ Changelog
 
 18.9-dev0 - (unreleased)
 ---------------------------
+* Change: improve storytelling image positioning when landscape&portrait are
+  side-by-side
+  [ichim-david refs #111967]
 
 18.8 - (2019-11-28)
 ---------------------------
