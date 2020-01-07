@@ -104,13 +104,15 @@
                   second_image = images[1];
                   first_image_height = first_image.height + 6;
                   second_image_height = second_image.height + 6;
-                  if (first_image_height > first_image.width) {
+                  if ((first_image_height - first_image.width) > 100) {
                     image_to_resize = first_image;
                     image_to_calculate = second_image;
+                    first_image.style.height = second_image_height.toString() + 'px';
                   }
-                  else if (second_image_height > second_image.width) {
+                  else if ((second_image_height - second_image.width) > 100) {
                     image_to_resize = second_image;
                     image_to_calculate = first_image;
+                    second_image.style.height = first_image_height.toString() + 'px';
                   }
                   else if (first_image_height > second_image_height) {
                     first_image.style.height = second_image_height.toString() + 'px';
