@@ -1,6 +1,9 @@
 Changelog
 =========
 
+19.0-dev0 - (unreleased)
+---------------------------
+
 18.9 - (2020-01-09)
 ---------------------------
 * Change: improve storytelling image positioning when landscape&portrait are
