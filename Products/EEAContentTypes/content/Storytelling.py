@@ -116,7 +116,7 @@ class Storytelling(folder.ATFolder, document.ATDocumentBase, ThemeTaggable):
                 return False
         else:
             if obj.portal_type == 'Assessment':
-                return {'width': 745, 'height':420}
+                return {'width': 768, 'height': 488}
             else:
                 return False
 

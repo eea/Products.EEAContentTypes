@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/prefs_main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+        <div metal:fill-slot="prefs_configlet_main"
+             tal:define="results view/getExpirationDateStatus;
+                         isAnon context/@@plone_portal_state/anonymous;">
+            <h1 class="documentFirstHeading" i18n:translate="">Objects archived without Expiration Date</h1>
+            <p class="discreet" i18n:translate="">Details about objects archived without expiration date.</p>
+                
+            <div tal:condition="results">
+                <div class="portalMessage warningMessage">
+                     <span tal:content="python:len(results)"></span> <span tal:omit-tag="" i18n:translate="">objects are affected</span>.
+                </div>
+
+                <form method="POST" enctype="multipart/form-data"
+                    tal:attributes="action string:${here/absolute_url}/@@expirationdate-status-controlpanel/startFixExpirationDate">
+                    <input type="hidden" name="start_from_script" value="T"/>
+                    <input type="submit" value="Fix all now" i18n:attributes="value" />
+                </form>
+
+                <table class="listing">
+                    <thead>
+                        <tr>
+                            <th style="width: 100%;" i18n:translate="">Object Name</th>
+                            <th i18n:translate="">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr tal:repeat="item results">
+                            <td><a tal:attributes="href item/url" tal:content="python: item.get('title', '').strip() or item['id']"></a></td>
+                            <td><span tal:content="item/type"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div tal:condition="not:results" class="portalMessage thumbsUpMessage" i18n:translate="">
+                All right! There are no affected objects.
+            </div>
+
+        </div>
+    </body>
+</html>

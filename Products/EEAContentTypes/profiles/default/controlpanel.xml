@@ -2,12 +2,23 @@
 <object name="portal_controlpanel">
   <configlet
     title="Monitor: missing Publishing Date"
-    action_id="Products.EEAContentTypes"
+    action_id="missingPublishingDate"
     icon_expr="string:$portal_url/maintenance_icon.png"
-    appId="Products.EEAContentTypes"
+    appId="missingPublishingDate"
     category="Products"
     condition_expr=""
     url_expr="string:${portal_url}/@@effectivedate-status-controlpanel"
+    visible="True">
+    <permission>Manage portal</permission>
+  </configlet>
+  <configlet
+    title="Monitor: missing Expiration Date (Archived)"
+    action_id="missingExpirationDate"
+    icon_expr="string:$portal_url/maintenance_icon.png"
+    appId="missingExpirationDate"
+    category="Products"
+    condition_expr=""
+    url_expr="string:${portal_url}/@@expirationdate-status-controlpanel"
     visible="True">
     <permission>Manage portal</permission>
   </configlet>

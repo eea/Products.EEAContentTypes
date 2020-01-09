@@ -30,7 +30,7 @@
                 <h2 tal:content="storyitem/Title" class="dark-color"></h2>
               <p tal:content="storyitem/Description"></p>
             </div>
-            <div class="storytelling-body">
+            <div class="storytelling-body" tal:define="types_with_view here/portal_properties/site_properties/typesUseViewActionInListings;">
               <tal:items tal:repeat="relation relations" tal:condition="relations">
                 <tal:defines tal:define="
                     repeat_num python: repeat['relation'].index;">
@@ -43,16 +43,15 @@
                     external_url rel_obj/getUrl|url;"
                        tal:condition="rel_obj">
                     <div class="eea-card" tal:define="
+                        ptype python:rel_obj.portal_type;
                         scales rel_obj/@@images;
                         thumbnail python: scales.scale('image', 'large');
                         thumbnail python: thumbnail if thumbnail else storyitem.getRelatedImage(rel_obj);
-                        thumbnail python: {'width': 768, 'height': 543} if rel_obj.portal_type == 'DavizVisualization' else thumbnail;
+                        thumbnail python: {'width': 768, 'height': 543} if ptype == 'DavizVisualization' else thumbnail;
                         thumb_width thumbnail/width|python:543;
                         thumb_height thumbnail/height|python:768;
                         thumb_is_portrait python: thumb_height > thumb_width;
-                        landscape_max_height python: 333;
-                        landscape_width python: float(thumb_width) / thumb_height * landscape_max_height if not thumb_is_portrait else thumb_width;
-                        landscape_height python: landscape_max_height if not thumb_is_portrait else thumb_height;
+                        external_url python: external_url + '/view' if ptype in types_with_view else external_url;
                         card_base_class python:'eea-card eea-card--double direction-column' if not relation_with_description and num_of_relations != 1 else 'eea-card eea-card--fullwidth';"
                          tal:attributes="class python: card_base_class + ' eea-card--landscape' if not thumb_is_portrait
                                         else card_base_class + ' eea-card--landscape'">
@@ -76,11 +75,9 @@
                           <a href="#" tal:define="base_class python:'eea-card-image-link  link-plain';" tal:attributes="href external_url;
                               class python: base_class if not has_body_text else base_class + ' eea-card-with-text'">
                             <img tal:attributes="src string:${url}/${image_scale};
-                                width thumb_width;
-                                height thumb_height;
-                                style python: '';
-                                class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';
-                                " alt=""
+                                width thumb_width|python:250;
+                                height thumb_height|python:350;
+                                class python: default_class if not thumb_is_portrait else default_class + ' eea-card-image--portrait';" alt=""
                                  tal:define="image_scale python: 'image_large'; default_class python:'skip_lazy eea-card-image  eea-card-image-bordered '" />
                           </a>
                         <div class="eea-card-body-text eea-card-link" tal:condition="has_body_text">
@@ -98,6 +95,50 @@
             </div>
            </tal:relatedItems>
           </div>
+            <script>
+              (function(){
+                var images = document.querySelectorAll('.eea-card--double img');
+                var first_image, first_image_height, second_image, second_image_height, image_to_resize, image_to_calculate;
+                if (images.length === 2) {
+                  first_image = images[0];
+                  second_image = images[1];
+                  first_image_height = first_image.height + 6;
+                  second_image_height = second_image.height + 6;
+                  if ((first_image_height - first_image.width) > 100) {
+                    image_to_resize = first_image;
+                    image_to_calculate = second_image;
+                    first_image.style.height = second_image_height.toString() + 'px';
+                  }
+                  else if ((second_image_height - second_image.width) > 100) {
+                    image_to_resize = second_image;
+                    image_to_calculate = first_image;
+                    second_image.style.height = first_image_height.toString() + 'px';
+                  }
+                  else if (first_image_height > second_image_height) {
+                    first_image.style.height = second_image_height.toString() + 'px';
+                    image_to_resize = first_image;
+                    image_to_calculate = second_image;
+                  }
+                  else {
+                    second_image.style.height = first_image_height.toString() + 'px';
+                    image_to_resize = second_image;
+                    image_to_calculate = first_image;
+                  }
+                }
+                jQuery(function($) {
+                  var $window = $(window);
+                  $window.resize(_.debounce(function() {
+                    var window_width = $window.width();
+                    if (window_width > 1023) {
+                      image_to_resize.style.height = (image_to_calculate.height + 6).toString() + 'px';
+                    } else {
+                      image_to_resize.style.height = 'initial';
+                    }
+                  }));
+                });
+              })();
+
+            </script>
         </metal:body>
       </metal:content-core>
     </metal:content-core>

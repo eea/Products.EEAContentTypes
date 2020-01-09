@@ -11,4 +11,12 @@
         allowed_interface=".status_effectivedate.IStatusEffectiveDate"
         />
 
+    <browser:page
+        name="expirationdate-status-controlpanel"
+        for="zope.interface.Interface"
+        class=".status_expirationdate.StatusExpirationDate"
+        permission="cmf.ManagePortal"
+        allowed_interface=".status_expirationdate.IStatusExpirationDate"
+        />
+
 </configure>

@@ -1,6 +1,15 @@
 Changelog
 =========
 
+18.9 - (2020-01-09)
+---------------------------
+* Change: improve storytelling image positioning when landscape&portrait are
+  side-by-side
+  [ichim-david refs #111967]
+* Bug fix: added tool in control panel to detect and fix if content is
+  archived without Expiration Date.
+  [alecghica refs #108916]
+
 18.8 - (2019-11-28)
 ---------------------------
 * Change: modified wording for GisApplication and Dashboard minimum

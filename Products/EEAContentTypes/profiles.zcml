@@ -190,4 +190,11 @@
     directory="profiles/upgrade/to_178"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_17.9"
+    title="Upgrade profile for EEAContentTypes 17.9"
+    description="This profile contains configuration changes from 17.8 to 17.9"
+    directory="profiles/upgrade/to_179"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
 </configure>
