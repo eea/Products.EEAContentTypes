@@ -91,7 +91,6 @@ class StatusExpirationDate(BrowserView):
     def startFixExpirationDate(self):
         """ Fix affected objects
         """
-        log = logging.getLogger("ExpirationDate status:")
         wf = getToolByName(self.context, "portal_workflow", None)
         mt = getToolByName(self.context, 'portal_membership', None)
         actor = mt.getAuthenticatedMember().id
