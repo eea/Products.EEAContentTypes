@@ -118,4 +118,10 @@
         provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         factory=".subtypes.ExcludeTOCSchemaExtender" />
 
+
+    <adapter name="eea.pageImage"
+      for="Products.ATContentTypes.interfaces.document.IATDocument"
+      provides="archetypes.schemaextender.interfaces.ISchemaExtender"
+      factory=".subtypes.ImageSchemaExtender" />
+
 </configure>
