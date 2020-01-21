@@ -22,7 +22,6 @@ from Products.Archetypes.atapi import StringField, StringWidget
 from Products.ATContentTypes.configuration import zconf
 from Products.EEAContentTypes.browser.interfaces import \
     IEEAContentRegistryRequiredFields
-from Products.ATContentTypes.interfaces import IATDocument
 from Products.EEAContentTypes.utils import \
     excluded_temporal_coverage_schemaextender_tuple
 from Products.LinguaPlone.public import InAndOutWidget
@@ -392,13 +391,12 @@ class RequiredSchemaModifier(object):
 class ImageSchemaExtender(object):
     """ Extends image field
     """
-    adapts(IATDocument)
 
     implements(ISchemaExtender, IBrowserLayerAwareExtender)
 
     layer = IEEACommonLayer
 
-    fields = (
+    _fields = (
         ExtensionImageField(name="image",
                             schemata="default",
                             widget=ImageWidget(
@@ -443,7 +441,9 @@ class ImageSchemaExtender(object):
     def getFields(self):
         """ Returns image field
         """
-        return self.fields
+        if self.context.portal_type == "Document":
+            return self._fields
+        return []
 
 
 class LanguageIndependentModifier(object):
