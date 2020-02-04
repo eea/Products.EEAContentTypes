@@ -121,7 +121,10 @@ def video_cloud_validator(value, instance=None):
             cloud_url = {'cloud_url': PersistentDict()}
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
-        if 'youtu' and 'playlist' in value:
+        if 'cmshare' in value:
+            mapping['cloud_url']['cmshare'] = value if 'download' in value \
+                else value + '/download'
+        elif 'youtu' and 'playlist' in value:
             # transform youtube playlist link
             res = youtube_id.findall(value)[1]
             vid_id = 'videoseries&' + 'list=' + res
@@ -150,7 +153,8 @@ def video_cloud_validator(value, instance=None):
                 cloud.pop('youtube')
             cloud['vimeo'] = vid_id
         else:
-            return "Please enter a video link from Youtube or Vimeo only"
+            return "Please enter a video link from Cmshare, Youtube or " \
+                   "Vimeo only"
 
     mutator(value)
 

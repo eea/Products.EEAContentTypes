@@ -46,7 +46,7 @@ schema = Schema((
               default_output_type='text/plain',
               widget=TextAreaWidget(
                   description='The embedding code for the video from'
-                              ' external sites eg. Vimeo or Youtube',
+                              'Cmshare or external sites Vimeo or Youtube',
                   description_msgid="EEAContentTypes_help_quotationtext",
                   label="Cloud Url",
                   label_msgid="EEAContentTypes_label_cloud_url")
