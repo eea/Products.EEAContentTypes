@@ -18,6 +18,12 @@ import PIL
 from OFS.Image import Pdata
 from persistent.dict import PersistentDict
 
+has_opencv = True
+try:
+    import cv2
+except ImportError:
+    has_opencv = False
+
 
 
 KEY = 'eea.mediacentre.multimedia'
@@ -109,6 +115,8 @@ def video_cloud_validator(value, instance=None):
     """
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
+    if value in field.getAccessor(instance)():
+        return
     mutator = field.getMutator(instance)
     if value:
         youtube_id = re.compile(r'[0-9a-zA-z\-_]{8,}[A-Z]*')
@@ -124,6 +132,12 @@ def video_cloud_validator(value, instance=None):
         if 'cmshare' in value:
             mapping['cloud_url']['cmshare'] = value if 'download' in value \
                 else value + '/download'
+            if has_opencv:
+                cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
+                ret, frame = cap.read()
+                cv2.imwrite('image.jpg', frame)
+                cap.release()
+                cv2.destroyAllWindows()
         elif 'youtu' and 'playlist' in value:
             # transform youtube playlist link
             res = youtube_id.findall(value)[1]

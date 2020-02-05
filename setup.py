@@ -68,6 +68,9 @@ setup(name=NAME,
           'eea.rabbitmq.client',
           'ftw.globalstatusmessage',
 
+          # required for image capture
+          'opencv-python',
+
           #required in tests
           'eea.dataservice',
           'eea.design',
