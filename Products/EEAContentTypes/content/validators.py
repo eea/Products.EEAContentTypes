@@ -1,4 +1,5 @@
 """ Validators """
+import base64
 import difflib
 from cStringIO import StringIO
 import re
@@ -132,10 +133,22 @@ def video_cloud_validator(value, instance=None):
         if 'cmshare' in value:
             mapping['cloud_url']['cmshare'] = value if 'download' in value \
                 else value + '/download'
+
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            cloud = mapping['cloud_url']
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('youtube'):
+                cloud.pop('youtube')
+
             if has_opencv:
                 cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
                 ret, frame = cap.read()
-                cv2.imwrite('image.jpg', frame)
+                encoded, buffer = cv2.imencode('.jpg', frame)
+                jpg_as_text = base64.b64encode(buffer)
+                obj_schema['image'].set(instance, jpg_as_text)
+                # cv2.imwrite('image.jpg', frame)
                 cap.release()
                 cv2.destroyAllWindows()
         elif 'youtu' and 'playlist' in value:
@@ -144,6 +157,13 @@ def video_cloud_validator(value, instance=None):
             vid_id = 'videoseries&' + 'list=' + res
             value = 'http://www.youtube-nocookie.com/playlist?list=' + res
             mapping['cloud_url']['youtube'] = vid_id
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            cloud = mapping['cloud_url']
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
 
         elif 'youtu' in value:
             # check youtube links with youtu since they might be
@@ -155,6 +175,13 @@ def video_cloud_validator(value, instance=None):
                 vid_id = res[0]
             value = youtube_url + vid_id
             mapping['cloud_url']['youtube'] = vid_id
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            cloud = mapping['cloud_url']
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
 
         elif 'vimeo' in value:
             vimeo = re.compile(r'[\d]{5,}')
@@ -165,6 +192,8 @@ def video_cloud_validator(value, instance=None):
             # is before vimeo
             if cloud.get('youtube'):
                 cloud.pop('youtube')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
             cloud['vimeo'] = vid_id
         else:
             return "Please enter a video link from Cmshare, Youtube or " \
