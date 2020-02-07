@@ -1,5 +1,4 @@
 """ Validators """
-import base64
 import difflib
 from cStringIO import StringIO
 import re
@@ -145,10 +144,15 @@ def video_cloud_validator(value, instance=None):
             if has_opencv:
                 cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
                 ret, frame = cap.read()
-                encoded, buffer = cv2.imencode('.jpg', frame)
-                jpg_as_text = base64.b64encode(buffer)
-                obj_schema['image'].set(instance, jpg_as_text)
-                # cv2.imwrite('image.jpg', frame)
+                if not frame:
+                    return
+                ee = PIL.Image.fromarray(frame)
+
+                destfile = StringIO()
+                ee.save(destfile, 'JPEG')
+                destfile.seek(0)
+                instance.setImage(destfile.getvalue())
+
                 cap.release()
                 cv2.destroyAllWindows()
         elif 'youtu' and 'playlist' in value:
