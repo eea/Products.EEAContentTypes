@@ -150,11 +150,13 @@ def video_cloud_validator(value, instance=None):
                 ret, frame = cap.read()
                 if not ret:
                     return
-                frame_image = PIL.Image.fromarray(frame.astype('uint8'), 'RGB')
+                # fix blue tint by converting from rgb to bgr
+                opencvImage = cv2.cvtColor(frame,
+                                           cv2.COLOR_RGB2BGR)
+                frame_image = PIL.Image.fromarray(opencvImage)
 
                 destfile = StringIO()
                 frame_image.save(destfile, 'JPEG')
-                # cv2.imwrite(destfile, 'JPEG')
                 destfile.seek(0)
                 instance.setImage(destfile.getvalue())
 
