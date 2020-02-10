@@ -145,14 +145,16 @@ def video_cloud_validator(value, instance=None):
 
             if has_opencv:
                 cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
-                cap.set(cv2.CAP_PROP_POS_MSEC,3000) 
+                jump_to_msec = instance.preview_frame_from * 1000
+                cap.set(cv2.CAP_PROP_POS_MSEC, jump_to_msec)
                 ret, frame = cap.read()
-                if not frame.any():
+                if not ret:
                     return
-                ee = PIL.Image.fromarray(frame)
+                frame_image = PIL.Image.fromarray(frame.astype('uint8'), 'RGB')
 
                 destfile = StringIO()
-                ee.save(destfile, 'JPEG')
+                frame_image.save(destfile, 'JPEG')
+                # cv2.imwrite(destfile, 'JPEG')
                 destfile.seek(0)
                 instance.setImage(destfile.getvalue())
 
