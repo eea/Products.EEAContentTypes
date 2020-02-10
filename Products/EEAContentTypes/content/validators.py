@@ -115,7 +115,7 @@ def video_cloud_validator(value, instance=None):
     """
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
-    if value in field.getAccessor(instance)():
+    if 'portal_factory' in instance.absolute_url():
         return
     mutator = field.getMutator(instance)
     if value:
@@ -129,13 +129,15 @@ def video_cloud_validator(value, instance=None):
             cloud_url = {'cloud_url': PersistentDict()}
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
+        cloud = mapping['cloud_url']
         if 'cmshare' in value:
-            mapping['cloud_url']['cmshare'] = value if 'download' in value \
+            if value in cloud.get('cmshare', ''):
+                return
+            cloud['cmshare'] = value if 'download' in value \
                 else value + '/download'
 
             # remove youtube entry if found since youtube macro
             # is before vimeo
-            cloud = mapping['cloud_url']
             if cloud.get('vimeo'):
                 cloud.pop('vimeo')
             if cloud.get('youtube'):
@@ -143,8 +145,9 @@ def video_cloud_validator(value, instance=None):
 
             if has_opencv:
                 cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
+                cap.set(cv2.CAP_PROP_POS_MSEC,3000) 
                 ret, frame = cap.read()
-                if not frame:
+                if not frame.any():
                     return
                 ee = PIL.Image.fromarray(frame)
 
@@ -163,7 +166,6 @@ def video_cloud_validator(value, instance=None):
             mapping['cloud_url']['youtube'] = vid_id
             # remove youtube entry if found since youtube macro
             # is before vimeo
-            cloud = mapping['cloud_url']
             if cloud.get('vimeo'):
                 cloud.pop('vimeo')
             if cloud.get('cmshare'):
@@ -181,7 +183,6 @@ def video_cloud_validator(value, instance=None):
             mapping['cloud_url']['youtube'] = vid_id
             # remove youtube entry if found since youtube macro
             # is before vimeo
-            cloud = mapping['cloud_url']
             if cloud.get('vimeo'):
                 cloud.pop('vimeo')
             if cloud.get('cmshare'):
@@ -191,7 +192,6 @@ def video_cloud_validator(value, instance=None):
             vimeo = re.compile(r'[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
-            cloud = mapping['cloud_url']
             # remove youtube entry if found since youtube macro
             # is before vimeo
             if cloud.get('youtube'):
