@@ -3,6 +3,16 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="17.9"
+    destination="19.0"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeStep
+      title="Reindex object_provides index for Data and ExternalDataSpec objs"
+      handler=".evolve190.update_object_provides"
+    />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="17.8"
     destination="17.9"
     profile="Products.EEAContentTypes:default">
