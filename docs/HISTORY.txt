@@ -3,6 +3,11 @@ Changelog
 
 19.0-dev0 - (unreleased)
 ---------------------------
+* Feature: when cmshare link is added to CloudVideo we now save a frame from the
+  video to be used as the preview image
+  [ichim-david refs #113969]
+* Feature: added cmshare option to CloudVideo url option
+  [ichim-david refs #113969]
 
 18.9 - (2020-01-09)
 ---------------------------
