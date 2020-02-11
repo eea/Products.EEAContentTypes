@@ -76,6 +76,11 @@ class IEEAPossibleContent(Interface):
     """
 
 
+class IDataSource(Interface):
+    """ Marker interface for Data or ExternalDataSpec Content-types
+    """
+
+
 class IEEAContent(Interface):
     """ Marker interface for EEA Content-Types
     """
