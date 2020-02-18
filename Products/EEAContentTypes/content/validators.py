@@ -18,6 +18,12 @@ import PIL
 from OFS.Image import Pdata
 from persistent.dict import PersistentDict
 
+has_opencv = True
+try:
+    import cv2
+except ImportError:
+    has_opencv = False
+
 
 
 KEY = 'eea.mediacentre.multimedia'
@@ -103,12 +109,16 @@ class ImageMinSize(object):
 validation.register(ImageMinSize('imageMinSize'))
 
 
-def video_cloud_validator(value, instance=None):
+def video_cloud_validator(value, instance=None, **kwargs):
     """ check if cloudUrl has a youtube or vimeo link, saves the id
     in an annotation and save a clean link to the video for the field
     """
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
+    if 'portal_factory' in instance.absolute_url():
+        return
+    if 'edit' not in kwargs['REQUEST'].URL0:
+        return
     mutator = field.getMutator(instance)
     if value:
         youtube_id = re.compile(r'[0-9a-zA-z\-_]{8,}[A-Z]*')
@@ -121,12 +131,51 @@ def video_cloud_validator(value, instance=None):
             cloud_url = {'cloud_url': PersistentDict()}
             mapping = annotations[KEY] = PersistentDict(cloud_url)
 
-        if 'youtu' and 'playlist' in value:
+        cloud = mapping['cloud_url']
+        if 'cmshare' in value:
+            if value in cloud.get('cmshare', ''):
+                return
+            cloud['cmshare'] = value if 'download' in value \
+                else value + '/download'
+
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('youtube'):
+                cloud.pop('youtube')
+
+            if has_opencv:
+                cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
+                jump_to_msec = instance.preview_frame_from * 1000
+                cap.set(cv2.CAP_PROP_POS_MSEC, jump_to_msec)
+                ret, frame = cap.read()
+                if not ret:
+                    return
+                # fix blue tint by converting from rgb to bgr
+                opencvImage = cv2.cvtColor(frame,
+                                           cv2.COLOR_RGB2BGR)
+                frame_image = PIL.Image.fromarray(opencvImage)
+
+                destfile = StringIO()
+                frame_image.save(destfile, 'JPEG')
+                destfile.seek(0)
+                instance.setImage(destfile.getvalue())
+
+                cap.release()
+                cv2.destroyAllWindows()
+        elif 'youtu' and 'playlist' in value:
             # transform youtube playlist link
             res = youtube_id.findall(value)[1]
             vid_id = 'videoseries&' + 'list=' + res
             value = 'http://www.youtube-nocookie.com/playlist?list=' + res
             mapping['cloud_url']['youtube'] = vid_id
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
 
         elif 'youtu' in value:
             # check youtube links with youtu since they might be
@@ -138,19 +187,27 @@ def video_cloud_validator(value, instance=None):
                 vid_id = res[0]
             value = youtube_url + vid_id
             mapping['cloud_url']['youtube'] = vid_id
+            # remove youtube entry if found since youtube macro
+            # is before vimeo
+            if cloud.get('vimeo'):
+                cloud.pop('vimeo')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
 
         elif 'vimeo' in value:
             vimeo = re.compile(r'[\d]{5,}')
             vid_id = vimeo.findall(value)[0]
             value = vimeo_url + vid_id
-            cloud = mapping['cloud_url']
             # remove youtube entry if found since youtube macro
             # is before vimeo
             if cloud.get('youtube'):
                 cloud.pop('youtube')
+            if cloud.get('cmshare'):
+                cloud.pop('cmshare')
             cloud['vimeo'] = vid_id
         else:
-            return "Please enter a video link from Youtube or Vimeo only"
+            return "Please enter a video link from Cmshare, Youtube or " \
+                   "Vimeo only"
 
     mutator(value)
 
@@ -169,7 +226,7 @@ class VideoCloudUrlValidator(object):
     def __call__(self, value, instance, *args, **kwargs):
         """ check and transform links for video embedding
         """
-        res = video_cloud_validator(value, instance)
+        res = video_cloud_validator(value, instance, **kwargs)
         if res:
             return res
 
