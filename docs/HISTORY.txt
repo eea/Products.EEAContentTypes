@@ -6,6 +6,10 @@ Changelog
 * Feature: when cmshare link is added to CloudVideo we now save a frame from the
   video to be used as the preview image
   [ichim-david refs #113969]
+* Feature: added *Preview Image timeframe* field for CloudVideo which is used
+  to specify at what second we should extract the preview image from cmshare
+  video
+  [ichim-david refs #113969]
 * Feature: added cmshare option to CloudVideo url option
   [ichim-david refs #113969]
 
