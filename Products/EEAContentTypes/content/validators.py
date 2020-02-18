@@ -109,13 +109,15 @@ class ImageMinSize(object):
 validation.register(ImageMinSize('imageMinSize'))
 
 
-def video_cloud_validator(value, instance=None):
+def video_cloud_validator(value, instance=None, **kwargs):
     """ check if cloudUrl has a youtube or vimeo link, saves the id
     in an annotation and save a clean link to the video for the field
     """
     obj_schema = ISchema(instance)
     field = obj_schema['cloudUrl']
     if 'portal_factory' in instance.absolute_url():
+        return
+    if 'edit' not in kwargs['REQUEST'].URL0:
         return
     mutator = field.getMutator(instance)
     if value:
@@ -224,7 +226,7 @@ class VideoCloudUrlValidator(object):
     def __call__(self, value, instance, *args, **kwargs):
         """ check and transform links for video embedding
         """
-        res = video_cloud_validator(value, instance)
+        res = video_cloud_validator(value, instance, **kwargs)
         if res:
             return res
 
