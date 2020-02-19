@@ -41,7 +41,7 @@ schema = Schema((
         widget=IntegerWidget(
             label='Preview Image timeframe',
             description='Value in seconds used for extracting the '
-                        'preview image from the cmshare video'
+                        'preview image from the cmshare video.'
         )),
     TextField('cloudUrl',
               languageIndependent=True,
@@ -53,8 +53,8 @@ schema = Schema((
               allowable_content_types=('text/plain',),
               default_output_type='text/plain',
               widget=TextAreaWidget(
-                  description='The embedding code for the video from'
-                              'Cmshare or external sites Vimeo or Youtube',
+                  description='The embedding code for the video from '
+                              'Cmshare or external sites Vimeo or Youtube.',
                   description_msgid="EEAContentTypes_help_quotationtext",
                   label="Cloud Url",
                   label_msgid="EEAContentTypes_label_cloud_url")
