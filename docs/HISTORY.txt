@@ -1,6 +1,11 @@
 Changelog
 =========
 
+19.1-dev0 - (unreleased)
+---------------------------
+* Bug fix: application screenshot image fixed.
+  [alecghica refs #114537]
+
 19.0 - (2020-02-18)
 ---------------------------
 * Feature: when cmshare link is added to CloudVideo we now save a frame from the
