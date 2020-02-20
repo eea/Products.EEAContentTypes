@@ -70,9 +70,14 @@ class IRequiredFields(Interface):
 
 
 class IEEAPossibleContent(Interface):
-    """ Marker interface for posibil EEA Content-Types needed since some
+    """ Marker interface for possible EEA Content-Types needed since some
         content types are created only with the xml types and they usually
-        inherit the meta_type from the product that they are derrived from
+        inherit the meta_type from the product that they are derived from
+    """
+
+
+class IDataSource(Interface):
+    """ Marker interface for Data or ExternalDataSpec Content-types
     """
 
 

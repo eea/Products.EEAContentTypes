@@ -1,6 +1,23 @@
 Changelog
 =========
 
+19.1 - (2020-02-19)
+---------------------------
+* Bug fix: application screenshot image fixed.
+  [alecghica refs #114537]
+
+19.0 - (2020-02-18)
+---------------------------
+* Feature: when cmshare link is added to CloudVideo we now save a frame from the
+  video to be used as the preview image
+  [ichim-david refs #113969]
+* Feature: added *Preview Image timeframe* field for CloudVideo which is used
+  to specify at what second we should extract the preview image from cmshare
+  video
+  [ichim-david refs #113969]
+* Feature: added cmshare option to CloudVideo url option
+  [ichim-david refs #113969]
+
 18.9 - (2020-01-09)
 ---------------------------
 * Change: improve storytelling image positioning when landscape&portrait are

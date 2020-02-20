@@ -13,10 +13,13 @@ from zope.interface import Interface, implements
 from zope.component import adapts
 from zope.component import getUtility
 
+
+from Products.validation import V_REQUIRED
 from Products.Archetypes.Widget import MultiSelectionWidget
 from Products.Archetypes.interfaces import IBaseContent
 from Products.Archetypes.interfaces import ISchema
 from Products.Archetypes.atapi import StringField, StringWidget
+from Products.ATContentTypes.configuration import zconf
 from Products.EEAContentTypes.browser.interfaces import \
     IEEAContentRegistryRequiredFields
 from Products.EEAContentTypes.utils import \
@@ -388,18 +391,47 @@ class RequiredSchemaModifier(object):
 class ImageSchemaExtender(object):
     """ Extends image field
     """
+
     implements(ISchemaExtender, IBrowserLayerAwareExtender)
+
     layer = IEEACommonLayer
 
-    fields = (
+    _fields = (
         ExtensionImageField(name="image",
                             schemata="default",
-                            sizes=None,
                             widget=ImageWidget(
                                 label=_("Image"),
                                 description=_("Image used for cover, "
-                                              "thumbnail and listings")),
-                            i18n_domain='eea',
+                                              "thumbnail and listings."
+                                              "Size and image width should be"
+                                              " of minimum 1920px")),
+                            i18n_domain='plone',
+                            languageIndependent=True,
+                            allowable_content_types=('image/gif', 'image/jpeg',
+                                                     'image/jpg', 'image/png',
+                                                     'image/tiff'),
+                            pil_quality=zconf.pil_config.quality,
+                            pil_resize_algo=zconf.pil_config.resize_algo,
+                            max_size=(5000, 5000),
+                            sizes={'print': (2000, 2000),
+                                   'panoramic': (1920, 1080),
+                                   'landscape': (1370, 771),
+                                   'portrait': (771, 1370),
+                                   'xlarge': (950, 950),
+                                   'wide': (325, 183),
+                                   'large': (768, 768),
+                                   'preview': (400, 400),
+                                   'mini': (180, 135),
+                                   'thumb': (128, 128),
+                                   'tile': (64, 64),
+                                   'icon': (32, 32),
+                                   'listing': (16, 16),
+                                   },
+                            validators=(
+                                ('isNonEmptyFile', V_REQUIRED),
+                                ('imageMinSize', V_REQUIRED),
+                                ('checkFileMaxSize', V_REQUIRED),
+                            )
                             ),
     )
 
@@ -409,7 +441,9 @@ class ImageSchemaExtender(object):
     def getFields(self):
         """ Returns image field
         """
-        return self.fields
+        if self.context.portal_type == "Document":
+            return self._fields
+        return []
 
 
 class LanguageIndependentModifier(object):

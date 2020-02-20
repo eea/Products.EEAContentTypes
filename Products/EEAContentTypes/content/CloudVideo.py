@@ -6,7 +6,7 @@ from plone.app.blob.field import ImageField
 from zope.interface import implements
 from Products.ATContentTypes.content.file import ATFile
 from Products.Archetypes.atapi import (
-    Schema, ImageWidget,
+    Schema, ImageWidget, IntegerField, IntegerWidget,
     registerType, TextField, TextAreaWidget, RichWidget
 )
 from Products.CMFCore.permissions import View
@@ -35,6 +35,14 @@ schema = Schema((
                    i18n_domain='eea',
                    show_content_type=False)
                ),
+    IntegerField(
+        name='preview_frame_from',
+        default=1,
+        widget=IntegerWidget(
+            label='Preview Image timeframe',
+            description='Value in seconds used for extracting the '
+                        'preview image from the cmshare video.'
+        )),
     TextField('cloudUrl',
               languageIndependent=True,
               required=True,
@@ -45,12 +53,13 @@ schema = Schema((
               allowable_content_types=('text/plain',),
               default_output_type='text/plain',
               widget=TextAreaWidget(
-                  description='The embedding code for the video from'
-                              ' external sites eg. Vimeo or Youtube',
+                  description='The embedding code for the video from '
+                              'Cmshare or external sites Vimeo or Youtube.',
                   description_msgid="EEAContentTypes_help_quotationtext",
                   label="Cloud Url",
                   label_msgid="EEAContentTypes_label_cloud_url")
               ),
+
     TextField(
         name='text',
         widget=RichWidget(

@@ -13,6 +13,8 @@
              factory=".subtypes.TemporalCoverageSchemaExtender"/>
 
 
+    <interface interface=".interfaces.IDataSource" />
+
     <!-- #16719 Add IEEAPossibleContent interface for default contenttypes that
          our products only inherits from.
          At the time of this ticket they are the following:
@@ -88,6 +90,7 @@
     <!-- Data -->
     <class class="eea.dataservice.content.Data.Data">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+        <implements interface="Products.EEAContentTypes.interfaces.IDataSource" />
     </class>
 
     <!-- DataFile -->
@@ -120,6 +123,7 @@
     <!-- ExternalDataSpec -->
     <class class="eea.indicators.content.ExternalDataSpec.ExternalDataSpec">
         <implements interface="Products.EEAContentTypes.interfaces.IEEAContent" />
+        <implements interface="Products.EEAContentTypes.interfaces.IDataSource" />
     </class>
 
 
