@@ -1,6 +1,9 @@
 Changelog
 =========
 
+19.3-dev0 - (unreleased)
+---------------------------
+
 19.2 - (2020-02-20)
 ---------------------------
 * Bug fix: ensure that the last value of preview_frame_from is used when checking
