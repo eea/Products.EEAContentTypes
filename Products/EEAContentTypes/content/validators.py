@@ -147,7 +147,10 @@ def video_cloud_validator(value, instance=None, **kwargs):
 
             if has_opencv:
                 cap = cv2.VideoCapture(mapping['cloud_url']['cmshare'])
-                jump_to_msec = instance.preview_frame_from * 1000
+                req = kwargs['REQUEST']
+                sec = int(req.form.get('preview_frame_from',
+                                       instance.preview_frame_from))
+                jump_to_msec = sec * 1000
                 cap.set(cv2.CAP_PROP_POS_MSEC, jump_to_msec)
                 ret, frame = cap.read()
                 if not ret:

@@ -3,6 +3,9 @@ Changelog
 
 19.2-dev0 - (unreleased)
 ---------------------------
+* Bug fix: ensure that the last value of preview_frame_from is used when checking
+  for value to use as seconds from which to extract screenshot from video
+  [ichim-david refs #113969]
 
 19.1 - (2020-02-19)
 ---------------------------
