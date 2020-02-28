@@ -1,7 +1,7 @@
 Changelog
 =========
 
-19.3-dev0 - (unreleased)
+19.3 - (2020-02-28)
 ---------------------------
 * Change: reference jquery.js and jquery-migrate.js instead of resource variants
   [ichim-david refs #105112]
