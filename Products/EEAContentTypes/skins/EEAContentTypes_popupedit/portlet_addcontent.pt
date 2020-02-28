@@ -1,7 +1,9 @@
 <html i18n:domain="eea">
 <head>
-    <script type="text/javascript" tal:condition="exists:here/jquery.js" tal:attributes="src string:${portal_url}/jquery.js"></script>
-    <script type="text/javascript" tal:condition="exists:here/++resource++plone.app.jquery.js" tal:attributes="src string:${portal_url}/++resource++plone.app.jquery.js"></script>
+  <tal:jquery tal:define="simple_jquery here/jquery.js|nothing">
+    <script type="text/javascript" tal:condition="python: simple_jquery" tal:attributes="src string:${portal_url}/jquery.js"></script>
+    <script type="text/javascript" tal:condition="python: not simple_jquery" tal:attributes="src string:${portal_url}/++resource++plone.app.jquery.js"></script>
+  </tal:jquery>
   <tal:jqueryui tal:define="eea_jqueryui exists:here/collective.js.jqueryui.custom.min.eea.js">
     <script type="text/javascript" tal:condition="python: not eea_jqueryui" tal:attributes="src string:${portal_url}/++resource++jquery-ui.min.js"></script>
     <script type="text/javascript" tal:condition="python:eea_jqueryui" tal:attributes="src string:${portal_url}/collective.js.jqueryui.custom.min.eea.js"></script>

@@ -3,6 +3,8 @@ Changelog
 
 19.3-dev0 - (unreleased)
 ---------------------------
+* Change: reference jquery.js and jquery-migrate.js instead of resource variants
+  [ichim-david refs #105112]
 
 19.2 - (2020-02-20)
 ---------------------------
