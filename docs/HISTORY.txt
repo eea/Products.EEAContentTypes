@@ -3,6 +3,10 @@ Changelog
 
 19.3 - (2020-02-28)
 ---------------------------
+* Feature: added gis_themecentre_inline template which removes the gis notes
+  when its called within an interactive map. This change is done since themes
+  page shows the notes as description after the map title
+  [ichim-david refs #114650]
 * Change: reference jquery.js and jquery-migrate.js instead of resource variants
   [ichim-david refs #105112]
 
