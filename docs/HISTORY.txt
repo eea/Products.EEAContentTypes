@@ -1,6 +1,9 @@
 Changelog
 =========
 
+19.4-dev0 - (unreleased)
+---------------------------
+
 19.3 - (2020-02-28)
 ---------------------------
 * Feature: added gis_themecentre_inline template which removes the gis notes
