@@ -58,6 +58,7 @@ div.archived p
                                               else ('http://discomap.eea.europa.eu/map/EEABasicviewer/?webmap=%s&embed=true' % (uid) if 'webmap' in arcgis_url
                                                     else arcgis_url);
                                is_inline is_inline|python:0;
+                               view_within_themecentre view_within_themecentre|python:False;
                                is_expired here/isExpired;
                                is_https python:gis_url.startswith('https');
                                is_at_eea python:gis_url.find('eea.europa.eu')>0;
@@ -90,15 +91,17 @@ div.archived p
                          embed=true when viewing fullscreen map
                      </tal:comment>
                      <tal:block tal:condition="is_inline">
+                       <tal:block tal:condition="python: not view_within_themecentre">
                          <div class="googlechart-notes gis-notes">
-                             <div class="googlecharts-note">
-                                 <p class="callout" tal:define="description context/Description">
-                                     <strong i18n:translate="">Note: </strong><br>
-                                     <span tal:content="description"></span>
-                                     <span tal:condition="python:not description" i18n:translate="">N/A</span>
-                                 </p>
-                             </div>
+                           <div class="googlecharts-note">
+                             <p class="callout" tal:define="description context/Description">
+                               <strong i18n:translate="">Note: </strong><br>
+                               <span tal:content="description"></span>
+                               <span tal:condition="python:not description" i18n:translate="">N/A</span>
+                             </p>
+                           </div>
                          </div>
+                       </tal:block>
                          <tal:data tal:replace="structure context/gis_data_sources" />
                      </tal:block>
                      <div><a tal:condition="is_inline" tal:attributes="href string:${context/absolute_url}/" class="standardButton">
