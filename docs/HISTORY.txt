@@ -3,6 +3,10 @@ Changelog
 
 19.4-dev0 - (unreleased)
 ---------------------------
+* Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
+  button available for EEA Content Types, added control panel entry for
+  screenshot settings
+  [iulianpetchesi refs #116145]
 
 19.3 - (2020-02-28)
 ---------------------------

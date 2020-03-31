@@ -3,6 +3,15 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="19.0"
+    destination="19.4"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeDepends
+      title="Register 'Screenshot settings' controlpanel tool"
+      import_profile="Products.EEAContentTypes:eeacontenttypes_upgrade_19.4" />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="17.9"
     destination="19.0"
     profile="Products.EEAContentTypes:default">

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<componentregistry>
+    <utilities>
+        <utility
+            interface="Products.EEAContentTypes.controlpanels.interfaces.IScreenshotTool"
+            object="portal_screenshot"/>
+    </utilities>
+</componentregistry>
