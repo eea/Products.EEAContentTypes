@@ -17,6 +17,18 @@
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".events.gis_added"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".events.dashboard_added"
+    />
+
     <adapter factory=".marshaller.Provenances2Surf" name="provenances" />
     <adapter factory=".marshaller.MediaField2Surf" name="media" />
 

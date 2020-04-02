@@ -3,6 +3,9 @@ Changelog
 
 19.4-dev0 - (unreleased)
 ---------------------------
+* Feature: Added event handlers for Dashboard/GisApplication so that when an
+  object is created it will use the screenshot service to set a preview image
+  [iulianpetchesi refs #116145]
 * Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
   button available for EEA Content Types, added control panel entry for
   screenshot settings

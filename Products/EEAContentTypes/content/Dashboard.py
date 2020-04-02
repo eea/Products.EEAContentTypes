@@ -46,7 +46,7 @@ schema = Schema((
         ),
 
     ImageField('image',
-               required=True,
+               required=False,
                languageIndependent=True,
                storage=AnnotationStorage(migrate=True),
                swallowResizeExceptions= \

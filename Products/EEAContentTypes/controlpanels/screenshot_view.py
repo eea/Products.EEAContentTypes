@@ -2,7 +2,6 @@
 """
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from Products.EEAContentTypes.controlpanels.interfaces import IScreenshotPortalType
 from Products.EEAContentTypes.controlpanels.schema import PortalType
 from Products.EEAContentTypes.config import EEAMessageFactory as _

@@ -2,10 +2,9 @@
 """
 from zope.component import queryMultiAdapter
 from zope.interface import implements
+from BTrees.IIBTree import IIBucket
 from OFS.Folder import Folder
 from Products.CMFCore.utils import getToolByName
-from BTrees.IIBTree import IIBucket
-
 from Products.EEAContentTypes.controlpanels.interfaces import IScreenshotTool
 from Products.EEAContentTypes.controlpanels.interfaces import IScreenshotCatalog
 
