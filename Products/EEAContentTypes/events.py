@@ -17,7 +17,7 @@ from zope.component import queryUtility
 from zope.interface import Attribute
 from zope.interface import implements
 
-logger = logging.getLogger('Prodcuts.EEAContentTypes')
+logger = logging.getLogger('Products.EEAContentTypes')
 
 
 def handle_content_state_changed(obj, event):
@@ -51,10 +51,12 @@ class GISMapApplicationWillBeRemovedEvent(ObjectEvent):
 def gis_added(obj, evt):
     """Set image using screenshoteer service after object is created"""
     url = obj.arcgis_url
+    if not url:
+        return
+
     try:
         screenshoteer_set_image(obj, url)
     except Exception as err:
-        # import pdb; pdb.set_trace()
         logger.error('Error while setting image, queing an async job')
         async_service = queryUtility(IAsyncService)
         if async_service is None:
@@ -65,12 +67,11 @@ def gis_added(obj, evt):
         obj.scheduled_at = DateTime()
         async_queue = async_service.getQueues()['']
         async_service.queueJobInQueue(
-            async_queue, ('screenshot',),
-            screenshoteer_set_image(obj, url),
+            async_queue, ('default',),
+            async_screenshoteer_set_image(obj, url),
             obj,
             scheduled_at=obj.scheduled_at
         )
-    # import pdb; pdb.set_trace()
 
 
 def dashboard_added(obj, evt):
@@ -94,11 +95,26 @@ def dashboard_added(obj, evt):
     del params['name']
     for name, value in params.items():
         url += '&:' + name + '=' + value
-    # import pdb; pdb.set_trace()
-    # https://tableau.discomap.eea.europa.eu//t/Natureonline/views/NS4_Habitatcondition/4_habitatcondition?
-    # :embed=y&:showVizHome=no&:loadOrderID=0&:tabs=no&:embed_code_version=3&
-    # :host_url=https://tableau.discomap.eea.europa.eu/&:isGuestRedirectFromVizportal=y&:toolbar=yes
-    # screenshoteer_set_image(obj, obj.absolute_url())
+
+    try:
+        screenshoteer_set_image(obj, url)
+    except Exception as err:
+        logger.error('Error while setting image, queing an async job')
+        async_service = queryUtility(IAsyncService)
+        if async_service is None:
+            logger.warn(
+                "Can't set image using async. plone.app.async NOT installed!")
+            return
+
+        obj.scheduled_at = DateTime()
+        async_queue = async_service.getQueues()['']
+        async_service.queueJobInQueue(
+            async_queue, ('default',),
+            async_screenshoteer_set_image(obj, url),
+            obj,
+            scheduled_at=obj.scheduled_at
+        )
+
 
 def screenshoteer_set_image(obj, url):
     """ extract url from embed field for Dashboards, request to screenshoteer
@@ -117,19 +133,52 @@ def screenshoteer_set_image(obj, url):
     for setting in screen_tool.objectValues():
         if setting.portal_type == obj.portal_type:
             for attr in attrs:
-                default_settings.update({attr: setting.getProperty(attr)})
-    # https://maps.eea.europa.eu/EEAViewer/?appid=fb882ba914f34e5ba26680a131deb2ba
-    # https://screenshot.eea.europa.eu/API/v1/retrieve_image_for_url?url=google.com&fullPage=true&w=1920&h=1080
-    # import pdb; pdb.set_trace()
+                if setting.getProperty(attr):
+                    default_settings.update({attr: setting.getProperty(attr)})
+
     service_url = 'https://screenshot.eea.europa.eu/API/v1/retrieve_image_for_url'
-    r = requests.get(service_url, stream=True, params=default_settings)
-    if r.status_code == 200:
-        image = Image.open(StringIO(r.content))
+    req = requests.get(service_url, stream=True, params=default_settings)
+    if req.status_code == 200:
+        image = Image.open(StringIO(req.content))
         destfile = StringIO()
         destfile.seek(0)
+        image.save(destfile, 'JPEG')
         obj.setImage(destfile.getvalue())
         obj._p_changed = True
         obj.reindexObject()
     else:
         logger.error('Failed to set image on the following object %s' % obj.absolute_url())
         raise Exception
+
+def async_screenshoteer_set_image(obj, url):
+    """ extract url from embed field for Dashboards, request to screenshoteer
+        and set the image to the proper field
+    """
+    screen_tool = getToolByName(getSite(), 'portal_screenshot')
+    attrs = ['emulate', 'waitforselector', 'el', 'click', 'no', 'pdf',
+             'fullPage', 'w', 'h', 'waitfor']
+    default_settings = {
+        'w': 1920,
+        'h': 1080,
+        'fullPage': 'true',
+        'waitfor': 20,
+        'url': url
+    }
+    for setting in screen_tool.objectValues():
+        if setting.portal_type == obj.portal_type:
+            for attr in attrs:
+                if setting.getProperty(attr):
+                    default_settings.update({attr: setting.getProperty(attr)})
+
+    service_url = 'https://screenshot.eea.europa.eu/API/v1/retrieve_image_for_url'
+    req = requests.get(service_url, stream=True, params=default_settings)
+    if req.status_code == 200:
+        image = Image.open(StringIO(req.content))
+        destfile = StringIO()
+        destfile.seek(0)
+        image.save(destfile, 'JPEG')
+        obj.setImage(destfile.getvalue())
+        obj._p_changed = True
+        obj.reindexObject()
+    else:
+        logger.error('Failed to set image on the following object %s' % obj.absolute_url())
