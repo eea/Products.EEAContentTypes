@@ -57,7 +57,10 @@ def gis_added(obj, evt):
     try:
         screenshoteer_set_image(obj, url)
     except Exception as err:
-        logger.error('Error while setting image, queing an async job')
+        logger.error(
+                "Error while setting image for %s failed with message: %s",
+                obj.absolute_url(),
+                err.msg)
         async_service = queryUtility(IAsyncService)
         if async_service is None:
             logger.warn(
@@ -99,7 +102,10 @@ def dashboard_added(obj, evt):
     try:
         screenshoteer_set_image(obj, url)
     except Exception as err:
-        logger.error('Error while setting image, queing an async job')
+        logger.error(
+                "Error while setting image for %s failed with message: %s",
+                obj.absolute_url(),
+                err.msg)
         async_service = queryUtility(IAsyncService)
         if async_service is None:
             logger.warn(
