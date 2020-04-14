@@ -52,6 +52,8 @@ def gis_added(obj, evt):
     """Set image using screenshoteer service after object is created"""
     url = obj.arcgis_url
     if not url:
+        logger.warn(
+            "Can't set image, url wasn't provided.")
         return
 
     try:

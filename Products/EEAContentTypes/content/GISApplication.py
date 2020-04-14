@@ -98,7 +98,8 @@ GIS_schema['remoteUrl'].required = False
 GIS_schema['remoteUrl'].widget.label = 'Flash/Flex GIS application url'
 GIS_schema['remoteUrl'].widget.description = \
     'Enter address to a flash/flex application usually ending with .swf'
-
+GIS_schema['remoteUrl'].widget.visible = {
+    "edit": "invisible", "view": "visible"}
 
 class GISMapApplication(ATLink):
     """ GisApplication contenttype
