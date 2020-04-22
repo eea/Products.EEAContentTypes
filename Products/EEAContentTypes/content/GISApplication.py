@@ -64,8 +64,10 @@ schema = Schema((
                validators=(('isNonEmptyFile', V_REQUIRED),
                            ('imageMinSize', V_REQUIRED)),
                widget=ImageWidget(
-                   description='High-res preview image'
-                               ' (at least FHD 1920x1080)',
+                   description='High-res preview image ' \
+                                '(at least FHD 1920x1080). ' \
+                                'If the image is removed, a new image will ' \
+                                'automatically be created after saving',
                    label='Preview image',
                    show_content_type=False, )
                ),
@@ -94,6 +96,8 @@ GIS_schema = getattr(ATLink, 'schema', Schema(())).copy() + schema
 # Schema overwrites
 
 GIS_schema['description'].required = True  # required to increase findability.
+
+# remoteUrl is deprecated for GIS #116145
 GIS_schema['remoteUrl'].required = False
 GIS_schema['remoteUrl'].widget.label = 'Flash/Flex GIS application url'
 GIS_schema['remoteUrl'].widget.description = \

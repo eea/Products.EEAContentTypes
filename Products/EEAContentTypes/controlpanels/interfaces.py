@@ -72,6 +72,12 @@ class IScreenshotPortalType(Interface):
         vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes",
         required=True
     )
+    service_url = schema.URI(
+        title=_(u'Service URL'),
+        description=_(u'Screenshot service url'),
+        required=True,
+        default='https://screenshot.eea.europa.eu'
+    )
 
 
 class IScreenshotTool(Interface):

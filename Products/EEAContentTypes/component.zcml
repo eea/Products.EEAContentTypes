@@ -19,14 +19,28 @@
 
     <subscriber
         for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
-             Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".events.gis_added"
+             Products.Archetypes.interfaces.IObjectInitializedEvent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.gis_set_image"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.gis_set_image"
     />
 
     <subscriber
         for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
-             Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".events.dashboard_added"
+             Products.Archetypes.interfaces.IObjectInitializedEvent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.dashboard_set_image"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.dashboard_set_image"
     />
 
     <adapter factory=".marshaller.Provenances2Surf" name="provenances" />
