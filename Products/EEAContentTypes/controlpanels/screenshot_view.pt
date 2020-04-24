@@ -38,6 +38,7 @@
                 <th i18n:translate="">Exclude</th>
                 <th i18n:translate="">Css selector</th>
                 <th i18n:translate="">Wait for selector</th>
+                <th i18n:translate="">Service Url</th>
             </tr>
             </thead>
             <tbody>
@@ -109,7 +110,11 @@
                               tal:attributes="title value;"
                               tal:content="value" />
                     </td>
-                
+                    <td>
+                        <span tal:define="value ptype/service_url|string:;"
+                              tal:attributes="title value;"
+                              tal:content="value" />
+                    </td>
                 </tr>
             </tal:ptypes>
             </tbody>

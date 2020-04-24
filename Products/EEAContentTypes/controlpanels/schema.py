@@ -18,6 +18,7 @@ class PortalType(Folder):
         {'id': 'click', 'type': 'string', 'mode': 'w'},
         {'id': 'no', 'type': 'string', 'mode': 'w'},
         {'id': 'portal_type', 'type': 'string', 'mode': 'w'},
+        {'id': 'service_url', 'type': 'string', 'mode': 'w'},
 
         {'id': 'pdf', 'type': 'boolean', 'mode': 'w'},
         {'id': 'fullPage', 'type': 'boolean', 'mode': 'w'},
@@ -34,6 +35,7 @@ class PortalType(Folder):
     el = ''
     click = ''
     no = ''
+    service_url = ''
     pdf = False
     fullPage = True
     w = 1920
