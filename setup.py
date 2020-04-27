@@ -74,7 +74,7 @@ setup(name=NAME,
           # required for screenshot image capture event
           'BeautifulSoup',
 
-          #required in tests
+          # required in tests
           'eea.dataservice',
           'eea.design',
           'eea.geotags',
