@@ -73,9 +73,8 @@ def gis_set_image(obj, evt):
         async_queue = async_service.getQueues()['']
         async_service.queueJobInQueue(
             async_queue, ('default',),
-            async_screenshoteer_set_image(obj, url),
-            obj,
-            scheduled_at=obj.scheduled_at
+            async_screenshoteer_set_image,
+            obj, url,
         )
     except Exception as err:
         logger.error(
@@ -124,9 +123,8 @@ def dashboard_set_image(obj, evt):
         async_queue = async_service.getQueues()['']
         async_service.queueJobInQueue(
             async_queue, ('default',),
-            async_screenshoteer_set_image(obj, url),
-            obj,
-            scheduled_at=obj.scheduled_at
+            async_screenshoteer_set_image,
+            obj, url,
         )
     except Exception as err:
         logger.error(
