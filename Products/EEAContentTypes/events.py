@@ -130,7 +130,7 @@ def dashboard_set_image(obj, evt):
         logger.error(
                 "Error while setting image for %s failed with message: %s",
                 obj.absolute_url(),
-                err.msg)
+                err.message)
 
 
 def async_screenshoteer_set_image(obj, url):
