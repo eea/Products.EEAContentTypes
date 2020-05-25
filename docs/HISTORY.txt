@@ -1,6 +1,17 @@
 Changelog
 =========
 
+19.4 - (2020-04-10)
+---------------------------
+* Feature: Added event handlers for Dashboard/GisApplication so that when an
+  object is created/modified it will use the screenshot service to set a
+  preview image
+  [iulianpetchesi refs #116145]
+* Upgrade step: Within "Plone > Site Setup > Add-ons" click on upgrade
+  button available for EEA Content Types, added control panel entry for
+  screenshot settings
+  [iulianpetchesi refs #116145]
+
 19.3 - (2020-02-28)
 ---------------------------
 * Feature: added gis_themecentre_inline template which removes the gis notes

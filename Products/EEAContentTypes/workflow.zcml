@@ -51,5 +51,11 @@
         name="transitionQuickPublish"
         permission="zope2.Public" />
 
+    <browser:view
+        for="*"
+        class=".workflow.ScreenshotGuard"
+        name="transitionScreenshotGuard"
+        permission="zope2.Public" />
+
 </configure>
 

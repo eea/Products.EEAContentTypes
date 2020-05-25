@@ -17,6 +17,32 @@
                 for="zope.interface.Interface Products.CMFCore.interfaces.IActionSucceededEvent"
                 />
 
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
+             Products.Archetypes.interfaces.IObjectInitializedEvent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.gis_set_image"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IGISMapApplication
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.gis_set_image"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
+             Products.Archetypes.interfaces.IObjectInitializedEvent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.dashboard_set_image"
+    />
+
+    <subscriber
+        for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.dashboard_set_image"
+    />
+
     <adapter factory=".marshaller.Provenances2Surf" name="provenances" />
     <adapter factory=".marshaller.MediaField2Surf" name="media" />
 
