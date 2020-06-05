@@ -1,6 +1,11 @@
 Changelog
 =========
 
+19.5 - (2020-06-05)
+---------------------------
+* Change: removed bg color from quote of highlight_view
+  [ichim-david refs #117294]
+
 19.4 - (2020-04-10)
 ---------------------------
 * Feature: Added event handlers for Dashboard/GisApplication so that when an

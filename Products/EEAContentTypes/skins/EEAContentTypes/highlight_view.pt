@@ -25,7 +25,7 @@
               <div class="fullwidth-img-bg" tal:attributes="style python:'background-image:url(' + here_url + '/image_panoramic' + ')'; title here/getImageCopyright;"></div>
           </div>
 
-            <div class="bg-grey" tal:condition="hasQuote">
+            <div class="quote-container" tal:condition="hasQuote">
               <blockquote  class="pullquote-full">
                 <p  tal:content="quote" />
                 <p class="source" tal:content="here/getQuotationSource" />
