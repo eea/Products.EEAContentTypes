@@ -1,6 +1,9 @@
 Changelog
 =========
 
+19.6-dev0 - (unreleased)
+---------------------------
+
 19.5 - (2020-06-05)
 ---------------------------
 * Change: removed bg color from quote of highlight_view
