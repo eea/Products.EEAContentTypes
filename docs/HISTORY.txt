@@ -3,6 +3,8 @@ Changelog
 
 19.5-dev0 - (unreleased)
 ---------------------------
+* Change: removed bg color from quote of highlight_view
+  [ichim-david refs #117294]
 
 19.4 - (2020-04-10)
 ---------------------------
