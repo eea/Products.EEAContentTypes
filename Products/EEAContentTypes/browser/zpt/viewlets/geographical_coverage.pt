@@ -5,7 +5,7 @@
     <div class="geographical-coverage" tal:define="mini_header python:context.restrictedTraverse('@@miniheader_content_types')()" tal:attributes="class python: 'geographical-coverage eea-accordion-panel' if mini_header else 'geographical-coverage'">
         <metal:related use-macro="here/geotags_macros/macros/geotags-listing">
             <tal:geotags-title metal:fill-slot="geotags-listing-title">
-                <h3 i18n:translate="" class="notoc" tal:attributes="class python: 'notoc eea-accordion-title eea-icon-right-container' if mini_header else 'notoc'">Geographic coverage</h3>
+                <h3 i18n:translate="" class="notoc" tal:attributes="class python: 'notoc eea-accordion-title eea-icon-left-container' if mini_header else 'notoc'">Geographic coverage</h3>
             </tal:geotags-title>
             <tal:geotags-body metal:fill-slot="geotags-listing-body">
                 <div class="geotags" tal:attributes="class python: 'geotags pane' if mini_header else 'geotags'">
