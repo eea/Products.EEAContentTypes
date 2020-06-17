@@ -2,21 +2,18 @@
 <!-- Geographic coverage -->
 <tal:block metal:define-macro="geographical-coverage"
            tal:condition="view/available">
-    <div class="geographical-coverage">
+    <div class="geographical-coverage" tal:define="mini_header python:context.restrictedTraverse('@@miniheader_content_types')()" tal:attributes="class python: 'geographical-coverage eea-accordion-panel' if mini_header else 'geographical-coverage'">
         <metal:related use-macro="here/geotags_macros/macros/geotags-listing">
             <tal:geotags-title metal:fill-slot="geotags-listing-title">
-                <h3 i18n:translate="" class="notoc">Geographic coverage</h3>
+                <h3 i18n:translate="" class="notoc" tal:attributes="class python: 'notoc eea-accordion-title eea-icon-left-container' if mini_header else 'notoc'">Geographic coverage</h3>
             </tal:geotags-title>
             <tal:geotags-body metal:fill-slot="geotags-listing-body">
-                <div class="geotags">
+                <div class="geotags" tal:attributes="class python: 'geotags pane' if mini_header else 'geotags'">
                     <tal:tags tal:repeat="tag python:sorted(geoitems)">
-                      <span>
-                        <a class="link-category" rel="tag"
+                        <span class="geotags-category" rel="tag"
                             tal:define="title python:tag.encode('utf8');
                                         description python:geoitems[tag].encode('utf8')"
-                            tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
-                        <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
-                      </span>
+                            tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></span>
                     </tal:tags>
                 </div>
             </tal:geotags-body>
