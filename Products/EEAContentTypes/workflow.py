@@ -119,6 +119,27 @@ class QuickPublish(object):
         return self.context.portal_type in self.canBeUsedFor
 
 
+class ScreenshotGuard(object):
+    """ guard for transition """
+
+    implements(ITransitionLogicalGuard)
+
+    canBeUsedFor = ['Dashboard', 'GIS Application']
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        if self.context.portal_type in self.canBeUsedFor:
+            if self.context.getImage().get_size() != 0:
+                return True
+            else:
+                return False
+        else:
+            return True
+
+
 class LocalRoleEmails(object):
     """ Email
     """

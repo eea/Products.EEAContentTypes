@@ -46,7 +46,7 @@ schema = Schema((
         ),
 
     ImageField('image',
-               required=True,
+               required=False,
                languageIndependent=True,
                storage=AnnotationStorage(migrate=True),
                swallowResizeExceptions= \
@@ -65,8 +65,10 @@ schema = Schema((
                validators=(('isNonEmptyFile', V_REQUIRED),
                            ('imageMinSize', V_REQUIRED)),
                widget=ImageWidget(
-                   description='High-res preview image'
-                               ' (at least FHD 1920x1080)',
+                   description='High-res preview image ' \
+                               '(at least FHD 1920x1080). ' \
+                               'If the image is removed, a new image will ' \
+                               'automatically be created after saving',
                    label='Preview image',
                    show_content_type=False, )
                ),
