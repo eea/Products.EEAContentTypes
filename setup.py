@@ -71,10 +71,7 @@ setup(name=NAME,
           # required for image capture
           'opencv-python',
 
-          # required for screenshot image capture event
-          'BeautifulSoup',
-
-          # required in tests
+          #required in tests
           'eea.dataservice',
           'eea.design',
           'eea.geotags',

@@ -197,11 +197,4 @@
     directory="profiles/upgrade/to_179"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
-  <genericsetup:registerProfile
-    name="eeacontenttypes_upgrade_19.4"
-    title="Upgrade profile for EEAContentTypes 19.4"
-    description="This profile contains a controlpanel for screenshot settings"
-    directory="profiles/upgrade/to_194"
-    provides="Products.GenericSetup.interfaces.EXTENSION" />
-
 </configure>
