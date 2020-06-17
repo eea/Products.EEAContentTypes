@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel" meta_type="Plone Control Panel Tool">
+    <configlet title="EEA Screenshot Tool" action_id="eea.screenshot.tool"
+        appId="eea.screenshot.tool"
+        icon_expr="string:$portal_url/maintenance_icon.png"
+        category="Products" condition_expr=""
+        url_expr="string:${portal_url}/portal_screenshot/@@view"
+        visible="True">
+        <permission>Manage portal</permission>
+    </configlet>
+</object>
+
+

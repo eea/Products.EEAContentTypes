@@ -19,4 +19,24 @@
         allowed_interface=".status_expirationdate.IStatusExpirationDate"
         />
 
+    <browser:page name="view"
+        for=".interfaces.IScreenshotTool"
+        class=".screenshot_view.ScreenshotToolView"
+        template="screenshot_view.pt"
+        permission="cmf.ModifyPortalContent"
+    />
+
+    <browser:page name="add"
+        for=".interfaces.IScreenshotTool"
+        class=".screenshot_view.AddPage"
+        permission="cmf.ModifyPortalContent"
+    />
+
+    <browser:page name="edit"
+        for=".interfaces.IScreenshotPortalType"
+        class=".screenshot_view.EditPage"
+        permission="cmf.ModifyPortalContent"
+    />
+
+
 </configure>
