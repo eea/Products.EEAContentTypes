@@ -3,6 +3,9 @@ Changelog
 
 19.6-dev0 - (unreleased)
 ---------------------------
+* Change: geographical coverage data is now hidden
+  behind an accordion
+  [ichim-david refs #117295]
 
 19.5 - (2020-06-05)
 ---------------------------
