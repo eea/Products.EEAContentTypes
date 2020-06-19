@@ -1,7 +1,7 @@
 Changelog
 =========
 
-19.6-dev0 - (unreleased)
+19.6 - (2020-06-19)
 ---------------------------
 * Change: geographical coverage data is now hidden
   behind an accordion
