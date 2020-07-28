@@ -12,10 +12,13 @@
 <metal:content-core define-macro="content-core">
 
   <metal:img tal:condition="context/getImage|nothing">
-    <a tal:define="here_url context/@@plone_context_state/object_url"
-      tal:attributes="href string:$here_url/image/image_view_fullscreen">
-      <img tal:attributes="src string:$here_url/image_large" style="min-width: 100%; width: 100%;" />
-    </a>
+      <a tal:define="here_url context/@@plone_context_state/object_url"
+           tal:attributes="href string:$here_url/image/image_view_fullscreen">
+        <div class="max-container-centered">
+          <img tal:attributes="src string:$here_url/image_large" />
+        </div>
+      </a>
+
   </metal:img>
 
 
