@@ -29,8 +29,7 @@ class GeographicalCoverageViewlet(common.ViewletBase):
                                 name=u'plone_context_state')
         return plone.is_view_template() and \
                _available(self,
-                          excluded_geographical_coverage_content_types) and \
-                getattr(self.context, 'location', False)
+                          excluded_geographical_coverage_content_types)
 
 
 class TemporalCoverageViewlet(common.ViewletBase):
