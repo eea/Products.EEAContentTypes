@@ -1,7 +1,7 @@
 Changelog
 =========
 
-19.7-dev0 - (unreleased)
+19.7 - (2020-08-03)
 ---------------------------
 * Change: prepare Dashboard Tableau redesign
   [ichim-david refs #120397]
