@@ -3,6 +3,11 @@ Changelog
 
 19.7-dev0 - (unreleased)
 ---------------------------
+* Change: prepare Infographics redesign
+  [ichim-david refs #111968]
+* Change: remove condition to have location field for geotags viewlet, this
+  way it can be used also by Assessments
+  [ichim-david refs #119540]
 
 19.6 - (2020-06-19)
 ---------------------------
