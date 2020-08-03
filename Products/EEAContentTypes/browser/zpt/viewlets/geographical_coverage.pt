@@ -2,8 +2,8 @@
 <!-- Geographic coverage -->
 <tal:block metal:define-macro="geographical-coverage"
            tal:condition="view/available">
+  <div class="geographical-coverage eea-accordion-panel">
         <metal:related use-macro="here/geotags_macros/macros/geotags-listing">
-          <div class="geographical-coverage eea-accordion-panel">
             <tal:geotags-title metal:fill-slot="geotags-listing-title">
                 <h3 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container" >Geographic coverage</h3>
             </tal:geotags-title>
@@ -17,6 +17,6 @@
                     </tal:tags>
                 </div>
             </tal:geotags-body>
-          </div>
         </metal:related>
+  </div>
 </tal:block>
