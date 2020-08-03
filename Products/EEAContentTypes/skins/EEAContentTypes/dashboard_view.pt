@@ -30,7 +30,7 @@
                 <tal:block tal:replace="structure body" />
             </div>
 
-          <div class="max-container-centered">
+          <div class="fullwidth-container">
             <tal:embed condition="python: is_expired != 1" content="structure context/embed" />
 
             <img src="" style="width:100%;height:600px;margin:0;border:0"

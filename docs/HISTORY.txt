@@ -3,6 +3,8 @@ Changelog
 
 19.7-dev0 - (unreleased)
 ---------------------------
+* Change: prepare Dashboard Tableau redesign
+  [ichim-david refs #120397]
 * Change: prepare Infographics redesign
   [ichim-david refs #111968]
 * Change: remove condition to have location field for geotags viewlet, this
