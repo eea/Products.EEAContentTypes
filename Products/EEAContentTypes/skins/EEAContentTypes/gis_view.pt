@@ -63,6 +63,8 @@ div.archived p
                                is_https python:gis_url.startswith('https');
                                is_at_eea python:gis_url.find('eea.europa.eu')>0;
                                image here/getImage">
+
+                <div class="widescreen-container">
                  <tal:block condition="python:uid or arcgis_url">
                      <iframe
                      style="width:100%;height:600px;margin:0;border:0"
@@ -110,8 +112,10 @@ div.archived p
                          </a>
                          <div class="visualClear"><!-- --></div></div>
                  </tal:block>
+                </div>
 
                  <div class="more-information-body" tal:define="body context/getBody" tal:condition="body">
+                     <span class="visualHidden">&nbsp;</span>
                      <h3 i18n:translate="" class="notoc">More information</h3>
                      <tal:block tal:replace="structure body" />
                  </div>
