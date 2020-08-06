@@ -64,7 +64,7 @@ div.archived p
                                is_at_eea python:gis_url.find('eea.europa.eu')>0;
                                image here/getImage">
 
-                <div class="widescreen-container">
+                <div tal:attributes="class python:'widescreen-container' if is_inline else 'fullwidth-container'">
                  <tal:block condition="python:uid or arcgis_url">
                      <iframe
                      style="width:100%;height:600px;margin:0;border:0"
