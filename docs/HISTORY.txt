@@ -1,6 +1,9 @@
 Changelog
 =========
 
+19.8-dev0 - (unreleased)
+---------------------------
+
 19.7 - (2020-08-03)
 ---------------------------
 * Change: gis_view changes for new design
