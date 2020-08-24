@@ -1,6 +1,18 @@
 Changelog
 =========
 
+19.7 - (2020-08-03)
+---------------------------
+* Change: gis_view changes for new design
+  [ichim-david refs #119540]
+* Change: prepare Dashboard Tableau redesign
+  [ichim-david refs #120397]
+* Change: prepare Infographics redesign
+  [ichim-david refs #111968]
+* Change: remove condition to have location field for geotags viewlet, this
+  way it can be used also by Assessments
+  [ichim-david refs #119540]
+
 19.6 - (2020-06-19)
 ---------------------------
 * Change: geographical coverage data is now hidden

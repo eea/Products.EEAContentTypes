@@ -30,12 +30,14 @@
                 <tal:block tal:replace="structure body" />
             </div>
 
+          <div class="fullwidth-container">
             <tal:embed condition="python: is_expired != 1" content="structure context/embed" />
 
             <img src="" style="width:100%;height:600px;margin:0;border:0"
-                     tal:condition="python: is_expired == 1"
-                     tal:attributes="src python: image.absolute_url() + '/image_large'" />
+                 tal:condition="python: is_expired == 1"
+                 tal:attributes="src python: image.absolute_url() + '/image_large'" />
 
+          </div>
              <div class="more-information-body" tal:define="body context/getBody" tal:condition="body">
                  <h3 i18n:translate="" class="notoc">More information</h3>
                  <tal:block tal:replace="structure body" />

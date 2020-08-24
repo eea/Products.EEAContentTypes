@@ -21,10 +21,6 @@
               <tal:description tal:content="teaserDescription" ></tal:description>
             </div>
 
-          <div class="fullwidth-img-container">
-              <div class="fullwidth-img-bg" tal:attributes="style python:'background-image:url(' + here_url + '/image_panoramic' + ')'; title here/getImageCopyright;"></div>
-          </div>
-
             <div class="quote-container" tal:condition="hasQuote">
               <blockquote  class="pullquote-full">
                 <p  tal:content="quote" />

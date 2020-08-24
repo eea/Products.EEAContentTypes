@@ -1,16 +1,18 @@
 <tal:datasources tal:define="data_sources here/get_data_sources">
+  <div class="indicator-figure-sources">
     <strong i18n:translate="">Data sources:</strong>
-    <ul tal:condition="data_sources" class="indicator-figure-sources">
-        <tal:block tal:repeat="data_source data_sources">
-            <li>
-                <a tal:attributes="href data_source/url" tal:content="data_source/title">Data Title</a>
-                <tal:block i18n:translate="">provided by</tal:block>
-                <tal:block tal:repeat="organisation data_source/organisations">
-                    <strong tal:content="organisation">Data owner</strong>
-                    <tal:block tal:condition="python:not path('repeat/organisation/end')"> <span tal:omit-tag="" i18n:translate="">and</span> </tal:block>
-                </tal:block>
-            </li>
-        </tal:block>
+    <ul tal:condition="data_sources" >
+      <tal:block tal:repeat="data_source data_sources">
+        <li>
+          <a tal:attributes="href data_source/url" tal:content="data_source/title">Data Title</a>
+          <tal:block i18n:translate="">provided by</tal:block>
+          <tal:block tal:repeat="organisation data_source/organisations">
+            <strong tal:content="organisation">Data owner</strong>
+            <tal:block tal:condition="python:not path('repeat/organisation/end')"> <span tal:omit-tag="" i18n:translate="">and</span> </tal:block>
+          </tal:block>
+        </li>
+      </tal:block>
     </ul>
     <p tal:condition="python:not data_sources" i18n:translate="">Data provenance info is missing.</p>
+  </div>
 </tal:datasources>
