@@ -1,6 +1,14 @@
 Changelog
 =========
 
+19.8 - (2020-10-06)
+---------------------------
+* Bug fix: removed set image sizes from Dashboard, ExternalHiglight,
+  GISApplication and Promotion, this way any image size defined in
+  the site config and within eea.depiction will work with these
+  content types without having to manually add it to the sizes dict
+  [ichim-david refs #121911]
+
 19.7 - (2020-08-03)
 ---------------------------
 * Change: gis_view changes for new design

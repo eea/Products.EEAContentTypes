@@ -14,7 +14,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import View
 from Products.validation import V_REQUIRED
 from Products.Archetypes.Field import Image as ZODBImage
-from Products.Archetypes.Field import ImageField
+# from Products.Archetypes.Field import ImageField
 from Products.Archetypes import DisplayList
 from Products.Archetypes.utils import shasattr
 from Products.LinguaPlone import public
@@ -52,10 +52,14 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         if value == "DELETE_FILE":
             return
 
+        # #121911 commented this scale generation
+        # as with none it avoid having to define
+        # extra sizes when we define new ones in
+        # imaging control panel
         # Generate scales on edit to avoid ZODB commits on view
-        sizes = self.getAvailableSizes(instance)
-        for size in sizes.keys():
-            self.getScale(instance, size)
+        # sizes = self.getAvailableSizes(instance)
+        # for size in sizes.keys():
+        #     self.getScale(instance, size)
 
     # BBB Backward compatible.
     # XXX This should be removed in Products.EEAContentTypes > 2.25
@@ -68,27 +72,27 @@ class ImageBlobField(BlobField, ImageFieldMixin):
             return value.__of__(instance)
         return value
 
-    def getAvailableSizes(self, instance):
-        """ Get sizes
-        """
-        return self.sizes
+    # def getAvailableSizes(self, instance):
+    #     """ Get sizes
+    #     """
+    #     return self.sizes
 
-    def getScale(self, instance, scale=None, **kwargs):
-        """ Scale getter
-        """
-        img = self.getAccessor(instance)()
-        size = img.getSize()
+    # def getScale(self, instance, scale=None, **kwargs):
+    #     """ Scale getter
+    #     """
+    #     img = self.getAccessor(instance)()
+    #     size = img.getSize()
 
-        if not size:
-            return None
+    #     if not size:
+    #         return None
 
-        # BBB Backward compatible.
-        # XXX This should be removed in Products.EEAContentTypes > 2.25
-        if isinstance(img, ZODBImage):
-            return ImageField.getScale(self, instance, scale, **kwargs)
+    #     # BBB Backward compatible.
+    #     # XXX This should be removed in Products.EEAContentTypes > 2.25
+    #     if isinstance(img, ZODBImage):
+    #         return ImageField.getScale(self, instance, scale, **kwargs)
 
-        return super(ImageBlobField,
-                     self).getScale(instance, scale, **kwargs)
+    #     return super(ImageBlobField,
+    #                  self).getScale(instance, scale, **kwargs)
 
 enable_exception = zconf.swallowImageResizeExceptions.enable
 
@@ -105,20 +109,7 @@ schema = public.Schema((
                    pil_quality=zconf.pil_config.quality,
                    pil_resize_algo=zconf.pil_config.resize_algo,
                    max_size=(7000, 7000),
-                   sizes={'print': (2000, 2000),
-                          'panoramic': (1920, 1080),
-                          'landscape': (1370, 771),
-                          'portrait': (771, 1370),
-                          'xlarge': (950, 950),
-                          'wide': (325, 183),
-                          'large': (768, 768),
-                          'preview': (400, 400),
-                          'mini': (180, 135),
-                          'thumb': (128, 128),
-                          'tile': (64, 64),
-                          'icon': (32, 32),
-                          'listing': (16, 16),
-                          },
+                   sizes=None,
                    validators=(
                        ('isNonEmptyFile', V_REQUIRED),
                        ('imageMinSize', V_REQUIRED),
