@@ -52,10 +52,14 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         if value == "DELETE_FILE":
             return
 
+        # #121911 commented this scale generation
+        # as with none it avoid having to define
+        # extra sizes when we define new ones in
+        # imaging control panel
         # Generate scales on edit to avoid ZODB commits on view
-        sizes = self.getAvailableSizes(instance)
-        for size in sizes.keys():
-            self.getScale(instance, size)
+        # sizes = self.getAvailableSizes(instance)
+        # for size in sizes.keys():
+        #     self.getScale(instance, size)
 
     # BBB Backward compatible.
     # XXX This should be removed in Products.EEAContentTypes > 2.25
