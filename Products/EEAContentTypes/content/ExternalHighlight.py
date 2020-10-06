@@ -72,27 +72,27 @@ class ImageBlobField(BlobField, ImageFieldMixin):
             return value.__of__(instance)
         return value
 
-    def getAvailableSizes(self, instance):
-        """ Get sizes
-        """
-        return self.sizes
+    # def getAvailableSizes(self, instance):
+    #     """ Get sizes
+    #     """
+    #     return self.sizes
 
-    def getScale(self, instance, scale=None, **kwargs):
-        """ Scale getter
-        """
-        img = self.getAccessor(instance)()
-        size = img.getSize()
+    # def getScale(self, instance, scale=None, **kwargs):
+    #     """ Scale getter
+    #     """
+    #     img = self.getAccessor(instance)()
+    #     size = img.getSize()
 
-        if not size:
-            return None
+    #     if not size:
+    #         return None
 
-        # BBB Backward compatible.
-        # XXX This should be removed in Products.EEAContentTypes > 2.25
-        if isinstance(img, ZODBImage):
-            return ImageField.getScale(self, instance, scale, **kwargs)
+    #     # BBB Backward compatible.
+    #     # XXX This should be removed in Products.EEAContentTypes > 2.25
+    #     if isinstance(img, ZODBImage):
+    #         return ImageField.getScale(self, instance, scale, **kwargs)
 
-        return super(ImageBlobField,
-                     self).getScale(instance, scale, **kwargs)
+    #     return super(ImageBlobField,
+    #                  self).getScale(instance, scale, **kwargs)
 
 enable_exception = zconf.swallowImageResizeExceptions.enable
 
