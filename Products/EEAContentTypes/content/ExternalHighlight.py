@@ -14,7 +14,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import View
 from Products.validation import V_REQUIRED
 from Products.Archetypes.Field import Image as ZODBImage
-from Products.Archetypes.Field import ImageField
+# from Products.Archetypes.Field import ImageField
 from Products.Archetypes import DisplayList
 from Products.Archetypes.utils import shasattr
 from Products.LinguaPlone import public
