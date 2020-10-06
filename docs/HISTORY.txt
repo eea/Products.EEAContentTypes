@@ -1,7 +1,7 @@
 Changelog
 =========
 
-19.8-dev0 - (unreleased)
+19.8 - (2020-10-06)
 ---------------------------
 * Bug fix: removed set image sizes from Dashboard, ExternalHiglight,
   GISApplication and Promotion, this way any image size defined in
