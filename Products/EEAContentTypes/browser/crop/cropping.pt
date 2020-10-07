@@ -9,7 +9,7 @@
     </div>
     <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
         <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/jquery.Jcrop.min.js"></script>
-        <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++products.eeacontenttypes.crop.resources/cropping.js"></script>
+        <script type="text/javascript" tal:attributes="src string:$portal_url/cropping.js"></script>
     </div>
 </head>
 <body>
