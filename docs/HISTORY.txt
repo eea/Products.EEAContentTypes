@@ -1,6 +1,9 @@
 Changelog
 =========
 
+20.0-dev0 - (unreleased)
+---------------------------
+
 19.9 - (2020-10-09)
 ---------------------------
 * Bug fix: crop tool no longer adds a black background when user hits
