@@ -1,7 +1,6 @@
-/*jslint browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, newcap: true, immed: true, regexp: false, white:true */
 /*global jQuery, ajax_noresponse_message, window */
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     jQuery('.selImageToCropBtn').prepOverlay({
         subtype: 'ajax',
         filter: '#cropImage',
@@ -15,12 +14,11 @@ jQuery(document).ready(function() {
                     Math = window.Math,
                     field, yratio, xratio, crop_size, jcrop, cropbox, minX,
                     minY,
-                    aspect_ratio = 16 / 9;
-                var image_too_small = window.parseInt(image_size.text().split('x')[0], 10) < 1920;
+                    aspect_ratio = 16 / 9,
+                    image_too_small = window.parseInt(image_size.text().split('x')[0], 10) < 1920;
                 if (image_too_small) {
                     image_small_warning.removeClass('hidden');
-                }
-                else {
+                } else {
                     crop_disclaimer.removeClass('hidden');
                 }
                 if (cropImage.length) {
@@ -47,11 +45,8 @@ jQuery(document).ready(function() {
                             var cropbox_x = Math.ceil(cropbox.w * xratio),
                                 cropbox_y = Math.ceil(cropbox.h * yratio),
                                 crop_text,
-                                sixteen_nine_x = 1920 / xratio,
-                                sixteen_nine_y = 1080 / yratio;
-
-                            var sixteen_nine_proper_x =Math.round(cropbox_x / 16) * 16;
-                            var sixteen_nine_proper_y = Math.round(cropbox_y / 9) * 9;
+                                sixteen_nine_proper_x = Math.round(cropbox_x / 16) * 16,
+                                sixteen_nine_proper_y = Math.round(cropbox_y / 9) * 9;
 
                             if (cropbox.w) {
                                 if (sixteen_nine_proper_x !== cropbox_x) {
@@ -79,13 +74,13 @@ jQuery(document).ready(function() {
 
                     imageRecrop.click(function(e) {
                         e.preventDefault();
-                        var target = $(e.currentTarget);
+                        var target = jQuery(e.currentTarget),
+                            context_url = jQuery('body').data('base-url') || jQuery('base').attr('href') || '';
                         /* #121137 avoid extra submit in case users clicks more than once */
                         if (target.data('clicked')) {
                             return false;
                         }
                         target.data('clicked', true);
-                        var context_url = jQuery('body').data('base-url') || jQuery('base').attr('href') || '';
                         if (context_url.substr(-1) !== '/') {
                             context_url = context_url + '/';
                         }
