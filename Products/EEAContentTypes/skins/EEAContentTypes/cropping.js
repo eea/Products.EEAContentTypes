@@ -9,10 +9,20 @@ jQuery(document).ready(function() {
             onLoad: function() {
                 var cropImage = jQuery("#croppableImage"),
                     imageRecrop = jQuery('#image-recrop'),
+                    image_size = jQuery('#current_image_size'),
+                    image_small_warning = jQuery("#current_image_too_small"),
+                    crop_disclaimer = jQuery('#crop-disclaimer'),
                     Math = window.Math,
                     field, yratio, xratio, crop_size, jcrop, cropbox, minX,
                     minY,
                     aspect_ratio = 16 / 9;
+                var image_too_small = window.parseInt(image_size.text().split('x')[0], 10) < 1920;
+                if (image_too_small) {
+                    image_small_warning.removeClass('hidden');
+                }
+                else {
+                    crop_disclaimer.removeClass('hidden');
+                }
                 if (cropImage.length) {
                     field = cropImage.attr('data-field');
                     yratio = window.parseFloat(cropImage.attr('data-previewratioy'));
@@ -30,8 +40,10 @@ jQuery(document).ready(function() {
                         allowMove: true,
                         minSize: [minX, minY],
                         onSelect: function(coords) {
+                            if (image_too_small) {
+                                return;
+                            }
                             cropbox = coords;
-
                             var cropbox_x = Math.ceil(cropbox.w * xratio),
                                 cropbox_y = Math.ceil(cropbox.h * yratio),
                                 crop_text,
@@ -68,7 +80,6 @@ jQuery(document).ready(function() {
                         if (context_url.substr(-1) !== '/') {
                             context_url = context_url + '/';
                         }
-                        debugger;
                         jQuery.ajax({
                             type: 'GET',
                             url: context_url + '@@cropimage/cropImage',
