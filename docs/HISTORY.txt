@@ -1,6 +1,18 @@
 Changelog
 =========
 
+19.9 - (2020-10-09)
+---------------------------
+* Bug fix: crop tool no longer adds a black background when user hits
+  the crop button more than once which triggered a crop of a crop
+  [ichim-david refs #121137]
+* Bug fix: crop tool action no longer points to parent in case we have
+  the child set as default view for the parent
+  [ichim-david refs #121137]
+* Bug fix: crop tool no longer enabled crop button in case the image
+  width size is smaller than 1920px
+  [ichim-david refs #121137]
+
 19.8 - (2020-10-06)
 ---------------------------
 * Bug fix: removed set image sizes from Dashboard, ExternalHiglight,
