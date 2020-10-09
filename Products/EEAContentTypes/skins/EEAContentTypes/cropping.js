@@ -50,17 +50,20 @@ jQuery(document).ready(function() {
                                 sixteen_nine_x = 1920 / xratio,
                                 sixteen_nine_y = 1080 / yratio;
 
+                            var sixteen_nine_proper_x =Math.round(cropbox_x / 16) * 16;
+                            var sixteen_nine_proper_y = Math.round(cropbox_y / 9) * 9;
+
                             if (cropbox.w) {
-                                if (cropbox.w < sixteen_nine_x || cropbox_x - 1920 < 5) {
-                                    cropbox.w = sixteen_nine_x;
-                                    cropbox_x = (sixteen_nine_x * xratio).toFixed(0);
+                                if (sixteen_nine_proper_x !== cropbox_x) {
+                                    cropbox_x = sixteen_nine_proper_x;
+                                    cropbox.w = sixteen_nine_proper_x / xratio;
                                 }
                             }
 
                             if (cropbox.h) {
-                                if (cropbox.h < sixteen_nine_y || cropbox_y - 1080 < 5) {
-                                    cropbox.h = sixteen_nine_y;
-                                    cropbox_y = (sixteen_nine_y * yratio).toFixed(0);
+                                if (sixteen_nine_proper_y !== cropbox_y) {
+                                    cropbox_y = sixteen_nine_proper_y;
+                                    cropbox.h = sixteen_nine_proper_y / yratio;
                                 }
                             }
                             cropbox.full_width = cropbox_x;
