@@ -79,6 +79,12 @@ jQuery(document).ready(function() {
 
                     imageRecrop.click(function(e) {
                         e.preventDefault();
+                        var target = $(e.currentTarget);
+                        /* #121137 avoid extra submit in case users clicks more than once */
+                        if (target.data('clicked')) {
+                            return false;
+                        }
+                        target.data('clicked', true);
                         var context_url = jQuery('body').data('base-url') || jQuery('base').attr('href') || '';
                         if (context_url.substr(-1) !== '/') {
                             context_url = context_url + '/';
