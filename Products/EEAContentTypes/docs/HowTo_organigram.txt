@@ -2,6 +2,7 @@ Info on how to setup organigram for EEA
 =================================================
 Author: Alexandru Ghica <alec.ghica@eaudeweb.ro>
 
+*** THIS DOCUMENT IS DEPRECATED ***
 
 1) By default the eeastaff.xml should be available under
  ../eea-buildout/var

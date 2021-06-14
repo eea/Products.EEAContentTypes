@@ -1,6 +1,11 @@
 Changelog
 =========
 
+20.0 - (2021-05-28)
+---------------------------
+* Change: Develop #134584
+  [alecghica]
+
 19.9 - (2020-10-09)
 ---------------------------
 * Bug fix: crop tool no longer adds a black background when user hits
