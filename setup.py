@@ -62,6 +62,7 @@ setup(name=NAME,
           'collective.monkeypatcher',
           'eea.reports',
           'eea.relations',
+          'eea.api.taxonomy',
 
           'eea.cache',
           'eea.versions',

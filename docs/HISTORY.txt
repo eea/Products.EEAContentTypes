@@ -3,6 +3,8 @@ Changelog
 
 20.1-dev0 - (unreleased)
 ---------------------------
+* Feature: Allow image content-types: image/svg+xml
+  [avoinea - refs #128468]
 
 20.0 - (2021-05-28)
 ---------------------------
@@ -115,7 +117,7 @@ Changelog
 
 18.7 - (2019-11-26)
 ---------------------------
-* Change: modified min width of image validation to 1920 from 1024 
+* Change: modified min width of image validation to 1920 from 1024
   [ichim-david refs #110784]
 * Change: modified storytelling_view to show promotion url
   [ichim-david refs #110784]

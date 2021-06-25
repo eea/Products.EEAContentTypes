@@ -147,6 +147,6 @@
     <adapter name="eea.image4Document"
       for="Products.ATContentTypes.interfaces.IATDocument"
       provides="archetypes.schemaextender.interfaces.ISchemaExtender"
-      factory=".subtypes.ImageSchemaExtender" />
+      factory=".subtypes.DocumentImageSchemaExtender" />
 
 </configure>
