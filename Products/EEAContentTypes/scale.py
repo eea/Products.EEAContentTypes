@@ -13,11 +13,16 @@ class EEABlobImageScaleFactory(BlobImageScaleFactory):
         if wrapper:
             blob = Blob()
             result = blob.open('w')
-            if getattr(wrapper, 'content_type', '')  != 'image/svg+xml':
+            if getattr(wrapper, 'content_type', '')  == 'image/svg+xml':
+                result.write(wrapper.getBlob().open('r').read())
+                dimensions = (
+                    parameters.get('width', 1200),
+                    parameters.get('height', 800)
+                )
+                format = 'image/svg+xml'
+            else:
                 _, format, dimensions = scaleImage(wrapper.getBlob().open('r'),
                     result=result, **parameters)
-            else:
-               format, dimensions = ('image/svg+xml', (1280, 1024))
+
             result.close()
             return blob, format, dimensions
-
