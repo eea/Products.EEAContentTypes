@@ -1,6 +1,9 @@
 Changelog
 =========
 
+20.2-dev0 - (unreleased)
+---------------------------
+
 20.1 - (2021-06-25)
 ---------------------------
 * Feature: Allow image content-types: image/svg+xml
