@@ -764,6 +764,8 @@ class EEAImageSchemaExtender(ImageSchemaExtender):
     def getFields(self):
         """ Schema Fields
         """
-        self.fields[0].allowable_content_types=(
-            'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'),
+        self.fields[0].allowable_content_types = (
+            'image/gif', 'image/jpeg',
+            'image/png', 'image/svg+xml'
+        )
         return self.fields
