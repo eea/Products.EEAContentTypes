@@ -13,7 +13,7 @@
         template="browser/rss.xml.pt" />
 
     <!-- Get Canonical object relations -->
-    <adapter 
+    <adapter
         for="eea.relations.content.interfaces.IBaseObject"
         provides="eea.relations.interfaces.IAutoRelations"
         factory=".subtypes.GetCanonicalRelations"/>
@@ -32,6 +32,9 @@
         name="plone.app.blob.subtypes.image"
         for="plone.app.blob.interfaces.IATBlobImage"
         factory=".subtypes.EEAImageSchemaExtender" />
+
+    <adapter
+        factory=".scale.EEABlobImageScaleFactory" />
 
     <!-- #92952 Rancher adapter -->
     <utility
