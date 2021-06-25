@@ -28,6 +28,11 @@
         for="plone.app.blob.interfaces.IATBlobFile"
         factory=".subtypes.EEAFileSchemaExtender" />
 
+    <adapter
+        name="plone.app.blob.subtypes.image"
+        for="plone.app.blob.interfaces.IATBlobImage"
+        factory=".subtypes.EEAImageSchemaExtender" />
+
     <!-- #92952 Rancher adapter -->
     <utility
         zcml:condition="installed ftw.globalstatusmessage"

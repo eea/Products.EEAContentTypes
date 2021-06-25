@@ -8,6 +8,7 @@ from plone.registry.interfaces import IRegistry
 from plone.app.blob.field import ImageField
 from plone.app.blob.subtypes.blob import SchemaExtender as BlobSchemaExtender
 from plone.app.blob.subtypes.file import SchemaExtender as FileSchemaExtender
+from plone.app.blob.subtypes.image import SchemaExtender as ImageSchemaExtender
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface, implements
 from zope.component import adapts
@@ -388,7 +389,7 @@ class RequiredSchemaModifier(object):
                     schema[name] = xfield
 
 
-class ImageSchemaExtender(object):
+class DocumentImageSchemaExtender(object):
     """ Extends image field
     """
 
@@ -754,4 +755,15 @@ class EEAFileSchemaExtender(FileSchemaExtender):
         """ Schema Fields
         """
         self.fields[0].searchable = False
+        return self.fields
+
+
+class EEAImageSchemaExtender(ImageSchemaExtender):
+    """ AT Image Schema extender
+    """
+    def getFields(self):
+        """ Schema Fields
+        """
+        self.fields[0].allowable_content_types=(
+            'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'),
         return self.fields
