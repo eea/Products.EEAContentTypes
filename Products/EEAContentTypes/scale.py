@@ -19,7 +19,7 @@ class EEABlobImageScaleFactory(BlobImageScaleFactory):
                     parameters.get('width', 1200),
                     parameters.get('height', 800)
                 )
-                format = 'image/svg+xml'
+                format = 'svg+xml'
             else:
                 _, format, dimensions = scaleImage(wrapper.getBlob().open('r'),
                     result=result, **parameters)
