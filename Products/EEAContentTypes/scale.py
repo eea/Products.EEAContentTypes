@@ -16,7 +16,7 @@ def get_svg_dimensions(data):
     root = tree.getroot()
     h = root.attrib.get('height')
     w = root.attrib.get('width')
-    if not h:
+    if not h or h and h == '100%' or w and w == '100%':
         viewbox = root.attrib.get('viewBox')
         if viewbox:
             values = viewbox.split(' ')
@@ -31,17 +31,22 @@ def calculate_thumbnail_dimensions(data, dimensions):
     """ Use thumbnail logic from PIL to determine the size of the svg thumbnail
         https://github.com/python-pillow/Pillow/blob/4.3.x/PIL/Image.py#L2053
     """
-    svg_width, svg_height = get_svg_dimensions(data)
     scale_width = dimensions.get('width', 1200)
     scale_height = dimensions.get('height', 800)
-    scaled_width = 0
-    scaled_height = 0
-    if svg_width > scale_width:
-        scaled_height = int(max(svg_height * scale_width / svg_width, 1))
-        scaled_width = scale_width
-    elif svg_height > scale_height:
-        scaled_width = int(max(svg_width * scale_height / svg_height, 1))
-        scaled_height = scale_height
+    svg_width, svg_height = get_svg_dimensions(data)
+    scaled_width = svg_width
+    scaled_height = svg_height
+
+    if scale_width == scale_height or scale_width > scale_height:
+        if svg_width > scale_width:
+            scaled_height = int(max(svg_height * scale_width / svg_width, 1))
+            scaled_width = scale_width
+
+    if scale_width < scale_height:
+        if svg_height > scale_height:
+            scaled_width = int(max(svg_width * scale_height / svg_height, 1))
+            scaled_height = scale_height
+
     return scaled_width, scaled_height
 
 
