@@ -4,7 +4,8 @@ Changelog
 20.2-dev0 - (unreleased)
 ---------------------------
 * Change: svg scales are now scaled proportionaly as PIL thumbnail does when
-  the scale dimensions are smaller than the svg dimensions
+  the scale dimensions are smaller than the svg width and height or viewBox
+  dimensions
   [ichim-david refs #128468]
 
 20.1 - (2021-06-25)
