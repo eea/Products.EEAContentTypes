@@ -1,6 +1,9 @@
 Changelog
 =========
 
+20.3-dev0 - (unreleased)
+---------------------------
+
 20.2 - (2021-08-25)
 ---------------------------
 * Change: svg scales are now scaled proportionaly as PIL thumbnail does when
