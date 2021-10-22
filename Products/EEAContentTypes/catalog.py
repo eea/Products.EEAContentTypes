@@ -7,6 +7,11 @@ from Products.EEAContentTypes.interfaces import IEEAContent
 from plone.indexer.decorator import indexer
 from eea.daviz.content.interfaces import IDavizVisualization
 from .interfaces import ITemporalCoverageAdapter
+from plone.dexterity.interfaces import IDexterityItem
+
+from plone import api
+from Products.CMFPlone.utils import safe_unicode
+from plone.app.contenttypes.indexers import SearchableText, _unicode_save_string_concat
 
 
 @indexer(IBaseContent)
@@ -83,3 +88,31 @@ def getDataOwnerForDaviz(obj):
     except (TypeError, ValueError):
         # The catalog expects AttributeErrors when a value can't be found
         raise AttributeError
+
+
+@indexer(IDexterityItem)
+def getSearchableTextForFaq(obj):
+    """ indexer for FAQ field, add text RitchText
+    """
+    text = '';
+    if hasattr(obj, 'text'):
+        textvalue = obj.text
+        transforms = api.portal.get_tool('portal_transforms')
+        text = transforms.convertTo(
+            'text/plain',
+            safe_unicode(textvalue.output).encode('utf8'),
+            mimetype=textvalue.mimeType,
+        ).getData().strip()
+
+    subject = u' '.join(
+        [safe_unicode(s) for s in obj.Subject()]
+    )
+    value = u" ".join((
+        safe_unicode(obj.id),
+        safe_unicode(obj.title) or u"",
+        safe_unicode(obj.description) or u"",
+        safe_unicode(text),
+        safe_unicode(subject),
+    ))
+    return value
+

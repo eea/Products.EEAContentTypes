@@ -3,6 +3,8 @@ Changelog
 
 20.3-dev0 - (unreleased)
 ---------------------------
+* Change: add faq RitchText field to searchableText
+  [tripon-eugen refs #133836]
 
 20.2 - (2021-08-25)
 ---------------------------
