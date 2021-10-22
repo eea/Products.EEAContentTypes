@@ -11,7 +11,6 @@ from plone.dexterity.interfaces import IDexterityItem
 
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
-from plone.app.contenttypes.indexers import SearchableText, _unicode_save_string_concat
 
 
 @indexer(IBaseContent)

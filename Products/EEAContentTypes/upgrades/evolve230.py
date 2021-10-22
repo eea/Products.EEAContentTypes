@@ -1,7 +1,6 @@
 """ Upgrade to version 20.3
 """
 import logging
-import transaction
 from plone.api import portal
 
 logger = logging.getLogger("Products.EEAContentTypes.upgrades")
