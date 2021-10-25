@@ -204,4 +204,10 @@
     directory="profiles/upgrade/to_194"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_20.3"
+    title="Upgrade profile for EEAContentTypes 20.3"
+    description="Add Ritchtext to SearchableText for FAQ items"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
 </configure>

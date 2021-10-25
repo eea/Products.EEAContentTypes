@@ -1,9 +1,12 @@
 """ Catalog
 """
+from plone import api
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.ATContentTypes.interfaces.event import IATEvent
+from Products.CMFPlone.utils import safe_unicode
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from Products.EEAContentTypes.interfaces import IEEAContent
+from plone.dexterity.interfaces import IDexterityItem
 from plone.indexer.decorator import indexer
 from eea.daviz.content.interfaces import IDavizVisualization
 from .interfaces import ITemporalCoverageAdapter
@@ -83,3 +86,31 @@ def getDataOwnerForDaviz(obj):
     except (TypeError, ValueError):
         # The catalog expects AttributeErrors when a value can't be found
         raise AttributeError
+
+
+@indexer(IDexterityItem)
+def getSearchableTextForFaq(obj):
+    """ SearchableText indexer for dexterity items, add text RichText
+    """
+    text = '';
+    if hasattr(obj, 'text'):
+        textvalue = obj.text
+        transforms = api.portal.get_tool('portal_transforms')
+        text = transforms.convertTo(
+            'text/plain',
+            safe_unicode(textvalue.output).encode('utf8'),
+            mimetype=textvalue.mimeType,
+        ).getData().strip()
+
+    subject = u' '.join(
+        [safe_unicode(s) for s in obj.Subject()]
+    )
+    value = u" ".join((
+        safe_unicode(obj.id),
+        safe_unicode(obj.title) or u"",
+        safe_unicode(obj.description) or u"",
+        safe_unicode(text),
+        safe_unicode(subject),
+    ))
+    return value
+

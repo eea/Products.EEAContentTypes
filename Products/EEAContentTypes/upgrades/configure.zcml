@@ -3,6 +3,16 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="19.6"
+    destination="20.3"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeStep
+      title="Reindex faq objects with updated SearchableText"
+      handler=".evolve230.update_object_searchabletext"
+    />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="19.5"
     destination="19.6"
     profile="Products.EEAContentTypes:default">

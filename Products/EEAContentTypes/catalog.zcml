@@ -9,5 +9,6 @@
     <adapter factory=".catalog.GetTemporalCoverageForIEEAPossibleContent" name="getTemporalCoverage" />
     <adapter factory=".catalog.GetTemporalCoverageForIATEvent" name="getTemporalCoverage" />
     <adapter factory=".catalog.getDataOwnerForDaviz" name="getDataOwner" />
+    <adapter factory=".catalog.getSearchableTextForFaq" name="SearchableText" />
 
 </configure>
