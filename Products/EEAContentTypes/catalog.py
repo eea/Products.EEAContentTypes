@@ -6,10 +6,10 @@ from Products.ATContentTypes.interfaces.event import IATEvent
 from Products.CMFPlone.utils import safe_unicode
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from Products.EEAContentTypes.interfaces import IEEAContent
+from plone.dexterity.interfaces import IDexterityItem
 from plone.indexer.decorator import indexer
 from eea.daviz.content.interfaces import IDavizVisualization
 from .interfaces import ITemporalCoverageAdapter
-from plone.dexterity.interfaces import IDexterityItem
 
 
 @indexer(IBaseContent)
@@ -90,7 +90,7 @@ def getDataOwnerForDaviz(obj):
 
 @indexer(IDexterityItem)
 def getSearchableTextForFaq(obj):
-    """ indexer for FAQ field, add text RitchText
+    """ SearchableText indexer for dexterity items, add text RichText
     """
     text = '';
     if hasattr(obj, 'text'):
