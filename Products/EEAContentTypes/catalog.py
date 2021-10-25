@@ -1,16 +1,15 @@
 """ Catalog
 """
+from plone import api
 from Products.Archetypes.interfaces import IBaseContent, IBaseObject
 from Products.ATContentTypes.interfaces.event import IATEvent
+from Products.CMFPlone.utils import safe_unicode
 from Products.EEAContentTypes.interfaces import IRelations, IEEAPossibleContent
 from Products.EEAContentTypes.interfaces import IEEAContent
 from plone.indexer.decorator import indexer
 from eea.daviz.content.interfaces import IDavizVisualization
 from .interfaces import ITemporalCoverageAdapter
 from plone.dexterity.interfaces import IDexterityItem
-
-from plone import api
-from Products.CMFPlone.utils import safe_unicode
 
 
 @indexer(IBaseContent)
