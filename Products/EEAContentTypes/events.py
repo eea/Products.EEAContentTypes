@@ -177,6 +177,6 @@ def strip_subject_tags(obj, evt):
     if hasattr(obj, 'subject'):
         if type(obj.subject) is tuple:
             tags = list(obj.subject)
-            tags_check = [val.strip() for val in tags]
+            tags_check = list(set([val.strip() for val in tags]))
             if tags != tags_check:
                 obj.subject = tuple(tags_check)
