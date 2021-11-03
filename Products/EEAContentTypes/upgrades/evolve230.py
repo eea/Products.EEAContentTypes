@@ -14,7 +14,7 @@ def update_object_searchabletext(context):
 
     catalog = portal.get_tool(name='portal_catalog')
     query = {'portal_type': [ 'helpcenter_faq' ]}
-    results = catalog.searchResults(**query)
+    results = catalog.unrestrictedSearchResults(**query)
     logger.info('Got %s results.' % len(results))
 
     for brain in results:

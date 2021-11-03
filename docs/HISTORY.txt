@@ -1,6 +1,11 @@
 Changelog
 =========
 
+20.4 - (2021-11-03)
+---------------------------
+* Change: trim faq tags
+  [tripon-eugen refs #133844]
+
 20.3 - (2021-10-22)
 ---------------------------
 * Change: add faq RitchText field to searchableText

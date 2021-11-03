@@ -210,4 +210,10 @@
     description="Add Ritchtext to SearchableText for FAQ items"
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="eeacontenttypes_upgrade_20.4"
+    title="Upgrade profile for EEAContentTypes 20.4"
+    description="Trim tags for FAQ items"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
 </configure>
