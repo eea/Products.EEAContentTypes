@@ -18,7 +18,7 @@ def trim_faq_tags(context):
     for brain in brains:
         obj = brain.getObject()
         tags = list(obj.subject)
-        tags_check = [val.strip() for val in tags]
+        tags_check = list(set([val.strip() for val in tags]))
 
         if tags != tags_check:
             obj.subject = tuple(tags_check)
