@@ -169,3 +169,13 @@ def async_screenshoteer_set_image(obj, url):
     else:
         logger.error('Failed to set image on the following object %s' \
                      % obj.absolute_url())
+
+
+def strip_subject_tags(obj, evt):
+    """ strip tags
+    """
+    if hasattr(obj, 'subject') and type(obj.subject) is tuple:
+        tags = list(obj.subject)
+        tags_check = [val.strip() for val in tags]
+        if tags != tags_check:
+            obj.subject = tuple(tags_check)

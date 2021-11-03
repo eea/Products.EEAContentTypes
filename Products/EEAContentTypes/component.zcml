@@ -31,6 +31,12 @@
     />
 
     <subscriber
+        for="plone.dexterity.interfaces.IDexterityContent
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".events.strip_subject_tags"
+    />
+
+    <subscriber
         for="Products.EEAContentTypes.content.interfaces.IInteractiveDashboard
              Products.Archetypes.interfaces.IObjectInitializedEvent
              zope.lifecycleevent.interfaces.IObjectModifiedEvent"

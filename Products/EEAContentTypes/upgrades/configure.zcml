@@ -3,6 +3,16 @@
            i18n_domain="eea">
 
   <genericsetup:upgradeSteps
+    source="20.3"
+    destination="20.4"
+    profile="Products.EEAContentTypes:default">
+    <genericsetup:upgradeStep
+      title="Strip tags for FAQ items"
+      handler=".evolve240.trim_faq_tags"
+    />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
     source="19.6"
     destination="20.3"
     profile="Products.EEAContentTypes:default">
