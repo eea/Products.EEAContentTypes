@@ -1,7 +1,7 @@
 Changelog
 =========
 
-20.4 - (Unreleasaed)
+20.4-dev0 - (unreleased)
 ---------------------------
 * Change: trim faq tags
   [tripon-eugen refs #133844]

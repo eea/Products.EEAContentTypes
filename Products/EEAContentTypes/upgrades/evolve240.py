@@ -19,9 +19,11 @@ def trim_faq_tags(context):
         obj = brain.getObject()
         tags = list(obj.subject)
         tags_check = [val.strip() for val in tags]
+
         if tags != tags_check:
             obj.subject = tuple(tags_check)
             obj._p_changed = True
+            obj.reindexObject()
             logger.info("Trim tags:"+brain.getURL())
-    
+
     logger.info("Trim FAQ tags ...DONE")
