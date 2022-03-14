@@ -7,6 +7,7 @@ from zope.component import adapts  # , getUtility
 from zope.formlib import form
 from zope.interface import implements, Interface
 from OFS.SimpleItem import SimpleItem
+from Acquisition import aq_base
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
@@ -63,7 +64,14 @@ class EnableDisableDiscussionActionExecutor(object):
             return False
 
         if choice is not None:
-            obj.allowDiscussion(choice)
+            allowDiscussion = getattr(aq_base(obj), 'allowDiscussion', None)
+            if allowDiscussion is not None:
+                # Archetypes
+                obj.allowDiscussion(choice)
+            else:
+                # Dexterity
+                setattr(obj, 'allow_discussion', bool(choice))
+
             logger.info("Discussions for %s set to %s", obj.absolute_url(),
                         action)
         else:
