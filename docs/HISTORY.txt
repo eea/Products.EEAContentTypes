@@ -1,6 +1,11 @@
 Changelog
 =========
 
+20.5 - (2022-03-14)
+---------------------------
+* Bugfix: Fix enable/disable discussions content-rules action for Dexterity
+  [avoinea refs #147345]
+
 20.4 - (2021-11-03)
 ---------------------------
 * Change: trim faq tags
