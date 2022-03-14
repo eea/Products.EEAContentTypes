@@ -1,6 +1,9 @@
 Changelog
 =========
 
+20.6-dev0 - (unreleased)
+---------------------------
+
 20.5 - (2022-03-14)
 ---------------------------
 * Bugfix: Fix enable/disable discussions content-rules action for Dexterity
