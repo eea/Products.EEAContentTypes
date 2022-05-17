@@ -60,7 +60,7 @@ class Languages(BrowserView):
             return cmp(cmp_one, cmp_two)
 
         languages.sort(_cmp)
-        exclude = ['ar', 'ru', 'sr', 'ga']
+        exclude = ['ar', 'bs', 'ga', 'mk', 'ru', 'sh', 'sq', 'sr']
         return [lang for lang in languages
                 if lang[0] not in exclude]
 

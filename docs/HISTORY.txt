@@ -1,6 +1,11 @@
 Changelog
 =========
 
+20.6 - (2022-05-16)
+---------------------------
+* Change: Develop #149550
+  [alecghica]
+
 20.5 - (2022-03-14)
 ---------------------------
 * Bugfix: Fix enable/disable discussions content-rules action for Dexterity
