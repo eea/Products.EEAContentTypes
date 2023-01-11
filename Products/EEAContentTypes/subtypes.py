@@ -250,9 +250,9 @@ class ThemesSchemaExtender(object):
             validators=('maxValues',),
             required=False,
             widget=InAndOutWidget(
-                maxValues=3,
+                maxValues=5,
                 label="Themes",
-                description="Choose max 3 themes",
+                description="Choose max 5 themes",
             ),
             languageIndependent=True,
             vocabulary_factory=u"Allowed themes for edit",

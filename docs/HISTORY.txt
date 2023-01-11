@@ -3,6 +3,8 @@ Changelog
 
 20.7-dev0 - (unreleased)
 ---------------------------
+* Change: increase to 5 max themes selectable
+  [alecghica refs #159722]
 
 20.6 - (2022-05-16)
 ---------------------------
