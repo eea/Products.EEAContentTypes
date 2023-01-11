@@ -1,6 +1,9 @@
 Changelog
 =========
 
+20.8-dev0 - (unreleased)
+---------------------------
+
 20.7 - (2023-01-11)
 ---------------------------
 * Change: increase to 5 max themes selectable
